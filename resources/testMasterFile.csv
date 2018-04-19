@@ -1,0 +1,8 @@
+tipo_test;variables_file;comunes_file
+Mec;datosMec;datosTestMec.csv
+Mac;datosMac;datosTestMac.csv
+Sin;datosSin;datosTestSin.csv
+Edi;;datosTestEdificios.csv
+Tav;;setDatosAltoValor.csv
+Med;datosVariablesMediadores.csv;datosComunesMediadores.csv
+Carga;;setDatosPolizasMEC.csv

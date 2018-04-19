@@ -1,0 +1,5 @@
+test_id;acceso;usuario;fichero;filtro_busqueda;mediador
+NORMEDFDIR;Innova;solmo;150_dirs.csv;dirs;
+NORMEDFREF;Innova;solmo;150_refct.csv;refct;
+NORMEDFDIRMEC;Innova;solmo;150_dirs.csv;dirs;640
+CargaEdiBus;Innova;innova_it;CargaDatosReferencias.csv;refct;640

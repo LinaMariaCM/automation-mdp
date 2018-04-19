@@ -1,0 +1,10 @@
+target/classes/**
+target/maven-status/**
+target/report/**
+target/surefire/**
+target/surefire-reports/**
+target/test-classes/**
+resources/logs/**
+resources/logs/Bershka.log
+reports/**
+debug.txt
