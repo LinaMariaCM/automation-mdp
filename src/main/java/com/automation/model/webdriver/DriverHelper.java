@@ -690,7 +690,7 @@ public class DriverHelper {
 		logger.trace("[BEGIN] - getText");
 		waitForLoadToComplete();
 
-		String text = getText(driver.findElement(by));
+		String text = getText(waitForElementToBeClickable(by));
 
 		logger.trace("[END] - getText");
 		return text;
@@ -724,7 +724,15 @@ public class DriverHelper {
 		waitForLoadToComplete();
 		logger.trace("[END] - clickElementFromDropDownByText");
 	}
+	
+	
+	public void clickElementFromDropDownByTextInFrame(By dropDown, By frame, String value) {
+		switchToFrame(frame);
+		clickElementFromDropDownByText(dropDown, value);
+		exitFrame();
+	}
 
+	
 	public void clickElementFromDropDownByAttribute(By elementToClick, By elementList, String attribute, String value) {
 		logger.trace("[BEGIN] - clickElementFromDropDownByAttribute");
 		waitForElementToBeClickable(elementToClick).click();
@@ -1581,23 +1589,5 @@ public class DriverHelper {
 
 		exitFrame();
 	}
-	
-	
-// Añadido ante la falta de un método similar
-	
-	public void selectValueInDropDown(
-		WebElement combo, String value)
-{
-	logger.trace("BEGIN - SelectValueInDropDown");
-	// this.WaitForPageLoadToFinish();
-	// this.WaitForAngular();
-	this.waitForElementToBeClickable(combo);
-	Select select = new Select(combo);
-	select.selectByVisibleText(value);
-	//this.waitForPageLoadWithAngular();
-	logger.trace("END - SelectValueInDropDown");
-}
-
-	
 	// endregion
 }
