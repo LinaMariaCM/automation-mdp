@@ -23,35 +23,32 @@ public class AsignarMediadorPage
 	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
 	
 	// region webelements
-	@FindBy(name = "cuerpo")
-	private By cuerpoFrame;
+	//@FindBy(name = "cuerpo")
+	private By cuerpoFrame = By.name("cuerpo");
 	
-	@FindBy(id = "nombreRazonSocial")
-	private By razonSocial;
+	//@FindBy(id = "nombreRazonSocial")
+	private By razonSocial = By.cssSelector("#nombreRazonSocial");
 	
-	// @FindBy(id = "codigoMediador")
-	// private WebElement txtCodigoMediador;
+	//@FindBy(id = "codigoMediador")
+	private By txtCodigoMediador = By.cssSelector("#codigoMediador");
+	
+	//@FindBy(id = "codigo")
+	private By txtCodigoMediadorMAC = By.cssSelector("#codigo");
 
-	@FindBy(id = "codigoMediador")
-	private By txtCodigoMediador;
+	//@FindBy(id = "numDocumento")
+	private By txtDocumento = By.cssSelector("#numDocumento");
 	
-	@FindBy(id = "codigo")
-	private By txtCodigoMediadorMAC;
+	//@FindBy(xpath = ".//*[text()='Buscar']")
+	private By btnBuscar = By.xpath(".//*[text()='Buscar']");
 
-	@FindBy(id = "numDocumento")
-	private By txtDocumento;
+	//@FindBy(id = "botonBuscar")
+	private By btnBuscarMAC = By.cssSelector("#botonBuscar");
 	
-	@FindBy(xpath = ".//*[text()='Buscar']")
-	private By btnBuscar;
-
-	@FindBy(id = "botonBuscar")
-	private By btnBuscarMAC;
+	//@FindBy(xpath = ".//*[@type='radio']")
+	private By radioBtnResultadoBusqueda = By.xpath(".//*[@type='radio']");
 	
-	@FindBy(xpath = ".//*[@type='radio']")
-	private By radioBtnResultadoBusqueda;
-	
-	@FindBy(xpath = ".//*[contains(text(),'Continuar')]")
-	private By btnContinuar;
+	//@FindBy(xpath = ".//*[contains(text(),'Continuar')]")
+	private By btnContinuar = By.xpath(".//*[contains(text(),'Continuar')]");
 	// endregion
 	
 
