@@ -600,10 +600,10 @@ public class DetallesRiesgoPage { /*
 		}
 
 		String m2Garajes = this.webDriver.getText(this.txtM2Viviendas);
-		if(!m2Garajes.equals(this.tCData.getModifiedM2Garajes()) && this.tCData.getModifiedM2Garajes() != null) {
+		if(!m2Garajes.equals(this.tCData.getTestVar(testId, "modifiedM2Garajes")) && this.tCData.getTestVar(testId, "modifiedM2Garajes") != null) {
 			this.GetValuesBefore();
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.sendValueToWebElement(this.txtM2Garajes, String.valueOf(this.tCData.getModifiedM2Garajes()));
+			this.webDriver.appendText(this.txtM2Garajes, String.valueOf(this.tCData.getTestVar(testId, "modifiedM2Garajes")));
 			this.webDriver.tabulateElement(this.txtM2Garajes);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 viviendas");
@@ -611,10 +611,10 @@ public class DetallesRiesgoPage { /*
 		}
 
 		String m2Oficinas = this.webDriver.getText(this.txtM2Oficinas);
-		if(!m2Oficinas.equals(this.tCData.getModifiedM2Oficinas()) && this.tCData.getModifiedM2Oficinas() != null) {
+		if(!m2Oficinas.equals(this.tCData.getTestVar(testId, "ModifiedM2Oficinas")) && this.tCData.getTestVar(testId, "ModifiedM2Oficinas") != null) {
 			this.GetValuesBefore();
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.sendValueToWebElement(this.txtM2Oficinas, String.valueOf(this.tCData.getModifiedM2Oficinas()));
+			this.webDriver.appendText(this.txtM2Oficinas, String.valueOf(this.tCData.getTestVar(testId, "ModifiedM2Oficinas")));
 			this.webDriver.tabulateElement(this.txtM2Oficinas);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 oficinas");
@@ -622,10 +622,10 @@ public class DetallesRiesgoPage { /*
 		}
 
 		String m2ZonasAjardinadas = this.webDriver.getText(this.txtM2ZonasAjardinadas);
-		if(!m2ZonasAjardinadas.equals(this.tCData.getModifiedM2ZonasAjardinadas()) && this.tCData.getModifiedM2ZonasAjardinadas() != null) {
+		if(!m2ZonasAjardinadas.equals(this.tCData.getTestVar(testId, "ModifiedM2ZonasAjardinadas")) && this.tCData.getTestVar(testId, "ModifiedM2ZonasAjardinadas") != null) {
 			this.GetValuesBefore();
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.sendValueToWebElement(this.txtM2ZonasAjardinadas, String.valueOf(this.tCData.getModifiedM2ZonasAjardinadas()));
+			this.webDriver.appendText(this.txtM2ZonasAjardinadas, String.valueOf(this.tCData.getTestVar(testId, "ModifiedM2ZonasAjardinadas")));
 			this.webDriver.tabulateElement(this.txtM2ZonasAjardinadas);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 zonas ajardinadas");
@@ -832,35 +832,45 @@ public class DetallesRiesgoPage { /*
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		switch(fieldName) {
 			case "M2 Trasteros":
-				if(this.txtM2Trasteros.isEnabled()) {
+				if(this.webDriver.isEnabled(this.txtM2Trasteros)) {
 					this.webDriver.exitFrame();
 					return true;
 				}
 				break;
-
+				//txtNumeroPlantasSotano
 			case "No plantas bajo rasante":
-				if(this.txtNumeroPlantasSotano.isEnabled()) {
+				if(this.webDriver.isEnabled(this.txtNumeroPlantasSotano)) {
 					this.webDriver.exitFrame();
 					return true;
 				}
 				break;
-
+				//this.txtNumeroPlantasAlto
 			case "No plantas en alto":
-				if(this.txtNumeroPlantasAlto.isEnabled()) {
+				if(webDriver.isEnabled(this.txtNumeroPlantasAlto)) {
 					this.webDriver.exitFrame();
 					return true;
 				}
 				break;
-
+				//txtM2Garajes
 			case "M2 Garajes":
-				if(this.txtM2Garajes.isDisplayed()) {
+//				if(this.webDriver.isDisplayed(this.txtM2Garajes)) {
+//					this.webDriver.exitFrame();
+//					return true;
+//				}
+				if(this.webDriver.isPresent(this.txtM2Garajes)) {
 					this.webDriver.exitFrame();
 					return true;
 				}
 				break;
 
+//			case "No Plazas de garaje":
+//				if(this.txtNumPlazasGaraje.isDisplayed()) {
+//					this.webDriver.exitFrame();
+//					return true;
+//				}
+				//txtNumPlazasGaraje
 			case "No Plazas de garaje":
-				if(this.txtNumPlazasGaraje.isDisplayed()) {
+				if(this.webDriver.isPresent(this.txtNumPlazasGaraje)) {
 					this.webDriver.exitFrame();
 					return true;
 				}

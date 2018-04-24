@@ -3,6 +3,7 @@ package com.automation.model.webdriver;
 import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -75,6 +76,8 @@ public class DriverHelper {
 	private int pageLoadTimeout = 50;
 	private DesiredCapabilities capabilities;
 	final static Logger logger = LoggerFactory.getLogger(DriverHelper.class);
+	
+	private JavascriptExecutor jse;
 
 	public DriverHelper(DesiredCapabilities cap) {
 		capabilities = cap;
@@ -726,6 +729,7 @@ public class DriverHelper {
 	}
 	
 	
+	
 	public void clickElementFromDropDownByTextInFrame(By dropDown, By frame, String value) {
 		switchToFrame(frame);
 		clickElementFromDropDownByText(dropDown, value);
@@ -970,8 +974,80 @@ public class DriverHelper {
 		((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('mouseover', {bubbles:true}));", driver.findElement(by));
 
 		waitForLoadToComplete();
-		logger.trace("[END] - moveOverElement");
+		logger.trace("[END] - moveOverElement");		
 	}
+	
+//	///////////////////////
+//	// añadido 24-04-18
+//	///////////////////////
+//	
+//	
+//	public void moveToElementWithJavaScriptStepByStep(
+//		WebElement webElement, WebElement frame, WebElement bottomFrame, WebElement topFrame) throws IOException
+//{
+//	this.exitFrame();
+//	int mainFrameBottom = Integer.valueOf(this.jse.executeScript("return arguments[0].getBoundingClientRect().bottom;", frame).toString());
+//	Float botomFrameBottom = Float.valueOf(this.jse.executeScript("return arguments[0].getBoundingClientRect().height;", bottomFrame).toString());
+//	Float topFrameHeight = Float.valueOf(this.jse.executeScript("return arguments[0].getBoundingClientRect().height;", topFrame).toString());
+//	Float windowHeight = Float.valueOf(this..manage().window().getSize().height);
+//	boolean elementFound = false;
+//	this.switchToFrame(frame);
+//
+//	this.setTimeouts(1);
+//
+//	int Scroll = 0;
+//	this.jse.executeScript("window.scrollBy(0,arguments[1])", "", -windowHeight.intValue());
+//
+//	do
+//	{
+//		this.jse.executeScript("window.scrollBy(0,arguments[1])", "", 100);
+//		Scroll = Scroll + 100;
+//
+//		try
+//		{
+//			if (webElement.isDisplayed() && webElement.isEnabled())
+//			{
+//				Float elementX = Float.valueOf(this.jse.executeScript("return arguments[0].getBoundingClientRect().width;", webElement).toString());
+//				Float elementY = Float.valueOf(this.jse.executeScript("return arguments[0].getBoundingClientRect().height;", webElement).toString());
+//				Float elementBottom = Float.valueOf(this.jse.executeScript("return arguments[0].getBoundingClientRect().bottom;", webElement).toString());
+//
+//				if (elementBottom < windowHeight - botomFrameBottom - topFrameHeight && elementX != 0 && elementY != 0)
+//				{
+//					elementFound = true;
+//				}
+//			}
+//		}
+//		catch (Exception e)
+//		{
+//			logger.trace("Exception of the function MoveToElementWithJavaScriptStepByStep: ", e);
+//		}
+//	}
+//	while (elementFound == false && Scroll <= 3000);
+//
+//	this.setWebDriverTimeouts();
+//
+//	this.exitFromFrame();
+//}
+	
+	public void moveToElementAndClick(By by)
+{
+	logger.trace("BEGIN - MoveToElementAndClickWith");
+	waitForElementToBeClickable(by);
+	moveToElement(by);
+	click(by);
+	logger.trace("END - MoveToElementAndClickWith");
+}
+	
+	
+	public void moveToElementAndClick(WebElement webElement)
+{
+	logger.trace("BEGIN - MoveToElementAndClickWith");
+	waitForElementToBeClickable(webElement);
+	moveToElement(webElement);
+	click(webElement);
+	logger.trace("END - MoveToElementAndClickWith");
+}	
+	
 	// endregion
 
 	// region Frames
@@ -1590,4 +1666,8 @@ public class DriverHelper {
 		exitFrame();
 	}
 	// endregion
+	
+	
+
+	
 }

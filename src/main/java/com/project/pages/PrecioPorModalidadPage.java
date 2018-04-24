@@ -8,24 +8,32 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+//import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mutuaPropietarios.WebdriverContext.BrowserContext;
-import com.mutuaPropietarios.WebdriverContext.Helpers.DniGeneratorHelper;
-import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
-import com.mutuaPropietarios.testCasesData.Helpers.CoberturasAdicionalesHelper;
-import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
-import com.mutuaPropietarios.testCasesData.context.TestCaseData;
+import com.automation.model.helpers.DniGeneratorHelper;
+import com.automation.model.testing.TestDataManager;
+import com.automation.model.webdriver.DriverHelper;
+import com.project.ProjectConstants;
+//import com.mutuaPropietarios.WebdriverContext.BrowserContext;
+//import com.mutuaPropietarios.WebdriverContext.Helpers.DniGeneratorHelper;
+//import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
+//import com.mutuaPropietarios.testCasesData.Helpers.CoberturasAdicionalesHelper;
+//import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
+//import com.mutuaPropietarios.testCasesData.context.TestCaseData;
+import com.project.utils.CoberturasAdicionalesHelper;
+
+
 
 public class PrecioPorModalidadPage
 {
-	final static Logger logger = LoggerFactory.getLogger(PrecioPorModalidadPage.class);
-	BrowserContext browserContext;
-	private WebElementHelper wh;
-	TestCaseData tData;
+	private String testId;
+	private TestDataManager tCData;
+	private DriverHelper webDriver;
+	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+	
 	// private String cssFilterSelectedCheckboxes = "input:checked[type=checkbox]";
 	private String xPathFilterClausulaText = ".//td[3]";
 	private String xPathFilterClausulaCheckbox = ".//td[input[@type='checkbox']]/input";
@@ -39,186 +47,195 @@ public class PrecioPorModalidadPage
 	private String PrecioPlusAfter;
 	
 	// region webelements
-	@FindBy(name = "cuerpo")
-	private WebElement cuerpoFrame;
+	 //@FindBy(name = "cuerpo")
+	private By cuerpoFrame = By.name("cuerpo");
 
-	@FindBy(id = "topFrame")
-	private WebElement topFrame;
+	 //@FindBy(id = "topFrame")
+	private By topFrame = By.cssSelector("#topFrame");
 
-	@FindBy(id = "hideFrame")
-	private WebElement hiddenFrame;
+	 //@FindBy(id = "hideFrame")
+	private By hiddenFrame = By.cssSelector("#hideFrame");
 	
-	@FindBy(xpath = ".//*[text()='Continuar']")
-	private WebElement btnContinuar;
+	 //@FindBy(xpath = ".//*[text()='Continuar']")
+	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
 	
-	// @FindBy(xpath = ".//*[text()='Guardar']")
-	@FindBy(css = "button[ng-click='save(formPrecioModalidad)']")
-	private WebElement btnGuardar;
+	//  //@FindBy(xpath = ".//*[text()='Guardar']")
+	 //@FindBy(css = "button[ng-click='save(formPrecioModalidad)']")
+	private By btnGuardar = By.xpath(".//*[text()='Guardar']");
 	
-	@FindBy(xpath = ".//*[contains(text(),'Cancelar')]")
-	private WebElement btnCancelar;
+	 //@FindBy(xpath = ".//*[contains(text(),'Cancelar')]")
+	private By btnCancelar = By.xpath(".//*[contains(text(),'Cancelar')]");
 
-	@FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]/../../../../div[@class='modal-footer']/button")
-	private WebElement btnAceptarInDialog;
+	 //@FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]/../../../../div[@class='modal-footer']/button")
+	private By btnAceptarInDialog = By.xpath(".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]/../../../../div[@class='modal-footer']/button");
 	
-	@FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]")
-	private WebElement txtCodigoProjecto;
+	 //@FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]")
+	private By txtCodigoProjecto = By.xpath(".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]");
 	
-	@FindBy(xpath = ".//tr[td[input[@type='checkbox']]]")
-	// @FindBy(xpath = ".//*[input]/input")
+	 //@FindBy(xpath = ".//tr[td[input[@type='checkbox']]]")
+	//  //@FindBy(xpath = ".//*[input]/input")
+	private By btnWithCoberturaAdicional = By.xpath(".//tr[td[input[@type='checkbox']]]");
+	
 	private List<WebElement> rowWithCoberturaAdicional;
-	
-	@FindBy(css = "input:checked[type=checkbox]")
+
+	 //@FindBy(css = "input:checked[type=checkbox]")
 	private List<WebElement> selectedCheckboxes;
 	
-	@FindBy(xpath = ".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]")
-	private WebElement clausulaPageSelector;
+	 //@FindBy(xpath = ".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]")
+	private By clausulaPageSelector = By.xpath(".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]");
 	
 	/*
-	 * @FindBy(xpath = ".//*[text() ='Añadir maquinaria']") private WebElement btnAnadirMaquinaria;
+	 *  //@FindBy(xpath = ".//*[text() ='Añadir maquinaria']") private By btnAnadirMaquinaria;
 	 */
 	
-	@FindBy(css = "[ng-click*='#modalMaquinaria']")
-	private WebElement btnAnadirMaquinaria;
+	 //@FindBy(css = "[ng-click*='#modalMaquinaria']")
+	private By btnAnadirMaquinaria = By.cssSelector("[ng-click*='#modalMaquinaria']");
 	
-	@FindBy(xpath = ".//*[text() ='Añadir' and @ng-click='newMaquinaria()']")
-	private WebElement btnAnadirMaquinariaModalWindow;
+	 //@FindBy(xpath = ".//*[text() ='Añadir' and @ng-click='newMaquinaria()']")
+	private By btnAnadirMaquinariaModalWindow = By.xpath(".//*[text() ='Añadir' and @ng-click='newMaquinaria()']");
 	
-	// @FindBy(xpath = ".//*[text() ='Añadir' and @ng-click='newInstalacion()']")
-	@FindBy(css = "#modalInstalaciones > div > div > div.modal-body > div > div:nth-child(3) > div > button")
-	private WebElement btnAnadirPlacaSolarModalWindow;
+	//  //@FindBy(xpath = ".//*[text() ='Añadir' and @ng-click='newInstalacion()']")
+	 //@FindBy(css = "#modalInstalaciones > div > div > div.modal-body > div > div:nth-child(3) > div > button")
+	private By btnAnadirPlacaSolarModalWindow = By.cssSelector("#modalInstalaciones > div > div > div.modal-body > div > div:nth-child(3) > div > button");
 	
-	@FindBy(xpath = ".//*[@ng-model='item.data.descripcion.data.codigo']")
-	private WebElement cmbTipoMaquinaria;
+	 //@FindBy(xpath = ".//*[@ng-model='item.data.descripcion.data.codigo']")
+	private By cmbTipoMaquinaria = By.xpath(".//*[@ng-model='item.data.descripcion.data.codigo']");
 	
-	@FindBy(name = "valor")
-	private WebElement txtValor;
+	 //@FindBy(name = "valor")
+	private By txtValor = By.className("valor");
 	
-	@FindBy(xpath = ".//*[text()='Guardar' and @ng-click='saveMaquinarias()']")
-	private WebElement btnGuardarMaquinariaModalWindow;
+	 //@FindBy(xpath = ".//*[text()='Guardar' and @ng-click='saveMaquinarias()']")
+	private By btnGuardarMaquinariaModalWindow = By.xpath(".//*[text()='Guardar' and @ng-click='saveMaquinarias()']");
 	
-	@FindBy(xpath = ".//*[contains(@ng-click,'#modalAsegurarAccidentes') and text()='Asegurar accidentes']")
-	private WebElement btnAsegurarAccidentesPantallaPrincipal;
+	 //@FindBy(xpath = ".//*[contains(@ng-click,'#modalAsegurarAccidentes') and text()='Asegurar accidentes']")
+	private By btnAsegurarAccidentesPantallaPrincipal = By.xpath(".//*[contains(@ng-click,'#modalAsegurarAccidentes') and text()='Asegurar accidentes']");
 	
-	@FindBy(xpath = ".//*[@ng-click='saveAsegurados()' and text()='Asegurar accidentes']")
-	private WebElement btnAsegurarAccidentesModalWindow;
+	 //@FindBy(xpath = ".//*[@ng-click='saveAsegurados()' and text()='Asegurar accidentes']")
+	private By btnAsegurarAccidentesModalWindow = By.xpath(".//*[@ng-click='saveAsegurados()' and text()='Asegurar accidentes']");
 	
-	@FindBy(xpath = ".//*[text() = 'Añadir asegurado']")
-	private WebElement btnAnadirAsegurado;
+	 //@FindBy(xpath = ".//*[text() = 'Añadir asegurado']")
+	private By btnAnadirAsegurado = By.xpath(".//*[text() = 'Añadir asegurado']");
 	
-	@FindBy(name = "tipoDocumento")
-	private WebElement cmbTipoDocumento;
+	 //@FindBy(name = "tipoDocumento")
+	private By cmbTipoDocumento = By.name("tipoDocumento");
 	
-	@FindBy(id = "numeroDocumento_0")
-	private WebElement txtNumeroDocumento;
+	 //@FindBy(id = "numeroDocumento_0")
+	private By txtNumeroDocumento = By.cssSelector("#numeroDocumento_0");
 	
-	@FindBy(id = "nombre_0")
-	private WebElement txtEmpleadoNombre;
+	 //@FindBy(id = "nombre_0")
+	private By txtEmpleadoNombre = By.cssSelector("#nombre_0");
 	
-	@FindBy(id = "apellido1_0")
-	private WebElement txtEmpleadoApellido1;
+	 //@FindBy(id = "apellido1_0")
+	private By txtEmpleadoApellido1 = By.cssSelector("#apellido1_0");
 	
-	@FindBy(id = "apellido2_0")
-	private WebElement txtEmpleadoApellido2;
+	 //@FindBy(id = "apellido2_0")
+	private By txtEmpleadoApellido2 = By.cssSelector("#apellido2_0");
 	
-	@FindBy(id = "fechaNacimiento_0")
-	private WebElement txtEmpleadoFechaNacimiento;
+	 //@FindBy(id = "fechaNacimiento_0")
+	private By txtEmpleadoFechaNacimiento = By.cssSelector("#fechaNacimiento_0");
 	
-	@FindBy(id = "profesion_0")
-	private WebElement cmbEmpleadoProfesion;
+	 //@FindBy(id = "profesion_0")
+	private By cmbEmpleadoProfesion = By.cssSelector("#profesion_0");
 	
-	@FindBy(id = "profesionRelacion_0")
-	private WebElement txtEmpleadoProfesionDescripcion;
+	 //@FindBy(id = "profesionRelacion_0")
+	private By txtEmpleadoProfesionDescripcion = By.cssSelector("profesionRelacion_0");
 	
-	@FindBy(id = "capital_0")
-	private WebElement txtEmpleadoCapital;
+	 //@FindBy(id = "capital_0")
+	private By txtEmpleadoCapital = By.cssSelector("#capital_0");
 	
-	@FindBy(id = "beneficiario_0")
-	private WebElement txtEmpleadoBeneficiario;
+	 //@FindBy(id = "beneficiario_0")
+	private By txtEmpleadoBeneficiario = By.cssSelector("#beneficiario_0");
 	
-	@FindBy(id = "beneficiarioRelacion_0")
-	private WebElement txtEmpleadoBeneficiarioDescripcion;
+	 //@FindBy(id = "beneficiarioRelacion_0")
+	private By txtEmpleadoBeneficiarioDescripcion = By.cssSelector("#beneficiarioRelacion_0");
 	
-	@FindBy(xpath = ".//*[text()='Añadir placa solar']")
-	private WebElement btnAnadirPlacaSolar;
+	 //@FindBy(xpath = ".//*[text()='Añadir placa solar']")
+	private By btnAnadirPlacaSolar = By.xpath(".//*[text()='Añadir placa solar']");
 	
-	@FindBy(name = "descripcion")
-	private WebElement txtInstalacionFotovoltaicaDescripcion;
+	 //@FindBy(name = "descripcion")
+	private By txtInstalacionFotovoltaicaDescripcion = By.name("descripcion");
 	
-	@FindBy(name = "valor")
-	private WebElement txtInstalcionFotovoltaicaValor;
+	 //@FindBy(name = "valor")
+	private By txtInstalcionFotovoltaicaValor = By.name("valor");
 	
-	@FindBy(xpath = ".//*[text()='Guardar' and @ng-click='saveInstalaciones()']")
-	private WebElement btnGuardarInstalacionSolarModalWindow;
+	 //@FindBy(xpath = ".//*[text()='Guardar' and @ng-click='saveInstalaciones()']")
+	private By btnGuardarInstalacionSolarModalWindow = By.xpath(".//*[text()='Guardar' and @ng-click='saveInstalaciones()']");
 	
-	@FindBy(xpath = ".//*[text()='Basic']")
-	private WebElement btnModalidadBasic;
+	 //@FindBy(xpath = ".//*[text()='Basic']")
+	private By btnModalidadBasic = By.xpath(".//*[text()='Basic']");
 	
-	@FindBy(xpath = ".//*[text()='Plus']")
-	private WebElement btnModalidadPlus;
+	 //@FindBy(xpath = ".//*[text()='Plus']")
+	private By btnModalidadPlus = By.xpath(".//*[text()='Plus']");
 	
-	@FindBy(css = "select[name='capital']")
-	private WebElement drpDwnRespCivil;
+	 //@FindBy(css = "select[name='capital']")
+	private By drpDwnRespCivil = By.cssSelector("select[name='capital']");
 	
-	// @FindBy(xpath = ".//*[text()='Basic']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
-	@FindBy(css = "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
-	private WebElement lblPrecioBasic;
+	//  //@FindBy(xpath = ".//*[text()='Basic']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
+	 //@FindBy(css = "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
+	private By lblPrecioBasic = By.cssSelector("div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']");
 	
-	// @FindBy(xpath = ".//*[text()='Complet']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
-	@FindBy(css = "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
+	//  //@FindBy(xpath = ".//*[text()='Complet']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
+	 //@FindBy(css = "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
 
-	private WebElement lblPrecioComplet;
+	private By lblPrecioComplet = By.cssSelector("div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']");
 	
-	// @FindBy(xpath = ".//*[text()='Plus']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
-	@FindBy(css = "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
-	private WebElement lblPrecioPlus;
+	//  //@FindBy(xpath = ".//*[text()='Plus']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
+	 //@FindBy(css = "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
+	private By lblPrecioPlus = By.cssSelector("div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']");
 	
-	@FindBy(xpath = ".//*[text()='Franquicia voluntaria']/../select")
-	private WebElement cmbFranquiciaVoluntaria;
+	 //@FindBy(xpath = ".//*[text()='Franquicia voluntaria']/../select")
+	private By cmbFranquiciaVoluntaria = By.xpath(".//*[text()='Franquicia voluntaria']/../select");
 	
-	@FindBy(xpath = ".//*[text()='Añadir tipo de descuento']")
-	private WebElement btnAddTipoDescuento;
+	 //@FindBy(xpath = ".//*[text()='Añadir tipo de descuento']")
+	private By btnAddTipoDescuento = By.xpath(".//*[text()='Añadir tipo de descuento']");
 	
-	@FindBy(name = "porcentaje")
-	private WebElement txtPorcentajeDescuento;
+	 //@FindBy(name = "porcentaje")
+	private By txtPorcentajeDescuento = By.name("porcentaje");
 	
-	@FindBy(xpath = ".//*[text()='Descuento']/../input")
-	private WebElement rdnDescuento;
+	 //@FindBy(xpath = ".//*[text()='Descuento']/../input")
+	private By rdnDescuento = By.xpath(".//*[text()='Descuento']/../input");
 	
-	@FindBy(id = "tipoDescuento")
-	private WebElement cmbTipoDescuento;
+	 //@FindBy(id = "tipoDescuento")
+	private By cmbTipoDescuento = By.cssSelector("#tipoDescuento");
 	
-	@FindBy(xpath = ".//*[text()='Guardar' and @ng-click='saveDescuento(formRecargoDescuento)']")
-	private WebElement btnGuadarDescuentoModalWindow;
+	 //@FindBy(xpath = ".//*[text()='Guardar' and @ng-click='saveDescuento(formRecargoDescuento)']")
+	private By btnGuadarDescuentoModalWindow = By.xpath(".//*[text()='Guardar' and @ng-click='saveDescuento(formRecargoDescuento)']");
 	
-	@FindBy(xpath = ".//*[text()='Tipo de descuento']")
-	private WebElement lnkMostrarDescuento;
+	 //@FindBy(xpath = ".//*[text()='Tipo de descuento']")
+	private By lnkMostrarDescuento = By.xpath(".//*[text()='Tipo de descuento']");
 	
-	@FindBy(xpath = ".//*[@ng-bind-html='descuento.data.getTextDescuentoRecargo() | encode' and contains(@class,'ng-binding')]")
-	private WebElement lblPorcentajeDescuentoPantallaPrincipal;
+	 //@FindBy(xpath = ".//*[@ng-bind-html='descuento.data.getTextDescuentoRecargo() | encode' and contains(@class,'ng-binding')]")
+	private By lblPorcentajeDescuentoPantallaPrincipal = By.xpath(".//*[@ng-bind-html='descuento.data.getTextDescuentoRecargo() | encode' and contains(@class,'ng-binding')]");
 	
-	@FindBy(css = "#modalErrores > div > div > div.modal-body > div > div > p")
-	private WebElement msgAutorizarDescuento;
+	 //@FindBy(css = "#modalErrores > div > div > div.modal-body > div > div > p")
+	private By msgAutorizarDescuento = By.cssSelector("#modalErrores > div > div > div.modal-body > div > div > p");
 	
-	@FindBy(css = "#modalErrores > div > div > div.modal-footer > button")
-	private WebElement btnAceptarAutorizarDescuento;
+	 //@FindBy(css = "#modalErrores > div > div > div.modal-footer > button")
+	private By btnAceptarAutorizarDescuento = By.cssSelector("#modalErrores > div > div > div.modal-footer > button");
 	
-	@FindBy(xpath = ".//*[text()='Recargo']/../input")
-	private WebElement rdnRecargo;
+	 //@FindBy(xpath = ".//*[text()='Recargo']/../input")
+	private By rdnRecargo = By.xpath(".//*[text()='Recargo']/../input");
 	
-	@FindBy(css = "tbody.ng-scope:nth-child(14) [ng-if='pm.isEspecialGroup(item)']")
-	private WebElement roturaMquinariaChckBx;
+	 //@FindBy(css = "tbody.ng-scope:nth-child(14) [ng-if='pm.isEspecialGroup(item)']")
+	private By roturaMquinariaChckBx = By.cssSelector("tbody.ng-scope:nth-child(14) [ng-if='pm.isEspecialGroup(item)']");
 
 	// endregion
 	
-	public PrecioPorModalidadPage(BrowserContext browserContext)
-	{
-		this.browserContext = browserContext;
-		this.wh = browserContext.webElementHelper;
-		this.tData = browserContext.getTestCaseData();
-		PageFactory.initElements(browserContext.getWebDriver(), this);
-		this.coberturasAdicionales = null;
+//	public PrecioPorModalidadPage(BrowserContext browserContext)
+//	{
+//		this.browserContext = browserContext;
+//		this.wh = browserContext.webElementHelper;
+//		this.tData = browserContext.getTestCaseData();
+//		PageFactory.initElements(browserContext.getWebDriver(), this);
+//		this.coberturasAdicionales = null;
+//	}
+	
+	public PrecioPorModalidadPage(DriverHelper driver, TestDataManager data) {
+		this.tCData = data;
+		this.webDriver = driver;
+		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
+
 	
 	// region methods
 	public void ExecuteActionsInPrecioPorModalidadPage() throws InterruptedException, IOException
@@ -236,25 +253,25 @@ public class PrecioPorModalidadPage
 	{
 		logger.debug("BEGIN - ClickOnContinuar");
 		// this.cuerpoFrame.click();
-		// this.wh.scrollToEndOfPage();
-		this.wh.clickOnWebElementInFrame(this.btnContinuar, this.cuerpoFrame);
+		// this.webDriver.scrollToBottom();
+		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		logger.debug("END - ClickOnContinuar");
 	}
 
 	public void clickOnCancelar() throws InterruptedException
 	{
 		logger.debug("BEGIN - ClickOnCancelar");
-		this.cuerpoFrame.click();
-		this.wh.scrollToEndOfPage();
-		this.wh.clickOnWebElementInFrame(this.btnCancelar, this.cuerpoFrame);
+		this.webDriver.click(this.cuerpoFrame);
+		this.webDriver.scrollToBottom();
+		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
 		logger.debug("END - ClickOnCancelar");
 	}
 	
 	public List<CoberturasAdicionalesHelper> getCoberturasOpcionales()
 	{
 		logger.debug("BEGIN - GetCoberturasOpcionales");
-		this.wh.switchToFrame(this.cuerpoFrame);
-		this.wh.waitForPageLoadWithAngular();
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		//this.webDriver.waitForPageLoadWithAngular();
 		
 		List<CoberturasAdicionalesHelper> coberturasAdicionalesTemp = new ArrayList<>();
 		this.rowWithCoberturaAdicional.forEach(p ->
@@ -270,9 +287,11 @@ public class PrecioPorModalidadPage
 				coberturasAdicionalesTemp.add(new CoberturasAdicionalesHelper(false, p.findElement(By.xpath(this.xPathFilterClausulaText)).getText(),
 						p.findElement(By.xpath(this.xPathFilterClausulaCheckbox))));
 			}
+			
+
 		});
 		
-		this.wh.exitFromFrame();
+		this.webDriver.exitFrame();
 		logger.debug("END - GetCoberturasOpcionales");
 		return coberturasAdicionalesTemp;
 	}
@@ -280,7 +299,7 @@ public class PrecioPorModalidadPage
 	public void completarCoberturaPorMaquinaria() throws IOException, InterruptedException
 	{
 		logger.debug("BEGIN - CompletarCoberturaPorMaquinaria");
-		String completarCoberturaMaquinaria = this.browserContext.getTestCaseData().getCoberturaOpcionalMaquinaHerramientaIncluida();
+		String completarCoberturaMaquinaria = this.tCData.getTestVar(testId, "CoberturaOpcionalMaquinaHerramientaIncluida");
 		if (completarCoberturaMaquinaria.equals(ProjectConstants.CoberturaOpcionalncluida))
 		{
 			this.getPreciosBefore();
@@ -288,55 +307,58 @@ public class PrecioPorModalidadPage
 			WebElement checkbox = this.coberturasAdicionales.stream()
 					.filter(p -> p.getDescription().equals(ProjectConstants.CoberturaRoturaMaquinariaDescripcion)).collect(Collectors.toList()).get(0)
 					.getCheckbox();
-			this.wh.switchToFrame(this.cuerpoFrame);
+			this.webDriver.switchToFrame(this.cuerpoFrame);
 			if (!checkbox.isSelected())
 			{
 
-				// this.wh.ScrollPageDown(2, this.cuerpoFrame);
-				// this.wh.ExitFromFrame();
+				// this.webDriver.ScrollPageDown(2, this.cuerpoFrame);
+				// this.webDriver.exitFrame();
 				// Coordinates coordinate = ((Locatable) checkbox).getCoordinates();
 				//
 				// coordinate.onPage();
 				// coordinate.inViewPort();
 
-				// this.wh.SwitchToFrame(this.cuerpoFrame);
+				// this.webDriver.SwitchToFrame(this.cuerpoFrame);
 				// coordinate.inViewPort();
-				// this.wh.ExitFromFrame();
+				// this.webDriver.exitFrame();
 				// int location = this.cuerpoFrame.getLocation().getY();
-				if (this.browserContext.getProperties().Browser.equals("IE"))
+				
+				//if (this.browserContext.getProperties().Browser.equals("IE"))
+				if (this.tCData.getConfigVar("Browser").equals("IE"))
 				{
-					this.wh.moveToElementWithJavaScriptStepByStep(checkbox, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.wh.switchToFrame(this.cuerpoFrame);
-					this.wh.waitForPageLoadToFinish();
+					//this.webDriver.moveToElementWithJavaScriptStepByStep(checkbox, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
+					
+					this.webDriver.switchToFrame(this.cuerpoFrame);
+					this.webDriver.waitForLoadToComplete();
 				}
 				
 				checkbox.click();
 				/*
-				 * Thread.sleep(4000); this.wh.exitFromFrame(); // this.wh.clickOnWebElement(checkbox);
-				 * this.wh.moveToElementInFrameWithJavaScript(this.roturaMquinariaChckBx, this.cuerpoFrame); Thread.sleep(4000); //
-				 * this.wh.clickOnWebElement(this.roturaMquinariaChckBx); this.wh.clickOnWebElementInFrame(this.roturaMquinariaChckBx, this.cuerpoFrame);
+				 * Thread.sleep(4000); this.webDriver.exitFrame(); // this.webDriver.click(checkbox);
+				 * this.webDriver.moveToElementInFrameWithJavaScript(this.roturaMquinariaChckBx, this.cuerpoFrame); Thread.sleep(4000); //
+				 * this.webDriver.click(this.roturaMquinariaChckBx); this.webDriver.clickInFrame(this.roturaMquinariaChckBx, this.cuerpoFrame);
 				 * Thread.sleep(4000);
 				 */
-				if (this.browserContext.getProperties().Browser.equals("IE"))
+				if (this.tCData.getConfigVar("Browser").equals("IE"))
 				{
-					this.wh.moveToElementWithJavaScriptStepByStep(this.btnAnadirMaquinaria, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.wh.switchToFrame(this.cuerpoFrame);
+				//	this.webDriver.moveToElementWithJavaScriptStepByStep(this.btnAnadirMaquinaria, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
+					this.webDriver.switchToFrame(this.cuerpoFrame);
 				}
-				// this.wh.scrollToWebElementWithJavaScript(this.btnAnadirMaquinaria);
+				// this.webDriver.scrollToWebElementWithJavaScript(this.btnAnadirMaquinaria);
 				// Thread.sleep(4000);
-				// this.wh.moveToElementWithJavaScript(this.btnAnadirMaquinaria);
-				this.wh.moveToElementWithJavaScriptStepByStep(this.btnAnadirMaquinaria, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
+				// this.webDriver.moveToElementWithJavaScript(this.btnAnadirMaquinaria);
+				//this.webDriver.moveToElementWithJavaScriptStepByStep(this.btnAnadirMaquinaria, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
 				// Thread.sleep(4000);
-				this.wh.switchToFrame(this.cuerpoFrame);
-				this.wh.clickOnWebElement(this.btnAnadirMaquinaria);
-				this.wh.clickOnWebElement(this.btnAnadirMaquinariaModalWindow);
-				this.wh.selectValueInDropDown(this.cmbTipoMaquinaria, this.browserContext.getTestCaseData().getCoberturaOpcionalMaquinariaTipo());
-				this.wh.sendValueToWebElement(this.txtValor, String.valueOf(this.browserContext.getTestCaseData().getCoberturaOpcionalMaquinariaValor()));
-				this.wh.clickOnWebElement(this.btnGuardarMaquinariaModalWindow);
+				this.webDriver.switchToFrame(this.cuerpoFrame);
+				this.webDriver.click(this.btnAnadirMaquinaria);
+				this.webDriver.click(this.btnAnadirMaquinariaModalWindow);
+				this.webDriver.clickElementFromDropDownByText(this.cmbTipoMaquinaria, this.tCData.getTestVar(testId, "cob_opc_tipo_maquinaria"));
+				this.webDriver.appendText(this.txtValor, String.valueOf(this.tCData.getTestVar(testId, "cob_opc_valor_maquinaria")));
+				this.webDriver.click(this.btnGuardarMaquinariaModalWindow);
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterMaquinaria);
 			}
-			this.wh.exitFromFrame();
+			this.webDriver.exitFrame();
 		}
 		logger.debug("END - CompletarCoberturaPorMaquinaria");
 	}
@@ -344,7 +366,7 @@ public class PrecioPorModalidadPage
 	public void completarCoberturasEmpleados() throws IOException
 	{
 		logger.debug("BEGIN - CompletarCoberturasEmpleados");
-		String coberturaEmpleados = this.browserContext.getTestCaseData().getCoberturaOpcionalAccidentesPersonalesEmpleadosIncluida();
+		String coberturaEmpleados = this.tCData.getTestVar(testId, "CoberturaOpcionalAccidentesPersonalesEmpleadosIncluida");
 		
 		if (coberturaEmpleados.equals(ProjectConstants.CoberturaOpcionalncluida))
 		{
@@ -355,49 +377,49 @@ public class PrecioPorModalidadPage
 					.filter(p -> p.getDescription().equals(ProjectConstants.CoberturaAccidentesPersonalesEmpleados)).collect(Collectors.toList())
 					.get(0).getCheckbox();
 			
-			this.wh.switchToFrame(this.cuerpoFrame);
+			this.webDriver.switchToFrame(this.cuerpoFrame);
 			
 			if (!checkbox.isSelected())
 			{
-				if (this.browserContext.getProperties().Browser.equals("IE"))
+				if (this.tCData.getConfigVar("Browser").equals("IE"))
 				{
-					this.wh.moveToElementWithJavaScriptStepByStep(checkbox, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.wh.switchToFrame(this.cuerpoFrame);
+					//this.webDriver.moveToElementWithJavaScriptStepByStep(checkbox, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
+					this.webDriver.switchToFrame(this.cuerpoFrame);
 				}
 
-				this.wh.moveToElementAndClickWithJavaScript(checkbox);
-				// this.wh.clickOnWebElement(checkbox);
+				this.webDriver.moveToElementAndClick(checkbox);
+				// this.webDriver.click(checkbox);
 				
-				if (this.browserContext.getProperties().Browser.equals("IE"))
+				if (this.tCData.getConfigVar("Browser").equals("IE"))
 				{
-					this.wh.moveToElementWithJavaScriptStepByStep(this.btnAsegurarAccidentesPantallaPrincipal, this.cuerpoFrame, this.hiddenFrame,
-							this.topFrame);
-					this.wh.switchToFrame(this.cuerpoFrame);
+				//	this.webDriver.moveToElementWithJavaScriptStepByStep(this.btnAsegurarAccidentesPantallaPrincipal, this.cuerpoFrame, this.hiddenFrame,
+				//			this.topFrame);
+					this.webDriver.switchToFrame(this.cuerpoFrame);
 				}
-				this.wh.exitFromFrame();
-				this.wh.switchToFrame(this.cuerpoFrame);
-				this.wh.clickOnWebElement(this.btnAsegurarAccidentesPantallaPrincipal);
-				this.wh.clickOnWebElement(this.btnAnadirAsegurado);
+				this.webDriver.exitFrame();
+				this.webDriver.switchToFrame(this.cuerpoFrame);
+				this.webDriver.click(this.btnAsegurarAccidentesPantallaPrincipal);
+				this.webDriver.click(this.btnAnadirAsegurado);
 				
-				this.wh.selectValueInDropDown(this.cmbTipoDocumento, ProjectConstants.NIF);
-				this.wh.sendValueToWebElement(this.txtNumeroDocumento, DniGeneratorHelper.generaNif(null));
-				this.wh.sendValueToWebElement(this.txtEmpleadoNombre, this.browserContext.getTestCaseData().getEmpleadoNombre());
-				this.wh.sendValueToWebElement(this.txtEmpleadoApellido1, this.browserContext.getTestCaseData().getEmpleadoPrimerApellido());
-				this.wh.sendValueToWebElement(this.txtEmpleadoApellido2, this.browserContext.getTestCaseData().getEmpleadoSegundoApellido());
-				this.wh.selectValueInDropDown(this.cmbEmpleadoProfesion, this.browserContext.getTestCaseData().getEmpleadoProfesion());
-				this.wh.sendValueToWebElement(this.txtEmpleadoProfesionDescripcion, this.browserContext.getTestCaseData().getEmpleadoPofesionDescripcion());
+				this.webDriver.clickElementFromDropDownByText(this.cmbTipoDocumento, ProjectConstants.NIF);
+				this.webDriver.appendText(this.txtNumeroDocumento, DniGeneratorHelper.generaNif(null));
+				this.webDriver.appendText(this.txtEmpleadoNombre, this.tCData.getTestVar(testId, "EmpleadoNombre"));
+				this.webDriver.appendText(this.txtEmpleadoApellido1, this.tCData.getTestVar(testId, "EmpleadoPrimerApellido"));
+				this.webDriver.appendText(this.txtEmpleadoApellido2, this.tCData.getTestVar(testId, "EmpleadoSegundoApellido"));
+				this.webDriver.clickElementFromDropDownByText(this.cmbEmpleadoProfesion, this.tCData.getTestVar(testId, "EmpleadoProfesion"));
+				this.webDriver.appendText(this.txtEmpleadoProfesionDescripcion, this.tCData.getTestVar(testId, "EmpleadoPofesionDescripcion"));
 				
-				this.wh.sendValueToWebElement(this.txtEmpleadoCapital, this.browserContext.getTestCaseData().getEmpleadoCapital());
-				this.wh.sendValueToWebElement(this.txtEmpleadoFechaNacimiento, this.browserContext.getTestCaseData().getEmpleadoFechaNacimiento());
-				this.wh.selectValueInDropDown(this.txtEmpleadoBeneficiario, this.browserContext.getTestCaseData().getEmpleadoBeneficiario());
-				this.wh.sendValueToWebElement(this.txtEmpleadoBeneficiarioDescripcion,
-						this.browserContext.getTestCaseData().getEmpleadoBeneficiarioDescripcion());
-				this.wh.clickOnWebElement(this.btnAsegurarAccidentesModalWindow);
-				this.wh.exitFromFrame();
+				this.webDriver.appendText(this.txtEmpleadoCapital, this.tCData.getTestVar(testId, "EmpleadoCapital"));
+				this.webDriver.appendText(this.txtEmpleadoFechaNacimiento, this.tCData.getTestVar(testId, "EmpleadoFechaNacimiento"));
+				this.webDriver.clickElementFromDropDownByText(this.txtEmpleadoBeneficiario, this.tCData.getTestVar(testId, "EmpleadoBeneficiario"));
+				this.webDriver.appendText(this.txtEmpleadoBeneficiarioDescripcion,
+						this.tCData.getTestVar(testId, "EmpleadoBeneficiarioDescripcion"));
+				this.webDriver.click(this.btnAsegurarAccidentesModalWindow);
+				this.webDriver.exitFrame();
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterEmpleados);
 			}
-			this.wh.exitFromFrame();
+			this.webDriver.exitFrame();
 		}
 		logger.debug("END - CompletarCoberturasEmpleados");
 	}
@@ -405,48 +427,48 @@ public class PrecioPorModalidadPage
 	public void completarCoberturasEnergiaSolar() throws IOException
 	{
 		logger.debug("BEGIN - CompletarCoberturasEnergiaSolar");
-		String coberturasolar = this.browserContext.getTestCaseData().getCoberturaOpcionalInstalacionesFotovoltaicasIncluida();
+		String coberturasolar = this.tCData.getTestVar(testId, "CoberturaOpcionalInstalacionesFotovoltaicasIncluida");
 		
 		if (coberturasolar.equals(ProjectConstants.CoberturaOpcionalncluida))
 		{
 			this.getPreciosBefore();
 			this.coberturasAdicionales = this.getCoberturasOpcionales();
 			
-			this.wh.switchToFrame(this.cuerpoFrame);
+			this.webDriver.switchToFrame(this.cuerpoFrame);
 			WebElement checkbox = this.coberturasAdicionales.stream()
 					.filter(p -> p.getDescription().equals(ProjectConstants.CoberturaEnergiaSolarDescripcion)).collect(Collectors.toList()).get(0)
 					.getCheckbox();
 			
 			if (!checkbox.isSelected())
 			{
-				if (this.browserContext.getProperties().Browser.equals("IE"))
+				if (this.tCData.getConfigVar("Browser").equals("IE"))
 				{
-					this.wh.moveToElementWithJavaScriptStepByStep(checkbox, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.wh.switchToFrame(this.cuerpoFrame);
+			//		this.webDriver.moveToElementWithJavaScriptStepByStep(checkbox, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
+					this.webDriver.switchToFrame(this.cuerpoFrame);
 				}
 				
-				this.wh.moveToElementAndClickWithJavaScript(checkbox);
-				// this.wh.clickOnWebElement(checkbox);
+				this.webDriver.moveToElementAndClick(checkbox);
+				// this.webDriver.click(checkbox);
 				
-				if (this.browserContext.getProperties().Browser.equals("IE"))
+				if (this.tCData.getConfigVar("Browser").equals("IE"))
 				{
-					this.wh.moveToElementWithJavaScriptStepByStep(this.btnAnadirPlacaSolar, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.wh.switchToFrame(this.cuerpoFrame);
+			//		this.webDriver.moveToElementWithJavaScriptStepByStep(this.btnAnadirPlacaSolar, this.cuerpoFrame, this.hiddenFrame, this.topFrame);
+					this.webDriver.switchToFrame(this.cuerpoFrame);
 				}
 
-				this.wh.clickOnWebElement(this.btnAnadirPlacaSolar);
-				this.wh.clickOnWebElement(this.btnAnadirPlacaSolarModalWindow);
+				this.webDriver.click(this.btnAnadirPlacaSolar);
+				this.webDriver.click(this.btnAnadirPlacaSolarModalWindow);
 				
-				this.wh.sendValueToWebElement(this.txtInstalacionFotovoltaicaDescripcion,
-						this.browserContext.getTestCaseData().getInstalacionesFotovoltaicasDescripcion());
-				this.wh.sendValueToWebElement(this.txtInstalcionFotovoltaicaValor,
-						String.valueOf(this.browserContext.getTestCaseData().getInstalacionesFotovoltaicasValor()));
-				this.wh.clickOnWebElement(this.btnGuardarInstalacionSolarModalWindow);
-				this.wh.exitFromFrame();
+				this.webDriver.appendText(this.txtInstalacionFotovoltaicaDescripcion,
+						this.tCData.getTestVar(testId, "InstalacionesFotovoltaicasDescripcion"));
+				this.webDriver.appendText(this.txtInstalcionFotovoltaicaValor,
+						String.valueOf(this.tCData.getTestVar(testId, "InstalacionesFotovoltaicasValor")));
+				this.webDriver.click(this.btnGuardarInstalacionSolarModalWindow);
+				this.webDriver.exitFrame();
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterEnergiaSolar);
 			}
-			this.wh.exitFromFrame();
+			this.webDriver.exitFrame();
 		}
 		logger.debug("END - CompletarCoberturasEnergiaSolar");
 	}
@@ -455,88 +477,88 @@ public class PrecioPorModalidadPage
 	{
 		logger.debug("BEGIN - SeleccionarModalidad");
 		
-		String modalidad = this.browserContext.getTestCaseData().getModalidad();
+		String modalidad = this.tCData.getTestVar(testId, "modalidad");
 		
 		switch (modalidad)
 		{
 			case ProjectConstants.ModalidadBasic:
 				this.getPreciosBefore();
-				this.wh.switchToFrame(this.cuerpoFrame);
-				// this.wh.moveToElementWithJavaScript(this.btnModalidadBasic);
-				this.wh.clickOnWebElement(this.btnModalidadBasic);
+				this.webDriver.switchToFrame(this.cuerpoFrame);
+				// this.webDriver.moveToElementWithJavaScript(this.btnModalidadBasic);
+				this.webDriver.click(this.btnModalidadBasic);
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterModalidadChangeToBasic);
 				break;
 			case ProjectConstants.ModalidadPlus:
 				this.getPreciosBefore();
-				this.wh.switchToFrame(this.cuerpoFrame);
-				this.wh.clickOnWebElement(this.btnModalidadPlus);
+				this.webDriver.switchToFrame(this.cuerpoFrame);
+				this.webDriver.click(this.btnModalidadPlus);
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterModalidadChangeToPlus);
 				break;
 		}
 		
-		this.wh.exitFromFrame();
+		this.webDriver.exitFrame();
 		logger.debug("END - SeleccionarModalidad");
 	}
 	
 	public void completarOQuitarDescuentoRecargo()
 	{
 		logger.debug("BEGIN - CompletarOQuitarDescuentoRecargo");
-		this.wh.switchToFrame(this.cuerpoFrame);
-		// this.wh.ClickOnWebElement(this.lnkMostrarDescuento);
-		this.wh.moveToElementAndClickWithJavaScript(this.lnkMostrarDescuento);
-		String DescuentoValue = this.wh.getTextFromWebElement(this.lblPorcentajeDescuentoPantallaPrincipal);
-		this.wh.exitFromFrame();
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		// this.webDriver.click(this.lnkMostrarDescuento);
+		this.webDriver.moveToElementAndClick(this.lnkMostrarDescuento);
+		String DescuentoValue = this.webDriver.getText(this.lblPorcentajeDescuentoPantallaPrincipal);
+		this.webDriver.exitFrame();
 		
-		if (this.tData.isDescuentoEnabled() || this.tData.isRecargo()
+		if (Boolean.parseBoolean(this.tCData.getTestVar(testId, "descuentoEnabled")) || Boolean.parseBoolean(this.tCData.getTestVar(testId, "recargo"))
 				|| !DescuentoValue.equals(ProjectConstants.CantidadDescuentoNoEspecificado))
 		{
 			this.getPreciosBefore();
-			this.wh.switchToFrame(this.cuerpoFrame);
-			this.wh.moveToElementAndClickWithJavaScript(this.btnAddTipoDescuento);
+			this.webDriver.switchToFrame(this.cuerpoFrame);
+			this.webDriver.moveToElementAndClick(this.btnAddTipoDescuento);
 			String ErrorMessage = null;
 			
-			if (this.tData.isDescuentoEnabled())
+			if (Boolean.parseBoolean(this.tCData.getTestVar(testId, "descuentoEnabled")))
 			{
-				this.wh.sendValueToWebElement(this.txtPorcentajeDescuento, ProjectConstants.PorcentajeDescuentoRecargo);
-				this.wh.clickOnWebElement(this.rdnDescuento);
-				this.wh.selectValueInDropDown(this.cmbTipoDescuento, ProjectConstants.TipoDescuento);
+				this.webDriver.appendText(this.txtPorcentajeDescuento, ProjectConstants.PorcentajeDescuentoRecargo);
+				this.webDriver.click(this.rdnDescuento);
+				this.webDriver.clickElementFromDropDownByText(this.cmbTipoDescuento, ProjectConstants.TipoDescuento);
 				ErrorMessage = ProjectConstants.AfterAddingDiscount;
 			}
-			else if (this.tData.isRecargo())
+			else if (Boolean.parseBoolean(this.tCData.getTestVar(testId, "recargo")))
 			{
-				this.wh.clickOnWebElement(this.rdnRecargo);
-				this.wh.sendValueToWebElement(this.txtPorcentajeDescuento, ProjectConstants.PorcentajeDescuentoRecargo);
+				this.webDriver.click(this.rdnRecargo);
+				this.webDriver.appendText(this.txtPorcentajeDescuento, ProjectConstants.PorcentajeDescuentoRecargo);
 				ErrorMessage = ProjectConstants.AfterAddingAdditionalCharge;
 			}
-			else if (!DescuentoValue.equals(ProjectConstants.CantidadDescuentoNoEspecificado) && !this.tData.isDescuentoEnabled()
-					&& !this.tData.isRecargo())
+			else if (!DescuentoValue.equals(ProjectConstants.CantidadDescuentoNoEspecificado) && !Boolean.parseBoolean(this.tCData.getTestVar(testId, "descuentoEnabled"))
+					&& !Boolean.parseBoolean(this.tCData.getTestVar(testId, "recargo")))
 			{
-				// this.wh.ClickOnWebElement(this.btnAddTipoDescuento);
-				this.wh.sendValueToWebElement(this.txtPorcentajeDescuento, "");
-				this.wh.changeFocusOfWebElement(this.txtPorcentajeDescuento);
+				// this.webDriver.click(this.btnAddTipoDescuento);
+				this.webDriver.appendText(this.txtPorcentajeDescuento, "");
+				this.webDriver.tabulateElement(this.txtPorcentajeDescuento);
 			}
 			
-			this.wh.clickOnWebElement(this.btnGuadarDescuentoModalWindow);
+			this.webDriver.click(this.btnGuadarDescuentoModalWindow);
 			this.getPreciosAfter();
 			this.compareValues(ProjectConstants.NotEqual, ErrorMessage);
 		}
 		
-		this.wh.exitFromFrame();
+		this.webDriver.exitFrame();
 		logger.debug("END - CompletarOQuitarDescuentoRecargo");
 	}
 	
 	public void completarFranquiciaVoluntaria()
 	{
 		logger.debug("BEGIN - CompletarFranquiciaVoluntaria");
-		String franquiciaVoluntaria = this.browserContext.getTestCaseData().getFranquiciaVoluntaria();
+		String franquiciaVoluntaria = this.tCData.getTestVar(testId, "franquicia_voluntaria");
 		
 		if (franquiciaVoluntaria != null)
 		{
 			this.getPreciosBefore();
-			this.wh.switchToFrame(this.cuerpoFrame);
-			this.wh.selectValueInDropDown(this.cmbFranquiciaVoluntaria, franquiciaVoluntaria);
+			this.webDriver.switchToFrame(this.cuerpoFrame);
+			this.webDriver.clickElementFromDropDownByText(this.cmbFranquiciaVoluntaria, franquiciaVoluntaria);
 			this.getPreciosAfter();
 			this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterAddingFranquiciaVoluntaria);
 		}
@@ -546,15 +568,15 @@ public class PrecioPorModalidadPage
 	public void getPreciosBefore()
 	{
 		logger.debug("BEGIN - GetPreciosBefore");
-		this.wh.exitFromFrame();
-		this.wh.switchToFrame(this.cuerpoFrame);
-		this.PrecioBasicBefore = this.wh.getTextFromWebElement(this.lblPrecioBasic);
-		this.PrecioCompletoBefore = this.wh.getTextFromWebElement(this.lblPrecioComplet);
-		this.PrecioPlusBefore = this.wh.getTextFromWebElement(this.lblPrecioPlus);
-		logger.debug("Precio basic before: " + this.wh.getTextFromWebElement(this.lblPrecioBasic));
-		logger.debug("Precio complet before: " + this.wh.getTextFromWebElement(this.lblPrecioComplet));
-		logger.debug("Precio plus before: " + this.wh.getTextFromWebElement(this.lblPrecioPlus));
-		this.wh.exitFromFrame();
+		this.webDriver.exitFrame();
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.PrecioBasicBefore = this.webDriver.getText(this.lblPrecioBasic);
+		this.PrecioCompletoBefore = this.webDriver.getText(this.lblPrecioComplet);
+		this.PrecioPlusBefore = this.webDriver.getText(this.lblPrecioPlus);
+		logger.debug("Precio basic before: " + this.webDriver.getText(this.lblPrecioBasic));
+		logger.debug("Precio complet before: " + this.webDriver.getText(this.lblPrecioComplet));
+		logger.debug("Precio plus before: " + this.webDriver.getText(this.lblPrecioPlus));
+		this.webDriver.exitFrame();
 		
 		logger.debug("END - GetPreciosBefore");
 	}
@@ -562,15 +584,15 @@ public class PrecioPorModalidadPage
 	public void getPreciosAfter()
 	{
 		logger.debug("BEGIN - GetPreciosAfter");
-		this.wh.exitFromFrame();
-		this.wh.switchToFrame(this.cuerpoFrame);
-		this.PrecioBasicAfter = this.wh.getTextFromWebElement(this.lblPrecioBasic);
-		this.PrecioCompletoAfter = this.wh.getTextFromWebElement(this.lblPrecioComplet);
-		this.PrecioPlusAfter = this.wh.getTextFromWebElement(this.lblPrecioPlus);
-		logger.debug("Precio basic after: " + this.wh.getTextFromWebElement(this.lblPrecioBasic));
-		logger.debug("Precio complet after: " + this.wh.getTextFromWebElement(this.lblPrecioComplet));
-		logger.debug("Precio plus after: " + this.wh.getTextFromWebElement(this.lblPrecioPlus));
-		this.wh.exitFromFrame();
+		this.webDriver.exitFrame();
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.PrecioBasicAfter = this.webDriver.getText(this.lblPrecioBasic);
+		this.PrecioCompletoAfter = this.webDriver.getText(this.lblPrecioComplet);
+		this.PrecioPlusAfter = this.webDriver.getText(this.lblPrecioPlus);
+		logger.debug("Precio basic after: " + this.webDriver.getText(this.lblPrecioBasic));
+		logger.debug("Precio complet after: " + this.webDriver.getText(this.lblPrecioComplet));
+		logger.debug("Precio plus after: " + this.webDriver.getText(this.lblPrecioPlus));
+		this.webDriver.exitFrame();
 		
 		logger.debug("AFTER - GetPreciosAfter");
 	}
@@ -579,36 +601,49 @@ public class PrecioPorModalidadPage
 			String ComparisonType, String Modification)
 	{
 		logger.debug("BEGIN - CompareValues");
-		logger.debug("ComparisonType: " + ComparisonType + ", Modalidad: " + this.tData.getModalidad());
+		logger.debug("ComparisonType: " + ComparisonType + ", Modalidad: " + this.tCData.getTestVar(testId, "modalidad"));
 		switch (ComparisonType)
 		{
 			
 			case ProjectConstants.NotEqual:
-				switch (this.tData.getModalidad())
+				switch (this.tCData.getTestVar(testId, "modalidad"))
 				{
 					case ProjectConstants.ModalidadPlus:
 						if (this.PrecioPlusBefore.equals(this.PrecioPlusAfter))
 						{
-							this.tData.setCapitalesModifiedError(true);
-							this.tData.setCapitalesModifiedErrorMessage(
-									String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", Modification));
+							this.tCData.setTestVar(testId, "capitalesModifiedError", "true");
+							//this.tCData.setTestVar(testId, "capitalesModifiedErrorMessage", Modification);
+							this.tCData.setTestVar(testId, "capitalesModifiedErrorMessage", "El valor de la prima total anual no ha variado en la pantalla de precio %s");
+								//	String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", Modification));
 						}
 						break;
 					case ProjectConstants.ModalidadBasic:
 						if (this.PrecioBasicBefore.equals(this.PrecioBasicAfter))
 						{
-							this.tData.setCapitalesModifiedError(true);
-							this.tData.setCapitalesModifiedErrorMessage(
-									String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", Modification));
+//							this.tCData.setCapitalesModifiedError(true);
+//							this.tCData.setCapitalesModifiedErrorMessage(
+//									String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", Modification));
+							
+							this.tCData.setTestVar(testId, "capitalesModifiedError", "true");
+							//this.tCData.setTestVar(testId, "capitalesModifiedErrorMessage", Modification);
+							this.tCData.setTestVar(testId, "capitalesModifiedErrorMessage", "El valor de la prima total anual no ha variado en la pantalla de precio %s");
+								//	String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", Modification));
+							
 						}
 						break;
 					
 					case ProjectConstants.ModalidadCompleta:
 						if (this.PrecioCompletoBefore.equals(this.PrecioCompletoAfter))
 						{
-							this.tData.setCapitalesModifiedError(true);
-							this.tData.setCapitalesModifiedErrorMessage(
-									String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", Modification));
+//							this.tCData.setCapitalesModifiedError(true);
+//							this.tCData.setCapitalesModifiedErrorMessage(
+//									String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", Modification));
+							
+							this.tCData.setTestVar(testId, "capitalesModifiedError", "true");
+							//this.tCData.setTestVar(testId, "capitalesModifiedErrorMessage", Modification);
+							this.tCData.setTestVar(testId, "capitalesModifiedErrorMessage", "El valor de la prima total anual no ha variado en la pantalla de precio %s");
+								//	String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", Modification));
+							
 						}
 						break;
 				}
@@ -619,8 +654,8 @@ public class PrecioPorModalidadPage
 			// if (!this.PrecioBasicBefore.equals(this.PrecioBasicAfter) || !this.PrecioCompletoBefore.equals(this.PrecioBasicAfter)
 			// || !this.PrecioPlusBefore.equals(this.PrecioPlusAfter))
 			// {
-			// this.tData.setCapitalesModifiedError(true);
-			// this.tData.setCapitalesModifiedErrorMessage(
+			// this.tCData.setCapitalesModifiedError(true);
+			// this.tCData.setCapitalesModifiedErrorMessage(
 			// String.format("El valor de los capitales ha variado en la pantalla de precio %s", Modification));
 			// }
 
@@ -632,7 +667,7 @@ public class PrecioPorModalidadPage
 	public void modificarRC(
 			String value)
 	{
-		this.wh.selectValueInDropDownInFrame(this.drpDwnRespCivil, this.cuerpoFrame, value);
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpDwnRespCivil, this.cuerpoFrame, value);
 	}
 	
 	public void agregarDescuento(
@@ -641,30 +676,30 @@ public class PrecioPorModalidadPage
 		logger.debug("BEGIN - agregarDescuento");
 		
 		// this.GetPreciosBefore();
-		// this.wh.switchToFrame(this.cuerpoFrame);
-		// this.wh.moveToElementAndClickWithJavaScript(this.btnAddTipoDescuento);
-		this.wh.clickOnWebElementInFrame(this.btnAddTipoDescuento, this.cuerpoFrame);
+		// this.webDriver.switchToFrame(this.cuerpoFrame);
+		// this.webDriver.moveToElementAndClickWithJavaScript(this.btnAddTipoDescuento);
+		this.webDriver.clickInFrame(this.btnAddTipoDescuento, this.cuerpoFrame);
 		String ErrorMessage = null;
-		// this.wh.sendValueToWebElement(this.txtPorcentajeDescuento, descuento);
-		// this.wh.clickOnWebElement(this.rdnDescuento);
-		// this.wh.selectValueInDropDown(this.cmbTipoDescuento, MutuaPropietariosConstants.TipoDescuento);
-		this.wh.sendValueToWebElementInFrame(this.txtPorcentajeDescuento, this.cuerpoFrame, descuento);
-		this.wh.clickOnWebElementInFrame(this.rdnDescuento, this.cuerpoFrame);
-		this.wh.selectValueInDropDownInFrame(this.cmbTipoDescuento, this.cuerpoFrame, ProjectConstants.TipoDescuento);
+		// this.webDriver.appendText(this.txtPorcentajeDescuento, descuento);
+		// this.webDriver.click(this.rdnDescuento);
+		// this.webDriver.clickElementFromDropDownByText(this.cmbTipoDescuento, MutuaPropietariosConstants.TipoDescuento);
+		this.webDriver.appendTextInFrame(this.txtPorcentajeDescuento, this.cuerpoFrame, descuento);
+		this.webDriver.clickInFrame(this.rdnDescuento, this.cuerpoFrame);
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDescuento, this.cuerpoFrame, ProjectConstants.TipoDescuento);
 		// ErrorMessage = MutuaPropietariosConstants.AfterAddingDiscount;
 		
-		// this.wh.clickOnWebElement(this.btnGuadarDescuentoModalWindow);
+		// this.webDriver.click(this.btnGuadarDescuentoModalWindow);
 		// this.GetPreciosAfter();
 		// this.CompareValues(MutuaPropietariosConstants.NotEqual, ErrorMessage);
-		this.wh.clickOnWebElementInFrame(this.btnGuadarDescuentoModalWindow, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnGuadarDescuentoModalWindow, this.cuerpoFrame);
 
 		// Pulsar Aceptar en el aviso sobre la autorizacion de descuento que sale para ciertos mediadores
-		if (this.wh.webElementInFrameIsPresent(this.msgAutorizarDescuento, this.cuerpoFrame))
+		if (this.webDriver.isPresentInFrame(this.msgAutorizarDescuento, this.cuerpoFrame))
 		{
-			this.wh.clickOnWebElementInFrame(this.btnAceptarAutorizarDescuento, this.cuerpoFrame);
+			this.webDriver.clickInFrame(this.btnAceptarAutorizarDescuento, this.cuerpoFrame);
 		}
 
-		// this.wh.exitFromFrame();
+		// this.webDriver.exitFrame();
 		logger.debug("END - agregarDescuento");
 	}
 
@@ -672,8 +707,8 @@ public class PrecioPorModalidadPage
 	{
 		logger.debug("BEGIN - getPrecioTotal");
 		String value = "";
-		if (this.wh.webElementInFrameIsPresent(this.lblPrecioComplet, this.cuerpoFrame))
-			value = this.wh.getTextFromWebElementInFrame(this.lblPrecioComplet, this.cuerpoFrame);
+		if (this.webDriver.isPresentInFrame(this.lblPrecioComplet, this.cuerpoFrame))
+			value = this.webDriver.getTextInFrame(this.lblPrecioComplet, this.cuerpoFrame);
 
 		logger.debug("END - getPrecioTotal");
 		return value;
@@ -683,8 +718,8 @@ public class PrecioPorModalidadPage
 	{
 		logger.debug("BEGIN - getPrecioBasic");
 		String value = "";
-		if (this.wh.webElementInFrameIsPresent(this.lblPrecioBasic, this.cuerpoFrame))
-			value = this.wh.getTextFromWebElementInFrame(this.lblPrecioBasic, this.cuerpoFrame);
+		if (this.webDriver.isPresentInFrame(this.lblPrecioBasic, this.cuerpoFrame))
+			value = this.webDriver.getTextInFrame(this.lblPrecioBasic, this.cuerpoFrame);
 
 		logger.debug("END - getPrecioBasic");
 		return value;
@@ -694,8 +729,8 @@ public class PrecioPorModalidadPage
 	{
 		logger.debug("BEGIN - getPrecioPlus");
 		String value = "";
-		if (this.wh.webElementInFrameIsPresent(this.lblPrecioPlus, this.cuerpoFrame))
-			value = this.wh.getTextFromWebElementInFrame(this.lblPrecioPlus, this.cuerpoFrame);
+		if (this.webDriver.isPresentInFrame(this.lblPrecioPlus, this.cuerpoFrame))
+			value = this.webDriver.getTextInFrame(this.lblPrecioPlus, this.cuerpoFrame);
 
 		logger.debug("END - getPrecioPlus");
 		return value;
@@ -704,9 +739,9 @@ public class PrecioPorModalidadPage
 	public String getNumSimulacion()
 	{
 		logger.debug("BEGIN - getProjectNumber");
-		String projectNumberText = this.wh.getTextFromWebElementInFrame(this.txtCodigoProjecto, this.cuerpoFrame);
+		String projectNumberText = this.webDriver.getTextInFrame(this.txtCodigoProjecto, this.cuerpoFrame);
 		String ProjectCode = StringUtils.substringBetween(projectNumberText, "El proyecto", "se ha guardado.").trim();
-		this.wh.clickOnWebElementInFrame(this.btnAceptarInDialog, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnAceptarInDialog, this.cuerpoFrame);
 		logger.debug("END - getProjectNumber");
 		return ProjectCode;
 	}
@@ -715,8 +750,8 @@ public class PrecioPorModalidadPage
 	{
 		logger.debug("BEGIN - clickOnGuardar");
 		// this.cuerpoFrame.click();
-		this.wh.scrollToEndOfPage();
-		this.wh.clickOnWebElementInFrame(this.btnGuardar, this.cuerpoFrame);
+		this.webDriver.scrollToBottom();
+		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
 		logger.debug("END - clickOnGuardar");
 	}
 	
