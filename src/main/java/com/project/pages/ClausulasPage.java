@@ -40,59 +40,59 @@ public class ClausulasPage
 	
 	
 	// region webelements
-	@FindBy(name = "cuerpo")
+	//@FindBy(name = "cuerpo")
 	private By cuerpoFrame;
 	
 	// Rows with a checkbox and a clausula
-	@FindBy(xpath = ".//tr[td[input]]")
+	//@FindBy(xpath = ".//tr[td[input]]")
 	private List<By> rowWithClausula;
 	
-	@FindBy(xpath = ".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]")
+	//@FindBy(xpath = ".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]")
 	private By clausulaPageSelector;
 	
-	@FindBy(xpath = ".//*[text()='Añadir cláusula y/o hipotecaria']")
+	//@FindBy(xpath = ".//*[text()='Añadir cláusula y/o hipotecaria']")
 	private By btnAddClausulaHipotecaria;
 	
-	@FindBy(xpath = ".//*[text()='Cláusula hipotecaria']")
+	//@FindBy(xpath = ".//*[text()='Cláusula hipotecaria']")
 	private By btnTabClausulaHipotecaria;
 	
-	@FindBy(id = "tipodocumento")
+	//@FindBy(id = "tipodocumento")
 	private By cmbTipoDocumento;
 	
-	@FindBy(name = "numerodocumento")
+	//@FindBy(name = "numerodocumento")
 	private By txtNumeroDocumento;
 	
-	@FindBy(id = "nombreasegurado")
+	//@FindBy(id = "nombreasegurado")
 	private By txtNombreAsegurado;
 	
-	@FindBy(id = "apellido1asegurado")
+	//@FindBy(id = "apellido1asegurado")
 	private By txtApellido1Asegurado;
 	
-	@FindBy(id = "apellido2asegurado")
+	//@FindBy(id = "apellido2asegurado")
 	private By txtApellido2Asegurado;
 	
-	@FindBy(id = "direccionriesgo")
+	//@FindBy(id = "direccionriesgo")
 	private By cmbDireccionRiesgo;
 	
-	@FindBy(id = "entidadbancaria")
+	//@FindBy(id = "entidadbancaria")
 	private By cmbEntidadBancaria;
 	
-	@FindBy(id = "coefparticipacion")
+	//@FindBy(id = "coefparticipacion")
 	private By txtCoheficienteParticipacion;
 	
-	@FindBy(xpath = ".//*[text()='Añadir cláusula' and @ng-click='cp.insertarClausula()']")
+	//@FindBy(xpath = ".//*[text()='Añadir cláusula' and @ng-click='cp.insertarClausula()']")
 	private By btnAddClausula;
 	
-	@FindBy(xpath = ".//*[@title='Continuar']")
+	//@FindBy(xpath = ".//*[@title='Continuar']")
 	private By btnContinuarInEdition;
 	
-	@FindBy(xpath = ".//*[text()='Continuar']")
+	//@FindBy(xpath = ".//*[text()='Continuar']")
 	private By btnContinuarInCreation;
 	
-	@FindBy(xpath = ".//*[@ng-click='control.update(control.current + 1)']")
+	//@FindBy(xpath = ".//*[@ng-click='control.update(control.current + 1)']")
 	private By btnNextClausulasPage;
 	
-	@FindBy(xpath = ".//tr[td[input]]")
+	//@FindBy(xpath = ".//tr[td[input]]")
 	private List<By> rowCheckboxWithCoberturaOpcional;
 	
 	private String xPathFilterClausulaCheckbox = ".//td[2]/input";

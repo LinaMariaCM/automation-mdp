@@ -24,6 +24,7 @@ import com.project.pages.AsignarMediadorPage;
 import com.project.pages.ClausulasPage;
 import com.project.pages.DatosBancariosPage;
 import com.project.pages.DatosBasicosTomadorPage;
+import com.project.pages.DetallesRiesgoPage;
 import com.project.pages.DocumentacionPage;
 import com.project.pages.GestionOnlineHomePage;
 import com.project.pages.GestionOnlineLoginPage;
@@ -150,26 +151,26 @@ public class Steps {
 				.ClickOnContinuarAndValidate();
 
 			new PrecioPage(webDriver, userS.getTestDataManager()).ClickOnConvertirAProjecto();
-
-			new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager());
+				
+			DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager());
 			datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
 			datosBasicosTomadorPage.clickOnContinuar();
 
-			new PrecioPorModalidadPage(webDriver, userS.getTestDataManager());
+			PrecioPorModalidadPage precioPorModalidadPage = new PrecioPorModalidadPage(webDriver, userS.getTestDataManager());
 			precioPorModalidadPage.ExecuteActionsInPrecioPorModalidadPage();
 
-			new ValidacionExcepcionesReglasPage(webDriver, userS.getTestDataManager());
+			ValidacionExcepcionesReglasPage validacionExcepcionesReglasPage = new ValidacionExcepcionesReglasPage(webDriver, userS.getTestDataManager());
 			validacionExcepcionesReglasPage.clickOnContinuarButton();
 
-			new ClausulasPage(webDriver, userS.getTestDataManager());
+			ClausulasPage clausulasPage = new ClausulasPage(webDriver, userS.getTestDataManager());
 			clausulasPage.ActivateclausesAndClickOnContinue();
 
-			new TomadorYAseguradoPage(webDriver, userS.getTestDataManager());
+			TomadorYAseguradoPage tomadorYAseguradoPage = new TomadorYAseguradoPage(webDriver, userS.getTestDataManager());
 			tomadorYAseguradoPage.AddDatosTomador();
 			tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
 			tomadorYAseguradoPage.clickOnContinuar();
 
-			new DocumentacionPage(webDriver, userS.getTestDataManager());
+			DocumentacionPage documentacionPage = new DocumentacionPage(webDriver, userS.getTestDataManager());
 			documentacionPage.SubirFichero();
 
 			new DatosBancariosPage(webDriver, userS.getTestDataManager());
