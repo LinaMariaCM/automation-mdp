@@ -146,38 +146,45 @@ public class Steps {
 
 			new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
 				.completarDatosEnDetallesRiesgo();
-
-			new ValidacionExcepcionesReglasDetallesRiesgoPage(this.browserContext)
-				.ClickOnContinuarAndValidate();
+			
+			// Revisar si el paso de parámetros es el adecuado
+			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS.getDriver(), userS.getTestDataManager()).ClickOnContinuarAndValidate();
 
 			new PrecioPage(webDriver, userS.getTestDataManager()).ClickOnConvertirAProjecto();
 				
 			DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager());
-			datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
+			
+			datosBasicosTomadorPage.FillTomadorData(this.userS.getTestVar("tomador"));
 			datosBasicosTomadorPage.clickOnContinuar();
 
 			PrecioPorModalidadPage precioPorModalidadPage = new PrecioPorModalidadPage(webDriver, userS.getTestDataManager());
+			
 			precioPorModalidadPage.ExecuteActionsInPrecioPorModalidadPage();
 
 			ValidacionExcepcionesReglasPage validacionExcepcionesReglasPage = new ValidacionExcepcionesReglasPage(webDriver, userS.getTestDataManager());
+			
 			validacionExcepcionesReglasPage.clickOnContinuarButton();
 
 			ClausulasPage clausulasPage = new ClausulasPage(webDriver, userS.getTestDataManager());
+			
 			clausulasPage.ActivateclausesAndClickOnContinue();
 
 			TomadorYAseguradoPage tomadorYAseguradoPage = new TomadorYAseguradoPage(webDriver, userS.getTestDataManager());
+			
 			tomadorYAseguradoPage.AddDatosTomador();
 			tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
 			tomadorYAseguradoPage.clickOnContinuar();
 
 			DocumentacionPage documentacionPage = new DocumentacionPage(webDriver, userS.getTestDataManager());
+			
 			documentacionPage.SubirFichero();
 
-			new DatosBancariosPage(webDriver, userS.getTestDataManager());
+			DatosBancariosPage datosBancariosPage = new DatosBancariosPage(webDriver, userS.getTestDataManager());
 			datosBancariosPage.introducirFormaPagoYPulsarContratar();
 
 			this.browserContext.writeTestCaseData();
-			this.browserContext.getWebDriver().quit();
+			
+			this.webDriver.quit();
 			logger.debug("END - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando");
 
 		}
@@ -3405,9 +3412,9 @@ public class Steps {
 	 * 
 	 */
 	public void LoginAndCreateSimulation(String userId, String password) throws Exception {
-		this.logIn(userId, password);
+//		this.logIn(userId, password);
 
-		this.OpenMutuaEdificioConfort();
+//		this.OpenMutuaEdificioConfort();
 
 		// this.CreateSimulation();
 	}
