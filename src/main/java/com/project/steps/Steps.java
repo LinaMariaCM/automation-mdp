@@ -67,7 +67,6 @@ public class Steps {
 
 	private UserStory userS;
 	private DriverHelper webDriver;
-
 	private TestDataManager tCData;
 
 	final static Logger logger = LoggerFactory.getLogger(Steps.class);
@@ -137,6 +136,9 @@ public class Steps {
 					.seleccionarMediadorPorCodigo(mediador)
 					.clickOnContinuarButton();
 			}
+			
+			//The testId variable has been set here because the FillTomadorData from DatosBasicosTomadorPage requires it. Not sure if this is the proper usage.
+			String testId = webDriver.getId() == null ? "" : webDriver.getId();
 
 			new UbicacionRiesgoPage(webDriver, userS.getTestDataManager())
 				.fillInmuebleAndClickOnContinue();
@@ -147,37 +149,40 @@ public class Steps {
 			new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
 				.completarDatosEnDetallesRiesgo();
 
-			new ValidacionExcepcionesReglasDetallesRiesgoPage(this.browserContext)
+			new ValidacionExcepcionesReglasDetallesRiesgoPage(webDriver, userS.getTestDataManager())
 				.ClickOnContinuarAndValidate();
 
-			new PrecioPage(webDriver, userS.getTestDataManager()).ClickOnConvertirAProjecto();
-				
+			new PrecioPage(webDriver, userS.getTestDataManager())
+				.ClickOnConvertirAProjecto();
+			
 			DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager());
-			datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
+			//datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
+			datosBasicosTomadorPage.FillTomadorData(this.tCData.getTestVar(testId, "Tomador"));
 			datosBasicosTomadorPage.clickOnContinuar();
 
-			PrecioPorModalidadPage precioPorModalidadPage = new PrecioPorModalidadPage(webDriver, userS.getTestDataManager());
-			precioPorModalidadPage.ExecuteActionsInPrecioPorModalidadPage();
+			new PrecioPorModalidadPage(webDriver, userS.getTestDataManager())
+				.ExecuteActionsInPrecioPorModalidadPage();
 
-			ValidacionExcepcionesReglasPage validacionExcepcionesReglasPage = new ValidacionExcepcionesReglasPage(webDriver, userS.getTestDataManager());
-			validacionExcepcionesReglasPage.clickOnContinuarButton();
+			new ValidacionExcepcionesReglasPage(webDriver, userS.getTestDataManager())
+				.clickOnContinuarButton();
 
-			ClausulasPage clausulasPage = new ClausulasPage(webDriver, userS.getTestDataManager());
-			clausulasPage.ActivateclausesAndClickOnContinue();
+			new ClausulasPage(webDriver, userS.getTestDataManager())
+				.ActivateclausesAndClickOnContinue();
 
 			TomadorYAseguradoPage tomadorYAseguradoPage = new TomadorYAseguradoPage(webDriver, userS.getTestDataManager());
 			tomadorYAseguradoPage.AddDatosTomador();
 			tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
 			tomadorYAseguradoPage.clickOnContinuar();
 
-			DocumentacionPage documentacionPage = new DocumentacionPage(webDriver, userS.getTestDataManager());
-			documentacionPage.SubirFichero();
+			new DocumentacionPage(webDriver, userS.getTestDataManager())
+				.SubirFichero();
 
-			new DatosBancariosPage(webDriver, userS.getTestDataManager());
-			datosBancariosPage.introducirFormaPagoYPulsarContratar();
-
-			this.browserContext.writeTestCaseData();
-			this.browserContext.getWebDriver().quit();
+			new DatosBancariosPage(webDriver, userS.getTestDataManager())
+				.introducirFormaPagoYPulsarContratar();
+			
+			//this.browserContext.writeTestCaseData();
+			this.webDriver.quit();
+			
 			logger.debug("END - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando");
 
 		}
@@ -3402,9 +3407,9 @@ public class Steps {
 	 * 
 	 */
 	public void LoginAndCreateSimulation(String userId, String password) throws Exception {
-		this.logIn(userId, password);
+		//this.logIn(userId, password);
 
-		this.OpenMutuaEdificioConfort();
+		//this.OpenMutuaEdificioConfort();
 
 		// this.CreateSimulation();
 	}
