@@ -10,9 +10,11 @@ import org.slf4j.LoggerFactory;
 
 import com.automation.model.testing.TestDataManager;
 import com.automation.model.webdriver.DriverHelper;
+
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
+
 
 public class InnovaLoginPage
 {
@@ -22,17 +24,17 @@ public class InnovaLoginPage
 	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
 	
 	// region webelements
-	@FindBy(id = "leftFrame")
-	private By menuFrame;
+	//@FindBy(id = "leftFrame")
+	private By menuFrame = By.cssSelector("#leftFrame");
 
-	@FindBy(id = "usuario")
-	private By user;
+	//@FindBy(id = "usuario")
+	private By user = By.cssSelector("#usuario");
 
-	@FindBy(id = "clave")
-	private By password;
+	//@FindBy(id = "clave")
+	private By password = By.cssSelector("#clave");
 
-	@FindBy(id = "botonEntrar")
-	private By enter;
+	//@FindBy(id = "botonEntrar")
+	private By enter = By.cssSelector("#botonEntrar");
 	// endregion
 
 	/*
@@ -50,19 +52,20 @@ public class InnovaLoginPage
 		this.tCData = data;
 		this.webDriver = driver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
-		PageFactory.initElements(webDriver, this);
+		
+//		PageFactory.initElements(webDriver, this);
 	}
 	
 	// region methods
 	public InnovaLoginPage login(String userId, String Password)
 	{
 		logger.debug("BEGIN - login");
-		//this.webDriver.sendValueToWebElement(this.user, userId);
-		this.webDriver.
-		this.webDriver.sendValueToWebElement(this.password, Password);
-		this.webDriver.clickOnWebElement(this.enter);
-		this.webDriver.waitForPageLoadToFinish();
-		Assert.assertTrue("La aplicación no ha hecho el login correctamente", this.menuFrame.isDisplayed());
+		this.webDriver.appendText(this.user, userId);
+		this.webDriver.appendText(this.password, Password);
+		
+		this.webDriver.click(this.enter);
+		this.webDriver.waitForLoadToComplete();;
+		Assert.assertTrue("La aplicación no ha hecho el login correctamente", this.webDriver.isClickable(menuFrame));
 		logger.debug("END - login");
 		
 		return this;

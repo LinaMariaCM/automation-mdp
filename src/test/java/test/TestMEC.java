@@ -24,7 +24,7 @@ public class TestMEC {
 		private TestDataManager testData;
 		private String testCase = ProjectConstants.MEC;
 		private String[][] casesMatrix = null, resultMatrix = null;
-		private String defaultTestData = "testDataTest.csv", defaultScenarioData = "scenarioData.csv";
+		private String defaultTestData = "testDataTestMec01.csv", defaultScenarioData = "scenarioData.csv";
 
 		/*public boolean mec01(UserStory userS, Steps steps) throws Exception {
 			

@@ -102,7 +102,7 @@ public class Steps {
 		logger.debug("END - Initialize variables");
 	}
 
-	public void doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(String loginAcess, String user) {
+	public void doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(String loginAcess, String user) throws Exception {
 
 		loginAcess = this.tCData.getAcceso();
 		// userS.getTestVar("acceso");
@@ -182,7 +182,7 @@ public class Steps {
 			DatosBancariosPage datosBancariosPage = new DatosBancariosPage(webDriver, userS.getTestDataManager());
 			datosBancariosPage.introducirFormaPagoYPulsarContratar();
 
-			this.browserContext.writeTestCaseData();
+		//	this.browserContext.writeTestCaseData();
 			
 			this.webDriver.quit();
 			logger.debug("END - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando");

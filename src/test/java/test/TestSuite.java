@@ -25,7 +25,7 @@ public class TestSuite {
 	private String[][] casesMatrix = null, resultMatrix = null;
 	private String defaultTestData = "testDataTest.csv", defaultScenarioData = "scenarioData.csv";
 
-	public boolean mac01(UserStory userS, Steps steps) throws Exception {
+	public boolean doTest(UserStory userS, Steps steps) throws Exception {
 		userS.setScenario(testCase + "01");
 		return userS.testActions(() -> {
 			

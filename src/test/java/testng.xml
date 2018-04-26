@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<suite  name="Suite"   parallel = "methods" thread-count="1" data-provider-thread-count="1">
-  <test name="TestSuite">
+<suite  name="MEC"   parallel = "methods" thread-count="1" data-provider-thread-count="1">
+  <test name="TestMEC">
     <classes>
-       <class name="configuration.TestSuite" />
+       <class name="configuration.TestMEC" />
     </classes>
   </test> <!-- Test -->
-</suite> <!-- Suite -->
+</suite> <!--MEC-->
