@@ -4,13 +4,13 @@ import org.openqa.selenium.By;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.automation.model.testing.TestCaseData;
+import com.automation.model.testing.TestDataManager;
 import com.automation.model.webdriver.DriverHelper;
 
 public class PageObject {
 	
 	private String testId;
-	private TestCaseData tCData;
+	private TestDataManager tCData;
 	private DriverHelper webDriver;
 	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
 	
@@ -19,7 +19,7 @@ public class PageObject {
 	
 	// endregion
 
-	public PageObject(DriverHelper driver, TestCaseData data) {
+	public PageObject(DriverHelper driver, TestDataManager data) {
 		this.tCData = data;
 		this.webDriver = driver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();

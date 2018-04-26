@@ -193,67 +193,67 @@ public class TomadorYAseguradoPage
 		//this.webDriver.waitForPageLoadToFinish();
 		this.webDriver.clickInFrame(this.lblPrefijo, this.cuerpoFrame);
 
-		List<String> TelefonoFijoHorarioAtencion = this.tCData.getTestListVar(testId, "TelefonoFijoHorarioAtencion");
-
-		TelefonoFijoHorarioAtencion.forEach(option ->
-		{
-			switch (option)
-			{
-				case ProjectConstants.Manana:
-					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionManana, this.cuerpoFrame);
-					break;
-
-				case ProjectConstants.Tarde:
-					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionTarde, this.cuerpoFrame);
-					break;
-
-				case ProjectConstants.Noche:
-					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionNoche, this.cuerpoFrame);
-					break;
-
-				case ProjectConstants.FinDeSemana:
-					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionFinDeSemana, this.cuerpoFrame);
-					break;
-
-				case ProjectConstants.DeLunesAViernes:
-					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionDeLunesAViernes, this.cuerpoFrame);
-					break;
-			}
-		});
+//		List<String> TelefonoFijoHorarioAtencion = this.tCData.getTestListVar(testId, "TelefonoFijoHorarioAtencion");
+//
+//		TelefonoFijoHorarioAtencion.forEach(option ->
+//		{
+//			switch (option)
+//			{
+//				case ProjectConstants.Manana:
+//					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionManana, this.cuerpoFrame);
+//					break;
+//
+//				case ProjectConstants.Tarde:
+//					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionTarde, this.cuerpoFrame);
+//					break;
+//
+//				case ProjectConstants.Noche:
+//					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionNoche, this.cuerpoFrame);
+//					break;
+//
+//				case ProjectConstants.FinDeSemana:
+//					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionFinDeSemana, this.cuerpoFrame);
+//					break;
+//
+//				case ProjectConstants.DeLunesAViernes:
+//					this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionDeLunesAViernes, this.cuerpoFrame);
+//					break;
+//			}
+//	});
 
 		this.webDriver.appendTextInFrame(this.txtTelefonoMovil, this.cuerpoFrame, this.tCData.getTestVar(testId, "TomadorTelefonoMovil"));
 
 		this.webDriver.appendTextInFrame(this.txtTelefonoMovilPrefijo, this.cuerpoFrame,
 			this.tCData.getTestVar(testId, "TomadorTelefonoMovilPrefijo"));
 		this.webDriver.clickInFrame(this.lblPrefijo, this.cuerpoFrame);
-
-		List<String> TelefonoMovilHorarioAtencion = this.tCData.getTestListVar(testId, "TelefonoMovilHorarioAtencion");
-
-		TelefonoMovilHorarioAtencion.forEach(option ->
-		{
-			switch (option)
-			{
-				case ProjectConstants.Manana:
-					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionManana, this.cuerpoFrame);
-					break;
-
-				case ProjectConstants.Tarde:
-					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionTarde, this.cuerpoFrame);
-					break;
-
-				case ProjectConstants.Noche:
-					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionNoche, this.cuerpoFrame);
-					break;
-
-				case ProjectConstants.FinDeSemana:
-					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionFinDeSemana, this.cuerpoFrame);
-					break;
-
-				case ProjectConstants.DeLunesAViernes:
-					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionDeLunesAViernes, this.cuerpoFrame);
-					break;
-			}
-		});
+//
+//		List<String> TelefonoMovilHorarioAtencion = this.tCData.getTestListVar(testId, "TelefonoMovilHorarioAtencion");
+//
+//		TelefonoMovilHorarioAtencion.forEach(option ->
+//		{
+//			switch (option)
+//			{
+//				case ProjectConstants.Manana:
+//					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionManana, this.cuerpoFrame);
+//					break;
+//
+//				case ProjectConstants.Tarde:
+//					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionTarde, this.cuerpoFrame);
+//					break;
+//
+//				case ProjectConstants.Noche:
+//					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionNoche, this.cuerpoFrame);
+//					break;
+//
+//				case ProjectConstants.FinDeSemana:
+//					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionFinDeSemana, this.cuerpoFrame);
+//					break;
+//
+//				case ProjectConstants.DeLunesAViernes:
+//					this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionDeLunesAViernes, this.cuerpoFrame);
+//					break;
+//			}
+//		});
 	}
 
 	public void clickOnContinuar()

@@ -148,21 +148,21 @@ public class Steps {
 
 			new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
 				.completarDatosEnDetallesRiesgo();
-<<<<<<< HEAD
+
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(webDriver, userS.getTestDataManager())
 				.ClickOnContinuarAndValidate();
-=======
+			
 			
 			// Revisar si el paso de parámetros es el adecuado
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS.getDriver(), userS.getTestDataManager()).ClickOnContinuarAndValidate();
->>>>>>> b80c3da336884ce2e8771ca4e57f5459e0335174
+
 
 			new PrecioPage(webDriver, userS.getTestDataManager())
 				.ClickOnConvertirAProjecto();
 			
 			DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager());
-<<<<<<< HEAD
+
 			//datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
 			datosBasicosTomadorPage.FillTomadorData(this.tCData.getTestVar(testId, "Tomador"));
 			datosBasicosTomadorPage.clickOnContinuar();
@@ -175,7 +175,7 @@ public class Steps {
 
 			new ClausulasPage(webDriver, userS.getTestDataManager())
 				.ActivateclausesAndClickOnContinue();
-=======
+
 			
 			datosBasicosTomadorPage.FillTomadorData(this.userS.getTestVar("tomador"));
 			datosBasicosTomadorPage.clickOnContinuar();
@@ -191,7 +191,7 @@ public class Steps {
 			ClausulasPage clausulasPage = new ClausulasPage(webDriver, userS.getTestDataManager());
 			
 			clausulasPage.ActivateclausesAndClickOnContinue();
->>>>>>> b80c3da336884ce2e8771ca4e57f5459e0335174
+
 
 			TomadorYAseguradoPage tomadorYAseguradoPage = new TomadorYAseguradoPage(webDriver, userS.getTestDataManager());
 			
@@ -199,7 +199,7 @@ public class Steps {
 			tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
 			tomadorYAseguradoPage.clickOnContinuar();
 
-<<<<<<< HEAD
+
 			new DocumentacionPage(webDriver, userS.getTestDataManager())
 				.SubirFichero();
 
@@ -209,7 +209,7 @@ public class Steps {
 			//this.browserContext.writeTestCaseData();
 			this.webDriver.quit();
 			
-=======
+
 			DocumentacionPage documentacionPage = new DocumentacionPage(webDriver, userS.getTestDataManager());
 			
 			documentacionPage.SubirFichero();
@@ -220,7 +220,7 @@ public class Steps {
 		//	this.browserContext.writeTestCaseData();
 			
 			this.webDriver.quit();
->>>>>>> b80c3da336884ce2e8771ca4e57f5459e0335174
+
 			logger.debug("END - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando");
 
 		}
@@ -3448,15 +3448,15 @@ public class Steps {
 	 * 
 	 */
 	public void LoginAndCreateSimulation(String userId, String password) throws Exception {
-<<<<<<< HEAD
+
 		//this.logIn(userId, password);
 
 		//this.OpenMutuaEdificioConfort();
-=======
+
 //		this.logIn(userId, password);
 
 //		this.OpenMutuaEdificioConfort();
->>>>>>> b80c3da336884ce2e8771ca4e57f5459e0335174
+
 
 		// this.CreateSimulation();
 	}

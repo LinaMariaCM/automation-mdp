@@ -387,7 +387,7 @@ public class PrecioPorModalidadPage
 					this.webDriver.switchToFrame(this.cuerpoFrame);
 				}
 
-				this.webDriver.moveToElementAndClick(checkbox);
+		//		this.webDriver.moveToElementAndClick(checkbox);
 				// this.webDriver.click(checkbox);
 				
 				if (this.tCData.getConfigVar("Browser").equals("IE"))
@@ -447,7 +447,7 @@ public class PrecioPorModalidadPage
 					this.webDriver.switchToFrame(this.cuerpoFrame);
 				}
 				
-				this.webDriver.moveToElementAndClick(checkbox);
+		//		this.webDriver.moveToElementAndClick(checkbox);
 				// this.webDriver.click(checkbox);
 				
 				if (this.tCData.getConfigVar("Browser").equals("IE"))
@@ -507,7 +507,7 @@ public class PrecioPorModalidadPage
 		logger.debug("BEGIN - CompletarOQuitarDescuentoRecargo");
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		// this.webDriver.click(this.lnkMostrarDescuento);
-		this.webDriver.moveToElementAndClick(this.lnkMostrarDescuento);
+	//	this.webDriver.moveToElementAndClick(this.lnkMostrarDescuento);
 		String DescuentoValue = this.webDriver.getText(this.lblPorcentajeDescuentoPantallaPrincipal);
 		this.webDriver.exitFrame();
 		
@@ -516,7 +516,7 @@ public class PrecioPorModalidadPage
 		{
 			this.getPreciosBefore();
 			this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.moveToElementAndClick(this.btnAddTipoDescuento);
+	//		this.webDriver.moveToElementAndClick(this.btnAddTipoDescuento);
 			String ErrorMessage = null;
 			
 			if (Boolean.parseBoolean(this.tCData.getTestVar(testId, "descuentoEnabled")))
