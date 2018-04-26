@@ -6,24 +6,29 @@ import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.project.webDriver.BrowserContext;
-import com.mutuaPropietarios.testCasesData.Pages.GestionCotizacionesBuscadorPage;
-import com.mutuaPropietarios.testCasesData.Pages.GestionPolizasBuscadorPage;
-import com.mutuaPropietarios.testCasesData.Pages.InnovaHomePage;
-import com.mutuaPropietarios.testCasesData.Pages.InnovaLoginPage;
+
+import com.automation.model.testing.TestDataManager;
+import com.automation.model.webdriver.DriverHelper;
+import com.project.pages.GestionCotizacionesBuscadorPage;
+import com.project.pages.GestionPolizasBuscadorPage;
+import com.project.pages.InnovaHomePage;
+import com.project.pages.InnovaLoginPage;
 import com.project.ProjectConstants;
-import com.project.TestCaseData;
+import com.project.pages.PageObject;
 
 public class InnovaApplicationAccessHelper implements IApplicationAccessHelper
 {
-	final static Logger logger = LoggerFactory.getLogger(InnovaApplicationAccessHelper.class);
-	BrowserContext browserContext;
-	TestCaseData tData;
+	private String testId;
+	private TestDataManager tCData;
+	private DriverHelper webDriver;
+	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+
 	private InnovaHomePage innovaHomePage;
 	
-	public InnovaApplicationAccessHelper(BrowserContext browserContext2) throws IOException
-	{
-		this.browserContext = browserContext2;
+	public InnovaApplicationAccessHelper(DriverHelper driver, TestDataManager data) {
+		this.tCData = data;
+		this.webDriver = driver;
+		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
 	
 	@Override
@@ -42,46 +47,57 @@ public class InnovaApplicationAccessHelper implements IApplicationAccessHelper
 	public void login(
 			String userId, String password) throws Exception
 	{
-		switch (this.browserContext.getProperties().environment)
+		switch (this.tCData.getTestVar(testId,"enviroment"))
 		{
 			case ProjectConstants.PreEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomePre);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomePre);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-Pre"));
 				break;
 			case ProjectConstants.UatEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUAT);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUAT);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-UAT"));
 				break;
 			case ProjectConstants.V7Environment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeV7);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeV7);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-V7"));
 				break;
 			case ProjectConstants.QAEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeQA);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeQA);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-QA"));
 				break;
 			case ProjectConstants.ATMIRAEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeATMIRA);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeATMIRA);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-ATMIRA"));
 				break;
 			case ProjectConstants.UpgradeEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUpgrade);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUpgrade);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-Upgrade"));
 				break;
 			case ProjectConstants.SiniestrosEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeSiniestros);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeSiniestros);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-Siniestros"));
 				break;
 			case ProjectConstants.MigracionEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeMigracion);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeMigracion);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-Migracion"));
 				break;
 			case ProjectConstants.UatPjEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUatPj);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUatPj);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-UatPj"));
 				break;
 			case ProjectConstants.HogarMigEnvironment:
-				this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeHogarMig);
+				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeHogarMig);
+				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-HogarMig"));
 				break;
 			default:
 				throw new Exception("Environment not available");
 		}
-		this.browserContext.getWebDriver().manage().window().maximize();
-		this.browserContext.getTestCaseData().setMainWindowHandle(this.browserContext.webElementHelper.getMainWindowHandle());
-		InnovaLoginPage innovaLoginPage = new InnovaLoginPage(this.browserContext);
+		this.webDriver.maximizeWindow();
+		
+		this.tCData.setTestVar(testId, "mainWindowHandle", (this.webDriver.getMainWindowHandle()));
+		InnovaLoginPage innovaLoginPage = new InnovaLoginPage(webDriver, tCData);
 		innovaLoginPage.login(userId, password);
-		this.innovaHomePage = new InnovaHomePage(this.browserContext);
+		this.innovaHomePage = new InnovaHomePage(webDriver, tCData);
 	}
 	
 	@Override
@@ -100,7 +116,7 @@ public class InnovaApplicationAccessHelper implements IApplicationAccessHelper
 	public void searchCotizacion(
 			String cotizacion)
 	{
-		GestionCotizacionesBuscadorPage gestionCotizacionesBuscacorPage = new GestionCotizacionesBuscadorPage(this.browserContext);
+		GestionCotizacionesBuscadorPage gestionCotizacionesBuscacorPage = new GestionCotizacionesBuscadorPage(webDriver, tCData);
 		gestionCotizacionesBuscacorPage.searchCotizacion(cotizacion);
 	}
 	
@@ -114,8 +130,8 @@ public class InnovaApplicationAccessHelper implements IApplicationAccessHelper
 	public void SearchPolizaByPolizaNumber(
 			String poliza)
 	{
-		GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(this.browserContext);
-		gestionPolizasBuscadorPage.SearchPolizaByPolizaNumber(poliza);
+		//GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(webDriver, tCData);
+		//gestionPolizasBuscadorPage.SearchPolizaByPolizaNumber(poliza);
 	}
 	
 	@Override
@@ -179,8 +195,8 @@ public class InnovaApplicationAccessHelper implements IApplicationAccessHelper
 	public void SearchPolizaByNifNie(
 			String nifNie)
 	{
-		GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(this.browserContext);
-		gestionPolizasBuscadorPage.SearchPolizaByNifNumber(nifNie);
+		//GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(webDriver, tCData);
+		//gestionPolizasBuscadorPage.SearchPolizaByNifNumber(nifNie);
 	}
 
 	@Override

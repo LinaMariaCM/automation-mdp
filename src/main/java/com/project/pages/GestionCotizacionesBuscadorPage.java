@@ -24,10 +24,6 @@ public class GestionCotizacionesBuscadorPage
 	private DriverHelper webDriver;
 	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
 	
-	//This varible is created to assign a type of of insurance policy 'MEC' or 'MAC' since ir was originaly taken from the tData ID,
-	//as a quick workaround we pass on this class which ever is needed
-	private String escenario;
-
 	
 	// region Bys
 	//@FindBy(name = "toc")
@@ -67,11 +63,10 @@ public class GestionCotizacionesBuscadorPage
 	private By estadoCotizacion = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(8)");
 	// endregion
 	
-	public GestionCotizacionesBuscadorPage(DriverHelper driver, TestDataManager data, String escenario) {
+	public GestionCotizacionesBuscadorPage(DriverHelper driver, TestDataManager data) {
 		this.tCData = data;
 		this.webDriver = driver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
-		this.escenario = escenario;
 	}
 	
 	// region methods
@@ -80,12 +75,12 @@ public class GestionCotizacionesBuscadorPage
 	{
 		logger.debug("BEGIN - SearchCotizacion");
 		this.webDriver.clickInFrame(this.rdnNoCotizacion, this.mainFrame);
-		if (escenario == "Mec")
+		if (cotizacion == "Mec")
 		// if (this.tData.getAcceso().equals(MutuaPropietariosConstants.MutuaEdificioConfort))
 		{
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProductoCotizacion, this.mainFrame, ProjectConstants.MutuaEdificioConfort);
 		}
-		else if (escenario == "Mac")
+		else if (cotizacion == "Mac")
 		// else if (this.tData.getAcceso().equals(MutuaPropietariosConstants.MutuaAlquierConfort))
 		{
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProductoCotizacion, this.mainFrame, ProjectConstants.MutuaAlquierConfort);
