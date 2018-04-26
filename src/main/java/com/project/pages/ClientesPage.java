@@ -1,152 +1,156 @@
 package com.project.pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mutuaPropietarios.WebdriverContext.BrowserContext;
-import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
-import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
-import com.mutuaPropietarios.testCasesData.context.TestCaseData;
+import com.automation.model.testing.TestDataManager;
+import com.automation.model.webdriver.DriverHelper;
+import com.project.ProjectConstants;
+
+//import com.mutuaPropietarios.WebdriverContext.BrowserContext;
+//import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
+//import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
+//import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
 public class ClientesPage
 {
-	final static Logger logger = LoggerFactory.getLogger(FichaEdificioPage.class);
-	BrowserContext browserContext;
-	private WebElementHelper wh;
-	TestCaseData tData;
+	private String testId;
+	private TestDataManager tCData;
+	private DriverHelper webDriver;
+	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+
 
 	// region webelements
 	@FindBy(name = "cuerpo")
-	private WebElement cuerpoFrame;
+	private By cuerpoFrame = By.name("cuerpo");
 
 	@FindBy(id = "leftFrame")
-	private WebElement menuFrame;
+	private By menuFrame = By.cssSelector("leftFrame");
 
 	@FindBy(xpath = ".//*[text()='Clientes']")
-	private WebElement clientesLink;
+	private By clientesLink = By.xpath(".//*[text()='Clientes']");
 
 	@FindBy(id = "filtro1")
-	private WebElement rdbNombre;
+	private By rdbNombre = By.cssSelector("filtro1");
 
 	@FindBy(id = "filtro2")
-	private WebElement rdbNIF;
+	private By rdbNIF = By.cssSelector("filtro2");
 
 	@FindBy(id = "filtro3")
-	private WebElement rdbPoliza;
+	private By rdbPoliza = By.cssSelector("filtro3");
 
 	@FindBy(id = "filtro4")
-	private WebElement rdbCotizacion;
+	private By rdbCotizacion = By.cssSelector("filtro4");
 
 	@FindBy(id = "filtro5")
-	private WebElement rdbColectivo;
+	private By rdbColectivo = By.cssSelector("filtro5");
 
 	@FindBy(id = "filtro6")
-	private WebElement rdbRecibo;
+	private By rdbRecibo = By.cssSelector("filtro6");
 
 	@FindBy(id = "filtro7")
-	private WebElement rdbContacto;
+	private By rdbContacto = By.cssSelector("filtro7");
 
 	@FindBy(name = "botonBuscar")
-	private WebElement btnBuscar;
+	private By btnBuscar = By.name("botonBuscar");
 	
 	@FindBy(id = "numedocu")
-	private WebElement txtNIF;
+	private By txtNIF = By.cssSelector("numedocu");
 	
 	@FindBy(id = "nombpcom")
-	private WebElement txtNombre;
+	private By txtNombre = By.cssSelector("nombpcom");
 
 	@FindBy(id = "datocont")
-	private WebElement txtContacto;
+	private By txtContacto = By.cssSelector("datocont");
 
 	@FindBy(id = "recibsec")
-	private WebElement txtRecibo;
+	private By txtRecibo = By.cssSelector("recibsec");
 
 	@FindBy(id = "cotizsec")
-	private WebElement txtCotizacion;
+	private By txtCotizacion = By.cssSelector("cotizsec");
 
 	@FindBy(id = "polizNum")
-	private WebElement txtColectivo;
+	private By txtColectivo = By.cssSelector("polizNum");
 
 	@FindBy(id = "polizsec")
-	private WebElement txtPoliza;
+	private By txtPoliza = By.cssSelector("polizsec");
 
 	@FindBy(xpath = "//*[@id='capaAjax']/table[2]/tbody/tr/td")
-	private WebElement barraResultadoBusqueda;
+	private By barraResultadoBusqueda = By.xpath("//*[@id='capaAjax']/table[2]/tbody/tr/td");
 	
 	@FindBy(xpath = ".//*[text()='Nuevo Tomador']")
-	private WebElement btnNuevoTomador;
+	private By btnNuevoTomador = By.xpath(".//*[text()='Nuevo Tomador']");
 
 	@FindBy(xpath = ".//*[text()='Nuevo Interveniente']")
-	private WebElement btnNuevoInterveniente;
+	private By btnNuevoInterveniente = By.xpath(".//*[text()='Nuevo Interveniente']");
 
 	@FindBy(id = "ALTACLIE_TIPODOC")
-	private WebElement drpdwnTipoDocumento;
+	private By drpdwnTipoDocumento = By.cssSelector("ALTACLIE_TIPODOC");
 
 	@FindBy(id = "ALTACLIE_NUMDOC")
-	private WebElement txtNumeroDocumento;
+	private By txtNumeroDocumento = By.cssSelector("ALTACLIE_NUMDOC");
 
 	@FindBy(id = "ALTACLIE_TIPOCLIE")
-	private WebElement drpdwnTipoCliente;
+	private By drpdwnTipoCliente = By.cssSelector("ALTACLIE_TIPOCLIE");
 	
 	@FindBy(id = "ALTACLIE_NOMBRE")
-	private WebElement txtNombreCliente;
+	private By txtNombreCliente = By.cssSelector("ALTACLIE_NOMBRE");
 
 	@FindBy(id = "ALTACLIE_APELLIDO1")
-	private WebElement txtApellido1Cliente;
+	private By txtApellido1Cliente = By.cssSelector("ALTACLIE_APELLIDO1");
 
 	@FindBy(id = "ALTACLIE_RAZSOC")
-	private WebElement txtRazonSocial;
+	private By txtRazonSocial = By.cssSelector("ALTACLIE_RAZSOC");
 
 	@FindBy(id = "ALTACLIE_IDIOMA")
-	private WebElement drpdwnIdioma;
+	private By drpdwnIdioma = By.cssSelector("ALTACLIE_IDIOMA");
 	
 	@FindBy(id = "ALTACLIE_GESTPER")
-	private WebElement drpdwnGestorPersonalizado;
+	private By drpdwnGestorPersonalizado = By.cssSelector("ALTACLIE_GESTPER");
 	
 	@FindBy(id = "ALTACLIE_TELFF_2")
-	private WebElement txtTelefonoFijo;
+	private By txtTelefonoFijo = By.cssSelector("ALTACLIE_TELFF_2");
 	
 	@FindBy(id = "BOTON_DOMIMEDI")
-	private WebElement btnDomicilioFiscal;
+	private By btnDomicilioFiscal = By.cssSelector("BOTON_DOMIMEDI");
 	
 	@FindBy(id = "ALTACLIE_PROVINCIA_ARVATO")
-	private WebElement txtProvincia;
+	private By txtProvincia = By.cssSelector("ALTACLIE_PROVINCIA_ARVATO");
 	
 	@FindBy(id = "ALTACLIE_POBLACION_ARVATO")
-	private WebElement txtPoblacion;
+	private By txtPoblacion = By.cssSelector("ALTACLIE_POBLACION_ARVATO");
 	
 	@FindBy(id = "ALTACLIE_NOMVIA_ARVATO")
-	private WebElement txtVia;
+	private By txtVia = By.cssSelector("ALTACLIE_NOMVIA_ARVATO");
 	
 	@FindBy(id = "BOTON_NORMADOM")
-	private WebElement btnComprobarDireccion;
+	private By btnComprobarDireccion = By.cssSelector("BOTON_NORMADOM");
 
 	@FindBy(id = "BOTON_ACEPTAR")
-	private WebElement btnAceptar;
+	private By btnAceptar = By.cssSelector("BOTON_ACEPTAR");
 	
 	@FindBy(id = "botonGrabar")
-	private WebElement btnGrabar;
+	private By btnGrabar = By.cssSelector("botonGrabar");
 	
 	// endregion
 
-	public ClientesPage(BrowserContext browserContext)
-	{
-		this.browserContext = browserContext;
-		this.wh = browserContext.webElementHelper;
-		this.tData = browserContext.getTestCaseData();
-		PageFactory.initElements(browserContext.getWebDriver(), this);
+	public ClientesPage(DriverHelper driver, TestDataManager data) {
+		this.tCData = data;
+		this.webDriver = driver;
+		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
 
 	// region methods
 	public void accederAlBuscadorClientes() throws InterruptedException
 	{
 		// Click en link Clientes
-		this.wh.moveToElementInFrameWithJavaScript(this.clientesLink, this.menuFrame);
-		this.wh.doubleClickOnWebElementInFrame(this.clientesLink, this.menuFrame);
-		this.wh.waitForPageLoadWithAngular();
+		this.webDriver.moveToElementInFrame(this.clientesLink, this.menuFrame);
+		this.webDriver.doubleClickInFrame(this.clientesLink, this.menuFrame);
+		//this.webDriver.waitForPageLoadWithAngular();
 	}
 	
 	public void crearNuevoTomador() throws InterruptedException
@@ -167,7 +171,8 @@ public class ClientesPage
 	public void setFiltroBusqueda(
 			String filtro)
 	{
-		this.tData.setFiltroBuscadorCliente(filtro);
+		//this.tData.setFiltroBuscadorCliente(filtro);
+		this.tCData.setTestVar(testId, "FiltroBuscadorCliente", filtro);
 	}
 
 	public void buscarConFiltroBusqueda()
@@ -175,7 +180,7 @@ public class ClientesPage
 		
 		logger.debug("BEGIN - FiltroBusqueda");
 		
-		switch (this.tData.getFiltroBuscadorCliente())
+		switch (this.tCData.getTestVar(testId, "FiltroBuscadorCliente"))
 		{
 			case ProjectConstants.FILTRO_BUSCADOR_NOMBRE:
 				this.buscarClientePorNombre();
@@ -201,99 +206,107 @@ public class ClientesPage
 		}
 		
 		// Click btn buscar
-		this.wh.clickOnWebElementInFrame(this.btnBuscar, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 		logger.debug("END - FiltroBusqueda");
 		
 	}
 	
 	public void clickNuevoTomador()
 	{
-		this.wh.clickOnWebElementInFrame(this.btnNuevoTomador, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnNuevoTomador, this.cuerpoFrame);
 	}
 
 	public void clickNuevoInterveniente()
 	{
-		this.wh.clickOnWebElementInFrame(this.btnNuevoInterveniente, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnNuevoInterveniente, this.cuerpoFrame);
 	}
 	
 	private void buscarClientePorContacto()
 	{
 		// Click en el rdb Contacto
-		this.wh.clickOnWebElementInFrame(this.rdbContacto, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.rdbContacto, this.cuerpoFrame);
 
 		// Set Contacto
-		this.wh.clearAndSetTextInWebElementInFrame(this.txtContacto, this.cuerpoFrame, this.tData.getContactoCliente());
+		//this.webDriver.clearAndSetTextInWebElementInFrame(this.txtContacto, this.cuerpoFrame, this.tData.getContactoCliente());
+		this.webDriver.clearAndAppendTextInFrame(this.txtContacto, this.cuerpoFrame, this.tCData.getTestVar(testId, "ContactoCliente"));
 	}
 
 	private void buscarClientePorRecibo()
 	{
 		// Click en el rdb Recibo
-		this.wh.clickOnWebElementInFrame(this.rdbRecibo, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.rdbRecibo, this.cuerpoFrame);
 
 		// Set Recibo
-		this.wh.clearAndSetTextInWebElementInFrame(this.txtRecibo, this.cuerpoFrame, this.tData.getReciboCliente());
+		//this.webDriver.clearAndSetTextInWebElementInFrame(this.txtRecibo, this.cuerpoFrame, this.tData.getReciboCliente());
+		this.webDriver.clearAndAppendTextInFrame(this.txtRecibo, this.cuerpoFrame, this.tCData.getTestVar(testId, "ReciboCliente"));
 	}
 
 	private void buscarClientePorColectivo()
 	{
 		// Click en el rdb Cotizacion
-		this.wh.clickOnWebElementInFrame(this.rdbColectivo, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.rdbColectivo, this.cuerpoFrame);
 
 		// Set Cotizacion
-		this.wh.clearAndSetTextInWebElementInFrame(this.txtColectivo, this.cuerpoFrame, this.tData.getColectivoCliente());
+		//this.webDriver.clearAndSetTextInWebElementInFrame(this.txtColectivo, this.cuerpoFrame, this.tData.getColectivoCliente());
+		this.webDriver.clearAndAppendTextInFrame(this.txtColectivo, this.cuerpoFrame, this.tCData.getTestVar(testId, "ColectivoCliente"));
 	}
 
 	private void buscarClientePorCotizacion()
 	{
 		// Click en el rdb Cotizacion
-		this.wh.clickOnWebElementInFrame(this.rdbCotizacion, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.rdbCotizacion, this.cuerpoFrame);
 
 		// Set Cotizacion
-		this.wh.clearAndSetTextInWebElementInFrame(this.txtCotizacion, this.cuerpoFrame, this.tData.getNoCotizacion());
+		//this.webDriver.clearAndSetTextInWebElementInFrame(this.txtCotizacion, this.cuerpoFrame, this.tData.getNoCotizacion());
+		this.webDriver.clearAndAppendTextInFrame(this.txtCotizacion, this.cuerpoFrame, this.tCData.getTestVar(testId, "CotizacionNum"));
 	}
 
 	private void buscarClientePorPoliza()
 	{
 		// Click en el rdb Poliza
-		this.wh.clickOnWebElementInFrame(this.rdbPoliza, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.rdbPoliza, this.cuerpoFrame);
 
 		// Set Poliza
-		this.wh.clearAndSetTextInWebElementInFrame(this.txtPoliza, this.cuerpoFrame, this.tData.getNumPoliza().toString());
+		
+		//this.webDriver.clearAndSetTextInWebElementInFrame(this.txtPoliza, this.cuerpoFrame, this.tData.getNumPoliza().toString());
+		this.webDriver.clearAndAppendTextInFrame(this.txtPoliza, this.cuerpoFrame, this.tCData.getTestVar(testId, "NumPoliza"));
 	}
 
 	private void buscarClientePorNombre()
 	{
 		// Click en el rdb Nombre
-		this.wh.clickOnWebElementInFrame(this.rdbNombre, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.rdbNombre, this.cuerpoFrame);
 
 		// Set Nombre
-		this.wh.clearAndSetTextInWebElementInFrame(this.txtNombre, this.cuerpoFrame, this.tData.getTomadorNombre());
+		this.webDriver.clearText(txtNombre);
+		this.webDriver.appendTextInFrame(this.txtNombre, this.cuerpoFrame, this.tCData.getTestVar(testId, "TomadorNombre"));
 	}
 
 	public void buscarClientePorNIF()
 	{
-		this.buscarClientePorNIF(this.tData.getDocumentoInquilino());
+		this.buscarClientePorNIF(this.tCData.getTestVar(testId, "DocumentoInquilino"));
 	}
 
 	public void buscarClientePorNIF(
 			String numNIF)
 	{
 		// Click en el rdb NIF
-		this.wh.clickOnWebElementInFrame(this.rdbNIF, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.rdbNIF, this.cuerpoFrame);
 		
 		// Set NIF
-		this.wh.clearAndSetTextInWebElementInFrame(this.txtNIF, this.cuerpoFrame, numNIF);
+		//this.webDriver.clearAndSetTextInWebElementInFrame(this.txtNIF, this.cuerpoFrame, numNIF);
+		this.webDriver.clearAndAppendTextInFrame(this.txtNIF, this.cuerpoFrame, numNIF);
 		
-		this.wh.clickOnWebElementInFrame(this.btnBuscar, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 	}
 
 	public boolean checkResultadoNIF()
 	{
 		logger.debug("BEGIN - CheckResultadoNIF");
 		boolean res = false;
-		if (this.wh.webElementInFrameIsPresent(this.barraResultadoBusqueda, this.cuerpoFrame))
+		if (this.webDriver.isPresentInFrame(this.barraResultadoBusqueda, this.cuerpoFrame))
 		{
-			res = this.wh.getTextFromWebElementInFrame(this.barraResultadoBusqueda, this.cuerpoFrame).contains("Resultado de la búsqueda (Nº clientes: 1)");
+			res = this.webDriver.getTextInFrame(this.barraResultadoBusqueda, this.cuerpoFrame).contains("Resultado de la búsqueda (Nº clientes: 1)");
 		}
 		
 		logger.debug("END - CheckResultadoNIF");

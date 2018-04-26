@@ -12,30 +12,35 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mutuaPropietarios.WebdriverContext.BrowserContext;
-import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
-import com.mutuaPropietarios.testCasesData.Helpers.MotivosSuplementoHelper;
-import com.mutuaPropietarios.testCasesData.context.TestCaseData;
+import com.automation.model.testing.TestDataManager;
+import com.automation.model.webdriver.DriverHelper;
+import com.project.utils.MotivosSuplementoHelper;
+
+//import com.mutuaPropietarios.WebdriverContext.BrowserContext;
+//import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
+//import com.mutuaPropietarios.testCasesData.Helpers.MotivosSuplementoHelper;
+//import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
 public class ConfirmarPolizaPage
 {
-	final static Logger logger = LoggerFactory.getLogger(ClausulasPage.class);
-	BrowserContext browserContext;
-	private WebElementHelper wh;
-	TestCaseData tData;
+	private String testId;
+	private TestDataManager tCData;
+	private DriverHelper webDriver;
+	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+
 	
 	// region webelements
-	@FindBy(name = "cuerpo")
-	private WebElement cuerpoFrame;
+	//@FindBy(name = "cuerpo")
+	private By cuerpoFrame = By.name("cuerpo");
 	
 	@FindBy(xpath = ".//tr[td[input]]")
 	private List<WebElement> rowWithMotivoSuplemento;
 	
-	@FindBy(xpath = ".//*[@aria-label='Siguiente' and contains(@ng-click,'cms.paginator.update(cms.paginator.current + 1)')]")
-	private WebElement btnNextMotivosSuplementoPage;
+	//@FindBy(xpath = ".//*[@aria-label='Siguiente' and contains(@ng-click,'cms.paginator.update(cms.paginator.current + 1)')]")
+	private By btnNextMotivosSuplementoPage = By.xpath(".//*[@aria-label='Siguiente' and contains(@ng-click,'cms.paginator.update(cms.paginator.current + 1)')]");
 	
-	@FindBy(xpath = ".//*[text()='Continuar']")
-	private WebElement btnContinuar;
+	//@FindBy(xpath = ".//*[text()='Continuar']")
+	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
 	// endregion
 	
 	private String xPathFilterSuplementoCheckbox = ".//td[1]/input";
@@ -43,12 +48,10 @@ public class ConfirmarPolizaPage
 	
 	private List<MotivosSuplementoHelper> motivosSuplemento = new ArrayList<>();
 	
-	public ConfirmarPolizaPage(BrowserContext browserContext)
-	{
-		this.browserContext = browserContext;
-		this.wh = browserContext.webElementHelper;
-		this.tData = browserContext.getTestCaseData();
-		PageFactory.initElements(browserContext.getWebDriver(), this);
+	public ConfirmarPolizaPage(DriverHelper driver, TestDataManager data) {
+		this.tCData = data;
+		this.webDriver = driver;
+		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
 	
 	// region methods
@@ -74,7 +77,7 @@ public class ConfirmarPolizaPage
 			{
 				try
 				{
-					this.wh.clickOnWebElementInFrame(this.btnNextMotivosSuplementoPage, this.cuerpoFrame);
+					this.webDriver.clickInFrame(this.btnNextMotivosSuplementoPage, this.cuerpoFrame);
 				}
 				catch (Exception e)
 				{
@@ -89,10 +92,10 @@ public class ConfirmarPolizaPage
 	public void ClickOnContinuar()
 	{
 		logger.debug("BEGIN - ClickOnContinuar");
+		// this.webDriver.waitForPageLoadWithAngular();
 		// this.wh.waitForPageLoadWithAngular();
-		// this.wh.waitForPageLoadWithAngular();
-		this.wh.scrollToEndOfPage();
-		this.wh.clickOnWebElementInFrame(this.btnContinuar, this.cuerpoFrame);
+		this.webDriver.scrollToBottom();
+		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		logger.debug("END - ClickOnContinuar");
 	}
 	
@@ -101,7 +104,7 @@ public class ConfirmarPolizaPage
 	{
 		logger.debug("BEGIN - GetListMotivosSuplementoInPage");
 		// this.wh.switchToFrame(this.cuerpoFrame);
-		this.wh.waitForPageLoadWithAngular();
+		//this.wh.waitForPageLoadWithAngular();
 		
 		List<MotivosSuplementoHelper> motivosSuplementoTemp = new ArrayList<>();
 		
@@ -128,28 +131,30 @@ public class ConfirmarPolizaPage
 	private void ActivateMotivosSuplementoInPage(
 			Integer pageNumber)
 	{
-		this.wh.switchToFrame(this.cuerpoFrame);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.motivosSuplemento.addAll(this.GetMotivosSuplementoInPage(pageNumber));
-		this.motivosSuplemento.stream().filter(p -> this.browserContext.getTestCaseData().getMotivosSuplemento().containsKey(p.getDescription()))
-				.forEach(x ->
-				{
-					if (x.getSelected().equals(false) && this.browserContext.getTestCaseData().getMotivosSuplemento().get(x.getDescription()))
-					{
-						
-						// this.wh.clickOnWebElementInFrame(x.getCheckbox(), this.cuerpoFrame);
-						this.wh.clickOnWebElement(x.getCheckbox());
-						x.setSelected(true);
-					}
-					else if (x.getSelected().equals(true) && !this.browserContext.getTestCaseData().getMotivosSuplemento().get(x.getDescription()))
-					{
-						
-						// this.wh.clickOnWebElementInFrame(x.getCheckbox(), this.cuerpoFrame);
-						this.wh.clickOnWebElement(x.getCheckbox());
-						x.setSelected(false);
-					}
-
-				});
-		this.wh.exitFromFrame();
+//		this.motivosSuplemento.stream().filter(p -> this.browserContext.getTestCaseData().getMotivosSuplemento().containsKey(p.getDescription()))
+//				.forEach(x ->
+//				{
+//					if (x.getSelected().equals(false) && this.browserContext.getTestCaseData().getMotivosSuplemento().get(x.getDescription()))
+//					{
+//						
+//						// this.wh.clickOnWebElementInFrame(x.getCheckbox(), this.cuerpoFrame);
+//						this.webDriver.click(x.getCheckbox());
+//						x.setSelected(true);
+//					}
+//					else if (x.getSelected().equals(true) && !this.browserContext.getTestCaseData().getMotivosSuplemento().get(x.getDescription()))
+//					{
+//						
+//						// this.wh.clickOnWebElementInFrame(x.getCheckbox(), this.cuerpoFrame);
+//						this.webDriver.click(x.getCheckbox());
+//						x.setSelected(false);
+//					}
+//
+//				});
+		
+		
+		this.webDriver.exitFrame();
 	}
 	
 	private boolean ExistToBeActivatedMotivosSuplemento()

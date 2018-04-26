@@ -15,42 +15,46 @@ import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mutuaPropietarios.WebdriverContext.BrowserContext;
-import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
-import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
-import com.mutuaPropietarios.testCasesData.context.TestCaseData;
+import com.automation.model.testing.TestDataManager;
+import com.automation.model.webdriver.DriverHelper;
+import com.project.ProjectConstants;
+//import com.mutuaPropietarios.WebdriverContext.BrowserContext;
+//import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
+//import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
+//import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
 public class GestionPolizasConsultarPage
 {
-	final static Logger logger = LoggerFactory.getLogger(GestionOnlineHomePage.class);
-	BrowserContext browserContext;
-	private WebElementHelper wh;
-	TestCaseData tData;
+	private String testId;
+	private TestDataManager tCData;
+	private DriverHelper webDriver;
+	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+
 	DecimalFormat df = new DecimalFormat("#.00");
 	Locale locale = new Locale("es", "ES");
 	NumberFormat nf = NumberFormat.getInstance(this.locale);
 
 	// region webelements
-	@FindBy(name = "cuerpo")
-	private WebElement cuerpoFrame;
+	//@FindBy(name = "cuerpo")
+	private By cuerpoFrame = By.name("cuerpo" );
 
 	// @FindBy(xpath = "/html/body/h1/text()")
-	@FindBy(xpath = ".//*[contains(text(),'Póliza:')]")
+	//@FindBy(xpath = ".//*[contains(text(),'Póliza:')]")
 	// ".//*[contains(text(),'La póliza') and contains(text(),'ha sido dada de alta correctamente.')]"
-	private WebElement txtHeaderPolicyNumber;
+	private By txtHeaderPolicyNumber = By.xpath(".//*[contains(text(),'Póliza:')]");
 
-	@FindBy(xpath = ".//*[@id='pesClausulas']/span")
-	private WebElement tabHeaderClausulas;
+	//@FindBy(xpath = ".//*[@id='pesClausulas']/span")
+	private By tabHeaderClausulas = By.xpath(".//*[@id='pesClausulas']/span");
 
-	@FindBy(xpath = ".//*[@id='pesImportes']/span")
-	private WebElement tabHeaderImportes;
+	//@FindBy(xpath = ".//*[@id='pesImportes']/span")
+	private By tabHeaderImportes;
 
-	@FindBy(xpath = ".//*[@id='pesCoberturas']/span")
-	private WebElement tabHeaderCoberturas;
+	//@FindBy(xpath = ".//*[@id='pesCoberturas']/span")
+	private By tabHeaderCoberturas = By.xpath(".//*[@id='pesCoberturas']/span");
 
 	// @FindBy(xpath = ".//*[@id='pesDatosRiesgo']/span")
-	@FindBy(id = "pesDatosRiesgo")
-	private WebElement tabHeaderDatosRiesgos;
+	//@FindBy(id = "pesDatosRiesgo")
+	private By tabHeaderDatosRiesgos = By.cssSelector("pesDatosRiesgo");
 
 	@FindBy(xpath = ".//tr[td/strong[text()='Tipo Descuento:']]/td[4]")
 	private List<WebElement> lblTipoDescuento;
@@ -111,22 +115,20 @@ public class GestionPolizasConsultarPage
 
 	// endregion
 
-	public GestionPolizasConsultarPage(BrowserContext browserContext)
-	{
-		this.browserContext = browserContext;
-		this.wh = browserContext.webElementHelper;
-		this.tData = browserContext.getTestCaseData();
-		PageFactory.initElements(browserContext.getWebDriver(), this);
+	public GestionPolizasConsultarPage(DriverHelper driver, TestDataManager data) {
+		this.tCData = data;
+		this.webDriver = driver;
+		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
 
 	// region methods
 	public void CheckPolizaNumber()
 	{
 		logger.debug("BEGIN - CheckPolizaNumber");
-		this.wh.switchToFrame(this.cuerpoFrame);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
 
 		// Get the text from the policy number shown in the header of the policy file.
-		String polizaNumber = this.wh.getTextFromWebElement(this.txtHeaderPolicyNumber);
+		String polizaNumber = this.webDriver.getText(this.txtHeaderPolicyNumber);
 		
 		// Trim the text to leave just the policy number itself.
 		Integer firstCharacter = polizaNumber.indexOf(":") + 2;
@@ -135,36 +137,35 @@ public class GestionPolizasConsultarPage
 		String numPolizaConsulta = trimmedPolizaNumber;
 		
 		// Compare the trimmed policy number with the policy number obtained when policy was created.
-		org.junit.Assert.assertEquals(this.tData.getNumPoliza(), numPolizaConsulta);
-		this.wh.exitFromFrame();
+		org.junit.Assert.assertEquals(this.tCData.getTestVar(testId, "NumPoliza"), numPolizaConsulta);
+		this.webDriver.exitFrame();
 		logger.debug("END - CheckPolizaNumber");
 	}
 	
 	public void CheckClausulas()
 	{
 		logger.debug("BEGIN - CheckClausulas");
-		this.wh.switchToFrame(this.cuerpoFrame);
-		this.wh.clickOnWebElement(this.tabHeaderClausulas);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.click(this.tabHeaderClausulas);
 		List<Integer> tabPageClausulas = new ArrayList<>();
-
-		this.rowWithClausula.forEach(p -> tabPageClausulas.add(Integer.valueOf(p.findElement(By.xpath(this.xPathFilterClausulaNumber)).getText())));
-		Integer numberOfMatchesFound = this.tData.getClausulas().stream().filter(p -> tabPageClausulas.contains(Integer.valueOf(p)))
-				.collect(Collectors.toList()).size();
-
-		Assert.assertTrue(
-				"Las clausulas presentes en el tab de clausulas dentro del detalle de la poliza no coinciden con las seleecionadas durante la inclusion del suplemento",
-				numberOfMatchesFound == this.tData.getClausulas().size());
-		this.wh.exitFromFrame();
+//		We need a method on tCData to obtain a list of Strings for the Clausulas variables
+//		this.rowWithClausula.forEach(p -> tabPageClausulas.add(Integer.valueOf(p.findElement(By.xpath(this.xPathFilterClausulaNumber)).getText())));
+//		Integer numberOfMatchesFound = this.tCData.getClausulas().stream().filter(p -> tabPageClausulas.contains(Integer.valueOf(p)))
+//				.collect(Collectors.toList()).size();
+//
+//		Assert.assertTrue(
+//				"Las clausulas presentes en el tab de clausulas dentro del detalle de la poliza no coinciden con las seleecionadas durante la inclusion del suplemento",
+//				numberOfMatchesFound == this.tData.getClausulas().size());
+//		this.webDriver.exitFrame();
 		logger.debug("END - CheckClausulas");
 	}
 
-	public void CheckValueInTab(
-			String tab, String ValueToBeChecked, String ExpectedValue) throws Exception
+	public void CheckValueInTab(String tab, String ValueToBeChecked, String ExpectedValue) throws Exception
 	{
 		logger.debug("BEGIN - CheckValueInTab");
 		this.OpenTab(tab);
 		
-		this.wh.switchToFrame(this.cuerpoFrame);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
 		List<WebElement> lblObjectCollection;
 		String message = "";
 		
@@ -254,7 +255,7 @@ public class GestionPolizasConsultarPage
 				throw new Exception(message);
 			}
 			
-			String value = this.wh.getTextFromWebElement(lblObjectCollection.get(0));
+			String value = this.webDriver.getText(lblObjectCollection.get(0));
 			Assert.assertTrue(message, value.equals(ExpectedValue));
 		}
 		// The value doesn't have to exist
@@ -274,66 +275,65 @@ public class GestionPolizasConsultarPage
 			}
 		}
 		
-		this.wh.exitFromFrame();
+		this.webDriver.exitFrame();
 		logger.debug("END - CheckValueInTab");
 	}
 
-	public void OpenTab(
-			String tabName) throws Exception
+	public void OpenTab(String tabName) throws Exception
 	{
 		logger.debug("BEGIN - OpenTab");
 
-		this.wh.switchToFrame(this.cuerpoFrame);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
 
 		switch (tabName)
 		{
 			case ProjectConstants.PolizaDetailTabDetallesRiesgo:
-				this.wh.clickOnWebElement(this.tabHeaderDatosRiesgos);
+				this.webDriver.click(this.tabHeaderDatosRiesgos);
 				break;
 
 			case ProjectConstants.PolizaDetailTabClausulas:
-				this.wh.clickOnWebElement(this.tabHeaderClausulas);
+				this.webDriver.click(this.tabHeaderClausulas);
 				break;
 
 			case ProjectConstants.PolizaDetailTabImportes:
-				this.wh.clickOnWebElement(this.tabHeaderImportes);
+				this.webDriver.click(this.tabHeaderImportes);
 				break;
 
 			case ProjectConstants.PolizaDetailTabCoberturas:
-				this.wh.clickOnWebElement(this.tabHeaderCoberturas);
+				this.webDriver.click(this.tabHeaderCoberturas);
 				break;
 
 			default:
 				throw new Exception("El tab seleccionado no está implementado");
 		}
-		this.wh.exitFromFrame();
+		this.webDriver.exitFrame();
 		logger.debug("END - OpenTab");
 	}
 
 	public void CheckAnyoAndNivelRehabilitacion() throws Exception
 	{
 		logger.debug("BEGIN - CheckAnyoAndNivelRehabilitacion");
-		this.wh.switchToFrame(this.cuerpoFrame);
-		this.wh.clickOnWebElement(this.tabHeaderDatosRiesgos);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.click(this.tabHeaderDatosRiesgos);
 
 		if (this.lblAnyoRehabilitacionContruccionesComunitarias.size() == 0 || this.lblNivelRehabilitacionContruccionesComunitarias.size() == 0)
 		{
 			throw new Exception("El año o el nivel de rehabilitación de las contrucciones comunitarias no ha aparecido correctamente");
 		}
 
-		String AnyoRehabilitacion = this.wh.getTextFromWebElement(this.lblAnyoRehabilitacionContruccionesComunitarias.get(0));
-		String NivelRehabilitacion = this.wh.getTextFromWebElement(this.lblNivelRehabilitacionContruccionesComunitarias.get(0));
+		String AnyoRehabilitacion = this.webDriver.getText(this.lblAnyoRehabilitacionContruccionesComunitarias.get(0));
+		String NivelRehabilitacion = this.webDriver.getText(this.lblNivelRehabilitacionContruccionesComunitarias.get(0));
 
 		System.out.println("*** Año rehabilitacion en consulta poliza = " + AnyoRehabilitacion);
 		System.out.println("*** Nivel rehabilitacion en consulta poliza = " + NivelRehabilitacion);
 		System.out.println("*** Año rehabilitacion introducido en alta suplemento = "
-				+ this.browserContext.getTestCaseData().getAnyoRehabilitacionConstruccionesComunitarias());
+				+ this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias"));
 
 		Assert.assertTrue("El año de rehabilitación de construcciones comunitarias no ha aparecido correctamente",
-				AnyoRehabilitacion.equals(this.browserContext.getTestCaseData().getAnyoRehabilitacionConstruccionesComunitarias().toString()));
+				AnyoRehabilitacion.equals(this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias")));
 
 		Assert.assertTrue("El nivel de rehabilitación de construcciones comunitarias no ha aparecido correctamente",
-				NivelRehabilitacion.equals(this.browserContext.getTestCaseData().getNivelRehabilitacionConduccionesAguasComunitarias()));
+				NivelRehabilitacion.equals(this.tCData.getTestVar(testId, "NivelRehabilitacionRehabilitacionConduccionesAguasComunitarias")));
 
 		logger.debug("END - CheckAnyoAndNivelRehabilitacion");
 	}
