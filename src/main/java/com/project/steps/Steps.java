@@ -28,6 +28,7 @@ import com.project.pages.DetallesRiesgoPage;
 import com.project.pages.DocumentacionPage;
 import com.project.pages.GestionOnlineHomePage;
 import com.project.pages.GestionOnlineLoginPage;
+import com.project.pages.InnovaHomePage;
 import com.project.pages.InnovaLoginPage;
 import com.project.pages.LoginPage;
 import com.project.pages.PrecioPage;
@@ -135,11 +136,12 @@ public class Steps {
 			this.LoginAndCreateSimulation(this.userS.getTestVar("usuario"), this.userS.getConfigVar("passwordComun"));
 
 			// String mediador = this.tCData.getMediador();
-			String mediador = this.userS.getTestVar("mediador");
-			if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
+			String mediador = this.userS.getScenarioVar("mediador");
+			System.out.println("mediador: " + mediador);
+			if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
 				new AsignarMediadorPage(webDriver, userS.getTestDataManager())
 					.selectMediadorAndClickOnContinuar(userS.getScenario());
-			} else if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
+			} else if(loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
 				new AsignarMediadorPage(webDriver, userS.getTestDataManager())
 					.seleccionarMediadorPorCodigo(mediador)
 					.clickOnContinuarButton();
@@ -3459,12 +3461,13 @@ public class Steps {
 
 		//this.logIn(userId, password);
 
-		//this.OpenMutuaEdificioConfort();
+		new InnovaHomePage(webDriver, userS.getTestDataManager()).openMutuaEdificioConfort();
 
 //		this.logIn(userId, password);
 
 //		this.OpenMutuaEdificioConfort();
 
+		new InnovaHomePage(webDriver, userS.getTestDataManager()).CreateNewSimulation();
 
 		// this.CreateSimulation();
 	}
