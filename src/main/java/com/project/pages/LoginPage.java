@@ -26,31 +26,32 @@ public class LoginPage {
 				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Pre"));
 				break;
 			case ProjectConstants.UatEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeUAT"));
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-UAT"));
 				break;
 			case ProjectConstants.V7Environment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeV7"));
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-V7"));
 				break;
 			case ProjectConstants.QAEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeQA"));
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-QA"));
 				break;
 			case ProjectConstants.ATMIRAEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeATMIRA"));
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-ATMIRA"));
 				break;
 			case ProjectConstants.UpgradeEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeUpgrade"));
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Upgrade"));
 				break;
 			case ProjectConstants.SiniestrosEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeSiniestros"));
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Siniestros"));
 				break;
-			case ProjectConstants.MigracionEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeMigracion"));
+			case ProjectConstants.MigracionEnvironment:				
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Migracion"));
+				
 				break;
 			case ProjectConstants.UatPjEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeUatPj"));
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-UatPj"));
 				break;
 			case ProjectConstants.HogarMigEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "HomeHogarMig"));
+				this.webDriver.go(tCData.getConfigVar(accessType + "Home-HogarMig"));
 				break;
 			default:
 				throw new Exception("Environment not available");

@@ -54,21 +54,21 @@ public interface IApplicationAccessHelper
 	public void LoginAndSearchPolizaByNifNie(
 			String userId, String password, String nifNie) throws Exception;
 
-	static IApplicationAccessHelper initialize(
-			String AccessType, BrowserContext br) throws Exception
-	{
-
-		switch (AccessType)
-		{
-			case ProjectConstants.LoginAccessInnova:
-				return new InnovaApplicationAccessHelper(br);
-
-			case ProjectConstants.LoginAccessGestionLine:
-				return new GestionOnlineAccessHelper(br);
-
-			default:
-				throw new Exception("Not implemented login acess type selected");
-		}
-	}
+//	static IApplicationAccessHelper initialize(
+//			String AccessType, BrowserContext br) throws Exception
+//	{
+//
+//		switch (AccessType)
+//		{
+//			case ProjectConstants.LoginAccessInnova:
+//				return new InnovaApplicationAccessHelper(br);
+//
+//			case ProjectConstants.LoginAccessGestionLine:
+//				return new GestionOnlineAccessHelper(br);
+//
+//			default:
+//				throw new Exception("Not implemented login acess type selected");
+//		}
+//	}
 	
 }

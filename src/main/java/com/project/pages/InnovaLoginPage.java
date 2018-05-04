@@ -64,7 +64,6 @@ public class InnovaLoginPage
 		this.webDriver.appendText(this.password, Password);
 		
 		this.webDriver.click(this.enter);
-		this.webDriver.waitForLoadToComplete();;
 		Assert.assertTrue("La aplicación no ha hecho el login correctamente", this.webDriver.isClickable(menuFrame));
 		logger.debug("END - login");
 		

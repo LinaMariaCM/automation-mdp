@@ -2,7 +2,8 @@
 <suite  name="MEC"   parallel = "methods" thread-count="1" data-provider-thread-count="1">
   <test name="TestMEC">
     <classes>
-       <class name="configuration.TestMEC" />
+      <!-- <class name="configuration.TestMEC" /> -->
+      <class name="test.TestMEC" />
     </classes>
   </test> <!-- Test -->
 </suite> <!--MEC-->

@@ -14,7 +14,7 @@ public class ProjectConstants {
 	public static final String MAC = "MAC";
 	
 	//16/04/18
-	public static final String MEC = "MEC";
+	public static final String MEC = "Mec";
 	
 	//Mutua de Propietarios Constants	
 	

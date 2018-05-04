@@ -24,8 +24,9 @@ public class TestMEC {
 		private TestDataManager testData;
 		private String testCase = ProjectConstants.MEC;
 		private String[][] casesMatrix = null, resultMatrix = null;
-		private String defaultTestData = "testDataTestMec01.csv", defaultScenarioData = "scenarioData.csv";
-
+		//private String defaultTestData = "testDataMec01.csv", defaultScenarioData = "scenarioData.csv";
+		//private String defaultTestData = "testDataMec01.csv", defaultScenarioData = userS.setScenario(userS.getScenario() + "01");
+		private String defaultTestData = "testDataMec01.csv", defaultScenarioData = "datosTestMEC.csv";
 		/*public boolean mec01(UserStory userS, Steps steps) throws Exception {
 			
 		}*/
@@ -66,8 +67,8 @@ public class TestMEC {
 					 **/				
 					
 				
-						//steps.el_usuario_se_logea_en_X("INNOVA", "USUARIO")
-						steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando("acceso", "usuario");
+						//steps.el_usuario_se_logea_en_X(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+						steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 						//steps.cierro_navegador();
 					
 					

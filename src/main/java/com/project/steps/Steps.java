@@ -67,7 +67,7 @@ public class Steps {
 
 	private UserStory userS;
 	private DriverHelper webDriver;
-	private TestDataManager tCData;
+	private TestDataManager testDataM;
 
 	final static Logger logger = LoggerFactory.getLogger(Steps.class);
 
@@ -78,6 +78,8 @@ public class Steps {
 	public Steps(UserStory userStory) {
 		userS = userStory;
 		webDriver = userS.getDriver();
+		testDataM = userS.getTestDataManager();
+		
 	}
 
 	public void el_usuario_accede(String accessType, String user) throws Exception {
@@ -101,9 +103,14 @@ public class Steps {
 		logger.debug("END - Initialize variables");
 	}
 
+	
+	
 	public void doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(String loginAcess, String user) throws Exception {
 
-		loginAcess = this.tCData.getAcceso();
+
+		
+		//loginAcess = this.userS.getTestVar("acceso");
+		
 		// userS.getTestVar("acceso");
 		// userS.getConfigVar("gestion_online_disponible");
 		logger.debug("BEGIN - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando");
@@ -111,6 +118,7 @@ public class Steps {
 			// &&
 			// this.browserContext.getProperties().GestionOnlineDisponible.equals(ProjectConstants.GestionOnlineDisponible)
 			&& this.userS.getTestVar("get_propeties").equals(ProjectConstants.GestionOnlineDisponible)
+			&& Boolean.parseBoolean(this.userS.getConfigVar("GestionOnlineDisponible"))
 			|| loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
 			// Convertir a un step de ir a X entorno pasado por el parametro"
 			// acceso"
@@ -128,10 +136,10 @@ public class Steps {
 
 			// String mediador = this.tCData.getMediador();
 			String mediador = this.userS.getTestVar("mediador");
-			if(this.tCData.getAcceso().equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
+			if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
 				new AsignarMediadorPage(webDriver, userS.getTestDataManager())
 					.selectMediadorAndClickOnContinuar(userS.getScenario());
-			} else if(this.tCData.getAcceso().equals(ProjectConstants.LoginAccessInnova)) {
+			} else if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
 				new AsignarMediadorPage(webDriver, userS.getTestDataManager())
 					.seleccionarMediadorPorCodigo(mediador)
 					.clickOnContinuarButton();
@@ -164,7 +172,7 @@ public class Steps {
 			DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager());
 
 			//datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
-			datosBasicosTomadorPage.FillTomadorData(this.tCData.getTestVar(testId, "Tomador"));
+			datosBasicosTomadorPage.FillTomadorData(this.testDataM.getTestVar(testId, "Tomador"));
 			datosBasicosTomadorPage.clickOnContinuar();
 
 			new PrecioPorModalidadPage(webDriver, userS.getTestDataManager())
@@ -1043,7 +1051,7 @@ public class Steps {
 	 * 
 	 * //@Dado("^el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$") public void
 	 * inicializo_acceso_y_usuario( String loginAccess, String user) { // Access
-	 * // this.inicializo_acceso(loginAccess = this.tCData.getAcceso()); // User
+	 * // this.inicializo_acceso(loginAccess = this.userS.getTestVar("acceso")); // User
 	 * // this.inicializo_usuario(user); }
 	 * 
 	 * //@Dado("^el filtro de busqueda \"([^\"]*)\"$") public void
@@ -1141,19 +1149,19 @@ public class Steps {
 	 * debug("BEGIN - el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar"
 	 * );
 	 * 
-	 * loginAcess = this.tCData.getAcceso();
+	 * loginAcess = this.userS.getTestVar("acceso");
 	 * 
 	 * { this.browserContext.initializeVariables(loginAcess);
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
 	 * 
 	 * String mediador = this.tCData.getMediador(); if
-	 * (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessGestionLine)
+	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine)
 	 * && this.tCData != null && !mediador.equals("640")) { AsignarMediadorPage
 	 * asignarMediadorPage = new AsignarMediadorPage(webDriver,
 	 * userS.getTestDataManager());
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar(); } else if
-	 * (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessInnova)) {
+	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(webDriver, userS.getTestDataManager());
 	 * asignarMediadorPage.SeleccionarMediadorPorCodigo(this.tCData.getMediador(
@@ -1204,15 +1212,15 @@ public class Steps {
 	 * se_inicia_un_proyecto_con_modalidad( String Modalidad) {
 	 * 
 	 * // Login
-	 * this.browserContext.initializeVariables(this.tCData.getAcceso());
+	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
 	 * 
-	 * if (this.tCData.getAcceso().equals("GestionOnline")) {
+	 * if (this.userS.getTestVar("acceso").equals("GestionOnline")) {
 	 * GestionOnlineHomePage gestionOnlineHomePage = new
 	 * GestionOnlineHomePage(webDriver, userS.getTestDataManager());
 	 * gestionOnlineHomePage.openMutuaAlquilerConfort(); } else if
-	 * (this.tCData.getAcceso().equals("Innova")) { AsignarMediadorPage
+	 * (this.userS.getTestVar("acceso").equals("Innova")) { AsignarMediadorPage
 	 * asignarMediadorPage = new AsignarMediadorPage(webDriver,
 	 * userS.getTestDataManager());
 	 * asignarMediadorPage.SelectMediadorMACAndClickOnContinuar(); }
@@ -1236,7 +1244,7 @@ public class Steps {
 	 * 
 	 * //@Cuando("^agrego un suplemento$") public void agrego_un_suplemento() {
 	 * // Login
-	 * this.browserContext.initializeVariables(this.tCData.getAcceso());
+	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.
 	 * LoginAndSearchPolizaByPolizaNumber(this.tCData.getUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
@@ -1304,7 +1312,7 @@ public class Steps {
 	 * void emito_un_suplemento_general_con_motivo( String motivoSuplemento) {
 	 * 
 	 * // Login
-	 * this.browserContext.initializeVariables(this.tCData.getAcceso());
+	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.
 	 * LoginAndSearchPolizaByPolizaNumber(this.tCData.getUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
@@ -1371,7 +1379,7 @@ public class Steps {
 	 * String loginAcess, String user) {
 	 * 
 	 * // Login this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -1540,7 +1548,7 @@ public class Steps {
 	 * doy_de_alta_una_simulacion_y_la_convierto_a_un_proyecto_y_la_guardo_sin_contratar_usando(
 	 * String loginAcess, String user) {
 	 * 
-	 * loginAcess = this.tCData.getAcceso();
+	 * loginAcess = this.userS.getTestVar("acceso");
 	 * 
 	 * logger.
 	 * debug("BEGIN - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_y_la_guardo_sin_contratar_usando"
@@ -1553,12 +1561,12 @@ public class Steps {
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
 	 * 
 	 * String mediador = this.tCData.getMediador(); if
-	 * (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessGestionLine)
+	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine)
 	 * && this.tCData != null && !mediador.equals("640")) { AsignarMediadorPage
 	 * asignarMediadorPage = new AsignarMediadorPage(webDriver,
 	 * userS.getTestDataManager());
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar(); } else if
-	 * (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessInnova)) {
+	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(webDriver, userS.getTestDataManager());
 	 * asignarMediadorPage.SeleccionarMediadorPorCodigo(this.tCData.getMediador(
@@ -1612,7 +1620,7 @@ public class Steps {
 	 * doy_de_alta_una_simulacion_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) {
 	 * 
-	 * loginAcess = this.tCData.getAcceso();
+	 * loginAcess = this.userS.getTestVar("acceso");
 	 * 
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
@@ -1643,7 +1651,7 @@ public class Steps {
 	 * doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) { // loginAcess =
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), loginAcess,
-	 * this.tCData.getTestID()); loginAcess = this.tCData.getAcceso();
+	 * this.tCData.getTestID()); loginAcess = this.userS.getTestVar("acceso");
 	 * 
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
@@ -1670,7 +1678,7 @@ public class Steps {
 	 * doy_de_alta_una_simulacion_que_llega_hasta_la_pantalla_de_datos_básicos_del_tomador_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) { // loginAcess =
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), loginAcess,
-	 * this.tCData.getTestID()); loginAcess = this.tCData.getAcceso();
+	 * this.tCData.getTestID()); loginAcess = this.userS.getTestVar("acceso");
 	 * 
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
@@ -1708,7 +1716,7 @@ public class Steps {
 	 * doy_de_alta_una_simulacion_que_llega_hasta_la_pantalla_de_precio_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) {
 	 * this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
 	 * AsignarMediadorPage asignarMediadorPage = new
@@ -1746,7 +1754,7 @@ public class Steps {
 	 * doy_de_alta_un_projecto_que_llega_hasta_la_pantalla_de_datos_básicos_del_tomador_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) { // loginAcess =
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), loginAcess,
-	 * this.tCData.getTestID()); loginAcess = this.tCData.getAcceso();
+	 * this.tCData.getTestID()); loginAcess = this.userS.getTestVar("acceso");
 	 * 
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
@@ -1789,7 +1797,7 @@ public class Steps {
 	 * lo_consulto_en_el_buscador_de_polizas_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) {
 	 * this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso()); this.browserContext.applicationAccessHelper.
+	 * this.userS.getTestVar("acceso")); this.browserContext.applicationAccessHelper.
 	 * LoginAndSearchPolizaByPolizaNumber(this.tCData.getUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
 	 * String.valueOf(this.tCData.getNumPoliza())); }
@@ -1800,7 +1808,7 @@ public class Steps {
 	 * lo_consulto_por_dni_en_el_buscador_de_polizas_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) {
 	 * this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndSearchPolizaByNifNie(
 	 * this.tCData.getUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
@@ -1813,7 +1821,7 @@ public class Steps {
 	 * 
 	 * // loginAcess = getValuesDataSet(this.tCData.gethMapDataSet(),
 	 * loginAcess, // this.tCData.getTestID()); loginAcess =
-	 * this.tCData.getAcceso();
+	 * this.userS.getTestVar("acceso");
 	 * 
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
@@ -1846,7 +1854,7 @@ public class Steps {
 	 * loginAcess, String user) {
 	 * logger.debug("BEGIN - lo_consulto_en_el_buscador_de_cotizaciones");
 	 * this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacion()); //
@@ -1904,16 +1912,16 @@ public class Steps {
 	 * String loginAcess, String user) {
 	 * 
 	 * // Login
-	 * this.browserContext.initializeVariables(this.tCData.getAcceso());
+	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
 	 * 
-	 * // if (this.tCData.getAcceso().equals(MutuaPropietariosConstants.
+	 * // if (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
 	 * LoginAccessGestionLine)) // { // GestionOnlineHomePage
 	 * gestionOnlineHomePage = new GestionOnlineHomePage(webDriver,
 	 * userS.getTestDataManager()); //
 	 * gestionOnlineHomePage.openMutuaAlquilerConfort(); // } if
-	 * (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessInnova)) {
+	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(webDriver, userS.getTestDataManager());
 	 * asignarMediadorPage.SelectMediadorMACAndClickOnContinuar(); //
@@ -1968,13 +1976,13 @@ public class Steps {
 	 * loginAcess, String user) {
 	 * 
 	 * // Login
-	 * this.browserContext.initializeVariables(this.tCData.getAcceso());
+	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacionMAC());
 	 * 
 	 * // Abrir el buscador de proyectos // if
-	 * (this.tCData.getAcceso().equals(MutuaPropietariosConstants.
+	 * (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
 	 * LoginAccessGestionLine)) // { // GestionOnlineHomePage
 	 * gestionOnlineHomePage = new GestionOnlineHomePage(webDriver,
 	 * userS.getTestDataManager()); //
@@ -1988,7 +1996,7 @@ public class Steps {
 	 * this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacion()); // }
 	 * 
-	 * // if (this.tCData.getAcceso().equals(MutuaPropietariosConstants.
+	 * // if (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
 	 * LoginAccessInnova)) // { //
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), //
@@ -2057,10 +2065,10 @@ public class Steps {
 	 * completo_el_proceso_de_contratacion_usando_el_acceso_y_usuario( String
 	 * loginAcess, String user) {
 	 * 
-	 * loginAcess = this.tCData.getAcceso(); if
+	 * loginAcess = this.userS.getTestVar("acceso"); if
 	 * (loginAcess.equals(ProjectConstants.LoginAccessGestionLine)) { // Login a
 	 * GestionLine this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso()); //
+	 * this.userS.getTestVar("acceso")); //
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this
 	 * .tCData.getUsuario(), //
 	 * this.browserContext.getProperties().passwordComun);
@@ -2085,7 +2093,7 @@ public class Steps {
 	 * else if (loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
 	 * 
 	 * // Login to Innov@ this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacionMAC());
@@ -2139,7 +2147,7 @@ public class Steps {
 	 * loginAcess, String user) {
 	 * 
 	 * // Login this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateProjectMEC(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2171,7 +2179,7 @@ public class Steps {
 	 * gethMapDataSet(), filtroBuscador, this.tCData.getTestID()));
 	 * 
 	 * // Login this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2290,8 +2298,8 @@ public class Steps {
 	 * inquilinosAvalistasPage_MAC.validacionViabilidadInquilino(); }
 	 * 
 	 * //@Cuando("^inicio sesion$") public void inicio_sesion() {
-	 * System.out.println("Acceso: " + this.tCData.getAcceso());
-	 * this.browserContext.initializeVariables(this.tCData.getAcceso());
+	 * System.out.println("Acceso: " + this.userS.getTestVar("acceso"));
+	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun); }
 	 * 
@@ -2303,7 +2311,7 @@ public class Steps {
 	 * this.tCData.getTestID())); //
 	 * this.tCData.setUsuario(this.tCData.getUsuario());
 	 * 
-	 * this.browserContext.initializeVariables(this.tCData.getAcceso());
+	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun); }
 	 * 
@@ -2686,7 +2694,7 @@ public class Steps {
 	 * gethMapDataSet(), filtroBuscador, this.tCData.getTestID()));
 	 * 
 	 * // Login this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2700,7 +2708,7 @@ public class Steps {
 	 * String loginAcess, String user) {
 	 * 
 	 * // Login this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2746,7 +2754,7 @@ public class Steps {
 	 * "nombreVia", i));
 	 * 
 	 * try { this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2770,7 +2778,7 @@ public class Steps {
 	 * loginAcess, String user) {
 	 * 
 	 * this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2792,7 +2800,7 @@ public class Steps {
 	 * loginAcess, String user) {
 	 * 
 	 * this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2812,7 +2820,7 @@ public class Steps {
 	 * Cuando("^comunico un siniestro usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void comunico_siniestro( String loginAcess, String user) {
 	 * this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2822,7 +2830,7 @@ public class Steps {
 	 * Cuando("^busco el siniestro usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void busco_siniestro( String loginAcess, String user) {
 	 * this.browserContext.initializeVariables(loginAcess =
-	 * this.tCData.getAcceso());
+	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
 	 * 
@@ -2924,7 +2932,7 @@ public class Steps {
 	 * logger.
 	 * debug("BEGIN - el_resultado_es_que_el_projecto_se_crea_correctamente");
 	 * 
-	 * if (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessInnova)) {
+	 * if (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
 	 * // For the time being we check that the policy appears correctly in
 	 * Innov@, but this should be changed to check the policy in GO.
 	 * 
@@ -2946,7 +2954,7 @@ public class Steps {
 	 * }
 	 * 
 	 * if
-	 * (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessGestionLine))
+	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine))
 	 * { // Here we check if the policy created in GO appears correctly in
 	 * Innov@ // Login
 	 * this.browserContext.initializeVariables(this.tCData.getCambioAcceso());
@@ -3243,13 +3251,13 @@ public class Steps {
 	 * 
 	 * //@Entonces("^el proyecto esta en estado denegado$") public void
 	 * el_proyecto_esta_en_estado_denegado() { if
-	 * (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessGestionLine))
+	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine))
 	 * { GestionOnlineHomePage gestionOnlineHomePage = new
 	 * GestionOnlineHomePage(webDriver, userS.getTestDataManager());
 	 * Assert.assertEquals(String.format("Denegado"),
 	 * gestionOnlineHomePage.recuperarEstadoPoliza()); }
 	 * 
-	 * if (this.tCData.getAcceso().equals(ProjectConstants.LoginAccessInnova)) {
+	 * if (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
 	 * GestionCotizacionesBuscadorPage gestionCotizacionesBuscadorPage = new
 	 * GestionCotizacionesBuscadorPage(webDriver, userS.getTestDataManager());
 	 * Assert.assertEquals(String.format("Desestimada"),
