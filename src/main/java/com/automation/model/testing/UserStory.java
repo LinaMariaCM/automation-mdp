@@ -316,14 +316,14 @@ public class UserStory {
 		System.out.println("[BEGIN] (" + testId + ") - Setting driver configuration");
 		driverConf = conf;
 		this.browser = browser;
-
 		this.maxTries = Integer.parseInt(driverConf.getValue("max_tries"));
 
 		System.out.println("[INFO ] (" + testId + ") - browser: " + browser + " ip: " + conf.getValue("ip") + " port: " + conf.getValue("port") + " remote: " + conf.getValue("remote"));
 
+		testDataM.setTestVar(testId, "browser", browser);
 		webDriver = new DriverHelper(browser);
 		webDriver.setId(testId);
-		testDataM.setTestVar(testId, "browser", browser);
+		webDriver.setReportPath(testDataM.getReportPath());
 
 		String driverType = System.getProperty("driver_type");
 		if(driverType != null && driverType.isEmpty()) driverType = conf.getValue("driver_type");
@@ -351,29 +351,24 @@ public class UserStory {
 		String remote = System.getProperty("remote");
 		if(remote != null && !remote.isEmpty()) conf.setValue(AutomationConstants.REMOTE_MODE, remote);
 		webDriver.setRemoteMode(Boolean.parseBoolean(conf.getValue(AutomationConstants.REMOTE_MODE)));
-
 		webDriver.setSmallWindowLimit(Integer.parseInt(conf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT)));
-
 
 		String timeout = System.getProperty("timeout");
 		if(timeout != null && !timeout.isEmpty()) conf.setValue(AutomationConstants.TIMEOUT, timeout);
 		if(conf.getValue(AutomationConstants.TIMEOUT) != null) {
-
 			webDriver.setImplicitWait(Integer.parseInt(conf.getValue(AutomationConstants.TIMEOUT)));
-
 			webDriver.setScriptWait(Integer.parseInt(conf.getValue(AutomationConstants.TIMEOUT)));
-
 			webDriver.setPageLoadWait(Integer.parseInt(conf.getValue(AutomationConstants.TIMEOUT)));
-
 		} else {
 			webDriver.setImplicitWait(Integer.parseInt(conf.getValue(AutomationConstants.IMPLICIT_WAIT)));
-
 			webDriver.setScriptWait(Integer.parseInt(conf.getValue(AutomationConstants.SCRIPT_WAIT)));
-
 			webDriver.setPageLoadWait(Integer.parseInt(conf.getValue(AutomationConstants.PAGE_LOAD_WAIT)));
-
 		}
-		webDriver.maximizeWindow();
+		
+		if(conf.getValue(AutomationConstants.WINDOW_HEIGTH) != null && conf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
+			webDriver.setWindowSize(Integer.parseInt(conf.getValue(AutomationConstants.WINDOW_HEIGTH)), 
+				Integer.parseInt(conf.getValue(AutomationConstants.WINDOW_WIDTH)));
+		} 
 
 		String retry = System.getProperty("retry");
 		if(retry != null && !retry.isEmpty()) conf.setValue(AutomationConstants.RETRY_ON_FAIL, retry);
@@ -424,17 +419,17 @@ public class UserStory {
 	}
 
 	private synchronized UserStory takeErrorScreenshot() {
-		System.out.println("[BEGIN] (" + testId + ") - Taking screenshot: '[ERROR] - " + timeStamp + ".i" + testId + ".jpg'");
 		try {
 			if(timeStamp != null && webDriver != null) {
+				System.out.println("[BEGIN] (" + testId + ") - Taking screenshot: '[ERROR] - " + timeStamp + ".i" + testId + ".jpg'");
 				new File(reportPath + "/" + AutomationConstants.IMAGES_FOLDER).mkdirs();
 
-				webDriver.takeScreenshot("[ERROR] - " + timeStamp + ".i" + testId, reportPath + "/" + AutomationConstants.IMAGES_FOLDER + "/");
+				webDriver.takeScreenshot("[ERROR] - " + timeStamp + ".i" + testId, reportPath + "/" + AutomationConstants.IMAGES_FOLDER);
+				System.out.println("[ END ] (" + testId + ") - Taking screenshot");
 			}
 		} catch(Exception e) {
 			System.out.println("[ERROR] (" + testId + ") - Taking screenshot");
 		}
-		System.out.println("[ END ] (" + testId + ") - Taking screenshot");
 
 		return this;
 	}
@@ -453,10 +448,6 @@ public class UserStory {
 
 	private void updateResultMatrix() {
 		if(resultMatrix != null) {
-			if(result.equals(AutomationConstants.TEST_FAILURE)) {
-				lastException += tries == maxTries ? " (MAX RECURSIVITY)" : "";
-			}
-
 			synchronized(resultMatrix) {
 				try {
 					System.out.println("[BEGIN] (" + testId + ") - Updating result matrix");
@@ -476,7 +467,6 @@ public class UserStory {
 					resultArray[resultArray.length - 1] = result.equals(AutomationConstants.TEST_SUCCESS) ? "" : lastException;
 
 					resultMatrix[Integer.parseInt(testId) + 1] = resultArray;
-
 
 					System.out.println("[ END ] (" + testId + ") - Updating result matrix");
 

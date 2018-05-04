@@ -18,7 +18,7 @@ public class InitUtils {
 	public static String[] getTestBrowsers() {
 		String[] browsers = new String[]{ BrowserType.CHROME};
 
-		if(System.getProperty("browser") != null) {
+		if(System.getProperty("browser") != null && !System.getProperty("browser").isEmpty()) {
 			String browser = System.getProperty("browser");
 			
 			browsers = browser.split(browser.contains(",") ? ",": "\\.");

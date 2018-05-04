@@ -11,11 +11,12 @@ public class AutomationConstants {
 	public static final String EXCEPTIONS_FOLDER = "exceptions/";
 	public static final String REPORTS_FOLDER = "reports/";
 	public static final String IMAGES_FOLDER = "images/";
+	public static final String DEBUG_IMAGES_FOLDER = "debug images/";
 	public static final String THUMBNAILS_FOLDER = "thumbnails/";
 	public static final String RESOURCES_FOLDER = "resources/";
 	
 	public static final String INT_ENVIRONMENT = "INT";
-	public static final String PRU_STAGE_ENVIRONMENT = "PRUSTAGE";
+	public static final String PRU_STAGE_ENVIRONMENT = "PRU";
 	public static final String STAGE_ENVIRONTMENT = "STAGE";
 	public static final String PRO_ENVIRONMENT = "PRO";
 
@@ -47,6 +48,8 @@ public class AutomationConstants {
 	
 	public static final String REPORTING_LVL = "reporting_level";
 
+	public static final String WINDOW_HEIGTH = "window_heigth";
+	public static final String WINDOW_WIDTH = "window_width";
 	public static final String TIMEOUT = "timeout";
 	public static final String REMOTE_MODE = "remote_mode";
 	public static final String FORCE_CACHE= "force_cache";

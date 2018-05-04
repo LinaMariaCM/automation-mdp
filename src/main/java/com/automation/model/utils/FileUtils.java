@@ -3,6 +3,7 @@ package com.automation.model.utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -25,11 +26,19 @@ public class FileUtils {
 	 * @return hashMap
 	 */
 	public static String[][] loadDataFileToArray(String filePath, boolean ownId) {
-		String text = getTextFromFile(filePath);
+		String[][] result = null;
 		
-		int nLines = text.isEmpty() ? 0 : StringUtils.countOcurrencesInString(text, "\n") + 1;
+		try {
+			String text = getTextFromFile(filePath);
+			
+			int nLines = text.isEmpty() ? 0 : StringUtils.countOcurrencesInString(text, "\n") + 1;
+			
+			result = loadDataSectionToArray(text, 0, nLines, ownId);
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found: " + e.toString());
+		}
 		
-		return loadDataSectionToArray(text, 0, nLines, ownId);
+		return result;
 	}
 
 	/**
@@ -77,33 +86,41 @@ public class FileUtils {
 		}
 	}
 
-	public static String getTextFromFile(String filePath) {
+	public static String getTextFromFile(String filePath) throws FileNotFoundException {
 		String line, text = "";
 		BufferedReader bufferedReader = null;
 
+		FileInputStream inputStream = new FileInputStream(new File(filePath));
+		
 		try {
-			FileInputStream inputStream = new FileInputStream(new File(filePath));
-			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)); // StandardCharsets.ISO_8859_1
+			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 			line = bufferedReader.readLine();
-
+	
 			if(line != null) text += line;
-
+	
 			while((line = bufferedReader.readLine()) != null) text += "\n" + line;
-
+	
 			inputStream.close();
 			bufferedReader.close();
 			
 			return text;
 		} catch(IOException e) {
-			System.out.println("File not found: " + e.toString());
-			e.printStackTrace();
-		}
-
+			System.out.println("Error accesing file " + e.toString());
+		} 
+		
 		return null;
 	}
 
 	public static HashMap<String, HashMap<String, String>> csvFileToMData(String filePath) {
-		return csvStringToMData(getTextFromFile(filePath));
+		HashMap<String, HashMap<String, String>> result = null;
+		
+		try {
+		 result = csvStringToMData(getTextFromFile(filePath));
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found: " + e.toString());
+		}
+		
+		return result;
 	}
 
 	public static HashMap<String, HashMap<String, String>> csvStringToMData(String csvString) {

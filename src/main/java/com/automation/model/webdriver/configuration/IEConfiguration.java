@@ -1,34 +1,18 @@
 package com.automation.model.webdriver.configuration;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import org.openqa.selenium.Proxy;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.Proxy.ProxyType;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.automation.configuration.AutomationConstants;
-import com.automation.data.DataObject;
-
 import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 
-public class IEConfiguration implements IBrowserObject {
+public class IEConfiguration {
 	
-	private DesiredCapabilities desiredCapabilities;
-	private DataObject config;
-	private String driverPath = "C:\\Program Files (x86)\\Microsoft Web Driver\\";
 	final static Logger logger = LoggerFactory.getLogger(IEConfiguration.class);
-
-	public IEConfiguration(DataObject config) throws IOException {
-		this.config = config;
-		this.desiredCapabilities = createDesiredCapabilities();
-	}
 	
 	public static void downloadDriver(boolean forceCache) {
 		logger.debug("[BEGIN] - Starting BrowserManager setup");
@@ -79,22 +63,6 @@ public class IEConfiguration implements IBrowserObject {
 		
 		
 		return options;
-	}
-
-	public WebDriver createWebDriverAndStartBrowser() throws IOException {
-		System.setProperty("webdriver.ie.driver", driverPath + "IEDriverServer.exe");
-		
-		if(Boolean.valueOf(this.config.getValue(AutomationConstants.REMOTE_MODE))) {
-			return this.startIEInRemoteDriver();
-		} else {
-			return new InternetExplorerDriver(this.desiredCapabilities);
-		}
-	}
-	
-	public WebDriver startIEInRemoteDriver() throws MalformedURLException {
-		WebDriver driver = new ReusableRemoteWebDriver(new URL("http://" + this.config.getValue(AutomationConstants.IP) + ":" + this.config.getValue(AutomationConstants.PORT) + "/wd/hub"),
-				this.desiredCapabilities);
-		return driver;
 	}
 
 }
