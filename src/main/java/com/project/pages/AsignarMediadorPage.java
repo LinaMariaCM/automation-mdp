@@ -1,7 +1,7 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
-//import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
@@ -30,7 +30,7 @@ public class AsignarMediadorPage
 	private By razonSocial = By.cssSelector("#nombreRazonSocial");
 	
 	//@FindBy(id = "codigoMediador")
-	private By txtCodigoMediador = By.cssSelector("#codigoMediador");
+	private By txtCodigoMediador = By.name("codigoMediador");
 	
 	//@FindBy(id = "codigo")
 	private By txtCodigoMediadorMAC = By.cssSelector("#codigo");
@@ -92,19 +92,42 @@ public class AsignarMediadorPage
 			String codigoMediador) throws InterruptedException
 	{
 		logger.debug("BEGIN - SeleccionarMediadorPorCodigo");
-		this.webDriver.switchToFrame( this.cuerpoFrame);
+
+		this.webDriver.waitForAngular();
+		this.webDriver.waitForJQuery();
+		this.webDriver.waitWithDriver(10000);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.txtCodigoMediador);
 		this.webDriver.appendText(this.txtCodigoMediador, codigoMediador);
 		
 		this.webDriver.click(this.txtDocumento);
 		this.webDriver.click(this.btnBuscar);
 		this.webDriver.click(this.radioBtnResultadoBusqueda);
+		//this.webDriver.waitForLoadToComplete();
 		this.webDriver.exitFrame();
 		
 		logger.debug("END - SeleccionarMediadorPorCodigo");
 		
 		return this;
 	}
+	
+//	public AsignarMediadorPage seleccionarMediadorPorCodigo(
+//		String codigoMediador) throws InterruptedException
+//{
+//	logger.debug("BEGIN - SeleccionarMediadorPorCodigo");
+//	//this.webDriver.switchToFrame( this.cuerpoFrame);
+//	this.webDriver.clickInFrame(this.txtCodigoMediador, this.cuerpoFrame);
+//	this.webDriver.appendTextInFrame(this.txtCodigoMediador,this.cuerpoFrame, codigoMediador);
+//	
+//	this.webDriver.clickInFrame(this.txtDocumento, this.cuerpoFrame);
+//	this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
+//	this.webDriver.clickInFrame(this.radioBtnResultadoBusqueda, this.cuerpoFrame);
+//	//this.webDriver.exitFrame();
+//	
+//	logger.debug("END - SeleccionarMediadorPorCodigo");
+//	
+//	return this;
+//}
 	
 	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(
 			String codigoMediador) throws InterruptedException

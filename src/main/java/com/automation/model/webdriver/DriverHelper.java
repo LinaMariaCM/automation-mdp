@@ -1122,7 +1122,7 @@ public class DriverHelper {
 	public void waitForLoadToComplete() {
 		logger.trace("[BEGIN] - waitForLoadToComplete");
 		waitForPageToLoad();
-		waitForAngular();
+//	waitForAngular();											####################################
 		logger.trace("[END] - waitForLoadToComplete");
 	}
 

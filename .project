@@ -3,6 +3,7 @@
 	<name>AutomationProject MDP</name>
 	<comment></comment>
 	<projects>
+		<project>automatization-testing</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
