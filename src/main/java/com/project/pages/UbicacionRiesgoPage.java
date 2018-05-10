@@ -312,8 +312,11 @@ public class UbicacionRiesgoPage {
 		this.webDriver.appendText(this.txtReferenciaCatastral, referenciaCatastral);
 		this.webDriver.click(this.btnBuscar);
 		// this.webDriver.waitForAngular();
-
-		this.asegurarUnicamenteGarajes();
+		
+		
+		/* Descomentar si se necesita marcar la opción: "asegurar únicamente garajes */
+		
+		//this.asegurarUnicamenteGarajes();
 
 		// this.browserContext.webElementHelper.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);

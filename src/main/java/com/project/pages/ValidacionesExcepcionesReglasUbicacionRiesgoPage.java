@@ -110,8 +110,8 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		//this.browserContext.webDriverConfiguration.SetWebDriverTimeouts(5);
-
-		this.webDriver.click(aceptarBtn);
+		this.webDriver.waitWithDriver(2000);
+		//this.webDriver.click(aceptarBtn);
 		
 		if(this.webDriver.isPresent(this.lblUbicacionRiesgoYaAsegurada)){
 		this.webDriver.waitForElementToBePresent(this.lblUbicacionRiesgoYaAsegurada);}

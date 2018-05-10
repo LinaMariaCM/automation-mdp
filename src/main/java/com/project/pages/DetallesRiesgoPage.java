@@ -58,9 +58,10 @@ public class DetallesRiesgoPage { /*
 
 	// @FindBy(id = "edifConstruccionMadera")
 	private By cmbEdificioMadera = By.cssSelector("#edifConstruccionMadera");
+	private By firstOptionEdifMad = By.cssSelector("#edifConstruccionMadera option");
 
 	// @FindBy(id = "deshabilitacion")
-	private By cmbDeshabilitacion = By.cssSelector("#deshabilitacion");
+	private By cmbDeshabilitacion = By.cssSelector("#deshabilitacion option");
 
 	// @FindBy(xpath = ".//*[contains(text(),'Continuar')]")
 	private By btnContinuar = By.xpath(".//*[contains(text(),'Continuar')]");
@@ -196,7 +197,7 @@ public class DetallesRiesgoPage { /*
 	public void completarDatosEnDetallesRiesgo() throws Exception {
 		logger.debug("BEGIN - completarDatosEnDetallesRiesgo");
 		this.CheckAvisoGarajes();
-		this.GetCapitales();
+		// this.GetCapitales();
 		this.completarDatosRiesgo();
 		this.ClikOnContinuar();
 		logger.debug("END - completarDatosEnDetallesRiesgo");
@@ -243,7 +244,9 @@ public class DetallesRiesgoPage { /*
 		String value = "";
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		String edificioMadera = this.webDriver.getText(this.cmbEdificioMadera);
-		// if (!edificioMadera.equals(this.tCData.getTestVar(testId,"edificioMadera")) &&
+		// if
+		// (!edificioMadera.equals(this.tCData.getTestVar(testId,"edificioMadera"))
+		// &&
 		// !this.tCData.getTestVar(testId,"edificioMadera").equals(""))
 		if(!edificioMadera.equals(this.tCData.getTestVar(testId, "edificioMadera")) && !this.tCData.getTestVar(testId, "edificioMadera").equals("")) {
 			// this.webDriver.selectValueInDropDown(this.cmbEdificioMadera,
@@ -330,32 +333,39 @@ public class DetallesRiesgoPage { /*
 				+ Double.parseDouble(this.tCData.getTestVar(testId, "CapitalContenido"));
 			this.webDriver.appendTextInFrame(this.txtCapitalContenido, this.cuerpoFrame, this.nf.format(capitalContenidoModified).toString());
 			this.webDriver.tabulateElementInFrame(this.txtCapitalContenido, this.cuerpoFrame);
-			//this.tCData.setCapitalContenido(capitalContenidoModified);
+			// this.tCData.setCapitalContenido(capitalContenidoModified);
 			this.tCData.setTestVar(testId, "CapitalContenido", "capitalContenidoModified");
 		}
 
-		
-		
-		
-//		String edificioMadera = this.webDriver.getTextInFrame(this.cmbEdificioMadera, this.cuerpoFrame);
-//		if(!edificioMadera.equals(this.tCData.getTestVar(testId,"edificioMadera")) && !this.tCData.getTestVar(testId,"edificioMadera").equals("")) {
-//			this.webDriver.selectValueInDropDownInFrame(this.cmbEdificioMadera, this.cuerpoFrame, this.tCData.getTestVar(testId,"edificioMadera"));
-//		} else if(this.tCData.getTestVar(testId,"edificioMadera").equals("")
-//			&& !edificioMadera.equals("")) { throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página"); }
+		// String edificioMadera =
+		// this.webDriver.getTextInFrame(this.cmbEdificioMadera,
+		// this.cuerpoFrame);
+		// if(!edificioMadera.equals(this.tCData.getTestVar(testId,"edificioMadera"))
+		// && !this.tCData.getTestVar(testId,"edificioMadera").equals("")) {
+		// this.webDriver.selectValueInDropDownInFrame(this.cmbEdificioMadera,
+		// this.cuerpoFrame, this.tCData.getTestVar(testId,"edificioMadera"));
+		// } else if(this.tCData.getTestVar(testId,"edificioMadera").equals("")
+		// && !edificioMadera.equals("")) { throw new Exception("El valor del
+		// campo porcentaje edificio madera no es blanco al entrar en la
+		// página"); }
+		// this.webDriver.waitWithDriver(2000);
 
-		String edificioMadera = this.webDriver.getTextInFrame(this.cmbEdificioMadera, this.cuerpoFrame);
-		if(!edificioMadera.equals(this.tCData.getTestVar(testId,"edificioMadera")) && !this.tCData.getTestVar(testId,"edificioMadera").equals("")) {
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEdificioMadera, this.cuerpoFrame, this.tCData.getTestVar(testId,"edificioMadera"));
-		} else if(this.tCData.getTestVar(testId,"edificioMadera").equals("")
-			&& !edificioMadera.equals("")) { throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página"); }		
+		String edificioMaderaDatos = this.tCData.getTestVar(testId, "edificio_madera") == null ? "" : this.tCData.getTestVar(testId, "edificio_madera");
+		String edificioMaderaWeb = this.webDriver.getTextInFrame(this.firstOptionEdifMad, this.cuerpoFrame);
 		
+		if(!edificioMaderaWeb.equals(edificioMaderaDatos) && !edificioMaderaDatos.equals("")) {
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEdificioMadera, this.cuerpoFrame, edificioMaderaDatos);
+		} else if(edificioMaderaDatos.isEmpty() && !edificioMaderaWeb.isEmpty()) {
+			throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página");
+		}
+
+		String deshabitacionDatos = this.tCData.getTestVar(testId, "deshabitacion") == null ? "" : this.tCData.getTestVar(testId, "deshabitacion");
+		String deshabilitacionWeb = this.webDriver.getTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame);
 		
-		
-		
-		String deshabilitacion = this.webDriver.getTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame);
-		if(!deshabilitacion.equals(this.tCData.getTestVar(testId, "deshabilitacion")) && !this.tCData.getTestVar(testId, "deshabilitacion").equals("")) {
+		if(!deshabilitacionWeb.equals(deshabitacionDatos) && !deshabitacionDatos.equals("")) {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame, this.tCData.getTestVar(testId, "deshabilitacion"));
-		} else if(this.tCData.getTestVar(testId, "deshabilitacion").equals("") && !deshabilitacion.equals("")) { throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
+		} else if(deshabitacionDatos.isEmpty()	&& !deshabilitacionWeb.isEmpty()) {
+			throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
 
 		String m2ContruidosTotales = this.webDriver.getTextInFrame(this.txtM2ContruidosTotales, this.cuerpoFrame);
 		if(m2ContruidosTotales.equals(-1)) {
@@ -371,7 +381,8 @@ public class DetallesRiesgoPage { /*
 
 			this.webDriver.appendTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame, String.valueOf(year - 51));
 		}
-		// else if (!AnyoConstruccion.equals(this.tCData.getTestVar(testId, "anyConstrucion"))
+		// else if (!AnyoConstruccion.equals(this.tCData.getTestVar(testId,
+		// "anyConstrucion"))
 		// && !this.tCData.getTestVar(testId, "anyConstrucion").equals("-1"))
 		else if(this.tCData.getTestVar(testId, "anyConstrucion") != null && !AnyoConstruccion.equals(this.tCData.getTestVar(testId, "anyConstrucion"))) {
 			this.webDriver.appendTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "anyConstrucion")));
@@ -390,12 +401,15 @@ public class DetallesRiesgoPage { /*
 		// String.valueOf(this.tCData.getAnyoRehabilitacionConstruccionesComunitarias()));
 		// }
 
-		String AnyoRehabilitacionAguasComunitarias = this.webDriver.getTextInFrame(this.txtAnyoRehabilitacionAguasComunitarias, this.cuerpoFrame);
-		if(AnyoRehabilitacionAguasComunitarias.equals(String.valueOf(this.webDriver.getTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame)))
+		
+		String anyoRehabilitacionAguasComunitariasDatos = this.tCData.getTestVar(testId, "anyoRehabilitacionAguasComunitarias") == null ? "" : this.tCData.getTestVar(testId, "anyoRehabilitacionAguasComunitarias");
+		String AnyoRehabilitacionAguasComunitariasWeb = this.webDriver.getTextInFrame(this.txtAnyoRehabilitacionAguasComunitarias, this.cuerpoFrame);
+		if(AnyoRehabilitacionAguasComunitariasDatos.equals(String.valueOf(this.webDriver.getTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame)))
 			&& this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias") != null) {
 			int year = Integer.parseInt(this.webDriver.getTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame));
 			this.webDriver.appendTextInFrame(this.txtAnyoRehabilitacionAguasComunitarias, this.cuerpoFrame, String.valueOf(year + 1));
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbNivelRehabilitacionAguas, this.cuerpoFrame, this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
+			this.webDriver
+				.clickElementFromDropDownByTextInFrame(this.cmbNivelRehabilitacionAguas, this.cuerpoFrame, this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
 		}
 
 		// String NivelDeshabilitacionConstruccionesComunitarias =
@@ -414,7 +428,8 @@ public class DetallesRiesgoPage { /*
 		}
 
 		String m2Viviendas = this.webDriver.getTextInFrame(this.txtM2Viviendas, this.cuerpoFrame);
-		// if (!m2Viviendas.equals(this.tCData.getTestVar(testId, "M2Viviendas")) &&
+		// if (!m2Viviendas.equals(this.tCData.getTestVar(testId,
+		// "M2Viviendas")) &&
 		// !this.tCData.getTestVar(testId, "M2Viviendas").equals(-1))
 		if(this.tCData.getTestVar(testId, "M2Viviendas") != null && !m2Viviendas.equals(this.tCData.getTestVar(testId, "M2Viviendas"))) {
 			this.GetCapitales();
@@ -456,7 +471,7 @@ public class DetallesRiesgoPage { /*
 		}
 
 		String numeroViviendas = this.webDriver.getTextInFrame(this.txtNoViviendas, this.cuerpoFrame);
-		if(this.tCData.getTestVar(testId,"NumeroViviendas") != null && !numeroViviendas.equals(this.tCData.getTestVar(testId, "NumeroViviendas"))) {
+		if(this.tCData.getTestVar(testId, "NumeroViviendas") != null && !numeroViviendas.equals(this.tCData.getTestVar(testId, "NumeroViviendas"))) {
 			this.webDriver.appendTextInFrame(this.txtNoViviendas, this.cuerpoFrame, this.tCData.getTestVar(testId, "NumeroViviendas"));
 		}
 
@@ -478,45 +493,48 @@ public class DetallesRiesgoPage { /*
 			this.webDriver.appendTextInFrame(this.txtNumeroEdificios, this.cuerpoFrame, this.tCData.getTestVar(testId, "NumeroEdificios"));
 		}
 
-		
-		
-//		boolean GasolineraMenos50M = this.browserContext.getTestCaseData().isGasolineraMenos50M();
-//		
-//		if(GasolineraMenos50M) {
-//			this.webDriver.clickInFrame(this.chkGasolineraMenos50M, this.cuerpoFrame);
-//		}
-//
-//		boolean CalefaccionCentral = this.tCData.isCalefaccionCentral();
-//		if(CalefaccionCentral && !this.chkCalefaccionCentralAguaCalienteCentralizada.isSelected()) {
-//			this.webDriver.clickInFrame(this.chkCalefaccionCentralAguaCalienteCentralizada, this.cuerpoFrame);
-//		}
-//
-//		boolean DepositoCombustible = this.tCData.isDepositoCombustible();
-//		if(DepositoCombustible) {
-//			this.webDriver.clickInFrame(this.chkDepositoCombustible, this.cuerpoFrame);
-//		}
-		
-		
+		// boolean GasolineraMenos50M =
+		// this.browserContext.getTestCaseData().isGasolineraMenos50M();
+		//
+		// if(GasolineraMenos50M) {
+		// this.webDriver.clickInFrame(this.chkGasolineraMenos50M,
+		// this.cuerpoFrame);
+		// }
+		//
+		// boolean CalefaccionCentral = this.tCData.isCalefaccionCentral();
+		// if(CalefaccionCentral &&
+		// !this.chkCalefaccionCentralAguaCalienteCentralizada.isSelected()) {
+		// this.webDriver.clickInFrame(this.chkCalefaccionCentralAguaCalienteCentralizada,
+		// this.cuerpoFrame);
+		// }
+		//
+		// boolean DepositoCombustible = this.tCData.isDepositoCombustible();
+		// if(DepositoCombustible) {
+		// this.webDriver.clickInFrame(this.chkDepositoCombustible,
+		// this.cuerpoFrame);
+		// }
+
 		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "gasolinera_menos_50m"))) {
 			this.webDriver.clickInFrame(this.chkGasolineraMenos50M, this.cuerpoFrame);
 		}
 
-		
-		//boolean CalefaccionCentral = this.tCData.isCalefaccionCentral();
-		
-//		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "CalefaccionCentral")) && !this.chkCalefaccionCentralAguaCalienteCentralizada.isSelected()) {
-//			this.webDriver.clickInFrame(this.chkCalefaccionCentralAguaCalienteCentralizada, this.cuerpoFrame);
-//		}
-		
+		// boolean CalefaccionCentral = this.tCData.isCalefaccionCentral();
+
+		// if(Boolean.parseBoolean(this.tCData.getTestVar(testId,
+		// "CalefaccionCentral")) &&
+		// !this.chkCalefaccionCentralAguaCalienteCentralizada.isSelected()) {
+		// this.webDriver.clickInFrame(this.chkCalefaccionCentralAguaCalienteCentralizada,
+		// this.cuerpoFrame);
+		// }
+
 		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "CalefaccionCentral")) && !this.webDriver.isSelected(chkCalefaccionCentralAguaCalienteCentralizada)) {
 			this.webDriver.clickInFrame(this.chkCalefaccionCentralAguaCalienteCentralizada, this.cuerpoFrame);
 		}
 
-		//boolean DepositoCombustible = this.tCData.isDepositoCombustible();
+		// boolean DepositoCombustible = this.tCData.isDepositoCombustible();
 		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "deposito_combustible"))) {
 			this.webDriver.clickInFrame(this.chkDepositoCombustible, this.cuerpoFrame);
 		}
-		
 
 		// this.webDriver.exitFrame();
 		// this.ModificarDatosActividadComercial();
@@ -537,20 +555,23 @@ public class DetallesRiesgoPage { /*
 		String AnyoRehabilitacionAguasComunitarias = this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias);
 		String AnyoConstruccion = this.webDriver.getText(this.txtAnyoConstruccion);
 
-//		if(this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias() != null) {
-//			if(AnyoRehabilitacionAguasComunitarias.isEmpty()) {
-//				this.webDriver.sendValueToWebElement(this.txtAnyoRehabilitacionAguasComunitarias, String.valueOf(Integer.parseInt(AnyoConstruccion) + 1));
-//				this.webDriver.selectValueInDropDown(this.cmbNivelRehabilitacionAguas, this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias());
-//				this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
-//			}
+		// if(this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias()
+		// != null) {
+		// if(AnyoRehabilitacionAguasComunitarias.isEmpty()) {
+		// this.webDriver.sendValueToWebElement(this.txtAnyoRehabilitacionAguasComunitarias,
+		// String.valueOf(Integer.parseInt(AnyoConstruccion) + 1));
+		// this.webDriver.selectValueInDropDown(this.cmbNivelRehabilitacionAguas,
+		// this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias());
+		// this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+		// }
 
-			if(this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias") != null) {
-				if(AnyoRehabilitacionAguasComunitarias.isEmpty()) {
-					this.webDriver.appendText(this.txtAnyoRehabilitacionAguasComunitarias, String.valueOf(Integer.parseInt(AnyoConstruccion) + 1));
-					this.webDriver.clickElementFromDropDownByText(this.cmbNivelRehabilitacionAguas, this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
-					//this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
-					this.tCData.setTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias", this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
-				}	
+		if(this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias") != null) {
+			if(AnyoRehabilitacionAguasComunitarias.isEmpty()) {
+				this.webDriver.appendText(this.txtAnyoRehabilitacionAguasComunitarias, String.valueOf(Integer.parseInt(AnyoConstruccion) + 1));
+				this.webDriver.clickElementFromDropDownByText(this.cmbNivelRehabilitacionAguas, this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
+				// this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+				this.tCData.setTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias", this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+			}
 			if(!AnyoRehabilitacionAguasComunitarias.isEmpty()) {
 				// If Año rehabilitación de aguas comunitarias is already
 				// present, then input Año rehabilitación de aguas comunitarias
@@ -559,9 +580,9 @@ public class DetallesRiesgoPage { /*
 				// reset.
 				this.webDriver.appendText(this.txtAnyoRehabilitacionAguasComunitarias, String.valueOf(Integer.parseInt(AnyoRehabilitacionAguasComunitarias) + 1));
 				this.webDriver.clickElementFromDropDownByText(this.cmbNivelRehabilitacionAguas, this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
-				//this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+				// this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
 				this.tCData.setTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias", this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
-				
+
 			}
 
 		}
@@ -596,7 +617,7 @@ public class DetallesRiesgoPage { /*
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 viviendas");
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
 			this.tCData.setTestVar(testId, "M2ContruidosTotales", this.webDriver.getText(this.txtM2ContruidosTotales));
-		
+
 		}
 
 		String m2Garajes = this.webDriver.getText(this.txtM2Viviendas);
@@ -662,13 +683,14 @@ public class DetallesRiesgoPage { /*
 
 	private void GetCapitales() throws ParseException {
 		logger.debug("BEGIN - GetCapitales");
-		// this.webDriver.switchToFrame(this.cuerpoFrame);
-		// this.webDriver.scrollToBottom();
-		this.CapitalTotalAsegurado = this.nf.parse(this.webDriver.getTextInFrame(this.txtCapitalContinenteTotalAsegurado, this.cuerpoFrame))
-			.doubleValue();
-		this.CapitalContenido = this.nf.parse(this.webDriver.getTextInFrame(this.txtCapitalContenido, this.cuerpoFrame)).doubleValue();
-		this.CapitalContinente = this.nf.parse(this.webDriver.getTextInFrame(this.txtCapitalContinente, this.cuerpoFrame)).doubleValue();
-		// this.webDriver.exitFrame();
+
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.waitWithDriver(2000);
+		this.webDriver.scrollToBottom();
+		this.CapitalTotalAsegurado = this.nf.parse(this.webDriver.getText(this.txtCapitalContinenteTotalAsegurado)).doubleValue();
+		this.CapitalContenido = this.nf.parse(this.webDriver.getText(this.txtCapitalContenido)).doubleValue();
+		this.CapitalContinente = this.nf.parse(this.webDriver.getText(this.txtCapitalContinente)).doubleValue();
+		this.webDriver.exitFrame();
 		logger.debug("END - GetCapitales");
 	}
 
@@ -730,14 +752,13 @@ public class DetallesRiesgoPage { /*
 
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 
-		if(this.tCData.getTestVar(testId,"edificioMadera").equals("") && this.tCData.getTestVar(testId, "deshabilitacion").equals("")) {
+		if(this.tCData.getTestVar(testId, "edificioMadera").equals("") && this.tCData.getTestVar(testId, "deshabilitacion").equals("")) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			this.webDriver.click(this.btnCamposObligatiosModalWindowAceptar);
 
-			
 			String color1 = this.webDriver.getElement(cmbDeshabilitacion).getCssValue("border-color");
 			String color2 = this.webDriver.getElement(cmbEdificioMadera).getCssValue("border-color");
-			
+
 			Assert.assertTrue("El campo deshabilitación no tiene un borde rojo", color1.equals("rgb(169, 68, 66)"));
 			Assert.assertTrue("El campo edificio madera no tiene un borde rojo", color2.equals("rgb(169, 68, 66)"));
 			this.webDriver.exitFrame();
@@ -837,38 +858,38 @@ public class DetallesRiesgoPage { /*
 					return true;
 				}
 				break;
-				//txtNumeroPlantasSotano
+			// txtNumeroPlantasSotano
 			case "No plantas bajo rasante":
 				if(this.webDriver.isEnabled(this.txtNumeroPlantasSotano)) {
 					this.webDriver.exitFrame();
 					return true;
 				}
 				break;
-				//this.txtNumeroPlantasAlto
+			// this.txtNumeroPlantasAlto
 			case "No plantas en alto":
 				if(webDriver.isEnabled(this.txtNumeroPlantasAlto)) {
 					this.webDriver.exitFrame();
 					return true;
 				}
 				break;
-				//txtM2Garajes
+			// txtM2Garajes
 			case "M2 Garajes":
-//				if(this.webDriver.isDisplayed(this.txtM2Garajes)) {
-//					this.webDriver.exitFrame();
-//					return true;
-//				}
+				// if(this.webDriver.isDisplayed(this.txtM2Garajes)) {
+				// this.webDriver.exitFrame();
+				// return true;
+				// }
 				if(this.webDriver.isPresent(this.txtM2Garajes)) {
 					this.webDriver.exitFrame();
 					return true;
 				}
 				break;
 
-//			case "No Plazas de garaje":
-//				if(this.txtNumPlazasGaraje.isDisplayed()) {
-//					this.webDriver.exitFrame();
-//					return true;
-//				}
-				//txtNumPlazasGaraje
+			// case "No Plazas de garaje":
+			// if(this.txtNumPlazasGaraje.isDisplayed()) {
+			// this.webDriver.exitFrame();
+			// return true;
+			// }
+			// txtNumPlazasGaraje
 			case "No Plazas de garaje":
 				if(this.webDriver.isPresent(this.txtNumPlazasGaraje)) {
 					this.webDriver.exitFrame();
