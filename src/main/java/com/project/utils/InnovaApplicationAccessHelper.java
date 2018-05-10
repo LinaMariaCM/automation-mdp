@@ -40,7 +40,7 @@ public class InnovaApplicationAccessHelper implements IApplicationAccessHelper
 	@Override
 	public void CreateSimulation()
 	{
-		this.innovaHomePage.CreateNewSimulation();
+		this.innovaHomePage.createNewSimulation();
 	}
 	
 	@Override

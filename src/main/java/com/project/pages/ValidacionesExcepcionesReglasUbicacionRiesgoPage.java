@@ -32,28 +32,30 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage
 	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
 	
 	// region webelements
-	@FindBy(name = "cuerpo")
-	private By cuerpoFrame;
+	//@FindBy(name = "cuerpo")
+	private By cuerpoFrame = By.name("cuerpo");
 	
 	// @FindBy(xpath = ".//*[text()='Continuar']")
-	@FindBy(id = "botonContinuar")
-	private By btnContinuar;
+	//@FindBy(id = "botonContinuar")
+	private By btnContinuar = By.id("botonContinuar");
 	
 	// @FindBy(xpath = ".//*[text()='AVISO: Existen otros proyectos de suplemento activo para la misma póliza.']")
 	// private List<WebElement> lblExistenProjectosSuplementoActivo;
 
-	@FindBy(xpath = ".//*[text()='AVISO: Existen otros proyectos de suplemento activo para la misma póliza.']")
-	private By lblExistenProjectosSuplementoActivo;
+	//@FindBy(xpath = ".//*[text()='AVISO: Existen otros proyectos de suplemento activo para la misma póliza.']")
+	private By lblExistenProjectosSuplementoActivo = By.xpath(".//*[text()='AVISO: Existen otros proyectos de suplemento activo para la misma póliza.']");
 
-	@FindBy(xpath = ".//*[text()='AVISO: El mismo riesgo ya se encuentra asegurado en Mutua de propietarios.']")
-	private By lblUbicacionRiesgoYaAsegurada;
+	//@FindBy(xpath = ".//*[text()='AVISO: El mismo riesgo ya se encuentra asegurado en Mutua de propietarios.']")
+	private By lblUbicacionRiesgoYaAsegurada = By.xpath(".//*[text()='AVISO: El mismo riesgo ya se encuentra asegurado en Mutua de propietarios.']");
 
-	@FindBy(id = "deshabilitacion")
-	private By cmbDeshabilitacion;
+	//@FindBy(id = "deshabilitacion")
+	private By cmbDeshabilitacion = By.id("deshabilitacion");
 
-	@FindBy(xpath = ".//*[@ng-click='ur.modalBuscador.updateInmueble()' and text()='Añadir inmueble']")
-	private By btnAnadirInmuebleReferenciaCatastral;
+	//@FindBy(xpath = ".//*[@ng-click='ur.modalBuscador.updateInmueble()' and text()='Añadir inmueble']")
+	private By btnAnadirInmuebleReferenciaCatastral = By.xpath(".//*[@ng-click='ur.modalBuscador.updateInmueble()' and text()='Añadir inmueble']");
 	
+	
+	private By procesandoWindow = By.cssSelector(".smallbox");
 	// endregion
 	/*
 	public ValidacionesExcepcionesReglasUbicacionRiesgoPage(BrowserContext browserContext)
@@ -100,6 +102,8 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage
 	public void isUbicacionRiesgoUtilizada() throws IOException
 	{
 		logger.debug("BEGIN - isUbicacionRiesgoUtilizada");
+		//this.webDriver.waitWithDriver(2000);
+		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		//this.browserContext.webDriverConfiguration.SetWebDriverTimeouts(5);
 		
@@ -111,6 +115,8 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage
 				ProjectConstants.UbicacionRiesgoYaUtilizadaMsg);
 		this.webDriver.exitFrame();
 		logger.debug("END - isUbicacionRiesgoUtilizada");
+		
+		
 	}
 	// endregion
 }

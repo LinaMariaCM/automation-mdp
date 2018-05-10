@@ -121,7 +121,7 @@ public class InnovaHomePage
 		logger.debug("END - CreateNewProject");
 	}
 	
-	public void CreateNewSimulation()
+	public void createNewSimulation()
 	{
 		logger.debug("BEGIN - CreateNewSimulation");
 		this.webDriver.doubleClickInFrame(this.btnNuevaSimulaion, this.menuFrame);

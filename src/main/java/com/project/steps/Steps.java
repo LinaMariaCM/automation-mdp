@@ -133,7 +133,7 @@ public class Steps {
 
 			// this.LoginAndCreateSimulation(this.tCData.getUsuario(),
 			// this.browserContext.getProperties().passwordComun);
-			this.LoginAndCreateSimulation(this.userS.getTestVar("usuario"), this.userS.getConfigVar("passwordComun"));
+			this.loginAndCreateSimulation(this.userS.getTestVar("usuario"), this.userS.getConfigVar("passwordComun"));
 
 			// String mediador = this.tCData.getMediador();
 			String mediador = this.userS.getScenarioVar("mediador");
@@ -151,7 +151,7 @@ public class Steps {
 			String testId = webDriver.getId() == null ? "" : webDriver.getId();
 
 			new UbicacionRiesgoPage(webDriver, userS.getTestDataManager())
-				.fillInmuebleAndClickOnContinue();
+				.fillInmuebleAndClickOnContinue(userS.getScenario());
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(webDriver, userS.getTestDataManager())
 				.isUbicacionRiesgoUtilizada();
@@ -3457,7 +3457,7 @@ public class Steps {
 	 * /////////////////////////////
 	 * 
 	 */
-	public void LoginAndCreateSimulation(String userId, String password) throws Exception {
+	public void loginAndCreateSimulation(String userId, String password) throws Exception {
 
 		//this.logIn(userId, password);
 
@@ -3467,7 +3467,7 @@ public class Steps {
 
 //		this.OpenMutuaEdificioConfort();
 
-		new InnovaHomePage(webDriver, userS.getTestDataManager()).CreateNewSimulation();
+		new InnovaHomePage(webDriver, userS.getTestDataManager()).createNewSimulation();
 
 		// this.CreateSimulation();
 	}
