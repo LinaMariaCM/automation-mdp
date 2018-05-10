@@ -56,6 +56,10 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage
 	
 	
 	private By procesandoWindow = By.cssSelector(".smallbox");
+	//*[@id="modalErrores"]/div/div/div[2]/div/div/p
+	
+	private By aceptarBtn = By.cssSelector("#modalErrores .modal-footer button");
+	//private By aceptar = By.id("modalErrores");
 	// endregion
 	/*
 	public ValidacionesExcepcionesReglasUbicacionRiesgoPage(BrowserContext browserContext)
@@ -106,17 +110,22 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		//this.browserContext.webDriverConfiguration.SetWebDriverTimeouts(5);
+
+		this.webDriver.click(aceptarBtn);
 		
-		this.webDriver.waitForElementToBePresent(this.lblUbicacionRiesgoYaAsegurada);
+		if(this.webDriver.isPresent(this.lblUbicacionRiesgoYaAsegurada)){
+		this.webDriver.waitForElementToBePresent(this.lblUbicacionRiesgoYaAsegurada);}
 		
 		//this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
 		String webElemntIdentifyText = this.webDriver.getText(cmbDeshabilitacion);
 		org.junit.Assert.assertNotEquals(ProjectConstants.UbicacionRiesgoYaUtilizadaError, webElemntIdentifyText,
 				ProjectConstants.UbicacionRiesgoYaUtilizadaMsg);
-		this.webDriver.exitFrame();
+		
 		logger.debug("END - isUbicacionRiesgoUtilizada");
-		
-		
+		//this.webDriver.switchToFrame(this.cuerpoFrame);
+
+		//this.webDriver.exitFrame();
+		this.webDriver.exitFrame();
 	}
 	// endregion
 }
