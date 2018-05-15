@@ -1,6 +1,12 @@
 package test;
 
 import java.io.File;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
+import com.automation.data.DataObject;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -51,6 +57,16 @@ public class TestMEC {
 				Steps steps = new Steps(userS);
 				
 				userS.setScenario(testCase + "01");
+
+				LocalDate date = LocalDate.now();
+				DayOfWeek dow = date.getDayOfWeek();
+				String dia = dow.getDisplayName(TextStyle.SHORT, Locale.US);
+
+				DataObject ficheroReferencias = new DataObject(FileUtils.csvFileToDMData(
+						System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "datosMec" + dia + ".csv"));
+
+				testData.addData(ficheroReferencias, "fichero_referencias");
+				System.out.println("ficheroReferencias: " + ficheroReferencias);
 				userS.testActions(() -> {
 					//	Escenario: [Mec01] - Alta proyecto: datos catastro+cliente nuevo+complet+cobro mediador			
 					

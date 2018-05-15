@@ -190,7 +190,7 @@ public class UbicacionRiesgoPage {
 			value = this.addInmuebleByAddress();
 		} else {// value =
 				// this.addInmuebleByReferenciaCatastral(this.browserContext.getTestCaseData().getReferenciaCatastral());
-			value = this.addInmuebleByReferenciaCatastral(tCData.getScenarioVar(scenario, "ref_catastral"));
+			value = this.addInmuebleByReferenciaCatastral(tCData.getVar(scenario, "ref_catastral"));
 		}
 		/*
 		 * switch (inmueble) { case
@@ -309,7 +309,9 @@ public class UbicacionRiesgoPage {
 		// this.webDriver.waitForAngular();
 		this.webDriver.click(this.radioBtnCriterioBusquedaReferenciaCatastral);
 		this.webDriver.click(this.txtReferenciaCatastral);
-		this.webDriver.appendText(this.txtReferenciaCatastral, referenciaCatastral);
+		//this.webDriver.appendText(this.txtReferenciaCatastral, referenciaCatastral);
+		System.out.println("Valor referenciaCatastral: " + referenciaCatastral);
+		this.webDriver.appendText(txtReferenciaCatastral, referenciaCatastral);
 		this.webDriver.click(this.btnBuscar);
 		// this.webDriver.waitForAngular();
 		

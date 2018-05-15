@@ -174,18 +174,20 @@ public class TestDataManager {
 	// endregion
 	
 	// region Data Access
-	public String getVar(String testId, String key) {
+	public String getVar(String rowKey, String key) {
 		if(data.getData(AutomationConstants.GLOBAL_DATA).getValue(key) != null) {
 			return data.getData(AutomationConstants.GLOBAL_DATA).getValue(key);
 		}
-		if(data.getData(AutomationConstants.SCENARIO_DATA).getValue(testId, key) != null) {
-			return data.getData(AutomationConstants.SCENARIO_DATA).getValue(testId, key);
+		if(data.getData(AutomationConstants.SCENARIO_DATA).getRow(rowKey) != null
+				&& data.getData(AutomationConstants.SCENARIO_DATA).getValue(rowKey, key) != null) {
+			return data.getData(AutomationConstants.SCENARIO_DATA).getValue(rowKey, key);
 		}
-		if(data.getData(AutomationConstants.TEST_DATA).getValue(testId, key) != null) {
-			return data.getData(AutomationConstants.TEST_DATA).getValue(testId, key);
+		if(data.getData(AutomationConstants.TEST_DATA).getRow(rowKey) != null
+				&& data.getData(AutomationConstants.TEST_DATA).getValue(rowKey, key) != null) {
+			return data.getData(AutomationConstants.TEST_DATA).getValue(rowKey, key);
 		}
 		
-		return data.getValue(key);
+		return data.getValue(rowKey, key);
 	}
 	
 	public void generateTestRow(String rowKey) {

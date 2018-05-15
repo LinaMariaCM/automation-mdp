@@ -156,8 +156,13 @@ public class Steps {
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(webDriver, userS.getTestDataManager())
 				.isUbicacionRiesgoUtilizada();
 
-			new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
-				.completarDatosEnDetallesRiesgo();
+			//new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
+				//.completarDatosEnDetallesRiesgo();
+
+
+			DetallesRiesgoPage detallesRiesgoPage = new DetallesRiesgoPage(webDriver, userS.getTestDataManager());
+			detallesRiesgoPage.completarDatosRiesgo();
+			detallesRiesgoPage.ClikOnContinuar();
 
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(webDriver, userS.getTestDataManager())

@@ -83,10 +83,12 @@ public class DataManagerObject {
 		String[] mappedKeys = getKeySet();
 
 		for(int i = 0; i < this.mappedData.size(); i++) {
-			String[] setKeys = this.mappedData.get(mappedKeys[i]).getKeySet();
+			String[] setKeys = ArrayUtils.objetArrayToStringArray(this.mappedData.get(mappedKeys[i]).getRow().keySet().toArray());
+
 			for(String setKey : setKeys) {
-				if(setKey.equals(key))
+				if(setKey.equals(key)) {
 					return this.mappedData.get(mappedKeys[i]).getRow().get(key);
+				}
 			}
 		}
 
@@ -97,7 +99,9 @@ public class DataManagerObject {
 		String[] keySet = getKeySet();
 
 		for(int i = 0; i < keySet.length; i++) {
-			if(this.mappedData.get(keySet[i]).containsKey(row)) { return this.mappedData.get(keySet[i]).getValue(row, key); }
+			if(this.mappedData.get(keySet[i]).containsKey(row)) {
+				return this.mappedData.get(keySet[i]).getValue(row, key);
+			}
 		}
 
 		return null;
