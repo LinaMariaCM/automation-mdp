@@ -7,6 +7,7 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 import com.automation.data.DataObject;
+import com.automation.model.utils.*;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -14,10 +15,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.automation.configuration.AutomationConstants;
-import com.automation.model.utils.CsvToHtml;
-import com.automation.model.utils.FileUtils;
-import com.automation.model.utils.InitUtils;
-import com.automation.model.utils.OSUtils;
 import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.project.ProjectConstants;
@@ -32,7 +29,7 @@ public class TestMEC {
 		private String[][] casesMatrix = null, resultMatrix = null;
 		//private String defaultTestData = "testDataMec01.csv", defaultScenarioData = "scenarioData.csv";
 		//private String defaultTestData = "testDataMec01.csv", defaultScenarioData = userS.setScenario(userS.getScenario() + "01");
-		private String defaultTestData = "testDataMec01.csv", defaultScenarioData = "datosTestMEC.csv";
+		private String defaultTestData = "testDataMec01.csv", defaultScenarioData = "datosTestMec.csv";
 		/*public boolean mec01(UserStory userS, Steps steps) throws Exception {
 			
 		}*/
@@ -66,7 +63,7 @@ public class TestMEC {
 						System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "datosMec" + dia + ".csv"));
 
 				testData.addData(ficheroReferencias, "fichero_referencias");
-				System.out.println("ficheroReferencias: " + ficheroReferencias);
+				
 				userS.testActions(() -> {
 					//	Escenario: [Mec01] - Alta proyecto: datos catastro+cliente nuevo+complet+cobro mediador			
 					

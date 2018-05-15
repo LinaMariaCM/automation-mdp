@@ -98,9 +98,10 @@ public class DataManagerObject {
 	public String getValue(String row, String key) {
 		String[] keySet = getKeySet();
 
-		for(int i = 0; i < keySet.length; i++) {
-			if(this.mappedData.get(keySet[i]).containsKey(row)) {
-				return this.mappedData.get(keySet[i]).getValue(row, key);
+		for(String currentData : keySet) {
+			if(this.mappedData.get(currentData).getRow(row) != null
+					&& this.mappedData.get(currentData).getRow(row).get(key) != null) {
+				return this.mappedData.get(currentData).getValue(row, key);
 			}
 		}
 
