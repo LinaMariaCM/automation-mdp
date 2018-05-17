@@ -198,7 +198,7 @@ public class DetallesRiesgoPage { /*
 
 	public void completarDatosEnDetallesRiesgo() throws Exception {
 		logger.debug("BEGIN - completarDatosEnDetallesRiesgo");
-		this.CheckAvisoGarajes();
+		//this.CheckAvisoGarajes();
 		// this.GetCapitales();
 		this.completarDatosRiesgo();
 		this.ClikOnContinuar();
