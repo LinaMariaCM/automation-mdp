@@ -427,7 +427,7 @@ public class CsvToHtml {
 						
 						table.getChildByTag("tbody").getChild(0).getChild(0).addChild(
 							new HtmlElement("", "", translate(translationFile, "Browser") + ": " 
-								+ StringUtils.snakeCaseToNatural(columnCasesOrder.get("browser").get(0).replace("_headless", ""))));
+								+ StringUtils.snakeCaseToNatural(translate(translationFile, columnCasesOrder.get("browser").get(0).replace("_headless", "")))));
 						
 						body.addChild("br");
 						body.addChild(

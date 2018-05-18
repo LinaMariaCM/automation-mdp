@@ -12,16 +12,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.UnhandledAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.automation.data.DataObject;
 import com.automation.model.testing.TestDataManager;
-import com.automation.model.utils.StringUtils;
-import com.automation.model.utils.ArrayFileUtils;
+import com.automation.model.utils.FileUtils;
 import com.automation.model.webdriver.DriverHelper;
 
 /*
@@ -171,7 +170,6 @@ public class UbicacionRiesgoPage {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	public boolean addInmueble(String inmueble, String scenario) throws InterruptedException {
-
 		logger.debug("BEGIN - AddInmueble");
 		boolean value = false;
 
@@ -433,123 +431,111 @@ public class UbicacionRiesgoPage {
 		// }
 	}
 
-	public void printLogProcessPercentage(
-		String message, int current, int total) {
+	public void printLogProcessPercentage(String message, int current, int total) {
 		if((int) ((double) current / (double) total * 100) > (int) ((double) current - 1 / (double) total * 100)) {
 			logger.debug(message + (int) ((double) current / (double) total * 100) + "%");
 		}
 	}
 
-	public void iterarEdificiosPorDirecciones(
-		String nombreFichero) throws InterruptedException {
+	public void iterarEdificiosPorDirecciones(String nombreFichero) throws InterruptedException {
 		logger.debug("BEGIN - IterarEdificiosPorDirecciones");
 
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirInmueblePantallaPrincipal,
 		// this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
 
-		int sectionSize = 50, linesInFile = StringUtils.countOcurrencesInString(nombreFichero, "\n") + 1;
-
 		// Read file and fill HashMap
-		HashMap<String, HashMap<String, String>> tablaHash;
+		DataObject dataObject = new DataObject(FileUtils.csvFileToMData(nombreFichero));
 
-		// Load data in a HashMap by sections depending on "sectionSize"
-		for(int j = 0; j < linesInFile; j += sectionSize) {
-			tablaHash = ArrayFileUtils.loadDataFileSectionToHashMapByInitialLineAndSize(nombreFichero, j, sectionSize, false);
+		// Iterate by number of lines
+		for(int i = 0; i < dataObject.size(); i++) {
+			boolean dropDownPresent = true;
+			String provincia = dataObject.getValue(i + "", "provincia");
+			String poblacion = dataObject.getValue(i + "", "poblacion");
+			String direccion = dataObject.getValue(i + "", "direccion");
+			String numero = dataObject.getValue(i + "", "numero");
+			String direccionTotal = provincia + " " + poblacion + " " + direccion + " " + numero;
+			// Print iteration process percentage
+			this.printLogProcessPercentage("Iterations - ", i, dataObject.size());
 
-			// Iterate by number of lines
-			for(int i = 0; i < tablaHash.size(); i++) {
-				boolean dropDownPresent = true;
-				String address = ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "provincia", i) + " "
-					+ ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "poblacion", i) + " "
-					+ ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "direccion", i) + " "
-					+ ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "numero", i);
-				// Print iteration process percentage
-				this.printLogProcessPercentage("Iterations - ", j + i, linesInFile);
+			// If text in field "provincia" is not equals to the
+			// provincia(i) value
+			if(!this.webDriver.getTextInFrame(this.txtProvincia, this.cuerpoFrame).contains(provincia)) {
+				// Fill provincia
+				// this.webDriver.waitForPageLoadToFinish();
+				this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, provincia);
+				// this.webDriver.clickInFrame(this.lblMatchFoundElement,
+				// this.cuerpoFrame);
+				// this.webDriver.waitForPageLoadWithAngular();
+				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
+				if(!dropDownPresent)
+					System.out.println("Nombre de provincia no encontrado en el dropdown\n" + direccionTotal);
+			}
 
-				// If text in field "provincia" is not equals to the
-				// provincia(i) value
-				if(!this.webDriver.getTextInFrame(this.txtProvincia, this.cuerpoFrame).contains(ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "provincia", i))) {
-					// Fill provincia
-					// this.webDriver.waitForPageLoadToFinish();
-					this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "provincia", i));
-					// this.webDriver.clickInFrame(this.lblMatchFoundElement,
+			// If text in field "poblacion" is not equals to the
+			// poblacion(i) value
+			if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtPoblacion, this.cuerpoFrame).contains(poblacion)) {
+				// Fill poblacion
+				// this.webDriver.waitForAngular();
+				this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, poblacion);
+				// this.webDriver.waitForPageLoadWithAngular();
+				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
+				if(!dropDownPresent)
+					System.out.println("Nombre de población no encontrado en el dropdown\n" + direccionTotal);
+			}
+
+			// If text in field "direccion" is not equals to the
+			// direccion(i) value
+			if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtNombreVia, this.cuerpoFrame).contains(direccion)) {
+				// Fill direccion
+				// this.webDriver.waitForAngular();
+				this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, direccion);
+				// this.webDriver.waitForPageLoadWithAngular();
+				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
+				if(!dropDownPresent)
+					System.out.println("Nombre de via no encontrado en el dropdown\n" + direccionTotal);
+			}
+
+			// Fill numero
+			if(this.webDriver.isPresentInFrame(this.txtNumeroVia, this.cuerpoFrame))
+				this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, numero);
+			// Fill codigo postal
+			if(this.webDriver.isPresentInFrame(this.txtCodigoPostal, this.cuerpoFrame)) {
+				String codigoPostal = dataObject.getValue(i + "", "codigo_postal");
+				this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
+			}
+
+			if(dropDownPresent) {
+				try {
+					// Search
+					this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
+
+					// Wait result
+					System.out.println(this.webDriver.isPresentInFrame(this.resultadoBusqueda, this.cuerpoFrame) ? "Dirección normalizada"
+						: "Direccion no encontrada\n" + direccionTotal);
+					// this.webDriver.waitForWebElementInFrame(this.resultadoBusqueda,
 					// this.cuerpoFrame);
-					// this.webDriver.waitForPageLoadWithAngular();
-					dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
-					if(!dropDownPresent)
-						System.out.println("Nombre de provincia no encontrado en el dropdown\n" + address);
-				}
 
-				// If text in field "poblacion" is not equals to the
-				// poblacion(i) value
-				if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtPoblacion, this.cuerpoFrame)
-					.contains(ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "poblacion", i))) {
-					// Fill poblacion
-					// this.webDriver.waitForAngular();
-					this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "poblacion", i));
-					// this.webDriver.waitForPageLoadWithAngular();
-					dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
-					if(!dropDownPresent)
-						System.out.println("Nombre de población no encontrado en el dropdown\n" + address);
-				}
+				} catch(UnhandledAlertException e) {
+					// WebElement Alert = null;
 
-				// If text in field "direccion" is not equals to the
-				// direccion(i) value
-				if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtNombreVia, this.cuerpoFrame)
-					.contains(ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "direccion", i))) {
-					// Fill direccion
-					// this.webDriver.waitForAngular();
-					this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "direccion", i));
-					// this.webDriver.waitForPageLoadWithAngular();
-					dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
-					if(!dropDownPresent)
-						System.out.println("Nombre de via no encontrado en el dropdown\n" + address);
-				}
-
-				// Fill numero
-				if(this.webDriver.isPresentInFrame(this.txtNumeroVia, this.cuerpoFrame))
-					this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "numero", i));
-				// Fill codigo postal
-				if(this.webDriver.isPresentInFrame(this.txtCodigoPostal, this.cuerpoFrame)) {
-					String codigoPostal = ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "codigo_postal", i);
-					this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
-				}
-
-				if(dropDownPresent) {
-					try {
-						// Search
-						this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
-
-						// Wait result
-						// this.webDriver.waitForPageLoadWithAngular();
-						System.out.println(this.webDriver.isPresentInFrame(this.resultadoBusqueda, this.cuerpoFrame) ? "Dirección normalizada"
-							: "Direccion no encontrada\n" + address);
-						// this.webDriver.waitForWebElementInFrame(this.resultadoBusqueda,
-						// this.cuerpoFrame);
-
-					} catch(UnhandledAlertException e) {
-						// WebElement Alert = null;
-
-						// Manage alert Pop-up
-						// this.webDriver.getAlertTextAndAccept(Alert);
-						this.webDriver.acceptAlert();
-						// System.out.println(this.webDriver.getAlertText());
-						// this.webDriver.exitFrame();
-					}
+					// Manage alert Pop-up
+					// this.webDriver.getAlertTextAndAccept(Alert);
+					this.webDriver.acceptAlert();
+					// System.out.println(this.webDriver.getAlertText());
+					// this.webDriver.exitFrame();
 				}
 			}
 		}
+		
 		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
 		this.webDriver.quit();
 		logger.debug("END - IterarEdificiosPorDirecciones");
 	}
 
-	public void iterarEdificiosPorReferencias(
-		String nombreFichero) throws Exception {
+	public void iterarEdificiosPorReferencias(String nombreFichero) throws Exception {
 		logger.debug("BEGIN - IterarEdificiosPorReferencias");
 
-		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.moveToElementAndClickInFrame(this.btnAnadirInmueblePantallaPrincipal,
 		// this.cuerpoFrame);
 		this.webDriver.isPresentAndClickInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
@@ -557,22 +543,22 @@ public class UbicacionRiesgoPage {
 		this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
 
 		// Read file and fill HashMap
-		HashMap<String, HashMap<String, String>> tablaHash = ArrayFileUtils.loadDataFileToHashMap(nombreFichero, false);
+		DataObject dataObject = new DataObject(FileUtils.csvFileToMData(nombreFichero));
 
 		// Iterate by number of lines
-		for(int i = 0; i < tablaHash.size(); i++) {
+		for(int i = 0; i < dataObject.size(); i++) {
 			System.out.println("***En en bucle iterar");
-			String refCat = ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "ref_catastral", i);
+			String refCat = dataObject.getValue(i + "", "ref_catastral");
 			// Print iteration process percentage
-			this.printLogProcessPercentage("Iterations - ", i, tablaHash.size());
+			this.printLogProcessPercentage("Iterations - ", i, dataObject.size());
 
 			// Search
 			try {
 				// Fill referencia_catastral
-				this.webDriver.appendTextInFrame(this.txtReferenciaCatastral, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "ref_catastral", i));
+				this.webDriver.appendTextInFrame(this.txtReferenciaCatastral, this.cuerpoFrame, refCat);
 
 				this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
-				// this.webDriver.waitForPageLoadWithAngular();
+
 				// Wait result
 				if(this.webDriver.isPresentInFrame(this.mensajeModalError, this.cuerpoFrame)) {
 					System.out.println("Referencia catastral no encontrada\n" + refCat);
@@ -589,25 +575,12 @@ public class UbicacionRiesgoPage {
 				// Manage alert Pop-up
 				this.webDriver.acceptAlert();
 				System.out.println("Error con referencia catastral\n" + refCat);
-				System.out.println("Error con referencia catastral\n" + refCat);
 				// this.webDriver.exitFrame();
 			} catch(Exception e) {
 				this.webDriver.quit();
 
 				new LoginPage(webDriver, tCData)
 					.logIn(tCData.getConfigVar("environment"), tCData.getTestVar(testId, "acceso"), tCData.getTestVar(testId, "usuario"));
-
-				/*
-				 * this.browserContext.initializeVariables(this.browserContext.
-				 * getTestCaseData().getAcceso());
-				 * 
-				 * this.wh = this.browserContext.webElementHelper;
-				 * PageFactory.initElements(this.browserContext.getWebDriver(),
-				 * this);
-				 * this.browserContext.applicationAccessHelper.login(this.
-				 * browserContext.getTestCaseData().getUsuario(),
-				 * this.browserContext.getProperties().passwordComun);
-				 */
 
 				// FichaEdificioPage
 				InnovaHomePage innovaHomePage = new InnovaHomePage(this.webDriver, this.tCData);
@@ -620,9 +593,7 @@ public class UbicacionRiesgoPage {
 				//
 				asignarMediadorPage.selectMediadorAndClickOnContinuar(this.tCData.getConfigVar("mediador"));
 
-				// this.webDriver.waitForPageLoadWithAngular();
 				this.webDriver.moveToElementInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
-				// this.webDriver.waitForPageLoadWithAngular();
 				this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
 			}
 		}
@@ -648,8 +619,7 @@ public class UbicacionRiesgoPage {
 		return value;
 	}
 
-	public void GuardarRefCatastral(
-		String cadenaTexto) {
+	public void GuardarRefCatastral(String cadenaTexto) {
 		try {
 			// String ruta = fileDownloadTempPath + "\\Polizas.txt";
 			// String ruta =
