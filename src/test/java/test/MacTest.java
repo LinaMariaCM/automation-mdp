@@ -1,8 +1,8 @@
 package test;
 
 import com.automation.model.testing.SuiteManager;
-import com.automation.model.testing.TestClass;
 import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.TestObject;
 import com.automation.model.utils.CsvToHtml;
 import com.automation.model.utils.InitUtils;
 import com.project.ProjectConstants;
@@ -11,7 +11,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-public class MacTest extends TestClass {
+public class MacTest extends TestObject {
 
 	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MAC);
 

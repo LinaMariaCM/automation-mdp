@@ -1,6 +1,13 @@
 package com.project.pages;
 
-public class InmueblePage_MAC {
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
+public class InmueblePage_MAC extends PageObject {
+	
+	InmueblePage_MAC(UserStory userS) {
+		super(userS);
+	}
 	
 	// final static Logger logger =
 	// LoggerFactory.getLogger(InmueblePage_MAC.class);

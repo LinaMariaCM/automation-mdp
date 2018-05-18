@@ -1,7 +1,13 @@
 package com.project.pages;
 
-public class TomadorYAseguradoPage_MAC {
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
+public class TomadorYAseguradoPage_MAC extends PageObject {
 	
+	TomadorYAseguradoPage_MAC(UserStory userS) {
+		super(userS);
+	}
 	// final static Logger logger =
 	// LoggerFactory.getLogger(TomadorYAseguradoPage_MAC.class);
 	// BrowserContext browserContext;

@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.automation.model.webdriver.DriverHelper;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -18,13 +20,8 @@ import com.project.utils.FileHelper;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class DocumentacionPage {
+public class DocumentacionPage extends PageObject {
 	
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
-
 	// region webelements
 	// @FindBy(name = "cuerpo")
 	private By cuerpoFrame = By.name("cuerpo");
@@ -66,16 +63,15 @@ public class DocumentacionPage {
 	private By btnDocumentacion = By.xpath(".//*[text()='8. Documentación']");
 	// endregion
 
-	public DocumentacionPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public DocumentacionPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public DocumentacionPage SubirFichero() throws AWTException, URISyntaxException {
-		logger.debug("BEGIN - SubirFichero");
-		if(this.tCData.getTestVar(testId, "Usuario").equals("calbets")) {
+		debugBegin();
+		
+		if(this.testDataM.getTestVar(testId, "Usuario").equals("calbets")) {
 			// this.wh.switchToFrame(this.leftFrame);
 			// this.wh.clickOnWebElement(this.btnDocumentacion);
 			// this.wh.exitFromFrame();
@@ -108,15 +104,15 @@ public class DocumentacionPage {
 			this.webDriver.exitFrame();
 		}
 
-		logger.debug("BEGIN - SubirFichero");
+		debugEnd();
 
 		return this;
 	}
 
 	public DocumentacionPage ClickOnContinuar() {
-		logger.debug("BEGIN - ClickOnContinuar");
+		debugBegin();
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
-		logger.debug("END - ClickOnContinuar");
+		debugEnd();
 
 		return this;
 	}

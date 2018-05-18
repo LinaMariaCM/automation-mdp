@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 
 import com.automation.data.DataObject;
 import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.webdriver.DriverHelper;
 
@@ -29,12 +31,7 @@ import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
 
-public class UbicacionRiesgoPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class UbicacionRiesgoPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
@@ -148,17 +145,15 @@ public class UbicacionRiesgoPage {
 	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
 	 */
 
-	public UbicacionRiesgoPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public UbicacionRiesgoPage(UserStory userS) {
+		super(userS);
 	}
 
 	public boolean fillInmuebleAndGetAvailability(String scenario) throws InterruptedException {
 
 		// return
 		// this.addInmueble(this.browserContext.getTestCaseData().getInmueble());
-		return this.addInmueble(tCData.getScenarioVar(scenario, "inmueble"), scenario);
+		return this.addInmueble(testDataM.getScenarioVar(scenario, "inmueble"), scenario);
 	}
 
 	public void fillInmuebleAndClickOnContinue(String scenario) throws InterruptedException {
@@ -172,14 +167,15 @@ public class UbicacionRiesgoPage {
 	/////////////////////////////////////////////////////////////////////////////////////////
 
 	public boolean addInmueble(String inmueble, String scenario) throws InterruptedException {
-		logger.debug("BEGIN - AddInmueble");
+		debugBegin();
+		
 		boolean value = false;
 
 		if(inmueble != null && !inmueble.isEmpty()) {
 			value = this.addInmuebleByAddress();
 		} else {// value =
 				// this.addInmuebleByReferenciaCatastral(this.browserContext.getTestCaseData().getReferenciaCatastral());
-			value = this.addInmuebleByReferenciaCatastral(tCData.getVar(scenario, "ref_catastral"));
+			value = this.addInmuebleByReferenciaCatastral(testDataM.getVar(scenario, "ref_catastral"));
 		}
 		/*
 		 * switch (inmueble) { case
@@ -192,12 +188,13 @@ public class UbicacionRiesgoPage {
 		 * this.addInmuebleByAddress(); break; }
 		 */
 
-		logger.debug("END - AddInmueble");
+		debugEnd();
+		
 		return value;
 	}
 
 	public boolean addInmuebleByAddress() throws InterruptedException {
-		logger.debug("BEGIN - AddInmuebleByAddress");
+		debugBegin();
 		this.webDriver.waitForPageToLoad();
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirInmueblePantallaPrincipal,
 		// this.cuerpoFrame);
@@ -209,7 +206,7 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionProvincia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_provinvia")));
+		this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_provinvia")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
 
@@ -218,7 +215,7 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionPoblacion()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_poblacion")));
+		this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_poblacion")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
 
@@ -227,7 +224,7 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionNombreVia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_nombre_via")));
+		this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_nombre_via")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
 
@@ -236,7 +233,7 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionNumeroVia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_numero_via")));
+		this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_numero_via")));
 
 		/*
 		 * this.webDriver.appendTextInFrame(this.txtCodigoPostal,
@@ -244,12 +241,12 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionCodigoPostal()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_codigo_postal")));
+		this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_codigo_postal")));
 
 		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 
-		// if (this.tCData.isExcluirGarajes())
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExcluirGarajes"))) {
+		// if (this.testDataM.isExcluirGarajes())
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExcluirGarajes"))) {
 
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			if(!this.webDriver.isSelected(this.chkExcluirGarajes)) {
@@ -258,8 +255,8 @@ public class UbicacionRiesgoPage {
 			this.webDriver.exitFrame();
 		}
 
-		// if (this.tCData.isExcluirLocales())
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExlcuirLocales"))) {
+		// if (this.testDataM.isExcluirLocales())
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExlcuirLocales"))) {
 			this.webDriver.clickInFrame(this.chkExcluirLocales, this.cuerpoFrame);
 		}
 
@@ -275,18 +272,18 @@ public class UbicacionRiesgoPage {
 		boolean value = this.webDriver.isPresentAndClickInFrame(this.btnAnadirInmuebleReferenciaCatastral, this.cuerpoFrame);
 		// this.webDriver.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
-		logger.debug("END - AddInmuebleByAddress");
+		debugEnd();
 		return value;
 	}
 
 	public void addInmuebleByDefaultAddress() throws InterruptedException {
-		logger.debug("BEGIN - AddInmuebleByDefaultAddress");
+		debugBegin();
 		this.addInmuebleByAddress();
-		logger.debug("END - AddInmuebleByDefaultAddress");
+		debugEnd();
 	}
 
 	public boolean addInmuebleByReferenciaCatastral(String referenciaCatastral) {
-		logger.debug("BEGIN - AddInmuebleByReferenciaCatastral");
+		debugBegin();
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
 		this.webDriver.waitWithDriver(1000);
@@ -319,12 +316,14 @@ public class UbicacionRiesgoPage {
 		this.webDriver.click(this.btnAnadirInmuebleReferenciaCatastral);
 		this.webDriver.waitWithDriver(1000);
 		this.webDriver.exitFrame();
-		logger.debug("END - AddInmuebleByReferenciaCatastral");
+		
+		debugEnd();
+		
 		return true;
 	}
 
 	public void clickOnContinuar() {
-		logger.debug("BEGIN - ClickOnContinuar");
+		debugBegin();
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -334,18 +333,18 @@ public class UbicacionRiesgoPage {
 
 		this.webDriver.click(this.btnContinuar);
 		this.webDriver.exitFrame();
-		logger.debug("END - ClickOnContinuar");
+		debugEnd();
 	}
 
 	public void clickOnGuardar() {
-		logger.debug("BEGIN - clickOnGuardar");
+		debugBegin();
 		// this.webDriver.waitForPageLoadWithAngular();
 		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
-		logger.debug("END - clickOnGuardar");
+		debugEnd();
 	}
 
 	public void closeAvisoSistemaPopup() throws IOException {
-		logger.debug("BEGIN - CloseAvisoSistemaPopup");
+		debugBegin();
 		// this.browserContextwebDriverConfiguration.SetWebDriverTimeouts(5);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 
@@ -354,15 +353,16 @@ public class UbicacionRiesgoPage {
 		}
 		this.webDriver.exitFrame();
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
-		logger.debug("END - CloseAvisoSistemaPopup");
+		debugEnd();
 	}
 
 	public void modifyReferenciaCatastral() {
-		logger.debug("BEGIN - ModificarReferenciaCatastral");
+		debugBegin();
+		
 		String referenciaCatastral = this.webDriver.getTextInFrame(this.txtCurrentReferenciaCatastral, this.cuerpoFrame);
 		// String expectedReferenciaCatastral =
 		// this.browserContext.getTestCaseData().getReferenciaCatastral();
-		String expectedReferenciaCatastral = this.tCData.getConfigVar("ReferenciaCatastral");
+		String expectedReferenciaCatastral = this.testDataM.getConfigVar("ReferenciaCatastral");
 
 		if(!referenciaCatastral.trim().equals(expectedReferenciaCatastral.substring(0, expectedReferenciaCatastral.length() - 6))) {
 			this.webDriver.clickInFrame(this.btnModificarReferenciaCatastral, this.cuerpoFrame);
@@ -371,24 +371,25 @@ public class UbicacionRiesgoPage {
 			this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 			this.webDriver.clickInFrame(this.btnModificarInmueble, this.cuerpoFrame);
 		}
-		logger.debug("END - ModificarReferenciaCatastral");
+		
+		debugEnd();
 	}
 
 	public void editInmuebleAndExcluirGarajesYLocales() {
-		// if (this.tCData.isExcluirGarajes() || this.tCData.isExcluirLocales())
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExcluirGarajes")) || Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExcluirLocales"))) {
+		// if (this.testDataM.isExcluirGarajes() || this.testDataM.isExcluirLocales())
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExcluirGarajes")) || Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExcluirLocales"))) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			this.webDriver.click(this.btnLapiz);
 			// if (!this.chkExcluirGarajes.isSelected() &&
-			// this.tCData.isExcluirGarajes())
+			// this.testDataM.isExcluirGarajes())
 
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExcluirGarajes"))) {
+			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExcluirGarajes"))) {
 				this.webDriver.click(this.chkExcluirGarajes);
 			}
 
 			// if (!this.chkExcluirLocales.isSelected() &&
-			// this.tCData.isExcluirLocales())
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(this.tCData.getTestVar(testId, "excluir_locales"))) {
+			// this.testDataM.isExcluirLocales())
+			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(this.testDataM.getTestVar(testId, "excluir_locales"))) {
 				this.webDriver.click(this.chkExcluirLocales);
 			}
 
@@ -398,20 +399,20 @@ public class UbicacionRiesgoPage {
 	}
 
 	public void editCalidadConstruccion() {
-		// if (this.tCData.getCalidadConstruccion() != null)
-		if(this.tCData.getTestVar(testId, "calidad_construccion") != null) {
+		// if (this.testDataM.getCalidadConstruccion() != null)
+		if(this.testDataM.getTestVar(testId, "calidad_construccion") != null) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			// this.webDriver.selectValueInDropDown(this.cbkCalidadConstruccion,
-			// this.tCData.getCalidadConstruccion());
-			this.webDriver.clickElementFromDropDownByAttribute(this.cbkCalidadConstruccion, "value", this.tCData.getTestVar(testId, "calidad_construccion"));
+			// this.testDataM.getCalidadConstruccion());
+			this.webDriver.clickElementFromDropDownByAttribute(this.cbkCalidadConstruccion, "value", this.testDataM.getTestVar(testId, "calidad_construccion"));
 			this.webDriver.tabulateElement(this.cbkCalidadConstruccion);
 			this.webDriver.exitFrame();
 		}
 	}
 
 	// public void asegurarUnicamenteGarajes() {
-	// // if (this.tCData.isAsegurarUnicamenteGarajes())
-	// if(Boolean.parseBoolean(this.tCData.getTestVar(testId,
+	// // if (this.testDataM.isAsegurarUnicamenteGarajes())
+	// if(Boolean.parseBoolean(this.testDataM.getTestVar(testId,
 	// "asegurar_unicamente_garajes"))) {
 	// this.webDriver.switchToFrame(this.cuerpoFrame);
 	// this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
@@ -421,8 +422,8 @@ public class UbicacionRiesgoPage {
 	// }
 
 	public void asegurarUnicamenteGarajes() {
-		// if (this.tCData.isAsegurarUnicamenteGarajes())
-		// if(Boolean.parseBoolean(this.tCData.getScenarioVar(testId,
+		// if (this.testDataM.isAsegurarUnicamenteGarajes())
+		// if(Boolean.parseBoolean(this.testDataM.getScenarioVar(testId,
 		// "asegurar_unicamente_garajes"))) {
 		// this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.waitWithDriver(2000);
@@ -436,12 +437,12 @@ public class UbicacionRiesgoPage {
 
 	public void printLogProcessPercentage(String message, int current, int total) {
 		if((int) ((double) current / (double) total * 100) > (int) ((double) current - 1 / (double) total * 100)) {
-			logger.debug(message + (int) ((double) current / (double) total * 100) + "%");
+			debugInfo(message + (int) ((double) current / (double) total * 100) + "%");
 		}
 	}
 
 	public void iterarEdificiosPorDirecciones(String nombreFichero) throws InterruptedException {
-		logger.debug("BEGIN - IterarEdificiosPorDirecciones");
+		debugBegin();
 
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirInmueblePantallaPrincipal,
 		// this.cuerpoFrame);
@@ -533,11 +534,11 @@ public class UbicacionRiesgoPage {
 		
 		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
 		this.webDriver.quit();
-		logger.debug("END - IterarEdificiosPorDirecciones");
+		debugEnd();
 	}
 
 	public void iterarEdificiosPorReferencias(String nombreFichero) throws Exception {
-		logger.debug("BEGIN - IterarEdificiosPorReferencias");
+		debugBegin();
 
 		// this.webDriver.moveToElementAndClickInFrame(this.btnAnadirInmueblePantallaPrincipal,
 		// this.cuerpoFrame);
@@ -582,19 +583,19 @@ public class UbicacionRiesgoPage {
 			} catch(Exception e) {
 				this.webDriver.quit();
 
-				new LoginPage(webDriver, tCData)
-					.logIn(tCData.getConfigVar("environment"), tCData.getTestVar(testId, "acceso"), tCData.getTestVar(testId, "usuario"));
+				new LoginPage(userS)
+					.logIn(testDataM.getConfigVar("environment"), testDataM.getTestVar(testId, "acceso"), testDataM.getTestVar(testId, "usuario"));
 
 				// FichaEdificioPage
-				InnovaHomePage innovaHomePage = new InnovaHomePage(this.webDriver, this.tCData);
+				InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
 				innovaHomePage.openMutuaEdificioConfort();
 				innovaHomePage.CreateNewProject();
 
-				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(this.webDriver, this.tCData);
+				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
 				//
 				// REVISAR PARAMETROS DE ENTRADA DE: AsignarMediadorPage
 				//
-				asignarMediadorPage.selectMediadorAndClickOnContinuar(this.tCData.getConfigVar("mediador"));
+				asignarMediadorPage.selectMediadorAndClickOnContinuar(this.testDataM.getConfigVar("mediador"));
 
 				this.webDriver.moveToElementInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
 				this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
@@ -602,7 +603,7 @@ public class UbicacionRiesgoPage {
 		}
 		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
 		this.webDriver.quit();
-		logger.debug("END - IterarEdificiosPorReferencias");
+		debugEnd();
 	}
 
 	public boolean checkNotification() {
@@ -610,7 +611,7 @@ public class UbicacionRiesgoPage {
 	}
 
 	public boolean closeNotification() {
-		logger.debug("BEGIN - closeNotification");
+		debugBegin();
 		boolean value = false;
 
 		if(this.checkNotification()) {
@@ -618,7 +619,7 @@ public class UbicacionRiesgoPage {
 			value = true;
 		}
 
-		logger.debug("END - closeNotification");
+		debugEnd();
 		return value;
 	}
 
@@ -628,7 +629,7 @@ public class UbicacionRiesgoPage {
 			// String ruta =
 			// this.browserContext.getTestCaseData().getFileDownloadTempPath() +
 			// "\\Polizas.txt";
-			String ruta = tCData.getConfigVar("fileDownloadTempPath") + "\\Polizas.txt";
+			String ruta = testDataM.getConfigVar("fileDownloadTempPath") + "\\Polizas.txt";
 			// File archivo = new File("C:\\MutuaPropietarios\\Polizas.txt");
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta, true), StandardCharsets.UTF_8));
 			bw.write(cadenaTexto + "_");

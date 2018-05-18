@@ -1,12 +1,18 @@
 package com.project.pages;
 
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class GestionPolizasBuscadorPage {
+public class GestionPolizasBuscadorPage extends PageObject {
 	
+	GestionPolizasBuscadorPage(UserStory userS) {
+		super(userS);
+	}
 	// final static Logger logger =
 	// LoggerFactory.getLogger(GestionOnlineHomePage.class);
 	// BrowserContext browserContext;

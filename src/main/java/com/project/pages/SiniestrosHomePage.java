@@ -1,7 +1,13 @@
 package com.project.pages;
 
-public class SiniestrosHomePage {
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
+public class SiniestrosHomePage extends PageObject {
 	
+	SiniestrosHomePage(UserStory userS) {
+		super(userS);
+	}
 	// final static Logger logger =
 	// LoggerFactory.getLogger(SiniestrosHomePage.class);
 	// BrowserContext browserContext;

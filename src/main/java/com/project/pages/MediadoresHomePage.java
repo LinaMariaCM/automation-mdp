@@ -1,11 +1,18 @@
 package com.project.pages;
 
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class MediadoresHomePage {
+public class MediadoresHomePage extends PageObject {
 
+	MediadoresHomePage(UserStory userS) {
+		super(userS);
+	}
+	
 	// final static Logger logger =
 	// LoggerFactory.getLogger(MediadoresHomePage.class);
 	// BrowserContext browserContext;

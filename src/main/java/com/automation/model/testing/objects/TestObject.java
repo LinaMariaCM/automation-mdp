@@ -1,10 +1,12 @@
-package com.automation.model.testing;
+package com.automation.model.testing.objects;
 
 import org.testng.ITestContext;
 import org.testng.annotations.BeforeSuite;
+
+import com.automation.model.testing.SuiteManager;
 import com.automation.model.utils.InitUtils;
 
-public class TestClass {
+public class TestObject {
 
 	protected SuiteManager suiteM;
 	protected String translationFile;

@@ -4,53 +4,48 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.automation.model.webdriver.DriverHelper;
 import com.project.ProjectConstants;
 
-public class LoginPage {
+public class LoginPage extends PageObject {
 
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
-
-	public LoginPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public LoginPage(UserStory userS) {
+		super(userS);
 	}
 
 	public LoginPage logIn(String environment, String accessType, String user) throws Exception {
 		switch(environment) {
 			case ProjectConstants.PreEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Pre"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-Pre"));
 				break;
 			case ProjectConstants.UatEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-UAT"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-UAT"));
 				break;
 			case ProjectConstants.V7Environment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-V7"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-V7"));
 				break;
 			case ProjectConstants.QAEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-QA"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-QA"));
 				break;
 			case ProjectConstants.ATMIRAEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-ATMIRA"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-ATMIRA"));
 				break;
 			case ProjectConstants.UpgradeEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Upgrade"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-Upgrade"));
 				break;
 			case ProjectConstants.SiniestrosEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Siniestros"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-Siniestros"));
 				break;
 			case ProjectConstants.MigracionEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Migracion"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-Migracion"));
 				break;
 			case ProjectConstants.UatPjEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-UatPj"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-UatPj"));
 				break;
 			case ProjectConstants.HogarMigEnvironment:
-				this.webDriver.go(tCData.getConfigVar(accessType + "Home-HogarMig"));
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-HogarMig"));
 				break;
 			default:
 				throw new Exception("Environment not available");
@@ -58,14 +53,14 @@ public class LoginPage {
 
 		switch(accessType) {
 			case ProjectConstants.LoginAccessInnova:
-				new InnovaLoginPage(webDriver, tCData)
-					.login(user, tCData.getGlobalVar(user + "_pass"));
+				new InnovaLoginPage(userS)
+					.login(user, testDataM.getGlobalVar(user + "_pass"));
 				break;
 			case ProjectConstants.LoginAccessGestionLine:
-				new GestionOnlineLoginPage(webDriver, tCData)
-					.login(user, tCData.getGlobalVar(user + "_pass"));
+				new GestionOnlineLoginPage(userS)
+					.login(user, testDataM.getGlobalVar(user + "_pass"));
 
-				new GestionOnlineHomePage(webDriver, tCData)
+				new GestionOnlineHomePage(userS)
 					.acceptCookies()
 					.closeNovedadesDialog();
 				break;

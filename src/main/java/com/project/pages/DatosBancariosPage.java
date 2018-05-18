@@ -11,6 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.automation.model.webdriver.DriverHelper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
@@ -18,12 +20,7 @@ import com.google.common.collect.Iterables;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class DatosBancariosPage {
-	
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class DatosBancariosPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
@@ -143,15 +140,13 @@ public class DatosBancariosPage {
 	// endregion
 	String nombreProyecto = "";
 
-	public DatosBancariosPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public DatosBancariosPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public DatosBancariosPage introducirFormaPagoYPulsarGuardar() {
-		this.FillPaymentMethod(this.tCData.getTestVar(testId, "MedioPago"));
+		this.FillPaymentMethod(this.testDataM.getTestVar(testId, "MedioPago"));
 		this.ClickOnGuardar();
 		this.GetProjectCodeNumberAndClickOnAceptarButton();
 
@@ -159,7 +154,7 @@ public class DatosBancariosPage {
 	}
 
 	public DatosBancariosPage introducirFormaPagoYPulsarContratar() {
-		this.FillPaymentMethod(this.tCData.getTestVar(testId, "MedioPago"));
+		this.FillPaymentMethod(this.testDataM.getTestVar(testId, "MedioPago"));
 		this.ClickOnGuardar();
 		this.GetProjectCodeNumberAndClickOnAceptarButton();
 		this.AceptarCondicionesLegales();
@@ -181,7 +176,7 @@ public class DatosBancariosPage {
 	}
 
 	public DatosBancariosPage modificarFormaPagoYPulsarGuardar() {
-		this.FillPaymentMethod(this.tCData.getTestVar(testId, "CambioMedioPago"));
+		this.FillPaymentMethod(this.testDataM.getTestVar(testId, "CambioMedioPago"));
 		this.ClickOnGuardar();
 		this.GetProjectCodeNumberAndClickOnAceptarButton();
 
@@ -189,7 +184,7 @@ public class DatosBancariosPage {
 	}
 
 	public DatosBancariosPage modificarFormaPagoYPulsarContratar() {
-		this.FillPaymentMethod(this.tCData.getTestVar(testId, "CambioMedioPago"));
+		this.FillPaymentMethod(this.testDataM.getTestVar(testId, "CambioMedioPago"));
 		this.ClickOnGuardar();
 		this.GetProjectCodeNumberAndClickOnAceptarButton();
 		this.AceptarCondicionesLegales();
@@ -199,18 +194,18 @@ public class DatosBancariosPage {
 	}
 
 	public DatosBancariosPage ClickOnGuardar() {
-		logger.debug("BEGIN - ClickOnGuardar");
+		debugBegin();
 		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
 		// this.webDriver.waitForPageLoadWithAngular();
-		logger.debug("END - ClickOnGuardar");
+		debugEnd();
 
 		return this;
 	}
 
 	public String FillCuentaBancariaWIthValidRandomNumber() {
-		logger.debug("BEGIN - FillCuentaBancariaWithValidRandomNumber");
+		debugBegin();
 		// Iban iban = Iban.random(CountryCode.ES);
-		String iban = this.tCData.getTestVar(testId, "IBAN");
+		String iban = this.testDataM.getTestVar(testId, "IBAN");
 		Iterable<String> ibanIterator = Splitter.fixedLength(4).split(iban.toString());
 		String[] ibanList = Iterables.toArray(ibanIterator, String.class);
 
@@ -223,11 +218,13 @@ public class DatosBancariosPage {
 		// this.wh.ClickOnWebElementInFrame(this.chkMutuaPropietariosIntegrara,
 		// this.cuerpoFrame);
 
-		logger.debug("END - FillCuentaBancariaWithValidRandomNumber");
+		debugEnd();
+		
 		return iban;
 	}
 
 	public String fillStaticIban() {
+		debugBegin();
 		String iban = "ES0321001234561234567890";
 		Iterable<String> ibanIterator = Splitter.fixedLength(4).split(iban.toString());
 		String[] ibanList = Iterables.toArray(ibanIterator, String.class);
@@ -241,14 +238,13 @@ public class DatosBancariosPage {
 		// this.wh.ClickOnWebElementInFrame(this.chkMutuaPropietariosIntegrara,
 		// this.cuerpoFrame);
 
-		logger.debug("END - FillCuentaBancariaWithValidRandomNumber");
+		debugEnd();
+		
 		return iban;
-
 	}
 
-	public DatosBancariosPage FillPaymentMethod(
-		String paymentMethod) {
-		logger.debug("BEGIN - FillPaymentMethod");
+	public DatosBancariosPage FillPaymentMethod(String paymentMethod) {
+		debugBegin();
 		// String medioPago =
 		// this.appendTextInFrame.getTextFromSelectInFrame(this.cmbMedioPago,
 		// this.cuerpoFrame);
@@ -269,25 +265,26 @@ public class DatosBancariosPage {
 				this.FillCuentaBancariaWIthValidRandomNumber();
 				break;
 		}
-		logger.debug("END - FillPaymentMethod");
+		
+		debugEnd();
 
 		return this;
 	}
 
 	public DatosBancariosPage GetProjectCodeNumberAndClickOnAceptarButton() {
-		logger.debug("BEGIN - GetProjectCodeNumberAndClickOnAceptarButton");
+		debugBegin();
 		String projectNumberText = this.webDriver.getTextInFrame(this.txtCodigoProjecto, this.cuerpoFrame);
 		String ProjectCode = StringUtils.substringBetween(projectNumberText, "El proyecto", "se ha guardado.").trim();
 		this.nombreProyecto = ProjectCode;
 		this.webDriver.clickInFrame(this.btnAceptarInDialog, this.cuerpoFrame);
 		// this.browserContext.getTestCaseData().setNoCotizacion(ProjectCode);
-		this.tCData.setTestVar(testId, "CotizacionNum", ProjectCode);
+		this.testDataM.setTestVar(testId, "CotizacionNum", ProjectCode);
 
 		// DocumentacionPage documentacionPage = new
 		// DocumentacionPage(this.browserContext);
 		// documentacionPage.SubirFichero();
 
-		logger.debug("END - GetProjectCodeNumberAndClickOnAceptarButton");
+		debugEnd();
 
 		return this;
 	}
@@ -297,31 +294,31 @@ public class DatosBancariosPage {
 	}
 
 	public DatosBancariosPage SelectMediadorAsPaymentMethod() {
-		logger.debug("BEGIN - SelectMediadorAsPaymentMethod");
+		debugBegin();
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbMedioPago, this.cuerpoFrame, "Mediador");
-		logger.debug("END - SelectMediadorAsPaymentMethod");
-
+		debugEnd();
+		
 		return this;
 	}
 
 	public DatosBancariosPage AceptarCondicionesLegales() {
-		logger.debug("BEGIN - AceptarCondicionesLegales");
+		debugBegin();
 		this.webDriver.clickInFrame(this.chkMutuaPropietariosIntegrara, this.cuerpoFrame);
-		logger.debug("END - AceptarCondicionesLegales");
+		debugEnd();
 
 		return this;
 	}
 
 	public DatosBancariosPage ClickOnSolicitarPeritacion() {
-		logger.debug("BEGIN - ClickOnSolicitarPeritacion");
+		debugBegin();
 		this.webDriver.clickInFrame(this.btnSolicitarPeritacion, this.cuerpoFrame);
-		logger.debug("END - ClickOnSolicitarPeritacion");
+		debugEnd();
 
 		return this;
 	}
 
 	public DatosBancariosPage enterDataSolicitudServicioTecnico() {
-		logger.debug("BEGIN - enterDataSolicitudServicioTecnico");
+		debugBegin();
 		// this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdwnTipoServicio, this.cuerpoFrame, "Verificación de riesgo");
 		this.webDriver.appendTextInFrame(this.txtPersona, this.cuerpoFrame, "Nombre Persona Contacto");
@@ -337,9 +334,9 @@ public class DatosBancariosPage {
 		this.webDriver.clickInFrame(this.btnGuardarPeritaje, this.cuerpoFrame);
 		// this.wh.exitFromFrame();
 		String mensajePeritaje = this.webDriver.getTextInFrame(this.msgPeritacion, this.cuerpoFrame);
-		System.out.println("Message peritacion: " + mensajePeritaje + ".\n");
+		debugInfo("Message peritacion: " + mensajePeritaje + ".\n");
 
-		logger.debug("END - enterDataSolicitudServicioTecnico");
+		debugEnd();
 
 		return this;
 	}
@@ -351,17 +348,17 @@ public class DatosBancariosPage {
 	}
 
 	public DatosBancariosPage ClickOnContratarAndGetPolizaNumber() {
-		logger.debug("BEGIN - ClickOnContratar");
+		debugBegin();
 		this.webDriver.clickInFrame(this.btnContratar, this.cuerpoFrame);
 		// this.browserContext.getTestCaseData().setNumPoliza(this.GetPolizaNumber());
-		this.tCData.setTestVar(testId, "PolizaNumber", this.GetPolizaNumber());
-		logger.debug("END - ClickOnContratar");
+		this.testDataM.setTestVar(testId, "PolizaNumber", this.GetPolizaNumber());
+		debugEnd();
 
 		return this;
 	}
 
 	public String GetPolizaNumber() {
-		logger.debug("BEGIN - GetPolizaNumber");
+		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		String polizaNumber = this.webDriver.getText(this.lblPolizaNumber);
 		Integer firstCharacter = polizaNumber.indexOf("/") + 1;
@@ -371,16 +368,16 @@ public class DatosBancariosPage {
 		this.GuardarPolizaTxt(numPoliza);
 
 		this.webDriver.exitFrame();
-		logger.debug("END - GetPolizaNumber");
+		debugEnd();
 		return trimmedPolizaNumber;
 	}
 
 	public DatosBancariosPage ClickOnEmitirSuplemento() {
-		logger.debug("BEGIN - ClickOnEmitirSuplemento");
+		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.btnEmitirSuplemento);
 		this.webDriver.exitFrame();
-		logger.debug("END - ClickOnEmitirSuplemento");
+		debugEnd();
 
 		return this;
 	}
@@ -391,7 +388,7 @@ public class DatosBancariosPage {
 			// String ruta =
 			// this.browserContext.getTestCaseData().getFileDownloadTempPath() +
 			// "\\Polizas.txt";
-			String ruta = this.tCData.getTestVar(testId, "fileDownloadTempPath");
+			String ruta = this.testDataM.getTestVar(testId, "fileDownloadTempPath");
 			// File archivo = new File("C:\\MutuaPropietarios\\Polizas.txt");
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta, true), StandardCharsets.UTF_8));
 			bw.write(cadenaTexto + ";");

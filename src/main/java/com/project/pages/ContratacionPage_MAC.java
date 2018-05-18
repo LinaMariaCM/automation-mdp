@@ -1,13 +1,13 @@
 package com.project.pages;
 
-public class ContratacionPage_MAC {
-	
-	// final static Logger logger =
-	// LoggerFactory.getLogger(ContratacionPage_MAC.class);
-	// BrowserContext browserContext;
-	// private WebElementHelper wh;
-	// TestCaseData tData;
-	//
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
+public class ContratacionPage_MAC extends PageObject {
+
+	public ContratacionPage_MAC(UserStory userS) {
+		super(userS);
+	}
 	// // region webelements
 	// @FindBy(name = "cuerpo")
 	// private WebElement cuerpoFrame;
@@ -27,13 +27,6 @@ public class ContratacionPage_MAC {
 	//
 	// @FindBy(xpath = "./html/body/table[1]/tbody/tr/td")
 	// private WebElement messageRecibo;
-	//
-	// public ContratacionPage_MAC(BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
 	//
 	// public void ExecuteActionsInContratacionPage() throws
 	// InterruptedException, IOException

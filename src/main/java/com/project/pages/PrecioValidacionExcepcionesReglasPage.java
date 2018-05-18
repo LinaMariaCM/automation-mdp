@@ -1,7 +1,13 @@
 package com.project.pages;
 
-public class PrecioValidacionExcepcionesReglasPage {
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
+public class PrecioValidacionExcepcionesReglasPage extends PageObject {
 	
+	PrecioValidacionExcepcionesReglasPage(UserStory userS) {
+		super(userS);
+	}
 	// final static Logger logger =
 	// LoggerFactory.getLogger(PrecioValidacionExcepcionesReglasPage.class);
 	// BrowserContext browserContext;

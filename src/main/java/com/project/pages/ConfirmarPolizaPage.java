@@ -1,18 +1,19 @@
 package com.project.pages;
 
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.Helpers.MotivosSuplementoHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class ConfirmarPolizaPage {
-	
-	// private String testId;
-	// private TestDataManager tCData;
-	// private DriverHelper webDriver;
-	// final static Logger logger = LoggerFactory.getLogger(PageObject.class);
-	//
-	//
+public class ConfirmarPolizaPage extends PageObject {
+
+	public ConfirmarPolizaPage(UserStory userS) {
+		super(userS);
+	}
+
 	// // region webelements
 	// //@FindBy(name = "cuerpo")
 	// private By cuerpoFrame = By.name("cuerpo");
@@ -35,12 +36,6 @@ public class ConfirmarPolizaPage {
 	//
 	// private List<MotivosSuplementoHelper> motivosSuplemento = new
 	// ArrayList<>();
-	//
-	// public ConfirmarPolizaPage(DriverHelper driver, TestDataManager data) {
-	// this.tCData = data;
-	// this.webDriver = driver;
-	// this.testId = webDriver.getId() == null ? "" : webDriver.getId();
-	// }
 	//
 	// // region methods
 	//

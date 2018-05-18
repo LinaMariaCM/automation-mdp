@@ -1,7 +1,13 @@
 package com.project.pages;
 
-public class MediadoresFichaMediadorPage {
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
+public class MediadoresFichaMediadorPage extends PageObject {
+
+	MediadoresFichaMediadorPage(UserStory userS) {
+		super(userS);
+	}
 	// final static Logger logger =
 	// LoggerFactory.getLogger(MediadoresFichaMediadorPage.class);
 	// BrowserContext browserContext;

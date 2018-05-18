@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.automation.model.webdriver.DriverHelper;
 import com.project.ProjectConstants;
 
@@ -14,11 +16,7 @@ import com.project.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class ClientesPage {
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class ClientesPage extends PageObject {
 
 	// region webelements
 	@FindBy(name = "cuerpo")
@@ -133,10 +131,8 @@ public class ClientesPage {
 	private By btnGrabar = By.cssSelector("botonGrabar");
 	// endregion
 
-	public ClientesPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public ClientesPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
@@ -161,17 +157,15 @@ public class ClientesPage {
 		// click en grabar
 	}
 
-	public void setFiltroBusqueda(
-		String filtro) {
+	public void setFiltroBusqueda(String filtro) {
 		// this.tData.setFiltroBuscadorCliente(filtro);
-		this.tCData.setTestVar(testId, "FiltroBuscadorCliente", filtro);
+		this.userS.setTestVar("FiltroBuscadorCliente", filtro);
 	}
 
 	public void buscarConFiltroBusqueda() {
+		debugBegin();
 
-		logger.debug("BEGIN - FiltroBusqueda");
-
-		switch(this.tCData.getTestVar(testId, "FiltroBuscadorCliente")) {
+		switch(this.userS.getTestVar("FiltroBuscadorCliente")) {
 			case ProjectConstants.FILTRO_BUSCADOR_NOMBRE:
 				this.buscarClientePorNombre();
 				break;
@@ -197,8 +191,7 @@ public class ClientesPage {
 
 		// Click btn buscar
 		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
-		logger.debug("END - FiltroBusqueda");
-
+		debugEnd();
 	}
 
 	public void clickNuevoTomador() {
@@ -216,7 +209,7 @@ public class ClientesPage {
 		// Set Contacto
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtContacto,
 		// this.cuerpoFrame, this.tData.getContactoCliente());
-		this.webDriver.clearAndAppendTextInFrame(this.txtContacto, this.cuerpoFrame, this.tCData.getTestVar(testId, "ContactoCliente"));
+		this.webDriver.clearAndAppendTextInFrame(this.txtContacto, this.cuerpoFrame, this.userS.getTestVar("ContactoCliente"));
 	}
 
 	private void buscarClientePorRecibo() {
@@ -226,7 +219,7 @@ public class ClientesPage {
 		// Set Recibo
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtRecibo,
 		// this.cuerpoFrame, this.tData.getReciboCliente());
-		this.webDriver.clearAndAppendTextInFrame(this.txtRecibo, this.cuerpoFrame, this.tCData.getTestVar(testId, "ReciboCliente"));
+		this.webDriver.clearAndAppendTextInFrame(this.txtRecibo, this.cuerpoFrame, this.userS.getTestVar("ReciboCliente"));
 	}
 
 	private void buscarClientePorColectivo() {
@@ -236,7 +229,7 @@ public class ClientesPage {
 		// Set Cotizacion
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtColectivo,
 		// this.cuerpoFrame, this.tData.getColectivoCliente());
-		this.webDriver.clearAndAppendTextInFrame(this.txtColectivo, this.cuerpoFrame, this.tCData.getTestVar(testId, "ColectivoCliente"));
+		this.webDriver.clearAndAppendTextInFrame(this.txtColectivo, this.cuerpoFrame, this.userS.getTestVar("ColectivoCliente"));
 	}
 
 	private void buscarClientePorCotizacion() {
@@ -246,7 +239,7 @@ public class ClientesPage {
 		// Set Cotizacion
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtCotizacion,
 		// this.cuerpoFrame, this.tData.getNoCotizacion());
-		this.webDriver.clearAndAppendTextInFrame(this.txtCotizacion, this.cuerpoFrame, this.tCData.getTestVar(testId, "CotizacionNum"));
+		this.webDriver.clearAndAppendTextInFrame(this.txtCotizacion, this.cuerpoFrame, this.userS.getTestVar("CotizacionNum"));
 	}
 
 	private void buscarClientePorPoliza() {
@@ -257,7 +250,7 @@ public class ClientesPage {
 
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtPoliza,
 		// this.cuerpoFrame, this.tData.getNumPoliza().toString());
-		this.webDriver.clearAndAppendTextInFrame(this.txtPoliza, this.cuerpoFrame, this.tCData.getTestVar(testId, "NumPoliza"));
+		this.webDriver.clearAndAppendTextInFrame(this.txtPoliza, this.cuerpoFrame, this.userS.getTestVar("NumPoliza"));
 	}
 
 	private void buscarClientePorNombre() {
@@ -266,15 +259,14 @@ public class ClientesPage {
 
 		// Set Nombre
 		this.webDriver.clearText(txtNombre);
-		this.webDriver.appendTextInFrame(this.txtNombre, this.cuerpoFrame, this.tCData.getTestVar(testId, "TomadorNombre"));
+		this.webDriver.appendTextInFrame(this.txtNombre, this.cuerpoFrame, this.userS.getTestVar("TomadorNombre"));
 	}
 
 	public void buscarClientePorNIF() {
-		this.buscarClientePorNIF(this.tCData.getTestVar(testId, "DocumentoInquilino"));
+		this.buscarClientePorNIF(this.userS.getTestVar("DocumentoInquilino"));
 	}
 
-	public void buscarClientePorNIF(
-		String numNIF) {
+	public void buscarClientePorNIF(String numNIF) {
 		// Click en el rdb NIF
 		this.webDriver.clickInFrame(this.rdbNIF, this.cuerpoFrame);
 
@@ -287,13 +279,15 @@ public class ClientesPage {
 	}
 
 	public boolean checkResultadoNIF() {
-		logger.debug("BEGIN - CheckResultadoNIF");
+		debugBegin();
+		
 		boolean res = false;
 		if(this.webDriver.isPresentInFrame(this.barraResultadoBusqueda, this.cuerpoFrame)) {
 			res = this.webDriver.getTextInFrame(this.barraResultadoBusqueda, this.cuerpoFrame).contains("Resultado de la búsqueda (Nº clientes: 1)");
 		}
 
-		logger.debug("END - CheckResultadoNIF");
+		debugEnd();
+		
 		return res;
 	}
 	// endregion

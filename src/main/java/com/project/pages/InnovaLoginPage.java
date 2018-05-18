@@ -6,18 +6,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.automation.model.webdriver.DriverHelper;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class InnovaLoginPage {
-	
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class InnovaLoginPage extends PageObject {
 
 	// region webelements
 	// @FindBy(id = "leftFrame")
@@ -41,23 +38,18 @@ public class InnovaLoginPage {
 	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
 	 */
 
-	public InnovaLoginPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
-
-		// PageFactory.initElements(webDriver, this);
+	public InnovaLoginPage(UserStory userS) {
+		super(userS);
 	}
-
 	// region methods
-	public InnovaLoginPage login(String userId, String Password) {
-		logger.debug("BEGIN - login");
+	public InnovaLoginPage login(String userId, String password) {
+		debugBegin();
 		this.webDriver.appendText(this.user, userId);
-		this.webDriver.appendText(this.password, Password);
+		this.webDriver.appendText(this.password, password);
 
 		this.webDriver.click(this.enter);
 		Assert.assertTrue("La aplicación no ha hecho el login correctamente", this.webDriver.isClickable(menuFrame));
-		logger.debug("END - login");
+		debugEnd();
 
 		return this;
 	}

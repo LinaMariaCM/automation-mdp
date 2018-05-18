@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.automation.model.webdriver.DriverHelper;
 import com.project.utils.ClausulasHelper;
 import com.project.ProjectConstants;
@@ -21,12 +23,7 @@ import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
 
-public class ClausulasPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class ClausulasPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
@@ -97,17 +94,15 @@ public class ClausulasPage {
 	/*
 	 * 
 	 * public AsignarMediadorPage(DriverHelper driver, TestDataManager data) {
-	 * this.tCData = data; this.webDriver = driver; this.testId =
+	 * this.testDataM = data; this.webDriver = driver; this.testId =
 	 * webDriver.getId() == null ? "" : webDriver.getId(); }
 	 * 
 	 * 
 	 * 
 	 */
 
-	public ClausulasPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public ClausulasPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
@@ -120,13 +115,14 @@ public class ClausulasPage {
 	}
 
 	public ClausulasPage clickOnContinuar() throws Exception {
-		logger.debug("BEGIN - ClickOnContinuarInCreation");
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "infra_seguro"))) {
+		debugBegin();
+		
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "infra_seguro"))) {
 			if(!this.IsClausulaSelected(102)) {
 				try {
 					throw new Exception("La clausula 102 no se ha seleccionado al crear un infraseguro");
 				} catch(Exception e) {
-					tCData.setTestVar(testId, "mensaje_error", "La clausula 102 no se ha seleccionado al crear un infraseguro");
+					testDataM.setTestVar(testId, "mensaje_error", "La clausula 102 no se ha seleccionado al crear un infraseguro");
 					// this.webDriver.getScenario().write("La clausula 102 no se
 					// ha seleccionado al crear un infraseguro");
 				}
@@ -138,14 +134,17 @@ public class ClausulasPage {
 		this.webDriver.scrollToBottom();
 		this.webDriver.click(this.btnContinuarInCreation);
 		this.webDriver.exitFrame();
-		logger.debug("END - ClickOnContinuarInCreation");
+		
+		debugEnd();
 		
 		return this;
 	}
 
 	public ClausulasPage ActivateClauses() {
+		debugBegin();
+		
 		this.webDriver.switchToFrame(this.cuerpoFrame);
-		if(this.tCData.getTestVar(testId, "modificar_clausulas").equals(ProjectConstants.ModificarClausulas)) {
+		if(this.testDataM.getTestVar(testId, "modificar_clausulas").equals(ProjectConstants.ModificarClausulas)) {
 			for(int pageNumber = 1; pageNumber < 6; pageNumber++) {
 
 				this.ActivateClausesInPage(pageNumber);
@@ -161,12 +160,13 @@ public class ClausulasPage {
 		
 		this.webDriver.exitFrame();
 		
+		debugEnd();
+		
 		return this;
 	}
 
-	private List<ClausulasHelper> GetClausulasInPage(
-		Integer pageNumber) {
-		logger.debug("BEGIN - GetCoberturasOpcionales");
+	private List<ClausulasHelper> GetClausulasInPage(Integer pageNumber) {
+		debugBegin();
 
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		// this.webDriver.waitForPageLoadWithAngular();
@@ -198,13 +198,15 @@ public class ClausulasPage {
 		});
 		
 		this.webDriver.exitFrame();
-		logger.debug("END - GetCoberturasOpcionales");
+		
+		debugEnd();
 		
 		return clausulasTemp;
 	}
 
-	private ClausulasPage ActivateClausesInPage(
-		Integer pageNumber) {
+	private ClausulasPage ActivateClausesInPage(Integer pageNumber) {
+		debugBegin();
+		
 		this.clausulas.addAll(this.GetClausulasInPage(pageNumber));
 
 		/*
@@ -216,10 +218,10 @@ public class ClausulasPage {
 		 * this.webDriver.exitFrame(); } });
 		 */
 
-		// this.tCData.getTestVar(testId,
+		// this.testDataM.getTestVar(testId,
 		// "modificar_clausulas").equals(ProjectConstants.ModificarClausulas)
 		// this.clausulas.stream().filter(p ->
-		// this.tCData.getTestVar(testId,"get_clausulas").equals(ProjectConstants.lausulas)).forEach(x
+		// this.testDataM.getTestVar(testId,"get_clausulas").equals(ProjectConstants.lausulas)).forEach(x
 		// ->
 		// this.clausulas.stream().filter(p ->
 		// this.browserContext.getTestCaseData().getClausulas().contains(p.getNumber())).forEach(x
@@ -234,6 +236,8 @@ public class ClausulasPage {
 				this.webDriver.exitFrame();
 			}
 		} ;
+
+		debugEnd();
 		
 		return this;
 	}
@@ -241,7 +245,7 @@ public class ClausulasPage {
 	private boolean ExistToBeActivatedClauses() {
 		System.out.println("COMPLETAR");
 		List<ClausulasHelper> clausulasTemp = this.clausulas.stream()
-			.filter(p -> this.tCData.getTestVar(testId, "clausula").contains(p.getNumber()) && p.getSelected().equals(true))
+			.filter(p -> this.testDataM.getTestVar(testId, "clausula").contains(p.getNumber()) && p.getSelected().equals(true))
 			.collect(Collectors.toList());
 
 		/*
@@ -252,7 +256,7 @@ public class ClausulasPage {
 		boolean check = false;
 
 		for(ClausulasHelper clausula : clausulas) {
-			if(!this.tCData.getTestVar(testId, "clausula").contains(clausula.getNumber()) || clausula.getSelected().equals(false)) {
+			if(!this.testDataM.getTestVar(testId, "clausula").contains(clausula.getNumber()) || clausula.getSelected().equals(false)) {
 				check = true;
 			}
 		}
@@ -260,8 +264,9 @@ public class ClausulasPage {
 		return check;
 	}
 
-	private String GetClausulaStatusInPage(
-		int Clausula, int pageNumber) {
+	private String GetClausulaStatusInPage(int Clausula, int pageNumber) {
+		debugBegin();
+		
 		this.clausulas.addAll(this.GetClausulasInPage(pageNumber));
 
 		List<ClausulasHelper> clausulasfound = this.clausulas.stream().filter(p -> p.getNumber().equals(String.valueOf(Clausula)))
@@ -275,10 +280,14 @@ public class ClausulasPage {
 			}
 		}
 
+		debugEnd();
+		
 		return ProjectConstants.ClausulaNoEncontrada;
 	}
 
 	public boolean IsClausulaSelected(Integer clausula) {
+		debugBegin();
+		
 		boolean result = false;
 		
 		for(int pageNumber = 1; pageNumber <= 6; pageNumber++) {
@@ -296,6 +305,8 @@ public class ClausulasPage {
 			this.webDriver.click(this.btnNextClausulasPage);
 			this.webDriver.exitFrame();
 		}
+		
+		debugEnd();
 		
 		return result;
 	}
@@ -339,9 +350,9 @@ public class ClausulasPage {
 		 * this.webDriver.exitFromFrame(); }
 		 */
 
-		// if (this.tCData.getTestVar(testId,
+		// if (this.testDataM.getTestVar(testId,
 		// "clausula_hipotecaria").equals(ProjectConstants.ClausulaHipotecaria))
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "clausula_hipotecaria"))) {}
+		if(Boolean.parseBoolean(this.userS.getTestVar("clausula_hipotecaria"))) {}
 		
 		return this;
 	}
