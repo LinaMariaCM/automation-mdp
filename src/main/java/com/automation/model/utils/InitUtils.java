@@ -128,7 +128,7 @@ public class InitUtils {
 		resultMatrix[0][resultMatrix[0].length - 3] = "result";
 		resultMatrix[0][resultMatrix[0].length - 2] = "time";
 		resultMatrix[0][resultMatrix[0].length - 1] = "exception";
-		
+
 		for(int i = 1; i < resultMatrix.length; i++) {
 			String[] arrayAux = new String[dataObject.getRow().size() + 3];
 

@@ -112,7 +112,6 @@ public class SuiteManager {
 		System.out.println("[INFO] - Case: " + testCase);
 		String[][] casesMatrix = null;
 		String defaultTestData = InitUtils.getTestDataPath(testDataPath), defaultScenarioData = scenarioDataPath;
-		
 		String[] browsers = InitUtils.getTestBrowsers();
 
 		String[][] resultMatrix = null;
@@ -133,6 +132,7 @@ public class SuiteManager {
 			DataObject testDataDefault = new DataObject(hashMapAux);
 
 			testData.addTestData(testDataDefault);
+			testData.setCaseVariables(new String[]{"id"});
 		}
 
 		testData.getTestData().duplicateDataByN(browsers.length);
@@ -150,7 +150,7 @@ public class SuiteManager {
 		addTestObjects(testCase, testData, resultMatrix);
 		
 		System.out.println("[INFO] - Test to run on this execution: " + casesMatrix.length);
-		
+
 		return casesMatrix.length == 0 ? null : casesMatrix;
 	}
 }
