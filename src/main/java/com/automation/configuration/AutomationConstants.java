@@ -51,9 +51,9 @@ public class AutomationConstants {
 	public static final String WINDOW_HEIGTH = "window_heigth";
 	public static final String WINDOW_WIDTH = "window_width";
 	public static final String TIMEOUT = "timeout";
-	public static final String REMOTE_MODE = "remote_mode";
+	public static final String REMOTE_MODE = "remote";
 	public static final String FORCE_CACHE= "force_cache";
-	public static final String RETRY_ON_FAIL = "retry_on_fail";
+	public static final String RETRY_ON_FAIL = "retry";
 	public static final String SMALL_WINDOW_LIMIT = "small_window_limit";
 	public static final String FIREFOX_ENABLE_FIREBUG = "firefox_enable_firebug";
 	public static final String SESSION_ID = "session_id";

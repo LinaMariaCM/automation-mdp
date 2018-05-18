@@ -13,19 +13,13 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.List;
-
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.UnhandledAlertException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.testing.TestDataManager;
-import com.automation.model.utils.FileUtils;
 import com.automation.model.utils.StringUtils;
 import com.automation.model.utils.ArrayFileUtils;
 import com.automation.model.webdriver.DriverHelper;

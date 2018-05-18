@@ -1,5 +1,6 @@
 package com.automation.model.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.automation.data.DataObject;
@@ -19,6 +20,19 @@ public class ArrayUtils {
 		
 		return result;
 	}
+	public static String[] concat(String[] firstArray, String[] secondArray) {
+		String[] result = new String[firstArray.length + secondArray.length];
+		
+		for(int i = 0; i < firstArray.length; i++) {
+			result[i] = firstArray[i];
+		}
+		
+		for(int i = 0; i < secondArray.length; i++) {
+			result[firstArray.length + i] = secondArray[i];
+		}
+		
+		return result;
+	}
 	
 	public static String[][] addIndexToMatrix(String[][] matrix) {
 		String[][] result = new String[matrix.length][matrix[0].length + 1];
@@ -32,16 +46,28 @@ public class ArrayUtils {
 		return result;
 	}
 
-	public static String[][] addColumnToMatrix(String[][] matrix, String string) {
-		String[][] result = new String[matrix.length][matrix[0].length + 1];
+	public static String[][] addColumnToMatrix(String[][] matrix, String string) {		
+		return addColumnToMatrix(matrix, string, -1);
+	}
 
-		for(int i = 0; i < matrix.length; i++) {			
-			for(int j = 0; j < matrix[i].length; j++) result[i][j] = matrix[i][j];
-			
-			result[i][matrix[0].length] = string;
-		}
+	public static String[][] addColumnToMatrix(String[][] matrix, String string, int index) {
+		index = index == -1 ? matrix[0].length : index;
 		
-		return result;
+		if(matrix.length > 0) {
+			String[][] result = new String[matrix.length][matrix[0].length + 1];
+	
+			for(int i = 0; i < matrix.length; i++) {			
+				for(int j = 0; j < matrix[i].length; j++) {
+					result[i][j + (j >= index ? 1 : 0)] = matrix[i][j];
+				}
+				
+				result[i][index] = string;
+			}
+			
+			return result;
+		} else {
+			return new String[][]{{}};
+		}
 	}
 
 	public static String[][] addColumnToMatrix(String[][] matrix, String[] array) {
@@ -202,6 +228,41 @@ public class ArrayUtils {
 			result += arrayToString(matrix[i], columnDiv);
 		}
 
+		return result;
+	}
+	
+	public static boolean contains(String[] array, String string) {
+		boolean result = false;
+		
+		for(String compareString : array) {
+			if(compareString.equals(string)) {
+				result = true;
+				break;
+			}
+		}
+		
+		return result;
+	}
+	
+	public static String[][] removeRowsContaining(String[][] casesMatrix, String compareString, int index) {
+		return removeRowsContaining(casesMatrix, new String[] {compareString}, index);
+	}
+	
+	public static String[][] removeRowsContaining(String[][] casesMatrix, String[] containsArray, int index) {
+		ArrayList<String[]> newArrays = new ArrayList<String[]>();
+		
+		for(int i = 0; i < casesMatrix.length; i++) {
+			if(!contains(containsArray, casesMatrix[i][index])) {
+				newArrays.add(casesMatrix[i]);
+			}
+		}
+		
+		String[][] result = new String[newArrays.size()][];
+		
+		for(int i = 0; i < result.length; i++) {
+			result[i] = newArrays.get(i);
+		}
+		
 		return result;
 	}
 }

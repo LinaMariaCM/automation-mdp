@@ -107,7 +107,11 @@ public class DataObject {
 
 	// region Setters
 	public DataObject addRow(String rowKey) {
-		if(!this.data.containsKey(rowKey)) this.data.put(rowKey, new HashMap<String, String>());
+		if(!this.data.containsKey(rowKey)) {
+			synchronized(data) {
+				this.data.put(rowKey, new HashMap<String, String>());
+			}
+		}
 
 		return this;
 	}
@@ -125,7 +129,7 @@ public class DataObject {
 
 	public void setValue(String rowKey, String valueKey, String value) {
 		try {
-			synchronized(getRow(rowKey)) {
+			synchronized(data) {
 				if(rowKey != null && getRow(rowKey).containsKey(valueKey)) {
 					getRow(rowKey).replace(valueKey, value);
 				} else if(rowKey != null) getRow(rowKey).put(valueKey, value);

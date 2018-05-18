@@ -7,7 +7,6 @@ import java.util.concurrent.Callable;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.automation.configuration.AutomationConstants;
-import com.automation.data.DataManagerObject;
 import com.automation.data.DataObject;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.webdriver.DriverHelper;
@@ -39,7 +38,6 @@ public class UserStory {
 	private DataObject driverConf;
 	private DriverHelper webDriver;
 	private boolean retryOnFail = false;
-	private DataManagerObject dataManager;
 	private ArrayList<Callable<Void>> actionList = new ArrayList<Callable<Void>>();
 	private ArrayList<Callable<Void>> onFailList = new ArrayList<Callable<Void>>();
 	private ArrayList<Callable<Void>> onSuccessList = new ArrayList<Callable<Void>>();
@@ -54,8 +52,20 @@ public class UserStory {
 		this.testId = id;
 	}
 
-	public UserStory addData(String dataKey, DataObject data) {
-		dataManager.addData(dataKey, data);
+	public UserStory addData(DataObject dataObject, String key) {
+		testDataM.addData(dataObject, key);
+
+		return this;
+	}
+
+	public UserStory addDMData(String fileName, String key) {
+		testDataM.addDMData(fileName, key);
+
+		return this;
+	}
+
+	public UserStory addMData(String fileName, String key) {
+		testDataM.addMData(fileName, key);
 
 		return this;
 	}
@@ -116,6 +126,10 @@ public class UserStory {
 		return testDataM;
 	}
 
+	public DataObject getData(String key) {
+		return testDataM.getData(key);
+	}
+
 	public String getGlobalVar(String key) {
 		return testDataM.getGlobalVar(key);
 	}
@@ -128,16 +142,12 @@ public class UserStory {
 		return testDataM.getTestVar(testId, key);
 	}
 
-	public void setTestVar(String key, String value) {
-		testDataM.setTestVar(testId, key, value);
-	}
-
 	public String getConfigVar(String key) {
 		return testDataM.getConfigVar(key);
 	}
 
-	public void setConfigVar(String key, String value) {
-		testDataM.setConfigVar(key, value);
+	public void setTestVar(String key, String value) {
+		testDataM.setTestVar(testId, key, value);
 	}
 
 	public UserStory setDriver(DriverHelper webDriver) {
@@ -294,11 +304,15 @@ public class UserStory {
 				String failure = exception != null ? exception.getMessage() != null ? exception.getMessage() : "" 
 					: error.getMessage() != null ? error.getMessage() : "";
 					
-				System.out.println("[ END ] (" + testId + ") - Test execution ended with failure" + (failure != null ? ": " + failure : ""));
+				System.out.println("[ END ] (" + testId + ") - Test execution ended with failure" + (failure != null && !failure.isEmpty() ? ": " + failure : ""));
 
 				updateResultMatrix();
 
-				throw exception;
+				if(exception != null) {
+					throw exception;					
+				} else {
+					throw error;
+				}
 			} else {
 				result = AutomationConstants.TEST_SUCCESS;
 
@@ -311,6 +325,22 @@ public class UserStory {
 			}
 		}
 	}
+	
+	private boolean setBooleanOnConfiguration(String key) {
+		String stringValue = System.getProperty(key);
+		if(stringValue != null && stringValue.isEmpty()) stringValue = driverConf.getValue(key);
+		else if(stringValue != null) driverConf.setValue(key, stringValue);
+		
+		return Boolean.parseBoolean(stringValue);
+	}
+	
+	private String setStringOnConfiguration(String key) {
+		String stringValue = System.getProperty(key);
+		if(stringValue != null && stringValue.isEmpty()) stringValue = driverConf.getValue(key);
+		else if(stringValue != null) driverConf.setValue(key, stringValue);
+		
+		return stringValue;
+	}
 
 	public UserStory addDriverConfiguration(String browser, DataObject conf) {
 		System.out.println("[BEGIN] (" + testId + ") - Setting driver configuration");
@@ -318,40 +348,27 @@ public class UserStory {
 		this.browser = browser;
 		this.maxTries = Integer.parseInt(driverConf.getValue("max_tries"));
 
-		System.out.println("[INFO ] (" + testId + ") - browser: " + browser + " ip: " + conf.getValue("ip") + " port: " + conf.getValue("port") + " remote: " + conf.getValue("remote"));
-
 		testDataM.setTestVar(testId, "browser", browser);
 		webDriver = new DriverHelper(browser);
 		webDriver.setId(testId);
 		webDriver.setReportPath(testDataM.getReportPath());
 
-		String driverType = System.getProperty("driver_type");
-		if(driverType != null && driverType.isEmpty()) driverType = conf.getValue("driver_type");
-		else if(driverType != null) conf.setValue("driver_type", driverType);
+		webDriver.setWaitForAngular(setBooleanOnConfiguration("wait_for_angular"));
+		webDriver.setWaitForJQuery(setBooleanOnConfiguration("wait_for_jquery"));
 
-		String download = System.getProperty("download");
-		if(download != null && download.isEmpty()) download = conf.getValue("download");
-		else if(download != null) conf.setValue("download", download);
-		webDriver.setDownloadDrivers(Boolean.parseBoolean(conf.getValue("download")));
+		setBooleanOnConfiguration("driver_type");
+		
+		webDriver.setDownloadDrivers(setBooleanOnConfiguration("download"));
+		
+		webDriver.setHub(setStringOnConfiguration(AutomationConstants.IP), setStringOnConfiguration(AutomationConstants.PORT));
+		
+		webDriver.setForceCache(setBooleanOnConfiguration("force_cache"));
 
-		String ip = System.getProperty("ip");
-		if(ip != null && ip.isEmpty()) ip = conf.getValue(AutomationConstants.IP);
-		else if(ip != null) conf.setValue(AutomationConstants.IP, ip);
-
-		String port = System.getProperty("port");
-		if(port != null && port.isEmpty()) port = conf.getValue(AutomationConstants.PORT);
-		else if(port != null) conf.setValue(AutomationConstants.PORT, port);
-
-		webDriver.setHub(conf.getValue(AutomationConstants.IP), conf.getValue(AutomationConstants.PORT));
-
-		String forceCache = System.getProperty("force_cache");
-		if(forceCache != null && !forceCache.isEmpty()) conf.setValue(AutomationConstants.FORCE_CACHE, forceCache);
-		webDriver.setForceCache(Boolean.parseBoolean(conf.getValue(AutomationConstants.FORCE_CACHE)));
-
-		String remote = System.getProperty("remote");
-		if(remote != null && !remote.isEmpty()) conf.setValue(AutomationConstants.REMOTE_MODE, remote);
-		webDriver.setRemoteMode(Boolean.parseBoolean(conf.getValue(AutomationConstants.REMOTE_MODE)));
-		webDriver.setSmallWindowLimit(Integer.parseInt(conf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT)));
+		webDriver.setRemoteMode(setBooleanOnConfiguration("remote"));
+		
+		if(conf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT) != null) {
+			webDriver.setSmallWindowLimit(Integer.parseInt(conf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT)));
+		}
 
 		String timeout = System.getProperty("timeout");
 		if(timeout != null && !timeout.isEmpty()) conf.setValue(AutomationConstants.TIMEOUT, timeout);
@@ -370,10 +387,10 @@ public class UserStory {
 				Integer.parseInt(conf.getValue(AutomationConstants.WINDOW_WIDTH)));
 		} 
 
-		String retry = System.getProperty("retry");
-		if(retry != null && !retry.isEmpty()) conf.setValue(AutomationConstants.RETRY_ON_FAIL, retry);
-		retryOnFail = Boolean.parseBoolean(conf.getValue(AutomationConstants.RETRY_ON_FAIL));
-
+		retryOnFail = setBooleanOnConfiguration(AutomationConstants.RETRY_ON_FAIL);
+		
+		System.out.println("[INFO ] (" + testId + ") - browser: " + browser + ", ip: " + conf.getValue(AutomationConstants.IP) + ", port: " 
+			+ conf.getValue(AutomationConstants.PORT) + ", remote: " + conf.getValue(AutomationConstants.REMOTE_MODE));
 		System.out.println("[ END ] (" + testId + ") - Setting driver configuration");
 
 		return this;
@@ -468,11 +485,10 @@ public class UserStory {
 
 					resultMatrix[Integer.parseInt(testId) + 1] = resultArray;
 
-					System.out.println("[ END ] (" + testId + ") - Updating result matrix");
-
 					System.out.println("[INFO] (" + testId + ") - Saving results as " + testDataM.getTimeStamp() + ".csv");
 					new File(testDataM.getReportPath()).mkdirs();
 					FileUtils.writeArrayIntoCSVFile(testDataM.getReportPath() + testDataM.getTimeStamp() + ".csv", resultMatrix);
+					System.out.println("[ END ] (" + testId + ") - Updating result matrix");
 				} catch(Exception e) {
 					e.printStackTrace();
 					throw e;

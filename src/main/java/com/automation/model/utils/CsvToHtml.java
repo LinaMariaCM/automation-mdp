@@ -5,14 +5,17 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.automation.configuration.AutomationConstants;
+import com.automation.model.testing.SuiteManager;
+import com.automation.data.DataObject;
 import com.automation.model.utils.objects.HtmlElement;
 import com.automation.model.webdriver.configuration.BrowserType;
 import com.project.ProjectConstants;
@@ -55,7 +58,7 @@ public class CsvToHtml {
 				}
 			}
 			
-			createReport(year + "." + month + "." + day + ".[TESTCASE]." + browser, path, args[5], testCases, relevantColInt);
+			createJointReport(year + "." + month + "." + day + ".[TESTCASE]." + browser, path, args[5], testCases, relevantColInt);
 		}
 	}
 	
@@ -190,27 +193,78 @@ public class CsvToHtml {
 		return new HtmlElement[]{failuresNode, errorsNode};
 	}
 	
+	private static String translate(String translationFile, String text) {
+		String result = text;
+		
+		if(translationFile != null) {
+			DataObject translationObject = new DataObject(FileUtils.variablesFileToArray(
+				System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + translationFile));
+			
+			result = translationObject.getValue(text) != null ? translationObject.getValue(text): result;
+		}
+		
+		return result;
+	}
+	
 	public static void createReport(String timeStamp, String reportPath, String testCase) {
 		createReport(timeStamp, reportPath, testCase, -1);
 	}
 	
 	public static void createReport(String timeStamp, String reportPath, String testCase, int relevantColumns) {
+		createReport(timeStamp, reportPath, testCase, relevantColumns, null);
+	}
+	
+	public static void createReport(String timeStamp, String reportPath, String testCase, int relevantColumns, String translationFile) {
 		reportPath = reportPath.charAt(reportPath.length() - 1) == '/' ? reportPath : reportPath + "/";
 		
-		HtmlElement htmlNode = createHtmlNode(timeStamp, reportPath, testCase, relevantColumns);
+		HtmlElement htmlNode = createHtmlNode(timeStamp, reportPath, testCase, relevantColumns, translationFile);
 		
 		writeHtml(htmlNode, reportPath + timeStamp + ".html");
 	}
 	
-	public static void createReport(String timeStamp, String reportPath, String reportName, String[] testCases, int[] relevantColumns) {
+	public static void createJointReport(SuiteManager suiteM) {
+		createJointReport(suiteM, null);
+	}
+	
+	public static void createJointReport(SuiteManager suiteM, String translationFile) {
+		if(suiteM.getTestCases().length > 0) {
+			String timeStamp = suiteM.getTestData(suiteM.getTestCases()[0]).getTimeStamp(), 
+				reportPath = suiteM.getTestData(suiteM.getTestCases()[0]).getReportPath();
+
+			createJointReport(timeStamp, reportPath, suiteM.getName(), suiteM.getTestCases(), suiteM.getRelevantColumns(), translationFile);
+		}
+	}
+	
+	public static void createJointReport(String timeStamp, String reportPath, String reportName, String[] testCases, int[] relevantColumns) {
+		createJointReport(timeStamp, reportPath, reportName, testCases, relevantColumns, null);
+	}
+	
+	public static void createJointReport(String timeStamp, String reportPath, String reportName, String[] testCases, int[] relevantColumns, String translationFile) {
+		System.out.println("[INFO] - Generating HTML...");
 		reportPath = reportPath.charAt(reportPath.length() - 1) == '/' ? reportPath : reportPath + "/";
 		
+		String[] timeStampArray = timeStamp.split("\\.");
+		for(int i = 0; i < timeStampArray.length; i++) {
+			if(!org.apache.commons.lang3.StringUtils.isNumeric(timeStampArray[i])) {
+				timeStampArray[i] = "[TESTCASE]";
+				break;
+			}
+		}
+		
+		timeStamp = ArrayUtils.arrayToString(timeStampArray, ".");
+
+		HtmlElement htmlNode = createJointHtmlNode(timeStamp, reportPath, reportName, testCases, relevantColumns, translationFile);
+
+		writeHtml(htmlNode, reportPath + timeStamp.replace("[TESTCASE]", reportName).replace("_headless", "") + ".html");
+	}
+
+	public static HtmlElement createJointHtmlNode(String timeStamp, String reportPath, String reportName, String[] testCases, int[] relevantColumns, String translationFile) {
 		HtmlElement[] htmlNodes = new HtmlElement[testCases.length];
 		HtmlElement body = new HtmlElement("body");	
 		HtmlElement htmlNode = new HtmlElement("html")
 			.addChild(
 				new HtmlElement("head")
-					.addChild("title", "", ProjectConstants.CLIENT + " test report " + timeStamp)
+					.addChild("title", "", translate(translationFile, "[CLIENT] test report [TIMESTAMP]").replace("[CLIENT]", ProjectConstants.CLIENT).replace("[TIMESTAMP]", timeStamp))
 					.addChild("meta", "charset=\"UTF-8\"")
 					.addChild("style", "", "table {font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}\n"
 															+ "td, th {border: 1px solid #dddddd; text-align: left; padding: 8px; text-align:center;}\n"
@@ -218,8 +272,8 @@ public class CsvToHtml {
 			.addChild(body
 				.addChild("hr")
 				.addChild("h1", "align=\"center\"", 
-					StringUtils.snakeCaseToNatural(reportName) + " test report from " 
-						+  timeStamp.split("\\.")[2] + "/" +  timeStamp.split("\\.")[1] + "/" +  timeStamp.split("\\.")[0])
+					translate(translationFile, "[REPORTNAME] test report from [DATE]").replace("[REPORTNAME]", StringUtils.snakeCaseToNatural(translate(translationFile , reportName)))
+						.replace("[DATE]", timeStamp.split("\\.")[2] + "/" +  timeStamp.split("\\.")[1] + "/" +  timeStamp.split("\\.")[0]))
 				.addChild("hr"));
 		
 		// Create HTMLs
@@ -232,7 +286,7 @@ public class CsvToHtml {
 			
 			auxTimeStamp = new File(reportPath + "/" + browserTimeStamp + ".csv").exists() ? browserTimeStamp : headlessTimeStamp;
 			
-			HtmlElement auxNode = createHtmlNode(auxTimeStamp, reportPath, testCases[i], relevantColumns[i]);
+			HtmlElement auxNode = createHtmlNode(auxTimeStamp, reportPath, testCases[i], relevantColumns[i], translationFile);
 
 			if(auxNode != null) {
 				htmlNodes[i] = auxNode.getChildByTag("body");
@@ -249,7 +303,7 @@ public class CsvToHtml {
 				
 				table.getChildByTag("table").getChild(0).getChild(0).getChild(0).getChild(0)
 					.setContent(content.replace("_headless", ""));
-			} else if(table.getChildByTag("table").getChildByTag("caption").equals("Browser")){
+			} else if(table.getChildByTag("table").getChildByTag("caption").equals(translate(translationFile, "Browser"))){
 				String content = table.getChildByTag("table").getChildByTag("caption").getChild(0).getContent();
 				
 				table.getChildByTag("table").getChildByTag("caption").getChild(0).setContent(content.replace("_headless", ""));
@@ -258,23 +312,6 @@ public class CsvToHtml {
 			htmlNode.addChild("br");
 			htmlNode.addChild(table);
 		}
-		
-		// Add results
-		/*for(int i = 0; i < htmlNodes.length; i++) {
-			if(htmlNodes[i] != null) {
-				HtmlElement table = htmlNodes[i].getChild(6);
-				
-				if(table.getChildByTag("table").getChildByTag("caption") != null) {
-					String content = table.getChildByTag("table").getChildByTag("caption").getChild(0).getContent();
-					
-					table.getChildByTag("table").getChildByTag("caption").getChild(0)
-						.setContent(StringUtils.snakeCaseToNatural(testCases[0]) + " " + content);
-				}
-				
-				htmlNode.addChild("br");
-				htmlNode.addChild(table);
-			}
-		}*/
 		
 		// Add extra tables
 		for(int i = 0; i < htmlNodes.length; i++) {
@@ -290,7 +327,7 @@ public class CsvToHtml {
 					
 					if(!content.contains("Exception")) {
 						table.getChildByTag("table").getChildByTag("caption").getChildByTag("b")
-							.setContent(StringUtils.snakeCaseToNatural(testCases[i]) + " " + content.toLowerCase());
+							.setContent(StringUtils.snakeCaseToNatural(translate(translationFile, testCases[i])) + ": " + content);
 						
 						htmlNode.addChild("br");
 						htmlNode.addChild(table);
@@ -299,7 +336,7 @@ public class CsvToHtml {
 				}
 			}
 		}
-		
+
 		// Add exceptions
 		for(int i = 0; i < htmlNodes.length; i++) {
 			if(htmlNodes[i] != null) {
@@ -307,34 +344,33 @@ public class CsvToHtml {
 			
 				String content = table.getChildByTag("table").getChildByTag("caption").getChildByTag("b").getContent();
 				
-				if(content.contains("Exception")) {
+				if(content.contains(translate(translationFile, "exception"))) {
 					table.getChildByTag("table").getChildByTag("caption").getChildByTag("b")
-						.setContent(StringUtils.snakeCaseToNatural(testCases[i]) + " " + content.toLowerCase());
+						.setContent(StringUtils.snakeCaseToNatural(translate(translationFile, testCases[i])) + ": " + content);
 					
 					htmlNode.addChild("br");
 					htmlNode.addChild(table);
 					
 					HtmlElement exceptions = htmlNodes[i].getChild(htmlNodes[i].getChilds().size() - 1);
+					
 					String exceptionsText = exceptions.getChildByTag("h3").getContent();
-					exceptions.getChildByTag("h3").setContent(StringUtils.snakeCaseToNatural(testCases[i]) + " " + exceptionsText.toLowerCase());
+					exceptions.getChildByTag("h3").setContent(StringUtils.snakeCaseToNatural(translate(translationFile, testCases[i])) + ": " + exceptionsText);
 					
 					htmlNode.addChild("br");
 					htmlNode.addChild(exceptions);
 				}
 			}
-		}		
-
-		writeHtml(htmlNode, reportPath + timeStamp.replace("[TESTCASE]", reportName.toLowerCase()).replace("_headless", "") + ".html");
+		}
+		
+		return htmlNode;
 	}
 	
 	private static void writeHtml(HtmlElement htmlNode, String path) {
-		if(htmlNode != null) {
-			File f = new File(path);
-			
+		if(htmlNode != null) {			
 			BufferedWriter bw = null;
 			
 			try {
-				bw = new BufferedWriter(new FileWriter(f));
+				bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));;
 				bw.write(htmlNode.toString());
 				System.out.println("[INFO] - HTML created");
 				bw.close();
@@ -351,25 +387,25 @@ public class CsvToHtml {
 		}
 	}
 
-	public static HtmlElement createHtmlNode(String timeStamp, String reportPath, String testCase, int relevantColumns) {		
+	public static HtmlElement createHtmlNode(String timeStamp, String reportPath, String testCase, int relevantColumns, String translationFile) {
 		String finalPath = reportPath + "/" + timeStamp + ".csv";
 		
 		if(new File(finalPath).exists()) {
 			HtmlElement body = new HtmlElement("body");	
 			HtmlElement htmlNode = new HtmlElement("html")
 				.addChild(
-					new HtmlElement("head")
-						.addChild("title", "", ProjectConstants.CLIENT + " test report " + timeStamp)
-						.addChild("meta", "charset=\"UTF-8\"")
-						.addChild("style", "", "table {font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}\n"
-																+ "td, th {border: 1px solid #dddddd; text-align: left; padding: 8px; text-align:center;}\n"
-																+ "tr:nth-child(even) {background-color: #dddddd;}"))
-				.addChild(body
-					.addChild("hr")
-					.addChild("h1", "align=\"center\"", 
-						StringUtils.snakeCaseToNatural(testCase) + " test report from " 
-							+  timeStamp.split("\\.")[2] + "/" +  timeStamp.split("\\.")[1] + "/" +  timeStamp.split("\\.")[0])
-					.addChild("hr"));
+				new HtmlElement("head")
+					.addChild("title", "", translate(translationFile, "[CLIENT] test report [TIMESTAMP]").replace("[CLIENT]", ProjectConstants.CLIENT).replace("[TIMESTAMP]", timeStamp))
+					.addChild("meta", "charset=\"UTF-8\"")
+					.addChild("style", "", "table {font-family: arial, sans-serif; border-collapse: collapse; width: 100%;}\n"
+															+ "td, th {border: 1px solid #dddddd; text-align: left; padding: 8px; text-align:center;}\n"
+															+ "tr:nth-child(even) {background-color: #dddddd;}"))
+			.addChild(body
+				.addChild("hr")
+				.addChild("h1", "align=\"center\"", 
+					translate(translationFile, "[REPORTNAME] test report from [DATE]").replace("[REPORTNAME]", StringUtils.snakeCaseToNatural(translate(translationFile, testCase)))
+						.replace("[DATE]", timeStamp.split("\\.")[2] + "/" +  timeStamp.split("\\.")[1] + "/" +  timeStamp.split("\\.")[0]))
+				.addChild("hr"));
 	
 			String[][] dataMatrix = FileUtils.loadDataFileToArray(finalPath, true);
 			
@@ -390,7 +426,8 @@ public class CsvToHtml {
 						HtmlElement table = HtmlUtils.createTable(1, 1);
 						
 						table.getChildByTag("tbody").getChild(0).getChild(0).addChild(
-							new HtmlElement("", "", "Browser: " + StringUtils.snakeCaseToNatural(columnCasesOrder.get("browser").get(0))));
+							new HtmlElement("", "", translate(translationFile, "Browser") + ": " 
+								+ StringUtils.snakeCaseToNatural(columnCasesOrder.get("browser").get(0).replace("_headless", ""))));
 						
 						body.addChild("br");
 						body.addChild(
@@ -399,23 +436,23 @@ public class CsvToHtml {
 								.addChild(table));
 					} else if(columnCasesOrder.get("browser") != null && columnCasesOrder.get("browser").size() > 1) {
 						body.addChild("br");
-						body.addChild(createTableByIndex(testStats, columnCasesOrder, reportPath, dataMatrix, dataMatrix[0].length - 4));
+						body.addChild(createTableByIndex(testStats, columnCasesOrder, reportPath, dataMatrix, dataMatrix[0].length - 4, translationFile));
 					}
 					
 					// Add total results table
 					body.addChild("br");
-					body.addChild(createResultsTableByIndex(testStats, reportPath, dataMatrix));
+					body.addChild(createResultsTableByIndex(testStats, reportPath, dataMatrix, translationFile));
 					
 					// Add relevant columns tables from test variables
 					for(int j = 0; j < relevantColumns; j++) {
 						body.addChild("br");
-						body.addChild(createTableByIndex(testStats, columnCasesOrder, reportPath, dataMatrix, j));
+						body.addChild(createTableByIndex(testStats, columnCasesOrder, reportPath, dataMatrix, j, translationFile));
 					}
 					
 					// Add exceptions table
 					if(columnCasesOrder.get("exception") != null && columnCasesOrder.get("exception").size() > 0) {
 						body.addChild("br");
-						HtmlElement exceptionTable = createTableByIndex(testStats, columnCasesOrder, reportPath, dataMatrix, dataMatrix[0].length - 1);
+						HtmlElement exceptionTable = createTableByIndex(testStats, columnCasesOrder, reportPath, dataMatrix, dataMatrix[0].length - 1, translationFile);
 						exceptionTable.getChild(0).getChildByTag("tbody").removeChildAt(1);
 						body.addChild(exceptionTable);
 					}
@@ -443,7 +480,7 @@ public class CsvToHtml {
 		}
 	}
 	
-	private static HtmlElement createResultsTableByIndex(HashMap<String, HashMap<String, int[]>> testStats, String reportPath, String[][] dataMatrix) {
+	private static HtmlElement createResultsTableByIndex(HashMap<String, HashMap<String, int[]>> testStats, String reportPath, String[][] dataMatrix, String translationFile) {
 		int columnIndex = dataMatrix[0].length - 3, currentColumn = 0;
 		HtmlElement tableContainer = new HtmlElement("div").addAttribute("name", "results_table");
 		
@@ -454,19 +491,20 @@ public class CsvToHtml {
 			String testVariable = testResults[i];
 			
 			if(testStats.get(dataMatrix[0][columnIndex]).get(testResults[i]) == null) continue;
-			
+
 			int nResults = testStats.get(dataMatrix[0][columnIndex]).get(testResults[i])[i];
 
 			if(new File(reportPath + AutomationConstants.THUMBNAILS_FOLDER + "/" + testVariable + ".png").exists()) {
 				table.getChildByTag("tbody").getChild(0).getChild(i).addChild(
 					new HtmlElement("img")
 						.addAttribute("src", AutomationConstants.THUMBNAILS_FOLDER + testVariable + ".png")
-						.addAttribute("alt", StringUtils.snakeCaseToNatural(testVariable).toUpperCase())
-						.addAttribute("title", StringUtils.snakeCaseToNatural(testVariable).toUpperCase())
+						.addAttribute("alt", StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)).toUpperCase())
+						.addAttribute("title", StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)).toUpperCase())
 						.addAttribute("width", "50")
 						.addAttribute("height", "50"));
 			} else {
-				table.getChildByTag("tbody").getChild(0).getChild(currentColumn).setContent(StringUtils.snakeCaseToNatural(testVariable));
+				table.getChildByTag("tbody").getChild(0).getChild(currentColumn).setContent(
+					StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)));
 			}
 			
 			table.getChildByTag("tbody").getChild(1).getChild(currentColumn).setContent(Integer.toString(nResults));
@@ -475,14 +513,15 @@ public class CsvToHtml {
 			currentColumn++;
 		}
 		
-		table.addChildAt(new HtmlElement("caption").addChild("b", "", StringUtils.snakeCaseToNatural(dataMatrix[0][columnIndex])), 0);
+		table.addChildAt(new HtmlElement("caption").addChild("b", "", StringUtils.snakeCaseToNatural(translate(translationFile, dataMatrix[0][columnIndex]))), 0);
 		
 		tableContainer.addChild("hr");
 		
 		return tableContainer;
 	}
 	
-	private static HtmlElement createTableByIndex(HashMap<String, HashMap<String, int[]>> testStats, HashMap<String, ArrayList<String>> columnCasesOrder, String reportPath, String[][] dataMatrix, int columnIndex) {
+	private static HtmlElement createTableByIndex(HashMap<String, HashMap<String, int[]>> testStats, HashMap<String, ArrayList<String>> columnCasesOrder, 
+			String reportPath, String[][] dataMatrix, int columnIndex, String translationFile) {
 		HtmlElement tableContainer = new HtmlElement("div").addAttribute("name", dataMatrix[0][columnIndex] + "_table");
 		// Calculate the quantity of tables
 		int nTables = (int) (columnCasesOrder.get(dataMatrix[0][columnIndex]).size() / 20) + 1, 
@@ -504,8 +543,8 @@ public class CsvToHtml {
 					table.getChildByTag("tbody").getChild(0).getChild(i).addChild(
 						new HtmlElement("img")
 							.addAttribute("src", AutomationConstants.THUMBNAILS_FOLDER + testVariable + ".png")
-							.addAttribute("alt", StringUtils.snakeCaseToNatural(testVariable).toUpperCase())
-							.addAttribute("title", StringUtils.snakeCaseToNatural(testVariable).toUpperCase())
+							.addAttribute("alt", StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)).toUpperCase())
+							.addAttribute("title", StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)).toUpperCase())
 							.addAttribute("width", "50")
 							.addAttribute("height", "50"));
 				} else {
@@ -515,7 +554,8 @@ public class CsvToHtml {
 						
 						table.getChildByTag("tbody").getChild(0).getChild(i).setContent(exception);
 					} else {
-						table.getChildByTag("tbody").getChild(0).getChild(i).setContent(StringUtils.snakeCaseToNatural(testVariable));
+						table.getChildByTag("tbody").getChild(0).getChild(i).setContent(
+							StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)));
 					}
 				}
 				
@@ -532,7 +572,8 @@ public class CsvToHtml {
 			}
 			
 			if(currentTable == 0) {
-				table.addChildAt(new HtmlElement("caption").addChild("b", "", StringUtils.snakeCaseToNatural(dataMatrix[0][columnIndex])), 0);
+				table.addChildAt(new HtmlElement("caption").addChild("b", "", 
+					StringUtils.snakeCaseToNatural(translate(translationFile, dataMatrix[0][columnIndex]))), 0);
 			}
 			
 			tableContainer.addChild("hr");
@@ -544,7 +585,39 @@ public class CsvToHtml {
 		return tableContainer;
 	}
 
-	public static void copyImagesFolder(String reportPath, HashMap<String, HashMap<String, int[]>> testStats) {
+	public static String[] getScreenshotsPath(String reportPath) {
+		String[] screenshotsPaths = new String[]{};
+
+		File destinationPath = new File(reportPath + AutomationConstants.IMAGES_FOLDER);
+		
+		if(destinationPath.exists()) {
+			screenshotsPaths = destinationPath.list();
+			
+			for(int i = 0; i < screenshotsPaths.length; i++) {
+				screenshotsPaths[i] = reportPath.replace("//", "/") + AutomationConstants.IMAGES_FOLDER + screenshotsPaths[i];
+			}
+		}
+		
+		return screenshotsPaths;
+	}
+	
+	public static String[] getThumbnailsPath(String reportPath) {
+		String[] thumbnailsPaths = new String[]{};
+
+		File destinationPath = new File(reportPath + AutomationConstants.THUMBNAILS_FOLDER);
+		
+		if(destinationPath.exists()) {
+			thumbnailsPaths = destinationPath.list();
+			
+			for(int i = 0; i < thumbnailsPaths.length; i++) {
+				thumbnailsPaths[i] = reportPath.replace("//", "/") + AutomationConstants.THUMBNAILS_FOLDER + thumbnailsPaths[i];
+			}
+		}
+		
+		return thumbnailsPaths;
+	}
+	
+	private static void copyImagesFolder(String reportPath, HashMap<String, HashMap<String, int[]>> testStats) {
 		File originPath = new File(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + AutomationConstants.THUMBNAILS_FOLDER);
 		File destinationPath = new File(reportPath + AutomationConstants.THUMBNAILS_FOLDER);
 		

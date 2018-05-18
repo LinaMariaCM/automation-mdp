@@ -1,21 +1,5 @@
 package com.project.pages;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
-import com.project.utils.MotivosSuplementoHelper;
-
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.Helpers.MotivosSuplementoHelper;

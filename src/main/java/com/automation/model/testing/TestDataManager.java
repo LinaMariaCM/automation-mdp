@@ -13,7 +13,7 @@ import com.automation.model.utils.InitUtils;
  * The TestDataManager class is used to manage the test data, having
  * test data, scenario data and global data.
  * 
- * It is also posible to add more data specific to a test. 
+ * It is also possible to add more data specific to a test. 
  *
  * @author Alfredo Moises Boullosa Ramones
  */
@@ -28,20 +28,6 @@ public class TestDataManager {
 
 	public TestDataManager() {
 		data = new DataManagerObject();
-
-		try {
-			data.addData(AutomationConstants.SCENARIO_DATA,
-				new DataObject(FileUtils.csvFileToDMData(System.getProperty("user.dir") + "/" + AutomationConstants.GLOBAL_DATA)));
-			System.out.println("Scenario data file found");
-			data.setKey(AutomationConstants.SCENARIO_DATA);
-		} catch(Exception e) { System.out.println("No scenario data file found");}
-
-		try {
-			data.addData(AutomationConstants.GLOBAL_DATA,
-				new DataObject(FileUtils.csvFileToDMData(System.getProperty("user.dir") + "/" + AutomationConstants.GLOBAL_DATA)));
-			System.out.println("Global data file found");
-			data.setKey(AutomationConstants.GLOBAL_DATA);
-		} catch(Exception e) { System.out.println("No global data file found");}
 	}
 	
 	public TestDataManager(DataManagerObject data) {
@@ -186,7 +172,7 @@ public class TestDataManager {
 				&& data.getData(AutomationConstants.TEST_DATA).getValue(rowKey, key) != null) {
 			return data.getData(AutomationConstants.TEST_DATA).getValue(rowKey, key);
 		}
-
+		
 		return data.getValue(rowKey, key);
 	}
 	
@@ -267,6 +253,23 @@ public class TestDataManager {
 		}
 	}
 	
+	public void addTestData(String testDataPath) {
+		DataObject testData = null;
+		
+		if(testDataPath != null) {
+			try {
+				testData = new DataObject(FileUtils.csvFileToMData(System.getProperty("user.dir") + "/" + testDataPath));
+				data.setKey(AutomationConstants.TEST_DATA);
+			} catch(Exception e) { System.out.println("No scenario data file found");}
+		}
+		
+		if(testData != null && data.containsKey(AutomationConstants.TEST_DATA)) {
+			data.replaceData(AutomationConstants.TEST_DATA, testData);
+		} else if(testData != null) {
+			data.addData(AutomationConstants.TEST_DATA, testData);
+		}
+	}
+	
 	public void addTestData(DataObject testData) {
 		if(data.containsKey(AutomationConstants.TEST_DATA)) {
 			data.replaceData(AutomationConstants.TEST_DATA, testData);
@@ -276,6 +279,28 @@ public class TestDataManager {
 	}
 	
 	public void addData(DataObject dataObject, String dataKey) {
+		if(data.containsKey(dataKey)) {
+			data.replaceData(dataKey, dataObject);
+		} else {
+			data.addData(dataKey, dataObject);
+		}
+	}
+	
+	public void addDMData(String fileName, String dataKey) {
+		DataObject dataObject = new DataObject(FileUtils.csvFileToDMData(
+			System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + fileName));
+
+		if(data.containsKey(dataKey)) {
+			data.replaceData(dataKey, dataObject);
+		} else {
+			data.addData(dataKey, dataObject);
+		}
+	}
+	
+	public void addMData(String fileName, String dataKey) {
+		DataObject dataObject = new DataObject(FileUtils.csvFileToMData(
+			System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + fileName));
+
 		if(data.containsKey(dataKey)) {
 			data.replaceData(dataKey, dataObject);
 		} else {

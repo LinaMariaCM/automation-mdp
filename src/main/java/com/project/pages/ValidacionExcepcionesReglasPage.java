@@ -34,11 +34,13 @@ public class ValidacionExcepcionesReglasPage
 	}
 
 	// region methods
-	public void clickOnContinuarButton()
+	public ValidacionExcepcionesReglasPage clickOnContinuarButton()
 	{
 		logger.debug("BEGIN - ClickOnContinuarButton");
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		logger.debug("END - ClickOnContinuarButton");
+		
+		return this;
 	}
 	// endregion
 }

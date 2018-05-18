@@ -23,23 +23,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/User/.m2/repository/info/cukes/cucumber-core/1.2.4/cucumber-core-1.2.4.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="info.cukes"/>
-			<attribute name="maven.artifactId" value="cucumber-core"/>
-			<attribute name="maven.version" value="1.2.4"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/User/.m2/repository/net/masterthought/cucumber-reporting/2.7.0/cucumber-reporting-2.7.0.jar">
-		<attributes>
-			<attribute name="maven.pomderived" value="true"/>
-			<attribute name="maven.groupId" value="net.masterthought"/>
-			<attribute name="maven.artifactId" value="cucumber-reporting"/>
-			<attribute name="maven.version" value="2.7.0"/>
-			<attribute name="maven.scope" value="compile"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

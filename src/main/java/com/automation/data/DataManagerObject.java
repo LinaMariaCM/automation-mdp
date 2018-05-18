@@ -57,26 +57,36 @@ public class DataManagerObject {
 	}
 
 	public void addData(String key, DataObject dataObject) {
-		size++;
-		this.mappedData.put(key, dataObject);
+		synchronized(mappedData) {
+			size++;
+			this.mappedData.put(key, dataObject);
+		}
 	}
 
 	public void removeData(String key) {
-		if(this.mappedData.containsKey(key)) size--;
-		this.mappedData.remove(key);
+		synchronized(mappedData) {
+			if(this.mappedData.containsKey(key)) size--;
+			this.mappedData.remove(key);
+		}
 	}
 
 	public void replaceData(String dataKey, DataObject dataObject) {
-		removeData(dataKey);
-		addData(dataKey, dataObject);
+		synchronized(mappedData) {
+			this.removeData(dataKey);
+			this.addData(dataKey, dataObject);
+		}
 	}
 
 	public void addMDataFromFile(String key, String fileName) {
-		this.addData(key, new DataObject(FileUtils.csvFileToMData(fileName)));
+		synchronized(mappedData) {
+			this.addData(key, new DataObject(FileUtils.csvFileToMData(fileName)));
+		}
 	}
 
 	public void addDMDataFromFile(String key, String fileName) {
-		this.addData(key, new DataObject(FileUtils.csvFileToDMData(fileName)));
+		synchronized(mappedData) {
+			this.addData(key, new DataObject(FileUtils.csvFileToDMData(fileName)));
+		}
 	}
 
 	public String getValue(String key) {

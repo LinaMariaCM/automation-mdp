@@ -54,7 +54,9 @@ import java.time.Duration;
  */
 public class DriverHelper {
 
-	WebDriver driver;
+	private WebDriver driver;
+	private boolean waitForAngular = true;
+	private boolean waitForJQuery = false;
 	private int smallWindowLimit = 1025;
 	private int defaultWindowHeigth = 1366;
 	private int defaultWindowWidth= 768;
@@ -532,6 +534,14 @@ public class DriverHelper {
 			System.out.println(list.get(i).getTagName() + " " + className + " " + id);
 		}
 	}
+	
+	public void setWaitForAngular(boolean value) {
+		this.waitForAngular = value;
+	}
+	
+	public void setWaitForJQuery(boolean value) {
+		this.waitForJQuery = value;
+	}
 
 	private void setTimeouts() {
 		setImplicitWait(implicitTimeout);
@@ -625,6 +635,20 @@ public class DriverHelper {
 		takeScreenshotWithCondition();
 		logger.trace("[END] - dispatchEvent");
 	}
+	
+	public void triggerAngularEvent(By by, String event) {
+		dispatchEvent(waitForElementToBeClickable(by), event);
+	}
+
+	public void triggerAngularEvent(WebElement element, String event) {
+		logger.trace("[BEGIN] - dispatchEvent: " + event);
+		
+		((JavascriptExecutor) driver).executeScript("angular.element(arguments[0]).triggerHandler('" + event + "')", element);
+
+		waitForLoadToComplete();
+		takeScreenshotWithCondition();
+		logger.trace("[END] - dispatchEvent");
+	}
 
 	public void clickInFrame(By by, By frame) {
 		switchToFrame(frame);
@@ -662,7 +686,7 @@ public class DriverHelper {
 	}
 
 	public void clickOver(By by) {
-		clickOver(driver.findElement(by));
+		clickOver(waitForElementToBeClickable(by));
 	}
 
 	public void clickOver(WebElement el) {
@@ -734,6 +758,14 @@ public class DriverHelper {
 		waitForLoadToComplete();
 
 		String text = webElement.getText();
+		
+		if(text.isEmpty()) {
+			Object javascriptRepsonse = ((JavascriptExecutor) driver).executeScript("return arguments[0].textContent", webElement);
+			
+			if(javascriptRepsonse != null) {
+				text = javascriptRepsonse.toString();
+			}
+		}
 
 		logger.trace("[END] - getText");
 		return text;
@@ -1122,7 +1154,15 @@ public class DriverHelper {
 	public void waitForLoadToComplete() {
 		logger.trace("[BEGIN] - waitForLoadToComplete");
 		waitForPageToLoad();
-//	waitForAngular();											####################################
+		
+		if(waitForAngular) {
+			waitForAngular();
+		}
+		
+		if(waitForJQuery) {
+			waitForJQuery();
+		}
+		
 		logger.trace("[END] - waitForLoadToComplete");
 	}
 

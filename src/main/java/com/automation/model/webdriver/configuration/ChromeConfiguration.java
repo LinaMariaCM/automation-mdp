@@ -1,8 +1,5 @@
 package com.automation.model.webdriver.configuration;
 
-import java.util.Hashtable;
-import java.util.Map;
-
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;

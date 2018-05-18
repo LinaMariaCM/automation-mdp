@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import com.automation.model.testing.TestDataManager;
 import com.automation.model.webdriver.DriverHelper;
 import com.project.pages.GestionCotizacionesBuscadorPage;
-import com.project.pages.GestionPolizasBuscadorPage;
 import com.project.pages.InnovaHomePage;
 import com.project.pages.InnovaLoginPage;
 import com.project.ProjectConstants;

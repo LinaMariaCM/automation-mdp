@@ -1,14 +1,5 @@
 package com.project.utils;
 
-import java.awt.AWTException;
-import java.io.IOException;
-
-//import com.project.webDriver.BrowserContext;
-//import com.mutuaPropietarios.testCasesData.Pages.GestionOnlineHomePage;
-//import com.mutuaPropietarios.testCasesData.Pages.GestionOnlineLoginPage;
-//import com.mutuaPropietarios.testCasesData.Pages.GestionPolizasBuscadorPage;
-import com.project.ProjectConstants;
-
 //public class GestionOnlineAccessHelper implements IApplicationAccessHelper
 //{
 //	private BrowserContext browserContext;

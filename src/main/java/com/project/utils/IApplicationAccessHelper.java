@@ -4,8 +4,6 @@ package com.project.utils;
 import java.awt.AWTException;
 import java.io.IOException;
 
-import com.project.ProjectConstants;
-
 public interface IApplicationAccessHelper
 {
 

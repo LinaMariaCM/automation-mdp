@@ -1,26 +1,5 @@
 package com.project.pages;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.SizeFileFilter;
-import org.apache.commons.io.filefilter.TrueFileFilter;
-import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.google.common.io.Files;
-
 public class MensajeConfirmacionPage
 {
 //	final static Logger logger = LoggerFactory.getLogger(MensajeConfirmacionPage.class);
