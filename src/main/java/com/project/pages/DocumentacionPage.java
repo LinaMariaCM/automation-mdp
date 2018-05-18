@@ -19,6 +19,7 @@ import com.project.utils.FileHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
 public class DocumentacionPage {
+	
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -108,7 +109,7 @@ public class DocumentacionPage {
 		}
 
 		logger.debug("BEGIN - SubirFichero");
-		
+
 		return this;
 	}
 
@@ -116,7 +117,7 @@ public class DocumentacionPage {
 		logger.debug("BEGIN - ClickOnContinuar");
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		logger.debug("END - ClickOnContinuar");
-		
+
 		return this;
 	}
 	// endregion

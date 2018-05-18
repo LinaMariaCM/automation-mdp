@@ -13,8 +13,7 @@ import org.slf4j.LoggerFactory;
 import com.automation.model.webdriver.DriverHelper;
 import com.automation.model.testing.TestDataManager;
 
-public class AvisoSistemaPage
-{
+public class AvisoSistemaPage {
 
 	private String testId;
 	private TestDataManager tCData;
@@ -22,29 +21,21 @@ public class AvisoSistemaPage
 	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
 
 	// region webelements
-	@FindBy(name = "cuerpo")
-	private By cuerpoFrame;
-	
-	@FindBy(xpath = ".//*[text()='Volver']")
-	private By btnContinuar;
-	
-	@FindBy(xpath = "./html/body/table")
-	private By msgAvisoPlantasAlto;
+	private By cuerpoFrame = By.name("cuerpo");
+
+	private By btnContinuar = By.xpath(".//*[text()='Volver']");
+
+	private By msgAvisoPlantasAlto = By.xpath("./html/body/table");
 	// endregion
-	
 
-	
-/*	public AvisoSistemaPage(BrowserContext browserContext)
-	{
-		this.browserContext = browserContext;
-		this.wh = browserContext.webElementHelper;
-		this.tData = browserContext.getTestCaseData();
-		PageFactory.initElements(browserContext.getWebDriver(), this);
-	}
-	
-	*/
-
-
+	/*
+	 * public AvisoSistemaPage(BrowserContext browserContext) {
+	 * this.browserContext = browserContext; this.wh =
+	 * browserContext.webElementHelper; this.tData =
+	 * browserContext.getTestCaseData();
+	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
+	 * 
+	 */
 
 	public AvisoSistemaPage(DriverHelper driver, TestDataManager data) {
 		this.tCData = data;
@@ -52,21 +43,18 @@ public class AvisoSistemaPage
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
 
-	
 	// region methods
-	public void CheckmsgAvisoPlantasAlto()
-	{
+	public void CheckmsgAvisoPlantasAlto() {
 		logger.debug("BEGIN - CheckmsgAvisoPlantasAlto");
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		String mensaje = this.webDriver.getText(this.msgAvisoPlantasAlto);
 		Assert.assertTrue(mensaje.contains("Dado que el número de plantas en alto (plantas) > 20, el proyecto debe ser revisado por compañía."));
 		this.webDriver.exitFrame();
-		
+
 		logger.debug("END - CheckmsgAvisoPlantasAlto");
 	}
-	
-	public void ClikOnVolver()
-	{
+
+	public void ClikOnVolver() {
 		logger.debug("BEGIN - ClikOnVolver");
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.btnContinuar);

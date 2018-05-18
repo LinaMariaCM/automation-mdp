@@ -11,6 +11,7 @@ import com.automation.model.webdriver.DriverHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
 public class PrecioPage {
+
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -66,10 +67,10 @@ public class PrecioPage {
 
 	// @FindBy(id = "jt2")
 	private By productoMec = By.cssSelector("jt2");
-	
+
 	private By procesandoWindow = By.cssSelector(".smallbox");
-	
-	//private By loaderModal = By.cssSelector("#modalLoader");
+
+	// private By loaderModal = By.cssSelector("#modalLoader");
 
 	// endregion
 

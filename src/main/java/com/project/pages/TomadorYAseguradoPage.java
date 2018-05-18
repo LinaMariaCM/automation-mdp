@@ -19,6 +19,7 @@ import com.project.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
 public class TomadorYAseguradoPage {
+
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -162,7 +163,7 @@ public class TomadorYAseguradoPage {
 		}
 
 		logger.debug("END - AddDatosTomador");
-		
+
 		return this;
 	}
 
@@ -181,7 +182,7 @@ public class TomadorYAseguradoPage {
 		this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
 
 		logger.debug("END - addStaticDatosTomador");
-		
+
 		return this;
 	}
 
@@ -265,7 +266,7 @@ public class TomadorYAseguradoPage {
 		// break;
 		// }
 		// });
-		
+
 		return this;
 	}
 
@@ -274,7 +275,7 @@ public class TomadorYAseguradoPage {
 		this.webDriver.scrollToBottom();
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		logger.debug("END - ClickOnContinuar");
-		
+
 		return this;
 	}
 
@@ -297,9 +298,9 @@ public class TomadorYAseguradoPage {
 			this.webDriver.clickInFrame(this.btnAddAseguradoPrincipalModalWindow, this.cuerpoFrame);
 			this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
 		}
-		
+
 		logger.debug("END - AddDatosTomadorDiferenteAsegurado");
-		
+
 		return this;
 	}
 	// endregion

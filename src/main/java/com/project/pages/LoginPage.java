@@ -8,7 +8,7 @@ import com.automation.model.webdriver.DriverHelper;
 import com.project.ProjectConstants;
 
 public class LoginPage {
-	
+
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -19,7 +19,7 @@ public class LoginPage {
 		this.webDriver = driver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
-	
+
 	public LoginPage logIn(String environment, String accessType, String user) throws Exception {
 		switch(environment) {
 			case ProjectConstants.PreEnvironment:
@@ -43,7 +43,7 @@ public class LoginPage {
 			case ProjectConstants.SiniestrosEnvironment:
 				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Siniestros"));
 				break;
-			case ProjectConstants.MigracionEnvironment:				
+			case ProjectConstants.MigracionEnvironment:
 				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Migracion"));
 				break;
 			case ProjectConstants.UatPjEnvironment:
@@ -72,7 +72,7 @@ public class LoginPage {
 			default:
 				throw new Exception("Not implemented login acess type selected");
 		}
-		
+
 		return this;
 	}
 

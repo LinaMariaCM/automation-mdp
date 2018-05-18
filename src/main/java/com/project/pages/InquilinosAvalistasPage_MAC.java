@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class InquilinosAvalistasPage_MAC {
+	
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -148,11 +149,11 @@ public class InquilinosAvalistasPage_MAC {
 	// }
 	//
 	public InquilinosAvalistasPage_MAC(DriverHelper driver, TestDataManager data) {
-        this.tCData = data;
-        this.webDriver = driver;
-        this.testId = webDriver.getId() == null ? "" : webDriver.getId();
-    }
-	
+		this.tCData = data;
+		this.webDriver = driver;
+		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	}
+
 	public void executeActionsInInquilinosAvalistasPage(String scenario) throws InterruptedException, IOException, AWTException {
 		this.addDatosInquilino(scenario);
 		// this.anadirDocumentacion(scenario);

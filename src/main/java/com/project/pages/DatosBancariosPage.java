@@ -19,6 +19,7 @@ import com.google.common.collect.Iterables;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
 public class DatosBancariosPage {
+	
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -153,7 +154,7 @@ public class DatosBancariosPage {
 		this.FillPaymentMethod(this.tCData.getTestVar(testId, "MedioPago"));
 		this.ClickOnGuardar();
 		this.GetProjectCodeNumberAndClickOnAceptarButton();
-		
+
 		return this;
 	}
 
@@ -163,7 +164,7 @@ public class DatosBancariosPage {
 		this.GetProjectCodeNumberAndClickOnAceptarButton();
 		this.AceptarCondicionesLegales();
 		this.ClickOnContratarAndGetPolizaNumber();
-		
+
 		return this;
 	}
 
@@ -175,7 +176,7 @@ public class DatosBancariosPage {
 		this.ClickOnSolicitarPeritacion();
 		this.enterDataSolicitudServicioTecnico();
 		// this.ClickOnContratarAndGetPolizaNumber();
-		
+
 		return this;
 	}
 
@@ -183,7 +184,7 @@ public class DatosBancariosPage {
 		this.FillPaymentMethod(this.tCData.getTestVar(testId, "CambioMedioPago"));
 		this.ClickOnGuardar();
 		this.GetProjectCodeNumberAndClickOnAceptarButton();
-		
+
 		return this;
 	}
 
@@ -193,7 +194,7 @@ public class DatosBancariosPage {
 		this.GetProjectCodeNumberAndClickOnAceptarButton();
 		this.AceptarCondicionesLegales();
 		this.ClickOnContratarAndGetPolizaNumber();
-		
+
 		return this;
 	}
 
@@ -202,7 +203,7 @@ public class DatosBancariosPage {
 		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
 		// this.webDriver.waitForPageLoadWithAngular();
 		logger.debug("END - ClickOnGuardar");
-		
+
 		return this;
 	}
 
@@ -269,7 +270,7 @@ public class DatosBancariosPage {
 				break;
 		}
 		logger.debug("END - FillPaymentMethod");
-		
+
 		return this;
 	}
 
@@ -287,7 +288,7 @@ public class DatosBancariosPage {
 		// documentacionPage.SubirFichero();
 
 		logger.debug("END - GetProjectCodeNumberAndClickOnAceptarButton");
-		
+
 		return this;
 	}
 
@@ -299,7 +300,7 @@ public class DatosBancariosPage {
 		logger.debug("BEGIN - SelectMediadorAsPaymentMethod");
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbMedioPago, this.cuerpoFrame, "Mediador");
 		logger.debug("END - SelectMediadorAsPaymentMethod");
-		
+
 		return this;
 	}
 
@@ -307,7 +308,7 @@ public class DatosBancariosPage {
 		logger.debug("BEGIN - AceptarCondicionesLegales");
 		this.webDriver.clickInFrame(this.chkMutuaPropietariosIntegrara, this.cuerpoFrame);
 		logger.debug("END - AceptarCondicionesLegales");
-		
+
 		return this;
 	}
 
@@ -315,7 +316,7 @@ public class DatosBancariosPage {
 		logger.debug("BEGIN - ClickOnSolicitarPeritacion");
 		this.webDriver.clickInFrame(this.btnSolicitarPeritacion, this.cuerpoFrame);
 		logger.debug("END - ClickOnSolicitarPeritacion");
-		
+
 		return this;
 	}
 
@@ -339,13 +340,13 @@ public class DatosBancariosPage {
 		System.out.println("Message peritacion: " + mensajePeritaje + ".\n");
 
 		logger.debug("END - enterDataSolicitudServicioTecnico");
-		
+
 		return this;
 	}
 
 	public String getMensajePeritaje() {
 		String mensajePeritaje = this.webDriver.getTextInFrame(this.msgPeritacion, this.cuerpoFrame);
-		
+
 		return mensajePeritaje;
 	}
 
@@ -355,7 +356,7 @@ public class DatosBancariosPage {
 		// this.browserContext.getTestCaseData().setNumPoliza(this.GetPolizaNumber());
 		this.tCData.setTestVar(testId, "PolizaNumber", this.GetPolizaNumber());
 		logger.debug("END - ClickOnContratar");
-		
+
 		return this;
 	}
 
@@ -380,7 +381,7 @@ public class DatosBancariosPage {
 		this.webDriver.click(this.btnEmitirSuplemento);
 		this.webDriver.exitFrame();
 		logger.debug("END - ClickOnEmitirSuplemento");
-		
+
 		return this;
 	}
 
@@ -396,7 +397,7 @@ public class DatosBancariosPage {
 			bw.write(cadenaTexto + ";");
 			bw.close();
 		} catch(Exception e) {}
-		
+
 		return this;
 	}
 	// endregion

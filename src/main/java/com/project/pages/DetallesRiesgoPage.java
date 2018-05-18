@@ -23,13 +23,7 @@ import com.project.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class DetallesRiesgoPage { /*
-									 * final static Logger logger =
-									 * LoggerFactory.getLogger(
-									 * DetallesRiesgoPage.class); BrowserContext
-									 * browserContext; TestCaseData tData;
-									 * private WebElementHelper wh;
-									 */
+public class DetallesRiesgoPage {
 
 	private String testId;
 	private TestDataManager tCData;
@@ -195,7 +189,7 @@ public class DetallesRiesgoPage { /*
 
 	public void completarDatosEnDetallesRiesgo() throws Exception {
 		logger.debug("BEGIN - completarDatosEnDetallesRiesgo");
-		//this.CheckAvisoGarajes();
+		// this.CheckAvisoGarajes();
 		// this.GetCapitales();
 		this.completarDatosRiesgo();
 		this.clickOnContinuar();
@@ -242,54 +236,65 @@ public class DetallesRiesgoPage { /*
 		logger.debug("BEGIN - completarDatosRiesgoMinimos");
 		String value = "";
 		this.webDriver.switchToFrame(this.cuerpoFrame);
-		//String edificioMadera = this.webDriver.getText(this.firstOptionEdifMad);
+		// String edificioMadera =
+		// this.webDriver.getText(this.firstOptionEdifMad);
 		// if
 		// (!edificioMadera.equals(this.tCData.getTestVar(testId,"edificioMadera"))
 		// &&
 		// !this.tCData.getTestVar(testId,"edificioMadera").equals(""))
-		
-		this.webDriver.waitWithDriver(5000);
-		
-		//if(!edificioMadera.equals(this.tCData.getTestVar(testId, "edificioMadera")) && !this.tCData.getTestVar(testId, "edificioMadera").equals("")) {
-			// this.webDriver.selectValueInDropDown(this.cmbEdificioMadera,
-			// this.tCData.getTestVar(testId, "edificioMadera"));
-			//this.webDriver.clickElementFromDropDownByText(this.cmbEdificioMadera, this.tCData.getTestVar(testId, "edificioMadera"));
-		//} else if(this.tCData.getTestVar(testId, "edificioMadera").equals("")
-			//&& !edificioMadera.equals("")) { throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página"); }
 
-		//this.webDriver.clickElementFromDropDownByText(this.cmbEdificioMadera, this.tCData.getTestVar(testId, "edificioMadera"));
+		this.webDriver.waitWithDriver(5000);
+
+		// if(!edificioMadera.equals(this.tCData.getTestVar(testId,
+		// "edificioMadera")) && !this.tCData.getTestVar(testId,
+		// "edificioMadera").equals("")) {
+		// this.webDriver.selectValueInDropDown(this.cmbEdificioMadera,
+		// this.tCData.getTestVar(testId, "edificioMadera"));
+		// this.webDriver.clickElementFromDropDownByText(this.cmbEdificioMadera,
+		// this.tCData.getTestVar(testId, "edificioMadera"));
+		// } else if(this.tCData.getTestVar(testId, "edificioMadera").equals("")
+		// && !edificioMadera.equals("")) { throw new Exception("El valor del
+		// campo porcentaje edificio madera no es blanco al entrar en la
+		// página"); }
+
+		// this.webDriver.clickElementFromDropDownByText(this.cmbEdificioMadera,
+		// this.tCData.getTestVar(testId, "edificioMadera"));
 		this.webDriver.clickElementFromDropDownByText(this.edifConstruccionMadera, "No");
-		
-		
-		//String deshabilitacion = this.webDriver.getText(this.edifConstruccionMadera);
-//		if(!deshabilitacion.equals(this.tCData.getTestVar(testId, "deshabilitacion")) && !this.tCData.getTestVar(testId, "deshabilitacion").equals("")) {
-//			this.webDriver.clickElementFromDropDownByText(this.cmbDeshabilitacion, this.tCData.getTestVar(testId, "deshabilitacion"));
-//		} else if(this.tCData.getTestVar(testId, "deshabilitacion").equals("")
-//			&& !deshabilitacion.equals("")) { throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
+
+		// String deshabilitacion =
+		// this.webDriver.getText(this.edifConstruccionMadera);
+		// if(!deshabilitacion.equals(this.tCData.getTestVar(testId,
+		// "deshabilitacion")) && !this.tCData.getTestVar(testId,
+		// "deshabilitacion").equals("")) {
+		// this.webDriver.clickElementFromDropDownByText(this.cmbDeshabilitacion,
+		// this.tCData.getTestVar(testId, "deshabilitacion"));
+		// } else if(this.tCData.getTestVar(testId,
+		// "deshabilitacion").equals("")
+		// && !deshabilitacion.equals("")) { throw new Exception("El valor del
+		// campo deshabilitación no es blanco al entrar en la página"); }
 
 		this.webDriver.clickElementFromDropDownByText(this.deshabilitacion, ProjectConstants.DeshabitacionInferior);
-		
-		
-//		value = this.webDriver.getText(this.txtAnyoConstruccion);
-		
-		/* AÑO DE CONSTRUCCION Y REHABILITACIONES*/
+
+		// value = this.webDriver.getText(this.txtAnyoConstruccion);
+
+		/* AÑO DE CONSTRUCCION Y REHABILITACIONES */
 		this.webDriver.scrollToElement(this.txtAnyoConstruccion);
 		this.webDriver.waitWithDriver(5000);
 		this.webDriver.clearText(this.txtAnyoConstruccion);
 		this.webDriver.appendText(this.txtAnyoConstruccion, "2000");
 		this.webDriver.waitWithDriver(5000);
-		
+
 		/* SUPERFICIES */
 
-//		this.webDriver.appendText(by, text);
-//		this.webDriver.appendText(by, text);
-//		this.webDriver.appendText(by, text);
-//		this.webDriver.appendText(by, text);
-		
+		// this.webDriver.appendText(by, text);
+		// this.webDriver.appendText(by, text);
+		// this.webDriver.appendText(by, text);
+		// this.webDriver.appendText(by, text);
+
 		this.webDriver.exitFrame();
 		this.webDriver.waitWithDriver(5000);
 		this.clickOnContinuar();
-		
+
 		logger.debug("END - completarDatosRiesgoMinimos");
 		return value;
 	}
@@ -376,23 +381,19 @@ public class DetallesRiesgoPage { /*
 		// página"); }
 		// this.webDriver.waitWithDriver(2000);
 
-
 		String edificioMaderaWeb = this.webDriver.getTextInFrame(this.firstOptionEdifMad, this.cuerpoFrame);
 		String edificioMaderaDatos = this.tCData.getScenarioVar(testId, "edificio_madera") == null ? "" : this.tCData.getScenarioVar(testId, "edificio_madera");
 
 		if(!edificioMaderaWeb.equals(edificioMaderaDatos) && !edificioMaderaDatos.equals("")) {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEdificioMadera, this.cuerpoFrame, edificioMaderaDatos);
-		} else if(edificioMaderaDatos.isEmpty() && !edificioMaderaWeb.isEmpty()) {
-			throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página");
-		}
+		} else if(edificioMaderaDatos.isEmpty() && !edificioMaderaWeb.isEmpty()) { throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página"); }
 
 		String deshabitacionDatos = this.tCData.getTestVar(testId, "deshabitacion") == null ? "" : this.tCData.getTestVar(testId, "deshabitacion");
 		String deshabilitacionWeb = this.webDriver.getTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame);
-		
+
 		if(!deshabilitacionWeb.equals(deshabitacionDatos) && !deshabitacionDatos.equals("")) {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame, this.tCData.getTestVar(testId, "deshabilitacion"));
-		} else if(deshabitacionDatos.isEmpty()	&& !deshabilitacionWeb.isEmpty()) {
-			throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
+		} else if(deshabitacionDatos.isEmpty() && !deshabilitacionWeb.isEmpty()) { throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
 
 		String m2ContruidosTotales = this.webDriver.getTextInFrame(this.txtM2ContruidosTotales, this.cuerpoFrame);
 		if(m2ContruidosTotales.equals(-1)) {
@@ -428,8 +429,8 @@ public class DetallesRiesgoPage { /*
 		// String.valueOf(this.tCData.getAnyoRehabilitacionConstruccionesComunitarias()));
 		// }
 
-		
-		String AnyoRehabilitacionAguasComunitariasDatos = this.tCData.getTestVar(testId, "anyoRehabilitacionAguasComunitarias") == null ? "" : this.tCData.getTestVar(testId, "anyoRehabilitacionAguasComunitarias");
+		String AnyoRehabilitacionAguasComunitariasDatos = this.tCData.getTestVar(testId, "anyoRehabilitacionAguasComunitarias") == null ? ""
+			: this.tCData.getTestVar(testId, "anyoRehabilitacionAguasComunitarias");
 		String AnyoRehabilitacionAguasComunitariasWeb = this.webDriver.getTextInFrame(this.txtAnyoRehabilitacionAguasComunitarias, this.cuerpoFrame);
 		if(AnyoRehabilitacionAguasComunitariasDatos.equals(String.valueOf(this.webDriver.getTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame)))
 			&& this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias") != null) {
@@ -779,18 +780,26 @@ public class DetallesRiesgoPage { /*
 
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 
-		//TODO - This is supposed to check that the madera and deshabitacion fields are mandatory, but currently gives a NULL pointer exception.  Perhaps is should be moved out of ClikOnContinuar.
-		/*if(this.tCData.getTestVar(testId, "edificio_madera").equals("") && this.tCData.getTestVar(testId, "deshabitacion").equals("")) {
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.click(this.btnCamposObligatiosModalWindowAceptar);
-
-			String color1 = this.webDriver.getElement(cmbDeshabilitacion).getCssValue("border-color");
-			String color2 = this.webDriver.getElement(cmbEdificioMadera).getCssValue("border-color");
-
-			Assert.assertTrue("El campo deshabilitación no tiene un borde rojo", color1.equals("rgb(169, 68, 66)"));
-			Assert.assertTrue("El campo edificio madera no tiene un borde rojo", color2.equals("rgb(169, 68, 66)"));
-			this.webDriver.exitFrame();
-		}*/
+		// TODO - This is supposed to check that the madera and deshabitacion
+		// fields are mandatory, but currently gives a NULL pointer exception.
+		// Perhaps is should be moved out of ClikOnContinuar.
+		/*
+		 * if(this.tCData.getTestVar(testId, "edificio_madera").equals("") &&
+		 * this.tCData.getTestVar(testId, "deshabitacion").equals("")) {
+		 * this.webDriver.switchToFrame(this.cuerpoFrame);
+		 * this.webDriver.click(this.btnCamposObligatiosModalWindowAceptar);
+		 * 
+		 * String color1 =
+		 * this.webDriver.getElement(cmbDeshabilitacion).getCssValue(
+		 * "border-color"); String color2 =
+		 * this.webDriver.getElement(cmbEdificioMadera).getCssValue(
+		 * "border-color");
+		 * 
+		 * Assert.assertTrue("El campo deshabilitación no tiene un borde rojo",
+		 * color1.equals("rgb(169, 68, 66)"));
+		 * Assert.assertTrue("El campo edificio madera no tiene un borde rojo",
+		 * color2.equals("rgb(169, 68, 66)")); this.webDriver.exitFrame(); }
+		 */
 
 		this.webDriver.scrollToBottom();
 		logger.debug("END - ClikOnContinuar");

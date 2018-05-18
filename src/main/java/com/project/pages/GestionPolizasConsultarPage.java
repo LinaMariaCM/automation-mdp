@@ -20,8 +20,8 @@ import com.project.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class GestionPolizasConsultarPage
-{
+public class GestionPolizasConsultarPage {
+	
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -32,25 +32,26 @@ public class GestionPolizasConsultarPage
 	NumberFormat nf = NumberFormat.getInstance(this.locale);
 
 	// region webelements
-	//@FindBy(name = "cuerpo")
-	private By cuerpoFrame = By.name("cuerpo" );
+	// @FindBy(name = "cuerpo")
+	private By cuerpoFrame = By.name("cuerpo");
 
 	// @FindBy(xpath = "/html/body/h1/text()")
-	//@FindBy(xpath = ".//*[contains(text(),'Póliza:')]")
-	// ".//*[contains(text(),'La póliza') and contains(text(),'ha sido dada de alta correctamente.')]"
+	// @FindBy(xpath = ".//*[contains(text(),'Póliza:')]")
+	// ".//*[contains(text(),'La póliza') and contains(text(),'ha sido dada de
+	// alta correctamente.')]"
 	private By txtHeaderPolicyNumber = By.xpath(".//*[contains(text(),'Póliza:')]");
 
-	//@FindBy(xpath = ".//*[@id='pesClausulas']/span")
+	// @FindBy(xpath = ".//*[@id='pesClausulas']/span")
 	private By tabHeaderClausulas = By.xpath(".//*[@id='pesClausulas']/span");
 
-	//@FindBy(xpath = ".//*[@id='pesImportes']/span")
+	// @FindBy(xpath = ".//*[@id='pesImportes']/span")
 	private By tabHeaderImportes;
 
-	//@FindBy(xpath = ".//*[@id='pesCoberturas']/span")
+	// @FindBy(xpath = ".//*[@id='pesCoberturas']/span")
 	private By tabHeaderCoberturas = By.xpath(".//*[@id='pesCoberturas']/span");
 
 	// @FindBy(xpath = ".//*[@id='pesDatosRiesgo']/span")
-	//@FindBy(id = "pesDatosRiesgo")
+	// @FindBy(id = "pesDatosRiesgo")
 	private By tabHeaderDatosRiesgos = By.cssSelector("pesDatosRiesgo");
 
 	@FindBy(xpath = ".//tr[td/strong[text()='Tipo Descuento:']]/td[4]")
@@ -119,171 +120,161 @@ public class GestionPolizasConsultarPage
 	}
 
 	// region methods
-	public void CheckPolizaNumber()
-	{
+	public void CheckPolizaNumber() {
 		logger.debug("BEGIN - CheckPolizaNumber");
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 
-		// Get the text from the policy number shown in the header of the policy file.
+		// Get the text from the policy number shown in the header of the policy
+		// file.
 		String polizaNumber = this.webDriver.getText(this.txtHeaderPolicyNumber);
-		
+
 		// Trim the text to leave just the policy number itself.
 		Integer firstCharacter = polizaNumber.indexOf(":") + 2;
 		Integer lastCharacter = polizaNumber.indexOf(":") + 11;
 		String trimmedPolizaNumber = polizaNumber.substring(firstCharacter, lastCharacter);
 		String numPolizaConsulta = trimmedPolizaNumber;
-		
-		// Compare the trimmed policy number with the policy number obtained when policy was created.
+
+		// Compare the trimmed policy number with the policy number obtained
+		// when policy was created.
 		org.junit.Assert.assertEquals(this.tCData.getTestVar(testId, "NumPoliza"), numPolizaConsulta);
 		this.webDriver.exitFrame();
 		logger.debug("END - CheckPolizaNumber");
 	}
-	
-	public void CheckClausulas()
-	{
+
+	public void CheckClausulas() {
 		logger.debug("BEGIN - CheckClausulas");
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.tabHeaderClausulas);
 		List<Integer> tabPageClausulas = new ArrayList<>();
-//		We need a method on tCData to obtain a list of Strings for the Clausulas variables
-//		this.rowWithClausula.forEach(p -> tabPageClausulas.add(Integer.valueOf(p.findElement(By.xpath(this.xPathFilterClausulaNumber)).getText())));
-//		Integer numberOfMatchesFound = this.tCData.getClausulas().stream().filter(p -> tabPageClausulas.contains(Integer.valueOf(p)))
-//				.collect(Collectors.toList()).size();
-//
-//		Assert.assertTrue(
-//				"Las clausulas presentes en el tab de clausulas dentro del detalle de la poliza no coinciden con las seleecionadas durante la inclusion del suplemento",
-//				numberOfMatchesFound == this.tData.getClausulas().size());
-//		this.webDriver.exitFrame();
+		// We need a method on tCData to obtain a list of Strings for the
+		// Clausulas variables
+		// this.rowWithClausula.forEach(p ->
+		// tabPageClausulas.add(Integer.valueOf(p.findElement(By.xpath(this.xPathFilterClausulaNumber)).getText())));
+		// Integer numberOfMatchesFound =
+		// this.tCData.getClausulas().stream().filter(p ->
+		// tabPageClausulas.contains(Integer.valueOf(p)))
+		// .collect(Collectors.toList()).size();
+		//
+		// Assert.assertTrue(
+		// "Las clausulas presentes en el tab de clausulas dentro del detalle de
+		// la poliza no coinciden con las seleecionadas durante la inclusion del
+		// suplemento",
+		// numberOfMatchesFound == this.tData.getClausulas().size());
+		// this.webDriver.exitFrame();
 		logger.debug("END - CheckClausulas");
 	}
 
-	public void CheckValueInTab(String tab, String ValueToBeChecked, String ExpectedValue) throws Exception
-	{
+	public void CheckValueInTab(String tab, String ValueToBeChecked, String ExpectedValue) throws Exception {
 		logger.debug("BEGIN - CheckValueInTab");
 		this.OpenTab(tab);
-		
+
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		List<WebElement> lblObjectCollection;
 		String message = "";
-		
-		switch (ValueToBeChecked)
-		{
+
+		switch(ValueToBeChecked) {
 			case ProjectConstants.PolizaDetailConstructionYear:
 				lblObjectCollection = this.lblConstrucionYear;
 				message = ProjectConstants.PolizaDetailConstructionYearErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailCapitalContinente:
 				lblObjectCollection = this.lblCapitalContinente;
 				message = ProjectConstants.PolizaDetailCapitalContinenteErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailCapitalContenido:
 				lblObjectCollection = this.lblCapitalContenido;
 				message = ProjectConstants.PolizaDetailCapitalContenidoErororMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailNuevaClausulaHipotecaria:
 				lblObjectCollection = this.lblClausulasHipotecarias;
 				message = ProjectConstants.PolizaDetailNuevaClausulaHipotecariaErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailLocalesExcluidos:
 				lblObjectCollection = this.lblLocalesExluidos;
 				message = ProjectConstants.PolizaDetailLocalesExcluidosErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailCalefaccionCentral:
 				lblObjectCollection = this.lblCalefaccionCentral;
 				message = ProjectConstants.PolizaDetailCalefaccionCentralErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailPlacaSolar:
 				lblObjectCollection = this.lblCoberturaEnergiaSolarCantidad;
 				message = ProjectConstants.PolizaDetailPlacaSolarErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailMaquinaria:
 				lblObjectCollection = this.lblCoberturaMaquinariaCantidad;
 				message = ProjectConstants.PolizaDetailMaquinariaErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailDescuento:
 			case ProjectConstants.PolizaDetailNoDescuento:
-				
+
 				lblObjectCollection = this.lblTipoDescuento;
 				message = ProjectConstants.PolizaDetailDescuentoErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailDescuentoValue:
 				lblObjectCollection = this.lblCantidadDescuento;
 				message = ProjectConstants.PolizaDetailDescuentoValueErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailRecargo:
 				lblObjectCollection = this.lblCantidadDescuento;
 				message = ProjectConstants.PolizaDetailRecargoErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailM2ConstruidosTotales:
 				lblObjectCollection = this.lblM2ContruidosTotales;
 				message = ProjectConstants.PolizaDetailM2ConstruidosTotalesErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailYearRehabilitacionIntegral:
 				lblObjectCollection = this.lblAnyoRehabilitacionIntegral;
 				message = ProjectConstants.PolizaDetailYearRehabilitacionIntegralErrorMessage;
 				break;
-			
+
 			case ProjectConstants.PolizaDetailCalidadConstruccion:
 				lblObjectCollection = this.lblCalidadConstruccion;
 				message = ProjectConstants.PolizaDetailCalidadConstruccionMessage;
 				break;
-			
+
 			default:
 				throw new Exception("El valor seleccionado para comprobar no está implementado");
 		}
-		
+
 		// the value has to exist and to have an specific value
-		if (!ExpectedValue.equals(null) && !ExpectedValue.equals(ProjectConstants.DescuentoRecargoNotSpecified))
-		{
-			if (lblObjectCollection.size() == 0)
-			{
-				throw new Exception(message);
-			}
-			
+		if(!ExpectedValue.equals(null) && !ExpectedValue.equals(ProjectConstants.DescuentoRecargoNotSpecified)) {
+			if(lblObjectCollection.size() == 0) { throw new Exception(message); }
+
 			String value = this.webDriver.getText(lblObjectCollection.get(0));
 			Assert.assertTrue(message, value.equals(ExpectedValue));
 		}
 		// The value doesn't have to exist
-		else if (ExpectedValue.equals(null))
-		{
-			if (lblObjectCollection.size() != 0)
-			{
-				throw new Exception(message);
-			}
+		else if(ExpectedValue.equals(null)) {
+			if(lblObjectCollection.size() != 0) { throw new Exception(message); }
 		}
 		// The value has to exist only
-		else if (ExpectedValue.equals(ProjectConstants.DescuentoRecargoNotSpecified))
-		{
-			if (lblObjectCollection.size() != 0)
-			{
-				throw new Exception(message);
-			}
+		else if(ExpectedValue.equals(ProjectConstants.DescuentoRecargoNotSpecified)) {
+			if(lblObjectCollection.size() != 0) { throw new Exception(message); }
 		}
-		
+
 		this.webDriver.exitFrame();
 		logger.debug("END - CheckValueInTab");
 	}
 
-	public void OpenTab(String tabName) throws Exception
-	{
+	public void OpenTab(String tabName) throws Exception {
 		logger.debug("BEGIN - OpenTab");
 
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 
-		switch (tabName)
-		{
+		switch(tabName) {
 			case ProjectConstants.PolizaDetailTabDetallesRiesgo:
 				this.webDriver.click(this.tabHeaderDatosRiesgos);
 				break;
@@ -307,16 +298,13 @@ public class GestionPolizasConsultarPage
 		logger.debug("END - OpenTab");
 	}
 
-	public void CheckAnyoAndNivelRehabilitacion() throws Exception
-	{
+	public void CheckAnyoAndNivelRehabilitacion() throws Exception {
 		logger.debug("BEGIN - CheckAnyoAndNivelRehabilitacion");
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.tabHeaderDatosRiesgos);
 
-		if (this.lblAnyoRehabilitacionContruccionesComunitarias.size() == 0 || this.lblNivelRehabilitacionContruccionesComunitarias.size() == 0)
-		{
-			throw new Exception("El año o el nivel de rehabilitación de las contrucciones comunitarias no ha aparecido correctamente");
-		}
+		if(this.lblAnyoRehabilitacionContruccionesComunitarias.size() == 0 || this.lblNivelRehabilitacionContruccionesComunitarias
+			.size() == 0) { throw new Exception("El año o el nivel de rehabilitación de las contrucciones comunitarias no ha aparecido correctamente"); }
 
 		String AnyoRehabilitacion = this.webDriver.getText(this.lblAnyoRehabilitacionContruccionesComunitarias.get(0));
 		String NivelRehabilitacion = this.webDriver.getText(this.lblNivelRehabilitacionContruccionesComunitarias.get(0));
@@ -324,13 +312,13 @@ public class GestionPolizasConsultarPage
 		System.out.println("*** Año rehabilitacion en consulta poliza = " + AnyoRehabilitacion);
 		System.out.println("*** Nivel rehabilitacion en consulta poliza = " + NivelRehabilitacion);
 		System.out.println("*** Año rehabilitacion introducido en alta suplemento = "
-				+ this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias"));
+			+ this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias"));
 
-		Assert.assertTrue("El año de rehabilitación de construcciones comunitarias no ha aparecido correctamente",
-				AnyoRehabilitacion.equals(this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias")));
+		Assert.assertTrue("El año de rehabilitación de construcciones comunitarias no ha aparecido correctamente", AnyoRehabilitacion
+			.equals(this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias")));
 
-		Assert.assertTrue("El nivel de rehabilitación de construcciones comunitarias no ha aparecido correctamente",
-				NivelRehabilitacion.equals(this.tCData.getTestVar(testId, "NivelRehabilitacionRehabilitacionConduccionesAguasComunitarias")));
+		Assert.assertTrue("El nivel de rehabilitación de construcciones comunitarias no ha aparecido correctamente", NivelRehabilitacion
+			.equals(this.tCData.getTestVar(testId, "NivelRehabilitacionRehabilitacionConduccionesAguasComunitarias")));
 
 		logger.debug("END - CheckAnyoAndNivelRehabilitacion");
 	}
@@ -343,10 +331,12 @@ public class GestionPolizasConsultarPage
 	//
 	// if (this.lblCapitalContinente.size() == 0)
 	// {
-	// throw new Exception("El capital continente no ha aparecido correctamente");
+	// throw new Exception("El capital continente no ha aparecido
+	// correctamente");
 	// }
 	//
-	// Number capitalContiente = this.nf.parse(this.wh.GetTextFromWebElement(this.lblCapitalContinente.get(0)));
+	// Number capitalContiente =
+	// this.nf.parse(this.wh.GetTextFromWebElement(this.lblCapitalContinente.get(0)));
 	//
 	// Assert.assertTrue("El capital contiente no ha aparecido correctamente",
 	// this.nf.format(capitalContiente).toString().equals(this.nf.format(this.browserContext.getTestCaseData().getCapitalContinente()).toString()));
@@ -362,10 +352,12 @@ public class GestionPolizasConsultarPage
 	//
 	// if (this.lblConstrucionYear.size() == 0)
 	// {
-	// throw new Exception("El año de construcción no ha aparecido correctamente");
+	// throw new Exception("El año de construcción no ha aparecido
+	// correctamente");
 	// }
 	//
-	// String constructionYear = this.wh.GetTextFromWebElement(this.lblConstrucionYear.get(0));
+	// String constructionYear =
+	// this.wh.GetTextFromWebElement(this.lblConstrucionYear.get(0));
 	//
 	// Assert.assertTrue("El año de construcción no ha aparecido correctamente",
 	// constructionYear.contains(this.browserContext.getTestCaseData().getAnyoConstruccion()));
@@ -382,10 +374,12 @@ public class GestionPolizasConsultarPage
 	//
 	// if (this.lblCapitalContenido.size() == 0)
 	// {
-	// throw new Exception("El capital contenido no ha aparecido correctamente");
+	// throw new Exception("El capital contenido no ha aparecido
+	// correctamente");
 	// }
 	//
-	// Number capitalContenido = this.nf.parse(this.wh.GetTextFromWebElement(this.lblCapitalContenido.get(0)));
+	// Number capitalContenido =
+	// this.nf.parse(this.wh.GetTextFromWebElement(this.lblCapitalContenido.get(0)));
 	//
 	// Assert.assertTrue("El capital contenido no ha aparecido correctamente",
 	// this.nf.format(capitalContenido).toString().equals(this.nf.format(this.browserContext.getTestCaseData().getCapitalContenido()).toString()));
@@ -401,24 +395,29 @@ public class GestionPolizasConsultarPage
 	//
 	// if (this.lblClausulasHipotecarias.size() == 0)
 	// {
-	// throw new Exception("La clausula hipotecaria no ha aparecido correctamente");
+	// throw new Exception("La clausula hipotecaria no ha aparecido
+	// correctamente");
 	// }
 	//
 	// this.wh.ExitFromFrame();
 	// logger.debug("END - CheckClausulasHipotecarias");
 	// }
 
-	// public void CheckTextAppearsInDatosRiesgo(String message) throws Exception
+	// public void CheckTextAppearsInDatosRiesgo(String message) throws
+	// Exception
 	// {
 	// logger.debug("BEGIN - CheckCalefaccionCentral");
 	// this.wh.SwitchToFrame(this.cuerpoFrame);
 	// this.wh.ClickOnWebElement(this.tabHeaderDatosRiesgos);
 	//
-	// List<WebElement> lblMessage = this.browserContext.GetWebDriver().findElements(By.xpath(".//*[contains(text(),'" + message + "')]"));
+	// List<WebElement> lblMessage =
+	// this.browserContext.GetWebDriver().findElements(By.xpath(".//*[contains(text(),'"
+	// + message + "')]"));
 	//
 	// if (lblMessage.size() == 0)
 	// {
-	// throw new Exception("El tipo de cobertura por calefaccióm cemtral no ha aparecido correctamente");
+	// throw new Exception("El tipo de cobertura por calefaccióm cemtral no ha
+	// aparecido correctamente");
 	// }
 	//
 	// this.wh.ExitFromFrame();
@@ -433,12 +432,15 @@ public class GestionPolizasConsultarPage
 	//
 	// if (this.lblCoberturaEnergiaSolarCantidad.size() == 0)
 	// {
-	// throw new Exception("El tipo de cobertura por energía solar no ha aparecido correctamente");
+	// throw new Exception("El tipo de cobertura por energía solar no ha
+	// aparecido correctamente");
 	// }
 	//
-	// String energíaSolarCantidad = this.wh.GetTextFromWebElement(this.lblCoberturaEnergiaSolarCantidad.get(0));
+	// String energíaSolarCantidad =
+	// this.wh.GetTextFromWebElement(this.lblCoberturaEnergiaSolarCantidad.get(0));
 	//
-	// Assert.assertTrue("El tipo cobertura energía solar no ha aparecido correctamente",
+	// Assert.assertTrue("El tipo cobertura energía solar no ha aparecido
+	// correctamente",
 	// energíaSolarCantidad.contains(String.valueOf(this.browserContext.getTestCaseData().getInstalacionesFotovoltaicasValor())));
 	//
 	// logger.debug("END - CheckEnergiaSolar");
@@ -452,12 +454,15 @@ public class GestionPolizasConsultarPage
 	//
 	// if (this.lblCoberturaMaquinariaCantidad.size() == 0)
 	// {
-	// throw new Exception("El tipo de cobertura por maquinaria no ha aparecido correctamente");
+	// throw new Exception("El tipo de cobertura por maquinaria no ha aparecido
+	// correctamente");
 	// }
 	//
-	// String maquinariaCantidad = this.wh.GetTextFromWebElement(this.lblCoberturaMaquinariaCantidad.get(0));
+	// String maquinariaCantidad =
+	// this.wh.GetTextFromWebElement(this.lblCoberturaMaquinariaCantidad.get(0));
 	//
-	// Assert.assertTrue("El tipo cobertura maquinaria no ha aparecido correctamente",
+	// Assert.assertTrue("El tipo cobertura maquinaria no ha aparecido
+	// correctamente",
 	// maquinariaCantidad.contains(String.valueOf(this.browserContext.getTestCaseData().getModifieedCoberturaMaquinariaValor())));
 	//
 	// logger.debug("END - CheckMaquinaria");
@@ -472,29 +477,39 @@ public class GestionPolizasConsultarPage
 	//
 	// if (pressent)
 	// {
-	// if (this.lblTipoDescuento.size() == 0 || this.lblCantidadDescuento.size() == 0)
+	// if (this.lblTipoDescuento.size() == 0 || this.lblCantidadDescuento.size()
+	// == 0)
 	// {
-	// throw new Exception("El tipo de descuento no ha aparecido correctamente");
+	// throw new Exception("El tipo de descuento no ha aparecido
+	// correctamente");
 	// }
 	//
-	// String tipoDescuento = this.wh.GetTextFromWebElement(this.lblTipoDescuento.get(0));
-	// String cantidadDescuento = this.wh.GetTextFromWebElement(this.lblCantidadDescuento.get(0));
+	// String tipoDescuento =
+	// this.wh.GetTextFromWebElement(this.lblTipoDescuento.get(0));
+	// String cantidadDescuento =
+	// this.wh.GetTextFromWebElement(this.lblCantidadDescuento.get(0));
 	//
 	// this.df.format(Long.valueOf(MutuaPropietariosConstants.PorcentajeDescuentoRecargo));
 	//
-	// Assert.assertTrue("El tipo de descuento no ha aparecido correctamente", tipoDescuento.equals(MutuaPropietariosConstants.TipoDescuento));
-	// Assert.assertTrue("La cantidad de descuento no ha aparecido correctamente",
+	// Assert.assertTrue("El tipo de descuento no ha aparecido correctamente",
+	// tipoDescuento.equals(MutuaPropietariosConstants.TipoDescuento));
+	// Assert.assertTrue("La cantidad de descuento no ha aparecido
+	// correctamente",
 	// cantidadDescuento.equals(this.df.format(Long.valueOf(MutuaPropietariosConstants.PorcentajeDescuentoRecargo))));
 	// }
 	// else
 	// {
-	// if (this.lblTipoDescuento.size() != 0 || this.lblCantidadDescuento.size() != 0)
+	// if (this.lblTipoDescuento.size() != 0 || this.lblCantidadDescuento.size()
+	// != 0)
 	// {
-	// throw new Exception("El tipo de descuento no ha aparecido correctamente");
+	// throw new Exception("El tipo de descuento no ha aparecido
+	// correctamente");
 	// }
 	//
-	// Assert.assertTrue("El tipo de descuento no ha desaparecido correctamente", this.lblTipoDescuento.size() != 0);
-	// Assert.assertTrue("La cantidad de descuento no ha desaparecido correctamente", this.lblCantidadDescuento.size() != 0);
+	// Assert.assertTrue("El tipo de descuento no ha desaparecido
+	// correctamente", this.lblTipoDescuento.size() != 0);
+	// Assert.assertTrue("La cantidad de descuento no ha desaparecido
+	// correctamente", this.lblCantidadDescuento.size() != 0);
 	// }
 	// logger.debug("END - CheckDescuento");
 	// }
@@ -508,24 +523,31 @@ public class GestionPolizasConsultarPage
 	//
 	// if (pressent)
 	// {
-	// if (this.lblTipoDescuento.size() == 0 || this.lblCantidadDescuento.size() == 0)
+	// if (this.lblTipoDescuento.size() == 0 || this.lblCantidadDescuento.size()
+	// == 0)
 	// {
 	// throw new Exception("El tipo de recargo no ha aparecido correctamente");
 	// }
 	//
-	// String tipoDescuento = this.wh.GetTextFromWebElement(this.lblTipoDescuento.get(0));
-	// String cantidadDescuento = this.wh.GetTextFromWebElement(this.lblCantidadDescuento.get(0));
+	// String tipoDescuento =
+	// this.wh.GetTextFromWebElement(this.lblTipoDescuento.get(0));
+	// String cantidadDescuento =
+	// this.wh.GetTextFromWebElement(this.lblCantidadDescuento.get(0));
 	//
 	// this.df.format(Long.valueOf(MutuaPropietariosConstants.PorcentajeDescuentoRecargo));
 	//
-	// Assert.assertTrue("El tipo de recargo no ha aparecido correctamente", tipoDescuento.equals(MutuaPropietariosConstants.TipoRecargo));
+	// Assert.assertTrue("El tipo de recargo no ha aparecido correctamente",
+	// tipoDescuento.equals(MutuaPropietariosConstants.TipoRecargo));
 	// Assert.assertTrue("La cantidad de recargo no ha aparecido correctamente",
 	// cantidadDescuento.equals(this.df.format(Long.valueOf(MutuaPropietariosConstants.PorcentajeDescuentoRecargo))));
 	// }
 	// else
 	// {
-	// Assert.assertTrue("El tipo de descuento no ha desaparecido correctamente", this.lblTipoDescuento.get(0).getText().equals(""));
-	// Assert.assertTrue("La cantidad de descuento no ha desaparecido correctamente", this.lblCantidadDescuento.get(0).getText().equals("0,00"));
+	// Assert.assertTrue("El tipo de descuento no ha desaparecido
+	// correctamente", this.lblTipoDescuento.get(0).getText().equals(""));
+	// Assert.assertTrue("La cantidad de descuento no ha desaparecido
+	// correctamente",
+	// this.lblCantidadDescuento.get(0).getText().equals("0,00"));
 	// }
 	// logger.debug("END - CheckRecargo");
 	// }

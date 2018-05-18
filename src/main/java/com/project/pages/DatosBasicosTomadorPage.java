@@ -11,6 +11,7 @@ import com.automation.model.webdriver.DriverHelper;
 import com.project.ProjectConstants;
 
 public class DatosBasicosTomadorPage {
+	
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -64,7 +65,6 @@ public class DatosBasicosTomadorPage {
 	//private By btnAceptarVolver = By.cssSelector("com_aceptar");
 	//private By btnAceptarVolver = By.id("Aceptar");
 	//private By btnAceptarVolver = By.xpath(".//*[text()='Aceptar']");
-	
 	// endregion
 
 	public DatosBasicosTomadorPage(DriverHelper driver, TestDataManager data) {

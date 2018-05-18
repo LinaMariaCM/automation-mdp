@@ -24,6 +24,7 @@ import com.project.ProjectConstants;
 import com.project.utils.CoberturasAdicionalesHelper;
 
 public class PrecioPorModalidadPage {
+
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
@@ -272,7 +273,7 @@ public class PrecioPorModalidadPage {
 		this.completarFranquiciaVoluntaria();
 		this.completarOQuitarDescuentoRecargo();
 		this.clickOnContinuar();
-		
+
 		return this;
 	}
 
@@ -282,7 +283,7 @@ public class PrecioPorModalidadPage {
 		// this.webDriver.scrollToBottom();
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		logger.debug("END - ClickOnContinuar");
-		
+
 		return this;
 	}
 
@@ -292,7 +293,7 @@ public class PrecioPorModalidadPage {
 		this.webDriver.scrollToBottom();
 		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
 		logger.debug("END - ClickOnCancelar");
-		
+
 		return this;
 	}
 
@@ -383,12 +384,12 @@ public class PrecioPorModalidadPage {
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterMaquinaria);
 			}
-			
+
 			this.webDriver.exitFrame();
 		}
-		
+
 		logger.debug("END - CompletarCoberturaPorMaquinaria");
-		
+
 		return this;
 	}
 
@@ -444,12 +445,12 @@ public class PrecioPorModalidadPage {
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterEmpleados);
 			}
-			
+
 			this.webDriver.exitFrame();
 		}
-		
+
 		logger.debug("END - CompletarCoberturasEmpleados");
-		
+
 		return this;
 	}
 
@@ -492,12 +493,12 @@ public class PrecioPorModalidadPage {
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterEnergiaSolar);
 			}
-			
+
 			this.webDriver.exitFrame();
 		}
-		
+
 		logger.debug("END - CompletarCoberturasEnergiaSolar");
-		
+
 		return this;
 	}
 
@@ -526,7 +527,7 @@ public class PrecioPorModalidadPage {
 
 		this.webDriver.exitFrame();
 		logger.debug("END - SeleccionarModalidad");
-		
+
 		return this;
 	}
 
@@ -568,7 +569,7 @@ public class PrecioPorModalidadPage {
 
 		this.webDriver.exitFrame();
 		logger.debug("END - CompletarOQuitarDescuentoRecargo");
-		
+
 		return this;
 	}
 
@@ -584,7 +585,7 @@ public class PrecioPorModalidadPage {
 			this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterAddingFranquiciaVoluntaria);
 		}
 		logger.debug("END - CompletarFranquiciaVoluntaria");
-		
+
 		return this;
 	}
 
@@ -601,7 +602,7 @@ public class PrecioPorModalidadPage {
 		this.webDriver.exitFrame();
 
 		logger.debug("END - GetPreciosBefore");
-		
+
 		return this;
 	}
 
@@ -618,7 +619,7 @@ public class PrecioPorModalidadPage {
 		this.webDriver.exitFrame();
 
 		logger.debug("AFTER - GetPreciosAfter");
-		
+
 		return this;
 	}
 
@@ -695,13 +696,13 @@ public class PrecioPorModalidadPage {
 			// break;
 		}
 		logger.debug("END - CompareValues");
-		
+
 		return this;
 	}
 
 	public PrecioPorModalidadPage modificarRC(String value) {
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpDwnRespCivil, this.cuerpoFrame, value);
-		
+
 		return this;
 	}
 
@@ -736,7 +737,7 @@ public class PrecioPorModalidadPage {
 
 		// this.webDriver.exitFrame();
 		logger.debug("END - agregarDescuento");
-		
+
 		return this;
 	}
 
@@ -763,12 +764,12 @@ public class PrecioPorModalidadPage {
 	public String getPrecioPlus() {
 		logger.debug("BEGIN - getPrecioPlus");
 		String value = "";
-		
+
 		if(this.webDriver.isPresentInFrame(this.lblPrecioPlus, this.cuerpoFrame))
 			value = this.webDriver.getTextInFrame(this.lblPrecioPlus, this.cuerpoFrame);
 
 		logger.debug("END - getPrecioPlus");
-		
+
 		return value;
 	}
 
@@ -778,7 +779,7 @@ public class PrecioPorModalidadPage {
 		String ProjectCode = StringUtils.substringBetween(projectNumberText, "El proyecto", "se ha guardado.").trim();
 		this.webDriver.clickInFrame(this.btnAceptarInDialog, this.cuerpoFrame);
 		logger.debug("END - getProjectNumber");
-		
+
 		return ProjectCode;
 	}
 
@@ -788,7 +789,7 @@ public class PrecioPorModalidadPage {
 		this.webDriver.scrollToBottom();
 		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
 		logger.debug("END - clickOnGuardar");
-		
+
 		return this;
 	}
 

@@ -22,11 +22,6 @@ import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
 
 public class ClausulasPage {
-	/*
-	 * final static Logger logger =
-	 * LoggerFactory.getLogger(ClausulasPage.class); BrowserContext
-	 * browserContext; private WebElementHelper wh; TestCaseData tData;
-	 */
 
 	private String testId;
 	private TestDataManager tCData;
@@ -110,13 +105,6 @@ public class ClausulasPage {
 	 */
 
 	public ClausulasPage(DriverHelper driver, TestDataManager data) {
-		/*
-		 * this.browserContext = browserContext; this.wh =
-		 * browserContext.webElementHelper; this.tData =
-		 * browserContext.getTestCaseData();
-		 * PageFactory.initElements(browserContext.getWebDriver(), this);
-		 */
-
 		this.tCData = data;
 		this.webDriver = driver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();

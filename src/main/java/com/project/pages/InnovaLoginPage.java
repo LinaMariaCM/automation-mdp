@@ -12,58 +12,53 @@ import com.automation.model.webdriver.DriverHelper;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-
-public class InnovaLoginPage
-{
+public class InnovaLoginPage {
+	
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
 	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
-	
+
 	// region webelements
-	//@FindBy(id = "leftFrame")
+	// @FindBy(id = "leftFrame")
 	private By menuFrame = By.cssSelector("#leftFrame");
 
-	//@FindBy(id = "usuario")
+	// @FindBy(id = "usuario")
 	private By user = By.cssSelector("#usuario");
 
-	//@FindBy(id = "clave")
+	// @FindBy(id = "clave")
 	private By password = By.cssSelector("#clave");
 
-	//@FindBy(id = "botonEntrar")
+	// @FindBy(id = "botonEntrar")
 	private By enter = By.cssSelector("#botonEntrar");
 	// endregion
 
 	/*
-	public InnovaLoginPage(BrowserContext browserContext)
-	{
-		this.browserContext = browserContext;
-		this.wh = browserContext.webElementHelper;
-		this.tData = browserContext.getTestCaseData();
-		PageFactory.initElements(browserContext.getWebDriver(), this);
-	}*/
-	
-	
-	public InnovaLoginPage(DriverHelper driver, TestDataManager data)
-	{
+	 * public InnovaLoginPage(BrowserContext browserContext) {
+	 * this.browserContext = browserContext; this.wh =
+	 * browserContext.webElementHelper; this.tData =
+	 * browserContext.getTestCaseData();
+	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
+	 */
+
+	public InnovaLoginPage(DriverHelper driver, TestDataManager data) {
 		this.tCData = data;
 		this.webDriver = driver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
-		
-//		PageFactory.initElements(webDriver, this);
+
+		// PageFactory.initElements(webDriver, this);
 	}
-	
+
 	// region methods
-	public InnovaLoginPage login(String userId, String Password)
-	{
+	public InnovaLoginPage login(String userId, String Password) {
 		logger.debug("BEGIN - login");
 		this.webDriver.appendText(this.user, userId);
 		this.webDriver.appendText(this.password, Password);
-		
+
 		this.webDriver.click(this.enter);
 		Assert.assertTrue("La aplicación no ha hecho el login correctamente", this.webDriver.isClickable(menuFrame));
 		logger.debug("END - login");
-		
+
 		return this;
 	}
 	// endregion
