@@ -82,10 +82,10 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage
 
 	@FindBy(xpath = ".//*[text()='Debido a que se ha modificado el año de rehabilitación integral y el año de rehabilitación de conducciones comunitarias, el proyecto debe ser revisado por la compañía. Hasta que no sea validado la impresión queda bloqueada y el precio no es vinculante.']")
 	// private List<WebElement> lblAvisoModificacionRehabilitacionIntegral;
-	private By lblAvisoModificacionRehabilitacionIntegral;
+	private By lblAvisoModificacionRehabilitacionIntegral = By.xpath(".//*[text()='Debido a que se ha modificado el año de rehabilitación integral y el año de rehabilitación de conducciones comunitarias, el proyecto debe ser revisado por la compañía. Hasta que no sea validado la impresión queda bloqueada y el precio no es vinculante.']");
 	
 	@FindBy(xpath = ".//*[text()='AVISO: El mismo riesgo ya se encuentra asegurado en Mutua de propietarios.']")
-	private By lblAvisoRiesgoYaAsegurado;
+	private By lblAvisoRiesgoYaAsegurado = By.xpath(".//*[text()='AVISO: El mismo riesgo ya se encuentra asegurado en Mutua de propietarios.']");
 
 	// endregion
 
@@ -132,7 +132,9 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage
 		logger.debug("BEGIN - ClickOnContinuarButton");
 
 		// this.browserContext.getTestCaseData().setInfraseguro(false);
+		this.webDriver.waitWithDriver(3000);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.waitWithDriver(3000);
 		//this.browserContext.webDriverConfiguration.SetWebDriverTimeouts(5);
 
 		if (Boolean.parseBoolean(this.tCData.getTestVar(testId, "InfraSeguro")) 

@@ -300,7 +300,7 @@ public class UbicacionRiesgoPage {
 		logger.debug("BEGIN - AddInmuebleByReferenciaCatastral");
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
-		this.webDriver.waitWithDriver(2000);
+		this.webDriver.waitWithDriver(1000);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.moveToElement(this.btnAnadirInmueblePantallaPrincipal);
 
@@ -322,9 +322,9 @@ public class UbicacionRiesgoPage {
 
 		// this.browserContext.webElementHelper.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
-		this.webDriver.waitWithDriver(2000);
+		this.webDriver.waitWithDriver(1000);
 		this.webDriver.click(this.btnAnadirInmuebleReferenciaCatastral);
-		this.webDriver.waitWithDriver(2000);
+		this.webDriver.waitWithDriver(1000);
 		this.webDriver.exitFrame();
 		logger.debug("END - AddInmuebleByReferenciaCatastral");
 		return true;
