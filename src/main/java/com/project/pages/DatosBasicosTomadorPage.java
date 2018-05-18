@@ -21,10 +21,10 @@ public class DatosBasicosTomadorPage {
 	private By cuerpoFrame = By.name("cuerpo");
 
 	// @FindBy(id = "tipoDocumento")
-	private By cmbTipoDocumento = By.cssSelector("tipoDocumento");
+	private By cmbTipoDocumento = By.id("tipoDocumento");
 
 	// @FindBy(id = "numeroDocumento")
-	private By txtNumeroDocumento = By.cssSelector("numeroDocumento");
+	private By txtNumeroDocumento = By.id("numeroDocumento");
 
 	// @FindBy(xpath = ".//*[text()='Validar cliente']")
 	private By btnValidarCliente = By.xpath(".//*[text()='Validar cliente']");
@@ -56,6 +56,15 @@ public class DatosBasicosTomadorPage {
 	// @FindBy(xpath = ".//*[text()='Seleccionar cliente']")
 	private By btnSeleccionarCliente = By.xpath(".//*[text()='Seleccionar cliente']");
 
+	private By procesandoWindow = By.cssSelector(".smallbox");
+	
+	private By btnVolver = By.id("botonVolver");
+	
+	private By btnAceptarVolver = By.cssSelector("button[ng-click*='com_aceptar']");
+	//private By btnAceptarVolver = By.cssSelector("com_aceptar");
+	//private By btnAceptarVolver = By.id("Aceptar");
+	//private By btnAceptarVolver = By.xpath(".//*[text()='Aceptar']");
+	
 	// endregion
 
 	public DatosBasicosTomadorPage(DriverHelper driver, TestDataManager data) {
@@ -65,7 +74,7 @@ public class DatosBasicosTomadorPage {
 	}
 
 	public DatosBasicosTomadorPage ExecuteActionsInPageTomadorYAseguradoPage(String tomadorType) throws Exception {
-		this.FillTomadorData(tomadorType);
+		this.fillTomadorData(tomadorType);
 		this.clickOnContinuar();
 		
 		return this;
@@ -105,7 +114,7 @@ public class DatosBasicosTomadorPage {
 		return this;
 	}
 
-	public DatosBasicosTomadorPage FillTomadorData(String tomadorType) throws Exception {
+	public DatosBasicosTomadorPage fillTomadorData(String tomadorType) throws Exception {
 		logger.debug("BEGIN - FillTomadorData");
 
 		switch(tomadorType) {
@@ -124,6 +133,14 @@ public class DatosBasicosTomadorPage {
 				// this.browserContext.getTestCaseData().getTomadorSegundoApellido());
 
 				// Select documento tomador
+				
+				this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
+				
+				if(this.webDriver.isPresentInFrame(this.btnVolver, this.cuerpoFrame)){ 
+					this.webDriver.clickInFrame(this.btnVolver, this.cuerpoFrame);
+					this.webDriver.clickInFrame(this.btnAceptarVolver, this.cuerpoFrame);	
+				}
+				this.webDriver.waitWithDriver(4000);
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
 				this.tCData.setTestVar(testId, "tomadorDNI", DniGeneratorHelper.generaNif(null));
 				this.webDriver.clickInFrame(this.txtNumeroDocumento, this.cuerpoFrame);
@@ -184,7 +201,7 @@ public class DatosBasicosTomadorPage {
 		}
 		// this.browserContext.webElementHelper.waitForAngular();
 		logger.debug("END - FillTomadorData");
-		
+
 		return this;
 	}
 

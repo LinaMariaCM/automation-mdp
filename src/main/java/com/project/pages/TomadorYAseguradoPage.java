@@ -134,7 +134,7 @@ public class TomadorYAseguradoPage {
 	}
 
 	// region methods
-	public TomadorYAseguradoPage AddDatosTomador() {
+	public TomadorYAseguradoPage addDatosTomador() {
 		logger.debug("BEGIN - AddDatosTomador");
 
 		// if
@@ -278,7 +278,7 @@ public class TomadorYAseguradoPage {
 		return this;
 	}
 
-	public TomadorYAseguradoPage AddDatosTomadorDiferenteAsegurado() {
+	public TomadorYAseguradoPage addDatosTomadorDiferenteAsegurado() {
 		logger.debug("BEGIN - AddDatosTomadorDiferenteAsegurado");
 		if(this.tCData.getTestVar(testId, "AseguradoPrincipalDiferenteDelTomador")
 			.equals(ProjectConstants.AseguradoPrincipalDiferenteTomador)) {
@@ -297,6 +297,7 @@ public class TomadorYAseguradoPage {
 			this.webDriver.clickInFrame(this.btnAddAseguradoPrincipalModalWindow, this.cuerpoFrame);
 			this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
 		}
+		
 		logger.debug("END - AddDatosTomadorDiferenteAsegurado");
 		
 		return this;

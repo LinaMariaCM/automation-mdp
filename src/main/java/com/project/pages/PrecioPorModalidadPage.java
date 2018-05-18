@@ -264,7 +264,7 @@ public class PrecioPorModalidadPage {
 	}
 
 	// region methods
-	public PrecioPorModalidadPage ExecuteActionsInPrecioPorModalidadPage() throws InterruptedException, IOException {
+	public PrecioPorModalidadPage executeActionsInPrecioPorModalidadPage() throws InterruptedException, IOException {
 		this.seleccionarModalidad();
 		this.completarCoberturaPorMaquinaria();
 		this.completarCoberturasEmpleados();

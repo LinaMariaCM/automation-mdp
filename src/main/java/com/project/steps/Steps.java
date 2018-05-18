@@ -165,8 +165,12 @@ public class Steps {
 			new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
 				.completarDatosEnDetallesRiesgo();
 
-			new ValidacionExcepcionesReglasDetallesRiesgoPage(webDriver, userS.getTestDataManager())
-				.ClickOnContinuarAndValidate();
+//			new ValidacionExcepcionesReglasDetallesRiesgoPage(webDriver, userS.getTestDataManager())
+//				.ClickOnContinuarAndValidate();
+			
+			
+			// Revisar si el paso de parámetros es el adecuado
+			//new ValidacionExcepcionesReglasDetallesRiesgoPage(userS.getDriver(), userS.getTestDataManager()).ClickOnContinuarAndValidate();
 
 			// Revisar si el paso de parámetros es el adecuado
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS.getDriver(), userS.getTestDataManager())
@@ -176,34 +180,34 @@ public class Steps {
 				.ClickOnConvertirAProjecto();
 
 			new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager())
-				.FillTomadorData(this.testDataM.getTestVar(testId, "tomador"))
+				.fillTomadorData(this.testDataM.getTestVar(testId, "tomador"))
 				.clickOnContinuar();
 
 			new PrecioPorModalidadPage(webDriver, userS.getTestDataManager())
-				.ExecuteActionsInPrecioPorModalidadPage();
+				.executeActionsInPrecioPorModalidadPage();
 
 			new ValidacionExcepcionesReglasPage(webDriver, userS.getTestDataManager())
 				.clickOnContinuarButton();
 
 			new ClausulasPage(webDriver, userS.getTestDataManager())
-				.ActivateclausesAndClickOnContinue();
+				.activateclausesAndClickOnContinue();
 
 			new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager())
-				.FillTomadorData(this.testDataM.getTestVar(testId, "tomador"))
+				.fillTomadorData(this.testDataM.getTestVar(testId, "tomador"))
 				.clickOnContinuar();
 
 			new PrecioPorModalidadPage(webDriver, userS.getTestDataManager())
-				.ExecuteActionsInPrecioPorModalidadPage();
+				.executeActionsInPrecioPorModalidadPage();
 
 			new ValidacionExcepcionesReglasPage(webDriver, userS.getTestDataManager())
 				.clickOnContinuarButton();
 
 			new ClausulasPage(webDriver, userS.getTestDataManager())
-				.ActivateclausesAndClickOnContinue();
-
+				.activateclausesAndClickOnContinue();
+			
 			new TomadorYAseguradoPage(webDriver, userS.getTestDataManager())
-				.AddDatosTomador()
-				.AddDatosTomadorDiferenteAsegurado()
+				.addDatosTomador()
+				.addDatosTomadorDiferenteAsegurado()
 				.clickOnContinuar();
 
 			new DocumentacionPage(webDriver, userS.getTestDataManager())
@@ -220,8 +224,6 @@ public class Steps {
 
 			new DatosBancariosPage(webDriver, userS.getTestDataManager())
 				.introducirFormaPagoYPulsarContratar();
-
-			// this.browserContext.writeTestCaseData();
 
 			this.webDriver.quit();
 

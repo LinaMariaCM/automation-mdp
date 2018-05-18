@@ -123,7 +123,7 @@ public class ClausulasPage {
 	}
 
 	// region methods
-	public ClausulasPage ActivateclausesAndClickOnContinue() throws Exception {
+	public ClausulasPage activateclausesAndClickOnContinue() throws Exception {
 		this.ActivateClauses();
 		this.CompletarClausulaHipotecaria();
 		this.clickOnContinuar();
