@@ -45,7 +45,6 @@ public class LoginPage {
 				break;
 			case ProjectConstants.MigracionEnvironment:				
 				this.webDriver.go(tCData.getConfigVar(accessType + "Home-Migracion"));
-				
 				break;
 			case ProjectConstants.UatPjEnvironment:
 				this.webDriver.go(tCData.getConfigVar(accessType + "Home-UatPj"));

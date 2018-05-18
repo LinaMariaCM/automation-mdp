@@ -177,7 +177,7 @@ public class Steps {
 				.ClickOnContinuarAndValidate();
 
 			new PrecioPage(webDriver, userS.getTestDataManager())
-				.ClickOnConvertirAProjecto();
+				.clickOnConvertirAProjecto();
 
 			new DatosBasicosTomadorPage(webDriver, userS.getTestDataManager())
 				.fillTomadorData(this.testDataM.getTestVar(testId, "tomador"))
