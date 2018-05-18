@@ -149,6 +149,10 @@ public class UserStory {
 	public void setTestVar(String key, String value) {
 		testDataM.setTestVar(testId, key, value);
 	}
+	
+	public void setConfigVar(String key, String value) {
+		testDataM.setConfigVar(key, value);
+	}
 
 	public UserStory setDriver(DriverHelper webDriver) {
 		this.webDriver = webDriver;
