@@ -31,11 +31,6 @@ import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
 
 public class UbicacionRiesgoPage {
-	/*
-	 * final static Logger logger =
-	 * LoggerFactory.getLogger(UbicacionRiesgoPage.class); BrowserContext
-	 * browserContext; private WebElementHelper wh; TestCaseData tData;
-	 */
 
 	private String testId;
 	private TestDataManager tCData;
@@ -303,16 +298,19 @@ public class UbicacionRiesgoPage {
 		// this.webDriver.waitForAngular();
 		this.webDriver.click(this.radioBtnCriterioBusquedaReferenciaCatastral);
 		this.webDriver.click(this.txtReferenciaCatastral);
-		//this.webDriver.appendText(this.txtReferenciaCatastral, referenciaCatastral);
+		// this.webDriver.appendText(this.txtReferenciaCatastral,
+		// referenciaCatastral);
 		System.out.println("Valor referenciaCatastral: " + referenciaCatastral);
 		this.webDriver.appendText(txtReferenciaCatastral, referenciaCatastral);
 		this.webDriver.click(this.btnBuscar);
 		// this.webDriver.waitForAngular();
-		
-		
-		/* Descomentar si se necesita marcar la opción: "asegurar únicamente garajes */
-		
-		//this.asegurarUnicamenteGarajes();
+
+		/*
+		 * Descomentar si se necesita marcar la opción: "asegurar únicamente
+		 * garajes
+		 */
+
+		// this.asegurarUnicamenteGarajes();
 
 		// this.browserContext.webElementHelper.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
@@ -410,30 +408,31 @@ public class UbicacionRiesgoPage {
 		}
 	}
 
-//	public void asegurarUnicamenteGarajes() {
-//		// if (this.tCData.isAsegurarUnicamenteGarajes())
-//		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "asegurar_unicamente_garajes"))) {
-//			this.webDriver.switchToFrame(this.cuerpoFrame);
-//			this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
-//			this.webDriver.tabulateElement(this.chkAsegurarUnicamenteGarajes);
-//			this.webDriver.exitFrame();
-//		}
-//	}
+	// public void asegurarUnicamenteGarajes() {
+	// // if (this.tCData.isAsegurarUnicamenteGarajes())
+	// if(Boolean.parseBoolean(this.tCData.getTestVar(testId,
+	// "asegurar_unicamente_garajes"))) {
+	// this.webDriver.switchToFrame(this.cuerpoFrame);
+	// this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
+	// this.webDriver.tabulateElement(this.chkAsegurarUnicamenteGarajes);
+	// this.webDriver.exitFrame();
+	// }
+	// }
 
 	public void asegurarUnicamenteGarajes() {
 		// if (this.tCData.isAsegurarUnicamenteGarajes())
-		//if(Boolean.parseBoolean(this.tCData.getScenarioVar(testId, "asegurar_unicamente_garajes"))) {
-			//this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.waitWithDriver(2000);
-			this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
-			
-			this.webDriver.tabulateElement(this.chkAsegurarUnicamenteGarajes);
-			//this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
-			//this.webDriver.exitFrame();
-		//}
+		// if(Boolean.parseBoolean(this.tCData.getScenarioVar(testId,
+		// "asegurar_unicamente_garajes"))) {
+		// this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.waitWithDriver(2000);
+		this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
+
+		this.webDriver.tabulateElement(this.chkAsegurarUnicamenteGarajes);
+		// this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
+		// this.webDriver.exitFrame();
+		// }
 	}
-	
-	
+
 	public void printLogProcessPercentage(
 		String message, int current, int total) {
 		if((int) ((double) current / (double) total * 100) > (int) ((double) current - 1 / (double) total * 100)) {

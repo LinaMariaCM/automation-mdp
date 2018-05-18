@@ -10,75 +10,72 @@ import com.automation.model.webdriver.DriverHelper;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class GestionAutorizacionesPage
-
-{
+public class GestionAutorizacionesPage {
+	
 	private String testId;
 	private TestDataManager tCData;
 	private DriverHelper webDriver;
 	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
 
-	
 	// region webelements
-	
-	//@FindBy(id = "PROCESO")
+
+	// @FindBy(id = "PROCESO")
 	private By cmbProceso = By.cssSelector("PROCESO");
-	
-	//@FindBy(id = "ESTADO")
+
+	// @FindBy(id = "ESTADO")
 	private By cmbEstado = By.cssSelector("ESTADO");
-	
-	//@FindBy(name = "botonBuscar")
+
+	// @FindBy(name = "botonBuscar")
 	private By btnBuscar = By.name("botonBuscar");
-	
-	//@FindBy(id = "topFrame")
+
+	// @FindBy(id = "topFrame")
 	private By topFrame = By.cssSelector("topFrame");
-	
-	//@FindBy(id = "mainFrame")
+
+	// @FindBy(id = "mainFrame")
 	private By mainFrame = By.cssSelector("mainFrame");
 
-	//@FindBy(id = "NUMOBJETO")
+	// @FindBy(id = "NUMOBJETO")
 	private By numCotizacion = By.cssSelector("NUMOBJETO");
 
-	//@FindBy(name = "cuerpo")
+	// @FindBy(name = "cuerpo")
 	private By cuerpoFrame = By.name("cuerpo");
-	
-	//@FindBy(xpath = ".//*[@value='COTIZACION']")
+
+	// @FindBy(xpath = ".//*[@value='COTIZACION']")
 	private By ddCotizacion = By.xpath(".//*[@value='COTIZACION']");
-	
-	//@FindBy(xpath = ".//*[@value='PENDIENTE']")
+
+	// @FindBy(xpath = ".//*[@value='PENDIENTE']")
 	private By ddPendiente = By.xpath(".//*[@value='PENDIENTE']");
-	
-	//@FindBy(xpath = "//*[contains(@id, 'capaPuntos')]")
+
+	// @FindBy(xpath = "//*[contains(@id, 'capaPuntos')]")
 	private By btnFlecha = By.xpath("//*[contains(@id, 'capaPuntos')]");
-	
-	//@FindBy(linkText = "Autorizar")
+
+	// @FindBy(linkText = "Autorizar")
 	private By btnAutorizar = By.linkText("Autorizar");
-	
-	//@FindBy(linkText = "Anular")
+
+	// @FindBy(linkText = "Anular")
 	private By btnAnular = By.linkText("Anular");
-	
-	//@FindBy(id = "botonAutorizar")
+
+	// @FindBy(id = "botonAutorizar")
 	private By btnAutorizar2 = By.cssSelector("botonAutorizar");
-	
-	//@FindBy(id = "botonAnular js-href")
+
+	// @FindBy(id = "botonAnular js-href")
 	private By btnAnular2 = By.cssSelector("botonAnular");
 
-	//@FindBy(css = "tbody tbody span")
+	// @FindBy(css = "tbody tbody span")
 	private By mjsResultadoAut = By.cssSelector("tbody tbody span");
-	
+
 	// endregion
-	
+
 	public GestionAutorizacionesPage(DriverHelper driver, TestDataManager data) {
 		this.tCData = data;
 		this.webDriver = driver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
-	
+
 	// region methods
-	
+
 	public void buscarAutorizaciones(
-			String seleccionProceso, String seleccionEstado, String noCotizacion)
-	{
+		String seleccionProceso, String seleccionEstado, String noCotizacion) {
 		logger.debug("BEGIN - buscarAutorizaciones");
 		this.webDriver.clickInFrame(this.cmbProceso, this.mainFrame);
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProceso, this.mainFrame, seleccionProceso);
@@ -89,9 +86,8 @@ public class GestionAutorizacionesPage
 		this.webDriver.clickInFrame(this.btnBuscar, this.mainFrame);
 		logger.debug("END - buscarAutorizaciones");
 	}
-	
-	public void autorizar()
-	{
+
+	public void autorizar() {
 		logger.debug("BEGIN - autorizar");
 		this.webDriver.clickInFrame(this.btnFlecha, this.mainFrame);
 		this.webDriver.clickInFrame(this.btnAutorizar, this.mainFrame);
@@ -99,8 +95,7 @@ public class GestionAutorizacionesPage
 		logger.debug("END - autorizar");
 	}
 
-	public void denegar()
-	{
+	public void denegar() {
 		logger.debug("BEGIN - denegar");
 		this.webDriver.clickInFrame(this.btnFlecha, this.mainFrame);
 		this.webDriver.clickInFrame(this.btnAnular, this.mainFrame);
@@ -108,8 +103,7 @@ public class GestionAutorizacionesPage
 		logger.debug("END - denegar");
 	}
 
-	public String recuperarResultadoAutorizacion()
-	{
+	public String recuperarResultadoAutorizacion() {
 		logger.debug("BEGIN - recuperar resultado autorizacion");
 		String result = this.webDriver.getTextInFrame(this.mjsResultadoAut, this.mainFrame);
 		logger.debug("END - recuperar resultado autorizacion");

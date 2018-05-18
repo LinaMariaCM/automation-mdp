@@ -124,8 +124,7 @@ public class AsignarMediadorPage {
 	// return this;
 	// }
 
-	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(
-		String codigoMediador) throws InterruptedException {
+	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(String codigoMediador) throws InterruptedException {
 		logger.debug("BEGIN - SeleccionarMediadorMACPorCodigo");
 
 		this.webDriver.switchToFrame(this.cuerpoFrame);
