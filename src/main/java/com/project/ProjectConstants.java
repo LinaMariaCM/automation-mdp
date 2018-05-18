@@ -11,7 +11,7 @@ public class ProjectConstants {
 	// User type
 	
 	public static final String USER_TYPE = "user_type";
-	public static final String MAC = "MAC";
+	public static final String MAC = "Mac";
 	
 	//16/04/18
 	public static final String MEC = "Mec";

@@ -29,7 +29,8 @@ public class AsignarMediadorPage {
 	private By razonSocial = By.cssSelector("#nombreRazonSocial");
 
 	// @FindBy(id = "codigoMediador")
-	private By txtCodigoMediador = By.name("codigoMediador");
+	//private By txtCodigoMediador = By.name("codigoMediador");
+	private By txtCodigoMediador = By.id("codigoMediador");
 
 	// @FindBy(id = "codigo")
 	private By txtCodigoMediadorMAC = By.cssSelector("#codigo");
@@ -76,6 +77,8 @@ public class AsignarMediadorPage {
 
 	public AsignarMediadorPage clickOnContinuarButton() {
 		logger.debug("BEGIN - ClickOnContinuarButton");
+		this.webDriver.waitWithDriver(2000);
+		//this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		logger.debug("END - ClickOnContinuarButton");
 

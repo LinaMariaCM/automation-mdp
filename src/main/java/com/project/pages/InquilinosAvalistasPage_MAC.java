@@ -3,6 +3,11 @@ package com.project.pages;
 import java.awt.AWTException;
 import java.io.IOException;
 
+import com.automation.configuration.AutomationConstants;
+import com.project.ProjectConstants;
+import com.automation.model.testing.TestDataManager;
+import com.automation.model.webdriver.DriverHelper;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,6 +16,10 @@ import org.slf4j.LoggerFactory;
 
 public class InquilinosAvalistasPage_MAC
 {
+    private String testId;
+    private TestDataManager tCData;
+    private DriverHelper webDriver;
+    final static Logger logger = LoggerFactory.getLogger(PageObject.class);
 //	final static Logger logger = LoggerFactory.getLogger(InquilinosAvalistasPage_MAC.class);
 //	BrowserContext browserContext;
 //	private WebElementHelper wh;
@@ -18,57 +27,87 @@ public class InquilinosAvalistasPage_MAC
 //
 //	@FindBy(name = "cuerpo")
 //	private WebElement cuerpoFrame;
+    private By cuerpoFrame = By.cssSelector("#mainFrame");
 //
 //	@FindBy(id = "altaInt")
 //	private WebElement btnAnadirDatosInquilinoPantallaPrincipal;
+    private By btnAnadirDatosInquilinoPantallaPrincipal = By.cssSelector("#altaInt");
 //
 //	@FindBy(xpath = ".//*[@class='modal-footer']/button[text()='Añadir']")
 //	private WebElement btnAnadirDatosInquilino;
+    private By btnAnadirDatosInquilino = By.cssSelector("#INQUIAVAL_GRABINTERV_CONF");
 //
 //	@FindBy(xpath = "//*[@id='INQUIAVAL_TIPOCONTRATLABAUT_CONF']")
 //	private WebElement drpDwnDetalle;
+    private By drpDwnDetalle = By.cssSelector("#INQUIAVAL_TIPOCONTRATLABAUT_CONF");
 //
 //	@FindBy(id = "INQUIAVAL_DOCUMENTOFIS_CONF")
 //	private WebElement txtDocumento;
+    private By txtDocumento = By.cssSelector("#INQUIAVAL_DOCUMENTOFIS_CONF");
 //
 //	@FindBy(id = "INQUIAVAL_TIPOINT_CONF")
 //	private WebElement tipoInterviniente;
-//
+    private By tipoInterviniente = By.cssSelector("#INQUIAVAL_TIPOINT_CONF");
+
 //	@FindBy(id = "INQUIAVAL_NOMBREFIS_CONF")
 //	private WebElement txtNombre;
+    private By txtNombre = By.cssSelector("#INQUIAVAL_NOMBREFIS_CONF");
+
 //
 //	@FindBy(id = "INQUIAVAL_APELL1FIS_CONF")
 //	private WebElement txtPrimerApellido;
+private By txtPrimerApellido = By.cssSelector("#INQUIAVAL_APELL1FIS_CONF");
+
 //
 //	@FindBy(id = "INQUIAVAL_INGRENETANU_CONF")
 //	private WebElement txtIngresos;
+private By txtIngresos = By.cssSelector("#INQUIAVAL_INGRENETANU_CONF");
+
 //
 //	@FindBy(id = "INQUIAVAL_GRADOPARENT_CONF")
 //	private WebElement parentesco;
+private By parentesco = By.cssSelector("#INQUIAVAL_GRADOPARENT_CONF");
+
 //
 //	@FindBy(id = "INQUIAVAL_TIPOCONTRATOFIS_CONF")
 //	private WebElement situacionLaboral;
+private By situacionLaboral = By.cssSelector("#INQUIAVAL_TIPOCONTRATOFIS_CONF");
+
 //
 //	@FindBy(id = "INQUIAVAL_TIPOCONTRATOLAB_CONF")
 //	private WebElement situacionDetalle;
+private By situacionDetalle = By.cssSelector("#INQUIAVAL_TIPOCONTRATOLAB_CONF");
+
 //
 //	@FindBy(name = "nombdato_VALASNEF_1")
 //	private WebElement btnValidacionViabilidad;
+private By btnValidacionViabilidad = By.cssSelector("#INQUIAVAL_VALASNEF_CONF");
+
 //	
 //	@FindBy(id = "INQUIAVAL_GRABINTERV_CONF")
 //	private WebElement btnModificar;
+private By btnModificar = By.cssSelector("#INQUIAVAL_GRABINTERV_CONF");
+
 //
 //	@FindBy(id = "botonAddDoc")
 //	private WebElement btnAnadirDocumentacionPrincipal;
+private By btnAnadirDocumentacionPrincipal = By.cssSelector("#botonAddDoc");
+
 //	
 //	@FindBy(id = "addDocumento")
 //	private WebElement btnAnadirDocumentoSubido;
+private By btnAnadirDocumentoSubido = By.cssSelector("#addDocumento");
+
 //	
 //	@FindBy(xpath = ".//*[@id='formDocumentos']/div[3]/div/div[1]/div/label/span/span")
 //	private WebElement btnAnadirDocumentacion;
+private By btnAnadirDocumentacion = By.cssSelector("#formDocumentos");
+
 //
 //	@FindBy(id = "btnContinuar")
 //	private WebElement btnContinuar;
+private By btnContinuar = By.cssSelector("#btnContinuar");
+
 //	
 //	@FindBy(name = "doc_0")
 //	private WebElement chkbxDosNominas;
@@ -110,6 +149,13 @@ public class InquilinosAvalistasPage_MAC
 //		PageFactory.initElements(browserContext.getWebDriver(), this);
 //	}
 //
+    	public void executeActionsInInquilinosAvalistasPage(String scenario) throws InterruptedException, IOException, AWTException
+	{
+		this.addDatosInquilino(scenario);
+		//this.anadirDocumentacion(scenario);
+		//this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
+		//this.validacionViabilidadInquilino();
+	}
 //	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException
 //	{
 //		this.addDatosInquilino();
@@ -132,6 +178,42 @@ public class InquilinosAvalistasPage_MAC
 //		this.addDatosInquilino();
 //	}
 //
+
+    	public void addDatosInquilino(String scenario)
+	{
+		logger.debug("BEGIN - AddDatosInquilino");
+
+		this.webDriver.clickInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal, this.cuerpoFrame);
+
+		// Add Nombre
+		this.webDriver.clearAndAppendTextInFrame(this.txtNombre, this.cuerpoFrame,
+				String.valueOf(tCData.getScenarioVar(scenario, "nombre_inquilino")));
+		// Logger.debug("Nombre inquilino: " + String.valueOf(getNombreInquilino());
+
+		// Add Primer Apellido
+		this.webDriver.clearAndAppendTextInFrame(this.txtPrimerApellido, this.cuerpoFrame,
+				String.valueOf(tCData.getScenarioVar(scenario, "primer_apell_inquilino")));
+
+		// Add NIF
+		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.cuerpoFrame,
+				String.valueOf(tCData.getScenarioVar(scenario, "documento_inquilino")));
+
+		// Add Ingresos netos
+        this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.cuerpoFrame,
+				String.valueOf(tCData.getScenarioVar(scenario, "documento_inquilino")));
+
+		// Situacion laboral
+		this.seleccionarSituacion(scenario);
+
+		if (this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.cuerpoFrame))
+		{
+			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.cuerpoFrame, 1);
+		}
+		this.webDriver.clickInFrame(this.btnAnadirDatosInquilino, this.cuerpoFrame);
+
+		logger.debug("END - AddDatosInquilino");
+	}
+
 //	public void addDatosInquilino()
 //	{
 //		logger.debug("BEGIN - AddDatosInquilino");
@@ -214,7 +296,21 @@ public class InquilinosAvalistasPage_MAC
 //		this.wh.clickOnWebElementInFrame(this.btnValidacionViabilidad, this.cuerpoFrame);
 //		logger.debug("END - ValidacionViabilidadInquilino");
 //	}
-//
+
+    public void seleccionarSituacion(String scenario)
+	{
+		logger.debug("BEGIN - SeleccionarSituacion");
+		String situacion = tCData.getScenarioVar(scenario, "situacion_laboral");
+		if (situacion.equals(ProjectConstants.SITUACION_LABORAL_ASALARIADO))
+		{
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionDetalle, this.cuerpoFrame,
+					ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
+		}
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
+		logger.debug("END - SeleccionarSituacion");
+	}
+
 //	public void seleccionarSituacion()
 //	{
 //		logger.debug("BEGIN - SeleccionarSituacion");

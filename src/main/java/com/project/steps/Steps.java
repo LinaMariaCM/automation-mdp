@@ -30,9 +30,11 @@ import com.project.pages.GestionOnlineHomePage;
 import com.project.pages.GestionOnlineLoginPage;
 import com.project.pages.InnovaHomePage;
 import com.project.pages.InnovaLoginPage;
+import com.project.pages.InquilinosAvalistasPage_MAC;
 import com.project.pages.LoginPage;
 import com.project.pages.PrecioPage;
 import com.project.pages.PrecioPorModalidadPage;
+import com.project.pages.PrecioPorModalidadPage_MAC;
 import com.project.pages.TomadorYAseguradoPage;
 import com.project.pages.UbicacionRiesgoPage;
 import com.project.pages.ValidacionExcepcionesReglasDetallesRiesgoPage;
@@ -108,10 +110,8 @@ public class Steps {
 	
 	public void doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(String loginAcess, String user) throws Exception {
 
-
-		
 		//loginAcess = this.userS.getTestVar("acceso");
-		
+
 		// userS.getTestVar("acceso");
 		// userS.getConfigVar("gestion_online_disponible");
 		logger.debug("BEGIN - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando");
@@ -156,15 +156,8 @@ public class Steps {
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(webDriver, userS.getTestDataManager())
 				.isUbicacionRiesgoUtilizada();
 
-			//new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
-				//.completarDatosEnDetallesRiesgo();
-
-
-			DetallesRiesgoPage detallesRiesgoPage = new DetallesRiesgoPage(webDriver, userS.getTestDataManager());
-			//detallesRiesgoPage.completarDatosRiesgo();
-			detallesRiesgoPage.completarDatosRiesgoMinimos();
-			//detallesRiesgoPage.ClikOnContinuar();
-
+			new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
+				.completarDatosEnDetallesRiesgo();
 
 //			new ValidacionExcepcionesReglasDetallesRiesgoPage(webDriver, userS.getTestDataManager())
 //				.ClickOnContinuarAndValidate();
@@ -3464,12 +3457,80 @@ public class Steps {
 
 		new InnovaHomePage(webDriver, userS.getTestDataManager()).openMutuaEdificioConfort();
 
-//		this.logIn(userId, password);
+		//this.logIn(userId, password);
 
-//		this.OpenMutuaEdificioConfort();
+		//this.OpenMutuaEdificioConfort();
 
 		new InnovaHomePage(webDriver, userS.getTestDataManager()).createNewSimulation();
 
 		// this.CreateSimulation();
 	}
+
+
+
+
+	public void doy_de_alta_un_proyecto_MAC_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(
+			String loginAcess, String user) throws Exception
+	{
+		logger.debug("BEGIN - doy_de_alta_un_proyecto_MAC_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario");
+		this.el_usuario_accede(loginAcess, user);
+		System.out.println("loginAccess: " + loginAcess);
+		this.userS.getTestVar("login_access");
+		this.loginAndCreateProjectMAC(this.userS.getTestVar("usuario"), this.userS.getConfigVar("passwordComun"));
+
+		//Asignar mediador
+		String mediador = this.userS.getScenarioVar("mediador");
+		if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
+			new AsignarMediadorPage(webDriver, userS.getTestDataManager())
+					.SelectMediadorMACAndClickOnContinuar(userS.getScenario());
+		} else if(loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
+			new AsignarMediadorPage(webDriver, userS.getTestDataManager())
+					.SeleccionarMediadorMACPorCodigo(mediador)
+					.clickOnContinuarButton();
+		}
+
+		// Login
+		//this.browserContext.initializeVariables(this.tCData.getAcceso());
+		//this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this.tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
+
+		// if (this.tCData.getAcceso().equals(MutuaPropietariosConstants.LoginAccessGestionLine))
+		// {
+		// GestionOnlineHomePage gestionOnlineHomePage = new GestionOnlineHomePage(this.browserContext);
+		// gestionOnlineHomePage.openMutuaAlquilerConfort();
+		// }
+		//if (this.tCData.getAcceso().equals(MutuaPropietariosConstants.LoginAccessInnova))
+		//{
+		//	AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(this.browserContext);
+		//	asignarMediadorPage.SelectMediadorMACAndClickOnContinuar();
+			// InnovaHomePage innovaHomePage = new InnovaHomePage(this.browserContext);
+			// innovaHomePage.OpenMutuaAlquilerConfort();
+		//}
+
+		//Precio
+		new PrecioPorModalidadPage_MAC(webDriver, userS.getTestDataManager())
+				.executeActionsInPrecioPorModalidadPage(userS.getScenario());
+
+		// SCS Precio
+		//PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(this.browserContext);
+		//precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
+
+		//Inquilinos
+		new InquilinosAvalistasPage_MAC(webDriver, userS.getTestDataManager())
+				.executeActionsInInquilinosAvalistasPage(userS.getScenario());
+
+		// SCS Inquilinos
+		//InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(this.browserContext);
+		//inquilinosAvalistasPage_MAC.executeActionsInInquilinosAvalistasPage();
+		logger.debug("END - doy_de_alta_un_proyecto_MAC_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario");
+	}
+
+	public void loginAndCreateProjectMAC(String userId, String password) throws Exception {
+		//this.login(userId, password);
+		new InnovaHomePage(webDriver, userS.getTestDataManager()).OpenMutuaAlquilerConfort();
+		//this.OpenMutuaAlquilerConfort(); this.CreateProject();
+		new InnovaHomePage(webDriver, userS.getTestDataManager()).CreateNewProject();
+	}
+
+
+
 }
