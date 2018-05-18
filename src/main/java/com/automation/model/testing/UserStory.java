@@ -340,7 +340,7 @@ public class UserStory {
 	
 	private String setStringOnConfiguration(String key) {
 		String stringValue = System.getProperty(key);
-		if(stringValue != null && stringValue.isEmpty()) stringValue = driverConf.getValue(key);
+		if((stringValue != null && stringValue.isEmpty()) || stringValue == null) stringValue = driverConf.getValue(key);
 		else if(stringValue != null) driverConf.setValue(key, stringValue);
 		
 		return stringValue;
@@ -363,7 +363,6 @@ public class UserStory {
 		setBooleanOnConfiguration("driver_type");
 		
 		webDriver.setDownloadDrivers(setBooleanOnConfiguration("download"));
-		
 		webDriver.setHub(setStringOnConfiguration(AutomationConstants.IP), setStringOnConfiguration(AutomationConstants.PORT));
 		
 		webDriver.setForceCache(setBooleanOnConfiguration("force_cache"));
