@@ -50,7 +50,7 @@ public class UbicacionRiesgoPage {
 	private By btnCancelar = By.xpath(".//*[@id='inmuebleModal']/div/div/div[3]/button[1]");
 
 	// @FindBy(id = "critCatastro")
-	private By radioBtnCriterioBusquedaReferenciaCatastral = By.cssSelector("#critCatastro");
+	private By radioBtnCriterioBusquedaReferenciaCatastral = By.id("critCatastro");
 
 	// @FindBy(name = "refCatastral")
 	private By txtReferenciaCatastral = By.name("refCatastral");
@@ -137,6 +137,8 @@ public class UbicacionRiesgoPage {
 
 	// @FindBy(css = "p[ng-bind-html='modalErrores.text | encode']")
 	private By txtMensajeError = By.xpath("p[ng-bind-html='modalErrores.text | encode']");
+	
+	private By loaderModal = By.cssSelector("#modalLoader");
 
 	// endregion
 	/*
@@ -315,6 +317,7 @@ public class UbicacionRiesgoPage {
 		// this.browserContext.webElementHelper.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
 		this.webDriver.waitWithDriver(1000);
+		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
 		this.webDriver.click(this.btnAnadirInmuebleReferenciaCatastral);
 		this.webDriver.waitWithDriver(1000);
 		this.webDriver.exitFrame();
