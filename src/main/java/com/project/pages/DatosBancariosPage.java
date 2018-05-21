@@ -7,13 +7,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
-import com.automation.model.webdriver.DriverHelper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;

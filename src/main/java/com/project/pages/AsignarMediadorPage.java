@@ -1,17 +1,12 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
 
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-import com.automation.model.webdriver.DriverHelper;
 
 public class AsignarMediadorPage extends PageObject {
 
@@ -54,14 +49,14 @@ public class AsignarMediadorPage extends PageObject {
 
 	// region methods
 	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String scenario) throws InterruptedException {
-		this.seleccionarMediadorPorCodigo(String.valueOf(testDataM.getScenarioVar(scenario, "mediador")));
+		this.seleccionarMediadorPorCodigo(String.valueOf(getScenarioVar("mediador")));
 		this.clickOnContinuarButton();
 
 		return this;
 	}
 
 	public AsignarMediadorPage SelectMediadorMACAndClickOnContinuar(String scenario) throws InterruptedException {
-		this.SeleccionarMediadorMACPorCodigo(String.valueOf(testDataM.getScenarioVar(scenario, "mediador")));
+		this.SeleccionarMediadorMACPorCodigo(String.valueOf(getScenarioVar("mediador")));
 		this.clickOnContinuarButton();
 
 		return this;

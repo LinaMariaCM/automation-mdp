@@ -9,13 +9,8 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
-import com.automation.model.webdriver.DriverHelper;
 import com.project.ProjectConstants;
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;

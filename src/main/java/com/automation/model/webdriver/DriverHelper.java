@@ -102,6 +102,35 @@ public class DriverHelper {
 		browserType = browser.replace("_headless", "");
 		driverType = AutomationConstants.WEB;
 	}
+	
+	private String getDebugLine() {
+		int line = Thread.currentThread().getStackTrace()[3].getLineNumber();
+		String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss").format(new java.util.Date());
+		String className = Thread.currentThread().getStackTrace()[3].getClassName();
+		className = className.contains(".") ? className.substring(className.lastIndexOf(".") + 1) : className;
+		
+		return timeStamp + " - " + className + ":" + line;
+	}
+	
+	private void debugBegin() {
+		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+		
+		System.out.println(getDebugLine() + " - [BEGIN] (" + id + ") - " + methodName);
+	}
+	
+	private void debugEnd() {
+		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+		
+		System.out.println(getDebugLine() + " - [END] (" + id + ") - " + methodName);
+	}
+	
+	private void debugInfo(String message) {
+		System.out.println(getDebugLine() + " - [INFO] (" + id + ") - " + message);
+	}
+	
+	private void debugError(String message) {
+		System.out.println(getDebugLine() + " - [ERROR] (" + id + ") - " + message);
+	}
 
 	public void setHub(String ip, String port) {
 		this.ip = ip;
@@ -129,36 +158,34 @@ public class DriverHelper {
 	}
 
 	public void downloadDriver(String browserType) {
+		debugBegin();
+		
 		switch(browserType) {
 			case BrowserType.FIREFOX:
-				logger.debug("[BEGIN] (" + id + ") - Checking firefox driver");
+				debugInfo("Checking firefox driver");
 				FirefoxConfiguration.downloadDriver(forceCache);
-				logger.debug("[ END ] (" + id + ") - Checking firefox driver");
 				break;
 			case BrowserType.CHROME:
-				logger.debug("[BEGIN] (" + id + ") - Checking chrome driver");
+				debugInfo("Checking chrome driver");
 				ChromeConfiguration.downloadDriver(forceCache);
-				logger.debug("[ END ] (" + id + ") - Checking chrome driver");
 				break;
 			case BrowserType.IE:
-				logger.debug("[BEGIN] (" + id + ") - Checking Internet Explorer driver");
+				debugInfo("Checking Internet Explorer driver");
 				IEConfiguration.downloadDriver(forceCache);
-				logger.debug("[ END ] (" + id + ") - Checking Internet Explorer driver");
 				break;
 			case BrowserType.EDGE:
-				logger.debug("[BEGIN] (" + id + ") - Checking edge driver");
-				logger.debug("[ END ] (" + id + ") - Checking edge driver");
+				debugInfo("Checking edge driver");
 				break;
 			case BrowserType.SAFARI:
-				logger.debug("[BEGIN] (" + id + ") - Checking safari driver");
-				logger.debug("[ END ] (" + id + ") - Checking safari driver");
+				debugInfo("Checking safari driver");
 				break;
 			default:
-				logger.debug("[BEGIN] (" + id + ") - Checking chrome driver for " + browserType);
+				debugInfo("Checking chrome driver for " + browserType);
 				ChromeConfiguration.downloadDriver(forceCache);
-				logger.debug("[ END ] (" + id + ") - Checking chrome driver for " + browserType);
 				break;
 		}
+		
+		debugEnd();
 	}
 
 	private void setPropertyDriverPath(String operativeS, String browserType) {
@@ -199,7 +226,7 @@ public class DriverHelper {
 		try {
 			hubUrl = new URL("http://" + ip + ":" + port + "/wd/hub");
 		} catch(MalformedURLException e) {
-			logger.debug("[ERROR] (" + id + ") - Error with url");
+			debugError("Error with url");
 			e.printStackTrace();
 		}
 
@@ -209,7 +236,7 @@ public class DriverHelper {
 			}
 			
 			if(remoteMode) {
-				logger.debug("[INFO] (" + id + ") - Initializing remote driver");				
+				debugInfo("Initializing remote driver");				
 				switch(browserType) {
 					case BrowserType.FIREFOX:
 						driver = new RemoteWebDriver(hubUrl, FirefoxConfiguration.createFirefoxOptions(headless));
@@ -236,27 +263,27 @@ public class DriverHelper {
 				
 				switch(browserType) {
 					case BrowserType.FIREFOX:
-						logger.debug("[INFO] (" + id + ") - Initializing firefox driver");
+						debugInfo("Initializing firefox driver");
 						driver = new FirefoxDriver(FirefoxConfiguration.createFirefoxOptions(headless));
 						break;
 					case BrowserType.CHROME:
-						logger.debug("[INFO] (" + id + ") - Initializing chrome driver");
+						debugInfo("Initializing chrome driver");
 						driver = new ChromeDriver(ChromeConfiguration.createChromeOptions(headless));
 						break;
 					case BrowserType.IE:
-						logger.debug("[INFO] (" + id + ") - Initializing Internet Explorer driver");
+						debugInfo("Initializing Internet Explorer driver");
 						driver = new InternetExplorerDriver(IEConfiguration.createIEOptions());
 						break;
 					case BrowserType.EDGE:
-						logger.debug("[INFO] (" + id + ") - Initializing edge driver");
+						debugInfo("Initializing edge driver");
 						driver = new EdgeDriver(EdgeConfiguration.createEdgeOptions());
 						break;
 					case BrowserType.SAFARI:
-						logger.debug("[INFO] (" + id + ") - Initializing safari driver");
+						debugInfo("Initializing safari driver");
 						driver = new SafariDriver(SafariConfiguration.createSafariOptions());
 						break;
 					default:
-						logger.debug("[INFO] (" + id + ") - Initializing chrome driver for " + browserType);
+						debugInfo("Initializing chrome driver for " + browserType);
 						driver = new ChromeDriver(MobileConfiguration.createMobileOptions(browserType));
 						mobileEmulation = true;
 						break;
@@ -266,7 +293,7 @@ public class DriverHelper {
 			if(capabilities.getCapability("platformName").toString().equals("ANDROID")) {
 				driver = new AndroidDriver<WebElement>(hubUrl, capabilities);
 			} else {
-				logger.debug("[INFO] (" + id + ") - Initializing iOs driver");
+				debugInfo("Initializing iOs driver");
 				driver = new IOSDriver<WebElement>(hubUrl, capabilities);
 			}
 		}
@@ -279,7 +306,7 @@ public class DriverHelper {
 			smallWindowMode = true;
 		}
 
-		logger.debug("[INFO] (" + id + ") - Driver initialized");
+		debugInfo("Driver initialized");
 	}
 
 	public String getSessionId() {
@@ -374,7 +401,6 @@ public class DriverHelper {
 	public void maximizeWindow() {
 		try {
 			if(desktop && driver != null) {
-				System.out.println("MAXIMIZED");
 				driver.manage().window().maximize();
 			} else if (capabilities.getCapability("platformName") != null && capabilities.getCapability("platformName").equals("iOS")
 				   && driver != null) {
@@ -500,7 +526,7 @@ public class DriverHelper {
 		try {
 			((JavascriptExecutor) driver).executeScript("arguments[0].remove()", driver.findElement(by));
 		} catch(Exception e) {
-			System.out.println("[ERROR] - Error removing element");
+			debugError("Error removing element");
 			throw e;
 		}
 	}
@@ -553,7 +579,7 @@ public class DriverHelper {
 		try {
 			if(driver != null) driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
 		} catch(WebDriverException e) {
-			System.out.println("[ERROR] (" + id + ") - Exception  set implicit timeout" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+			debugError("Exception  set implicit timeout" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
 		}
 
 		try {
@@ -566,14 +592,12 @@ public class DriverHelper {
 	}
 
 	public void go(String url) {
-
 		if(driver == null || getSessionId() == null) {
 			initializeDriver();
 		}
 
 		driver.get(url);
 		waitForLoadToComplete();
-		logger.trace("[END] - go");
 	}
 	// endregion
 
@@ -701,7 +725,7 @@ public class DriverHelper {
 			try {
 				new Actions(driver).moveToElement(el).click().perform();
 			} catch(Exception e1) {
-				System.out.println("Element not found");
+				debugInfo("Element not found");
 				e.printStackTrace();
 
 				throw e;
@@ -801,7 +825,7 @@ public class DriverHelper {
 	}
 
 	public void clickElementFromListByAttribute(By elementList, String attribute, String value) {
-		logger.trace("[END] - clickElementFromListByAttribute");
+		logger.trace("[BEGIN] - clickElementFromListByAttribute");
 		WebElement el = getElementFromListByAttribute(elementList, attribute, value);
 		
 		if(el != null) el.click();
@@ -814,7 +838,7 @@ public class DriverHelper {
 	}
 
 	public WebElement getElementFromListByAttribute(By elementList, String attribute, String value) {
-		logger.trace("[END] - getElementFromListByAttribute");
+		logger.trace("[BEGIN] - getElementFromListByAttribute");
 		waitForElementToBeClickable(elementList);
 		WebElement webElement = driver.findElement(elementList).findElement(By.cssSelector("[" + attribute + "='" + value + "']"));
 		logger.trace("[END] - getElementFromListByAttribute");
@@ -844,12 +868,12 @@ public class DriverHelper {
 	}
 
 	public void clickElementChildByIndex(By elementList, int index) {
-		logger.trace("[END] - clickElementChildByIndex");
+		logger.trace("[BEGIN] - clickElementChildByIndex");
 		WebElement el = getElementChildByIndex(elementList, index);
 		
 		if(el != null) el.click();
 		else {
-			logger.debug("[INFO] No child elements found on " + elementList);
+			debugInfo("No child elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
@@ -857,7 +881,7 @@ public class DriverHelper {
 	}
 
 	public WebElement getElementChildByIndex(By elementList, int index) {
-		logger.trace("[END] - getElementChildByIndex");
+		logger.trace("[BEGIN] - getElementChildByIndex");
 		waitForElementToBeClickable(elementList);
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.xpath("*"));
 		WebElement webElement = elements.size() > 0 ? index >= 0 ? elements.get(index) : elements.get(elements.size() + index) : null;
@@ -867,12 +891,12 @@ public class DriverHelper {
 	}
 
 	public void clickElementChildByText(By elementList, String text) {
-		logger.trace("[END] - clickElementChildByText");
+		logger.trace("[BEGIN] - clickElementChildByText");
 		WebElement el = getElementChildByText(elementList, text);
 		
 		if(el != null) el.click();
 		else {
-			logger.debug("[INFO] No child elements found on " + elementList);
+			debugInfo("No child elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
@@ -880,7 +904,7 @@ public class DriverHelper {
 	}
 
 	public WebElement getElementChildByText(By elementList, String text) {
-		logger.trace("[END] - getElementChildByText");
+		logger.trace("[BEGIN] - getElementChildByText");
 		waitForElementToBeClickable(elementList);
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.xpath("*[contains(text(), '" + text + "')]"));
 		WebElement webElement = elements.size() > 0 ? elements.get(0) : null;
@@ -890,12 +914,12 @@ public class DriverHelper {
 	}
 
 	public void clickElementChildByAttribute(By elementList, String attribute, String value) {
-		logger.trace("[END] - clickElementChildByAttribute");
+		logger.trace("[BEGIN] - clickElementChildByAttribute");
 		WebElement el = getElementChildByAttribute(elementList, attribute, value);
 		
 		if(el != null) el.click();
 		else {
-			logger.debug("[INFO] No child elements found on " + elementList);
+			debugInfo("No child elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
@@ -903,7 +927,7 @@ public class DriverHelper {
 	}
 
 	public WebElement getElementChildByAttribute(By elementList, String attribute, String value) {
-		logger.trace("[END] - getElementChildByAttribute");
+		logger.trace("[BEGIN] - getElementChildByAttribute");
 		waitForElementToBeClickable(elementList);
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.cssSelector("[" + attribute + "='" + value + "']"));
 		WebElement webElement = elements.size() > 0 ? elements.get(0) : null;
@@ -913,12 +937,12 @@ public class DriverHelper {
 	}
 
 	public void clickElementFromCollectionByIndex(By elementList, int index) {
-		logger.trace("[END] - clickElementFromCollectionByIndex");
+		logger.trace("[BEGIN] - clickElementFromCollectionByIndex");
 		WebElement el = getElementFromCollectionByIndex(elementList, index);
 		
 		if(el != null) el.click();
 		else {
-			logger.debug("[INFO] No elements found on " + elementList);
+			debugInfo("No elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
@@ -926,7 +950,7 @@ public class DriverHelper {
 	}
 
 	public WebElement getElementFromCollectionByIndex(By elementList, int index) {
-		logger.trace("[END] - getElementFromCollectionByIndex");
+		logger.trace("[BEGIN] - getElementFromCollectionByIndex");
 		waitForElementToBeClickable(elementList);
 		
 		List<WebElement> elements = driver.findElements(elementList);
@@ -1206,7 +1230,7 @@ public class DriverHelper {
 						+ " && angular.element(document).injector().get('$http').pendingRequests.length === 0)") + "").toString().equals("true"));
 			}
 		} catch(WebDriverException e) {
-			System.out.println("[ERROR] (" + id + ") - Exception in wait for angular" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+			debugError("Exception in wait for angular" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
 		}
 		
 		logger.trace("[END] - waitForAngular");
@@ -1268,7 +1292,7 @@ public class DriverHelper {
 			.pollingEvery(Duration.ofMillis(500))
 			.until(ExpectedConditions.presenceOfElementLocated(waitElement));
 		
-		logger.trace("[BEGIN] - waitForElementToBePresent");
+		logger.trace("[END] - waitForElementToBePresent");
 		
 		return el;
 	}
@@ -1282,7 +1306,8 @@ public class DriverHelper {
 			.pollingEvery(Duration.ofMillis(500))
 			.until(ExpectedConditions.presenceOfElementLocated(waitElement));
 		this.exitFrame();
-		logger.trace("[BEGIN] - waitForElementToBePresent");
+		
+		logger.trace("[END] - waitForElementToBePresent");
 		
 		return el;
 	}
@@ -1296,7 +1321,8 @@ public class DriverHelper {
 		for(int i = 0; isClickable && i < implicitTimeout; i += shortWait) {
 			isClickable = isClickable(waitElement);
 		}
-		logger.trace("[BEGIN] - waitForElementNotToBeClickable");
+		
+		logger.trace("[END] - waitForElementNotToBeClickable");
 		
 		return isClickable;
 	}
@@ -1501,6 +1527,7 @@ public class DriverHelper {
 				driver.manage().window().maximize();
 			}
 		});
+		
 		logger.trace("[END] - moveToSecondWindow");
 	}
 

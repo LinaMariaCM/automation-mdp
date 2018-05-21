@@ -1,13 +1,7 @@
 package com.project.steps;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.StepObject;
-import com.automation.model.webdriver.DriverHelper;
-
 /*
 import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 import com.mutuaPropietarios.WebdriverContext.BrowserType;
@@ -157,7 +151,7 @@ public class Steps extends StepObject {
 				.clickOnConvertirAProjecto();
 
 			new DatosBasicosTomadorPage(userS)
-				.fillTomadorData(this.testDataM.getTestVar(testId, "tomador"))
+				.fillTomadorData(this.userS.getTestVar("tomador"))
 				.clickOnContinuar();
 
 			new PrecioPorModalidadPage(userS)
@@ -170,9 +164,9 @@ public class Steps extends StepObject {
 				.activateclausesAndClickOnContinue();
 
 			new DatosBasicosTomadorPage(userS)
-				.fillTomadorData(this.testDataM.getTestVar(testId, "tomador"))
+				.fillTomadorData(this.userS.getTestVar("tomador"))
 				.clickOnContinuar();
-
+			
 			new PrecioPorModalidadPage(userS)
 				.executeActionsInPrecioPorModalidadPage();
 
@@ -3449,10 +3443,10 @@ public class Steps extends StepObject {
 		this.el_usuario_accede(loginAcess, user);
 		System.out.println("loginAccess: " + loginAcess);
 		this.userS.getTestVar("login_access");
-		this.loginAndCreateProjectMAC(this.userS.getTestVar("usuario"), this.userS.getConfigVar("passwordComun"));
+		this.loginAndCreateProjectMAC(getTestVar("usuario"), getConfigVar("passwordComun"));
 
 		// Asignar mediador
-		String mediador = this.userS.getScenarioVar("mediador");
+		String mediador = getScenarioVar("mediador");
 		if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
 			new AsignarMediadorPage(userS)
 				.SelectMediadorMACAndClickOnContinuar(userS.getScenario());
@@ -3487,7 +3481,7 @@ public class Steps extends StepObject {
 
 		// Precio
 		new PrecioPorModalidadPage_MAC(userS)
-			.executeActionsInPrecioPorModalidadPage(userS.getScenario());
+			.executeActionsInPrecioPorModalidadPage();
 
 		// SCS Precio
 		// PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new
@@ -3496,7 +3490,7 @@ public class Steps extends StepObject {
 
 		// Inquilinos
 		new InquilinosAvalistasPage_MAC(userS)
-			.executeActionsInInquilinosAvalistasPage(userS.getScenario());
+			.executeActionsInInquilinosAvalistasPage();
 
 		// SCS Inquilinos
 		// InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new

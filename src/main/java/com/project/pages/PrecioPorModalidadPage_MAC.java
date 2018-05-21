@@ -1,12 +1,8 @@
 package com.project.pages;
 
-import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
-import com.automation.model.webdriver.DriverHelper;
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PrecioPorModalidadPage_MAC extends PageObject {
 
@@ -68,16 +64,16 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// PageFactory.initElements(browserContext.getWebDriver(), this);
 	// }
 	//
-	public void executeActionsInPrecioPorModalidadPage(String scenario) throws InterruptedException {
-		this.completarRentaMensualAlquiler(scenario);
-		this.completarGarantiasBasicas(scenario);
+	public void executeActionsInPrecioPorModalidadPage() throws InterruptedException {
+		this.completarRentaMensualAlquiler();
+		this.completarGarantiasBasicas();
 		this.clickOnConvertirAProyecto();
 	}
 
 	//
-	public void completarRentaMensualAlquiler(String scenario) {
+	public void completarRentaMensualAlquiler() {
 		debugBegin();
-		this.webDriver.clearAndAppendTextInFrame(this.txtRenta, this.cuerpoFrame, String.valueOf(testDataM.getScenarioVar(scenario, "renta_mensual_alquiler")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtRenta, this.cuerpoFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));
 		this.webDriver.tabulateElementInFrame(this.txtRenta, this.cuerpoFrame);
 		debugEnd();
 	}
@@ -114,17 +110,17 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// logger.debug("END - ClickOnConvertirAProyecto");
 	// }
 	//
-	public void completarGarantiasBasicas(String scenario) {
+	public void completarGarantiasBasicas() {
 		debugBegin();
-		String ImpagoAlquiler = testDataM.getScenarioVar(scenario, "impago_alquiler");
-		String Franquicia = testDataM.getScenarioVar(scenario, "franquiciaMAC");
+		String ImpagoAlquiler = getScenarioVar("impago_alquiler");
+		String Franquicia = getScenarioVar("franquiciaMAC");
 
 		if(ImpagoAlquiler != null) {
-			this.seleccionarImpagoAlquiler(scenario);
+			this.seleccionarImpagoAlquiler();
 		}
 		
 		if(Franquicia != null) {
-			this.seleccionarFranquicia(scenario);
+			this.seleccionarFranquicia();
 		}
 		
 		debugEnd();
@@ -149,9 +145,9 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// logger.debug("END - completarGarantiasBasicas");
 	// }
 	//
-	public void seleccionarImpagoAlquiler(String scenario) {
+	public void seleccionarImpagoAlquiler() {
 		debugBegin();
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnImpagoAlquiler, this.cuerpoFrame, String.valueOf(this.testDataM.getScenarioVar(scenario, "impago_alquiler")));
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnImpagoAlquiler, this.cuerpoFrame, String.valueOf(getScenarioVar("impago_alquiler")));
 		debugEnd();
 	}
 
@@ -164,9 +160,9 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// logger.debug("END - seleccionarImpagoAlquiler");
 	// }
 
-	public void seleccionarFranquicia(String scenario) {
+	public void seleccionarFranquicia() {
 		debugBegin();
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnFranquicia, this.cuerpoFrame, String.valueOf(testDataM.getScenarioVar(scenario, "franquiciaMAC")));
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnFranquicia, this.cuerpoFrame, String.valueOf(getScenarioVar("franquiciaMAC")));
 		debugEnd();
 	}
 

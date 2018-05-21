@@ -11,6 +11,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.automation.configuration.AutomationConstants;
+
 public class FileUtils {
 
 	/**
@@ -113,9 +115,13 @@ public class FileUtils {
 
 	public static HashMap<String, HashMap<String, String>> csvFileToMData(String filePath) {
 		HashMap<String, HashMap<String, String>> result = null;
+
+		if(new File(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath).exists()) {
+			filePath = System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath;
+		}
 		
 		try {
-		 result = csvStringToMData(getTextFromFile(filePath));
+			result = csvStringToMData(getTextFromFile(filePath));
 		} catch(FileNotFoundException e) {
 			System.out.println("File not found: " + e.toString());
 		}
@@ -140,6 +146,10 @@ public class FileUtils {
 		String[] keyArray = null;
 		BufferedReader bufferedReader = null;
 		HashMap<String, HashMap<String, String>> result = new HashMap<String, HashMap<String, String>>();
+
+		if(new File(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath).exists()) {
+			filePath = System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath;
+		}
 
 		try {
 			FileInputStream inputStream = new FileInputStream(new File(filePath));

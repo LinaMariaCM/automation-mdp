@@ -15,15 +15,10 @@ import java.nio.charset.StandardCharsets;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.UnhandledAlertException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.automation.data.DataObject;
-import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
 import com.automation.model.utils.FileUtils;
-import com.automation.model.webdriver.DriverHelper;
 
 /*
 import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -153,7 +148,7 @@ public class UbicacionRiesgoPage extends PageObject {
 
 		// return
 		// this.addInmueble(this.browserContext.getTestCaseData().getInmueble());
-		return this.addInmueble(testDataM.getScenarioVar(scenario, "inmueble"), scenario);
+		return this.addInmueble(getScenarioVar("inmueble"));
 	}
 
 	public void fillInmuebleAndClickOnContinue(String scenario) throws InterruptedException {
@@ -166,7 +161,7 @@ public class UbicacionRiesgoPage extends PageObject {
 	///// region methods
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	public boolean addInmueble(String inmueble, String scenario) throws InterruptedException {
+	public boolean addInmueble(String inmueble) throws InterruptedException {
 		debugBegin();
 		
 		boolean value = false;
@@ -175,7 +170,7 @@ public class UbicacionRiesgoPage extends PageObject {
 			value = this.addInmuebleByAddress();
 		} else {// value =
 				// this.addInmuebleByReferenciaCatastral(this.browserContext.getTestCaseData().getReferenciaCatastral());
-			value = this.addInmuebleByReferenciaCatastral(testDataM.getVar(scenario, "ref_catastral"));
+			value = this.addInmuebleByReferenciaCatastral(getData("fichero_referencias").getValue(userS.getScenario(), "ref_catastral"));
 		}
 		/*
 		 * switch (inmueble) { case
@@ -206,7 +201,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionProvincia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_provinvia")));
+		this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_provinvia")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
 
@@ -215,7 +210,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionPoblacion()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_poblacion")));
+		this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, String.valueOf(getTestVar("direccion_poblacion")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
 
@@ -224,7 +219,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionNombreVia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_nombre_via")));
+		this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_nombre_via")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
 
@@ -233,7 +228,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionNumeroVia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_numero_via")));
+		this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_numero_via")));
 
 		/*
 		 * this.webDriver.appendTextInFrame(this.txtCodigoPostal,
@@ -241,12 +236,12 @@ public class UbicacionRiesgoPage extends PageObject {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionCodigoPostal()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "direccion_codigo_postal")));
+		this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, String.valueOf(getTestVar("direccion_codigo_postal")));
 
 		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 
-		// if (this.testDataM.isExcluirGarajes())
-		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExcluirGarajes"))) {
+		// if (isExcluirGarajes())
+		if(Boolean.parseBoolean(getTestVar("ExcluirGarajes"))) {
 
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			if(!this.webDriver.isSelected(this.chkExcluirGarajes)) {
@@ -255,8 +250,8 @@ public class UbicacionRiesgoPage extends PageObject {
 			this.webDriver.exitFrame();
 		}
 
-		// if (this.testDataM.isExcluirLocales())
-		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExlcuirLocales"))) {
+		// if (isExcluirLocales())
+		if(Boolean.parseBoolean(getTestVar("ExlcuirLocales"))) {
 			this.webDriver.clickInFrame(this.chkExcluirLocales, this.cuerpoFrame);
 		}
 
@@ -362,7 +357,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		String referenciaCatastral = this.webDriver.getTextInFrame(this.txtCurrentReferenciaCatastral, this.cuerpoFrame);
 		// String expectedReferenciaCatastral =
 		// this.browserContext.getTestCaseData().getReferenciaCatastral();
-		String expectedReferenciaCatastral = this.testDataM.getConfigVar("ReferenciaCatastral");
+		String expectedReferenciaCatastral = getConfigVar("ReferenciaCatastral");
 
 		if(!referenciaCatastral.trim().equals(expectedReferenciaCatastral.substring(0, expectedReferenciaCatastral.length() - 6))) {
 			this.webDriver.clickInFrame(this.btnModificarReferenciaCatastral, this.cuerpoFrame);
@@ -376,20 +371,20 @@ public class UbicacionRiesgoPage extends PageObject {
 	}
 
 	public void editInmuebleAndExcluirGarajesYLocales() {
-		// if (this.testDataM.isExcluirGarajes() || this.testDataM.isExcluirLocales())
-		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExcluirGarajes")) || Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExcluirLocales"))) {
+		// if (isExcluirGarajes() || isExcluirLocales())
+		if(Boolean.parseBoolean(getTestVar("ExcluirGarajes")) || Boolean.parseBoolean(getTestVar("ExcluirLocales"))) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			this.webDriver.click(this.btnLapiz);
 			// if (!this.chkExcluirGarajes.isSelected() &&
-			// this.testDataM.isExcluirGarajes())
+			// isExcluirGarajes())
 
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(this.testDataM.getTestVar(testId, "ExcluirGarajes"))) {
+			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(getTestVar("ExcluirGarajes"))) {
 				this.webDriver.click(this.chkExcluirGarajes);
 			}
 
 			// if (!this.chkExcluirLocales.isSelected() &&
-			// this.testDataM.isExcluirLocales())
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(this.testDataM.getTestVar(testId, "excluir_locales"))) {
+			// isExcluirLocales())
+			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(getTestVar("excluir_locales"))) {
 				this.webDriver.click(this.chkExcluirLocales);
 			}
 
@@ -399,20 +394,20 @@ public class UbicacionRiesgoPage extends PageObject {
 	}
 
 	public void editCalidadConstruccion() {
-		// if (this.testDataM.getCalidadConstruccion() != null)
-		if(this.testDataM.getTestVar(testId, "calidad_construccion") != null) {
+		// if (getCalidadConstruccion() != null)
+		if(getTestVar("calidad_construccion") != null) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			// this.webDriver.selectValueInDropDown(this.cbkCalidadConstruccion,
-			// this.testDataM.getCalidadConstruccion());
-			this.webDriver.clickElementFromDropDownByAttribute(this.cbkCalidadConstruccion, "value", this.testDataM.getTestVar(testId, "calidad_construccion"));
+			// getCalidadConstruccion());
+			this.webDriver.clickElementFromDropDownByAttribute(this.cbkCalidadConstruccion, "value", getTestVar("calidad_construccion"));
 			this.webDriver.tabulateElement(this.cbkCalidadConstruccion);
 			this.webDriver.exitFrame();
 		}
 	}
 
 	// public void asegurarUnicamenteGarajes() {
-	// // if (this.testDataM.isAsegurarUnicamenteGarajes())
-	// if(Boolean.parseBoolean(this.testDataM.getTestVar(testId,
+	// // if (isAsegurarUnicamenteGarajes())
+	// if(Boolean.parseBoolean(getTestVar(testId,
 	// "asegurar_unicamente_garajes"))) {
 	// this.webDriver.switchToFrame(this.cuerpoFrame);
 	// this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
@@ -422,8 +417,8 @@ public class UbicacionRiesgoPage extends PageObject {
 	// }
 
 	public void asegurarUnicamenteGarajes() {
-		// if (this.testDataM.isAsegurarUnicamenteGarajes())
-		// if(Boolean.parseBoolean(this.testDataM.getScenarioVar(testId,
+		// if (isAsegurarUnicamenteGarajes())
+		// if(Boolean.parseBoolean(getScenarioVar(testId,
 		// "asegurar_unicamente_garajes"))) {
 		// this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.waitWithDriver(2000);
@@ -584,7 +579,7 @@ public class UbicacionRiesgoPage extends PageObject {
 				this.webDriver.quit();
 
 				new LoginPage(userS)
-					.logIn(testDataM.getConfigVar("environment"), testDataM.getTestVar(testId, "acceso"), testDataM.getTestVar(testId, "usuario"));
+					.logIn(getConfigVar("environment"), getTestVar("acceso"), getTestVar("usuario"));
 
 				// FichaEdificioPage
 				InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
@@ -595,7 +590,7 @@ public class UbicacionRiesgoPage extends PageObject {
 				//
 				// REVISAR PARAMETROS DE ENTRADA DE: AsignarMediadorPage
 				//
-				asignarMediadorPage.selectMediadorAndClickOnContinuar(this.testDataM.getConfigVar("mediador"));
+				asignarMediadorPage.selectMediadorAndClickOnContinuar(getConfigVar("mediador"));
 
 				this.webDriver.moveToElementInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
 				this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
@@ -629,7 +624,7 @@ public class UbicacionRiesgoPage extends PageObject {
 			// String ruta =
 			// this.browserContext.getTestCaseData().getFileDownloadTempPath() +
 			// "\\Polizas.txt";
-			String ruta = testDataM.getConfigVar("fileDownloadTempPath") + "\\Polizas.txt";
+			String ruta = getConfigVar("fileDownloadTempPath") + "\\Polizas.txt";
 			// File archivo = new File("C:\\MutuaPropietarios\\Polizas.txt");
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta, true), StandardCharsets.UTF_8));
 			bw.write(cadenaTexto + "_");

@@ -4,13 +4,9 @@ import java.awt.AWTException;
 import java.io.IOException;
 
 import com.project.ProjectConstants;
-import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
-import com.automation.model.webdriver.DriverHelper;
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class InquilinosAvalistasPage_MAC extends PageObject {
 
@@ -150,8 +146,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		super(userS);
 	}
 
-	public void executeActionsInInquilinosAvalistasPage(String scenario) throws InterruptedException, IOException, AWTException {
-		this.addDatosInquilino(scenario);
+	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException {
+		this.addDatosInquilino();
 		// this.anadirDocumentacion(scenario);
 		// this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
 		// this.validacionViabilidadInquilino();
@@ -182,27 +178,27 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// }
 	//
 
-	public void addDatosInquilino(String scenario) {
+	public void addDatosInquilino() {
 		debugBegin();
 
 		this.webDriver.clickInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal, this.cuerpoFrame);
 
 		// Add Nombre
-		this.webDriver.clearAndAppendTextInFrame(this.txtNombre, this.cuerpoFrame, String.valueOf(testDataM.getScenarioVar(scenario, "nombre_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtNombre, this.cuerpoFrame, String.valueOf(getScenarioVar("nombre_inquilino")));
 		// Logger.debug("Nombre inquilino: " +
 		// String.valueOf(getNombreInquilino());
 
 		// Add Primer Apellido
-		this.webDriver.clearAndAppendTextInFrame(this.txtPrimerApellido, this.cuerpoFrame, String.valueOf(testDataM.getScenarioVar(scenario, "primer_apell_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtPrimerApellido, this.cuerpoFrame, String.valueOf(getScenarioVar("primer_apell_inquilino")));
 
 		// Add NIF
-		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.cuerpoFrame, String.valueOf(testDataM.getScenarioVar(scenario, "documento_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.cuerpoFrame, String.valueOf(getScenarioVar("documento_inquilino")));
 
 		// Add Ingresos netos
-		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.cuerpoFrame, String.valueOf(testDataM.getScenarioVar(scenario, "documento_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.cuerpoFrame, String.valueOf(getScenarioVar("documento_inquilino")));
 
 		// Situacion laboral
-		this.seleccionarSituacion(scenario);
+		this.seleccionarSituacion();
 
 		if(this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.cuerpoFrame)) {
 			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.cuerpoFrame, 1);
@@ -314,10 +310,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - ValidacionViabilidadInquilino");
 	// }
 
-	public void seleccionarSituacion(String scenario) {
+	public void seleccionarSituacion() {
 		debugBegin();
 		
-		String situacion = testDataM.getScenarioVar(scenario, "situacion_laboral");
+		String situacion = getScenarioVar("situacion_laboral");
 		if(situacion.equals(ProjectConstants.SITUACION_LABORAL_ASALARIADO)) {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionDetalle, this.cuerpoFrame, ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);

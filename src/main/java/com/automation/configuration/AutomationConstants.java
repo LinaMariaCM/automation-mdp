@@ -28,12 +28,10 @@ public class AutomationConstants {
 	public static final String TEST_DATA = "test_data";
 	public static final String CONFIGURATION_DATA = "configuration";
 
-	public static final String SCENARIO_DATA_SET = RESOURCES_FOLDER + "scenarioData.csv";
-	public static final String GLOBAL_DATA_SET = RESOURCES_FOLDER + "globalData.csv";
-	public static final String TEST_DATA_SET = RESOURCES_FOLDER + "testData.csv";
-	public static final String CONFIGURATION_DATA_SET = RESOURCES_FOLDER + "configuration.properties";
-	public static final String CHECKER_DATA = RESOURCES_FOLDER + "testDataChecker.csv";
-	public static final String SEARCH_DATA = RESOURCES_FOLDER + "testDataSearch.csv";
+	public static final String SCENARIO_DATA_SET = "scenarioData.csv";
+	public static final String GLOBAL_DATA_SET = "globalData.csv";
+	public static final String TEST_DATA_SET = "testData.csv";
+	public static final String CONFIGURATION_DATA_SET = "configuration.properties";
 
 	public static final String REPORTING_LVL_VERBOSE = "verbose";
 	public static final String REPORTING_LVL_NORMAL = "normal";
