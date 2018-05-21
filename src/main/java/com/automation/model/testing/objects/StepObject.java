@@ -40,7 +40,7 @@ public class StepObject {
 		String result = null;
 		
 		if(userS != null && userS.getScenario() != null) {
-			testDataM.getScenarioVar(userS.getScenario(), key);
+			result = testDataM.getScenarioVar(userS.getScenario(), key);
 		}
 		
 		return result;
