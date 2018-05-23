@@ -1,5 +1,8 @@
 package com.project.pages;
 
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
 //import static com.mutuaPropietarios.testCasesData.utils.Utils.countLinesInFile;
 
 //import static com.mutuaPropietarios.testCasesData.utils.Utils.getValuesDataSetByIndex;
@@ -11,7 +14,11 @@ package com.project.pages;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class FichaEdificioPage {
+public class FichaEdificioPage extends PageObject {
+	
+	FichaEdificioPage(UserStory userS) {
+		super(userS);
+	}
 	
 	// final static Logger logger =
 	// LoggerFactory.getLogger(FichaEdificioPage.class);

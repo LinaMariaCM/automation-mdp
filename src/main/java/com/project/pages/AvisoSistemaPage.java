@@ -2,23 +2,16 @@ package com.project.pages;
 
 import org.openqa.selenium.By;
 import org.junit.Assert;
-import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-import com.automation.model.webdriver.DriverHelper;
-import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
-public class AvisoSistemaPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class AvisoSistemaPage extends PageObject {
 
 	// region webelements
 	private By cuerpoFrame = By.name("cuerpo");
@@ -37,29 +30,26 @@ public class AvisoSistemaPage {
 	 * 
 	 */
 
-	public AvisoSistemaPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public AvisoSistemaPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public void CheckmsgAvisoPlantasAlto() {
-		logger.debug("BEGIN - CheckmsgAvisoPlantasAlto");
+		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		String mensaje = this.webDriver.getText(this.msgAvisoPlantasAlto);
 		Assert.assertTrue(mensaje.contains("Dado que el número de plantas en alto (plantas) > 20, el proyecto debe ser revisado por compañía."));
 		this.webDriver.exitFrame();
-
-		logger.debug("END - CheckmsgAvisoPlantasAlto");
+		debugEnd();
 	}
 
 	public void ClikOnVolver() {
-		logger.debug("BEGIN - ClikOnVolver");
+		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.btnContinuar);
 		this.webDriver.exitFrame();
-		logger.debug("END - ClikOnVolver");
+		debugEnd();
 	}
 	// endregion
 }

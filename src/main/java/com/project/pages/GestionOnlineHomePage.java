@@ -6,23 +6,15 @@ import java.io.IOException;
 import org.openqa.selenium.By;
 //import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
 /*
 import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
-public class GestionOnlineHomePage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class GestionOnlineHomePage extends PageObject {
 
 	// region webelements
 	@FindBy(id = "blockrandom")
@@ -140,9 +132,8 @@ public class GestionOnlineHomePage {
 	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
 	 */
 
-	public GestionOnlineHomePage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
+	public GestionOnlineHomePage(UserStory userS) {
+		super(userS);
 	}
 
 	// public void deleteCookies()
@@ -154,33 +145,33 @@ public class GestionOnlineHomePage {
 
 	// region methods
 	public GestionOnlineHomePage acceptCookies() {
-		logger.debug("BEGIN - acceptCookies");
+		debugBegin();
 		this.webDriver.click(this.btnAcepto);
-		logger.debug("END - acceptCookies");
+		debugEnd();
 
 		return this;
 	}
 
 	public GestionOnlineHomePage closeNovedadesDialog() {
-		logger.debug("BEGIN - CloseNovedadesDialog");
-		if(!this.tCData.getConfigVar("environmnent").equals("UatPj")) {
+		debugBegin();
+		if(!this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
 			this.webDriver.click(this.btnAceptar);
 		}
-		logger.debug("END - CloseNovedadesDialog");
+		debugEnd();
 
 		return this;
 	}
 
 	public GestionOnlineHomePage createNewProject() {
-		logger.debug("BEGIN - CreateNewProject");
+		debugBegin();
 
-		logger.debug("END - CreateNewProject");
+		debugEnd();
 
 		return this;
 	}
 
 	public GestionOnlineHomePage createNewSimulation() {
-		logger.debug("BEGIN - CreateNewSimulation");
+		debugBegin();
 		// this.webDriver.doubleClick(this.btnMutuaEdificioConfort,
 		// this.frameLeftFrame);
 		// this.webDriver.doubleclickInFrame(this.btnNuevaSimulaion,
@@ -188,15 +179,15 @@ public class GestionOnlineHomePage {
 		this.webDriver.doubleClick(this.btnMutuaEdificioConfort);
 		this.webDriver.doubleClick(this.btnNuevaSimulaion);
 
-		logger.debug("END - CreateNewSimulation");
-
+		debugEnd();
+		
 		return this;
 	}
 
 	public GestionOnlineHomePage openMutuaEdificioConfort() throws AWTException, InterruptedException, IOException {
-		logger.debug("BEGIN - OpenMutuaEdificioConfort");
+		debugBegin();
 		// In GO UatPj environment, only need to hover over option.
-		if(this.tCData.getConfigVar("environment").equals("UatPj")) {
+		if(this.testDataM.getConfigVar("environment").equals("UatPj")) {
 			this.webDriver.moveToElement(this.btnContratacionSelector);
 		} else {
 			this.webDriver.click(this.btnContratacionSelector);
@@ -207,16 +198,16 @@ public class GestionOnlineHomePage {
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
-		logger.debug("END - OpenMutuaEdificioConfort");
-
+		debugEnd();
+		
 		return this;
 	}
 
 	public GestionOnlineHomePage openMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException {
-		logger.debug("BEGIN - OpenMutuaAlquilerConfort");
+		debugBegin();
 
 		// In GO UatPj environment, only need to hover over option.
-		if(this.tCData.getConfigVar("environmnent").equals("UatPj")) {
+		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
 			this.webDriver.moveToElement(this.btnContratacionSelector);
 		} else {
 			this.webDriver.click(this.btnContratacionSelector);
@@ -227,44 +218,46 @@ public class GestionOnlineHomePage {
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
-		logger.debug("END - OpenMutuaAlquilerConfort");
+		debugEnd();
 
 		return this;
 	}
 
 	public GestionOnlineHomePage openMisProyectosWeb() throws AWTException, InterruptedException, IOException {
-		logger.debug("BEGIN - OpenMisProyectosWeb");
-		if(this.tCData.getConfigVar("environmnent").equals("UatPj")) {
+		debugBegin();
+		
+		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
 			this.webDriver.moveToElement(this.btnContratacionSelector);
 		} else {
 			this.webDriver.click(this.btnContratacionSelector);
 		}
 		this.webDriver.click(this.btnMisProyectosWebOption);
 
-		logger.debug("END - OpenMisProyectosWeb");
+		debugEnd();
 
 		return this;
 	}
 
 	public GestionOnlineHomePage openSiniestros() throws AWTException, InterruptedException, IOException {
-		logger.debug("BEGIN - OpenMisProyectosWeb");
+		debugBegin();
+		
 		this.webDriver.click(this.btnAceptar);
 		this.webDriver.click(this.btnContratacionSelector);
 		this.webDriver.click(this.btnMisProyectosWebOption);
 
-		logger.debug("END - OpenMisProyectosWeb");
+		debugEnd();
 
 		return this;
 	}
 
-	public GestionOnlineHomePage buscarProyectoWeb(
-		String noCotizacion) throws AWTException, InterruptedException, IOException {
-		logger.debug("BEGIN - BuscarProyectosWeb");
+	public GestionOnlineHomePage buscarProyectoWeb(String noCotizacion) throws AWTException, InterruptedException, IOException {
+		debugBegin();
+		
 		this.webDriver.clickInFrame(this.codigoProyecto, this.buscadorFrame);
 		this.webDriver.appendTextInFrame(this.codigoProyecto, this.buscadorFrame, noCotizacion);
 		this.webDriver.clickInFrame(this.btnBuscar, this.buscadorFrame);
 
-		if(this.tCData.getConfigVar("environmnent").equals("UatPj")) {
+		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
 			while(!this.webDriver.isPresentInFrame(this.drpdwnAcciones, this.buscadorFrame)) {
 				// Si aparece el error de busqueda, cierralo y buscar de nuevo.
 				if(this.webDriver.isPresent(this.errorBuscar)) {
@@ -281,16 +274,18 @@ public class GestionOnlineHomePage {
 				}
 			}
 		}
-		logger.debug("END - BuscarProyectosWeb");
+		
+		debugEnd();
 
 		return this;
 	}
 
 	public GestionOnlineHomePage modificarProyecto() throws AWTException, InterruptedException, IOException {
-		logger.debug("BEGIN - ModificarProyecto");
+		debugBegin();
+		
 		this.webDriver.switchToFrame(this.buscadorFrame);
 
-		if(this.tCData.getConfigVar("environmnent").equals("UatPj")) {
+		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
 			System.out.println("In modificarProyecto UatPJ if");
 			// this.webDriver.clickInFrame(this.drpdwnAcciones,
 			// this.buscadorFrame);
@@ -310,15 +305,15 @@ public class GestionOnlineHomePage {
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
-		logger.debug("END - ModificarProyecto");
+		debugEnd();
 
 		return this;
 	}
 
 	public String recuperarEstadoPoliza() {
-		logger.debug("BEGIN - RecuperarEstadoPoliza");
+		debugBegin();
 		this.webDriver.getTextInFrame(this.estadoPoliza, this.buscadorFrame);
-		logger.debug("END - RecuperarEstadoPoliza");
+		debugEnd();
 		return this.webDriver.getTextInFrame(this.estadoPoliza, this.buscadorFrame);
 	}
 
@@ -332,10 +327,10 @@ public class GestionOnlineHomePage {
 	// }
 
 	public GestionOnlineHomePage openGestionPolizas() {
-		logger.debug("BEGIN - OpenGestionPolizas");
+		debugBegin();
 		this.webDriver.doubleClickInFrame(this.btnMapaWeb, this.topFrame);
 		this.webDriver.doubleClickInFrame(this.btnGestionPolizas, this.mainFrame);
-		logger.debug("END - OpenGestionPolizas");
+		debugEnd();
 
 		return this;
 	}

@@ -4,18 +4,12 @@ import java.awt.AWTException;
 import java.io.IOException;
 
 import com.project.ProjectConstants;
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class InquilinosAvalistasPage_MAC {
-	
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class InquilinosAvalistasPage_MAC extends PageObject {
+
 	// final static Logger logger =
 	// LoggerFactory.getLogger(InquilinosAvalistasPage_MAC.class);
 	// BrowserContext browserContext;
@@ -148,14 +142,12 @@ public class InquilinosAvalistasPage_MAC {
 	// PageFactory.initElements(browserContext.getWebDriver(), this);
 	// }
 	//
-	public InquilinosAvalistasPage_MAC(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public InquilinosAvalistasPage_MAC(UserStory userS) {
+		super(userS);
 	}
 
-	public void executeActionsInInquilinosAvalistasPage(String scenario) throws InterruptedException, IOException, AWTException {
-		this.addDatosInquilino(scenario);
+	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException {
+		this.addDatosInquilino();
 		// this.anadirDocumentacion(scenario);
 		// this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
 		// this.validacionViabilidadInquilino();
@@ -186,34 +178,34 @@ public class InquilinosAvalistasPage_MAC {
 	// }
 	//
 
-	public void addDatosInquilino(String scenario) {
-		logger.debug("BEGIN - AddDatosInquilino");
+	public void addDatosInquilino() {
+		debugBegin();
 
 		this.webDriver.clickInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal, this.cuerpoFrame);
 
 		// Add Nombre
-		this.webDriver.clearAndAppendTextInFrame(this.txtNombre, this.cuerpoFrame, String.valueOf(tCData.getScenarioVar(scenario, "nombre_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtNombre, this.cuerpoFrame, String.valueOf(getScenarioVar("nombre_inquilino")));
 		// Logger.debug("Nombre inquilino: " +
 		// String.valueOf(getNombreInquilino());
 
 		// Add Primer Apellido
-		this.webDriver.clearAndAppendTextInFrame(this.txtPrimerApellido, this.cuerpoFrame, String.valueOf(tCData.getScenarioVar(scenario, "primer_apell_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtPrimerApellido, this.cuerpoFrame, String.valueOf(getScenarioVar("primer_apell_inquilino")));
 
 		// Add NIF
-		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.cuerpoFrame, String.valueOf(tCData.getScenarioVar(scenario, "documento_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.cuerpoFrame, String.valueOf(getScenarioVar("documento_inquilino")));
 
 		// Add Ingresos netos
-		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.cuerpoFrame, String.valueOf(tCData.getScenarioVar(scenario, "documento_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.cuerpoFrame, String.valueOf(getScenarioVar("documento_inquilino")));
 
 		// Situacion laboral
-		this.seleccionarSituacion(scenario);
+		this.seleccionarSituacion();
 
 		if(this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.cuerpoFrame)) {
 			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.cuerpoFrame, 1);
 		}
 		this.webDriver.clickInFrame(this.btnAnadirDatosInquilino, this.cuerpoFrame);
 
-		logger.debug("END - AddDatosInquilino");
+		debugEnd();
 	}
 
 	// public void addDatosInquilino()
@@ -318,15 +310,18 @@ public class InquilinosAvalistasPage_MAC {
 	// logger.debug("END - ValidacionViabilidadInquilino");
 	// }
 
-	public void seleccionarSituacion(String scenario) {
-		logger.debug("BEGIN - SeleccionarSituacion");
-		String situacion = tCData.getScenarioVar(scenario, "situacion_laboral");
+	public void seleccionarSituacion() {
+		debugBegin();
+		
+		String situacion = getScenarioVar("situacion_laboral");
 		if(situacion.equals(ProjectConstants.SITUACION_LABORAL_ASALARIADO)) {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionDetalle, this.cuerpoFrame, ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 		}
+		
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
-		logger.debug("END - SeleccionarSituacion");
+		
+		debugEnd();
 	}
 
 	// public void seleccionarSituacion()

@@ -1,22 +1,14 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-import com.automation.model.webdriver.DriverHelper;
 
-public class AsignarMediadorPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class AsignarMediadorPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
@@ -51,39 +43,39 @@ public class AsignarMediadorPage {
 	private By loaderModal = By.cssSelector("#modalLoader");
 	// endregion
 
-	public AsignarMediadorPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public AsignarMediadorPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String scenario) throws InterruptedException {
-		this.seleccionarMediadorPorCodigo(String.valueOf(tCData.getScenarioVar(scenario, "mediador")));
+		this.seleccionarMediadorPorCodigo(String.valueOf(getScenarioVar("mediador")));
 		this.clickOnContinuarButton();
 
 		return this;
 	}
 
 	public AsignarMediadorPage SelectMediadorMACAndClickOnContinuar(String scenario) throws InterruptedException {
-		this.SeleccionarMediadorMACPorCodigo(String.valueOf(tCData.getScenarioVar(scenario, "mediador")));
+		this.SeleccionarMediadorMACPorCodigo(String.valueOf(getScenarioVar("mediador")));
 		this.clickOnContinuarButton();
 
 		return this;
 	}
 
 	public AsignarMediadorPage clickOnContinuarButton() {
-		logger.debug("BEGIN - ClickOnContinuarButton");
+		debugBegin();
+		
 		this.webDriver.waitWithDriver(2000);
 		//this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
-		logger.debug("END - ClickOnContinuarButton");
+		
+		debugEnd();
 
 		return this;
 	}
 
 	public AsignarMediadorPage seleccionarMediadorPorCodigo(String codigoMediador) throws InterruptedException {
-		logger.debug("BEGIN - SeleccionarMediadorPorCodigo");
+		debugBegin();
 		//webDriver.waitWithDriver(2000);
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -99,7 +91,7 @@ public class AsignarMediadorPage {
 		this.webDriver.exitFrame();
 		this.webDriver.waitForElementNotToBeClickable(loaderModal);
 
-		logger.debug("END - SeleccionarMediadorPorCodigo");
+		debugEnd();
 
 		return this;
 	}
@@ -125,7 +117,7 @@ public class AsignarMediadorPage {
 	// }
 
 	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(String codigoMediador) throws InterruptedException {
-		logger.debug("BEGIN - SeleccionarMediadorMACPorCodigo");
+		debugBegin();
 
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.appendText(this.txtCodigoMediadorMAC, codigoMediador);
@@ -136,7 +128,7 @@ public class AsignarMediadorPage {
 
 		// this.wh.ClickOnWebElementInFrame(this.radioBtnResultadoBusqueda,
 		// this.cuerpoFrame);
-		logger.debug("END - SeleccionarMediadorMACPorCodigo");
+		debugEnd();
 
 		return this;
 	}

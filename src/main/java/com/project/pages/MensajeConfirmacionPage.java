@@ -1,6 +1,13 @@
 package com.project.pages;
 
-public class MensajeConfirmacionPage {
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
+public class MensajeConfirmacionPage extends PageObject {
+	
+	MensajeConfirmacionPage(UserStory userS) {
+		super(userS);
+	}
 	
 	// final static Logger logger =
 	// LoggerFactory.getLogger(MensajeConfirmacionPage.class);

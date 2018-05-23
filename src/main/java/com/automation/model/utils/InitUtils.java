@@ -63,7 +63,7 @@ public class InitUtils {
 		
 		testData.addTestData(testDataPath);
 		testData.addConfigurationData(configDataPath);
-		testData.addScenarioData(scenarioData == null ?  AutomationConstants.SCENARIO_DATA_SET : AutomationConstants.RESOURCES_FOLDER + scenarioData);
+		testData.addScenarioData(scenarioData == null ?  AutomationConstants.SCENARIO_DATA_SET : scenarioData);
 		testData.addGlobalData(AutomationConstants.GLOBAL_DATA_SET);
 		
 		return testData;

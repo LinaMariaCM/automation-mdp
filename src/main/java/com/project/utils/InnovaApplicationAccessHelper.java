@@ -3,213 +3,175 @@ package com.project.utils;
 import java.awt.AWTException;
 import java.io.IOException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.project.pages.GestionCotizacionesBuscadorPage;
 import com.project.pages.InnovaHomePage;
 import com.project.pages.InnovaLoginPage;
 import com.project.ProjectConstants;
-import com.project.pages.PageObject;
 
-public class InnovaApplicationAccessHelper implements IApplicationAccessHelper
-{
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class InnovaApplicationAccessHelper extends PageObject implements IApplicationAccessHelper {
 
 	private InnovaHomePage innovaHomePage;
-	
-	public InnovaApplicationAccessHelper(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+
+	public InnovaApplicationAccessHelper(UserStory userS) {
+		super(userS);
 	}
-	
+
 	@Override
-	public void CreateProject()
-	{
+	public void CreateProject() {
 		this.innovaHomePage.CreateNewProject();
 	}
-	
+
 	@Override
-	public void CreateSimulation()
-	{
+	public void CreateSimulation() {
 		this.innovaHomePage.createNewSimulation();
 	}
-	
+
 	@Override
-	public void login(
-			String userId, String password) throws Exception
-	{
-		switch (this.tCData.getTestVar(testId,"enviroment"))
-		{
+	public void login(String userId, String password) throws Exception {
+		switch(this.testDataM.getTestVar(testId, "enviroment")) {
 			case ProjectConstants.PreEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomePre);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-Pre"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomePre);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-Pre"));
 				break;
 			case ProjectConstants.UatEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUAT);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-UAT"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUAT);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-UAT"));
 				break;
 			case ProjectConstants.V7Environment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeV7);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-V7"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeV7);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-V7"));
 				break;
 			case ProjectConstants.QAEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeQA);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-QA"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeQA);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-QA"));
 				break;
 			case ProjectConstants.ATMIRAEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeATMIRA);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-ATMIRA"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeATMIRA);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-ATMIRA"));
 				break;
 			case ProjectConstants.UpgradeEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUpgrade);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-Upgrade"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUpgrade);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-Upgrade"));
 				break;
 			case ProjectConstants.SiniestrosEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeSiniestros);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-Siniestros"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeSiniestros);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-Siniestros"));
 				break;
 			case ProjectConstants.MigracionEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeMigracion);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-Migracion"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeMigracion);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-Migracion"));
 				break;
 			case ProjectConstants.UatPjEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUatPj);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-UatPj"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUatPj);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-UatPj"));
 				break;
 			case ProjectConstants.HogarMigEnvironment:
-				//this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeHogarMig);
-				this.webDriver.go(tCData.getTestVar(testId, "InnovaHome-HogarMig"));
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeHogarMig);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-HogarMig"));
 				break;
 			default:
 				throw new Exception("Environment not available");
 		}
-		this.webDriver.maximizeWindow();
 		
-		this.tCData.setTestVar(testId, "mainWindowHandle", (this.webDriver.getMainWindowHandle()));
-		InnovaLoginPage innovaLoginPage = new InnovaLoginPage(webDriver, tCData);
+		//this.webDriver.maximizeWindow();
+
+		this.testDataM.setTestVar(testId, "mainWindowHandle", (this.webDriver.getMainWindowHandle()));
+		InnovaLoginPage innovaLoginPage = new InnovaLoginPage(userS);
 		innovaLoginPage.login(userId, password);
-		this.innovaHomePage = new InnovaHomePage(webDriver, tCData);
+		this.innovaHomePage = new InnovaHomePage(userS);
 	}
-	
+
 	@Override
-	public void OpenMutuaEdificioConfort() throws AWTException, InterruptedException
-	{
+	public void OpenMutuaEdificioConfort() throws AWTException, InterruptedException {
 		this.innovaHomePage.openMutuaEdificioConfort();
 	}
-	
+
 	@Override
-	public void openGestionCotizaciones()
-	{
+	public void openGestionCotizaciones() {
 		this.innovaHomePage.OpenGestionCotizaciones();
 	}
-	
+
 	@Override
-	public void searchCotizacion(
-			String cotizacion)
-	{
-		GestionCotizacionesBuscadorPage gestionCotizacionesBuscacorPage = new GestionCotizacionesBuscadorPage(webDriver, tCData);
+	public void searchCotizacion(String cotizacion) {
+		GestionCotizacionesBuscadorPage gestionCotizacionesBuscacorPage = new GestionCotizacionesBuscadorPage(userS);
 		gestionCotizacionesBuscacorPage.searchCotizacion(cotizacion);
 	}
-	
+
 	@Override
-	public void OpenGestionPolizas()
-	{
+	public void OpenGestionPolizas() {
 		this.innovaHomePage.OpenGestionPolizas();
 	}
-	
+
 	@Override
-	public void SearchPolizaByPolizaNumber(
-			String poliza)
-	{
-		//GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(webDriver, tCData);
-		//gestionPolizasBuscadorPage.SearchPolizaByPolizaNumber(poliza);
+	public void SearchPolizaByPolizaNumber(String poliza) {
+		// GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new
+		// GestionPolizasBuscadorPage(userS);
+		// gestionPolizasBuscadorPage.SearchPolizaByPolizaNumber(poliza);
 	}
-	
+
 	@Override
-	public void loginAndSearchCotizacion(
-			String userId, String password, String cotizacion) throws Exception
-	{
+	public void loginAndSearchCotizacion(String userId, String password, String cotizacion) throws Exception {
 		this.login(userId, password);
 		// this.OpenMutuaEdificioConfort();
 		this.openGestionCotizaciones();
 		this.searchCotizacion(cotizacion);
 	}
-	
+
 	@Override
-	public void LoginAndSearchPolizaByPolizaNumber(
-			String userId, String password, String poliza) throws Exception
-	{
+	public void LoginAndSearchPolizaByPolizaNumber(String userId, String password, String poliza) throws Exception {
 		this.login(userId, password);
 		this.OpenGestionPolizas();
 		this.SearchPolizaByPolizaNumber(poliza);
 	}
-	
+
 	@Override
-	public void LoginAndCreateProjectMEC(
-			String userId, String password) throws Exception
-	{
+	public void LoginAndCreateProjectMEC(String userId, String password) throws Exception {
 		this.login(userId, password);
 		this.OpenMutuaEdificioConfort();
 		this.CreateProject();
 	}
-	
+
 	@Override
-	public void LoginAndCreateProjectMAC(
-			String userId, String password) throws Exception
-	{
+	public void LoginAndCreateProjectMAC(String userId, String password) throws Exception {
 		this.login(userId, password);
 		this.OpenMutuaAlquilerConfort();
 		this.CreateProject();
 	}
-	
+
 	@Override
-	public void LoginAndCreateSimulation(
-			String userId, String password) throws Exception
-	{
+	public void LoginAndCreateSimulation(String userId, String password) throws Exception {
 		this.login(userId, password);
-		
+
 		this.OpenMutuaEdificioConfort();
 
 		this.CreateSimulation();
 	}
-	
+
 	@Override
-	public void LoginAndSearchPolizaByNifNie(
-			String userId, String password, String nifNie) throws Exception
-	{
+	public void LoginAndSearchPolizaByNifNie(String userId, String password, String nifNie) throws Exception {
 		this.login(userId, password);
 		this.OpenGestionPolizas();
 		this.SearchPolizaByNifNie(nifNie);
 	}
-	
+
 	@Override
-	public void SearchPolizaByNifNie(
-			String nifNie)
-	{
-		//GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(webDriver, tCData);
-		//gestionPolizasBuscadorPage.SearchPolizaByNifNumber(nifNie);
+	public void SearchPolizaByNifNie(String nifNie) {
+		// GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new
+		// GestionPolizasBuscadorPage(userS);
+		// gestionPolizasBuscadorPage.SearchPolizaByNifNumber(nifNie);
 	}
 
 	@Override
-	public void OpenMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException
-	{
+	public void OpenMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException {
 		this.innovaHomePage.OpenMutuaAlquilerConfort();
-		
+
 	}
-	
+
 	@Override
-	public void LoginAndSearchAutorizacion(
-			String userId, String password) throws Exception
-	{
+	public void LoginAndSearchAutorizacion(String userId, String password) throws Exception {
 		this.login(userId, password);
 	}
-	
+
 }

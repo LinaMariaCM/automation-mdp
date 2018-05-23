@@ -1,15 +1,9 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
-//import org.openqa.selenium.WebElement;
-//import org.openqa.selenium.support.FindBy;
-//import org.openqa.selenium.support.PageFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.automation.model.helpers.DniGeneratorHelper;
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.project.ProjectConstants;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -18,12 +12,7 @@ import com.project.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class TomadorYAseguradoPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class TomadorYAseguradoPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
@@ -128,19 +117,17 @@ public class TomadorYAseguradoPage {
 	private By btnModificarDatosTomador = By.xpath(".//*[@name='tomadorAseguradoForm']//*[text()='Modificar datos tomador']");
 	// endregion
 
-	public TomadorYAseguradoPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public TomadorYAseguradoPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public TomadorYAseguradoPage addDatosTomador() {
-		logger.debug("BEGIN - AddDatosTomador");
+		debugBegin();
 
 		// if
 		// (this.tData.getTomador().equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal))
-		if(this.tCData.getTestVar(testId, "Tomador").equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal)) {
+		if(this.testDataM.getTestVar(testId, "Tomador").equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal)) {
 			// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirDatosTomadorPantallaPrincipal,
 			// this.cuerpoFrame);
 			this.webDriver.moveToElementInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.cuerpoFrame);
@@ -148,13 +135,13 @@ public class TomadorYAseguradoPage {
 
 			// if
 			// (this.browserContext.getTestCaseData().getIncluirTelefonosYHorarioAtencionTomador()
-			if(this.tCData.getTestVar(testId, "incluirTelefonosYHorarioAtencionTomador")
+			if(this.testDataM.getTestVar(testId, "incluirTelefonosYHorarioAtencionTomador")
 				.equals(ProjectConstants.TelefonosTomadorIncluidos)) {
 				this.AddTelefonosYHorariosAtencionTomador();
 			}
 
 			this.webDriver.clickInFrame(this.txtFechaNacimiento, this.cuerpoFrame);
-			this.webDriver.appendTextInFrame(this.txtFechaNacimiento, this.cuerpoFrame, this.tCData.getTestVar(testId, "TomadorFechaNacimiento"));
+			this.webDriver.appendTextInFrame(this.txtFechaNacimiento, this.cuerpoFrame, this.testDataM.getTestVar(testId, "TomadorFechaNacimiento"));
 
 			this.webDriver.clickInFrame(this.rdnUtilizarMismaDireccionAsegurado, this.cuerpoFrame);
 
@@ -162,13 +149,13 @@ public class TomadorYAseguradoPage {
 			this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
 		}
 
-		logger.debug("END - AddDatosTomador");
+		debugEnd();
 
 		return this;
 	}
 
 	public TomadorYAseguradoPage addStaticDatosTomador() {
-		logger.debug("BEGIN - addStaticDatosTomador");
+		debugBegin();
 
 		this.webDriver.moveToElementInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.cuerpoFrame);
@@ -181,21 +168,21 @@ public class TomadorYAseguradoPage {
 		this.webDriver.clickInFrame(this.btnAnadirDatosTomador, this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
 
-		logger.debug("END - addStaticDatosTomador");
+		debugEnd();
 
 		return this;
 	}
 
 	public TomadorYAseguradoPage AddTelefonosYHorariosAtencionTomador() {
 		this.webDriver.clickInFrame(this.txtTelefonoFijo, this.cuerpoFrame);
-		this.webDriver.appendTextInFrame(this.txtTelefonoFijo, this.cuerpoFrame, this.tCData.getTestVar(testId, "TomadorTelefonoFijo"));
+		this.webDriver.appendTextInFrame(this.txtTelefonoFijo, this.cuerpoFrame, this.testDataM.getTestVar(testId, "TomadorTelefonoFijo"));
 
-		this.webDriver.appendTextInFrame(this.txtPrefijoTelefonoFijo, this.cuerpoFrame, this.tCData.getTestVar(testId, "TomadorTelefonoFijoPrefijo"));
+		this.webDriver.appendTextInFrame(this.txtPrefijoTelefonoFijo, this.cuerpoFrame, this.testDataM.getTestVar(testId, "TomadorTelefonoFijoPrefijo"));
 		// this.webDriver.waitForPageLoadToFinish();
 		this.webDriver.clickInFrame(this.lblPrefijo, this.cuerpoFrame);
 
 		// List<String> TelefonoFijoHorarioAtencion =
-		// this.tCData.getTestListVar(testId, "TelefonoFijoHorarioAtencion");
+		// this.testDataM.getTestListVar(testId, "TelefonoFijoHorarioAtencion");
 		//
 		// TelefonoFijoHorarioAtencion.forEach(option ->
 		// {
@@ -228,13 +215,13 @@ public class TomadorYAseguradoPage {
 		// }
 		// });
 
-		this.webDriver.appendTextInFrame(this.txtTelefonoMovil, this.cuerpoFrame, this.tCData.getTestVar(testId, "TomadorTelefonoMovil"));
+		this.webDriver.appendTextInFrame(this.txtTelefonoMovil, this.cuerpoFrame, this.testDataM.getTestVar(testId, "TomadorTelefonoMovil"));
 
-		this.webDriver.appendTextInFrame(this.txtTelefonoMovilPrefijo, this.cuerpoFrame, this.tCData.getTestVar(testId, "TomadorTelefonoMovilPrefijo"));
+		this.webDriver.appendTextInFrame(this.txtTelefonoMovilPrefijo, this.cuerpoFrame, this.testDataM.getTestVar(testId, "TomadorTelefonoMovilPrefijo"));
 		this.webDriver.clickInFrame(this.lblPrefijo, this.cuerpoFrame);
 		//
 		// List<String> TelefonoMovilHorarioAtencion =
-		// this.tCData.getTestListVar(testId, "TelefonoMovilHorarioAtencion");
+		// this.testDataM.getTestListVar(testId, "TelefonoMovilHorarioAtencion");
 		//
 		// TelefonoMovilHorarioAtencion.forEach(option ->
 		// {
@@ -271,17 +258,17 @@ public class TomadorYAseguradoPage {
 	}
 
 	public TomadorYAseguradoPage clickOnContinuar() {
-		logger.debug("BEGIN - ClickOnContinuar");
+		debugBegin();
 		this.webDriver.scrollToBottom();
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
-		logger.debug("END - ClickOnContinuar");
+		debugEnd();
 
 		return this;
 	}
 
 	public TomadorYAseguradoPage addDatosTomadorDiferenteAsegurado() {
-		logger.debug("BEGIN - AddDatosTomadorDiferenteAsegurado");
-		if(this.tCData.getTestVar(testId, "AseguradoPrincipalDiferenteDelTomador")
+		debugBegin();
+		if(this.testDataM.getTestVar(testId, "AseguradoPrincipalDiferenteDelTomador")
 			.equals(ProjectConstants.AseguradoPrincipalDiferenteTomador)) {
 			this.webDriver.clickInFrame(this.cbkAseguradoDiferenteToamdor, this.cuerpoFrame);
 			this.webDriver.moveToElementInFrame(this.btnAddDataOfTheAseguradoPrincipal, this.cuerpoFrame);
@@ -289,17 +276,17 @@ public class TomadorYAseguradoPage {
 			// this.wh.ClickOnWebElement(this.btnAddDataOfTheAseguradoPrincipal);
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cbkAeguradoTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
 			// this.browserContext.getTestCaseData().setAseguradoDni(DniGeneratorHelper.generaNif(null));
-			this.tCData.setTestVar(testId, "TomadorDNI", DniGeneratorHelper.generaNif(null));
-			this.webDriver.appendTextInFrame(this.txtAseguradoNumeroDocumento, this.cuerpoFrame, this.tCData.getTestVar(testId, "AseguradoDNI"));
-			this.webDriver.appendTextInFrame(this.txtAseguradoNombre, this.cuerpoFrame, this.tCData.getTestVar(testId, "AseguradoNombre"));
-			this.webDriver.appendTextInFrame(this.txtAseguradoApellido1, this.cuerpoFrame, this.tCData.getTestVar(testId, "AseguradoPrimerApellido"));
-			this.webDriver.appendTextInFrame(this.txtAseguradoApellido2, this.cuerpoFrame, this.tCData.getTestVar(testId, "AseguradoSegundoApellido"));
+			this.testDataM.setTestVar(testId, "TomadorDNI", DniGeneratorHelper.generaNif(null));
+			this.webDriver.appendTextInFrame(this.txtAseguradoNumeroDocumento, this.cuerpoFrame, this.testDataM.getTestVar(testId, "AseguradoDNI"));
+			this.webDriver.appendTextInFrame(this.txtAseguradoNombre, this.cuerpoFrame, this.testDataM.getTestVar(testId, "AseguradoNombre"));
+			this.webDriver.appendTextInFrame(this.txtAseguradoApellido1, this.cuerpoFrame, this.testDataM.getTestVar(testId, "AseguradoPrimerApellido"));
+			this.webDriver.appendTextInFrame(this.txtAseguradoApellido2, this.cuerpoFrame, this.testDataM.getTestVar(testId, "AseguradoSegundoApellido"));
 			this.webDriver.clickInFrame(this.rdnUtilizarMismaDireccionAsegurado, this.cuerpoFrame);
 			this.webDriver.clickInFrame(this.btnAddAseguradoPrincipalModalWindow, this.cuerpoFrame);
 			this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
 		}
 
-		logger.debug("END - AddDatosTomadorDiferenteAsegurado");
+		debugEnd();
 
 		return this;
 	}

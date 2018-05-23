@@ -3,11 +3,8 @@ package com.project.pages;
 import java.io.IOException;
 
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.project.ProjectConstants;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -15,12 +12,7 @@ import com.project.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class ValidacionesExcepcionesReglasUbicacionRiesgoPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
@@ -64,10 +56,8 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage {
 	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
 	 */
 
-	public ValidacionesExcepcionesReglasUbicacionRiesgoPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public ValidacionesExcepcionesReglasUbicacionRiesgoPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
@@ -91,7 +81,7 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage {
 	 */
 
 	public void ClickOnContinuarButton() throws IOException {
-		logger.debug("BEGIN - ClickOnContinuarButton");
+		debugBegin();
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts(5);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		if(this.webDriver.isPresent(this.lblExistenProjectosSuplementoActivo)) {
@@ -99,11 +89,11 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage {
 		}
 		this.webDriver.exitFrame();
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
-		logger.debug("END - ClickOnContinuarButton");
+		debugEnd();
 	}
 
 	public void isUbicacionRiesgoUtilizada() throws IOException {
-		logger.debug("BEGIN - isUbicacionRiesgoUtilizada");
+		debugBegin();
 		// this.webDriver.waitWithDriver(2000);
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -119,11 +109,11 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage {
 		String webElemntIdentifyText = this.webDriver.getText(cmbDeshabilitacion);
 		org.junit.Assert.assertNotEquals(ProjectConstants.UbicacionRiesgoYaUtilizadaError, webElemntIdentifyText, ProjectConstants.UbicacionRiesgoYaUtilizadaMsg);
 
-		logger.debug("END - isUbicacionRiesgoUtilizada");
 		// this.webDriver.switchToFrame(this.cuerpoFrame);
 
 		// this.webDriver.exitFrame();
 		this.webDriver.exitFrame();
+		debugEnd();
 	}
 	// endregion
 }

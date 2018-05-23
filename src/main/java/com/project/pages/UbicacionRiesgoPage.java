@@ -12,17 +12,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.UnhandledAlertException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.utils.StringUtils;
-import com.automation.model.utils.ArrayFileUtils;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.data.DataObject;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+import com.automation.model.utils.FileUtils;
 
 /*
 import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -30,12 +26,7 @@ import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
 
-public class UbicacionRiesgoPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class UbicacionRiesgoPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
@@ -149,17 +140,15 @@ public class UbicacionRiesgoPage {
 	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
 	 */
 
-	public UbicacionRiesgoPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public UbicacionRiesgoPage(UserStory userS) {
+		super(userS);
 	}
 
 	public boolean fillInmuebleAndGetAvailability(String scenario) throws InterruptedException {
 
 		// return
 		// this.addInmueble(this.browserContext.getTestCaseData().getInmueble());
-		return this.addInmueble(tCData.getScenarioVar(scenario, "inmueble"), scenario);
+		return this.addInmueble(getScenarioVar("inmueble"));
 	}
 
 	public void fillInmuebleAndClickOnContinue(String scenario) throws InterruptedException {
@@ -172,16 +161,16 @@ public class UbicacionRiesgoPage {
 	///// region methods
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	public boolean addInmueble(String inmueble, String scenario) throws InterruptedException {
-
-		logger.debug("BEGIN - AddInmueble");
+	public boolean addInmueble(String inmueble) throws InterruptedException {
+		debugBegin();
+		
 		boolean value = false;
 
 		if(inmueble != null && !inmueble.isEmpty()) {
 			value = this.addInmuebleByAddress();
 		} else {// value =
 				// this.addInmuebleByReferenciaCatastral(this.browserContext.getTestCaseData().getReferenciaCatastral());
-			value = this.addInmuebleByReferenciaCatastral(tCData.getVar(scenario, "ref_catastral"));
+			value = this.addInmuebleByReferenciaCatastral(getData("fichero_referencias").getValue(userS.getScenario(), "ref_catastral"));
 		}
 		/*
 		 * switch (inmueble) { case
@@ -194,12 +183,13 @@ public class UbicacionRiesgoPage {
 		 * this.addInmuebleByAddress(); break; }
 		 */
 
-		logger.debug("END - AddInmueble");
+		debugEnd();
+		
 		return value;
 	}
 
 	public boolean addInmuebleByAddress() throws InterruptedException {
-		logger.debug("BEGIN - AddInmuebleByAddress");
+		debugBegin();
 		this.webDriver.waitForPageToLoad();
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirInmueblePantallaPrincipal,
 		// this.cuerpoFrame);
@@ -211,7 +201,7 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionProvincia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_provinvia")));
+		this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_provinvia")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
 
@@ -220,7 +210,7 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionPoblacion()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_poblacion")));
+		this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, String.valueOf(getTestVar("direccion_poblacion")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
 
@@ -229,7 +219,7 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionNombreVia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_nombre_via")));
+		this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_nombre_via")));
 
 		this.webDriver.clickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
 
@@ -238,7 +228,7 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionNumeroVia()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_numero_via")));
+		this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_numero_via")));
 
 		/*
 		 * this.webDriver.appendTextInFrame(this.txtCodigoPostal,
@@ -246,12 +236,12 @@ public class UbicacionRiesgoPage {
 		 * String.valueOf(this.browserContext.getTestCaseData().
 		 * getDireccionCodigoPostal()));
 		 */
-		this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "direccion_codigo_postal")));
+		this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, String.valueOf(getTestVar("direccion_codigo_postal")));
 
 		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 
-		// if (this.tCData.isExcluirGarajes())
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExcluirGarajes"))) {
+		// if (isExcluirGarajes())
+		if(Boolean.parseBoolean(getTestVar("ExcluirGarajes"))) {
 
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			if(!this.webDriver.isSelected(this.chkExcluirGarajes)) {
@@ -260,8 +250,8 @@ public class UbicacionRiesgoPage {
 			this.webDriver.exitFrame();
 		}
 
-		// if (this.tCData.isExcluirLocales())
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExlcuirLocales"))) {
+		// if (isExcluirLocales())
+		if(Boolean.parseBoolean(getTestVar("ExlcuirLocales"))) {
 			this.webDriver.clickInFrame(this.chkExcluirLocales, this.cuerpoFrame);
 		}
 
@@ -277,18 +267,18 @@ public class UbicacionRiesgoPage {
 		boolean value = this.webDriver.isPresentAndClickInFrame(this.btnAnadirInmuebleReferenciaCatastral, this.cuerpoFrame);
 		// this.webDriver.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
-		logger.debug("END - AddInmuebleByAddress");
+		debugEnd();
 		return value;
 	}
 
 	public void addInmuebleByDefaultAddress() throws InterruptedException {
-		logger.debug("BEGIN - AddInmuebleByDefaultAddress");
+		debugBegin();
 		this.addInmuebleByAddress();
-		logger.debug("END - AddInmuebleByDefaultAddress");
+		debugEnd();
 	}
 
 	public boolean addInmuebleByReferenciaCatastral(String referenciaCatastral) {
-		logger.debug("BEGIN - AddInmuebleByReferenciaCatastral");
+		debugBegin();
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
 		this.webDriver.waitWithDriver(1000);
@@ -323,12 +313,14 @@ public class UbicacionRiesgoPage {
 		this.webDriver.click(this.btnAnadirInmuebleReferenciaCatastral);
 		this.webDriver.waitWithDriver(2000);
 		this.webDriver.exitFrame();
-		logger.debug("END - AddInmuebleByReferenciaCatastral");
+		
+		debugEnd();
+		
 		return true;
 	}
 
 	public void clickOnContinuar() {
-		logger.debug("BEGIN - ClickOnContinuar");
+		debugBegin();
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -338,18 +330,18 @@ public class UbicacionRiesgoPage {
 
 		this.webDriver.click(this.btnContinuar);
 		this.webDriver.exitFrame();
-		logger.debug("END - ClickOnContinuar");
+		debugEnd();
 	}
 
 	public void clickOnGuardar() {
-		logger.debug("BEGIN - clickOnGuardar");
+		debugBegin();
 		// this.webDriver.waitForPageLoadWithAngular();
 		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
-		logger.debug("END - clickOnGuardar");
+		debugEnd();
 	}
 
 	public void closeAvisoSistemaPopup() throws IOException {
-		logger.debug("BEGIN - CloseAvisoSistemaPopup");
+		debugBegin();
 		// this.browserContextwebDriverConfiguration.SetWebDriverTimeouts(5);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 
@@ -358,15 +350,16 @@ public class UbicacionRiesgoPage {
 		}
 		this.webDriver.exitFrame();
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
-		logger.debug("END - CloseAvisoSistemaPopup");
+		debugEnd();
 	}
 
 	public void modifyReferenciaCatastral() {
-		logger.debug("BEGIN - ModificarReferenciaCatastral");
+		debugBegin();
+		
 		String referenciaCatastral = this.webDriver.getTextInFrame(this.txtCurrentReferenciaCatastral, this.cuerpoFrame);
 		// String expectedReferenciaCatastral =
 		// this.browserContext.getTestCaseData().getReferenciaCatastral();
-		String expectedReferenciaCatastral = this.tCData.getConfigVar("ReferenciaCatastral");
+		String expectedReferenciaCatastral = getConfigVar("ReferenciaCatastral");
 
 		if(!referenciaCatastral.trim().equals(expectedReferenciaCatastral.substring(0, expectedReferenciaCatastral.length() - 6))) {
 			this.webDriver.clickInFrame(this.btnModificarReferenciaCatastral, this.cuerpoFrame);
@@ -375,24 +368,25 @@ public class UbicacionRiesgoPage {
 			this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 			this.webDriver.clickInFrame(this.btnModificarInmueble, this.cuerpoFrame);
 		}
-		logger.debug("END - ModificarReferenciaCatastral");
+		
+		debugEnd();
 	}
 
 	public void editInmuebleAndExcluirGarajesYLocales() {
-		// if (this.tCData.isExcluirGarajes() || this.tCData.isExcluirLocales())
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExcluirGarajes")) || Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExcluirLocales"))) {
+		// if (isExcluirGarajes() || isExcluirLocales())
+		if(Boolean.parseBoolean(getTestVar("ExcluirGarajes")) || Boolean.parseBoolean(getTestVar("ExcluirLocales"))) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			this.webDriver.click(this.btnLapiz);
 			// if (!this.chkExcluirGarajes.isSelected() &&
-			// this.tCData.isExcluirGarajes())
+			// isExcluirGarajes())
 
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(this.tCData.getTestVar(testId, "ExcluirGarajes"))) {
+			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(getTestVar("ExcluirGarajes"))) {
 				this.webDriver.click(this.chkExcluirGarajes);
 			}
 
 			// if (!this.chkExcluirLocales.isSelected() &&
-			// this.tCData.isExcluirLocales())
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(this.tCData.getTestVar(testId, "excluir_locales"))) {
+			// isExcluirLocales())
+			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(getTestVar("excluir_locales"))) {
 				this.webDriver.click(this.chkExcluirLocales);
 			}
 
@@ -402,20 +396,20 @@ public class UbicacionRiesgoPage {
 	}
 
 	public void editCalidadConstruccion() {
-		// if (this.tCData.getCalidadConstruccion() != null)
-		if(this.tCData.getTestVar(testId, "calidad_construccion") != null) {
+		// if (getCalidadConstruccion() != null)
+		if(getTestVar("calidad_construccion") != null) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			// this.webDriver.selectValueInDropDown(this.cbkCalidadConstruccion,
-			// this.tCData.getCalidadConstruccion());
-			this.webDriver.clickElementFromDropDownByAttribute(this.cbkCalidadConstruccion, "value", this.tCData.getTestVar(testId, "calidad_construccion"));
+			// getCalidadConstruccion());
+			this.webDriver.clickElementFromDropDownByAttribute(this.cbkCalidadConstruccion, "value", getTestVar("calidad_construccion"));
 			this.webDriver.tabulateElement(this.cbkCalidadConstruccion);
 			this.webDriver.exitFrame();
 		}
 	}
 
 	// public void asegurarUnicamenteGarajes() {
-	// // if (this.tCData.isAsegurarUnicamenteGarajes())
-	// if(Boolean.parseBoolean(this.tCData.getTestVar(testId,
+	// // if (isAsegurarUnicamenteGarajes())
+	// if(Boolean.parseBoolean(getTestVar(testId,
 	// "asegurar_unicamente_garajes"))) {
 	// this.webDriver.switchToFrame(this.cuerpoFrame);
 	// this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
@@ -425,8 +419,8 @@ public class UbicacionRiesgoPage {
 	// }
 
 	public void asegurarUnicamenteGarajes() {
-		// if (this.tCData.isAsegurarUnicamenteGarajes())
-		// if(Boolean.parseBoolean(this.tCData.getScenarioVar(testId,
+		// if (isAsegurarUnicamenteGarajes())
+		// if(Boolean.parseBoolean(getScenarioVar(testId,
 		// "asegurar_unicamente_garajes"))) {
 		// this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.waitWithDriver(2000);
@@ -438,123 +432,111 @@ public class UbicacionRiesgoPage {
 		// }
 	}
 
-	public void printLogProcessPercentage(
-		String message, int current, int total) {
+	public void printLogProcessPercentage(String message, int current, int total) {
 		if((int) ((double) current / (double) total * 100) > (int) ((double) current - 1 / (double) total * 100)) {
-			logger.debug(message + (int) ((double) current / (double) total * 100) + "%");
+			debugInfo(message + (int) ((double) current / (double) total * 100) + "%");
 		}
 	}
 
-	public void iterarEdificiosPorDirecciones(
-		String nombreFichero) throws InterruptedException {
-		logger.debug("BEGIN - IterarEdificiosPorDirecciones");
+	public void iterarEdificiosPorDirecciones(String nombreFichero) throws InterruptedException {
+		debugBegin();
 
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirInmueblePantallaPrincipal,
 		// this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
 
-		int sectionSize = 50, linesInFile = StringUtils.countOcurrencesInString(nombreFichero, "\n") + 1;
-
 		// Read file and fill HashMap
-		HashMap<String, HashMap<String, String>> tablaHash;
+		DataObject dataObject = new DataObject(FileUtils.csvFileToMData(nombreFichero));
 
-		// Load data in a HashMap by sections depending on "sectionSize"
-		for(int j = 0; j < linesInFile; j += sectionSize) {
-			tablaHash = ArrayFileUtils.loadDataFileSectionToHashMapByInitialLineAndSize(nombreFichero, j, sectionSize, false);
+		// Iterate by number of lines
+		for(int i = 0; i < dataObject.size(); i++) {
+			boolean dropDownPresent = true;
+			String provincia = dataObject.getValue(i + "", "provincia");
+			String poblacion = dataObject.getValue(i + "", "poblacion");
+			String direccion = dataObject.getValue(i + "", "direccion");
+			String numero = dataObject.getValue(i + "", "numero");
+			String direccionTotal = provincia + " " + poblacion + " " + direccion + " " + numero;
+			// Print iteration process percentage
+			this.printLogProcessPercentage("Iterations - ", i, dataObject.size());
 
-			// Iterate by number of lines
-			for(int i = 0; i < tablaHash.size(); i++) {
-				boolean dropDownPresent = true;
-				String address = ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "provincia", i) + " "
-					+ ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "poblacion", i) + " "
-					+ ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "direccion", i) + " "
-					+ ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "numero", i);
-				// Print iteration process percentage
-				this.printLogProcessPercentage("Iterations - ", j + i, linesInFile);
+			// If text in field "provincia" is not equals to the
+			// provincia(i) value
+			if(!this.webDriver.getTextInFrame(this.txtProvincia, this.cuerpoFrame).contains(provincia)) {
+				// Fill provincia
+				// this.webDriver.waitForPageLoadToFinish();
+				this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, provincia);
+				// this.webDriver.clickInFrame(this.lblMatchFoundElement,
+				// this.cuerpoFrame);
+				// this.webDriver.waitForPageLoadWithAngular();
+				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
+				if(!dropDownPresent)
+					System.out.println("Nombre de provincia no encontrado en el dropdown\n" + direccionTotal);
+			}
 
-				// If text in field "provincia" is not equals to the
-				// provincia(i) value
-				if(!this.webDriver.getTextInFrame(this.txtProvincia, this.cuerpoFrame).contains(ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "provincia", i))) {
-					// Fill provincia
-					// this.webDriver.waitForPageLoadToFinish();
-					this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "provincia", i));
-					// this.webDriver.clickInFrame(this.lblMatchFoundElement,
+			// If text in field "poblacion" is not equals to the
+			// poblacion(i) value
+			if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtPoblacion, this.cuerpoFrame).contains(poblacion)) {
+				// Fill poblacion
+				// this.webDriver.waitForAngular();
+				this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, poblacion);
+				// this.webDriver.waitForPageLoadWithAngular();
+				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
+				if(!dropDownPresent)
+					System.out.println("Nombre de población no encontrado en el dropdown\n" + direccionTotal);
+			}
+
+			// If text in field "direccion" is not equals to the
+			// direccion(i) value
+			if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtNombreVia, this.cuerpoFrame).contains(direccion)) {
+				// Fill direccion
+				// this.webDriver.waitForAngular();
+				this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, direccion);
+				// this.webDriver.waitForPageLoadWithAngular();
+				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
+				if(!dropDownPresent)
+					System.out.println("Nombre de via no encontrado en el dropdown\n" + direccionTotal);
+			}
+
+			// Fill numero
+			if(this.webDriver.isPresentInFrame(this.txtNumeroVia, this.cuerpoFrame))
+				this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, numero);
+			// Fill codigo postal
+			if(this.webDriver.isPresentInFrame(this.txtCodigoPostal, this.cuerpoFrame)) {
+				String codigoPostal = dataObject.getValue(i + "", "codigo_postal");
+				this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
+			}
+
+			if(dropDownPresent) {
+				try {
+					// Search
+					this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
+
+					// Wait result
+					System.out.println(this.webDriver.isPresentInFrame(this.resultadoBusqueda, this.cuerpoFrame) ? "Dirección normalizada"
+						: "Direccion no encontrada\n" + direccionTotal);
+					// this.webDriver.waitForWebElementInFrame(this.resultadoBusqueda,
 					// this.cuerpoFrame);
-					// this.webDriver.waitForPageLoadWithAngular();
-					dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
-					if(!dropDownPresent)
-						System.out.println("Nombre de provincia no encontrado en el dropdown\n" + address);
-				}
 
-				// If text in field "poblacion" is not equals to the
-				// poblacion(i) value
-				if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtPoblacion, this.cuerpoFrame)
-					.contains(ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "poblacion", i))) {
-					// Fill poblacion
-					// this.webDriver.waitForAngular();
-					this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "poblacion", i));
-					// this.webDriver.waitForPageLoadWithAngular();
-					dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
-					if(!dropDownPresent)
-						System.out.println("Nombre de población no encontrado en el dropdown\n" + address);
-				}
+				} catch(UnhandledAlertException e) {
+					// WebElement Alert = null;
 
-				// If text in field "direccion" is not equals to the
-				// direccion(i) value
-				if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtNombreVia, this.cuerpoFrame)
-					.contains(ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "direccion", i))) {
-					// Fill direccion
-					// this.webDriver.waitForAngular();
-					this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "direccion", i));
-					// this.webDriver.waitForPageLoadWithAngular();
-					dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
-					if(!dropDownPresent)
-						System.out.println("Nombre de via no encontrado en el dropdown\n" + address);
-				}
-
-				// Fill numero
-				if(this.webDriver.isPresentInFrame(this.txtNumeroVia, this.cuerpoFrame))
-					this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "numero", i));
-				// Fill codigo postal
-				if(this.webDriver.isPresentInFrame(this.txtCodigoPostal, this.cuerpoFrame)) {
-					String codigoPostal = ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "codigo_postal", i);
-					this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
-				}
-
-				if(dropDownPresent) {
-					try {
-						// Search
-						this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
-
-						// Wait result
-						// this.webDriver.waitForPageLoadWithAngular();
-						System.out.println(this.webDriver.isPresentInFrame(this.resultadoBusqueda, this.cuerpoFrame) ? "Dirección normalizada"
-							: "Direccion no encontrada\n" + address);
-						// this.webDriver.waitForWebElementInFrame(this.resultadoBusqueda,
-						// this.cuerpoFrame);
-
-					} catch(UnhandledAlertException e) {
-						// WebElement Alert = null;
-
-						// Manage alert Pop-up
-						// this.webDriver.getAlertTextAndAccept(Alert);
-						this.webDriver.acceptAlert();
-						// System.out.println(this.webDriver.getAlertText());
-						// this.webDriver.exitFrame();
-					}
+					// Manage alert Pop-up
+					// this.webDriver.getAlertTextAndAccept(Alert);
+					this.webDriver.acceptAlert();
+					// System.out.println(this.webDriver.getAlertText());
+					// this.webDriver.exitFrame();
 				}
 			}
 		}
+		
 		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
 		this.webDriver.quit();
-		logger.debug("END - IterarEdificiosPorDirecciones");
+		debugEnd();
 	}
 
-	public void iterarEdificiosPorReferencias(
-		String nombreFichero) throws Exception {
-		logger.debug("BEGIN - IterarEdificiosPorReferencias");
+	public void iterarEdificiosPorReferencias(String nombreFichero) throws Exception {
+		debugBegin();
 
-		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.moveToElementAndClickInFrame(this.btnAnadirInmueblePantallaPrincipal,
 		// this.cuerpoFrame);
 		this.webDriver.isPresentAndClickInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
@@ -562,22 +544,22 @@ public class UbicacionRiesgoPage {
 		this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
 
 		// Read file and fill HashMap
-		HashMap<String, HashMap<String, String>> tablaHash = ArrayFileUtils.loadDataFileToHashMap(nombreFichero, false);
+		DataObject dataObject = new DataObject(FileUtils.csvFileToMData(nombreFichero));
 
 		// Iterate by number of lines
-		for(int i = 0; i < tablaHash.size(); i++) {
+		for(int i = 0; i < dataObject.size(); i++) {
 			System.out.println("***En en bucle iterar");
-			String refCat = ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "ref_catastral", i);
+			String refCat = dataObject.getValue(i + "", "ref_catastral");
 			// Print iteration process percentage
-			this.printLogProcessPercentage("Iterations - ", i, tablaHash.size());
+			this.printLogProcessPercentage("Iterations - ", i, dataObject.size());
 
 			// Search
 			try {
 				// Fill referencia_catastral
-				this.webDriver.appendTextInFrame(this.txtReferenciaCatastral, this.cuerpoFrame, ArrayFileUtils.getValuesDataSetByIndex(tablaHash, "ref_catastral", i));
+				this.webDriver.appendTextInFrame(this.txtReferenciaCatastral, this.cuerpoFrame, refCat);
 
 				this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
-				// this.webDriver.waitForPageLoadWithAngular();
+
 				// Wait result
 				if(this.webDriver.isPresentInFrame(this.mensajeModalError, this.cuerpoFrame)) {
 					System.out.println("Referencia catastral no encontrada\n" + refCat);
@@ -594,46 +576,31 @@ public class UbicacionRiesgoPage {
 				// Manage alert Pop-up
 				this.webDriver.acceptAlert();
 				System.out.println("Error con referencia catastral\n" + refCat);
-				System.out.println("Error con referencia catastral\n" + refCat);
 				// this.webDriver.exitFrame();
 			} catch(Exception e) {
 				this.webDriver.quit();
 
-				new LoginPage(webDriver, tCData)
-					.logIn(tCData.getConfigVar("environment"), tCData.getTestVar(testId, "acceso"), tCData.getTestVar(testId, "usuario"));
-
-				/*
-				 * this.browserContext.initializeVariables(this.browserContext.
-				 * getTestCaseData().getAcceso());
-				 * 
-				 * this.wh = this.browserContext.webElementHelper;
-				 * PageFactory.initElements(this.browserContext.getWebDriver(),
-				 * this);
-				 * this.browserContext.applicationAccessHelper.login(this.
-				 * browserContext.getTestCaseData().getUsuario(),
-				 * this.browserContext.getProperties().passwordComun);
-				 */
+				new LoginPage(userS)
+					.logIn(getConfigVar("environment"), getTestVar("acceso"), getTestVar("usuario"));
 
 				// FichaEdificioPage
-				InnovaHomePage innovaHomePage = new InnovaHomePage(this.webDriver, this.tCData);
+				InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
 				innovaHomePage.openMutuaEdificioConfort();
 				innovaHomePage.CreateNewProject();
 
-				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(this.webDriver, this.tCData);
+				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
 				//
 				// REVISAR PARAMETROS DE ENTRADA DE: AsignarMediadorPage
 				//
-				asignarMediadorPage.selectMediadorAndClickOnContinuar(this.tCData.getConfigVar("mediador"));
+				asignarMediadorPage.selectMediadorAndClickOnContinuar(getConfigVar("mediador"));
 
-				// this.webDriver.waitForPageLoadWithAngular();
 				this.webDriver.moveToElementInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
-				// this.webDriver.waitForPageLoadWithAngular();
 				this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
 			}
 		}
 		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
 		this.webDriver.quit();
-		logger.debug("END - IterarEdificiosPorReferencias");
+		debugEnd();
 	}
 
 	public boolean checkNotification() {
@@ -641,7 +608,7 @@ public class UbicacionRiesgoPage {
 	}
 
 	public boolean closeNotification() {
-		logger.debug("BEGIN - closeNotification");
+		debugBegin();
 		boolean value = false;
 
 		if(this.checkNotification()) {
@@ -649,18 +616,17 @@ public class UbicacionRiesgoPage {
 			value = true;
 		}
 
-		logger.debug("END - closeNotification");
+		debugEnd();
 		return value;
 	}
 
-	public void GuardarRefCatastral(
-		String cadenaTexto) {
+	public void GuardarRefCatastral(String cadenaTexto) {
 		try {
 			// String ruta = fileDownloadTempPath + "\\Polizas.txt";
 			// String ruta =
 			// this.browserContext.getTestCaseData().getFileDownloadTempPath() +
 			// "\\Polizas.txt";
-			String ruta = tCData.getConfigVar("fileDownloadTempPath") + "\\Polizas.txt";
+			String ruta = getConfigVar("fileDownloadTempPath") + "\\Polizas.txt";
 			// File archivo = new File("C:\\MutuaPropietarios\\Polizas.txt");
 			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta, true), StandardCharsets.UTF_8));
 			bw.write(cadenaTexto + "_");

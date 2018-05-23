@@ -1,21 +1,10 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
-//import com.mutuaPropietarios.WebdriverContext.BrowserContext;
-//import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
-//import com.mutuaPropietarios.testCasesData.context.TestCaseData;
-
-public class PrecioPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class PrecioPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
@@ -74,10 +63,8 @@ public class PrecioPage {
 
 	// endregion
 
-	public PrecioPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public PrecioPage(UserStory userS) {
+		super(userS);
 	}
 
 	public void ExecuteActionsInPrecioPage() {
@@ -86,7 +73,7 @@ public class PrecioPage {
 
 	// region methods
 	public void clickOnConvertirAProjecto() {
-		logger.debug("BEGIN - ClickOnConvertirAProjecto");
+		debugBegin();
 		// this.webDriver.waitWithDriver(5000);
 		// this.webDriver.switchToFrame(this.cuerpoFrame);
 		// this.webDriver.clickInFrame(this.btnConvertirAProyecto,
@@ -103,7 +90,8 @@ public class PrecioPage {
 		if(this.webDriver.isPresentInFrame(this.msgAvisoSistema, this.cuerpoFrame)) {
 			System.out.println("*** Excepción general al convertir a proyecto.");
 		}
-		logger.debug("END - ClickOnConvertirAProjecto");
+		
+		debugEnd();
 	}
 
 }

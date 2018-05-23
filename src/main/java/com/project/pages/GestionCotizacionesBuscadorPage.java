@@ -1,11 +1,8 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.project.ProjectConstants;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -13,12 +10,7 @@ import com.project.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class GestionCotizacionesBuscadorPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class GestionCotizacionesBuscadorPage extends PageObject {
 
 	// region Bys
 	// @FindBy(name = "toc")
@@ -59,16 +51,14 @@ public class GestionCotizacionesBuscadorPage {
 	private By estadoCotizacion = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(8)");
 	// endregion
 
-	public GestionCotizacionesBuscadorPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public GestionCotizacionesBuscadorPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
-	public void searchCotizacion(
-		String cotizacion) {
-		logger.debug("BEGIN - SearchCotizacion");
+	public void searchCotizacion(String cotizacion) {
+		debugBegin();
+		
 		this.webDriver.clickInFrame(this.rdnNoCotizacion, this.mainFrame);
 		if(cotizacion == "Mec")
 		// if
@@ -82,29 +72,30 @@ public class GestionCotizacionesBuscadorPage {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProductoCotizacion, this.mainFrame, ProjectConstants.MutuaAlquierConfort);
 		}
 
-		this.webDriver.appendTextInFrame(this.txtNumeroCotizacion, this.mainFrame, this.tCData.getTestVar(testId, "CotizacionNum"));
+		this.webDriver.appendTextInFrame(this.txtNumeroCotizacion, this.mainFrame, this.testDataM.getTestVar(testId, "CotizacionNum"));
 		this.webDriver.clickInFrame(this.btnBuscar, this.mainFrame);
-		logger.debug("END - SearchCotizacion");
+		
+		debugEnd();
 	}
 
 	public String getCotizacion() {
-		logger.debug("BEGIN - GetCotizacion");
+		debugBegin();
 		String cotizacion = this.webDriver.getTextInFrame(this.txtResultadosNumeroCotizacion, this.mainFrame);
-		logger.debug("END - GetCotizacion");
+		debugEnd();
 		return cotizacion;
 	}
 
 	public void modificarProjecto() {
-		logger.debug("BEGIN - ModificarProjecto");
+		debugBegin();
 		this.webDriver.clickInFrame(this.btnMostrarAcciones, this.mainFrame);
 		this.webDriver.clickInFrame(this.btnModificar, this.mainFrame);
-		logger.debug("END - ModificarProjecto");
+		debugEnd();
 	}
 
 	public String getEstadoCotizacion() {
-		logger.debug("BEGIN - recuperar resultado autorizacion");
+		debugBegin();
 		String result = this.webDriver.getTextInFrame(this.estadoCotizacion, this.mainFrame);
-		logger.debug("END - recuperar resultado autorizacion");
+		debugEnd();
 		return result;
 	}
 	// endregion

@@ -9,24 +9,16 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.project.ProjectConstants;
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class ValidacionExcepcionesReglasDetallesRiesgoPage {
-	
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 
 	// region webelements
 	@FindBy(name = "cuerpo")
@@ -100,34 +92,35 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 	// PageFactory.initElements(browserContext.getWebDriver(), this);
 	// }
 
-	public ValidacionExcepcionesReglasDetallesRiesgoPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public ValidacionExcepcionesReglasDetallesRiesgoPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public boolean checkContinuarAvailability() throws IOException {
+		debugBegin();
+		
 		boolean value = false;
 
-		logger.debug("BEGIN - checkContinuarAvailability");
 		value = this.webDriver.isPresentInFrame(this.btnContinuar, this.cuerpoFrame);
-		logger.debug("END - checkContinuarAvailability");
+		
+		debugEnd();
 		return value;
 	}
 
 	public void clickOnContinuar() throws IOException {
-		logger.debug("BEGIN - checkContinuarAvailability");
+		debugBegin();
 		// Added if statement as the riesgo ya asegurado messaage only appears
 		// if we launch the same test twice or more in the same day.
 		if(this.webDriver.isPresentInFrame(this.lblAvisoRiesgoYaAsegurado, this.cuerpoFrame)) {
 			this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		}
-		logger.debug("END - checkContinuarAvailability");
+		
+		debugEnd();
 	}
 
 	public void ClickOnContinuarAndValidate() throws IOException {
-		logger.debug("BEGIN - ClickOnContinuarButton");
+		debugBegin();
 
 		// this.browserContext.getTestCaseData().setInfraseguro(false);
 		this.webDriver.waitWithDriver(10000);
@@ -135,15 +128,15 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 		this.webDriver.waitWithDriver(10000);
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts(5);
 
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "InfraSeguro"))
-			&& !this.tCData.getTestVar(testId, "deshabilitacion").equals("")
-			&& !this.tCData.getTestVar(testId, "edificioMadera").equals("")) {
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "InfraSeguro"))
+			&& !this.testDataM.getTestVar(testId, "deshabilitacion").equals("")
+			&& !this.testDataM.getTestVar(testId, "edificioMadera").equals("")) {
 			this.CheckInfraseguroMsg();
 		}
 
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "SupraSeguro"))
-			&& !this.tCData.getTestVar(testId, "deshabilitacion").equals("")
-			&& !this.tCData.getTestVar(testId, "edificioMadera").equals("")) {
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "SupraSeguro"))
+			&& !this.testDataM.getTestVar(testId, "deshabilitacion").equals("")
+			&& !this.testDataM.getTestVar(testId, "edificioMadera").equals("")) {
 			this.CheckSupraseguroMsg();
 		}
 
@@ -157,59 +150,65 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
 		this.webDriver.exitFrame();
-		logger.debug("END - ClickOnContinuarButton");
+		debugEnd();
 	}
 
 	public void CheckInfraseguroMsg() throws IOException {
-		logger.debug("BEGIN - CheckInfraseguroMsg");
+		debugBegin();
+		
 		if(this.lblInfraseguroMsg.size() != 1) {
-			// this.tCData.setInfraseguroMessageAppeared(true);
-			this.tCData.setTestVar(testId, "InfraseguroMessageAppeared", "true");
+			// this.testDataM.setInfraseguroMessageAppeared(true);
+			this.testDataM.setTestVar(testId, "InfraseguroMessageAppeared", "true");
 			// throw new IOException("El aviso de que se está incurriendo en
 			// infraseguro no ha aparecido");
 		}
-		logger.debug("END - CheckInfraseguroMsg");
+		
+		debugEnd();
 	}
 
 	public void CheckSupraseguroMsg() throws IOException {
-		logger.debug("BEGIN - CheckSupraseguroMsg");
+		debugBegin();
+		
 		if(this.lblSupraseguroMsg.size() != 1) {
-			// this.tCData.setSupraseguroMessageAppeared(true);
-			this.tCData.setTestVar(testId, "SupraseguroMessageAppeared", "true");
+			// this.testDataM.setSupraseguroMessageAppeared(true);
+			this.testDataM.setTestVar(testId, "SupraseguroMessageAppeared", "true");
 			// throw new IOException("El aviso de que se está incurriendo en
 			// infraseguro no ha aparecido");
 		}
-		logger.debug("END - CheckSupraseguroMsg");
+		
+		debugEnd();
 	}
 
 	public boolean CheckAvisoPeritajePlantasSotano() {
-		logger.debug("BEGIN - CheckAvisoPeritajePlantasSotano");
-		logger.debug("END - CheckAvisoPeritajePlantasSotano");
-		return Integer.parseInt(this.tCData.getTestVar(testId, "numeroPlantasSotano")) >= 6
-			&& Integer.parseInt(this.tCData.getTestVar(testId, "numeroPlantasSotano")) <= 10;
+		debugBegin();
+		
+		boolean result = Integer.parseInt(this.testDataM.getTestVar(testId, "numeroPlantasSotano")) >= 6
+			&& Integer.parseInt(this.testDataM.getTestVar(testId, "numeroPlantasSotano")) <= 10;
+
+		debugEnd();
+		return result;
 	}
 
-	public void CheckAviso(
-		String aviso) {
-		logger.debug("BEGIN - CheckAviso");
+	public void CheckAviso(String aviso) {
+		debugBegin();
 		Assert.assertTrue("El aviso no aparece", this.webDriver.isPresentInFrame(By.xpath(".//*[contains(text(),'" + aviso + "')]"), this.cuerpoFrame));
-		logger.debug("END - CheckAviso");
+		debugEnd();
 	}
 
 	public boolean CheckAvisoPeritajeConstructionYearGreaterThan50() {
-		logger.debug("BEGIN - CheckAvisoPeritajeConstructionYearGreaterThan50");
+		debugBegin();
 
 		DateTimeZone timeZone = DateTimeZone.forID("Europe/Madrid");
 		DateTime dateTime = DateTime.now(timeZone);
 		int year = dateTime.year().get();
 
-		logger.debug("END - CheckAvisoPeritajeConstructionYearGreaterThan50");
-		return this.tCData.getTestVar(testId, "construccion_edificio") != null
-			&& year - Integer.valueOf(this.tCData.getTestVar(testId, "construccion_edificio")) > 50;
+		debugEnd();
+		return this.testDataM.getTestVar(testId, "construccion_edificio") != null
+			&& year - Integer.valueOf(this.testDataM.getTestVar(testId, "construccion_edificio")) > 50;
 	}
 
 	public boolean CheckAvisoPeritajeCapitalContinenteGreaterThan15000000() {
-		logger.debug("BEGIN - CheckErrorCapitalContinenteGreaterThan15000000");
+		debugBegin();
 		// if
 		// (this.browserContext.getTestCaseData().getCapitalContinente().intValue()
 		// > 15000000)
@@ -219,8 +218,8 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 		// capital continente es mayor de 15000000 no ha aparecido.",
 		// this.lblAvisoPeritajeCapitalGreaterThan1500000.size() == 1);
 		// }
-		logger.debug("END - lblErrorCapitalGreaterThan1500000");
-		return Integer.parseInt(this.tCData.getTestVar(testId, "capitalContinente")) > 15000000;
+		debugEnd();
+		return Integer.parseInt(this.testDataM.getTestVar(testId, "capitalContinente")) > 15000000;
 	}
 
 	// public void CheckAvisoPlantasSotano()
@@ -239,9 +238,12 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 	// }
 
 	public boolean CheckAvisoPlantasSotanoMoreThan10() {
-		logger.debug("BEGIN - CheckAvisoPlantasSotanoMoreThan10");
-		logger.debug("END - CheckAvisoPlantasSotanoMoreThan10");
-		return Integer.parseInt(this.tCData.getTestVar(testId, "num_plantas_sotano")) > 10;
+		debugBegin();
+		
+		boolean result = Integer.parseInt(this.testDataM.getTestVar(testId, "num_plantas_sotano")) > 10;
+		
+		debugEnd();
+		return result;
 	}
 
 	// public void CheckAvisoRiesgoAgravado()
@@ -258,51 +260,54 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 	// }
 
 	public boolean CheckAvisoRiesgoAgravado() {
-		logger.debug("BEGIN - CheckAvisoRiesgoAgravado");
-		logger.debug("END - CheckAvisoRiesgoAgravado");
-		return Boolean.parseBoolean(this.tCData.getTestVar(testId, "GasolineraMenos50M"));
+		debugBegin();
+		
+		boolean result = Boolean.parseBoolean(this.testDataM.getTestVar(testId, "GasolineraMenos50M"));
+		
+		debugEnd();
+		return result;
 	}
 
 	public void CheckAvisoComuniadesEnTramite() {
-		logger.debug("BEGIN - CheckAvisoComuniadesEnTramite");
-		if(this.tCData.getTestVar(testId, "tomador").equals(ProjectConstants.AvisoComunidadesEnTramite)) {
+		debugBegin();
+		if(this.testDataM.getTestVar(testId, "tomador").equals(ProjectConstants.AvisoComunidadesEnTramite)) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
-			Assert
-				.assertTrue("EL mensaje de error que debía aparecer cuando se introducen comunidades en trámite cuando el edificio tiene antigüedad superior a 1 año no ha aparecido.", this.lblAvisoComunidadesEnTramite
-					.size() == 1);
-			logger.debug("END - CheckAvisoComuniadesEnTramite");
+			Assert.assertTrue(
+				"EL mensaje de error que debía aparecer cuando se introducen comunidades en trámite cuando el edificio tiene antigüedad superior a 1 año no ha aparecido.", 
+				this.lblAvisoComunidadesEnTramite.size() == 1);
 		}
+		debugEnd();
 	}
 
 	public void CheckAvisoPlantasAlto() {
-		logger.debug("BEGIN - CheckAvisoPlantasAlto");
-		if(Integer.parseInt(this.tCData.getTestVar(testId, "num_plantas_alto")) > 20) {
+		debugBegin();
+		if(Integer.parseInt(this.testDataM.getTestVar(testId, "num_plantas_alto")) > 20) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			Assert.assertTrue("El mensaje de error que debía aparecer cuando se introduce un número de plantas en alto mayor de 20 no ha aparecido.", this.lblAvisoNumeroPlantasAlto.size() == 1);
-			logger.debug("END - CheckAvisoPlantasAlto");
 		}
+		debugEnd();
 	}
 
 	public void CheckAvisoPlantasAltoYContinuar() {
-		logger.debug("BEGIN - CheckAvisoPlantasAltoYContinuar");
+		debugBegin();
 		if(this.webDriver.isPresentInFrame(this.lblAvisoNumeroPlantasAlto1, this.cuerpoFrame)) {
 			System.out.println("El riesgo necesita ser revisado por el numero de plantas en alto");
 			this.webDriver.clickInFrame(this.btnVolver, this.cuerpoFrame);
 		}
-		logger.debug("END - CheckAvisoPlantasAltoYContinuar");
+		debugEnd();
 	}
 
 	/*
 	 * public boolean
 	 * CheckAvisoRehabilitacionIntegralYConstruccionesComunitarias() {
 	 * logger.debug("BEGIN - CheckAvisoRehabilitacionIntegral"); if
-	 * (!(this.tCData.getAnyoRehabilitacionConstruccionesComunitarias() != null)
-	 * && this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias() !=
-	 * null || this.tCData.getAnyoRehabilitacionIntegral() != null) {
+	 * (!(this.testDataM.getAnyoRehabilitacionConstruccionesComunitarias() != null)
+	 * && this.testDataM.getNivelRehabilitacionConduccionesAguasComunitarias() !=
+	 * null || this.testDataM.getAnyoRehabilitacionIntegral() != null) {
 	 * System.out.println("***1"); if
 	 * (this.lblAvisoModificacionRehabilitacionIntegral.size() == 1) {
 	 * System.out.println("***2");
-	 * this.tCData.setAnyoRehabilitacionConstruccionesComunitariasMessage(true);
+	 * this.testDataM.setAnyoRehabilitacionConstruccionesComunitariasMessage(true);
 	 * return true; } } logger.debug("END - CheckAvisoRehabilitacionIntegral");
 	 * return false; }
 	 */
@@ -310,14 +315,14 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 	// public boolean CheckAvisoRehabilitacionIntegralWithException()
 	// {
 	// logger.debug("BEGIN - CheckAvisoRehabilitacionIntegral");
-	// if (!(this.tCData.getAnyoRehabilitacionConstruccionesComunitarias() !=
+	// if (!(this.testDataM.getAnyoRehabilitacionConstruccionesComunitarias() !=
 	// null)
-	// && this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias() !=
-	// null || this.tCData.getAnyoRehabilitacionIntegral() != null)
+	// && this.testDataM.getNivelRehabilitacionConduccionesAguasComunitarias() !=
+	// null || this.testDataM.getAnyoRehabilitacionIntegral() != null)
 	// {
 	// System.out.println("***3");
 	// Assert.assertTrue(MutuaPropietariosConstants.AvisoModificacionRehabilitacionIntegralNotPressent,
-	// this.tCData.isAnyoRehabilitacionConstruccionesComunitariasMessage());
+	// this.testDataM.isAnyoRehabilitacionConstruccionesComunitariasMessage());
 	// return true;
 	//
 	// }
@@ -327,41 +332,41 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 	// }
 
 	public boolean CheckAvisoRehabilitacionIntegralWithException() {
-		logger.debug("BEGIN - CheckAvisoRehabilitacionIntegral");
-		if(this.tCData.getTestVar(testId, "nivel_rehab_aguas_comun") != null) {
+		debugBegin();
+		if(this.testDataM.getTestVar(testId, "nivel_rehab_aguas_comun") != null) {
 			if(!this.webDriver.isPresent(this.lblAvisoModificacionRehabilitacionIntegral)) {
 				Assert.assertTrue(ProjectConstants.AvisoModificacionRehabilitacionIntegralNotPressent, Boolean
-					.parseBoolean(this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitariasMessage")));
+					.parseBoolean(this.testDataM.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitariasMessage")));
 				return true;
 			}
 		}
 
-		logger.debug("END - CheckAvisoRehabilitacionIntegral");
+		debugEnd();
 		return false;
 	}
 
 	public boolean CheckAvisoConstructionYear() {
-		logger.debug("BEGIN - CheckAvisoConstrucionYear");
-		// if (!this.tCData.getAnyoConstruccion().equals("-1"))
-		if(this.tCData.getTestVar(testId, "construccion_edificio") != null) {
+		debugBegin();
+		// if (!this.testDataM.getAnyoConstruccion().equals("-1"))
+		if(this.testDataM.getTestVar(testId, "construccion_edificio") != null) {
 			if(this.lblAvisoModificacionAnyoConstruccion.size() == 1) {
-				this.tCData.setTestVar(testId, "construccion_edificio", "true");
+				this.testDataM.setTestVar(testId, "construccion_edificio", "true");
 				return true;
 			}
 		}
 
-		logger.debug("END - CheckAvisoConstrucionYear");
+		debugEnd();
 		return false;
 	}
 
 	public void CheckAvisoConstructionYearWithException() {
-		logger.debug("BEGIN - CheckAvisoConstructionYearWithException");
-		if(!this.tCData.getTestVar(testId, "construccion_edificio").equals("-1")) {
+		debugBegin();
+		if(!this.testDataM.getTestVar(testId, "construccion_edificio").equals("-1")) {
 			if(this.lblAvisoModificacionAnyoConstruccion.size() == 1) {
 				Assert.assertTrue(ProjectConstants.AvisoModificacionAnyoConstruccionNotPressent, this.lblAvisoModificacionAnyoConstruccion.get(0).isDisplayed());
 			}
 		}
-		logger.debug("END - CheckAvisoConstructionYearWithException");
+		debugEnd();
 	}
 
 	// endregion
@@ -371,11 +376,11 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 	// logger.debug("BEGIN -
 	// CheckAvisoAnyoRehabilitacionConduccionesComunitarias");
 	// if
-	// (!this.tCData.getAnyoRehabilitacionConstruccionesComunitarias().equals(null))
+	// (!this.testDataM.getAnyoRehabilitacionConstruccionesComunitarias().equals(null))
 	// {
 	// if (this.lblAvisoModificacionAnyoConstruccion.size() == 1)
 	// {
-	// this.tCData.setAnyoRehabilitacionConstruccionesComunitariasMessage(true);
+	// this.testDataM.setAnyoRehabilitacionConstruccionesComunitariasMessage(true);
 	// return true;
 	// }
 	// }

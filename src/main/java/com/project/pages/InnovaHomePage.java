@@ -1,26 +1,12 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
-/*
-import com.mutuaPropietarios.WebdriverContext.BrowserContext;
-import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
-import com.mutuaPropietarios.testCasesData.context.TestCaseData;
-*/
-
-public class InnovaHomePage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class InnovaHomePage extends PageObject {
 
 	// region webelements
-
 	// @FindBy (id = "leftFrame")
 	// private WebElement menuFrame;
 
@@ -89,43 +75,41 @@ public class InnovaHomePage {
 	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
 	 */
 
-	public InnovaHomePage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public InnovaHomePage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public void CreateNewProject() {
-		logger.debug("BEGIN - CreateNewProject");
+		debugBegin();
 		this.webDriver.doubleClickInFrame(this.btnNuevoProjecto, this.menuFrame);
-		logger.debug("END - CreateNewProject");
+		debugEnd();
 	}
 
 	public void createNewSimulation() {
-		logger.debug("BEGIN - CreateNewSimulation");
+		debugBegin();
 		this.webDriver.doubleClickInFrame(this.btnNuevaSimulaion, this.menuFrame);
-		logger.debug("END - CreateNewSimulation");
+		debugEnd();
 	}
 
 	public void openMutuaEdificioConfort() {
-		logger.debug("BEGIN - OpenMutuaEdificioConfort");
+		debugBegin();
 		this.webDriver.moveToElementInFrame(this.btnMutuaEdificioConfort, this.menuFrame);
 		this.webDriver.doubleClickInFrame(this.btnMutuaEdificioConfort, this.menuFrame);
 		// this.webDriver.waitForPageLoadWithAngular();
-		logger.debug("END - OpenMutuaEdificioConfort");
+		debugEnd();
 	}
 
 	public void OpenMutuaAlquilerConfort() {
-		logger.debug("BEGIN - OpenMutuaAlquilerConfort");
+		debugBegin();
 		this.webDriver.moveToElementInFrame(this.btnMutuaAlquilerConfort, this.menuFrame);
 		this.webDriver.doubleClickInFrame(this.btnMutuaAlquilerConfort, this.menuFrame);
 		// this.webDriver.waitForPageLoadWithAngular();
-		logger.debug("END - OpenMutuaAlquilerConfort");
+		debugEnd();
 	}
 
 	public void OpenGestionCotizaciones() {
-		logger.debug("BEGIN - OpenGestionCotizaciones");
+		debugBegin();
 		// La siguiente linea de codigo siempre ha sido comentado.
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnMapaSitio,
 		// this.menuFrame);
@@ -138,52 +122,52 @@ public class InnovaHomePage {
 		// this.webDriver.doubleClickInFrame(this.btnMapaSitio, this.topFrame);
 		// this.webDriver.doubleClickInFrame(this.btnGestionCotizaciones,
 		// this.mainFrame);
-		logger.debug("END - OpenGestionCotizaciones");
+		debugEnd();
 	}
 
 	public void OpenGestionPolizas() {
-		logger.debug("BEGIN - OpenGestionPolizas");
+		debugBegin();
 		// this.webDriver.doubleClickInFrame(this.btnMapaSitio, this.topFrame);
 		// this.webDriver.waitForPageLoadWithAngular();
 		this.webDriver.clickInFrame(this.btnMapaSitio, this.topFrame);
 		this.webDriver.clickInFrame(this.btnGestionPolizas, this.mainFrame);
 		// this.webDriver.clickInFrame(this.btnGestionPolizasMenu,
 		// this.menuFrame);
-		logger.debug("END - OpenGestionPolizas");
+		debugEnd();
 	}
 
 	public void OpenGestionAutorizaciones() {
-		logger.debug("BEGIN - OpenGestionAutorizaciones");
+		debugBegin();
 		this.webDriver.doubleClickInFrame(this.btnGestionAutorizaciones, this.menuFrame);
-		logger.debug("END - OpenGestionAutorizaciones");
+		debugEnd();
 	}
 
 	public void openMenuMEC() {
-		logger.debug("BEGIN - OpenGestionAutorizaciones");
+		debugBegin();
 		this.webDriver.doubleClickInFrame(this.btnMenuMEC, this.menuFrame);
-		logger.debug("END - OpenGestionAutorizaciones");
+		debugEnd();
 	}
 
 	public void openInnovaHome() {
-		logger.debug("BEGIN - openInnovaHome");
+		debugBegin();
 		// this.webDriver.doubleClickInFrame(this.btnMenuPrincipal,
 		// this.menuFrame);
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnMenuPrincipal,
 		// this.menuFrame);
 		this.webDriver.clickInFrame(this.btnMenuPrincipal, this.menuFrame);
-		logger.debug("END - openInnovaHome");
+		debugEnd();
 	}
 
 	public void openSiniestros() {
-		logger.debug("BEGIN - openSiniestros");
+		debugBegin();
 		this.webDriver.doubleClickInFrame(this.btnSiniestros, this.menuFrame);
-		logger.debug("END - openSineistros");
+		debugEnd();
 	}
 
 	public void openMediadores() {
-		logger.debug("BEGIN - openMediadores");
+		debugBegin();
 		this.webDriver.doubleClickInFrame(this.btnMediadores, this.menuFrame);
-		logger.debug("END - openMediadores");
+		debugEnd();
 	}
 	// endregion
 }

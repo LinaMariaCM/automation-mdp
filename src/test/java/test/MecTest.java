@@ -6,13 +6,13 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import com.automation.model.testing.SuiteManager;
-import com.automation.model.testing.TestClass;
 import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.TestObject;
 import com.project.ProjectConstants;
 import com.project.steps.Steps;
 
 
-public class MecTest extends TestClass {
+public class MecTest extends TestObject {
 
 	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MEC);
 

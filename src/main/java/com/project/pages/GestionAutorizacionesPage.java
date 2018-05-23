@@ -1,21 +1,10 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
-//import com.mutuaPropietarios.WebdriverContext.BrowserContext;
-//import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
-//import com.mutuaPropietarios.testCasesData.context.TestCaseData;
-
-public class GestionAutorizacionesPage {
-	
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class GestionAutorizacionesPage extends PageObject {
 
 	// region webelements
 
@@ -66,17 +55,16 @@ public class GestionAutorizacionesPage {
 
 	// endregion
 
-	public GestionAutorizacionesPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public GestionAutorizacionesPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 
 	public void buscarAutorizaciones(
 		String seleccionProceso, String seleccionEstado, String noCotizacion) {
-		logger.debug("BEGIN - buscarAutorizaciones");
+		debugBegin();
+		
 		this.webDriver.clickInFrame(this.cmbProceso, this.mainFrame);
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProceso, this.mainFrame, seleccionProceso);
 		this.webDriver.clickInFrame(this.cmbEstado, this.mainFrame);
@@ -84,29 +72,30 @@ public class GestionAutorizacionesPage {
 		this.webDriver.clickInFrame(this.numCotizacion, this.mainFrame);
 		this.webDriver.appendTextInFrame(this.numCotizacion, this.mainFrame, noCotizacion);
 		this.webDriver.clickInFrame(this.btnBuscar, this.mainFrame);
-		logger.debug("END - buscarAutorizaciones");
+		
+		debugEnd();
 	}
 
 	public void autorizar() {
-		logger.debug("BEGIN - autorizar");
+		debugBegin();
 		this.webDriver.clickInFrame(this.btnFlecha, this.mainFrame);
 		this.webDriver.clickInFrame(this.btnAutorizar, this.mainFrame);
 		this.webDriver.clickInFrame(this.btnAutorizar2, this.mainFrame);
-		logger.debug("END - autorizar");
+		debugEnd();
 	}
 
 	public void denegar() {
-		logger.debug("BEGIN - denegar");
+		debugBegin();
 		this.webDriver.clickInFrame(this.btnFlecha, this.mainFrame);
 		this.webDriver.clickInFrame(this.btnAnular, this.mainFrame);
 		this.webDriver.clickInFrame(this.btnAnular2, this.mainFrame);
-		logger.debug("END - denegar");
+		debugEnd();
 	}
 
 	public String recuperarResultadoAutorizacion() {
-		logger.debug("BEGIN - recuperar resultado autorizacion");
+		debugBegin();
 		String result = this.webDriver.getTextInFrame(this.mjsResultadoAut, this.mainFrame);
-		logger.debug("END - recuperar resultado autorizacion");
+		debugEnd();
 		return result;
 	}
 

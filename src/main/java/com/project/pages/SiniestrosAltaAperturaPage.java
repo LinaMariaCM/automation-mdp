@@ -1,7 +1,13 @@
 package com.project.pages;
 
-public class SiniestrosAltaAperturaPage {
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
+public class SiniestrosAltaAperturaPage extends PageObject {
 	
+	SiniestrosAltaAperturaPage(UserStory userS) {
+		super(userS);
+	}
 	// final static Logger logger =
 	// LoggerFactory.getLogger(SiniestrosAltaAperturaPage.class);
 	// BrowserContext browserContext;

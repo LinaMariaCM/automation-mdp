@@ -1,12 +1,18 @@
 package com.project.pages;
 
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class DocumentacionPage_MAC {
+public class DocumentacionPage_MAC extends PageObject {
 	
+	public DocumentacionPage_MAC(UserStory userS) {
+		super(userS);
+	}
 	// final static Logger logger =
 	// LoggerFactory.getLogger(DocumentacionPage_MAC.class);
 	// BrowserContext browserContext;

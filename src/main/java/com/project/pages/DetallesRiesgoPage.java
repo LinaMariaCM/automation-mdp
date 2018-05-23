@@ -10,12 +10,8 @@ import org.joda.time.DateTimeZone;
 import org.junit.Assert;
 
 import org.openqa.selenium.By;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
-
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.project.ProjectConstants;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -23,12 +19,7 @@ import com.project.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class DetallesRiesgoPage {
-
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class DetallesRiesgoPage extends PageObject {
 
 	Locale locale = new Locale("es", "ES");
 	NumberFormat nf = NumberFormat.getInstance(this.locale);
@@ -170,39 +161,37 @@ public class DetallesRiesgoPage {
 	 * PageFactory.initElements(browserContext.getWebDriver(), this); //
 	 * this.ExecuteActionsInPageDetallesRiesgoPage(); }
 	 */
-	public DetallesRiesgoPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public DetallesRiesgoPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public void executeActionsInPageDetallesRiesgoPage() throws Exception {
-		logger.debug("BEGIN - ExecuteActionsInPageDetallesRiesgoPage");
+		debugBegin();
 		this.CheckAvisoGarajes();
 		this.GetCapitales();
 		this.completarDatosRiesgo();
 		this.ModificarDatosRiesgo();
 		this.clickOnContinuar();
-		logger.debug("END - ExecuteActionsInPageDetallesRiesgoPage");
+		debugEnd();
 	}
 
 	public void completarDatosEnDetallesRiesgo() throws Exception {
-		logger.debug("BEGIN - completarDatosEnDetallesRiesgo");
+		debugBegin();
 		// this.CheckAvisoGarajes();
 		// this.GetCapitales();
 		this.completarDatosRiesgo();
 		this.clickOnContinuar();
-		logger.debug("END - completarDatosEnDetallesRiesgo");
+		debugEnd();
 	}
 
 	public void modificarDatosEnDetallesRiesgo() throws Exception {
-		logger.debug("BEGIN - modificarDatosEnDetallesRiesgo");
+		debugBegin();
 		this.CheckAvisoGarajes();
 		this.GetCapitales();
 		this.ModificarDatosRiesgo();
 		this.clickOnContinuar();
-		logger.debug("END - modificarDatosEnDetallesRiesgo");
+		debugEnd();
 	}
 
 	public void ExecuteActionsInPageDetallesRiesgoPageWithoutClickinOnContinue() throws Exception {
@@ -213,62 +202,63 @@ public class DetallesRiesgoPage {
 	}
 
 	public void completarDatosEnDetallesRiesgoSinContinuar() throws Exception {
-		logger.debug("BEGIN - completarDatosEnDetallesRiesgoSinContinuar");
+		debugBegin();
 		this.CheckAvisoGarajes();
 		this.GetCapitales();
 		this.completarDatosRiesgo();
-		logger.debug("END - completarDatosEnDetallesRiesgoSinContinuar");
+		debugEnd();
 	}
 
 	public void modificarDatosEnDetallesRiesgoSinContinuar() throws Exception {
-		logger.debug("BEGIN - modificarDatosEnDetallesRiesgoSinContinuar");
+		debugBegin();
 		this.CheckAvisoGarajes();
 		this.GetCapitales();
 		this.ModificarDatosRiesgo();
-		logger.debug("END - modificarDatosEnDetallesRiesgoSinContinuar");
+		debugEnd();
 	}
 
 	// This function modifies the values of the fields located in the page. All
 	// the values are
 	// modified if they are different than the ones pressent
 	// in the object TestCasse Data.
-	public String completarDatosRiesgoMinimos() throws Exception {
-		logger.debug("BEGIN - completarDatosRiesgoMinimos");
+	public String completarDatosRiesgoMinimos() {
+		debugBegin();
+		
 		String value = "";
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		// String edificioMadera =
 		// this.webDriver.getText(this.firstOptionEdifMad);
 		// if
-		// (!edificioMadera.equals(this.tCData.getTestVar(testId,"edificioMadera"))
+		// (!edificioMadera.equals(this.testDataM.getTestVar(testId,"edificioMadera"))
 		// &&
-		// !this.tCData.getTestVar(testId,"edificioMadera").equals(""))
+		// !this.testDataM.getTestVar(testId,"edificioMadera").equals(""))
 
 		this.webDriver.waitWithDriver(5000);
 
-		// if(!edificioMadera.equals(this.tCData.getTestVar(testId,
-		// "edificioMadera")) && !this.tCData.getTestVar(testId,
+		// if(!edificioMadera.equals(this.testDataM.getTestVar(testId,
+		// "edificioMadera")) && !this.testDataM.getTestVar(testId,
 		// "edificioMadera").equals("")) {
 		// this.webDriver.selectValueInDropDown(this.cmbEdificioMadera,
-		// this.tCData.getTestVar(testId, "edificioMadera"));
+		// this.testDataM.getTestVar(testId, "edificioMadera"));
 		// this.webDriver.clickElementFromDropDownByText(this.cmbEdificioMadera,
-		// this.tCData.getTestVar(testId, "edificioMadera"));
-		// } else if(this.tCData.getTestVar(testId, "edificioMadera").equals("")
+		// this.testDataM.getTestVar(testId, "edificioMadera"));
+		// } else if(this.testDataM.getTestVar(testId, "edificioMadera").equals("")
 		// && !edificioMadera.equals("")) { throw new Exception("El valor del
 		// campo porcentaje edificio madera no es blanco al entrar en la
 		// página"); }
 
 		// this.webDriver.clickElementFromDropDownByText(this.cmbEdificioMadera,
-		// this.tCData.getTestVar(testId, "edificioMadera"));
+		// this.testDataM.getTestVar(testId, "edificioMadera"));
 		this.webDriver.clickElementFromDropDownByText(this.edifConstruccionMadera, "No");
 
 		// String deshabilitacion =
 		// this.webDriver.getText(this.edifConstruccionMadera);
-		// if(!deshabilitacion.equals(this.tCData.getTestVar(testId,
-		// "deshabilitacion")) && !this.tCData.getTestVar(testId,
+		// if(!deshabilitacion.equals(this.testDataM.getTestVar(testId,
+		// "deshabilitacion")) && !this.testDataM.getTestVar(testId,
 		// "deshabilitacion").equals("")) {
 		// this.webDriver.clickElementFromDropDownByText(this.cmbDeshabilitacion,
-		// this.tCData.getTestVar(testId, "deshabilitacion"));
-		// } else if(this.tCData.getTestVar(testId,
+		// this.testDataM.getTestVar(testId, "deshabilitacion"));
+		// } else if(this.testDataM.getTestVar(testId,
 		// "deshabilitacion").equals("")
 		// && !deshabilitacion.equals("")) { throw new Exception("El valor del
 		// campo deshabilitación no es blanco al entrar en la página"); }
@@ -295,149 +285,149 @@ public class DetallesRiesgoPage {
 		this.webDriver.waitWithDriver(5000);
 		this.clickOnContinuar();
 
-		logger.debug("END - completarDatosRiesgoMinimos");
+		debugEnd();
 		return value;
 	}
 
-	public String getCapitalContinente() throws Exception {
-		logger.debug("GET - getCapitalContinente");
+	public String getCapitalContinente() {
+		debugInfo("GET - getCapitalContinente");
 		this.webDriver.scrollToBottom();
 		return this.webDriver.getTextInFrame(this.txtCapitalContinente, this.cuerpoFrame);
 	}
 
 	public String getCapitalContenido() throws Exception {
-		logger.debug("GET - getCapitalContenido");
+		debugInfo("GET - getCapitalContenido");
 		this.webDriver.scrollToBottom();
 		return this.webDriver.getTextInFrame(this.txtCapitalContenido, this.cuerpoFrame);
 	}
 
 	public String getCapitalContinenteTotalAsegurado() throws Exception {
-		logger.debug("GET - getCapitalContinenteTotalAsegurado");
+		debugInfo("GET - getCapitalContinenteTotalAsegurado");
 		this.webDriver.scrollToBottom();
 		return this.webDriver.getTextInFrame(this.txtCapitalContinenteTotalAsegurado, this.cuerpoFrame);
 	}
 
 	public void completarDatosRiesgo() throws Exception {
-		logger.debug("BEGIN - CompletarDatosRiesgo");
+		debugBegin();
 		// this.webDriver.switchToFrame(this.cuerpoFrame);
 
-		// if (this.tCData.getCapitalContinente() != null)
-		if(this.tCData.getTestVar(testId, "capitalContinente") != null) {
-			// if (this.tCData.isCapitalContinenteVariacion())
-			if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "capitalContinenteVariacion"))) {
+		// if (this.testDataM.getCapitalContinente() != null)
+		if(this.testDataM.getTestVar(testId, "capitalContinente") != null) {
+			// if (this.testDataM.isCapitalContinenteVariacion())
+			if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "capitalContinenteVariacion"))) {
 				// Double capitalContinenteModified =
 				// this.nf.parse(this.webDriver.getTextInFrame(this.txtCapitalContinente,
 				// this.cuerpoFrame))
 				// .doubleValue() +
-				// this.tCData.getCapitalContinente().doubleValue();
+				// this.testDataM.getCapitalContinente().doubleValue();
 
 				Double capitalContinenteModified = this.nf.parse(this.webDriver.getTextInFrame(this.txtCapitalContinente, this.cuerpoFrame))
-					.doubleValue() + Double.parseDouble(this.tCData.getTestVar(testId, "capitalContinente"));
+					.doubleValue() + Double.parseDouble(this.testDataM.getTestVar(testId, "capitalContinente"));
 
 				// this.webDriver.appendTextInFrame(this.txtCapitalContinente,
 				// this.cuerpoFrame, String.valueOf(capitalContinenteModified));
 				this.webDriver.appendTextInFrame(this.txtCapitalContinente, this.cuerpoFrame, String.valueOf(capitalContinenteModified));
 				this.webDriver.tabulateElementInFrame(this.txtCapitalContinente, this.cuerpoFrame);
-				// this.tCData.setCapitalContinente(capitalContinenteModified);
-				this.tCData.setConfigVar("CapitalContinente", "capitalContinenteModified");
+				// this.testDataM.setCapitalContinente(capitalContinenteModified);
+				this.testDataM.setConfigVar("CapitalContinente", "capitalContinenteModified");
 
 			} else {
 				// this.webDriver.appendTextInFrame(this.txtCapitalContinente,
 				// this.cuerpoFrame,
-				// String.valueOf(this.tCData.getConfigVar("CapitalContinente")));
-				this.webDriver.appendTextInFrame(this.txtCapitalContinente, this.cuerpoFrame, String.valueOf(this.tCData.getConfigVar("CapitalContinente")));
+				// String.valueOf(this.testDataM.getConfigVar("CapitalContinente")));
+				this.webDriver.appendTextInFrame(this.txtCapitalContinente, this.cuerpoFrame, String.valueOf(this.testDataM.getConfigVar("CapitalContinente")));
 				this.webDriver.tabulateElementInFrame(this.txtCapitalContinente, this.cuerpoFrame);
-				// this.tCData.setCapitalContinente(this.nf.parse(this.webDriver.getTextInFrame(this.txtCapitalContinente,
+				// this.testDataM.setCapitalContinente(this.nf.parse(this.webDriver.getTextInFrame(this.txtCapitalContinente,
 				// this.cuerpoFrame)));
-				this.tCData.setConfigVar("CapitalContinente", this.webDriver.getTextInFrame(this.txtCapitalContinente, this.cuerpoFrame));
+				this.testDataM.setConfigVar("CapitalContinente", this.webDriver.getTextInFrame(this.txtCapitalContinente, this.cuerpoFrame));
 			}
 		}
 
-		// if (this.tCData.getCapitalContenido() != null)
-		if(this.tCData.getTestVar(testId, "CapitalContenido") != null) {
+		// if (this.testDataM.getCapitalContenido() != null)
+		if(this.testDataM.getTestVar(testId, "CapitalContenido") != null) {
 			// Double capitalContenidoModified =
 			// this.nf.parse(this.webDriver.getTextInFrame(this.txtCapitalContenido,
 			// this.cuerpoFrame)).doubleValue()
-			// + this.tCData.getCapitalContenido().doubleValue();
+			// + this.testDataM.getCapitalContenido().doubleValue();
 
 			Double capitalContenidoModified = Double.parseDouble(this.webDriver.getTextInFrame(this.txtCapitalContenido, this.cuerpoFrame))
-				+ Double.parseDouble(this.tCData.getTestVar(testId, "CapitalContenido"));
+				+ Double.parseDouble(this.testDataM.getTestVar(testId, "CapitalContenido"));
 			this.webDriver.appendTextInFrame(this.txtCapitalContenido, this.cuerpoFrame, this.nf.format(capitalContenidoModified).toString());
 			this.webDriver.tabulateElementInFrame(this.txtCapitalContenido, this.cuerpoFrame);
-			// this.tCData.setCapitalContenido(capitalContenidoModified);
-			this.tCData.setTestVar(testId, "CapitalContenido", "capitalContenidoModified");
+			// this.testDataM.setCapitalContenido(capitalContenidoModified);
+			this.testDataM.setTestVar(testId, "CapitalContenido", "capitalContenidoModified");
 		}
 
 		// String edificioMadera =
 		// this.webDriver.getTextInFrame(this.cmbEdificioMadera,
 		// this.cuerpoFrame);
-		// if(!edificioMadera.equals(this.tCData.getTestVar(testId,"edificioMadera"))
-		// && !this.tCData.getTestVar(testId,"edificioMadera").equals("")) {
+		// if(!edificioMadera.equals(this.testDataM.getTestVar(testId,"edificioMadera"))
+		// && !this.testDataM.getTestVar(testId,"edificioMadera").equals("")) {
 		// this.webDriver.selectValueInDropDownInFrame(this.cmbEdificioMadera,
-		// this.cuerpoFrame, this.tCData.getTestVar(testId,"edificioMadera"));
-		// } else if(this.tCData.getTestVar(testId,"edificioMadera").equals("")
+		// this.cuerpoFrame, this.testDataM.getTestVar(testId,"edificioMadera"));
+		// } else if(this.testDataM.getTestVar(testId,"edificioMadera").equals("")
 		// && !edificioMadera.equals("")) { throw new Exception("El valor del
 		// campo porcentaje edificio madera no es blanco al entrar en la
 		// página"); }
 		// this.webDriver.waitWithDriver(2000);
 
 		String edificioMaderaWeb = this.webDriver.getTextInFrame(this.firstOptionEdifMad, this.cuerpoFrame);
-		String edificioMaderaDatos = this.tCData.getScenarioVar(testId, "edificio_madera") == null ? "" : this.tCData.getScenarioVar(testId, "edificio_madera");
+		String edificioMaderaDatos = this.testDataM.getScenarioVar(testId, "edificio_madera") == null ? "" : this.testDataM.getScenarioVar(testId, "edificio_madera");
 
 		if(!edificioMaderaWeb.equals(edificioMaderaDatos) && !edificioMaderaDatos.equals("")) {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEdificioMadera, this.cuerpoFrame, edificioMaderaDatos);
 		} else if(edificioMaderaDatos.isEmpty() && !edificioMaderaWeb.isEmpty()) { throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página"); }
 
-		String deshabitacionDatos = this.tCData.getTestVar(testId, "deshabitacion") == null ? "" : this.tCData.getTestVar(testId, "deshabitacion");
+		String deshabitacionDatos = this.testDataM.getTestVar(testId, "deshabitacion") == null ? "" : this.testDataM.getTestVar(testId, "deshabitacion");
 		String deshabilitacionWeb = this.webDriver.getTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame);
 
 		if(!deshabilitacionWeb.equals(deshabitacionDatos) && !deshabitacionDatos.equals("")) {
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame, this.tCData.getTestVar(testId, "deshabilitacion"));
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame, this.testDataM.getTestVar(testId, "deshabilitacion"));
 		} else if(deshabitacionDatos.isEmpty() && !deshabilitacionWeb.isEmpty()) { throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
 
 		String m2ContruidosTotales = this.webDriver.getTextInFrame(this.txtM2ContruidosTotales, this.cuerpoFrame);
 		if(m2ContruidosTotales.equals(-1)) {
-			this.webDriver.appendTextInFrame(this.txtM2ContruidosTotales, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "M2ContruidosTotales")));
+			this.webDriver.appendTextInFrame(this.txtM2ContruidosTotales, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "M2ContruidosTotales")));
 		}
 
 		String AnyoConstruccion = this.webDriver.getTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame);
 
-		if(this.tCData.getTestVar(testId, "anyConstrucion") != null && this.tCData.getTestVar(testId, "anyConstrucion").equals(ProjectConstants.MayorDe50)) {
+		if(this.testDataM.getTestVar(testId, "anyConstrucion") != null && this.testDataM.getTestVar(testId, "anyConstrucion").equals(ProjectConstants.MayorDe50)) {
 			DateTimeZone timeZone = DateTimeZone.forID("Europe/Madrid");
 			DateTime dateTime = DateTime.now(timeZone);
 			int year = dateTime.year().get();
 
 			this.webDriver.appendTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame, String.valueOf(year - 51));
 		}
-		// else if (!AnyoConstruccion.equals(this.tCData.getTestVar(testId,
+		// else if (!AnyoConstruccion.equals(this.testDataM.getTestVar(testId,
 		// "anyConstrucion"))
-		// && !this.tCData.getTestVar(testId, "anyConstrucion").equals("-1"))
-		else if(this.tCData.getTestVar(testId, "anyConstrucion") != null && !AnyoConstruccion.equals(this.tCData.getTestVar(testId, "anyConstrucion"))) {
-			this.webDriver.appendTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "anyConstrucion")));
+		// && !this.testDataM.getTestVar(testId, "anyConstrucion").equals("-1"))
+		else if(this.testDataM.getTestVar(testId, "anyConstrucion") != null && !AnyoConstruccion.equals(this.testDataM.getTestVar(testId, "anyConstrucion"))) {
+			this.webDriver.appendTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "anyConstrucion")));
 		}
 
 		// String AnyoRehabilitacionAguasComunitarias =
 		// this.webDriver.getTextInFrame(this.txtAnyoRehabilitacionConstruccionesComunitarias,
 		// this.cuerpoFrame);
 		// if
-		// (!AnyoRehabilitacionAguasComunitarias.equals(String.valueOf(this.tCData.getAnyoRehabilitacionConstruccionesComunitarias()))
-		// && this.tCData.getAnyoRehabilitacionConstruccionesComunitarias() !=
+		// (!AnyoRehabilitacionAguasComunitarias.equals(String.valueOf(this.testDataM.getAnyoRehabilitacionConstruccionesComunitarias()))
+		// && this.testDataM.getAnyoRehabilitacionConstruccionesComunitarias() !=
 		// null)
 		// {
 		// this.webDriver.appendTextInFrame(this.txtAnyoRehabilitacionConstruccionesComunitarias,
 		// this.cuerpoFrame,
-		// String.valueOf(this.tCData.getAnyoRehabilitacionConstruccionesComunitarias()));
+		// String.valueOf(this.testDataM.getAnyoRehabilitacionConstruccionesComunitarias()));
 		// }
 
-		String AnyoRehabilitacionAguasComunitariasDatos = this.tCData.getTestVar(testId, "anyoRehabilitacionAguasComunitarias") == null ? ""
-			: this.tCData.getTestVar(testId, "anyoRehabilitacionAguasComunitarias");
+		String AnyoRehabilitacionAguasComunitariasDatos = this.testDataM.getTestVar(testId, "anyoRehabilitacionAguasComunitarias") == null ? ""
+			: this.testDataM.getTestVar(testId, "anyoRehabilitacionAguasComunitarias");
 		String AnyoRehabilitacionAguasComunitariasWeb = this.webDriver.getTextInFrame(this.txtAnyoRehabilitacionAguasComunitarias, this.cuerpoFrame);
 		if(AnyoRehabilitacionAguasComunitariasDatos.equals(String.valueOf(this.webDriver.getTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame)))
-			&& this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias") != null) {
+			&& this.testDataM.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias") != null) {
 			int year = Integer.parseInt(this.webDriver.getTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame));
 			this.webDriver.appendTextInFrame(this.txtAnyoRehabilitacionAguasComunitarias, this.cuerpoFrame, String.valueOf(year + 1));
 			this.webDriver
-				.clickElementFromDropDownByTextInFrame(this.cmbNivelRehabilitacionAguas, this.cuerpoFrame, this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
+				.clickElementFromDropDownByTextInFrame(this.cmbNivelRehabilitacionAguas, this.cuerpoFrame, this.testDataM.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
 		}
 
 		// String NivelDeshabilitacionConstruccionesComunitarias =
@@ -447,24 +437,24 @@ public class DetallesRiesgoPage {
 		// {
 		// this.webDriver.selectValueInDropDownInFrame(this.cmbNivelRehabilitacionAguas,
 		// this.cuerpoFrame,
-		// this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias());
+		// this.testDataM.getNivelRehabilitacionConduccionesAguasComunitarias());
 		// }
 
-		String AnyoRehabilitacionIntegral = String.valueOf(this.tCData.getTestVar(testId, "anyoRehabilitacionIntegral"));
+		String AnyoRehabilitacionIntegral = String.valueOf(this.testDataM.getTestVar(testId, "anyoRehabilitacionIntegral"));
 		if(AnyoRehabilitacionIntegral != null && !AnyoRehabilitacionIntegral.equals("null")) {
 			this.webDriver.appendTextInFrame(this.txtAnyoRehabilitacionIntegral, this.cuerpoFrame, AnyoRehabilitacionIntegral);
 		}
 
 		String m2Viviendas = this.webDriver.getTextInFrame(this.txtM2Viviendas, this.cuerpoFrame);
-		// if (!m2Viviendas.equals(this.tCData.getTestVar(testId,
+		// if (!m2Viviendas.equals(this.testDataM.getTestVar(testId,
 		// "M2Viviendas")) &&
-		// !this.tCData.getTestVar(testId, "M2Viviendas").equals(-1))
-		if(this.tCData.getTestVar(testId, "M2Viviendas") != null && !m2Viviendas.equals(this.tCData.getTestVar(testId, "M2Viviendas"))) {
+		// !this.testDataM.getTestVar(testId, "M2Viviendas").equals(-1))
+		if(this.testDataM.getTestVar(testId, "M2Viviendas") != null && !m2Viviendas.equals(this.testDataM.getTestVar(testId, "M2Viviendas"))) {
 			this.GetCapitales();
 
 			this.GetValuesBefore();
 
-			this.webDriver.appendTextInFrame(this.txtM2Viviendas, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "M2Viviendas")));
+			this.webDriver.appendTextInFrame(this.txtM2Viviendas, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "M2Viviendas")));
 			this.webDriver.tabulateElementInFrame(this.txtM2Viviendas, this.cuerpoFrame);
 
 			this.GetValuesAfter();
@@ -472,53 +462,53 @@ public class DetallesRiesgoPage {
 		}
 
 		String m2Garajes = this.webDriver.getTextInFrame(this.txtM2Garajes, this.cuerpoFrame);
-		if(!m2Garajes.equals(this.tCData.getTestVar(testId, "M2Garajes")) && this.tCData.getTestVar(testId, "M2Garajes") != null) {
+		if(!m2Garajes.equals(this.testDataM.getTestVar(testId, "M2Garajes")) && this.testDataM.getTestVar(testId, "M2Garajes") != null) {
 			this.GetValuesBefore();
-			this.webDriver.appendTextInFrame(this.txtM2Garajes, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "M2Garajes")));
+			this.webDriver.appendTextInFrame(this.txtM2Garajes, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "M2Garajes")));
 			this.webDriver.tabulateElementInFrame(this.txtM2Garajes, this.cuerpoFrame);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 garajes");
 		}
 
 		String m2Oficinas = this.webDriver.getTextInFrame(this.txtM2Oficinas, this.cuerpoFrame);
-		if(!m2Oficinas.equals(this.tCData.getTestVar(testId, "M2Oficinas")) && this.tCData.getTestVar(testId, "M2Oficinas") != null) {
+		if(!m2Oficinas.equals(this.testDataM.getTestVar(testId, "M2Oficinas")) && this.testDataM.getTestVar(testId, "M2Oficinas") != null) {
 			this.GetValuesBefore();
-			this.webDriver.appendTextInFrame(this.txtM2Oficinas, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "M2Oficinas")));
+			this.webDriver.appendTextInFrame(this.txtM2Oficinas, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "M2Oficinas")));
 			this.webDriver.tabulateElementInFrame(this.txtM2Oficinas, this.cuerpoFrame);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 oficinas");
 		}
 
 		String m2ZonasAjardinadas = this.webDriver.getTextInFrame(this.txtM2ZonasAjardinadas, this.cuerpoFrame);
-		if(!m2ZonasAjardinadas.equals(this.tCData.getTestVar(testId, "M2ZonasAjardinadas")) && this.tCData.getTestVar(testId, "M2ZonasAjardinadas") != null) {
+		if(!m2ZonasAjardinadas.equals(this.testDataM.getTestVar(testId, "M2ZonasAjardinadas")) && this.testDataM.getTestVar(testId, "M2ZonasAjardinadas") != null) {
 
-			this.webDriver.appendTextInFrame(this.txtM2ZonasAjardinadas, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "M2ZonasAjardinadas")));
+			this.webDriver.appendTextInFrame(this.txtM2ZonasAjardinadas, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "M2ZonasAjardinadas")));
 			this.webDriver.tabulateElementInFrame(this.txtM2ZonasAjardinadas, this.cuerpoFrame);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 zonas ajardinadas");
 		}
 
 		String numeroViviendas = this.webDriver.getTextInFrame(this.txtNoViviendas, this.cuerpoFrame);
-		if(this.tCData.getTestVar(testId, "NumeroViviendas") != null && !numeroViviendas.equals(this.tCData.getTestVar(testId, "NumeroViviendas"))) {
-			this.webDriver.appendTextInFrame(this.txtNoViviendas, this.cuerpoFrame, this.tCData.getTestVar(testId, "NumeroViviendas"));
+		if(this.testDataM.getTestVar(testId, "NumeroViviendas") != null && !numeroViviendas.equals(this.testDataM.getTestVar(testId, "NumeroViviendas"))) {
+			this.webDriver.appendTextInFrame(this.txtNoViviendas, this.cuerpoFrame, this.testDataM.getTestVar(testId, "NumeroViviendas"));
 		}
 
 		String numeroPlantasALto = this.webDriver.getTextInFrame(this.txtNumeroPlantasAlto, this.cuerpoFrame);
-		if(!numeroPlantasALto.equals(this.tCData.getTestVar(testId, "NumeroPlantasAlto")) && this.tCData.getTestVar(testId, "NumeroPlantasAlto") != null) {
-			this.webDriver.appendTextInFrame(this.txtNumeroPlantasAlto, this.cuerpoFrame, String.valueOf(this.tCData.getTestVar(testId, "NumeroPlantasAlto")));
+		if(!numeroPlantasALto.equals(this.testDataM.getTestVar(testId, "NumeroPlantasAlto")) && this.testDataM.getTestVar(testId, "NumeroPlantasAlto") != null) {
+			this.webDriver.appendTextInFrame(this.txtNumeroPlantasAlto, this.cuerpoFrame, String.valueOf(this.testDataM.getTestVar(testId, "NumeroPlantasAlto")));
 		}
 
 		String numeroPlantasSotano = this.webDriver.getTextInFrame(this.txtNumeroPlantasSotano, this.cuerpoFrame);
-		if(!numeroPlantasSotano.equals(this.tCData.getTestVar(testId, "NumeroPlantasSotano")) && this.tCData.getTestVar(testId, "NumeroPlantasSotano") != null) {
+		if(!numeroPlantasSotano.equals(this.testDataM.getTestVar(testId, "NumeroPlantasSotano")) && this.testDataM.getTestVar(testId, "NumeroPlantasSotano") != null) {
 			// this.webDriver.appendTextInFrame(this.txtNumeroPlantasSotano,
 			// this.cuerpoFrame,
-			// String.valueOf(this.tCData.getNumeroPlantasSotano()));
-			this.webDriver.appendTextInFrame(this.txtNumeroPlantasSotano, this.cuerpoFrame, this.tCData.getTestVar(testId, "NumeroPlantasSotano"));
+			// String.valueOf(this.testDataM.getNumeroPlantasSotano()));
+			this.webDriver.appendTextInFrame(this.txtNumeroPlantasSotano, this.cuerpoFrame, this.testDataM.getTestVar(testId, "NumeroPlantasSotano"));
 		}
 
 		String numeroEdificios = this.webDriver.getTextInFrame(this.txtNumeroEdificios, this.cuerpoFrame);
-		if(!numeroEdificios.equals(this.tCData.getTestVar(testId, "NumeroEdificios")) && this.tCData.getTestVar(testId, "NumeroEdificios") != null) {
-			this.webDriver.appendTextInFrame(this.txtNumeroEdificios, this.cuerpoFrame, this.tCData.getTestVar(testId, "NumeroEdificios"));
+		if(!numeroEdificios.equals(this.testDataM.getTestVar(testId, "NumeroEdificios")) && this.testDataM.getTestVar(testId, "NumeroEdificios") != null) {
+			this.webDriver.appendTextInFrame(this.txtNumeroEdificios, this.cuerpoFrame, this.testDataM.getTestVar(testId, "NumeroEdificios"));
 		}
 
 		// boolean GasolineraMenos50M =
@@ -529,45 +519,45 @@ public class DetallesRiesgoPage {
 		// this.cuerpoFrame);
 		// }
 		//
-		// boolean CalefaccionCentral = this.tCData.isCalefaccionCentral();
+		// boolean CalefaccionCentral = this.testDataM.isCalefaccionCentral();
 		// if(CalefaccionCentral &&
 		// !this.chkCalefaccionCentralAguaCalienteCentralizada.isSelected()) {
 		// this.webDriver.clickInFrame(this.chkCalefaccionCentralAguaCalienteCentralizada,
 		// this.cuerpoFrame);
 		// }
 		//
-		// boolean DepositoCombustible = this.tCData.isDepositoCombustible();
+		// boolean DepositoCombustible = this.testDataM.isDepositoCombustible();
 		// if(DepositoCombustible) {
 		// this.webDriver.clickInFrame(this.chkDepositoCombustible,
 		// this.cuerpoFrame);
 		// }
 
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "gasolinera_menos_50m"))) {
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "gasolinera_menos_50m"))) {
 			this.webDriver.clickInFrame(this.chkGasolineraMenos50M, this.cuerpoFrame);
 		}
 
-		// boolean CalefaccionCentral = this.tCData.isCalefaccionCentral();
+		// boolean CalefaccionCentral = this.testDataM.isCalefaccionCentral();
 
-		// if(Boolean.parseBoolean(this.tCData.getTestVar(testId,
+		// if(Boolean.parseBoolean(this.testDataM.getTestVar(testId,
 		// "CalefaccionCentral")) &&
 		// !this.chkCalefaccionCentralAguaCalienteCentralizada.isSelected()) {
 		// this.webDriver.clickInFrame(this.chkCalefaccionCentralAguaCalienteCentralizada,
 		// this.cuerpoFrame);
 		// }
 
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "CalefaccionCentral")) && !this.webDriver.isSelected(chkCalefaccionCentralAguaCalienteCentralizada)) {
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "CalefaccionCentral")) && !this.webDriver.isSelected(chkCalefaccionCentralAguaCalienteCentralizada)) {
 			this.webDriver.clickInFrame(this.chkCalefaccionCentralAguaCalienteCentralizada, this.cuerpoFrame);
 		}
 
-		// boolean DepositoCombustible = this.tCData.isDepositoCombustible();
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "deposito_combustible"))) {
+		// boolean DepositoCombustible = this.testDataM.isDepositoCombustible();
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "deposito_combustible"))) {
 			this.webDriver.clickInFrame(this.chkDepositoCombustible, this.cuerpoFrame);
 		}
 
 		// this.webDriver.exitFrame();
 		// this.ModificarDatosActividadComercial();
 
-		logger.debug("END - CompletarDatosRiesgo");
+		debugEnd();
 	}
 
 	// This function modifies the values of the fields located in the page. All
@@ -576,29 +566,30 @@ public class DetallesRiesgoPage {
 	// in the object TestCasse Data inside the values whose variables start with
 	// Modified.
 	public void ModificarDatosRiesgo() throws ParseException {
-		logger.debug("BEGIN - ModificarDatosRiesgo");
+		debugBegin();
+		
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 
 		// Modify Año rehabilitación de aguas comunitarias
 		String AnyoRehabilitacionAguasComunitarias = this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias);
 		String AnyoConstruccion = this.webDriver.getText(this.txtAnyoConstruccion);
 
-		// if(this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias()
+		// if(this.testDataM.getNivelRehabilitacionConduccionesAguasComunitarias()
 		// != null) {
 		// if(AnyoRehabilitacionAguasComunitarias.isEmpty()) {
 		// this.webDriver.sendValueToWebElement(this.txtAnyoRehabilitacionAguasComunitarias,
 		// String.valueOf(Integer.parseInt(AnyoConstruccion) + 1));
 		// this.webDriver.selectValueInDropDown(this.cmbNivelRehabilitacionAguas,
-		// this.tCData.getNivelRehabilitacionConduccionesAguasComunitarias());
-		// this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+		// this.testDataM.getNivelRehabilitacionConduccionesAguasComunitarias());
+		// this.testDataM.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
 		// }
 
-		if(this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias") != null) {
+		if(this.testDataM.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias") != null) {
 			if(AnyoRehabilitacionAguasComunitarias.isEmpty()) {
 				this.webDriver.appendText(this.txtAnyoRehabilitacionAguasComunitarias, String.valueOf(Integer.parseInt(AnyoConstruccion) + 1));
-				this.webDriver.clickElementFromDropDownByText(this.cmbNivelRehabilitacionAguas, this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
-				// this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
-				this.tCData.setTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias", this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+				this.webDriver.clickElementFromDropDownByText(this.cmbNivelRehabilitacionAguas, this.testDataM.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
+				// this.testDataM.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+				this.testDataM.setTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias", this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
 			}
 			if(!AnyoRehabilitacionAguasComunitarias.isEmpty()) {
 				// If Año rehabilitación de aguas comunitarias is already
@@ -607,52 +598,52 @@ public class DetallesRiesgoPage {
 				// want to execute this test in the same week, before database
 				// reset.
 				this.webDriver.appendText(this.txtAnyoRehabilitacionAguasComunitarias, String.valueOf(Integer.parseInt(AnyoRehabilitacionAguasComunitarias) + 1));
-				this.webDriver.clickElementFromDropDownByText(this.cmbNivelRehabilitacionAguas, this.tCData.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
-				// this.tCData.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
-				this.tCData.setTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias", this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+				this.webDriver.clickElementFromDropDownByText(this.cmbNivelRehabilitacionAguas, this.testDataM.getTestVar(testId, "NivelRehabilitacionConduccionesAguasComunitarias"));
+				// this.testDataM.setAnyoRehabilitacionConstruccionesComunitarias(this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
+				this.testDataM.setTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias", this.webDriver.getText(this.txtAnyoRehabilitacionAguasComunitarias));
 
 			}
 
 		}
 
 		String numeroEdificios = this.webDriver.getText(this.txtNumeroEdificios);
-		if(!numeroEdificios.equals(this.tCData.getTestVar(testId, "CambioNumEdificios")) && this.tCData.getTestVar(testId, "CambioNumEdificios") != null) {
-			this.webDriver.appendText(this.txtNumeroEdificios, this.tCData.getTestVar(testId, "CambioNumEdificios"));
+		if(!numeroEdificios.equals(this.testDataM.getTestVar(testId, "CambioNumEdificios")) && this.testDataM.getTestVar(testId, "CambioNumEdificios") != null) {
+			this.webDriver.appendText(this.txtNumeroEdificios, this.testDataM.getTestVar(testId, "CambioNumEdificios"));
 		}
 
 		String numeroViviendas = this.webDriver.getText(this.txtNoViviendas);
-		if(!numeroViviendas.equals(this.tCData.getTestVar(testId, "cambio_num_viviendas")) && this.tCData.getTestVar(testId, "cambio_num_viviendas") != null) {
-			this.webDriver.appendText(this.txtNoViviendas, this.tCData.getTestVar(testId, "cambio_num_viviendas"));
+		if(!numeroViviendas.equals(this.testDataM.getTestVar(testId, "cambio_num_viviendas")) && this.testDataM.getTestVar(testId, "cambio_num_viviendas") != null) {
+			this.webDriver.appendText(this.txtNoViviendas, this.testDataM.getTestVar(testId, "cambio_num_viviendas"));
 		}
 
 		String numeroLocales = this.webDriver.getText(this.txtNumeroLocales);
-		if(!numeroLocales.equals(this.tCData.getTestVar(testId, "cambio_num_locales")) && this.tCData.getTestVar(testId, "cambio_num_locales") != null) {
-			this.webDriver.appendText(this.txtNumeroLocales, this.tCData.getTestVar(testId, "cambio_num_locales"));
+		if(!numeroLocales.equals(this.testDataM.getTestVar(testId, "cambio_num_locales")) && this.testDataM.getTestVar(testId, "cambio_num_locales") != null) {
+			this.webDriver.appendText(this.txtNumeroLocales, this.testDataM.getTestVar(testId, "cambio_num_locales"));
 		}
 
 		String m2ContruidosTotales = this.webDriver.getText(this.txtM2ContruidosTotales);
 		if(m2ContruidosTotales.equals(-1)) {
-			this.webDriver.appendText(this.txtM2ContruidosTotales, String.valueOf(this.tCData.getTestVar(testId, "M2ContruidosTotales")));
+			this.webDriver.appendText(this.txtM2ContruidosTotales, String.valueOf(this.testDataM.getTestVar(testId, "M2ContruidosTotales")));
 		}
 
 		String m2Viviendas = this.webDriver.getText(this.txtM2Viviendas);
-		if(!m2Viviendas.equals(this.tCData.getTestVar(testId, "ModifiedM2Viviendas")) && this.tCData.getTestVar(testId, "ModifiedM2Viviendas") != null) {
+		if(!m2Viviendas.equals(this.testDataM.getTestVar(testId, "ModifiedM2Viviendas")) && this.testDataM.getTestVar(testId, "ModifiedM2Viviendas") != null) {
 			this.GetValuesBefore();
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.appendText(this.txtM2Viviendas, String.valueOf(this.tCData.getTestVar(testId, "ModifiedM2Viviendas")));
+			this.webDriver.appendText(this.txtM2Viviendas, String.valueOf(this.testDataM.getTestVar(testId, "ModifiedM2Viviendas")));
 			this.webDriver.tabulateElement(this.txtM2Viviendas);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 viviendas");
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.tCData.setTestVar(testId, "M2ContruidosTotales", this.webDriver.getText(this.txtM2ContruidosTotales));
+			this.testDataM.setTestVar(testId, "M2ContruidosTotales", this.webDriver.getText(this.txtM2ContruidosTotales));
 
 		}
 
 		String m2Garajes = this.webDriver.getText(this.txtM2Viviendas);
-		if(!m2Garajes.equals(this.tCData.getTestVar(testId, "modifiedM2Garajes")) && this.tCData.getTestVar(testId, "modifiedM2Garajes") != null) {
+		if(!m2Garajes.equals(this.testDataM.getTestVar(testId, "modifiedM2Garajes")) && this.testDataM.getTestVar(testId, "modifiedM2Garajes") != null) {
 			this.GetValuesBefore();
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.appendText(this.txtM2Garajes, String.valueOf(this.tCData.getTestVar(testId, "modifiedM2Garajes")));
+			this.webDriver.appendText(this.txtM2Garajes, String.valueOf(this.testDataM.getTestVar(testId, "modifiedM2Garajes")));
 			this.webDriver.tabulateElement(this.txtM2Garajes);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 viviendas");
@@ -660,10 +651,10 @@ public class DetallesRiesgoPage {
 		}
 
 		String m2Oficinas = this.webDriver.getText(this.txtM2Oficinas);
-		if(!m2Oficinas.equals(this.tCData.getTestVar(testId, "ModifiedM2Oficinas")) && this.tCData.getTestVar(testId, "ModifiedM2Oficinas") != null) {
+		if(!m2Oficinas.equals(this.testDataM.getTestVar(testId, "ModifiedM2Oficinas")) && this.testDataM.getTestVar(testId, "ModifiedM2Oficinas") != null) {
 			this.GetValuesBefore();
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.appendText(this.txtM2Oficinas, String.valueOf(this.tCData.getTestVar(testId, "ModifiedM2Oficinas")));
+			this.webDriver.appendText(this.txtM2Oficinas, String.valueOf(this.testDataM.getTestVar(testId, "ModifiedM2Oficinas")));
 			this.webDriver.tabulateElement(this.txtM2Oficinas);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 oficinas");
@@ -671,10 +662,10 @@ public class DetallesRiesgoPage {
 		}
 
 		String m2ZonasAjardinadas = this.webDriver.getText(this.txtM2ZonasAjardinadas);
-		if(!m2ZonasAjardinadas.equals(this.tCData.getTestVar(testId, "ModifiedM2ZonasAjardinadas")) && this.tCData.getTestVar(testId, "ModifiedM2ZonasAjardinadas") != null) {
+		if(!m2ZonasAjardinadas.equals(this.testDataM.getTestVar(testId, "ModifiedM2ZonasAjardinadas")) && this.testDataM.getTestVar(testId, "ModifiedM2ZonasAjardinadas") != null) {
 			this.GetValuesBefore();
 			// this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.appendText(this.txtM2ZonasAjardinadas, String.valueOf(this.tCData.getTestVar(testId, "ModifiedM2ZonasAjardinadas")));
+			this.webDriver.appendText(this.txtM2ZonasAjardinadas, String.valueOf(this.testDataM.getTestVar(testId, "ModifiedM2ZonasAjardinadas")));
 			this.webDriver.tabulateElement(this.txtM2ZonasAjardinadas);
 			this.GetValuesAfter();
 			this.CompareValues(ProjectConstants.NotEqual, " variar el valor de m2 zonas ajardinadas");
@@ -683,8 +674,7 @@ public class DetallesRiesgoPage {
 
 		this.webDriver.exitFrame();
 		// this.ModificarDatosActividadComercial();
-		logger.debug("END - ModificarDatosRiesgo");
-
+		debugEnd();
 	}
 
 	// private void ModificarDatosActividadComercial()
@@ -710,7 +700,7 @@ public class DetallesRiesgoPage {
 	// }
 
 	private void GetCapitales() throws ParseException {
-		logger.debug("BEGIN - GetCapitales");
+		debugBegin();
 
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.waitWithDriver(2000);
@@ -719,7 +709,8 @@ public class DetallesRiesgoPage {
 		this.CapitalContenido = this.nf.parse(this.webDriver.getText(this.txtCapitalContenido)).doubleValue();
 		this.CapitalContinente = this.nf.parse(this.webDriver.getText(this.txtCapitalContinente)).doubleValue();
 		this.webDriver.exitFrame();
-		logger.debug("END - GetCapitales");
+		
+		debugEnd();
 	}
 
 	// private boolean IsCapitalesVaried() throws ParseException
@@ -749,7 +740,7 @@ public class DetallesRiesgoPage {
 	// }
 
 	private void CheckForInfraseguroOrSupraSeguro() throws ParseException {
-		logger.debug("BEGIN - CheckForInfraseguro");
+		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 
 		// Double CapitalTotalAsegurado = this.nf
@@ -761,19 +752,19 @@ public class DetallesRiesgoPage {
 		Double CapitalContiente = this.nf.parse(this.webDriver.getText(this.txtCapitalContinente)).doubleValue();
 
 		if(CapitalContiente > this.CapitalContinente) {
-			this.tCData.setTestVar(testId, "Infraseguro", "true");
+			this.testDataM.setTestVar(testId, "Infraseguro", "true");
 		}
 
 		if(CapitalContiente < this.CapitalContinente) {
-			this.tCData.setTestVar(testId, "SupraSeguro", "true");
+			this.testDataM.setTestVar(testId, "SupraSeguro", "true");
 		}
 
 		this.webDriver.exitFrame();
-		logger.debug("END - CheckForInfraseguro");
+		debugEnd();
 	}
 
-	public void clickOnContinuar() throws ParseException {
-		logger.debug("BEGIN - ClikOnContinuar");
+	public void clickOnContinuar() {
+		debugBegin();
 		// this.CheckForInfraseguroOrSupraSeguro();
 		// this.cuerpoFrame.click();
 		this.webDriver.scrollToBottom();
@@ -784,8 +775,8 @@ public class DetallesRiesgoPage {
 		// fields are mandatory, but currently gives a NULL pointer exception.
 		// Perhaps is should be moved out of ClikOnContinuar.
 		/*
-		 * if(this.tCData.getTestVar(testId, "edificio_madera").equals("") &&
-		 * this.tCData.getTestVar(testId, "deshabitacion").equals("")) {
+		 * if(this.testDataM.getTestVar(testId, "edificio_madera").equals("") &&
+		 * this.testDataM.getTestVar(testId, "deshabitacion").equals("")) {
 		 * this.webDriver.switchToFrame(this.cuerpoFrame);
 		 * this.webDriver.click(this.btnCamposObligatiosModalWindowAceptar);
 		 * 
@@ -802,7 +793,7 @@ public class DetallesRiesgoPage {
 		 */
 
 		this.webDriver.scrollToBottom();
-		logger.debug("END - ClikOnContinuar");
+		debugEnd();
 	}
 
 	public void GetValuesBefore() throws ParseException {
@@ -830,13 +821,13 @@ public class DetallesRiesgoPage {
 			case ProjectConstants.NotEqual:
 				if(this.CapitalContenidoBefore == this.CapitalContenidoAfter || this.CapitalContinenteBefore == this.CapitalContienteAfter
 					|| this.CapitalTotalAseguradoBefore == this.CapitalTotalAseguradoAfter) {
-					// this.tCData.setCantidadesModifiedError(true);
-					this.tCData.setTestVar(testId, "cantidadesModifiedError", "true");
-					// this.tCData.setCantidadesModifiedErrorMessage(
+					// this.testDataM.setCantidadesModifiedError(true);
+					this.testDataM.setTestVar(testId, "cantidadesModifiedError", "true");
+					// this.testDataM.setCantidadesModifiedErrorMessage(
 					// String.format("El valor de las cantiadaes no ha variado
 					// en la pantalla de detalles de riesgo despues de %s",
 					// Modification));
-					this.tCData.setTestVar(testId, "cantidadesModifiedErrorMessage", "El valor de las cantiadaes no ha variado en la pantalla "
+					this.testDataM.setTestVar(testId, "cantidadesModifiedErrorMessage", "El valor de las cantiadaes no ha variado en la pantalla "
 						+ "de detalles de riesgo despues de ," + modification);
 
 				}
@@ -845,13 +836,13 @@ public class DetallesRiesgoPage {
 			case ProjectConstants.Equal:
 				if(this.CapitalContenidoBefore != this.CapitalContenidoAfter || this.CapitalContinenteBefore != this.CapitalContienteAfter
 					|| this.CapitalTotalAseguradoBefore != this.CapitalTotalAseguradoAfter) {
-					// this.tCData.setCantidadesModifiedError(true);
-					// this.tCData.setCantidadesModifiedErrorMessage(
+					// this.testDataM.setCantidadesModifiedError(true);
+					// this.testDataM.setCantidadesModifiedErrorMessage(
 					// String.format("El valor de las cantidades ha variado en
 					// la pantalla de detalles de riesgo despues de %s",
 					// modification));
-					this.tCData.setTestVar(testId, "cantidadesModifiedError", "true");
-					this.tCData.setTestVar(testId, "cantidadesModifiedErrorMessage", "El valor de las cantiadaes ha variado en la pantalla "
+					this.testDataM.setTestVar(testId, "cantidadesModifiedError", "true");
+					this.testDataM.setTestVar(testId, "cantidadesModifiedErrorMessage", "El valor de las cantiadaes ha variado en la pantalla "
 						+ "de detalles de riesgo despues de ," + modification);
 
 				}
@@ -861,26 +852,26 @@ public class DetallesRiesgoPage {
 	}
 
 	public void CheckAvisoGarajes() {
-		logger.debug("BEGIN - CheckAvisoGarajes");
-		// if (this.tCData.isAsegurarUnicamenteGarajes())
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "AsegurarUnicamenteGarajes"))) {
+		debugBegin();
+		// if (this.testDataM.isAsegurarUnicamenteGarajes())
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "AsegurarUnicamenteGarajes"))) {
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			if(this.lblAvisoGarajes.size() != 1) {
-				// this.tCData.setAvisoGarajesMsgNotPressent(true);
-				this.tCData.setTestVar(testId, "AsegurarUnicamenteGarajes", "true");
+				// this.testDataM.setAvisoGarajesMsgNotPressent(true);
+				this.testDataM.setTestVar(testId, "AsegurarUnicamenteGarajes", "true");
 				this.webDriver.exitFrame();
 			}
 			this.webDriver.click(this.btnAceptar);
 			this.webDriver.exitFrame();
 		}
-		logger.debug("END - CheckAvisoGarajes");
+		debugEnd();
 	}
 
 	public void CheckAvisoGarajesWithException() {
-		// if (this.tCData.isAsegurarUnicamenteGarajes())
-		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "AsegurarUnicamenteGarajes"))) {
-			if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "AvisoGarajesMsgNotPressent"))) {
-				Assert.assertTrue(ProjectConstants.AvisoGarajesErrorMessage, !Boolean.parseBoolean(this.tCData.getTestVar(testId, "isAvisoGarajesMsgNotPressent")));
+		// if (this.testDataM.isAsegurarUnicamenteGarajes())
+		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "AsegurarUnicamenteGarajes"))) {
+			if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "AvisoGarajesMsgNotPressent"))) {
+				Assert.assertTrue(ProjectConstants.AvisoGarajesErrorMessage, !Boolean.parseBoolean(this.testDataM.getTestVar(testId, "isAvisoGarajesMsgNotPressent")));
 			}
 		}
 	}

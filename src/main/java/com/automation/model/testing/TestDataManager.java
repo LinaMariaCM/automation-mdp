@@ -146,7 +146,7 @@ public class TestDataManager {
 		data.getData(AutomationConstants.GLOBAL_DATA).setValue(key, value);
 	}
 	
-	public void setScenarioVariable(String scenario, String key, String value) {
+	public void setScenarioVar(String scenario, String key, String value) {
 		data.getData(AutomationConstants.SCENARIO_DATA).setValue(scenario, key, value);
 	}
 	
@@ -199,7 +199,7 @@ public class TestDataManager {
 		
 		if(testDataPath != null) {
 			try {
-				globalData = new DataObject(FileUtils.csvFileToDMData(System.getProperty("user.dir") + "/" + testDataPath));
+				globalData = new DataObject(FileUtils.csvFileToDMData(testDataPath));
 				data.setKey(AutomationConstants.GLOBAL_DATA);
 			} catch(Exception e) { 
 				System.out.println("No global data file found");
@@ -222,12 +222,12 @@ public class TestDataManager {
 		}
 	}
 	
-	public void addScenarioData(String testDataPath) {
+	public void addScenarioData(String scenarioDataFile) {
 		DataObject scenarioData = null;
 		
-		if(testDataPath != null) {
+		if(scenarioDataFile != null) {
 			try {
-				scenarioData = new DataObject(FileUtils.csvFileToDMData(System.getProperty("user.dir") + "/" + testDataPath));
+				scenarioData = new DataObject(FileUtils.csvFileToDMData(scenarioDataFile));
 				data.setKey(AutomationConstants.SCENARIO_DATA);
 			} catch(Exception e) { System.out.println("No scenario data file found");}
 		}
@@ -239,11 +239,11 @@ public class TestDataManager {
 		}
 	}
 	
-	public void addConfigurationData(String configDataPath) {
+	public void addConfigurationData(String configDataFile) {
 		DataObject conf = null;
 		
 		try {
-			conf = new DataObject(FileUtils.variablesFileToArray(System.getProperty("user.dir") + "/" + configDataPath));
+			conf = new DataObject(FileUtils.variablesFileToArray(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + configDataFile));
 		} catch(Exception e) { System.out.println("No configuration data file found");}
 		
 		if(conf != null && data.containsKey(AutomationConstants.CONFIGURATION_DATA)) {
@@ -253,12 +253,12 @@ public class TestDataManager {
 		}
 	}
 	
-	public void addTestData(String testDataPath) {
+	public void addTestData(String testDataFile) {
 		DataObject testData = null;
 		
-		if(testDataPath != null) {
+		if(testDataFile != null) {
 			try {
-				testData = new DataObject(FileUtils.csvFileToMData(System.getProperty("user.dir") + "/" + testDataPath));
+				testData = new DataObject(FileUtils.csvFileToMData(testDataFile));
 				data.setKey(AutomationConstants.TEST_DATA);
 			} catch(Exception e) { System.out.println("No scenario data file found");}
 		}
@@ -287,8 +287,7 @@ public class TestDataManager {
 	}
 	
 	public void addDMData(String fileName, String dataKey) {
-		DataObject dataObject = new DataObject(FileUtils.csvFileToDMData(
-			System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + fileName));
+		DataObject dataObject = new DataObject(FileUtils.csvFileToDMData(fileName));
 
 		if(data.containsKey(dataKey)) {
 			data.replaceData(dataKey, dataObject);
@@ -298,8 +297,7 @@ public class TestDataManager {
 	}
 	
 	public void addMData(String fileName, String dataKey) {
-		DataObject dataObject = new DataObject(FileUtils.csvFileToMData(
-			System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + fileName));
+		DataObject dataObject = new DataObject(FileUtils.csvFileToMData(fileName));
 
 		if(data.containsKey(dataKey)) {
 			data.replaceData(dataKey, dataObject);

@@ -9,23 +9,15 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 import com.project.ProjectConstants;
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class GestionPolizasConsultarPage {
-	
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class GestionPolizasConsultarPage extends PageObject {
 
 	DecimalFormat df = new DecimalFormat("#.00");
 	Locale locale = new Locale("es", "ES");
@@ -113,15 +105,13 @@ public class GestionPolizasConsultarPage {
 
 	// endregion
 
-	public GestionPolizasConsultarPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public GestionPolizasConsultarPage(UserStory userS) {
+		super(userS);
 	}
 
 	// region methods
 	public void CheckPolizaNumber() {
-		logger.debug("BEGIN - CheckPolizaNumber");
+		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 
 		// Get the text from the policy number shown in the header of the policy
@@ -136,22 +126,22 @@ public class GestionPolizasConsultarPage {
 
 		// Compare the trimmed policy number with the policy number obtained
 		// when policy was created.
-		org.junit.Assert.assertEquals(this.tCData.getTestVar(testId, "NumPoliza"), numPolizaConsulta);
+		org.junit.Assert.assertEquals(this.testDataM.getTestVar(testId, "NumPoliza"), numPolizaConsulta);
 		this.webDriver.exitFrame();
-		logger.debug("END - CheckPolizaNumber");
+		debugEnd();
 	}
 
 	public void CheckClausulas() {
-		logger.debug("BEGIN - CheckClausulas");
+		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.tabHeaderClausulas);
 		List<Integer> tabPageClausulas = new ArrayList<>();
-		// We need a method on tCData to obtain a list of Strings for the
+		// We need a method on testDataM to obtain a list of Strings for the
 		// Clausulas variables
 		// this.rowWithClausula.forEach(p ->
 		// tabPageClausulas.add(Integer.valueOf(p.findElement(By.xpath(this.xPathFilterClausulaNumber)).getText())));
 		// Integer numberOfMatchesFound =
-		// this.tCData.getClausulas().stream().filter(p ->
+		// this.testDataM.getClausulas().stream().filter(p ->
 		// tabPageClausulas.contains(Integer.valueOf(p)))
 		// .collect(Collectors.toList()).size();
 		//
@@ -161,11 +151,11 @@ public class GestionPolizasConsultarPage {
 		// suplemento",
 		// numberOfMatchesFound == this.tData.getClausulas().size());
 		// this.webDriver.exitFrame();
-		logger.debug("END - CheckClausulas");
+		debugEnd();
 	}
 
 	public void CheckValueInTab(String tab, String ValueToBeChecked, String ExpectedValue) throws Exception {
-		logger.debug("BEGIN - CheckValueInTab");
+		debugBegin();
 		this.OpenTab(tab);
 
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -266,11 +256,11 @@ public class GestionPolizasConsultarPage {
 		}
 
 		this.webDriver.exitFrame();
-		logger.debug("END - CheckValueInTab");
+		debugEnd();
 	}
 
 	public void OpenTab(String tabName) throws Exception {
-		logger.debug("BEGIN - OpenTab");
+		debugBegin();
 
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 
@@ -294,12 +284,13 @@ public class GestionPolizasConsultarPage {
 			default:
 				throw new Exception("El tab seleccionado no está implementado");
 		}
+		
 		this.webDriver.exitFrame();
-		logger.debug("END - OpenTab");
+		debugEnd();
 	}
 
 	public void CheckAnyoAndNivelRehabilitacion() throws Exception {
-		logger.debug("BEGIN - CheckAnyoAndNivelRehabilitacion");
+		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.tabHeaderDatosRiesgos);
 
@@ -312,15 +303,15 @@ public class GestionPolizasConsultarPage {
 		System.out.println("*** Año rehabilitacion en consulta poliza = " + AnyoRehabilitacion);
 		System.out.println("*** Nivel rehabilitacion en consulta poliza = " + NivelRehabilitacion);
 		System.out.println("*** Año rehabilitacion introducido en alta suplemento = "
-			+ this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias"));
+			+ this.testDataM.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias"));
 
 		Assert.assertTrue("El año de rehabilitación de construcciones comunitarias no ha aparecido correctamente", AnyoRehabilitacion
-			.equals(this.tCData.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias")));
+			.equals(this.testDataM.getTestVar(testId, "AnyoRehabilitacionConstruccionesComunitarias")));
 
 		Assert.assertTrue("El nivel de rehabilitación de construcciones comunitarias no ha aparecido correctamente", NivelRehabilitacion
-			.equals(this.tCData.getTestVar(testId, "NivelRehabilitacionRehabilitacionConduccionesAguasComunitarias")));
+			.equals(this.testDataM.getTestVar(testId, "NivelRehabilitacionRehabilitacionConduccionesAguasComunitarias")));
 
-		logger.debug("END - CheckAnyoAndNivelRehabilitacion");
+		debugEnd();
 	}
 
 	// public void CheckCapitalContinente() throws Exception

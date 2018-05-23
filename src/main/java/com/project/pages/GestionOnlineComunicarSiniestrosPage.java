@@ -1,11 +1,17 @@
 package com.project.pages;
 
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
+
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class GestionOnlineComunicarSiniestrosPage {
+public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 	
+	GestionOnlineComunicarSiniestrosPage(UserStory userS) {
+		super(userS);
+	}
 	// final static Logger logger =
 	// LoggerFactory.getLogger(GestionOnlineComunicarSiniestrosPage.class);
 	// BrowserContext browserContext;

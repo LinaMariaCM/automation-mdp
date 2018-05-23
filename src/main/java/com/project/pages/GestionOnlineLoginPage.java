@@ -2,23 +2,15 @@ package com.project.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.FindBy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.testing.TestDataManager;
-import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.testing.UserStory;
+import com.automation.model.testing.objects.PageObject;
 
 /*
 import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
-public class GestionOnlineLoginPage {
-	
-	private String testId;
-	private TestDataManager tCData;
-	private DriverHelper webDriver;
-	final static Logger logger = LoggerFactory.getLogger(PageObject.class);
+public class GestionOnlineLoginPage extends PageObject {
 
 	// region webelements
 	@FindBy(id = "username")
@@ -42,19 +34,17 @@ public class GestionOnlineLoginPage {
 	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
 	 */
 
-	public GestionOnlineLoginPage(DriverHelper driver, TestDataManager data) {
-		this.tCData = data;
-		this.webDriver = driver;
-		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+	public GestionOnlineLoginPage(UserStory userS) {
+		super(userS);
 	}
 	// region methods
 
 	public void login(String userId, String password) {
-		logger.debug("BEGIN - Login");
+		debugBegin();
 		this.webDriver.appendText(this.txtUserId, userId);
 		this.webDriver.appendText(this.txtPassword, password);
 		this.webDriver.click(this.btnEntrar);
-		logger.debug("END - Login");
+		debugEnd();
 	}
 	// endregion
 }
