@@ -130,9 +130,9 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage {
 		logger.debug("BEGIN - ClickOnContinuarButton");
 
 		// this.browserContext.getTestCaseData().setInfraseguro(false);
-		this.webDriver.waitWithDriver(3000);
+		this.webDriver.waitWithDriver(10000);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.waitWithDriver(3000);
+		this.webDriver.waitWithDriver(10000);
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts(5);
 
 		if(Boolean.parseBoolean(this.tCData.getTestVar(testId, "InfraSeguro"))

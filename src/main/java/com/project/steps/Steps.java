@@ -163,7 +163,7 @@ public class Steps {
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(webDriver, userS.getTestDataManager())
-				.completarDatosEnDetallesRiesgo();
+				.completarDatosRiesgoMinimos();
 
 //			new ValidacionExcepcionesReglasDetallesRiesgoPage(webDriver, userS.getTestDataManager())
 //				.ClickOnContinuarAndValidate();
