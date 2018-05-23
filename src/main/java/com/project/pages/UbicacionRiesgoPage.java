@@ -282,6 +282,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
 		this.webDriver.waitWithDriver(1000);
+		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.moveToElement(this.btnAnadirInmueblePantallaPrincipal);
 
@@ -306,10 +307,11 @@ public class UbicacionRiesgoPage extends PageObject {
 
 		// this.browserContext.webElementHelper.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
-		this.webDriver.waitWithDriver(1000);
+	
 		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
+		this.webDriver.waitWithDriver(2000);
 		this.webDriver.click(this.btnAnadirInmuebleReferenciaCatastral);
-		this.webDriver.waitWithDriver(1000);
+		this.webDriver.waitWithDriver(2000);
 		this.webDriver.exitFrame();
 		
 		debugEnd();

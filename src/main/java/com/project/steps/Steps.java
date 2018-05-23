@@ -134,7 +134,7 @@ public class Steps extends StepObject {
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				.completarDatosEnDetallesRiesgo();
+				.completarDatosRiesgoMinimos();
 
 //			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
 //				.ClickOnContinuarAndValidate();
@@ -151,7 +151,7 @@ public class Steps extends StepObject {
 				.clickOnConvertirAProjecto();
 
 			new DatosBasicosTomadorPage(userS)
-				.fillTomadorData(this.userS.getTestVar("tomador"))
+				.fillTomadorData(getTestVar("tomador"))
 				.clickOnContinuar();
 
 			new PrecioPorModalidadPage(userS)
@@ -164,7 +164,7 @@ public class Steps extends StepObject {
 				.activateclausesAndClickOnContinue();
 
 			new DatosBasicosTomadorPage(userS)
-				.fillTomadorData(this.userS.getTestVar("tomador"))
+				.fillTomadorData(getTestVar("tomador"))
 				.clickOnContinuar();
 			
 			new PrecioPorModalidadPage(userS)
