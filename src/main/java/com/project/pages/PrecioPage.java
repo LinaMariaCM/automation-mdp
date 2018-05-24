@@ -80,11 +80,12 @@ public class PrecioPage extends PageObject {
 		// this.cuerpoFrame);
 		// this.webDriver.waitWithDriver(5000);
 		// this.webDriver.exitFrame();
-		this.webDriver.waitWithDriver(10000);
+		//this.webDriver.waitWithDriver(10000);
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.scrollToBottom();
 		this.webDriver.click(this.btnConvertirAProyecto);
+		//this.webDriver.waitForElementToBeClickable(this.btnConvertirAProyecto);
 		this.webDriver.exitFrame();
 
 		if(this.webDriver.isPresentInFrame(this.msgAvisoSistema, this.cuerpoFrame)) {
