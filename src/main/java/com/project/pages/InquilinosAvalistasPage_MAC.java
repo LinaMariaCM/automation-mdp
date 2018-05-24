@@ -200,9 +200,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		// Situacion laboral
 		this.seleccionarSituacion();
 
-		if(this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.cuerpoFrame)) {
-			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.cuerpoFrame, 1);
-		}
+//		This has been commented so that if the test fails, we know that the Detalle field has been enabled for a Situación Laboral that previously didn't have it.
+//		if(this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.cuerpoFrame)) {
+//			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.cuerpoFrame, 1);
+//		}
 		this.webDriver.clickInFrame(this.btnAnadirDatosInquilino, this.cuerpoFrame);
 
 		debugEnd();
@@ -318,8 +319,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionDetalle, this.cuerpoFrame, ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 		}
-		
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
+		else{
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
+		}
+
 		
 		debugEnd();
 	}
