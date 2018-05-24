@@ -64,6 +64,7 @@ public class DriverHelper {
 	private String id = "0";
 	private String ip = "localhost";
 	private String port = "4444";
+	private String emulationBrowser = BrowserType.CHROME;
 	private boolean desktop = true;
 	private boolean headless = false;
 	private boolean forceCache = true;
@@ -133,8 +134,13 @@ public class DriverHelper {
 	}
 
 	public void setHub(String ip, String port) {
-		this.ip = ip;
-		this.port = port;
+		if(ip != null) {
+			this.ip = ip;
+		}
+		
+		if(port != null) {
+			this.port = port;
+		}
 	}
 
 	public void setRemoteMode(boolean value) {
@@ -180,8 +186,14 @@ public class DriverHelper {
 				debugInfo("Checking safari driver");
 				break;
 			default:
-				debugInfo("Checking chrome driver for " + browserType);
-				ChromeConfiguration.downloadDriver(forceCache);
+				if(emulationBrowser.equals(BrowserType.FIREFOX)) {
+					debugInfo("Checking firefox driver for " + browserType);
+					FirefoxConfiguration.downloadDriver(forceCache);
+				} else {
+					debugInfo("Checking chrome driver for " + browserType);
+					ChromeConfiguration.downloadDriver(forceCache);
+				}
+				
 				break;
 		}
 		
@@ -254,7 +266,12 @@ public class DriverHelper {
 						driver = new RemoteWebDriver(hubUrl, SafariConfiguration.createSafariOptions());
 						break;
 					default:
-						driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createMobileOptions(browserType));
+						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
+							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createFirefoxMobileOptions(browserType));
+						} else {
+							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createChromeMobileOptions(browserType));
+						}
+						
 						mobileEmulation = true;
 						break;
 				}
@@ -283,8 +300,13 @@ public class DriverHelper {
 						driver = new SafariDriver(SafariConfiguration.createSafariOptions());
 						break;
 					default:
-						debugInfo("Initializing chrome driver for " + browserType);
-						driver = new ChromeDriver(MobileConfiguration.createMobileOptions(browserType));
+						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
+							debugInfo("Initializing chrome driver for " + browserType);
+							driver = new FirefoxDriver(MobileConfiguration.createFirefoxMobileOptions(browserType));
+						} else {
+							debugInfo("Initializing firefox driver for " + browserType);
+							driver = new ChromeDriver(MobileConfiguration.createChromeMobileOptions(browserType));
+						}
 						mobileEmulation = true;
 						break;
 				}
@@ -333,7 +355,12 @@ public class DriverHelper {
 						sessionId = ((SafariDriver) driver).getSessionId();
 						break;
 					default:
-						sessionId = ((ChromeDriver) driver).getSessionId();
+						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
+							sessionId = ((FirefoxDriver) driver).getSessionId();
+						} else {
+							sessionId = ((ChromeDriver) driver).getSessionId();
+						}
+						
 						break;
 				}
 			}
@@ -365,16 +392,16 @@ public class DriverHelper {
 		return driverType;
 	}
 
-	public void setReportingLevel(String value) {
-		reportingLevel = value;
-	}
-
 	public boolean isReducedViewMode() {
 		return smallWindowMode;
 	}
 
 	public boolean isNormalViewMode() {
 		return !smallWindowMode;
+	}
+
+	public void setReportingLevel(String value) {
+		reportingLevel = value;
 	}
 
 	public void setSmallWindowMode(boolean value) {
@@ -388,6 +415,10 @@ public class DriverHelper {
 	public void setWindowSize(int heigth, int width) {
 		defaultWindowHeigth = heigth;
 		defaultWindowWidth = width;
+	}
+	
+	public void setEmulationBrowser(String browser) {
+		if(browser != null) emulationBrowser = browser;
 	}
 
 	public void quit() {
@@ -1195,8 +1226,8 @@ public class DriverHelper {
 		
 		new WebDriverWait(driver, implicitTimeout)
 			.pollingEvery(Duration.ofMillis(500))
-			.until((ExpectedCondition<Boolean>) wd -> ((JavascriptExecutor) wd).executeScript(
-				"return !document ? false : !document.readyState ? false : document.readyState").toString().equals("complete"));
+			.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript(
+				"return !document ? false : !document.readyState ? false : document.readyState")));
 		
 		logger.trace("[END] - waitForPageToLoad");
 	}

@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class MobileConfiguration {
 		return desiredCapabilitiesLocal;
 	}
 
-	public static ChromeOptions createMobileOptions(String browserType) {
+	public static ChromeOptions createChromeMobileOptions(String browserType) {
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("disable-popup-blocking");
 		options.addArguments("--start-maximized");
@@ -35,6 +36,19 @@ public class MobileConfiguration {
 
 		//options.setCapability("mobileEmulation", getMobileEmulationMap(browserType));
 		options.setExperimentalOption("mobileEmulation", getMobileEmulationMap(browserType));
+
+		return options;
+	}
+	
+	public static FirefoxOptions createFirefoxMobileOptions(String browserType) {
+		FirefoxOptions options = new FirefoxOptions();
+		options.addArguments("--start-maximized");
+		options.addArguments("-headless");
+		//options.addArguments("--disable-setuid-sandbox");
+		//Map<String, Object> preferences = new Hashtable<>();
+		
+		//FirefoxProfile profile= new FirefoxProfile();
+		//.
 
 		return options;
 	}

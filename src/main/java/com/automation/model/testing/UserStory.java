@@ -332,7 +332,7 @@ public class UserStory {
 	
 	private boolean setBooleanOnConfiguration(String key) {
 		String stringValue = System.getProperty(key);
-		if(stringValue != null && stringValue.isEmpty()) stringValue = driverConf.getValue(key);
+		if((stringValue != null && stringValue.isEmpty()) || stringValue == null) stringValue = driverConf.getValue(key);
 		else if(stringValue != null) driverConf.setValue(key, stringValue);
 		
 		return Boolean.parseBoolean(stringValue);
@@ -361,7 +361,8 @@ public class UserStory {
 		webDriver.setWaitForJQuery(setBooleanOnConfiguration("wait_for_jquery"));
 
 		setBooleanOnConfiguration("driver_type");
-		
+		webDriver.setEmulationBrowser(setStringOnConfiguration("emulation_browser"));
+
 		webDriver.setDownloadDrivers(setBooleanOnConfiguration("download"));
 		webDriver.setHub(setStringOnConfiguration(AutomationConstants.IP), setStringOnConfiguration(AutomationConstants.PORT));
 		

@@ -303,7 +303,7 @@ public class CsvToHtml {
 				
 				table.getChildByTag("table").getChild(0).getChild(0).getChild(0).getChild(0)
 					.setContent(content.replace("_headless", ""));
-			} else if(table.getChildByTag("table").getChildByTag("caption").equals(translate(translationFile, "Browser"))){
+			} else if(table.getChildByTag("table").getChildByTag("caption").getContent().toLowerCase().equals(translate(translationFile, "Browser").toLowerCase())){
 				String content = table.getChildByTag("table").getChildByTag("caption").getChild(0).getContent();
 				
 				table.getChildByTag("table").getChildByTag("caption").getChild(0).setContent(content.replace("_headless", ""));
@@ -343,8 +343,7 @@ public class CsvToHtml {
 				HtmlElement table = htmlNodes[i].getChild(htmlNodes[i].getChilds().size() - 3);
 			
 				String content = table.getChildByTag("table").getChildByTag("caption").getChildByTag("b").getContent();
-				
-				if(content.contains(translate(translationFile, "exception"))) {
+				if(content.toLowerCase().contains(translate(translationFile, "exception").toLowerCase())) {
 					table.getChildByTag("table").getChildByTag("caption").getChildByTag("b")
 						.setContent(StringUtils.snakeCaseToNatural(translate(translationFile, testCases[i])) + ": " + content);
 					
