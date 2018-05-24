@@ -130,6 +130,7 @@ public class UbicacionRiesgoPage extends PageObject {
 	private By txtMensajeError = By.xpath("p[ng-bind-html='modalErrores.text | encode']");
 	
 	private By loaderModal = By.cssSelector("#modalLoader");
+	
 
 	// endregion
 	/*

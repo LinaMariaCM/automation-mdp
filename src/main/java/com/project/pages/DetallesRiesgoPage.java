@@ -233,7 +233,7 @@ public class DetallesRiesgoPage extends PageObject {
 		// &&
 		// !this.testDataM.getTestVar(testId,"edificioMadera").equals(""))
 
-		this.webDriver.waitWithDriver(5000);
+		//this.webDriver.waitWithDriver(5000);
 
 		// if(!edificioMadera.equals(this.testDataM.getTestVar(testId,
 		// "edificioMadera")) && !this.testDataM.getTestVar(testId,
@@ -269,10 +269,10 @@ public class DetallesRiesgoPage extends PageObject {
 
 		/* AÑO DE CONSTRUCCION Y REHABILITACIONES */
 		this.webDriver.scrollToElement(this.txtAnyoConstruccion);
-		this.webDriver.waitWithDriver(5000);
+		this.webDriver.waitWithDriver(1000);
 		this.webDriver.clearText(this.txtAnyoConstruccion);
 		this.webDriver.appendText(this.txtAnyoConstruccion, "2000");
-		this.webDriver.waitWithDriver(5000);
+		this.webDriver.waitWithDriver(1000);
 
 		/* SUPERFICIES */
 
@@ -282,7 +282,7 @@ public class DetallesRiesgoPage extends PageObject {
 		// this.webDriver.appendText(by, text);
 
 		this.webDriver.exitFrame();
-		this.webDriver.waitWithDriver(5000);
+		this.webDriver.waitWithDriver(1000);
 		this.clickOnContinuar();
 
 		debugEnd();
