@@ -32,10 +32,14 @@ public class InitUtils {
 	public static String[] getTestBrowsers() {
 		String[] browsers = new String[]{ BrowserType.CHROME};
 
-		if(System.getProperty("browser") != null && !System.getProperty("browser").isEmpty()) {
+		if(System.getProperty("browser") != null && !System.getProperty("browser").isEmpty()
+			&& (System.getProperty("device") == null || System.getProperty("device").isEmpty())) {
 			String browser = System.getProperty("browser");
 			
 			browsers = browser.split(browser.contains(",") ? ",": "\\.");
+		} else if(System.getProperty("device") != null && !System.getProperty("device").isEmpty()
+			&& (System.getProperty("browser") == null || System.getProperty("browser").isEmpty())) {
+			browsers = new String[]{ System.getProperty("device")};
 		}
 		
 		return browsers;
@@ -150,6 +154,10 @@ public class InitUtils {
 	public static String[] getMobileBrowsers() {		
 		return new String[] { BrowserType.NEXUS5X, BrowserType.NEXUS6P, BrowserType.GALAXYS5, BrowserType.IPAD, BrowserType.IPADPRO
 				, BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS};
+	}
+
+	public static String[] getDesktopBrowsers() {		
+		return new String[] { BrowserType.CHROME, BrowserType.FIREFOX, BrowserType.EDGE, BrowserType.INTERNET_EXPLORER, BrowserType.SAFARI};
 	}
 
 	public static boolean browserIsContained(String browser) {
