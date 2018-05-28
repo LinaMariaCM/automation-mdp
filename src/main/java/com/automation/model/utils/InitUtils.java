@@ -52,6 +52,9 @@ public class InitUtils {
 			testDataFile = AutomationConstants.RESOURCES_FOLDER + "/" + testDataFile;
 		} else if(defaultTestData != null && !defaultTestData.isEmpty()) {
 			testDataFile = AutomationConstants.RESOURCES_FOLDER + "/" + defaultTestData;
+		} else if((defaultTestData == null || defaultTestData.isEmpty())
+			&& (testDataFile == null || testDataFile.isEmpty())) {
+			testDataFile = null;
 		}
 		
 		return testDataFile;
@@ -122,8 +125,8 @@ public class InitUtils {
 	}
 	
 	public static String[][] getResultMatrixFromTestData(DataObject dataObject, String[] browsers, String[] testVariables) {
-		String[][] resultMatrix = new String[dataObject.size() + 1][dataObject.getRow().size() + 3];
-
+		String[][] resultMatrix = new String[dataObject.size() + 1][testVariables.length + 4];
+		
 		for(int j = 0; j < testVariables.length; j++) {
 			resultMatrix[0][j] = testVariables[j];
 		}

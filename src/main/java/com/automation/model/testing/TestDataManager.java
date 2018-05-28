@@ -260,7 +260,7 @@ public class TestDataManager {
 			try {
 				testData = new DataObject(FileUtils.csvFileToMData(testDataFile));
 				data.setKey(AutomationConstants.TEST_DATA);
-			} catch(Exception e) { System.out.println("No scenario data file found");}
+			} catch(Exception e) { System.out.println("No test data file found");}
 		}
 		
 		if(testData != null && data.containsKey(AutomationConstants.TEST_DATA)) {

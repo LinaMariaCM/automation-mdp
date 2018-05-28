@@ -78,6 +78,7 @@ public class DriverHelper {
 	private String devicePlatform;
 	private String appPackage;
 	private String launchActivity;
+	private String iOsUdid;
 	private String emulationBrowser = BrowserType.CHROME;
 	private boolean desktop = true;
 	private boolean headless = false;
@@ -190,8 +191,13 @@ public class DriverHelper {
 	}
 	
 	public void setAppVariables(DataObject configData) {
-		this.appPackage = configData.getValue("app_package");
-		this.launchActivity = configData.getValue("launch_activity");
+		if(devicePlatform.toLowerCase().equals(Platform.ANDROID.toString().toLowerCase())) {
+			this.appPackage = configData.getValue("app_package");
+			this.launchActivity = configData.getValue("launch_activity");
+		} else {
+			this.appPackage = configData.getValue("ios_package");
+			this.iOsUdid = configData.getValue(deviceName + "_udid");
+		}
 	}
 
 	public void downloadDriver(String browserType) {
@@ -355,21 +361,11 @@ public class DriverHelper {
 				
 				driver = new AndroidDriver<WebElement>(hubUrl, capabilities);
 			} else {
-				capabilities = DesiredCapabilities.iphone();
-				
-				capabilities.setCapability("automationName", "Appium"); // XCUITest
+				capabilities.setCapability("automationName", "XCUITest"); // XCUITest
 				capabilities.setCapability("platformName", "iOS");
-				capabilities.setCapability("platformVersion", "11.0.3");
-				capabilities.setCapability("deviceType", "iPhone 5s");
-				capabilities.setCapability("deviceName", "CONSULTANT's iPhone");
-				// capabilities.setCapability("xcodeOrgId", "JW2D7C58LS");
-				// capabilities.setCapability("xcodeSigningId", "iPhone Developer");
-				// capabilities.setCapability("useNewWDA", "true");
-				// capabilities.setCapability("bundleId", "com.apple.mobilesafari");
-				// capabilities.setCapability("bundleId", "com.inditex.bershka");
-				// capabilities.setCapability("showXcodeLog", "true");
-				capabilities.setCapability("app", "/Users/amaris/Desktop/BershkaApp.ipa");
-				capabilities.setCapability("udid", "bf6b3b5d831ff9db1d521d73cf21537961e715e8");
+				capabilities.setCapability("udid", iOsUdid);
+				capabilities.setCapability("deviceName", deviceName);
+				capabilities.setCapability("app", appPackage);
 				
 				debugInfo("Initializing iOs driver");
 				driver = new IOSDriver<WebElement>(hubUrl, capabilities);
