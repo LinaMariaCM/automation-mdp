@@ -80,6 +80,10 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 	@FindBy(xpath = ".//*[text()='AVISO: El mismo riesgo ya se encuentra asegurado en Mutua de propietarios.']")
 	private By lblAvisoRiesgoYaAsegurado = By.xpath(".//*[text()='AVISO: El mismo riesgo ya se encuentra asegurado en Mutua de propietarios.']");
 
+	
+	private By loaderModal = By.cssSelector("#modalLoader");
+	private By procesandoWindow = By.cssSelector(".smallbox");
+	
 	// endregion
 
 	// public ValidacionExcepcionesReglasDetallesRiesgoPage(BrowserContext
@@ -123,9 +127,11 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 		debugBegin();
 
 		// this.browserContext.getTestCaseData().setInfraseguro(false);
-		this.webDriver.waitWithDriver(10000);
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.waitWithDriver(10000);
+		this.webDriver.waitWithDriver(1000);
+		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
+		this.webDriver.waitForElementNotToBeClickable(this.procesandoWindow);
+		//this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.waitWithDriver(1000);
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts(5);
 
 		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "InfraSeguro"))
@@ -142,14 +148,18 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 
 		this.CheckAvisoConstructionYear();
 		this.CheckAvisoRehabilitacionIntegralWithException();
+		
+		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
+		this.webDriver.waitForElementNotToBeClickable(this.procesandoWindow);
+
 		// this.CheckAvisoRehabilitacionIntegralYConstruccionesComunitarias();
 
-		if(this.btnContinuarList.size() == 1) {
-			this.webDriver.click(this.btnContinuarList.get(0));
-		}
+//		if(this.btnContinuarList.size() == 1) {
+//			this.webDriver.click(this.btnContinuarList.get(0));
+//		}
 
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
-		this.webDriver.exitFrame();
+		//this.webDriver.exitFrame();
 		debugEnd();
 	}
 
