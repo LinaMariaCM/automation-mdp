@@ -53,8 +53,6 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 
-import java.time.Duration;
-
 /**
  * The DriverHelper class implements methods which use Selenium libraries to
  * manage the creation of a webdriver and to interact with different kinds of
@@ -842,6 +840,46 @@ public class DriverHelper {
 		switchToFrame(frame);
 		doubleClick(by);
 		exitFrame();
+	}
+	
+	public void swipeRight(By by) {
+		WebElement element = waitForElementToBeClickable(by);
+		Dimension size = element.getSize();
+		
+		new Actions(driver).moveToElement(element).moveByOffset((int) (-size.width * 0.4), 0).clickAndHold().pause(2500)
+			.moveByOffset((int) (size.width * 0.8), 0).pause(1000).release().perform();
+		
+		waitForPageToLoad();
+	}
+	
+	public void swipeLeft(By by) {
+		WebElement element = waitForElementToBeClickable(by);
+		Dimension size = element.getSize();
+		
+		new Actions(driver).moveToElement(element).moveByOffset((int) (size.width * 0.4), 0).clickAndHold().pause(2500)
+			.moveByOffset((int) (-size.width * 0.8), 0).pause(1000).release().perform();
+		
+		waitForPageToLoad();
+	}
+	
+	public void swipeDown(By by) {
+		WebElement element = waitForElementToBeClickable(by);
+		Dimension size = element.getSize();
+
+		new Actions(driver).moveToElement(element).moveByOffset(0, (int) (-size.height * 0.4)).clickAndHold().pause(2500)
+			.moveByOffset(0, (int) (size.height * 0.8)).pause(1000).release().perform();
+		
+		waitForPageToLoad();
+	}
+	
+	public void swipeUp(By by) {
+		WebElement element = waitForElementToBeClickable(by);
+		Dimension size = element.getSize();
+
+		new Actions(driver).moveToElement(element).moveByOffset(0, (int) (size.height * 0.4)).clickAndHold().pause(2500)
+			.moveByOffset(0, (int) (-size.height * 0.8)).pause(1000).release().perform();
+		
+		waitForPageToLoad();
 	}
 	// endregion
 

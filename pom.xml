@@ -60,13 +60,11 @@
 			<artifactId>java-client</artifactId>
 			<version>5.0.4</version>
 		</dependency>
-		<!-- QUITAR -->
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
 			<version>1.7.1</version>
 		</dependency>
-		<!-- HASTA AQUI -->
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
@@ -92,13 +90,11 @@
 			<artifactId>slf4j-ext</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
-		<!-- Binding for Log4J -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j-impl</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		<!-- Log4j API and Core implementation required for binding -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-api</artifactId>
@@ -130,7 +126,6 @@
 			<artifactId>commons-beanutils</artifactId>
 			<version>1.9.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
 		<dependency>
     		<groupId>javax.mail</groupId>
     		<artifactId>mail</artifactId>
