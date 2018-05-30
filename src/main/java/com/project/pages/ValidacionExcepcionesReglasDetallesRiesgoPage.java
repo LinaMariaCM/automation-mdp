@@ -21,34 +21,34 @@ import com.automation.model.testing.objects.PageObject;
 public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 
 	// region webelements
-	@FindBy(name = "cuerpo")
-	private By cuerpoFrame;
+	//@FindBy(name = "cuerpo")
+	private By cuerpoFrame = By.name("cuerpo");
 
-	@FindBy(name = "botonContinuar")
+	//@FindBy(name = "botonContinuar")
 	private List<WebElement> btnContinuarList;
 	// private By btnContinuarList;
 
-	@FindBy(name = "botonContinuar")
-	private By btnContinuar;
+	//@FindBy(name = "botonContinuar")
+	private By btnContinuar = By.name("botonContinuar");
 
-	@FindBy(id = "botonVolver")
-	private By btnVolver;
+	//@FindBy(id = "botonVolver")
+	private By btnVolver = By.id("botonVolver");
 
-	@FindBy(xpath = ".//*[text()='AVISO: Incurriendo en infraseguro, en caso de siniestro podrá aplicarse regla proporcional, ¿Está seguro?']")
+	//@FindBy(xpath = ".//*[text()='AVISO: Incurriendo en infraseguro, en caso de siniestro podrá aplicarse regla proporcional, ¿Está seguro?']")
 	private List<WebElement> lblInfraseguroMsg;
 
-	@FindBy(xpath = ".//*[text()='AVISO: Está asegurando el edificio por un valor muy superior al recomendado. ¿Está seguro? En caso de siniestro la indemnización se ajustará al valor del inmueble.']")
+	//@FindBy(xpath = ".//*[text()='AVISO: Está asegurando el edificio por un valor muy superior al recomendado. ¿Está seguro? En caso de siniestro la indemnización se ajustará al valor del inmueble.']")
 	private List<WebElement> lblSupraseguroMsg;
 
-	@FindBy(xpath = ".//*[text()='Plantas de sótano > 10. Riesgo fuera de las normas de suscripción']")
+	//@FindBy(xpath = ".//*[text()='Plantas de sótano > 10. Riesgo fuera de las normas de suscripción']")
 	private List<WebElement> lblAvisoPeritajePlantasSotano;
 
-	@FindBy(xpath = ".//*[text()='Peritaje: Debido a la antigüedad del edificio supera los 50 años, el riesgo debe ser peritado.']")
+	//@FindBy(xpath = ".//*[text()='Peritaje: Debido a la antigüedad del edificio supera los 50 años, el riesgo debe ser peritado.']")
 	// Peritaje: Debido a la antigüedad del edificio supera los 50 años, el
 	// riesgo debe ser peritado.
-	private By lblAvisoPeritajeYearGreaterThan50;
+	private By lblAvisoPeritajeYearGreaterThan50 = By.xpath(".//*[text()='Peritaje: Debido a la antigüedad del edificio supera los 50 años, el riesgo debe ser peritado.']");
 
-	@FindBy(xpath = ".//*[text()='Peritaje: Debido al capital de continente solicitado, el riesgo debe ser peritado. Una vez se finalice la peritación recibirá un mensaje informando de las acciones derivadas de ésta.']")
+	//@FindBy(xpath = ".//*[text()='Peritaje: Debido al capital de continente solicitado, el riesgo debe ser peritado. Una vez se finalice la peritación recibirá un mensaje informando de las acciones derivadas de ésta.']")
 	private List<WebElement> lblAvisoPeritajeCapitalGreaterThan1500000;
 
 	@FindBy(xpath = ".//*[text()='Plantas de sótano > 10. Riesgo fuera de las normas de suscripción']")
@@ -67,7 +67,7 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 	private List<WebElement> lblAvisoNumeroPlantasAlto;
 
 	@FindBy(xpath = ".//*[text()='Dado que el número de plantas en alto (plantas) > 20, el proyecto debe ser revisado por compañía.']")
-	private By lblAvisoNumeroPlantasAlto1;
+	private By lblAvisoNumeroPlantasAlto1 = By.xpath(".//*[text()='Dado que el número de plantas en alto (plantas) > 20, el proyecto debe ser revisado por compañía.']");
 
 	@FindBy(xpath = ".//*[text()='Debido a que se ha modificado el año de construcción y no coincide con catastro, el proyecto debe ser revisado por compañía . Hasta que no sea validado la impresión queda bloqueada y el precio no es vinculante']")
 	private List<WebElement> lblAvisoModificacionAnyoConstruccion;

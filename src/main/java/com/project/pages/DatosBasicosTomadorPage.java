@@ -20,9 +20,8 @@ public class DatosBasicosTomadorPage extends PageObject {
 	private By txtNumeroDocumento = By.id("numeroDocumento");
 
 	// @FindBy(xpath = ".//*[text()='Validar cliente']")
-	// private By btnValidarCliente = By.xpath(".//*[text()='Validar
-	// cliente']");
-	private By btnValidarCliente = By.name("Validar cliente");
+	private By btnValidarCliente = By.xpath(".//*[text()='Validar cliente']");
+	//private By btnValidarCliente = By.name("Validar cliente");
 
 	// @FindBy(xpath = ".//*[@name='nombreTomador']")
 	private By txtNombreTomador = By.xpath(".//*[@name='nombreTomador']");
@@ -33,8 +32,13 @@ public class DatosBasicosTomadorPage extends PageObject {
 	// @FindBy(xpath = ".//*[@name='apellido2Tomador']")
 	private By txtSegundoApellidoTomador = By.xpath(".//*[@name='apellido2Tomador']");
 
+	
+	///html/body/div/div[1]/div/div[3]/footer/div/button[2]
+	
 	// @FindBy(xpath = ".//*[text()='Continuar']")
-	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
+	private By btnContinuar = By.cssSelector("footer [ng-click*='continuar']");
+	
+
 
 	// @FindBy(xpath = ".//*[text()='Aceptar']")
 	private By btnAceptar = By.xpath(".//*[text()='Aceptar']");
@@ -56,10 +60,16 @@ public class DatosBasicosTomadorPage extends PageObject {
 	private By btnVolver = By.id("botonVolver");
 
 	private By btnAceptarVolver = By.cssSelector("button[ng-click*='com_aceptar']");
+	
+	private By loaderModal = By.cssSelector("#modalLoader");
+	
 	// private By btnAceptarVolver = By.cssSelector("com_aceptar");
 	// private By btnAceptarVolver = By.id("Aceptar");
 	// private By btnAceptarVolver = By.xpath(".//*[text()='Aceptar']");
 	// endregion
+	
+	
+
 
 	public DatosBasicosTomadorPage(UserStory userS) {
 		super(userS);
@@ -75,6 +85,8 @@ public class DatosBasicosTomadorPage extends PageObject {
 	// region methods
 	public DatosBasicosTomadorPage clickOnContinuar() {
 		debugBegin();
+		this.webDriver.waitForElementToBeClickableInFrame(this.loaderModal, this.cuerpoFrame);
+		//this.webDriver.waitForElementToBeClickableInFrame(this.procesandoWindow, this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		debugEnd();
 
@@ -136,7 +148,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 					this.webDriver.clickInFrame(this.btnVolver, this.cuerpoFrame);
 					this.webDriver.clickInFrame(this.btnAceptarVolver, this.cuerpoFrame);
 				}
-				this.webDriver.waitWithDriver(4000);
+				this.webDriver.waitWithDriver(2000);
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
 				setTestVar("tomador_dni", DniGeneratorHelper.generaNif(null));
 				this.webDriver.clickInFrame(this.txtNumeroDocumento, this.cuerpoFrame);
@@ -165,8 +177,15 @@ public class DatosBasicosTomadorPage extends PageObject {
 				// this.wh.exitFromFrame();
 
 				this.webDriver.clickInFrame(this.btnValidarCliente, this.cuerpoFrame);
-				this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
-
+				
+				this.webDriver.waitWithDriver(2000);
+				this.webDriver.switchToFrame(this.cuerpoFrame);
+				this.webDriver.click(this.btnAceptar);
+				this.webDriver.exitFrame();
+				this.webDriver.waitWithDriver(5000);
+				this.webDriver.switchToFrame(this.cuerpoFrame);
+				this.webDriver.click(this.btnContinuar);
+				this.webDriver.exitFrame();
 				break;
 			case ProjectConstants.ClienteExistente:
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);

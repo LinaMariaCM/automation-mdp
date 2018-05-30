@@ -22,58 +22,56 @@ public class ClausulasPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
-	private By cuerpoFrame;
+	private By cuerpoFrame = By.name("cuerpo");
 
 	// Rows with a checkbox and a clausula
 	// @FindBy(xpath = ".//tr[td[input]]")
 	private List<By> rowWithClausula;
 
-	// @FindBy(xpath = ".//*[@class='pagination' and
-	// ancestor::*[contains(@ng-if,'control.totalPages')]]")
-	private By clausulaPageSelector;
+	// @FindBy(xpath = ".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]")
+	private By clausulaPageSelector = By.xpath(".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]");
 
 	// @FindBy(xpath = ".//*[text()='Añadir cláusula y/o hipotecaria']")
-	private By btnAddClausulaHipotecaria;
+	private By btnAddClausulaHipotecaria = By.xpath(".//*[text()='Añadir cláusula y/o hipotecaria']");
 
 	// @FindBy(xpath = ".//*[text()='Cláusula hipotecaria']")
-	private By btnTabClausulaHipotecaria;
+	private By btnTabClausulaHipotecaria = By.xpath(".//*[text()='Cláusula hipotecaria']");
 
 	// @FindBy(id = "tipodocumento")
-	private By cmbTipoDocumento;
+	private By cmbTipoDocumento = By.id("tipodocumento");
 
 	// @FindBy(name = "numerodocumento")
-	private By txtNumeroDocumento;
+	private By txtNumeroDocumento = By.name("numerodocumento");
 
 	// @FindBy(id = "nombreasegurado")
-	private By txtNombreAsegurado;
+	private By txtNombreAsegurado = By.id("nombreasegurado");
 
 	// @FindBy(id = "apellido1asegurado")
-	private By txtApellido1Asegurado;
+	private By txtApellido1Asegurado = By.id("apellido1asegurado");
 
 	// @FindBy(id = "apellido2asegurado")
-	private By txtApellido2Asegurado;
+	private By txtApellido2Asegurado = By.id("apellido2asegurado");
 
 	// @FindBy(id = "direccionriesgo")
-	private By cmbDireccionRiesgo;
+	private By cmbDireccionRiesgo = By.id("direccionriesgo");
 
 	// @FindBy(id = "entidadbancaria")
-	private By cmbEntidadBancaria;
+	private By cmbEntidadBancaria = By.id("entidadbancaria");
 
 	// @FindBy(id = "coefparticipacion")
-	private By txtCoheficienteParticipacion;
+	private By txtCoheficienteParticipacion = By.id("coefparticipacion");
 
-	// @FindBy(xpath = ".//*[text()='Añadir cláusula' and
-	// @ng-click='cp.insertarClausula()']")
-	private By btnAddClausula;
+	// @FindBy(xpath = ".//*[text()='Añadir cláusula' and @ng-click='cp.insertarClausula()']")
+	private By btnAddClausula = By.xpath(".//*[text()='Añadir cláusula' and @ng-click='cp.insertarClausula()']");
 
 	// @FindBy(xpath = ".//*[@title='Continuar']")
-	private By btnContinuarInEdition;
+	private By btnContinuarInEdition = By.xpath(".//*[@title='Continuar']");
 
 	// @FindBy(xpath = ".//*[text()='Continuar']")
-	private By btnContinuarInCreation;
+	private By btnContinuarInCreation = By.xpath(".//*[text()='Continuar']");
 
 	// @FindBy(xpath = ".//*[@ng-click='control.update(control.current + 1)']")
-	private By btnNextClausulasPage;
+	private By btnNextClausulasPage = By.xpath(".//*[@ng-click='control.update(control.current + 1)']");
 
 	// @FindBy(xpath = ".//tr[td[input]]")
 	private List<By> rowCheckboxWithCoberturaOpcional;

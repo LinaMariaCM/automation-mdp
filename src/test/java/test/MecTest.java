@@ -30,7 +30,8 @@ public class MecTest extends TestObject {
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
 		Steps steps = new Steps(userS);
 
-		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMecThu.csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			// Escenario: [Mec01] - Alta proyecto: datos catastro+cliente nuevo+complet+cobro mediador

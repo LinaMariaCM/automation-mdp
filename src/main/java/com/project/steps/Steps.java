@@ -150,7 +150,7 @@ public class Steps extends StepObject {
 			new PrecioPage(userS)
 				.clickOnConvertirAProjecto();
 
-			System.out.println("LA VARIABLE TOMADOR: " + getScenarioVar("tomador"));
+	
 			new DatosBasicosTomadorPage(userS)
 				.fillTomadorData(getScenarioVar("tomador"))
 				.clickOnContinuar();
