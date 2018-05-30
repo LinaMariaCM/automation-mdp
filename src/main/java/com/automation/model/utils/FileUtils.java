@@ -115,6 +115,8 @@ public class FileUtils {
 
 	public static HashMap<String, HashMap<String, String>> csvFileToMData(String filePath) {
 		HashMap<String, HashMap<String, String>> result = null;
+		
+		if(filePath == null || filePath.isEmpty()) return null;
 
 		if(new File(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath).exists()) {
 			filePath = System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath;
@@ -174,6 +176,10 @@ public class FileUtils {
 	}
 
 	public static HashMap<String, HashMap<String, String>> variablesFileToArray(String filePath) {
+		if(new File(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath).exists()) {
+			filePath = System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath;
+		}
+		
 		String line;
 		ArrayList<String> list = new ArrayList<String>();
 		BufferedReader bufferedReader = null;

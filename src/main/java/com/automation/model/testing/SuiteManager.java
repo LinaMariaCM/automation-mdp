@@ -9,6 +9,8 @@ import com.automation.data.DataObject;
 import com.automation.model.utils.ArrayUtils;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.utils.InitUtils;
+import com.automation.model.utils.StringUtils;
+
 import javafx.util.Pair;
 
 /**
@@ -123,15 +125,12 @@ public class SuiteManager {
 			testData.addTestData(defaultTestData);
 			testData.setCaseVariables(FileUtils.loadDataFileToArray(defaultTestData, true)[0]);
 		} else {
-			HashMap<String, String> auxRow =  new HashMap<String, String>();
 			HashMap<String, HashMap<String, String>> hashMapAux = new HashMap<String, HashMap<String, String>>();
 			
-			auxRow.put("id", "0");
-			hashMapAux.put("0", auxRow);
-			
-			DataObject testDataDefault = new DataObject(hashMapAux);
+			String[] keyArray = new String[]{"row", "id"};
+			hashMapAux.put("0", StringUtils.stringToDMRow(keyArray, new String[]{"0", "0"}));
 
-			testData.addTestData(testDataDefault);
+			testData.addTestData( new DataObject(hashMapAux));
 			testData.setCaseVariables(new String[]{"id"});
 		}
 

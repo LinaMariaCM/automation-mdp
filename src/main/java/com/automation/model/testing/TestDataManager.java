@@ -243,7 +243,7 @@ public class TestDataManager {
 		DataObject conf = null;
 		
 		try {
-			conf = new DataObject(FileUtils.variablesFileToArray(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + configDataFile));
+			conf = new DataObject(FileUtils.variablesFileToArray(configDataFile));
 		} catch(Exception e) { System.out.println("No configuration data file found");}
 		
 		if(conf != null && data.containsKey(AutomationConstants.CONFIGURATION_DATA)) {
@@ -260,7 +260,7 @@ public class TestDataManager {
 			try {
 				testData = new DataObject(FileUtils.csvFileToMData(testDataFile));
 				data.setKey(AutomationConstants.TEST_DATA);
-			} catch(Exception e) { System.out.println("No scenario data file found");}
+			} catch(Exception e) { System.out.println("No test data file found");}
 		}
 		
 		if(testData != null && data.containsKey(AutomationConstants.TEST_DATA)) {

@@ -79,7 +79,6 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// private WebElement btnModificar;
 	private By btnModificar = By.cssSelector("#INQUIAVAL_GRABINTERV_CONF");
 
-	//
 	// @FindBy(id = "botonAddDoc")
 	// private WebElement btnAnadirDocumentacionPrincipal;
 	private By btnAnadirDocumentacionPrincipal = By.cssSelector("#botonAddDoc");
@@ -89,36 +88,39 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// private WebElement btnAnadirDocumentoSubido;
 	private By btnAnadirDocumentoSubido = By.cssSelector("#addDocumento");
 
-	//
 	// @FindBy(xpath =
 	// ".//*[@id='formDocumentos']/div[3]/div/div[1]/div/label/span/span")
 	// private WebElement btnAnadirDocumentacion;
 	private By btnAnadirDocumentacion = By.cssSelector("#formDocumentos");
 
-	//
 	// @FindBy(id = "btnContinuar")
 	// private WebElement btnContinuar;
 	private By btnContinuar = By.cssSelector("#btnContinuar");
 
-	//
 	// @FindBy(name = "doc_0")
 	// private WebElement chkbxDosNominas;
-	//
+	private By chkbxDosNominas = By.cssSelector("#doc_0");
+
 	// @FindBy(name = "doc_1")
 	// private WebElement chkbxDosNominasAval;
-	//
+	private By chkbxDosNominasAval = By.cssSelector("#doc_1");
+
 	// @FindBy(name = "doc_2")
 	// private WebElement chkbxAutorizacionConsulta;
-	//
+	private By chkbxAutorizacionConsulta = By.cssSelector("#doc_2");
+
 	// @FindBy(name = "doc_5")
 	// private WebElement chkbxAutorizacionConsultaAval;
-	//
+	private By chkbxAutorizacionConsultaAval = By.cssSelector("#doc_5");
+
 	// @FindBy(id = "fichero")
 	// private WebElement elmntFichero;
-	//
+	private By elmntFichero = By.cssSelector("#fichero");
+
 	// @FindBy(id = "btnEnviar")
 	// private WebElement btnEnviarACompania;
-	//
+	private By btnEnviarACompania = By.cssSelector("#btnEnviar");
+
 	// @FindBy(css = "button[id*='modificarInt']")
 	// private WebElement btnEditar;
 	//
@@ -134,7 +136,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	//
 	// @FindBy(xpath = ".//*[@id='formularioEnvio']/div[3]/button[2]")
 	// private WebElement btnEnviarComentarios;
-	//
+
 	// public InquilinosAvalistasPage_MAC(BrowserContext browserContext)
 	// {
 	// this.browserContext = browserContext;
@@ -200,9 +202,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		// Situacion laboral
 		this.seleccionarSituacion();
 
-		if(this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.cuerpoFrame)) {
-			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.cuerpoFrame, 1);
-		}
+//		This has been commented so that if the test fails, we know that the Detalle field has been enabled for a Situación Laboral that previously didn't have it.
+//		if(this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.cuerpoFrame)) {
+//			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.cuerpoFrame, 1);
+//		}
 		this.webDriver.clickInFrame(this.btnAnadirDatosInquilino, this.cuerpoFrame);
 
 		debugEnd();
@@ -318,8 +321,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionDetalle, this.cuerpoFrame, ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 		}
-		
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
+		else{
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
+		}
+
 		
 		debugEnd();
 	}
@@ -342,6 +347,15 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - SeleccionarSituacion");
 	// }
 	//
+	 public void seleccionarParentesco()
+	 {
+	 debugBegin();
+
+	 String parentesco = getScenarioVar("parentesco_aval");
+	 this.webDriver.clickElementFromDropDownByTextInFrame(this.parentesco, this.cuerpoFrame, parentesco);
+
+	 debugEnd();
+	 }
 	// public void seleccionarParentesco()
 	// {
 	// logger.debug("BEGIN - SeleccionarParentesco");
@@ -351,7 +365,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// parentesco);
 	// logger.debug("END - SeleccionarParentesco");
 	// }
-	//
+
 	// public void anadirDocumentacion() throws AWTException,
 	// InterruptedException
 	// {

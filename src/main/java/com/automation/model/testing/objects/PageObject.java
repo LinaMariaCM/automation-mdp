@@ -2,6 +2,7 @@ package com.automation.model.testing.objects;
 
 import java.text.SimpleDateFormat;
 
+import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
 import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
@@ -18,6 +19,11 @@ public class PageObject {
 		this.userS = userStory;
 		this.testDataM = userStory.getTestDataManager();
 		this.webDriver = userS.getDriver();
+
+		if(webDriver.getDriver() == null && !webDriver.getDriverType().equals(AutomationConstants.WEB)) {
+			webDriver.initializeDriver();
+		}
+		
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
 	}
 	

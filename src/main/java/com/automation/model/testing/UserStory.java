@@ -130,6 +130,10 @@ public class UserStory {
 		return testDataM.getData(key);
 	}
 
+	public DataObject getConfigData() {
+		return testDataM.getConfigData();
+	}
+
 	public String getGlobalVar(String key) {
 		return testDataM.getGlobalVar(key);
 	}
@@ -345,22 +349,19 @@ public class UserStory {
 		
 		return stringValue;
 	}
-
-	public UserStory addDriverConfiguration(String browser, DataObject conf) {
-		System.out.println("[BEGIN] (" + testId + ") - Setting driver configuration");
-		driverConf = conf;
-		this.browser = browser;
-		this.maxTries = Integer.parseInt(driverConf.getValue("max_tries"));
-
-		testDataM.setTestVar(testId, "browser", browser);
-		webDriver = new DriverHelper(browser);
+	
+	public void setConfigurationVariables() {
 		webDriver.setId(testId);
 		webDriver.setReportPath(testDataM.getReportPath());
 
 		webDriver.setWaitForAngular(setBooleanOnConfiguration("wait_for_angular"));
 		webDriver.setWaitForJQuery(setBooleanOnConfiguration("wait_for_jquery"));
 
-		setBooleanOnConfiguration("driver_type");
+		if(System.getProperty("platform") != null && !System.getProperty("platform").isEmpty()) {
+			webDriver.setDevicePlatform(System.getProperty("platform"));
+			webDriver.setAppVariables(getConfigData());
+		}
+		
 		webDriver.setEmulationBrowser(setStringOnConfiguration("emulation_browser"));
 
 		webDriver.setDownloadDrivers(setBooleanOnConfiguration("download"));
@@ -370,31 +371,45 @@ public class UserStory {
 
 		webDriver.setRemoteMode(setBooleanOnConfiguration("remote"));
 		
-		if(conf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT) != null) {
-			webDriver.setSmallWindowLimit(Integer.parseInt(conf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT)));
+		if(driverConf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT) != null) {
+			webDriver.setSmallWindowLimit(Integer.parseInt(driverConf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT)));
 		}
 
 		String timeout = System.getProperty("timeout");
-		if(timeout != null && !timeout.isEmpty()) conf.setValue(AutomationConstants.TIMEOUT, timeout);
-		if(conf.getValue(AutomationConstants.TIMEOUT) != null) {
-			webDriver.setImplicitWait(Integer.parseInt(conf.getValue(AutomationConstants.TIMEOUT)));
-			webDriver.setScriptWait(Integer.parseInt(conf.getValue(AutomationConstants.TIMEOUT)));
-			webDriver.setPageLoadWait(Integer.parseInt(conf.getValue(AutomationConstants.TIMEOUT)));
+		if(timeout != null && !timeout.isEmpty()) driverConf.setValue(AutomationConstants.TIMEOUT, timeout);
+		if(driverConf.getValue(AutomationConstants.TIMEOUT) != null) {
+			webDriver.setImplicitWait(Integer.parseInt(driverConf.getValue(AutomationConstants.TIMEOUT)));
+			webDriver.setScriptWait(Integer.parseInt(driverConf.getValue(AutomationConstants.TIMEOUT)));
+			webDriver.setPageLoadWait(Integer.parseInt(driverConf.getValue(AutomationConstants.TIMEOUT)));
 		} else {
-			webDriver.setImplicitWait(Integer.parseInt(conf.getValue(AutomationConstants.IMPLICIT_WAIT)));
-			webDriver.setScriptWait(Integer.parseInt(conf.getValue(AutomationConstants.SCRIPT_WAIT)));
-			webDriver.setPageLoadWait(Integer.parseInt(conf.getValue(AutomationConstants.PAGE_LOAD_WAIT)));
+			webDriver.setImplicitWait(Integer.parseInt(driverConf.getValue(AutomationConstants.IMPLICIT_WAIT)));
+			webDriver.setScriptWait(Integer.parseInt(driverConf.getValue(AutomationConstants.SCRIPT_WAIT)));
+			webDriver.setPageLoadWait(Integer.parseInt(driverConf.getValue(AutomationConstants.PAGE_LOAD_WAIT)));
 		}
 		
-		if(conf.getValue(AutomationConstants.WINDOW_HEIGTH) != null && conf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
-			webDriver.setWindowSize(Integer.parseInt(conf.getValue(AutomationConstants.WINDOW_HEIGTH)), 
-				Integer.parseInt(conf.getValue(AutomationConstants.WINDOW_WIDTH)));
-		} 
-
-		retryOnFail = setBooleanOnConfiguration(AutomationConstants.RETRY_ON_FAIL);
+		if(driverConf.getValue(AutomationConstants.WINDOW_HEIGTH) != null && driverConf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
+			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGTH)), 
+				Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)));
+		}
 		
-		System.out.println("[INFO ] (" + testId + ") - browser: " + browser + ", ip: " + conf.getValue(AutomationConstants.IP) + ", port: " 
-			+ conf.getValue(AutomationConstants.PORT) + ", remote: " + conf.getValue(AutomationConstants.REMOTE_MODE));
+		System.out.println("[INFO ] (" + testId + ") - browser: " + browser + ", ip: " + driverConf.getValue(AutomationConstants.IP) 
+			+ ", port: " + driverConf.getValue(AutomationConstants.PORT) + ", remote: " + driverConf.getValue(AutomationConstants.REMOTE_MODE));
+	}
+
+	public UserStory addDriverConfiguration(String browser, DataObject conf) {
+		System.out.println("[BEGIN] (" + testId + ") - Setting driver configuration");
+		this.driverConf = conf;
+		this.browser = browser;
+		this.maxTries = Integer.parseInt(driverConf.getValue("max_tries"));
+		this.retryOnFail = setBooleanOnConfiguration(AutomationConstants.RETRY_ON_FAIL);
+		//setBooleanOnConfiguration("driver_type");
+
+		testDataM.setTestVar(testId, "browser", browser);
+		
+		webDriver = new DriverHelper(browser);
+		
+		setConfigurationVariables();
+		
 		System.out.println("[ END ] (" + testId + ") - Setting driver configuration");
 
 		return this;
