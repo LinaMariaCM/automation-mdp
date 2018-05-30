@@ -130,9 +130,11 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// @FindBy(id = "numCot")
 	// private WebElement numCotizacion;
 	//
+
 	// @FindBy(css = "#capaAdjuntarDocumentacion #modalAddDocuInterv
 	// button[data-dismiss='modal']")
 	// private WebElement btnCerrar;
+	private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv button[data-dismiss='modal']");
 	//
 	// @FindBy(xpath = ".//*[@id='formularioEnvio']/div[3]/button[2]")
 	// private WebElement btnEnviarComentarios;
@@ -150,7 +152,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException {
 		this.addDatosInquilino();
-		// this.anadirDocumentacion(scenario);
+		this.anadirDocumentacion(scenario);
 		// this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
 		// this.validacionViabilidadInquilino();
 	}
@@ -366,6 +368,20 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - SeleccionarParentesco");
 	// }
 
+	 public void anadirDocumentacion() throws AWTException,
+	 InterruptedException
+	 {
+	 debugBegin();
+	 this.webDriver.clickInFrame(this.btnAnadirDocumentacionPrincipal, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.chkbxDosNominas, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.cuerpoFrame);
+	 this.adjuntarDocumentos();
+	 this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.cuerpoFrame);
+	 Thread.sleep(2000);
+	 this.webDriver.clickInFrame(this.btnCerrar, this.cuerpoFrame);
+	 debugEnd();
+	 }
+
 	// public void anadirDocumentacion() throws AWTException,
 	// InterruptedException
 	// {
@@ -403,6 +419,15 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - AnadirDocumentacionAval");
 	// }
 	//
+
+	 public void adjuntarDocumentos() throws AWTException
+	 {
+	 debugBegin();
+	 // TODO: mover la ruta de fichero de upload a configuracion
+	 this.webDriver.sendKeysFrame(this.elmntFichero, this.cuerpoFrame, "C:/Users/amaris2/Desktop/prueba.pdf");
+	 debugEnd();
+	 }
+
 	// public void adjuntarDocumentos() throws AWTException
 	// {
 	// logger.debug("BEGIN - AdjuntarDocumentos");
