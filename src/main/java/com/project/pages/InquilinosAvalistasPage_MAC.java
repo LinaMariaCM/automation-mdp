@@ -99,19 +99,19 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	// @FindBy(name = "doc_0")
 	// private WebElement chkbxDosNominas;
-	private By chkbxDosNominas = By.cssSelector("#doc_0");
+	private By chkbxDosNominas = By.name("doc_0");
 
 	// @FindBy(name = "doc_1")
 	// private WebElement chkbxDosNominasAval;
-	private By chkbxDosNominasAval = By.cssSelector("#doc_1");
+	private By chkbxDosNominasAval = By.name("doc_1");
 
 	// @FindBy(name = "doc_2")
 	// private WebElement chkbxAutorizacionConsulta;
-	private By chkbxAutorizacionConsulta = By.cssSelector("#doc_2");
+	private By chkbxAutorizacionConsulta = By.name("doc_2");
 
 	// @FindBy(name = "doc_5")
 	// private WebElement chkbxAutorizacionConsultaAval;
-	private By chkbxAutorizacionConsultaAval = By.cssSelector("#doc_5");
+	private By chkbxAutorizacionConsultaAval = By.name("doc_5");
 
 	// @FindBy(id = "fichero")
 	// private WebElement elmntFichero;
@@ -130,12 +130,15 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// @FindBy(id = "numCot")
 	// private WebElement numCotizacion;
 	//
+
 	// @FindBy(css = "#capaAdjuntarDocumentacion #modalAddDocuInterv
 	// button[data-dismiss='modal']")
 	// private WebElement btnCerrar;
+	private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv button[data-dismiss='modal']");
 	//
 	// @FindBy(xpath = ".//*[@id='formularioEnvio']/div[3]/button[2]")
 	// private WebElement btnEnviarComentarios;
+	private By btnEnviarComentarios = By.cssSelector("#formularioEnvio > div:nth-child(3) > button:nth-child(2)");
 
 	// public InquilinosAvalistasPage_MAC(BrowserContext browserContext)
 	// {
@@ -150,9 +153,9 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException {
 		this.addDatosInquilino();
-		// this.anadirDocumentacion(scenario);
-		// this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
-		// this.validacionViabilidadInquilino();
+		this.anadirDocumentacion();
+		// this.browser+Context.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
+		this.validacionViabilidadInquilino();
 	}
 	// public void executeActionsInInquilinosAvalistasPage() throws
 	// InterruptedException, IOException, AWTException
@@ -197,7 +200,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.cuerpoFrame, String.valueOf(getScenarioVar("documento_inquilino")));
 
 		// Add Ingresos netos
-		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.cuerpoFrame, String.valueOf(getScenarioVar("documento_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.cuerpoFrame, String.valueOf(getScenarioVar("ingresos_inquilino")));
 
 		// Situacion laboral
 		this.seleccionarSituacion();
@@ -305,6 +308,14 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - AddDatosAval");
 	// }
 	//
+
+	 public void validacionViabilidadInquilino() throws AWTException, InterruptedException {
+	 	debugBegin();
+	 	    Thread.sleep(2000);
+	 		this.webDriver.clickInFrame(this.btnValidacionViabilidad, this.cuerpoFrame);
+	 	debugEnd();
+	 }
+
 	// public void validacionViabilidadInquilino()
 	// {
 	// logger.debug("BEGIN - ValidacionViabilidadInquilino");
@@ -366,6 +377,20 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - SeleccionarParentesco");
 	// }
 
+	 public void anadirDocumentacion() throws AWTException,
+	 InterruptedException
+	 {
+	 debugBegin();
+	 this.webDriver.clickInFrame(this.btnAnadirDocumentacionPrincipal, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.chkbxDosNominas, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.cuerpoFrame);
+	 this.adjuntarDocumentos();
+	 this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.cuerpoFrame);
+	 Thread.sleep(2000);
+	 this.webDriver.clickInFrame(this.btnCerrar, this.cuerpoFrame);
+	 debugEnd();
+	 }
+
 	// public void anadirDocumentacion() throws AWTException,
 	// InterruptedException
 	// {
@@ -403,6 +428,15 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - AnadirDocumentacionAval");
 	// }
 	//
+
+	 public void adjuntarDocumentos() throws AWTException
+	 {
+	 debugBegin();
+	 // TODO: mover la ruta de fichero de upload a configuracion
+	 this.webDriver.sendKeysFrame(this.elmntFichero, this.cuerpoFrame, "C:/Users/JCHRISTOPHER/Desktop/Documentos para pruebas/DocumentoAñadido.txt");
+	 debugEnd();
+	 }
+
 	// public void adjuntarDocumentos() throws AWTException
 	// {
 	// logger.debug("BEGIN - AdjuntarDocumentos");
@@ -413,6 +447,16 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - AdjuntarDocumentos");
 	// }
 	//
+
+	 public void enviarACompania()
+	 {
+	 debugBegin();
+	 // TODO: mover la ruta de fichero de upload a configuracion
+	 this.webDriver.clickInFrame(this.btnEnviarACompania, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.btnEnviarComentarios, this.cuerpoFrame);
+	 debugEnd();
+	 }
+
 	// public void enviarACompania()
 	// {
 	// logger.debug("BEGIN - EnviarACompania");
