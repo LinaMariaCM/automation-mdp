@@ -84,6 +84,7 @@ public class PrecioPage extends PageObject {
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.scrollToBottom();
+		this.webDriver.waitWithDriver(2000);
 		this.webDriver.click(this.btnConvertirAProyecto);
 		//this.webDriver.waitForElementToBeClickable(this.btnConvertirAProyecto);
 		this.webDriver.exitFrame();

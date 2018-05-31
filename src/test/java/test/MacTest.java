@@ -60,8 +60,10 @@ public class MacTest extends TestObject {
 			 * correctamente
 			 **/
 
-			steps.doy_de_alta_un_proyecto_MAC_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
-
+			steps.dar_de_alta_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			steps.enviar_el_proyecto_a_la_compania();
+			steps.cerrar_navegador();
+			steps.autorizar_el_proyecto_MAC(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 			return null;
 		}).run();
 	}

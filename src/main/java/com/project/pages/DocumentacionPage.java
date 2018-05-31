@@ -21,7 +21,7 @@ public class DocumentacionPage extends PageObject {
 	private By cuerpoFrame = By.name("cuerpo");
 
 	// @FindBy(id = "leftFrame")
-	private By leftFrame = By.cssSelector("leftFrame");
+	private By leftFrame = By.cssSelector("#leftFrame");
 
 	// @FindBy(css = "body > div > div:nth-child(1) > div.container.ng-scope >
 	// form > div > div:nth-child(1) > div > div.row.margin-top-10 > div > div >

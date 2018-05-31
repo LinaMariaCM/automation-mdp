@@ -150,7 +150,7 @@ public class Steps extends StepObject {
 			new PrecioPage(userS)
 				.clickOnConvertirAProjecto();
 
-			System.out.println("LA VARIABLE TOMADOR: " + getScenarioVar("tomador"));
+	
 			new DatosBasicosTomadorPage(userS)
 				.fillTomadorData(getScenarioVar("tomador"))
 				.clickOnContinuar();
@@ -1992,7 +1992,7 @@ public class Steps extends StepObject {
 	 * "Pendiente de autorizar", this.tCData.getNoCotizacionMAC());
 	 * 
 	 * // Autorizar el proyecto gestionAutorizacionesPage.autorizar(); }
-	 * 
+	 *
 	 * //@Cuando("envio el proyecto a la compañia") public void
 	 * envio_el_proyecto_a__la_compania() {
 	 * logger.debug("BEGIN - envio_el_proyecto_a__la_compania");
@@ -3438,7 +3438,7 @@ public class Steps extends StepObject {
 		// this.CreateSimulation();
 	}
 
-	public void doy_de_alta_un_proyecto_MAC_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(String loginAcess, String user) throws Exception {
+	public void dar_de_alta_un_proyecto_MAC(String loginAcess, String user) throws Exception {
 		debugBegin();
 		
 		this.el_usuario_accede(loginAcess, user);
@@ -3506,5 +3506,34 @@ public class Steps extends StepObject {
 		// this.OpenMutuaAlquilerConfort(); this.CreateProject();
 		new InnovaHomePage(userS).CreateNewProject();
 	}
+
+	public void enviar_el_proyecto_a_la_compania() {
+		debugBegin();
+	 		new InquilinosAvalistasPage_MAC(userS).enviarACompania();
+	 		this.webDriver.quit();
+		debugEnd();
+	}
+
+ 	public void cerrar_navegador() {
+		debugBegin();
+			this.webDriver.quit();
+		debugEnd();
+	}
+
+	public void autorizar_el_proyecto_MAC(
+			String loginAcess, String user) throws Exception
+	{
+
+		// Login
+		this.LoginAndSearchAutorizacion(this.tCData.getUsuarioAuth(), this.browserContext.getProperties().passwordComun);
+		this.loginAndCreateProjectMAC(getTestVar("usuario"), getConfigVar("passwordComun"));
+		// Abrir la busqueda de autorizaciones
+		new InnovaHomePage(userS).OpenGestionAutorizaciones();
+		//new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", this.tCData.getNoCotizacionMAC());
+
+		// Autorizar el proyecto
+		//gestionAutorizacionesPage.autorizar();
+	}
+
 
 }
