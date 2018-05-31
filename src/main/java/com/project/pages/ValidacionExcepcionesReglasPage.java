@@ -15,7 +15,11 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	private By cuerpoFrame = By.name("cuerpo");
 
 	// @FindBy(name = "botonContinuar")
-	private By btnContinuar = By.name("botonContinuar");
+	//private By btnContinuar = By.name("botonContinuar");
+
+	private By btnContinuar = By.cssSelector("[ng-click='cp.continuar()']");
+	
+	
 	// endregion
 
 	public ValidacionExcepcionesReglasPage(UserStory userS) {
@@ -25,9 +29,15 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	// region methods
 	public ValidacionExcepcionesReglasPage clickOnContinuarButton() {
 		debugBegin();
-		
-		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
-		
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		//this.webDriver.scrollToElement(this.btnContinuar);
+		//this.webDriver.waitForElementToBeClickable(this.btnContinuar);
+		System.out.println("ELEMENTO WEB btnContinuar: " + this.btnContinuar);
+		this.webDriver.waitWithDriver(5000);
+		this.webDriver.scrollToElement(this.btnContinuar);
+		this.webDriver.click(this.btnContinuar);
+		//this.webDriver.waitWithDriver(5000);
+		this.webDriver.exitFrame();
 		debugEnd();
 
 		return this;
