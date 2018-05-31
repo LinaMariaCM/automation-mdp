@@ -306,7 +306,7 @@ public class CsvToHtml {
 			} else if(table.getChildByTag("table").getChildByTag("caption").getContent().toLowerCase().equals(translate(translationFile, "Browser").toLowerCase())){
 				String content = table.getChildByTag("table").getChildByTag("caption").getChild(0).getContent();
 				
-				table.getChildByTag("table").getChildByTag("caption").getChild(0).setContent(content.replace("_headless", ""));
+				table.getChildByTag("table").getChildByTag("caption").getChild(0).setContent(translate(translationFile, content.replace("_headless", "")));
 			}
 
 			htmlNode.addChild("br");

@@ -39,6 +39,6 @@ public class SuiteTest extends TestObject {
 
 	@AfterSuite
 	public void afterSuite() {
-		CsvToHtml.createJointReport(suiteM);
+		suiteM.createHtmlReport();
 	}
 }

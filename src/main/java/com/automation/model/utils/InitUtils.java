@@ -17,10 +17,14 @@ public class InitUtils {
 	}
 	
 	public static UserStory createUserStory(String id, String testCase, SuiteManager suiteM, String browser) {
-		return new UserStory(id, testCase)
+		UserStory userS = new UserStory(id, testCase)
 			.addTestDataManager(suiteM.getTestData(testCase))
 			.addDriverConfiguration(browser, suiteM.getTestData(testCase).getConfigData())
 			.setReportConfiguration(suiteM.getTestData(testCase).getTimeStamp(), suiteM.getTestData(testCase).getReportPath(), suiteM.getResultMatrix(testCase));
+		
+		suiteM.addConsoleLog(testCase, id, userS.getDriver().getConsoleLogs());
+		
+		return userS;
 	}
 	
 	public static void setThreads(ITestContext context) {
