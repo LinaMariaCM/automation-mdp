@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.utils.StringUtils;
+import com.automation.model.utils.objects.HtmlElement;
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
 import com.automation.model.utils.ArrayUtils;
@@ -65,6 +66,7 @@ public class DriverHelper {
 	private WebDriver driver;
 	private boolean waitForAngular = true;
 	private boolean waitForJQuery = false;
+	private boolean showConsoleLog = false;
 	private int smallWindowLimit = 1025;
 	private int defaultWindowHeigth = 1366;
 	private int defaultWindowWidth= 768;
@@ -93,6 +95,7 @@ public class DriverHelper {
 	private int scriptTimeout = 50;
 	private int pageLoadTimeout = 50;
 	private DesiredCapabilities capabilities;
+	private ArrayList<String> consoleLogs = new ArrayList<String>();
 	final static Logger logger = LoggerFactory.getLogger(DriverHelper.class);
 
 	public DriverHelper(DesiredCapabilities cap) {
@@ -625,11 +628,33 @@ public class DriverHelper {
 	}
 
 	public void setAttribute(By by, String attribute, String value) {
-		((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1], arguments[2])", driver.findElement(by), attribute, value);
+		((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", driver.findElement(by), attribute, value);
+	}
+	
+	public void addStyleAttribute(By by, String key, String value) {
+		String attribute = getAttribute(by, "style");
+		
+		if(attribute != null && !attribute.isEmpty() && attribute.contains(key)) {
+			String auxStyle = attribute.substring(attribute.indexOf(key));
+			
+			boolean inValue = false;
+			for(int i = auxStyle.indexOf(":") + 1; i < auxStyle.length(); i++) {
+				if(!inValue && auxStyle.charAt(i) != ' ') {
+					inValue = true;
+				} else if(inValue && (i + 1 == auxStyle.length() || auxStyle.charAt(i) == ';' || auxStyle.charAt(i) == ' ')) {
+					setAttribute(by, "style", attribute.replace(auxStyle.substring(0, i), key + ": " + value));
+					break;
+				}
+			}
+		} else if(attribute != null && !attribute.isEmpty() && !attribute.contains(key)) {
+			setAttribute(by, "style", getAttribute(by, key) + " " + key + ": " + value);
+		} else {
+			setAttribute(by, "style", key + ": " + value + ";");
+		}
 	}
 
 	public void removeAttribute(By by, String attribute) {
-		((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute(arguments[1])", driver.findElement(by), attribute);
+		((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute(arguments[1]);", driver.findElement(by), attribute);
 	}
 
 	public String getSource() {
@@ -652,6 +677,10 @@ public class DriverHelper {
 	
 	public void setWaitForJQuery(boolean value) {
 		this.waitForJQuery = value;
+	}
+	
+	public void setShowConsoleLog(boolean value) {
+		this.showConsoleLog = value;
 	}
 
 	private void setTimeouts() {
@@ -712,14 +741,7 @@ public class DriverHelper {
 
 	// region Clicks
 	public void click(By by) {
-		logger.trace("[BEGIN] - click");
-		WebElement element = waitForElementToBeClickable(by);
-
-		element.click();
-
-		waitForLoadToComplete();
-		takeScreenshotWithCondition();
-		logger.trace("[END] - click");
+		click(waitForElementToBeClickable(by));
 	}
 
 	public void click(WebElement element) {
@@ -738,7 +760,7 @@ public class DriverHelper {
 	public void dispatchEvent(WebElement element, String event) {
 		logger.trace("[BEGIN] - dispatchEvent: " + event);
 		
-		((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('" + event + "', {bubbles:true}))", element);
+		((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('" + event + "', {bubbles:true}));", element);
 
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
@@ -746,13 +768,13 @@ public class DriverHelper {
 	}
 	
 	public void triggerAngularEvent(By by, String event) {
-		dispatchEvent(waitForElementToBeClickable(by), event);
+		triggerAngularEvent(waitForElementToBeClickable(by), event);
 	}
 
 	public void triggerAngularEvent(WebElement element, String event) {
 		logger.trace("[BEGIN] - dispatchEvent: " + event);
 		
-		((JavascriptExecutor) driver).executeScript("angular.element(arguments[0]).triggerHandler('" + event + "')", element);
+		((JavascriptExecutor) driver).executeScript("angular.element(arguments[0]).triggerHandler('" + event + "');", element);
 
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
@@ -909,7 +931,7 @@ public class DriverHelper {
 		String text = webElement.getText();
 		
 		if(text.isEmpty()) {
-			Object javascriptRepsonse = ((JavascriptExecutor) driver).executeScript("return arguments[0].textContent", webElement);
+			Object javascriptRepsonse = ((JavascriptExecutor) driver).executeScript("return arguments[0].textContent;", webElement);
 			
 			if(javascriptRepsonse != null) {
 				text = javascriptRepsonse.toString();
@@ -1344,6 +1366,11 @@ public class DriverHelper {
 			if(waitForJQuery) {
 				waitForJQuery();
 			}
+
+			
+			if(showConsoleLog) {
+				addToLog();
+			}
 			
 			logger.trace("[END] - waitForLoadToComplete");
 		}
@@ -1355,7 +1382,7 @@ public class DriverHelper {
 		new WebDriverWait(driver, implicitTimeout)
 			.pollingEvery(Duration.ofMillis(500))
 			.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript(
-				"return !document ? false : !document.readyState ? false : document.readyState")));
+				"return !document ? false : !document.readyState ? false : document.readyState;")));
 		
 		logger.trace("[END] - waitForPageToLoad");
 	}
@@ -1367,7 +1394,7 @@ public class DriverHelper {
 				new WebDriverWait(driver, implicitTimeout)
 					.pollingEvery(Duration.ofMillis(500))
 					.until((ExpectedCondition<Boolean>) wd -> (((JavascriptExecutor) wd)
-						.executeScript("return jQuery.active == 0  && jQuery.isReady") + "").toString().equals("true"));
+						.executeScript("return jQuery.active == 0  && jQuery.isReady;") + "").toString().equals("true"));
 			}
 		} catch(WebDriverException e) {
 			if(e.getMessage() == null || (e.getMessage() != null && !e.getMessage().contains("jQuery is not defined"))) {
@@ -1386,7 +1413,7 @@ public class DriverHelper {
 					.pollingEvery(Duration.ofMillis(500))
 					.until((ExpectedCondition<Boolean>) wd -> (((JavascriptExecutor) wd).executeScript(
 						"return !window.angular || (!!window.angular && !!angular.element(document).injector()"
-						+ " && angular.element(document).injector().get('$http').pendingRequests.length === 0)") + "").toString().equals("true"));
+						+ " && angular.element(document).injector().get('$http').pendingRequests.length === 0);") + "").toString().equals("true"));
 			}
 		} catch(WebDriverException e) {
 			debugError("Exception in wait for angular" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
@@ -1528,6 +1555,60 @@ public class DriverHelper {
 		}
 
 		return size;
+	}
+
+	public ArrayList<String> getConsoleLogs() {
+		return consoleLogs;
+	}
+
+	public ArrayList<String> getCurrentLogs() {
+		ArrayList<String> list = new ArrayList<String>();
+		
+		driver.manage().logs().get("browser").forEach(p -> {			
+			list.add(p.getLevel().getName() + ": " + p.getMessage());
+		});
+		
+		return list;
+	}
+
+	public void addToLog() {
+		ArrayList<String> list = getCurrentLogs();
+		
+		if(consoleLogs.size() > 0 && list.size() > 0) {
+			int pos = 0;
+			boolean isEqual = false;
+			int maxSize = consoleLogs.size() < list.size() ? consoleLogs.size() : list.size();
+			
+			for(int i = 0; i < list.size() && i < consoleLogs.size(); i++) {
+				int currentMaxSize = maxSize - i;
+				
+				for(int j = 0; j < currentMaxSize; j++) {
+					if(!list.get(j).equals(consoleLogs.get(consoleLogs.size() - currentMaxSize + j))) {
+						break;
+					}
+					
+					if(j + 1 == currentMaxSize) {
+						isEqual = true;
+						pos = j;
+					}
+				}
+				
+				if(isEqual) {
+					break;
+				}
+			}
+			
+			for(int i = pos; i < maxSize; i++) {
+				consoleLogs.add(list.get(i));
+				System.out.println(list.get(i));
+			}
+		} else {
+			for(String log : list) {
+				consoleLogs.add(log);
+				System.out.println(log);
+			}
+		}
+		
 	}
 	
 	public boolean isSelected(By webElement) {

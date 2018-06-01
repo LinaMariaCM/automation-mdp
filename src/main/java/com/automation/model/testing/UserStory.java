@@ -356,6 +356,7 @@ public class UserStory {
 
 		webDriver.setWaitForAngular(setBooleanOnConfiguration("wait_for_angular"));
 		webDriver.setWaitForJQuery(setBooleanOnConfiguration("wait_for_jquery"));
+		webDriver.setShowConsoleLog(setBooleanOnConfiguration("show_console_log"));
 
 		if(System.getProperty("platform") != null && !System.getProperty("platform").isEmpty()) {
 			webDriver.setDevicePlatform(System.getProperty("platform"));
@@ -473,9 +474,9 @@ public class UserStory {
 	public synchronized void saveExceptionIntoFile(String exception, String id) {
 		System.out.println("[BEGIN] (" + testId + ") - Saving Exception into file");
 		try {
-			new File(reportPath + "/" + AutomationConstants.EXCEPTIONS_FOLDER + "/").mkdirs();
+			new File(reportPath + "/" + AutomationConstants.EXCEPTIONS_FOLDER).mkdirs();
 
-			FileUtils.writeFile(reportPath + "/" + AutomationConstants.EXCEPTIONS_FOLDER + "/" + this.timeStamp + ".e" + Integer.parseInt(id) + ".txt", exception);
+			FileUtils.writeFile(reportPath + "/" + AutomationConstants.EXCEPTIONS_FOLDER + this.timeStamp + ".e" + Integer.parseInt(id) + ".txt", exception);
 		} catch(Exception e) {
 			System.out.println("[ERROR] (" + testId + ") - Saving Exception into file");
 		}

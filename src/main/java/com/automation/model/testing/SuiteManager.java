@@ -1,12 +1,14 @@
 package com.automation.model.testing;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
 import com.automation.model.utils.ArrayUtils;
+import com.automation.model.utils.CsvToHtml;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.utils.InitUtils;
 import com.automation.model.utils.StringUtils;
@@ -22,7 +24,9 @@ import javafx.util.Pair;
 public class SuiteManager {
 
 	private String suiteName;
+	private String reportPath;
 	private ArrayList<Pair<String, Integer>> testCases = new ArrayList<Pair<String, Integer>>();
+	private HashMap<String, HashMap<String, ArrayList<String>>> consoleLogs = new HashMap<String, HashMap<String, ArrayList<String>>>();
 	private HashMap<String, Pair<TestDataManager, String[][]>> testSuiteObject = new HashMap<String, Pair<TestDataManager, String[][]>>();
 	
 	public SuiteManager(String suiteName) {
@@ -31,6 +35,53 @@ public class SuiteManager {
 	
 	public String getName() {
 		return suiteName;
+	}
+	
+	public void addConsoleLog(String testCase, String id, ArrayList<String> logs) {
+		consoleLogs.get(testCase).put(id, logs);
+	}
+	
+	public void createHtmlReport() {
+		createHtmlReport(null);
+	}
+	
+	public void createHtmlReport(String translationFile) {
+		CsvToHtml.createJointReport(this, translationFile);
+	}
+	
+	public void createLogReport() {
+		String result = "";
+		String path = reportPath + "/" + suiteName + "ConsoleLogReport.txt";
+		
+		if(new File(reportPath + "/" + suiteName + "ConsoleLogReport.txt").exists()) {
+			try {
+				result = FileUtils.getTextFromFile(path);
+			} catch(FileNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		for(Pair<String, Integer> testCaseInfo : testCases) {
+			int totalThreads = getResultMatrix(testCaseInfo.getKey()).length - 1;
+			
+			for(int i = 0; i < totalThreads; i++) {
+				if(i == 0) {
+					result += "[" + testCaseInfo.getKey() + "]\n";
+				}
+				
+				if(consoleLogs.get(testCaseInfo.getKey()).get(Integer.toString(i)) != null) {
+					for(String log : consoleLogs.get(testCaseInfo.getKey()).get(Integer.toString(i))) {
+						result += "Thread(" + i + ") - " + log + "\n";
+					}
+					
+					result += "\n";
+				}
+			}
+		}
+		
+		if(!result.isEmpty()) {
+			FileUtils.writeFile(path, result);
+		}
 	}
 	
 	public synchronized TestDataManager getTestData(String testCase) {
@@ -71,6 +122,10 @@ public class SuiteManager {
 		}
 		
 		return result;
+	}
+	
+	public synchronized void setReportPath(String reportPath) {
+		this.reportPath = reportPath;
 	}
 	
 	public synchronized void setRelevantColumn(String testCase, int relevantColumn) {
@@ -120,6 +175,8 @@ public class SuiteManager {
 		TestDataManager testData = InitUtils.initializeTestData(defaultTestData, defaultScenarioData, AutomationConstants.CONFIGURATION_DATA_SET);
 		
 		testData.generateTimeStamp(testCase);
+		
+		reportPath = testData.getReportPath();
 
 		if(defaultTestData != null) {	
 			testData.addTestData(defaultTestData);
@@ -147,6 +204,7 @@ public class SuiteManager {
 		}
 
 		addTestObjects(testCase, testData, resultMatrix);
+		consoleLogs.put(testCase, new HashMap<String, ArrayList<String>>());
 		
 		System.out.println("[INFO] - Test to run on this execution: " + casesMatrix.length);
 
