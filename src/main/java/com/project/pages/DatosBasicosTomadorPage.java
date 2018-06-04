@@ -150,16 +150,24 @@ public class DatosBasicosTomadorPage extends PageObject {
 				// this.browserContext.getTestCaseData().getTomadorSegundoApellido());
 
 				// Select documento tomador
-				this.webDriver.waitWithDriver(1000);
+				this.webDriver.waitWithDriver(1500);
 				this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
-				this.webDriver.waitWithDriver(1000);
+				this.webDriver.waitWithDriver(1500);
 				if(this.webDriver.isPresentInFrame(this.btnVolver, this.cuerpoFrame)) {
 					this.webDriver.clickInFrame(this.btnVolver, this.cuerpoFrame);
 					this.webDriver.clickInFrame(this.btnAceptarVolver, this.cuerpoFrame);
 				}
 				//this.webDriver.waitWithDriver(2000);
 				this.webDriver.waitForElementNotToBeClickableInFrame(this.loaderModal, this.cuerpoFrame);
-				this.webDriver.waitWithDriver(2500);
+				this.webDriver.waitWithDriver(5500);
+				System.out.println("~$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				System.out.println("\n");
+				System.out.println("VARIABLE tipoDocumento: " + this.cmbTipoDocumento);
+				System.out.println("VARIABLE this.cuerpoFrame: " + this.cuerpoFrame);
+				System.out.println("VARIABLE ProjectConstants.NIF: "+ ProjectConstants.NIF);
+				System.out.println("\n");
+				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
 				setTestVar("tomador_dni", DniGeneratorHelper.generaNif(null));
 				this.webDriver.clickInFrame(this.txtNumeroDocumento, this.cuerpoFrame);

@@ -3525,10 +3525,10 @@ public class Steps extends StepObject {
 	{
 
 		// Login
-		this.LoginAndSearchAutorizacion(this.tCData.getUsuarioAuth(), this.browserContext.getProperties().passwordComun);
-		this.loginAndCreateProjectMAC(getTestVar("usuario"), getConfigVar("passwordComun"));
+		//this.LoginAndSearchAutorizacion(this.tCData.getUsuarioAuth(), this.browserContext.getProperties().passwordComun);
+		//this.loginAndCreateProjectMAC(getTestVar("usuario"), getConfigVar("passwordComun"));
 		// Abrir la busqueda de autorizaciones
-		new InnovaHomePage(userS).OpenGestionAutorizaciones();
+		//new InnovaHomePage(userS).OpenGestionAutorizaciones();
 		//new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", this.tCData.getNoCotizacionMAC());
 
 		// Autorizar el proyecto

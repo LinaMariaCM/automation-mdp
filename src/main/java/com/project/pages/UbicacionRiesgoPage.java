@@ -290,9 +290,11 @@ public class UbicacionRiesgoPage extends PageObject {
 		this.webDriver.click(this.btnAnadirInmueblePantallaPrincipal);
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
+		this.webDriver.waitWithDriver(1000);
 		this.webDriver.click(this.radioBtnCriterioBusquedaReferenciaCatastral);
-		this.webDriver.waitForElementToBeClickable(this.radioBtnCriterioBusquedaReferenciaCatastral);
+		
 		this.webDriver.click(this.txtReferenciaCatastral);
+		this.webDriver.waitForElementToBeClickable(this.radioBtnCriterioBusquedaReferenciaCatastral);
 //		 this.webDriver.appendText(this.txtReferenciaCatastral,
 //		 referenciaCatastral);
 		System.out.println("Valor referenciaCatastral: " + referenciaCatastral);
@@ -311,9 +313,9 @@ public class UbicacionRiesgoPage extends PageObject {
 		// this.cuerpoFrame);
 	
 		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
-		//this.webDriver.waitWithDriver(4000);
+		this.webDriver.waitWithDriver(1500);
 		this.webDriver.click(this.btnAnadirInmuebleReferenciaCatastral);
-		//this.webDriver.waitWithDriver(2000);
+		this.webDriver.waitWithDriver(1500);
 		this.webDriver.exitFrame();
 		
 		debugEnd();
