@@ -63,13 +63,16 @@ public class MacTest extends TestObject {
 			steps.dar_de_alta_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 			steps.enviar_el_proyecto_a_la_compania();
 			steps.cerrar_navegador();
-			steps.autorizar_el_proyecto_MAC(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
+			steps.login_y_autorizar_el_proyecto_MAC(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
+			steps.cerrar_navegador();
+			steps.completo_el_proceso_de_contratacion_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+
 			return null;
 		}).run();
 	}
 
 	@AfterSuite
 	public void afterSuite() {
-		CsvToHtml.createJointReport(suiteM);
+		suiteM.createHtmlReport();
 	}
 }

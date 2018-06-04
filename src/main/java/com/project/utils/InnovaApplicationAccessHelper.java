@@ -90,7 +90,7 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 
 	@Override
 	public void openGestionCotizaciones() {
-		this.innovaHomePage.OpenGestionCotizaciones();
+		this.innovaHomePage.openGestionCotizaciones();
 	}
 
 	@Override

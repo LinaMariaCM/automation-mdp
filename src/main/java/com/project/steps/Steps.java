@@ -12,23 +12,7 @@ import com.mutuaPropietarios.testCasesData.context.ConfigurationProperties;
 import com.mutuaPropietarios.testCasesData.context.IApplicationAccessHelper;
 import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
-import com.project.pages.AsignarMediadorPage;
-import com.project.pages.ClausulasPage;
-import com.project.pages.DatosBancariosPage;
-import com.project.pages.DatosBasicosTomadorPage;
-import com.project.pages.DetallesRiesgoPage;
-import com.project.pages.DocumentacionPage;
-import com.project.pages.InnovaHomePage;
-import com.project.pages.InquilinosAvalistasPage_MAC;
-import com.project.pages.LoginPage;
-import com.project.pages.PrecioPage;
-import com.project.pages.PrecioPorModalidadPage;
-import com.project.pages.PrecioPorModalidadPage_MAC;
-import com.project.pages.TomadorYAseguradoPage;
-import com.project.pages.UbicacionRiesgoPage;
-import com.project.pages.ValidacionExcepcionesReglasDetallesRiesgoPage;
-import com.project.pages.ValidacionExcepcionesReglasPage;
-import com.project.pages.ValidacionesExcepcionesReglasUbicacionRiesgoPage;
+import com.project.pages.*;
 /*
 import com.project.utils.GestionCotizacionesBuscadorPage;
 import com.project.utils.GestionOnlineAccessHelper;
@@ -80,8 +64,10 @@ public class Steps extends StepObject {
 
 		// com.project.utils.IApplicationAccessHelper.initialize(AccessType,
 		// webDriver);
-		new LoginPage(userS)
-			.logIn(userS.getConfigVar("environment"), accessType, user);
+		System.out.println("*** environment: " + (userS.getConfigVar("environment")));
+		System.out.println("*** access type: " + accessType);
+		System.out.println("*** user: " + user);
+		new LoginPage(userS).logIn(userS.getConfigVar("environment"), accessType, user);
 		debugEnd();
 	}
 
@@ -3438,20 +3424,20 @@ public class Steps extends StepObject {
 		// this.CreateSimulation();
 	}
 
-	public void dar_de_alta_un_proyecto_MAC(String loginAcess, String user) throws Exception {
+	public void dar_de_alta_un_proyecto_MAC(String loginAccess, String user) throws Exception {
 		debugBegin();
-		
-		this.el_usuario_accede(loginAcess, user);
-		System.out.println("loginAccess: " + loginAcess);
-		this.userS.getTestVar("login_access");
-		this.loginAndCreateProjectMAC(getTestVar("usuario"), getConfigVar("passwordComun"));
+		// Login
+		this.el_usuario_accede(loginAccess, user);
 
-		// Asignar mediador
+		// Create project MAC
+		this.createProjectMAC();
+
+		// Assign mediador
 		String mediador = getScenarioVar("mediador");
-		if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
+		if(loginAccess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
 			new AsignarMediadorPage(userS)
 				.SelectMediadorMACAndClickOnContinuar(userS.getScenario());
-		} else if(loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
+		} else if(loginAccess.equals(ProjectConstants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
 				.SeleccionarMediadorMACPorCodigo(mediador)
 				.clickOnContinuarButton();
@@ -3500,12 +3486,19 @@ public class Steps extends StepObject {
 		debugEnd();
 	}
 
-	public void loginAndCreateProjectMAC(String userId, String password) throws Exception {
+	public void createProjectMAC() throws Exception {
 		// this.login(userId, password);
 		new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
 		// this.OpenMutuaAlquilerConfort(); this.CreateProject();
 		new InnovaHomePage(userS).CreateNewProject();
+
 	}
+
+    public void searchAuthorisation() throws Exception {
+        new InnovaHomePage(userS).OpenGestionAutorizaciones();
+		new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", this.getTestVar("NumCotizacion"));
+
+    }
 
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
@@ -3520,6 +3513,7 @@ public class Steps extends StepObject {
 		debugEnd();
 	}
 
+<<<<<<< HEAD
 	public void autorizar_el_proyecto_MAC(
 			String loginAcess, String user) throws Exception
 	{
@@ -3533,7 +3527,79 @@ public class Steps extends StepObject {
 
 		// Autorizar el proyecto
 		//gestionAutorizacionesPage.autorizar();
+=======
+	public void login_y_autorizar_el_proyecto_MAC(String loginAccess, String user) throws Exception	{
+		this.el_usuario_accede(loginAccess, user);
+        this.searchAuthorisation();
+		new GestionAutorizacionesPage(userS).autorizar();
+>>>>>>> df564e22578d1e9e6e0dd9285e59eebc6b4013ec
 	}
 
+	public void completo_el_proceso_de_contratacion_MAC(String loginAcess, String user) throws Exception {
+		debugBegin();
+			this.el_usuario_accede(loginAcess, user);
+			new InnovaHomePage(userS).openGestionCotizaciones();
+			new GestionCotizacionesBuscadorPage(userS).searchCotizacion("NumCotizacion");
 
+
+
+
+//		loginAcess = this.tCData.getAcceso();
+//		if (loginAcess.equals(MutuaPropietariosConstants.LoginAccessGestionLine))
+//		{
+//			// Login a GestionLine
+//			this.browserContext.initializeVariables(loginAcess = this.tCData.getAcceso());
+//			// this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this.tCData.getUsuario(),
+//			// this.browserContext.getProperties().passwordComun);
+//
+//			// this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this.tCData.getUsuario(),
+//			// this.browserContext.getProperties().passwordComun);
+//			this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this.tCData.getUsuario(),
+//					this.browserContext.getProperties().passwordComun, this.tCData.getNoCotizacionMAC());
+//
+//			// Abrir el buscador de proyectos
+//			GestionOnlineHomePage gestionOnlineHomePage = new GestionOnlineHomePage(this.browserContext);
+//			// gestionOnlineHomePage.openMisProyectosWeb();
+//			// gestionOnlineHomePage.buscarProyectoWeb(this.tCData.getNoCotizacionMAC());
+//
+//			// Click en modificar
+//			gestionOnlineHomePage.modificarProyecto();
+//		}
+//
+//		else if (loginAcess.equals(MutuaPropietariosConstants.LoginAccessInnova))
+//		{
+//
+//			// Login to Innov@
+//			this.browserContext.initializeVariables(loginAcess = this.tCData.getAcceso());
+//			this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this.tCData.getUsuario(),
+//					this.browserContext.getProperties().passwordComun, this.tCData.getNoCotizacionMAC());
+//
+//			GestionCotizacionesBuscadorPage gestionCotizacionesBuscadorPage = new GestionCotizacionesBuscadorPage(this.browserContext);
+//			gestionCotizacionesBuscadorPage.modificarProjecto();
+//			AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(this.browserContext);
+//			asignarMediadorPage.SelectMediadorMACAndClickOnContinuar();
+//
+//		}
+//
+//		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(this.browserContext);
+//		precioPorModalidadPage_MAC.continuar();
+//
+//		// Continuar
+//		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(this.browserContext);
+//		inquilinosAvalistasPage_MAC.clickOnContinuar();
+//
+//		// Rellenar datos de contratacion, pagina 3
+//		TomadorYAseguradoPage_MAC tomadorYAseguradoPage_MAC = new TomadorYAseguradoPage_MAC(this.browserContext);
+//		tomadorYAseguradoPage_MAC.executeActionsInTomadorYAseguradoPage();
+//
+//		InmueblePage_MAC inmueblePage_MAC = new InmueblePage_MAC(this.browserContext);
+//		inmueblePage_MAC.executeActionsInInmueblePage();
+//
+//		DocumentacionPage_MAC documentacionPage_MAC = new DocumentacionPage_MAC(this.browserContext);
+//		documentacionPage_MAC.addDocumentContratacion();
+//
+//		ContratacionPage_MAC contratacionPage_MAC = new ContratacionPage_MAC(this.browserContext);
+//		contratacionPage_MAC.seleccionarCheckYContratar();
+		debugEnd();
+	}
 }

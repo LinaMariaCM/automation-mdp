@@ -43,7 +43,7 @@ public class AsignarMediadorPage extends PageObject {
 	private By loaderModal = By.cssSelector("#modalLoader");
 	// endregion
 
-	public AsignarMediadorPage(UserStory userS) {
+	public  AsignarMediadorPage(UserStory userS) {
 		super(userS);
 	}
 
@@ -65,7 +65,7 @@ public class AsignarMediadorPage extends PageObject {
 	public AsignarMediadorPage clickOnContinuarButton() {
 		debugBegin();
 		
-		this.webDriver.waitWithDriver(2000);
+		this.webDriver.waitWithDriver(3000);
 		//this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		

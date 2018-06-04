@@ -9,22 +9,22 @@ public class GestionAutorizacionesPage extends PageObject {
 	// region webelements
 
 	// @FindBy(id = "PROCESO")
-	private By cmbProceso = By.cssSelector("PROCESO");
+	private By cmbProceso = By.cssSelector("#PROCESO");
 
 	// @FindBy(id = "ESTADO")
-	private By cmbEstado = By.cssSelector("ESTADO");
+	private By cmbEstado = By.cssSelector("#ESTADO");
 
 	// @FindBy(name = "botonBuscar")
 	private By btnBuscar = By.name("botonBuscar");
 
 	// @FindBy(id = "topFrame")
-	private By topFrame = By.cssSelector("topFrame");
+	private By topFrame = By.cssSelector("#topFrame");
 
 	// @FindBy(id = "mainFrame")
-	private By mainFrame = By.cssSelector("mainFrame");
+	private By mainFrame = By.cssSelector("#mainFrame");
 
 	// @FindBy(id = "NUMOBJETO")
-	private By numCotizacion = By.cssSelector("NUMOBJETO");
+	private By numCotizacion = By.cssSelector("#NUMOBJETO");
 
 	// @FindBy(name = "cuerpo")
 	private By cuerpoFrame = By.name("cuerpo");
@@ -45,7 +45,7 @@ public class GestionAutorizacionesPage extends PageObject {
 	private By btnAnular = By.linkText("Anular");
 
 	// @FindBy(id = "botonAutorizar")
-	private By btnAutorizar2 = By.cssSelector("botonAutorizar");
+	private By btnAutorizar2 = By.cssSelector("#botonAutorizar");
 
 	// @FindBy(id = "botonAnular js-href")
 	private By btnAnular2 = By.cssSelector("botonAnular");
@@ -70,7 +70,7 @@ public class GestionAutorizacionesPage extends PageObject {
 		this.webDriver.clickInFrame(this.cmbEstado, this.mainFrame);
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEstado, this.mainFrame, seleccionEstado);
 		this.webDriver.clickInFrame(this.numCotizacion, this.mainFrame);
-		this.webDriver.appendTextInFrame(this.numCotizacion, this.mainFrame, noCotizacion);
+		this.webDriver.clearAndAppendTextInFrame(this.numCotizacion, this.mainFrame, noCotizacion);
 		this.webDriver.clickInFrame(this.btnBuscar, this.mainFrame);
 		
 		debugEnd();

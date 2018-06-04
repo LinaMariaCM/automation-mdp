@@ -10,7 +10,7 @@ public class InnovaHomePage extends PageObject {
 	// @FindBy (id = "leftFrame")
 	// private WebElement menuFrame;
 
-	private By menuFrame = By.cssSelector("#leftFrame");
+	private By leftFrame = By.cssSelector("#leftFrame");
 
 	// //@FindBy (id = "topFrame")
 	private By topFrame = By.cssSelector("#topFrame");
@@ -58,7 +58,7 @@ public class InnovaHomePage extends PageObject {
 	private By btnGestionPolizasMenu = By.cssSelector("#jt13");
 
 	// @FindBy (css = "[title*='Gestión de autorizaciones']")
-	private By btnGestionAutorizaciones = By.cssSelector("#Gestión de autorizaciones");
+	private By btnGestionAutorizaciones = By.cssSelector("#jt16");
 
 	// @FindBy (xpath = ".//*[contains(text(),'Mediadores')]")
 	private By btnMediadores = By.xpath(".//*[contains(text(),'Mediadores')]");
@@ -82,33 +82,33 @@ public class InnovaHomePage extends PageObject {
 	// region methods
 	public void CreateNewProject() {
 		debugBegin();
-		this.webDriver.doubleClickInFrame(this.btnNuevoProjecto, this.menuFrame);
+		this.webDriver.doubleClickInFrame(this.btnNuevoProjecto, this.leftFrame);
 		debugEnd();
 	}
 
 	public void createNewSimulation() {
 		debugBegin();
-		this.webDriver.doubleClickInFrame(this.btnNuevaSimulaion, this.menuFrame);
+		this.webDriver.doubleClickInFrame(this.btnNuevaSimulaion, this.leftFrame);
 		debugEnd();
 	}
 
 	public void openMutuaEdificioConfort() {
 		debugBegin();
-		this.webDriver.moveToElementInFrame(this.btnMutuaEdificioConfort, this.menuFrame);
-		this.webDriver.doubleClickInFrame(this.btnMutuaEdificioConfort, this.menuFrame);
+		this.webDriver.moveToElementInFrame(this.btnMutuaEdificioConfort, this.leftFrame);
+		this.webDriver.doubleClickInFrame(this.btnMutuaEdificioConfort, this.leftFrame);
 		// this.webDriver.waitForPageLoadWithAngular();
 		debugEnd();
 	}
 
 	public void OpenMutuaAlquilerConfort() {
 		debugBegin();
-		this.webDriver.moveToElementInFrame(this.btnMutuaAlquilerConfort, this.menuFrame);
-		this.webDriver.doubleClickInFrame(this.btnMutuaAlquilerConfort, this.menuFrame);
+		this.webDriver.moveToElementInFrame(this.btnMutuaAlquilerConfort, this.leftFrame);
+		this.webDriver.doubleClickInFrame(this.btnMutuaAlquilerConfort, this.leftFrame);
 		// this.webDriver.waitForPageLoadWithAngular();
 		debugEnd();
 	}
 
-	public void OpenGestionCotizaciones() {
+	public void openGestionCotizaciones() {
 		debugBegin();
 		// La siguiente linea de codigo siempre ha sido comentado.
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnMapaSitio,
@@ -138,13 +138,13 @@ public class InnovaHomePage extends PageObject {
 
 	public void OpenGestionAutorizaciones() {
 		debugBegin();
-		this.webDriver.doubleClickInFrame(this.btnGestionAutorizaciones, this.menuFrame);
+		this.webDriver.clickInFrame(this.btnGestionAutorizaciones, this.leftFrame);
 		debugEnd();
 	}
 
 	public void openMenuMEC() {
 		debugBegin();
-		this.webDriver.doubleClickInFrame(this.btnMenuMEC, this.menuFrame);
+		this.webDriver.doubleClickInFrame(this.btnMenuMEC, this.leftFrame);
 		debugEnd();
 	}
 
@@ -154,19 +154,19 @@ public class InnovaHomePage extends PageObject {
 		// this.menuFrame);
 		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnMenuPrincipal,
 		// this.menuFrame);
-		this.webDriver.clickInFrame(this.btnMenuPrincipal, this.menuFrame);
+		this.webDriver.clickInFrame(this.btnMenuPrincipal, this.leftFrame);
 		debugEnd();
 	}
 
 	public void openSiniestros() {
 		debugBegin();
-		this.webDriver.doubleClickInFrame(this.btnSiniestros, this.menuFrame);
+		this.webDriver.doubleClickInFrame(this.btnSiniestros, this.leftFrame);
 		debugEnd();
 	}
 
 	public void openMediadores() {
 		debugBegin();
-		this.webDriver.doubleClickInFrame(this.btnMediadores, this.menuFrame);
+		this.webDriver.doubleClickInFrame(this.btnMediadores, this.leftFrame);
 		debugEnd();
 	}
 	// endregion

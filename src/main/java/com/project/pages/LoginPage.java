@@ -49,18 +49,18 @@ public class LoginPage extends PageObject {
 		switch(accessType) {
 			case ProjectConstants.LoginAccessInnova:
 				new InnovaLoginPage(userS)
-					.login(user, testDataM.getGlobalVar(user + "_pass"));
+					.login(user, testDataM.getGlobalVar("password"));
 				break;
 			case ProjectConstants.LoginAccessGestionLine:
 				new GestionOnlineLoginPage(userS)
-					.login(user, testDataM.getGlobalVar(user + "_pass"));
+					.login(user, testDataM.getGlobalVar("password"));
 
 				new GestionOnlineHomePage(userS)
 					.acceptCookies()
 					.closeNovedadesDialog();
 				break;
 			default:
-				throw new Exception("Not implemented login acess type selected");
+				throw new Exception("Not implemented login access type selected");
 		}
 
 		return this;

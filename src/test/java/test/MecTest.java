@@ -55,6 +55,6 @@ public class MecTest extends TestObject {
 
 	@AfterSuite
 	public void afterSuite() {
-		CsvToHtml.createJointReport(suiteM);
+		suiteM.createHtmlReport();
 	}
 }
