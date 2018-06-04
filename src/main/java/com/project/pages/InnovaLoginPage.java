@@ -40,6 +40,7 @@ public class InnovaLoginPage extends PageObject {
 	public InnovaLoginPage login(String userId, String password) {
 		debugBegin();
 		this.webDriver.appendText(this.user, userId);
+		System.out.println("*** Password: " + password);
 		this.webDriver.appendText(this.password, password);
 
 		this.webDriver.click(this.enter);

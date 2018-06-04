@@ -16,9 +16,9 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// private WebElementHelper wh;
 	// TestCaseData tData;
 	//
-	// @FindBy(name = "cuerpo")
-	// private WebElement cuerpoFrame;
-	private By cuerpoFrame = By.cssSelector("#mainFrame");
+	// @FindBy(name = "main")
+	// private WebElement mainFrame;
+	private By mainFrame = By.cssSelector("#mainFrame");
 	//
 	// @FindBy(id = "altaInt")
 	// private WebElement btnAnadirDatosInquilinoPantallaPrincipal;
@@ -129,6 +129,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	//
 	// @FindBy(id = "numCot")
 	// private WebElement numCotizacion;
+	private By numCotizacion = By.cssSelector("#numCot");
 	//
 
 	// @FindBy(css = "#capaAdjuntarDocumentacion #modalAddDocuInterv
@@ -154,7 +155,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException {
 		this.addDatosInquilino();
 		this.anadirDocumentacion();
-		// this.browser+Context.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
+		this.setTestVar("NumCotizacion", this.recuperarNumeroCotizacion());
+		System.out.println("*** Num cotizacion: " + this.recuperarNumeroCotizacion());
 		this.validacionViabilidadInquilino();
 	}
 	// public void executeActionsInInquilinosAvalistasPage() throws
@@ -169,10 +171,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// public void modificarRentasInquilino() throws InterruptedException,
 	// IOException, AWTException
 	// {
-	// this.wh.clickOnWebElementInFrame(this.btnEditar, this.cuerpoFrame);
-	// this.wh.sendValueToWebElementInFrame(this.txtIngresos, this.cuerpoFrame,
+	// this.wh.clickOnWebElementInFrame(this.btnEditar, this.mainFrame);
+	// this.wh.sendValueToWebElementInFrame(this.txtIngresos, this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getNuevosIngresosNetosInquilino()));
-	// this.wh.clickOnWebElementInFrame(this.btnModificar, this.cuerpoFrame);
+	// this.wh.clickOnWebElementInFrame(this.btnModificar, this.mainFrame);
 	// this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
 	// }
 	//
@@ -186,30 +188,30 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	public void addDatosInquilino() {
 		debugBegin();
 
-		this.webDriver.clickInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal, this.mainFrame);
 
 		// Add Nombre
-		this.webDriver.clearAndAppendTextInFrame(this.txtNombre, this.cuerpoFrame, String.valueOf(getScenarioVar("nombre_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtNombre, this.mainFrame, String.valueOf(getScenarioVar("nombre_inquilino")));
 		// Logger.debug("Nombre inquilino: " +
 		// String.valueOf(getNombreInquilino());
 
 		// Add Primer Apellido
-		this.webDriver.clearAndAppendTextInFrame(this.txtPrimerApellido, this.cuerpoFrame, String.valueOf(getScenarioVar("primer_apell_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtPrimerApellido, this.mainFrame, String.valueOf(getScenarioVar("primer_apell_inquilino")));
 
 		// Add NIF
-		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.cuerpoFrame, String.valueOf(getScenarioVar("documento_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.mainFrame, String.valueOf(getScenarioVar("documento_inquilino")));
 
 		// Add Ingresos netos
-		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.cuerpoFrame, String.valueOf(getScenarioVar("ingresos_inquilino")));
+		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.mainFrame, String.valueOf(getScenarioVar("ingresos_inquilino")));
 
 		// Situacion laboral
 		this.seleccionarSituacion();
 
 //		This has been commented so that if the test fails, we know that the Detalle field has been enabled for a Situación Laboral that previously didn't have it.
-//		if(this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.cuerpoFrame)) {
-//			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.cuerpoFrame, 1);
+//		if(this.webDriver.isPresentInFrame(this.drpDwnDetalle, this.mainFrame)) {
+//			this.webDriver.clickElementFromDropDownByIndex(this.drpDwnDetalle, this.mainFrame, 1);
 //		}
-		this.webDriver.clickInFrame(this.btnAnadirDatosInquilino, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnAnadirDatosInquilino, this.mainFrame);
 
 		debugEnd();
 	}
@@ -219,47 +221,47 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("BEGIN - AddDatosInquilino");
 	//
 	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	//
 	// // Add Nombre
 	// this.wh.clearAndSetTextInWebElementInFrame(this.txtNombre,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getNombreInquilino()));
 	// // Logger.debug("Nombre inquilino: " +
 	// String.valueOf(getNombreInquilino());
 	//
 	// // Add Primer Apellido
 	// this.wh.clearAndSetTextInWebElementInFrame(this.txtPrimerApellido,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getPrimerApellidoInquilino()));
 	//
 	// // Add NIF
 	// this.wh.clearAndSetTextInWebElementInFrame(this.txtDocumento,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getDocumentoInquilino()));
 	//
 	// // Add Ingresos netos
 	// // this.wh.sendValueToWebElementInFrame(this.txtIngresos,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// //
 	// String.valueOf(this.browserContext.getTestCaseData().getIngresosNetosInquilino()));
 	//
 	// this.wh.clearAndSetTextInWebElementInFrame(this.txtIngresos,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getIngresosNetosInquilino()));
 	//
 	// // Situacion laboral
 	// this.seleccionarSituacion();
 	//
 	// if (this.wh.webElementInFrameIsPresent(this.drpDwnDetalle,
-	// this.cuerpoFrame))
+	// this.mainFrame))
 	// {
 	// this.wh.selectValueInDropDownInFrameByIndex(this.drpDwnDetalle,
-	// this.cuerpoFrame, 1);
+	// this.mainFrame, 1);
 	// }
 	//
 	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosInquilino,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	//
 	// logger.debug("END - AddDatosInquilino");
 	// }
@@ -269,29 +271,29 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("BEGIN - AddDatosAval");
 	//
 	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	//
 	// // Seleccionar que sea aval
 	// this.wh.selectValueInDropDownInFrame(this.tipoInterviniente,
-	// this.cuerpoFrame, "Avalista");
+	// this.mainFrame, "Avalista");
 	//
 	// // Add Nombre
 	// this.wh.clearAndSetTextInWebElementInFrame(this.txtNombre,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getNombreAval()));
 	//
 	// // Add Primer Apellido
 	// this.wh.clearAndSetTextInWebElementInFrame(this.txtPrimerApellido,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getPrimerApellidoAval()));
 	//
 	// // Add NIF
 	// this.wh.clearAndSetTextInWebElementInFrame(this.txtDocumento,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getDocumentoAval()));
 	//
 	// // Add Ingresos Aval
-	// this.wh.sendValueToWebElementInFrame(this.txtIngresos, this.cuerpoFrame,
+	// this.wh.sendValueToWebElementInFrame(this.txtIngresos, this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getIngresosAval()));
 	//
 	// // Seleccionar parentesco
@@ -301,7 +303,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// this.seleccionarSituacion();
 	//
 	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosInquilino,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	//
 	// this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
 	//
@@ -312,7 +314,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 public void validacionViabilidadInquilino() throws AWTException, InterruptedException {
 	 	debugBegin();
 	 	    Thread.sleep(2000);
-	 		this.webDriver.clickInFrame(this.btnValidacionViabilidad, this.cuerpoFrame);
+	 		this.webDriver.clickInFrame(this.btnValidacionViabilidad, this.mainFrame);
 	 	debugEnd();
 	 }
 
@@ -320,7 +322,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// {
 	// logger.debug("BEGIN - ValidacionViabilidadInquilino");
 	// this.wh.clickOnWebElementInFrame(this.btnValidacionViabilidad,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// logger.debug("END - ValidacionViabilidadInquilino");
 	// }
 
@@ -329,11 +331,11 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		
 		String situacion = getScenarioVar("situacion_laboral");
 		if(situacion.equals(ProjectConstants.SITUACION_LABORAL_ASALARIADO)) {
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionDetalle, this.cuerpoFrame, ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.mainFrame, situacion);
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionDetalle, this.mainFrame, ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 		}
 		else{
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.cuerpoFrame, situacion);
+			this.webDriver.clickElementFromDropDownByTextInFrame(this.situacionLaboral, this.mainFrame, situacion);
 		}
 
 		
@@ -348,13 +350,13 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// if (situacion.equals(ProjectConstants.SITUACION_LABORAL_ASALARIADO))
 	// {
 	// this.wh.selectValueInDropDownInFrame(this.situacionLaboral,
-	// this.cuerpoFrame, situacion);
+	// this.mainFrame, situacion);
 	// this.wh.selectValueInDropDownInFrame(this.situacionDetalle,
-	// this.cuerpoFrame,
+	// this.mainFrame,
 	// ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 	// }
 	// this.wh.selectValueInDropDownInFrame(this.situacionLaboral,
-	// this.cuerpoFrame, situacion);
+	// this.mainFrame, situacion);
 	// logger.debug("END - SeleccionarSituacion");
 	// }
 	//
@@ -363,7 +365,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 debugBegin();
 
 	 String parentesco = getScenarioVar("parentesco_aval");
-	 this.webDriver.clickElementFromDropDownByTextInFrame(this.parentesco, this.cuerpoFrame, parentesco);
+	 this.webDriver.clickElementFromDropDownByTextInFrame(this.parentesco, this.mainFrame, parentesco);
 
 	 debugEnd();
 	 }
@@ -372,7 +374,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("BEGIN - SeleccionarParentesco");
 	// String parentesco =
 	// this.browserContext.getTestCaseData().getParentescoAval();
-	// this.wh.selectValueInDropDownInFrame(this.parentesco, this.cuerpoFrame,
+	// this.wh.selectValueInDropDownInFrame(this.parentesco, this.mainFrame,
 	// parentesco);
 	// logger.debug("END - SeleccionarParentesco");
 	// }
@@ -381,13 +383,13 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 InterruptedException
 	 {
 	 debugBegin();
-	 this.webDriver.clickInFrame(this.btnAnadirDocumentacionPrincipal, this.cuerpoFrame);
-	 this.webDriver.clickInFrame(this.chkbxDosNominas, this.cuerpoFrame);
-	 this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.btnAnadirDocumentacionPrincipal, this.mainFrame);
+	 this.webDriver.clickInFrame(this.chkbxDosNominas, this.mainFrame);
+	 this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.mainFrame);
 	 this.adjuntarDocumentos();
-	 this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.mainFrame);
 	 Thread.sleep(2000);
-	 this.webDriver.clickInFrame(this.btnCerrar, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
 	 debugEnd();
 	 }
 
@@ -396,15 +398,15 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// {
 	// logger.debug("BEGIN - AnadirDocumentacion");
 	// this.wh.clickOnWebElementInFrame(this.btnAnadirDocumentacionPrincipal,
-	// this.cuerpoFrame);
-	// this.wh.clickOnWebElementInFrame(this.chkbxDosNominas, this.cuerpoFrame);
+	// this.mainFrame);
+	// this.wh.clickOnWebElementInFrame(this.chkbxDosNominas, this.mainFrame);
 	// this.wh.clickOnWebElementInFrame(this.chkbxAutorizacionConsulta,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// this.adjuntarDocumentos();
 	// this.wh.clickOnWebElementInFrame(this.btnAnadirDocumentoSubido,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// Thread.sleep(2000);
-	// this.wh.clickOnWebElementInFrame(this.btnCerrar, this.cuerpoFrame);
+	// this.wh.clickOnWebElementInFrame(this.btnCerrar, this.mainFrame);
 	// logger.debug("END - AnadirDocumentacion");
 	// }
 	//
@@ -413,18 +415,18 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// {
 	// logger.debug("BEGIN - AnadirDocumentacionAval");
 	// this.wh.clickOnWebElementInFrame(this.btnAnadirDocumentacionPrincipal,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// this.wh.clickOnWebElementInFrame(this.chkbxDosNominasAval,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// this.wh.clickOnWebElementInFrame(this.chkbxAutorizacionConsultaAval,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// // this.wh.ClickOnWebElementInFrame(this.btnAnadirDocumentacion,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// this.adjuntarDocumentos();
 	// this.wh.clickOnWebElementInFrame(this.btnAnadirDocumentoSubido,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// Thread.sleep(2000);
-	// this.wh.clickOnWebElementInFrame(this.btnCerrar, this.cuerpoFrame);
+	// this.wh.clickOnWebElementInFrame(this.btnCerrar, this.mainFrame);
 	// logger.debug("END - AnadirDocumentacionAval");
 	// }
 	//
@@ -433,7 +435,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
-	 this.webDriver.sendKeysFrame(this.elmntFichero, this.cuerpoFrame, "C:/Users/JCHRISTOPHER/Desktop/Documentos para pruebas/DocumentoAñadido.txt");
+	 this.webDriver.sendKeysFrame(this.elmntFichero, this.mainFrame, "C:/Users/JCHRISTOPHER/Desktop/Documentos para pruebas/DocumentoAñadido.txt");
 	 debugEnd();
 	 }
 
@@ -441,7 +443,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// {
 	// logger.debug("BEGIN - AdjuntarDocumentos");
 	// // TODO: mover la ruta de fichero de upload a configuracion
-	// this.wh.switchToFrame(this.cuerpoFrame);
+	// this.wh.switchToFrame(this.mainFrame);
 	// this.elmntFichero.sendKeys("C:/Users/amaris2/Desktop/prueba.pdf");
 	// this.wh.exitFromFrame();
 	// logger.debug("END - AdjuntarDocumentos");
@@ -452,8 +454,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
-	 this.webDriver.clickInFrame(this.btnEnviarACompania, this.cuerpoFrame);
-	 this.webDriver.clickInFrame(this.btnEnviarComentarios, this.cuerpoFrame);
+	 this.webDriver.clickInFrame(this.btnEnviarACompania, this.mainFrame);
+	 this.webDriver.clickInFrame(this.btnEnviarComentarios, this.mainFrame);
 	 debugEnd();
 	 }
 
@@ -462,19 +464,19 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("BEGIN - EnviarACompania");
 	// // TODO: mover la ruta de fichero de upload a configuracion
 	// this.wh.clickOnWebElementInFrame(this.btnEnviarACompania,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// this.wh.clickOnWebElementInFrame(this.btnEnviarComentarios,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// logger.debug("END - EnviarACompania");
 	// }
 	//
 	// public String recuperarTextoMensajeError()
 	// {
 	// logger.debug("BEGIN - RecuperarTextoMensajeError");
-	// this.wh.getTextFromWebElementInFrame(this.msjError, this.cuerpoFrame);
+	// this.wh.getTextFromWebElementInFrame(this.msjError, this.mainFrame);
 	// logger.debug("END - RecuperarTextoMensajeError");
 	// return this.wh.getTextFromWebElementInFrame(this.msjError,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// }
 	//
 	// public String recuperarTextoMensajeValidacionOK()
@@ -482,7 +484,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	//
 	// logger.debug("BEGIN - RecuperarTextoMensajeValidacionOK");
 	// String result = this.wh.getTextFromWebElementInFrame(this.msjError,
-	// this.cuerpoFrame);
+	// this.mainFrame);
 	// System.out.println(result);
 	// logger.debug("END - RecuperarTextoMensajeValidacionOK");
 	// return result;
@@ -491,17 +493,15 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// public void clickOnContinuar()
 	// {
 	// logger.debug("BEGIN - Continuar");
-	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.cuerpoFrame);
+	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.mainFrame);
 	// logger.debug("END - Continuar");
 	// }
 	//
-	// public String recuperarNumeroCotizacion()
-	// {
-	// logger.debug("BEGIN - RecuperarNumeroCotizacion");
-	// this.wh.getTextFromWebElementInFrame(this.numCotizacion,
-	// this.cuerpoFrame);
-	// logger.debug("END - RecuperarNumeroCotizacion");
-	// return this.wh.getTextFromWebElementInFrame(this.numCotizacion,
-	// this.cuerpoFrame);
-	// }
+	 public String recuperarNumeroCotizacion()
+	 {
+	 debugBegin();
+	 this.webDriver.getTextInFrame(this.numCotizacion, this.mainFrame);
+	 debugEnd();
+	 return this.webDriver.getTextInFrame(this.numCotizacion, this.mainFrame);
+	 }
 }
