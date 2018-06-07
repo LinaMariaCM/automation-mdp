@@ -78,12 +78,12 @@ public class Steps extends StepObject {
 
 		// userS.getTestVar("acceso");
 		// userS.getConfigVar("gestion_online_disponible");
-		if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine)
-			// &&
-			// this.browserContext.getProperties().GestionOnlineDisponible.equals(ProjectConstants.GestionOnlineDisponible)
-			&& this.userS.getTestVar("get_propeties").equals(ProjectConstants.GestionOnlineDisponible)
-			&& Boolean.parseBoolean(this.userS.getConfigVar("GestionOnlineDisponible"))
-			|| loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
+		if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine)
+				// &&
+				// this.browserContext.getProperties().GestionOnlineDisponible.equals(ProjectConstants.GestionOnlineDisponible)
+				&& this.userS.getTestVar("get_propeties").equals(ProjectConstants.GestionOnlineDisponible)
+				&& Boolean.parseBoolean(this.userS.getConfigVar("GestionOnlineDisponible"))
+				|| loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
 			// Convertir a un step de ir a X entorno pasado por el parametro "acceso"
 
 			this.el_usuario_accede(loginAcess, user);
@@ -99,13 +99,13 @@ public class Steps extends StepObject {
 			// String mediador = this.tCData.getMediador();
 			String mediador = this.userS.getScenarioVar("mediador");
 			System.out.println("mediador: " + mediador);
-			if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
+			if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
 				new AsignarMediadorPage(userS)
-					.selectMediadorAndClickOnContinuar(userS.getScenario());
-			} else if(loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
+						.selectMediadorAndClickOnContinuar(userS.getScenario());
+			} else if (loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
 				new AsignarMediadorPage(userS)
-					.seleccionarMediadorPorCodigo(mediador)
-					.clickOnContinuarButton();
+						.seleccionarMediadorPorCodigo(mediador)
+						.clickOnContinuarButton();
 			}
 
 			// The testId variable has been set here because the FillTomadorData
@@ -114,78 +114,78 @@ public class Steps extends StepObject {
 			String testId = webDriver.getId() == null ? "" : webDriver.getId();
 
 			new UbicacionRiesgoPage(userS)
-				.fillInmuebleAndClickOnContinue(userS.getScenario());
+					.fillInmuebleAndClickOnContinue(userS.getScenario());
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
-				.isUbicacionRiesgoUtilizada();
+					.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				.completarDatosRiesgoMinimos();
+					.completarDatosRiesgoMinimos();
 
 //			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
 //				.ClickOnContinuarAndValidate();
-			
-			
+
+
 			// Revisar si el paso de parámetros es el adecuado
 			//new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).ClickOnContinuarAndValidate();
 
 			// Revisar si el paso de parámetros es el adecuado
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-				.ClickOnContinuarAndValidate();
+					.ClickOnContinuarAndValidate();
 
 			new PrecioPage(userS)
-				.clickOnConvertirAProjecto();
+					.clickOnConvertirAProjecto();
 
-	
-			new DatosBasicosTomadorPage(userS)
-				.fillTomadorData(getScenarioVar("tomador"))
-				.clickOnContinuar();
-
-			new PrecioPorModalidadPage(userS)
-				.executeActionsInPrecioPorModalidadPage();
-
-			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
-
-			new ClausulasPage(userS)
-				.activateclausesAndClickOnContinue();
 
 			new DatosBasicosTomadorPage(userS)
-				.fillTomadorData(getScenarioVar("tomador"))
-				.clickOnContinuar();
-			
+					.fillTomadorData(getScenarioVar("tomador"))
+					.clickOnContinuar();
+
 			new PrecioPorModalidadPage(userS)
-				.executeActionsInPrecioPorModalidadPage();
+					.executeActionsInPrecioPorModalidadPage();
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
+					.clickOnContinuarButton();
 
 			new ClausulasPage(userS)
-				.activateclausesAndClickOnContinue();
-			
+					.activateclausesAndClickOnContinue();
+
+			new DatosBasicosTomadorPage(userS)
+					.fillTomadorData(getScenarioVar("tomador"))
+					.clickOnContinuar();
+
+			new PrecioPorModalidadPage(userS)
+					.executeActionsInPrecioPorModalidadPage();
+
+			new ValidacionExcepcionesReglasPage(userS)
+					.clickOnContinuarButton();
+
+			new ClausulasPage(userS)
+					.activateclausesAndClickOnContinue();
+
 			new TomadorYAseguradoPage(userS)
-				.addDatosTomador()
-				.addDatosTomadorDiferenteAsegurado()
-				.clickOnContinuar();
+					.addDatosTomador()
+					.addDatosTomadorDiferenteAsegurado()
+					.clickOnContinuar();
 
 			new DocumentacionPage(userS)
-				.SubirFichero();
+					.SubirFichero();
 
 			new DatosBancariosPage(userS)
-				.introducirFormaPagoYPulsarContratar();
+					.introducirFormaPagoYPulsarContratar();
 
 			// this.browserContext.writeTestCaseData();
 			this.webDriver.quit();
 
 			new DocumentacionPage(userS)
-				.SubirFichero();
+					.SubirFichero();
 
 			new DatosBancariosPage(userS)
-				.introducirFormaPagoYPulsarContratar();
+					.introducirFormaPagoYPulsarContratar();
 
 			this.webDriver.quit();
 		}
-		
+
 		debugEnd();
 	}
 
@@ -201,46 +201,46 @@ public class Steps extends StepObject {
 	 * ///// DATA ENTRY STEPS
 	 * /////////////////////////////////////////////////////////////////////////
 	 * ///////////////////////////////////////////////////////////////////////
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
 	 * // private DetallesRiesgoPage detallesRiesgoPage; //final static Logger
 	 * logger = LoggerFactory.getLogger(CommonSteps.class);
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
 	 * // //@Dado("^marcado el check Asegurar unicamente los garajes$") public
 	 * void marcado_el_check_Asegurar_unicamente_los_garajes() {
 	 * userS.setTestVar("asegurar_garajes", "true");
 	 * //userS.getTestVar("asegurar_garajes");
 	 * //this.browserContext.getTestCaseData().setAsegurarUnicamenteGarajes(true
 	 * ); }
-	 * 
+	 *
 	 * // //@Dado("^el dni \"([^\"]*)\"$") public void el_dni( String dniNumber)
 	 * { logger.debug("BEGIN - el_dni"); //
 	 * this.browserContext.getTestCaseData().setTomadorDNI(dniNumber);
 	 * logger.debug("END - el_dni"); }
-	 * 
+	 *
 	 * // //@Dado("^el numero de cuenta es \"([^\"]*)\"$") public void
 	 * la_cuenta( String numeroCuenta) { logger.debug("BEGIN - la_cuenta"); //
 	 * this.browserContext.getTestCaseData().setNumeroCuenta( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * numeroCuenta, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - la_cuenta"); }
-	 * 
+	 *
 	 * // //@Dado("^la fecha de contrato del alquiler es \"([^\"]*)\"$") public
 	 * void fecha_contrato_alquiler( String fecha) {
 	 * logger.debug("BEGIN - fecha_contrato_alquiler"); //
 	 * this.browserContext.getTestCaseData().setFechaContratoAlquiler(fecha);
 	 * logger.debug("END - fecha_contrato_alquiler"); }
-	 * 
+	 *
 	 * //@Dado("^el inmueble con la dirección \"([^\"]*)\"$") public void
 	 * el_inmueble( String direccion) { logger.debug("BEGIN - el_inmueble"); //
 	 * this.browserContext.getTestCaseData().setInmueble(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * direccion, // this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - el_inmueble"); }
-	 * 
+	 *
 	 * //@Dado("^la provincia del inmueble es \"([^\"]*)\"$") public void
 	 * provincia_inmueble( String provincia) {
 	 * logger.debug("BEGIN - provincia_inmueble"); //
@@ -248,7 +248,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * provincia, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - provincia_inmueble"); }
-	 * 
+	 *
 	 * // //@Dado("^la poblacion del inmueble es \"([^\"]*)\"$") public void
 	 * poblacion_inmueble( String poblacion) {
 	 * logger.debug("BEGIN - poblacion_inmueble"); //
@@ -256,7 +256,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * poblacion, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - poblacion_inmueble"); }
-	 * 
+	 *
 	 * //@Dado("^la direccion del inmueble es \"([^\"]*)\"$") public void
 	 * direccion_inmueble( String direccion) {
 	 * logger.debug("BEGIN - direccion_inmueble"); //
@@ -264,7 +264,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * direccion, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - direccion_inmueble"); }
-	 * 
+	 *
 	 * //@Dado("^el numero de portal del inmueble es \"([^\"]*)\"$") public void
 	 * portal_inmueble( String portal) {
 	 * logger.debug("BEGIN - portal_inmueble"); //
@@ -272,7 +272,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * portal, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - portal_inmueble"); }
-	 * 
+	 *
 	 * //@Dado("^el número de edificios es \"([^\"]*)\"$") public void
 	 * el_numero_de_edificios( String numeroEdificios) {
 	 * logger.debug("BEGIN - el_numero_de_edificios"); //
@@ -284,7 +284,7 @@ public class Steps extends StepObject {
 	 * gethMapDataSet(), numeroEdificios, //
 	 * this.browserContext.getTestCaseData().getTestID())) : null);
 	 * logger.debug("END - el_numero_de_edificios"); }
-	 * 
+	 *
 	 * ////@Dado("^el mediador \"([^\"]*)\"$") public void el_mediador( String
 	 * codigoMediador) { logger.debug("BEGIN - el_mediador"); //
 	 * this.browserContext.getTestCaseData();
@@ -295,9 +295,9 @@ public class Steps extends StepObject {
 	 * gethMapDataSet(), codigoMediador, //
 	 * this.browserContext.getTestCaseData().getTestID())) : null);
 	 * logger.debug("END - el_mediador");
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * // //@Dado("^el medio de pago es \"([^\"]*)\"$") public void
 	 * el_medio_de_pago_es( String medioPago) {
 	 * logger.debug("BEGIN - el_medio_de_pago_es"); //
@@ -305,7 +305,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * medioPago, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - el_medio_de_pago_es"); }
-	 * 
+	 *
 	 * // //@
 	 * Dado("^la cobertura opcional de rotura de maquinaria para la opción: \"([^\"]*)\" por un valor de \"([^\"]*)\" euros$"
 	 * ) public void
@@ -318,7 +318,7 @@ public class Steps extends StepObject {
 	 * CoberturaOpcionalncluida); logger.
 	 * debug("END - la_cobertura_opcional_de_rotura_de_maquinaria_para_la_opion_por_un_valor_de_euros"
 	 * ); }
-	 * 
+	 *
 	 * //@
 	 * Dado("^la cobertura de accidentes personales de empleados para un empleado$"
 	 * ) public void
@@ -330,7 +330,7 @@ public class Steps extends StepObject {
 	 * ProjectConstants.CoberturaOpcionalncluida); logger.
 	 * debug("END - la_cobertura_opcional_de_rotura_de_maquinaria_para_la_opion_por_un_valor_de_euros"
 	 * ); }
-	 * 
+	 *
 	 * //@
 	 * Dado("^la cobertura de rotura de instalaciones de energía solar para \"([^\"]*)\" por un valor de \"([^\"]*)\"$"
 	 * ) public void
@@ -342,7 +342,7 @@ public class Steps extends StepObject {
 	 * CoberturaOpcionalncluida); logger.
 	 * debug("END - anado_la_cobertura_de_rotura_de_instalaciones_de_energia_solar_para_por_un_valor_de"
 	 * ); }
-	 * 
+	 *
 	 * //@Dado("^la clausula \"([^\"]*)\"$") public void
 	 * añado_la_clausula_hipotecaria( String clausula) {
 	 * this.browserContext.getTestCaseData().setModificarClausulas(
@@ -350,7 +350,7 @@ public class Steps extends StepObject {
 	 * this.browserContext.getTestCaseData().setClausulas(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * clausula, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^le incluyo la clausula \"([^\"]*)\"$") public void
 	 * le_añado_la_clausula( String clausula) {
 	 * this.browserContext.getTestCaseData().setModificarClausulas(
@@ -358,33 +358,33 @@ public class Steps extends StepObject {
 	 * this.browserContext.getTestCaseData().setClausulas(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * clausula, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^le incluyo una clausula hipotecaria$") public void
 	 * le_añado_una_clausula_hipotecaria() {
 	 * this.browserContext.getTestCaseData().setClausulaHipotecaria(true); }
-	 * 
+	 *
 	 * //@Dado("^el asegurado es diferente del tomador$") public void
 	 * el_asegurado_es_diferente_del_tomador() {
 	 * this.browserContext.getTestCaseData().
 	 * setAseguradoPrincipalDiferenteDelTomador(ProjectConstants.
 	 * AseguradoPrincipalDiferenteTomador); }
-	 * 
+	 *
 	 * //@Dado("^el tomador es \"([^\"]*)\"$") public void el_tomador( String
 	 * tomador) { logger.debug("BEGIN - el_tomador");
 	 * logger.debug("END - el_tomador"); }
-	 * 
+	 *
 	 * // //@Dado("^el tipo de persona es \"([^\"]*)\"$") public void
 	 * tipo_de_persona( String tipo) { logger.debug("BEGIN - tipo_de_persona");
 	 * this.browserContext.getTestCaseData().setTipoPersona(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * tipo, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - tipo_de_persona"); }
-	 * 
+	 *
 	 * //@Dado("^el documento de tomador es aleatoreo$") public void
 	 * el_documento_tomador_es_aleatoreo() {
 	 * this.browserContext.getTestCaseData().setTomadorDocumento(
 	 * DniGeneratorHelper.generaNif(null)); }
-	 * 
+	 *
 	 * //@Dado("^el documento de tomador es \"([^\"]*)\"$") public void
 	 * documento_tomador( String documento) {
 	 * logger.debug("BEGIN - documento_tomador");
@@ -392,14 +392,14 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * documento, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("BEGIN - documento_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^el nombre de tomador es \"([^\"]*)\"$") public void
 	 * nombre_tomador( String nombre) { logger.debug("BEGIN - nombre_tomador");
 	 * // this.browserContext.getTestCaseData().setTomadorNombre( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nombre, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - nombre_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^el primer apellido de tomador es \"([^\"]*)\"$") public void
 	 * primer_apellido_tomador( String apellido) {
 	 * logger.debug("BEGIN - primer_apellido_tomador"); //
@@ -407,28 +407,28 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * apellido, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - primer_apellido_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^la provincia es \"([^\"]*)\"$") public void provincia( String
 	 * provincia) { logger.debug("BEGIN - provincia_tomador"); //
 	 * this.browserContext.getTestCaseData().setProvincia( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * provincia, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - provincia_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^la poblacion es \"([^\"]*)\"$") public void poblacion( String
 	 * poblacion) { logger.debug("BEGIN - poblacion_tomador"); //
 	 * this.browserContext.getTestCaseData().setPoblacion( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * poblacion, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - poblacion_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^la via es \"([^\"]*)\"$") public void direccion( String
 	 * direccion) { logger.debug("BEGIN - direccion_tomador"); //
 	 * this.browserContext.getTestCaseData().setNombreVia( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * direccion, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - direccion_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^el numero de portal es \"([^\"]*)\"$") public void
 	 * numero_portal( String numero) {
 	 * logger.debug("BEGIN - numero_portal_tomador"); //
@@ -436,7 +436,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * numero, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - numero_portal_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^la provincia de tomador es \"([^\"]*)\"$") public void
 	 * provincia_tomador( String provincia) {
 	 * logger.debug("BEGIN - provincia_tomador"); //
@@ -444,7 +444,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * provincia, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - provincia_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^la poblacion de tomador es \"([^\"]*)\"$") public void
 	 * poblacion_tomador( String poblacion) {
 	 * logger.debug("BEGIN - poblacion_tomador"); //
@@ -452,7 +452,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * poblacion, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - poblacion_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^la direccion de tomador es \"([^\"]*)\"$") public void
 	 * direccion_tomador( String direccion) {
 	 * logger.debug("BEGIN - direccion_tomador"); //
@@ -460,7 +460,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * direccion, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - direccion_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^el numero de portal de tomador es \"([^\"]*)\"$") public void
 	 * numero_portal_tomador( String numero) {
 	 * logger.debug("BEGIN - numero_portal_tomador"); //
@@ -468,7 +468,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * numero, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - numero_portal_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^la fecha de nacimiento de tomador es \"([^\"]*)\"$") public
 	 * void fecha_nacimiento_tomador( String fecha) {
 	 * logger.debug("BEGIN - fecha_nacimiento_tomador"); //
@@ -476,21 +476,21 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * fecha, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - fecha_nacimiento_tomador"); }
-	 * 
+	 *
 	 * //@Dado("^los teléfonos y los horarios de atención del tomador$") public
 	 * void añado_los_teléfonos_del_tomador_y_los_horarios_de_atención() {
 	 * this.browserContext.getTestCaseData().
 	 * setIncluirTelefonosYHorarioAtencionTomador(ProjectConstants.
 	 * TelefonosTomadorIncluidos); }
-	 * 
+	 *
 	 * //@Dado("^subo un fichero$") public void subo_un_fichero() {
 	 * this.browserContext.getTestCaseData().setAddFile(true); }
-	 * 
+	 *
 	 * //@Dado("^la modalidad \"([^\"]*)\"$") public void la_modalidad( String
 	 * modalidad) { logger.debug("BEGIN - la_modalidad");
-	 * 
+	 *
 	 * logger.debug("END - la_modalidad"); }
-	 * 
+	 *
 	 * //@Dado("^la referencia catastral \"([^\"]*)\"$") public void
 	 * la_referencia_catastral( String referenciaCatastral) {
 	 * logger.debug("BEGIN - la_referencia_catastral"); //
@@ -499,19 +499,19 @@ public class Steps extends StepObject {
 	 * // referenciaCatastral,
 	 * this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - la_referencia_catastral"); }
-	 * 
+	 *
 	 * //@Dado("^selecciono como número de plantas en alto \"([^\"]*)\"$")
 	 * public void selecciono_como_número_de_plantas_en_alto( String
 	 * NumPlantasAlto) {
 	 * logger.debug("BEGIN - selecciono_como_número_de_plantas_en_alto");
 	 * logger.debug("END - selecciono_como_número_de_plantas_en_alto"); }
-	 * 
+	 *
 	 * //@Dado("^selecciono como número de plantas de sotano \"([^\"]*)\"$")
 	 * public void selecciono_como_número_de_plantas_de_sotano( String
 	 * NumPlantasSotano) {
 	 * logger.debug("BEGIN - selecciono_como_número_de_plantas_de_sotano");
 	 * logger.debug("END - selecciono_como_número_de_plantas_de_sotano"); }
-	 * 
+	 *
 	 * //@Dado("^el número de cotización \"([^\"]*)\"$") public void
 	 * el_numero_de_cotizacion( String noCotizacion) {
 	 * logger.debug("BEGIN - el_número_de_cotización"); //
@@ -519,7 +519,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * noCotizacion, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - el_número_de_cotización"); }
-	 * 
+	 *
 	 * //@Dado("^el número de viviendas es \"([^\"]*)\"$") public void
 	 * el_número_de_viviendas_es( String numeroViviendas) {
 	 * logger.debug("BEGIN - el_número_de_viviendas_es"); //
@@ -531,7 +531,7 @@ public class Steps extends StepObject {
 	 * gethMapDataSet(), numeroViviendas, //
 	 * this.browserContext.getTestCaseData().getTestID())) // : null);
 	 * logger.debug("END - el_número_de_viviendas_es"); }
-	 * 
+	 *
 	 * //@Dado("^el número de locales es \"([^\"]*)\"$") public void
 	 * el_número_de_locales_es( String numeroLocales) {
 	 * logger.debug("BEGIN - el_número_de_locales_es"); //
@@ -543,27 +543,27 @@ public class Steps extends StepObject {
 	 * gethMapDataSet(), numeroLocales, //
 	 * this.browserContext.getTestCaseData().getTestID())) // : null);
 	 * logger.debug("END - el_número_de_locales_es");
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@Dado("^el valor de m2 viviendas es '(\\d+)'$") public void
 	 * el_valor_de_m_viviendas_es( String m2Viviendas) {
 	 * logger.debug("BEGIN - el_valor_de_m_viviendas_es");
 	 * this.browserContext.getTestCaseData().setM2Vivienda(m2Viviendas);
 	 * logger.debug("END - el_valor_de_m_viviendas_es"); }
-	 * 
+	 *
 	 * //@Dado("^el valor de m2 zonas ajardinadas es '(\\d+)'$") public void
 	 * el_valor_de_m_zonas_ajardinadas_es( String m2ZonasAjardinadas) { }
-	 * 
+	 *
 	 * //@Dado("^el valor de m2 oficinas es '(\\d+)'$") public void
 	 * el_valor_de_m_oficinas_es( String m2Oficinas) { }
-	 * 
+	 *
 	 * //@Dado("^el valor de m2 garajes es '(\\d+)'$") public void
 	 * el_valor_de_m_garajes_es( String m2Garajes) {
 	 * logger.debug("BEGIN - el_valor_de_m_garajes_es");
 	 * this.browserContext.getTestCaseData().setM2Garajes(m2Garajes);
 	 * logger.debug("END - el_valor_de_m_garajes_es"); }
-	 * 
+	 *
 	 * //@Dado("^el año de construcción del edificio es \"([^\"]*)\"$") public
 	 * void el_año_de_construcción_del_edificio_es( String anyoConstruccion) {
 	 * if (anyoConstruccion.equals(ProjectConstants.MayorDe50)) {
@@ -573,61 +573,61 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * anyoConstruccion, this.browserContext.getTestCaseData().getTestID())); }
 	 * }
-	 * 
+	 *
 	 * //@Dado("^el número de poliza \"([^\"]*)\"$") public void
 	 * el_número_de_poliza( String noPoliza) { //
 	 * this.browserContext.getTestCaseData().setNumPoliza(Integer.parseInt( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * noPoliza, this.browserContext.getTestCaseData().getTestID()))); }
-	 * 
+	 *
 	 * //@Dado("^fecha de siniestro es \"([^\"]*)\"$") public void
 	 * fecha_siniestro_es( String fecha) {
 	 * this.browserContext.getTestCaseData().setFechaSiniestro(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * fecha, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^causa de siniestro es \"([^\"]*)\"$") public void
 	 * causa_siniestro_es( String causa) {
 	 * this.browserContext.getTestCaseData().setCausaSiniestro(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * causa, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^rol de la persona de contacto es \"([^\"]*)\"$") public void
 	 * rol_persona_contacto_es( String rol) {
 	 * this.browserContext.getTestCaseData().setRolPersonaContacto(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * rol, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^nombre de la persona de contacto es \"([^\"]*)\"$") public void
 	 * nombre_persona_contacto_es( String nombre) {
 	 * this.browserContext.getTestCaseData().setNombrePersonaContacto(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nombre, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^apellido de la persona de contacto es \"([^\"]*)\"$") public
 	 * void apellido_persona_contacto_es( String apellido) {
 	 * this.browserContext.getTestCaseData().setApellidoPersonaContacto(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * apellido, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^telefono de la persona de contacto es \"([^\"]*)\"$") public
 	 * void telefono_persona_contacto_es( String telefono) {
 	 * this.browserContext.getTestCaseData().setTelefonoPersonaContacto(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * telefono, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^descripcion de siniestro es \"([^\"]*)\"$") public void
 	 * descripcion_siniestro_es( String descripcion) {
 	 * this.browserContext.getTestCaseData().setDescripcionSiniestro(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * descripcion, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Cuando("^con el número de poliza$") public void
 	 * con_el_número_de_poliza() { DatosBancariosPage datosBancariosPage = new
 	 * DatosBancariosPage(userS);
 	 * this.browserContext.getTestCaseData().setNumPoliza(datosBancariosPage.
 	 * GetPolizaNumber()); }
-	 * 
+	 *
 	 * //@Cuando("^cambio el medio de pago a \"([^\"]*)\"$") public void
 	 * cambio_el_medio_de_pago_a( String medioPago) {
 	 * logger.debug("BEGIN - cambio_el_medio_de_pago_a"); //
@@ -635,7 +635,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * medioPago, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - cambio_el_medio_de_pago_a"); }
-	 * 
+	 *
 	 * //@Cuando("^cambio la referencia catastral por \"([^\"]*)\"$") public
 	 * void cambio_la_referencia_catastral_por( String referenciaCatastral) {
 	 * logger.debug("BEGIN - cambio_la_referencia_catastral_por");
@@ -643,7 +643,7 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * referenciaCatastral, this.browserContext.getTestCaseData().getTestID()));
 	 * logger.debug("END - cambio_la_referencia_catastral_por"); }
-	 * 
+	 *
 	 * //@Cuando("^cambio el número de viviendas a \"([^\"]*)\"$") public void
 	 * modifico_el_numero_de_viviendas_a( String numeroViviendas) {
 	 * logger.debug("BEGIN - cambio_el_numero_de_viviendas_a"); //
@@ -653,7 +653,7 @@ public class Steps extends StepObject {
 	 * //
 	 * this.browserContext.getTestCaseData().setNumeroViviendas(numeroViviendas)
 	 * ; logger.debug("END - cambio_el_numero_de_viviendas_a("); }
-	 * 
+	 *
 	 * //@Cuando("^cambio el número de edificios a \"([^\"]*)\"$") public void
 	 * cambio_el_numero_de_edificios_a( String numeroEdificios) {
 	 * logger.debug("BEGIN - cambio_el_numero_de_edificios_a"); //
@@ -663,19 +663,19 @@ public class Steps extends StepObject {
 	 * (getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * // numeroEdificios, this.browserContext.getTestCaseData().getTestID())));
 	 * logger.debug("END - cambio_el_numero_de_edificios_a("); }
-	 * 
+	 *
 	 * //@Cuando("^cambio el número de locales a \"([^\"]*)\"$") public void
 	 * modifico_el_número_de_locale_s_a( String numeroLocales) {
-	 * 
+	 *
 	 * logger.debug("BEGIN - modifico_el_número_de_locale_s_a"); //
 	 * this.browserContext.getTestCaseData().setNumeroLocalesComerciales(Integer
 	 * .parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), // numeroLocales,
 	 * this.browserContext.getTestCaseData().getTestID())));
 	 * logger.debug("END - modifico_el_número_de_locale_s_a(");
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@Cuando("^cambio los valores de m2 viviendas a \"([^\"]*)\"$") public
 	 * void cambio_los_valores_de_m_viviendas_a( String m2Viviendas) {
 	 * this.browserContext.getTestCaseData()
@@ -685,7 +685,7 @@ public class Steps extends StepObject {
 	 * Integer.parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), m2Viviendas,
 	 * this.browserContext.getTestCaseData().getTestID())) : null); }
-	 * 
+	 *
 	 * //@Cuando("^cambio los valores de m2 zonas ajardinadas a \"([^\"]*)\"$")
 	 * public void cambio_los_valores_de_m_zonas_ajardinadas_a( String
 	 * m2ZonasAjardinadas) { this.browserContext.getTestCaseData()
@@ -695,7 +695,7 @@ public class Steps extends StepObject {
 	 * Integer.parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), m2ZonasAjardinadas,
 	 * this.browserContext.getTestCaseData().getTestID())) : null); }
-	 * 
+	 *
 	 * //@Cuando("^cambio los valores de  m2 oficinas a \"([^\"]*)\"$") public
 	 * void cambio_los_valores_de_m_oficinas_a( String m2Oficinas) {
 	 * this.browserContext.getTestCaseData()
@@ -705,7 +705,7 @@ public class Steps extends StepObject {
 	 * Integer.parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), m2Oficinas,
 	 * this.browserContext.getTestCaseData().getTestID())) : null); }
-	 * 
+	 *
 	 * //@Cuando("^cambio los valores de m2 garajes a \"([^\"]*)\"$") public
 	 * void cambio_los_valores_de_m_garajes_a( String m2Garajes) { // Write code
 	 * here that turns the phrase above into concrete actions
@@ -715,21 +715,21 @@ public class Steps extends StepObject {
 	 * Integer.parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), m2Garajes,
 	 * this.browserContext.getTestCaseData().getTestID())) : null); }
-	 * 
+	 *
 	 * //@Cuando("^cambio el año construcción a \"([^\"]*)\"$$") public void
 	 * cambio_el_anyo_construccion_a( String anyoConstruccion) { //
 	 * this.browserContext.getTestCaseData().setAnyoConstruccion(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * // anyoConstruccion, this.browserContext.getTestCaseData().getTestID()));
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^modifico el año de rehabilitacion de conducciones comunitarias a \"([^\"]*)\"$"
 	 * ) public void
 	 * se_modifica_el_año_de_rehabilitacion_de_conducciones_comunitarias(
 	 * Integer anyoRehabilicion) { // this.browserContext.getTestCaseData().
 	 * setAnyoRehabilitacionConstruccionesComunitarias(anyoRehabilicion); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^selecciono como nivel de rehabilitación de conducciones de aguas comunitarias \"([^\"]*)\"$"
 	 * ) public void
@@ -737,68 +737,68 @@ public class Steps extends StepObject {
 	 * String nivelRehabilitacion) { // this.browserContext.getTestCaseData().
 	 * setNivelRehabilitacionConduccionesAguasComunitarias(nivelRehabilitacion);
 	 * }
-	 * 
+	 *
 	 * //@Cuando("^se modifica el año de rehabiliación integral a '(\\d+)'$")
 	 * public void se_modifica_el_año_de_rehabiliación_integral_a( Integer
 	 * anyoRehabilitacionIntegral) {
 	 * this.browserContext.getTestCaseData().setAnyoRehabilitacionIntegral(
 	 * anyoRehabilitacionIntegral); }
-	 * 
+	 *
 	 * //@Cuando("^selecciono Hay una gasolinera a menos de '(\\d+)'$") public
 	 * void selecciono_Hay_una_gasolinera_a_menos_de_m( int arg1) {
 	 * this.browserContext.getTestCaseData().setGasolineraMenos50M(true); }
-	 * 
+	 *
 	 * //@Cuando("^le agrego \"([^\"]*)\" como motivo del suplemento$") public
 	 * void le_agrego_como_motivo_del_suplemento( String motivoSuplemento) {
 	 * this.browserContext.getTestCaseData().setMotivosSuplemento(true,
 	 * motivoSuplemento); }
-	 * 
+	 *
 	 * //@Cuando("^le quito \"([^\"]*)\" como motivo del suplemento$") public
 	 * void le_quito_como_motivo_del_suplemento( String motivoSuplemento) {
 	 * this.browserContext.getTestCaseData().setMotivosSuplemento(false,
 	 * motivoSuplemento); }
-	 * 
+	 *
 	 * //@Cuando("^selecciono como tomador \"([^\"]*)\"$") public void
 	 * selecciono_como_tomador( String tomador) { //
 	 * this.browserContext.getTestCaseData().setTomador( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * tomador, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Cuando("^se modifica el año de construcción a \"([^\"]*)\"$") public
 	 * void se_modifica_el_año_de_construcción( String anyoConstruccion) {
 	 * this.browserContext.getTestCaseData().setAnyoConstruccion(
 	 * anyoConstruccion); }
-	 * 
+	 *
 	 * //@Cuando("^se excluyen los garajes$") public void
 	 * se_excluyen_los_garajes() {
 	 * this.browserContext.getTestCaseData().setExcluirGarajes(true); }
-	 * 
+	 *
 	 * //@Cuando("^se excluyen los locales$") public void
 	 * se_excluyen_los_locales() {
 	 * this.browserContext.getTestCaseData().setExcluirLocales(true); }
-	 * 
+	 *
 	 * //@Cuando("^se modifica la calidad de construcción por \"([^\"]*)\"$")
 	 * public void se_modifica_la_calidad_de_construcción_por( String
 	 * calidadConstruccion) {
 	 * this.browserContext.getTestCaseData().setCalidadConstruccion(
 	 * calidadConstruccion); }
-	 * 
+	 *
 	 * ////@Dado("^cambio la modalidad a \"([^\"]*)\"$") public void
 	 * cambio_la_modalidad_a( String modalidad) { //
 	 * this.browserContext.getTestCaseData().setModalidad(modalidad); }
-	 * 
+	 *
 	 * //@Dado("^la deshabilitación es \"([^\"]*)\"$") public void
 	 * la_deshabilitación_es( String deshabilitacion) {
 	 * this.browserContext.getTestCaseData().setDeshabilitacion(deshabilitacion)
 	 * ; }
-	 * 
+	 *
 	 * //@
 	 * Dado("^el porcentaje de edificio construido en madera es \"([^\"]*)\"$")
 	 * public void el_porcentaje_de_edificio_construido_en_madera_es( String
 	 * porcentajeMadera) {
 	 * this.browserContext.getTestCaseData().setEdificioMadera(porcentajeMadera)
 	 * ; }
-	 * 
+	 *
 	 * //@Dado("^el capital continente se reduce en \"([^\"]*)\"$") public void
 	 * el_capital_continente_se_reduce_en( String capitalContinente) {
 	 * this.browserContext.getTestCaseData().setCapitalContinenteVariacion(true)
@@ -809,7 +809,7 @@ public class Steps extends StepObject {
 	 * Integer.parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), capitalContinente,
 	 * this.browserContext.getTestCaseData().getTestID())) : null); }
-	 * 
+	 *
 	 * //@Dado("^el capital continente se incrementa en \"([^\"]*)\"$") public
 	 * void el_capital_continente_se_incrementa_en( String capitalContinente) {
 	 * this.browserContext.getTestCaseData().setCapitalContinenteVariacion(true)
@@ -820,7 +820,7 @@ public class Steps extends StepObject {
 	 * Integer.parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), capitalContinente,
 	 * this.browserContext.getTestCaseData().getTestID())) : null); }
-	 * 
+	 *
 	 * //@Dado("^añado una franquicia voluntaria de \"([^\"]*)\"$") public void
 	 * añado_una_franquicia_voluntaria_de( String franquiciaVoluntaria) { //
 	 * this.browserContext.getTestCaseData().setFranquiciaVoluntaria(
@@ -829,58 +829,58 @@ public class Steps extends StepObject {
 	 * this.browserContext.getTestCaseData().getTestID())); //
 	 * this.browserContext.getTestCaseData().setFranquiciaVoluntaria(
 	 * franquiciaVoluntaria); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^se modifica el capital de franquicia voluntaria a \"([^\"]*)\"$"
 	 * ) public void se_modifica_el_capital_de_franquicia_voluntaria_a( String
 	 * franquiciaVoluntaria) { //
 	 * this.browserContext.getTestCaseData().setFranquiciaVoluntaria(
 	 * franquiciaVoluntaria); }
-	 * 
+	 *
 	 * //@Dado("^el descuento es \"([^\"]*)\"$") public void el_descuento_es(
 	 * String descuento) { //
 	 * this.browserContext.getTestCaseData().setDescuento(descuento); }
-	 * 
+	 *
 	 * //@Dado("^un descuento$") public void un_descuento() {
 	 * this.browserContext.getTestCaseData().setDescuentoEnabled(true); }
-	 * 
+	 *
 	 * //@Cuando("^le incluyo el recargo$") public void le_incluyo_un_recargo()
 	 * { this.browserContext.getTestCaseData().setRecargo(true); }
-	 * 
+	 *
 	 * //@Cuando("^se excluye un recargo$") public void se_excluye_un_recargo()
 	 * { this.browserContext.getTestCaseData().setRecargo(false); }
-	 * 
+	 *
 	 * //@Dado("^se agrega un descuento$") public void se_agrega_un_descuento()
 	 * { this.browserContext.getTestCaseData().setDescuentoEnabled(true); }
-	 * 
+	 *
 	 * //@Dado("^se quita un descuento$") public void se_quita_un_descuento() {
 	 * this.browserContext.getTestCaseData().setDescuentoEnabled(false); }
-	 * 
+	 *
 	 * //@Cuando("^le agrego la clausula \"([^\"]*)\"$") public void
 	 * le_agrego_la_clausula( String clausula) {
 	 * this.browserContext.getTestCaseData().setClausulas(clausula); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^se incluye el check de Calefacción central y/o agua caliente centralizada$"
 	 * ) public void
 	 * se_incluye_el_check_de_Calefacción_central_y_o_agua_caliente_centralizada
 	 * () { this.browserContext.getTestCaseData().setCalefaccionCentral(true); }
-	 * 
+	 *
 	 * //@Cuando("^se incluye un deposito de combustible$") public void
 	 * se_incluye_un_deposito_de_combustible() {
 	 * this.browserContext.getTestCaseData().setDepositoCombustible(true); }
-	 * 
+	 *
 	 * //@Cuando("^se incrementa el capital contenido en '(\\d+)'$") public void
 	 * se_incrementa_el_capital_contenido_en( Integer capitalContenido) {
 	 * this.browserContext.getTestCaseData().setCapitalContenido(
 	 * capitalContenido); }
-	 * 
+	 *
 	 * //@Cuando("^se reduce el capital contenido en '(\\d+)'$") public void
 	 * se_reduce_el_capital_contenido_en( Integer capitalContenido) {
 	 * this.browserContext.getTestCaseData().setCapitalContenido(-
 	 * capitalContenido); }
-	 * 
-	 * 
+	 *
+	 *
 	 * //@Dado("^la renta de alquiler mensual es \"([^\"]*)\"$") public void
 	 * la_renta_de_alquiler_mensual_es( String rentaAlquilerMensual) { //
 	 * this.browserContext.getTestCaseData() //
@@ -890,7 +890,7 @@ public class Steps extends StepObject {
 	 * Integer.parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), rentaAlquilerMensual, //
 	 * this.browserContext.getTestCaseData().getTestID())) // : null); }
-	 * 
+	 *
 	 * //@Dado("^con ingresos \"([^\"]*)\"$") public void con_ingresos( String
 	 * ingresos) { //
 	 * this.browserContext.getTestCaseData().setIngresosNetosInquilino( //
@@ -900,19 +900,19 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * ingresos, this.browserContext.getTestCaseData().getTestID())) // : null);
 	 * }
-	 * 
+	 *
 	 * //@Dado("^suma asegurada es \"([^\"]*)\"$") public void suma_asegurada(
 	 * String sumaAsegurada) { //
 	 * this.browserContext.getTestCaseData().setImpagoAlquiler( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * sumaAsegurada, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^franquicia es \"([^\"]*)\"$") public void franquiciaMAC( String
 	 * franquiciaMAC) { //
 	 * this.browserContext.getTestCaseData().setFranquiciaMAC( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * franquiciaMAC, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^los ingresos aval \"([^\"]*)\"$") public void
 	 * los_ingresos_aval( String ingresosAval) { //
 	 * this.browserContext.getTestCaseData() //
@@ -922,67 +922,67 @@ public class Steps extends StepObject {
 	 * Integer.parseInt(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), ingresosAval, //
 	 * this.browserContext.getTestCaseData().getTestID())) // : null); }
-	 * 
+	 *
 	 * //@Dado("^el documento aleatoreo$") public void el_documento_aleatoreo()
 	 * { this.browserContext.getTestCaseData().setDocumentoInquilino(
 	 * DniGeneratorHelper.generaNif(null)); }
-	 * 
+	 *
 	 * //@Dado("^el documento \"([^\"]*)\"$") public void el_documento( String
 	 * documento) { //
 	 * this.browserContext.getTestCaseData().setDocumentoInquilino( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * documento, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el documento aval \"([^\"]*)\"$") public void
 	 * el_documento_aval( String documentoAval) { //
 	 * this.browserContext.getTestCaseData().setDocumentoAval( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * documentoAval, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el nombre del inquilino \"([^\"]*)\"$") public void
 	 * el_nombre_del_inquilino( String nombre) { //
 	 * this.browserContext.getTestCaseData().setNombreInquilino( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nombre, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el nombre de aval \"([^\"]*)\"$") public void
 	 * el_nombre_de_aval( String nombreAval) { //
 	 * this.browserContext.getTestCaseData().setNombreAval( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nombreAval, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("el primer apellido del inquilino \"([^\"]*)\"$") public void
 	 * el_primer_apellido_del_inquilino( String apellido) { //
 	 * this.browserContext.getTestCaseData().setPrimerApellidoInquilino( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * apellido, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("el primer apellido del aval \"([^\"]*)\"$") public void
 	 * el_primer_apellido_del_aval( String apellidoAval) { //
 	 * this.browserContext.getTestCaseData().setPrimerApellidoAval( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * apellidoAval, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^situacion laboral \"([^\"]*)\"$") public void
 	 * situacion_laboral( String situacionLaboralInquilino) { //
 	 * this.browserContext.getTestCaseData().setSituacionLaboralInquilino(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * // situacionLaboralInquilino,
 	 * this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^parentesco aval \"([^\"]*)\"$") public void parentesco_aval(
 	 * String parentesco) { //
 	 * this.browserContext.getTestCaseData().setParentescoAval( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * parentesco, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^situacion laboral aval \"([^\"]*)\"$") public void
 	 * situacion_laboral_aval( String situacionLaboralAval) { //
 	 * this.browserContext.getTestCaseData().setSituacionLaboralInquilino(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * // situacionLaboralAval,
 	 * this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el acceso \"([^\"]*)\"$") public void inicializo_acceso( String
 	 * loginAccess) { // Access //
 	 * this.browserContext.getTestCaseData().setAcceso( //
@@ -990,109 +990,109 @@ public class Steps extends StepObject {
 	 * loginAccess, this.browserContext.getTestCaseData().getTestID())); //
 	 * this.browserContext.InitializeVariables(this.browserContext.
 	 * getTestCaseData().getAcceso()); }
-	 * 
+	 *
 	 * //@Dado("^el usuario \"([^\"]*)\"$") public void inicializo_usuario(
 	 * String user) { System.out.println(this.browserContext.getFeature()); //
 	 * User this.browserContext.getTestCaseData().setUsuario(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * user, this.browserContext.getTestCaseData().getTestID()));
-	 * 
+	 *
 	 * // this.browserContext.applicationAccessHelper.Login(this.browserContext.
 	 * getTestCaseData().getUsuario(), //
 	 * this.browserContext.GetProperties().passwordComun); }
-	 * 
+	 *
 	 * //@Dado("^el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$") public void
 	 * inicializo_acceso_y_usuario( String loginAccess, String user) { // Access
 	 * // this.inicializo_acceso(loginAccess = this.userS.getTestVar("acceso"));
 	 * // User // this.inicializo_usuario(user); }
-	 * 
+	 *
 	 * //@Dado("^el filtro de busqueda \"([^\"]*)\"$") public void
 	 * inicializo_filtro_busqueda( String filtroBuscador) {
 	 * this.browserContext.getTestCaseData().setFiltroBuscadorEdificio(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * filtroBuscador, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el nivel estructura es \"([^\"]*)\"$") public void
 	 * nivel_estructura( String nivelEstructura) { //
 	 * this.browserContext.getTestCaseData().setNivelEstructura( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nivelEstructura, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^tipo prospect es \"([^\"]*)\"$") public void tipo_prospect(
 	 * String tipoProspect) { //
 	 * this.browserContext.getTestCaseData().setTipoProspect( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * tipoProspect, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el tipo mediador es \"([^\"]*)\"$") public void tipo_mediador(
 	 * String tipoMediador) { //
 	 * this.browserContext.getTestCaseData().setTipoProspect( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * tipoProspect, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^numero registro DGS es \"([^\"]*)\"$") public void
 	 * numero_resigtro_dgs( String dgs) { //
 	 * this.browserContext.getTestCaseData() //
 	 * .setDgs(getValuesDataSet(this.browserContext.getTestCaseData().
 	 * gethMapDataSet(), dgs,
 	 * this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^la actividad principal es \"([^\"]*)\"$") public void
 	 * actividad_principal( String actividadPrincipal) { //
 	 * this.browserContext.getTestCaseData().setActividadPrincipal(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * // actividadPrincipal,
 	 * this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^nombre comercial prospect es \"([^\"]*)\"$") public void
 	 * nombre_comercial_prospect( String nombreComercialProspect) { //
 	 * this.browserContext.getTestCaseData().setNombreComercial( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nombreComercial, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el nombre fiscal mediador es \"([^\"]*)\"$") public void
 	 * nombre_fiscal_prospect( String nombreFiscalProspect) { //
 	 * this.browserContext.getTestCaseData().setNombreComercial( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nombreComercial, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el primer apellido mediador es \"([^\"]*)\"$") public void
 	 * primer_apellido_mediador( String primerApellidoMediador) { //
 	 * this.browserContext.getTestCaseData().setNombreComercial( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nombreComercial, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^el segundo apellido mediador es \"([^\"]*)\"$") public void
 	 * segundo_apellido_mediador( String segundoApellidoMediador) { //
 	 * this.browserContext.getTestCaseData().setNombreComercial( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * nombreComercial, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^contacto responsable es \"([^\"]*)\"$") public void
 	 * contacto_responsable( String contactoResponsable) { //
 	 * this.browserContext.getTestCaseData().setContactoResponsable(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * // contactoResponsable,
 	 * this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^idioma es \"([^\"]*)\"$") public void idioma( String idioma) {
 	 * // this.browserContext.getTestCaseData().setIdioma( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * idioma, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^telefono principal es \"([^\"]*)\"$") public void
 	 * telefono_principal( String tlfPrincipal) { //
 	 * this.browserContext.getTestCaseData().setTlfPrincipal( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * tlfPrincipal, this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@Dado("^ejecutivo comercial es \"([^\"]*)\"$") public void
 	 * ejecutivo_comercial( String ejecutivoComercial) { //
 	 * this.browserContext.getTestCaseData().setEjecutivoComercial(
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * // ejecutivoComercial,
 	 * this.browserContext.getTestCaseData().getTestID())); }
-	 * 
+	 *
 	 * //@
 	 * Dado("^el usuario da de alta un proyecto en GO y lo guarda sin contratar$"
 	 * ) public void
@@ -1100,13 +1100,13 @@ public class Steps extends StepObject {
 	 * loginAcess, String user) { logger.
 	 * debug("BEGIN - el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar"
 	 * );
-	 * 
+	 *
 	 * loginAcess = this.userS.getTestVar("acceso");
-	 * 
+	 *
 	 * { this.browserContext.initializeVariables(loginAcess);
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * String mediador = this.tCData.getMediador(); if
 	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.
 	 * LoginAccessGestionLine) && this.tCData != null &&
@@ -1118,7 +1118,7 @@ public class Steps extends StepObject {
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.SeleccionarMediadorPorCodigo(this.tCData.getMediador(
 	 * ).toString()); asignarMediadorPage.clickOnContinuarButton(); }
-	 * 
+	 *
 	 * UbicacionRiesgoPage ubicacionRiesgoPage = new
 	 * UbicacionRiesgoPage(userS);
 	 * ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
@@ -1157,17 +1157,17 @@ public class Steps extends StepObject {
 	 * this.browserContext.writeTestCaseData(); logger.
 	 * debug("END - el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar"
 	 * ); }
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@Dado("^se inicia un proyecto con modalidad \"([^\"]*)\"$") public void
 	 * se_inicia_un_proyecto_con_modalidad( String Modalidad) {
-	 * 
+	 *
 	 * // Login
 	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * if (this.userS.getTestVar("acceso").equals("GestionOnline")) {
 	 * GestionOnlineHomePage gestionOnlineHomePage = new
 	 * GestionOnlineHomePage(userS);
@@ -1176,24 +1176,24 @@ public class Steps extends StepObject {
 	 * asignarMediadorPage = new AsignarMediadorPage(webDriver,
 	 * userS.getTestDataManager());
 	 * asignarMediadorPage.SelectMediadorMACAndClickOnContinuar(); }
-	 * 
+	 *
 	 * // Seleccionar modalidad en Precio page PrecioPorModalidadPage_MAC
 	 * precioPorModalidadPage_MAC = new
 	 * PrecioPorModalidadPage_MAC(this.browserContext);
 	 * precioPorModalidadPage_MAC.selectModalidad(); }
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
 	 * /////////////////////////////////////////////////////////////////////////
 	 * ///////////////////////////////////////////////////////////////////////
 	 * ///// ACTION STEPS
 	 * /////////////////////////////////////////////////////////////////////////
 	 * ///////////////////////////////////////////////////////////////////////
-	 * 
-	 * 
+	 *
+	 *
 	 * public ActionsSteps(BrowserContext browserContext) { this.browserContext
 	 * = browserContext; this.tCData = this.browserContext.getTestCaseData(); }
-	 * 
+	 *
 	 * //@Cuando("^agrego un suplemento$") public void agrego_un_suplemento() {
 	 * // Login
 	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
@@ -1201,7 +1201,7 @@ public class Steps extends StepObject {
 	 * LoginAndSearchPolizaByPolizaNumber(this.tCData.getUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
 	 * String.valueOf(this.tCData.getNumPoliza()));
-	 * 
+	 *
 	 * GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new
 	 * GestionPolizasBuscadorPage(userS);
 	 * gestionPolizasBuscadorPage.AddSuplementoGeneral(); AsignarMediadorPage
@@ -1238,7 +1238,7 @@ public class Steps extends StepObject {
 	 * clausulasPage.ActivateclausesAndClickOnContinue(); TomadorYAseguradoPage
 	 * tomadorYAseguradoPage = new TomadorYAseguradoPage(webDriver,
 	 * userS.getTestDataManager()); tomadorYAseguradoPage.clickOnContinuar(); }
-	 * 
+	 *
 	 * //@Cuando("^agrego el motivo suplemento \"([^\"]*)\"$") public void
 	 * agrego_el_motivo_suplemento( String motivoSuplemento) {
 	 * this.browserContext.getTestCaseData().setMotivosSuplemento(true,
@@ -1246,7 +1246,7 @@ public class Steps extends StepObject {
 	 * ConfirmarPolizaPage(userS); //
 	 * confirmarPolizaPage.ActivateMotivosSuplementoAndClickOnContinuar();
 	 * confirmarPolizaPage.ActivateMotivosSuplemento(); }
-	 * 
+	 *
 	 * //@Cuando("^emito el suplemento$") public void emito_el_suplemento() {
 	 * ConfirmarPolizaPage confirmarPolizaPage = new
 	 * ConfirmarPolizaPage(userS); //
@@ -1259,17 +1259,17 @@ public class Steps extends StepObject {
 	 * DatosBancariosPage datosBancariosPage = new DatosBancariosPage(webDriver,
 	 * userS.getTestDataManager());
 	 * datosBancariosPage.ClickOnEmitirSuplemento(); }
-	 * 
+	 *
 	 * //@Cuando("^emito un suplemento general con motivo \"([^\"]*)\"$") public
 	 * void emito_un_suplemento_general_con_motivo( String motivoSuplemento) {
-	 * 
+	 *
 	 * // Login
 	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.
 	 * LoginAndSearchPolizaByPolizaNumber(this.tCData.getUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
 	 * String.valueOf(this.tCData.getNumPoliza()));
-	 * 
+	 *
 	 * // this.tCData.setSuplemento(true); GestionPolizasBuscadorPage
 	 * gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(webDriver,
 	 * userS.getTestDataManager());
@@ -1323,22 +1323,22 @@ public class Steps extends StepObject {
 	 * mensajeConfirmacionPage = new MensajeConfirmacionPage(webDriver,
 	 * userS.getTestDataManager()); //
 	 * mensajeConfirmacionPage.CheckIfPageHasLoadedCorrectly(); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta una simulacion y la convierto en una contratación usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
 	 * doy_de_alta_una_simulacion_y_la_convierto_en_una_contratacion_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) {
-	 * 
+	 *
 	 * // Login this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // Asignar mediador AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar();
-	 * 
+	 *
 	 * UbicacionRiesgoPage ubicacionRiesgoPage = new
 	 * UbicacionRiesgoPage(userS);
 	 * ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
@@ -1373,15 +1373,15 @@ public class Steps extends StepObject {
 	 * datosBancariosPage = new DatosBancariosPage(webDriver,
 	 * userS.getTestDataManager());
 	 * datosBancariosPage.introducirFormaPagoYPulsarContratar();
-	 * 
+	 *
 	 * this.browserContext.writeTestCaseData();
 	 * this.browserContext.getWebDriver().quit(); }
-	 * 
+	 *
 	 * //@Cuando("^se modifica el proyecto en Innova y lo guarda de nuevo$")
 	 * public void se_modifica_el_proyecto_en_Innova_y_lo_guarda_de_nuevo(
 	 * String loginAcess, String user) { loginAcess =
 	 * this.tCData.getCambioAcceso();
-	 * 
+	 *
 	 * logger.
 	 * debug("BEGIN - se modifica el proyecto en Innov@ y lo guarda de nuevo");
 	 * this.browserContext.initializeVariables(loginAcess);
@@ -1427,17 +1427,17 @@ public class Steps extends StepObject {
 	 * this.browserContext.writeTestCaseData();
 	 * this.browserContext.getWebDriver().quit(); logger.
 	 * debug("END - se modifica el proyecto en Innov@ y lo guarda de nuevo");
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^cambio la cotización usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void modifico_la_cotización( String loginAcess, String user) {
-	 * 
+	 *
 	 * // loginAcess = getValuesDataSet(this.tCData.gethMapDataSet(),
 	 * loginAcess, // this.tCData.getTestID()); loginAcess =
 	 * this.tCData.getCambioAcceso();
-	 * 
+	 *
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
 	 * ProjectConstants.GestionOnlineDisponible) ||
@@ -1488,20 +1488,20 @@ public class Steps extends StepObject {
 	 * this.browserContext.writeTestCaseData(); //
 	 * this.browserContext.getWebDriver().quit();
 	 * logger.debug("END - modifico_la_cotización"); } }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta una simulacion y convierto esta simulacion a un projecto usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * )
-	 * 
-	 * 
+	 *
+	 *
 	 * //@
 	 * Cuando("^doy de alta una simulacion, y la convierto a un proyecto, y la guardo sin contratar usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
 	 * doy_de_alta_una_simulacion_y_la_convierto_a_un_proyecto_y_la_guardo_sin_contratar_usando(
 	 * String loginAcess, String user) {
-	 * 
+	 *
 	 * loginAcess = this.userS.getTestVar("acceso");
-	 * 
+	 *
 	 * logger.
 	 * debug("BEGIN - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_y_la_guardo_sin_contratar_usando"
 	 * ); if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
@@ -1511,7 +1511,7 @@ public class Steps extends StepObject {
 	 * this.browserContext.initializeVariables(loginAcess);
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * String mediador = this.tCData.getMediador(); if
 	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.
 	 * LoginAccessGestionLine) && this.tCData != null &&
@@ -1523,7 +1523,7 @@ public class Steps extends StepObject {
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.SeleccionarMediadorPorCodigo(this.tCData.getMediador(
 	 * ).toString()); asignarMediadorPage.clickOnContinuarButton(); }
-	 * 
+	 *
 	 * UbicacionRiesgoPage ubicacionRiesgoPage = new
 	 * UbicacionRiesgoPage(userS);
 	 * ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
@@ -1563,17 +1563,17 @@ public class Steps extends StepObject {
 	 * this.browserContext.writeTestCaseData(); logger.
 	 * debug("END - doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_y_la_guardo_sin_contratar_usando"
 	 * ); }
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta una simulacion que llega hasta la pantalla de detalles de riesgo usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
 	 * doy_de_alta_una_simulacion_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) {
-	 * 
+	 *
 	 * loginAcess = this.userS.getTestVar("acceso");
-	 * 
+	 *
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
 	 * ProjectConstants.GestionOnlineDisponible) ||
@@ -1581,7 +1581,7 @@ public class Steps extends StepObject {
 	 * this.browserContext.initializeVariables(loginAcess);
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar();
@@ -1596,7 +1596,7 @@ public class Steps extends StepObject {
 	 * userS.getTestDataManager()); // this.detallesRiesgoPage.
 	 * ExecuteActionsInPageDetallesRiesgoPageWithoutClickinOnContinue();
 	 * this.detallesRiesgoPage.completarDatosEnDetallesRiesgoSinContinuar(); } }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta un proyecto que llega hasta la pantalla de detalles de riesgo usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
@@ -1604,7 +1604,7 @@ public class Steps extends StepObject {
 	 * String loginAcess, String user) { // loginAcess =
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), loginAcess,
 	 * this.tCData.getTestID()); loginAcess = this.userS.getTestVar("acceso");
-	 * 
+	 *
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
 	 * ProjectConstants.GestionOnlineDisponible) ||
@@ -1623,7 +1623,7 @@ public class Steps extends StepObject {
 	 * ValidacionesExcepcionesReglasUbicacionRiesgoPage( this.browserContext);
 	 * validacionesExcepcionesReglasUbicacionRiesgo.isUbicacionRiesgoUtilizada()
 	 * ; } }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta una simulacion que llega hasta la pantalla de datos básicos del tomador usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
@@ -1631,7 +1631,7 @@ public class Steps extends StepObject {
 	 * String loginAcess, String user) { // loginAcess =
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), loginAcess,
 	 * this.tCData.getTestID()); loginAcess = this.userS.getTestVar("acceso");
-	 * 
+	 *
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
 	 * ProjectConstants.GestionOnlineDisponible) ||
@@ -1639,7 +1639,7 @@ public class Steps extends StepObject {
 	 * this.browserContext.initializeVariables(loginAcess);
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar();
@@ -1658,10 +1658,10 @@ public class Steps extends StepObject {
 	 * ValidacionExcepcionesReglasDetallesRiesgoPage( this.browserContext);
 	 * validacionExcepcionesReglasDetallesRiesgoPage.ClickOnContinuarAndValidate
 	 * ();
-	 * 
+	 *
 	 * PrecioPage precioPage = new PrecioPage(webDriver,
 	 * userS.getTestDataManager()); precioPage.ClickOnConvertirAProjecto(); } }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta una simulacion que llega hasta la pantalla de precio usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
@@ -1699,7 +1699,7 @@ public class Steps extends StepObject {
 	 * precioPorModalidadPage = new PrecioPorModalidadPage(webDriver,
 	 * userS.getTestDataManager());
 	 * precioPorModalidadPage.ExecuteActionsInPrecioPorModalidadPage(); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta un projecto que llega hasta la pantalla de datos básicos del tomador usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
@@ -1707,7 +1707,7 @@ public class Steps extends StepObject {
 	 * String loginAcess, String user) { // loginAcess =
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), loginAcess,
 	 * this.tCData.getTestID()); loginAcess = this.userS.getTestVar("acceso");
-	 * 
+	 *
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
 	 * ProjectConstants.GestionOnlineDisponible) ||
@@ -1735,14 +1735,14 @@ public class Steps extends StepObject {
 	 * (); // PrecioPage precioPage = new PrecioPage(webDriver,
 	 * userS.getTestDataManager()); // precioPage.ClickOConvertirAProjecto(); }
 	 * }
-	 * 
+	 *
 	 * //@Cuando("^continuo en datos básicos del tomador$") public void
 	 * continuo_en_datos_básicos_del_tomador() { DatosBasicosTomadorPage
 	 * datosBasicosTomadorPage = new DatosBasicosTomadorPage(webDriver,
 	 * userS.getTestDataManager());
 	 * datosBasicosTomadorPage.ExecuteActionsInPageTomadorYAseguradoPage(this.
 	 * tCData.getTomador()); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^lo consulto en el buscador de polizas usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
@@ -1754,7 +1754,7 @@ public class Steps extends StepObject {
 	 * LoginAndSearchPolizaByPolizaNumber(this.tCData.getUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
 	 * String.valueOf(this.tCData.getNumPoliza())); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^lo consulto por dni en el buscador de polizas usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
@@ -1766,16 +1766,16 @@ public class Steps extends StepObject {
 	 * this.tCData.getUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getTomadorDNI()); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^Intento dar de alta una simulación que solo va a llegar hasta datos del riesgo usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void intento_dar_alta_simulacion_hasta_datos_riesgo( String
 	 * loginAcess, String user) throws Exception {
-	 * 
+	 *
 	 * // loginAcess = getValuesDataSet(this.tCData.gethMapDataSet(),
 	 * loginAcess, // this.tCData.getTestID()); loginAcess =
 	 * this.userS.getTestVar("acceso");
-	 * 
+	 *
 	 * if (loginAcess.equals(ProjectConstants.LoginAccessGestionLine) &&
 	 * this.browserContext.getProperties().GestionOnlineDisponible.equals(
 	 * ProjectConstants.GestionOnlineDisponible) ||
@@ -1800,7 +1800,7 @@ public class Steps extends StepObject {
 	 * avisoSistemaPage.CheckmsgAvisoPlantasAlto();
 	 * this.browserContext.writeTestCaseData();
 	 * logger.debug("END - intento_dar_alta_simulacion_hasta_datos_riesgo"); } }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^lo consulto en el buscador de cotizaciones usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void lo_consulto_en_el_buscador_de_cotizaciones( String
@@ -1818,7 +1818,7 @@ public class Steps extends StepObject {
 	 * this.browserContext.getProperties().passwordComun, //
 	 * this.tCData.getNoCotizacion());
 	 * logger.debug("END - lo_consulto_en_el_buscador_de_cotizaciones"); }
-	 * 
+	 *
 	 * //@Cuando("^continuo en Detalles de riesgo$") public void
 	 * continuo_en_detalles_riesgo() {
 	 * logger.debug("BEGIN - continuo_en_detalles_riesgo");
@@ -1827,14 +1827,14 @@ public class Steps extends StepObject {
 	 * this.detallesRiesgoPage.completarDatosEnDetallesRiesgoSinContinuar();
 	 * this.detallesRiesgoPage.ClikOnContinuar();
 	 * logger.debug("END - continuo_en_detalles_riesgo"); }
-	 * 
+	 *
 	 * //@Cuando("^modifico el capital continente a '(\\d+)'$") public void
 	 * modifico_el_capital_continente_a( Integer capitalContinente) {
 	 * this.tCData.setCapitalContinente(capitalContinente); }
-	 * 
+	 *
 	 * //@Cuando("^cierro el navegador$") public void cierro_navegador() {
 	 * this.webDriver.quit(); }
-	 * 
+	 *
 	 * //@
 	 * Entonces("^el campo cotización contiene el valor del codigo de cotización$"
 	 * ) public void
@@ -1845,7 +1845,7 @@ public class Steps extends StepObject {
 	 * String cotizacion = gestionCotizacionesBuscacorPage.getCotizacion();
 	 * Assert.assertTrue(cotizacion.contains(this.tCData.getNoCotizacion()));
 	 * logger.debug("END - el_campo_cotización_contiene_el_valor"); }
-	 * 
+	 *
 	 * //@
 	 * Dada("^se descargan los ficheros del suplemento en la carpeta \"([^\"]*)\"$"
 	 * ) public void se_descargan_los_ficheros_del_suplemento_en_la_carpeta(
@@ -1854,21 +1854,21 @@ public class Steps extends StepObject {
 	 * MensajeConfirmacionPage mensajeConfirmacionPage = new
 	 * MensajeConfirmacionPage(userS);
 	 * mensajeConfirmacionPage.DownlodadDocumentsToFolder(filesPath);
-	 * 
+	 *
 	 * logger.
 	 * debug("END - se_descargan_los_ficheros_del_suplemento_en_la_carpeta"); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta un proyecto MAC que llega hasta la pantalla contratación usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void
 	 * doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) {
-	 * 
+	 *
 	 * // Login
 	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // if (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
 	 * LoginAccessGestionLine)) // { // GestionOnlineHomePage
 	 * gestionOnlineHomePage = new GestionOnlineHomePage(webDriver,
@@ -1881,15 +1881,15 @@ public class Steps extends StepObject {
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); //
 	 * innovaHomePage.OpenMutuaAlquilerConfort(); }
-	 * 
+	 *
 	 * // SCS Precio PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new
 	 * PrecioPorModalidadPage_MAC(this.browserContext);
 	 * precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
-	 * 
+	 *
 	 * // SCS Inquilinos InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC
 	 * = new InquilinosAvalistasPage_MAC(this.browserContext);
 	 * inquilinosAvalistasPage_MAC.executeActionsInInquilinosAvalistasPage(); }
-	 * 
+	 *
 	 * //@Cuando("^completo el proceso de contratacion MAC sin autorizacion$")
 	 * public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() {
 	 * logger.
@@ -1901,39 +1901,39 @@ public class Steps extends StepObject {
 	 * tomadorYAseguradoPage_MAC = new
 	 * TomadorYAseguradoPage_MAC(this.browserContext);
 	 * tomadorYAseguradoPage_MAC.executeActionsInTomadorYAseguradoPage();
-	 * 
+	 *
 	 * InmueblePage_MAC inmueblePage_MAC = new
 	 * InmueblePage_MAC(this.browserContext);
 	 * inmueblePage_MAC.executeActionsInInmueblePage();
-	 * 
+	 *
 	 * DocumentacionPage_MAC documentacionPage_MAC = new
 	 * DocumentacionPage_MAC(this.browserContext);
 	 * documentacionPage_MAC.addDocumentContratacion();
-	 * 
+	 *
 	 * ContratacionPage_MAC contratacionPage_MAC = new
 	 * ContratacionPage_MAC(this.browserContext);
 	 * contratacionPage_MAC.seleccionarCheckYContratar(); logger.
 	 * debug("END - completo_el_proceso_de_contratacion_MAC_sin_autorizacion");
 	 * }
-	 * 
+	 *
 	 * //@Cuando("^se informa de que la poliza no se puede emitir$") public void
 	 * se_informa_de_que_la_poliza_no_se_puede_emitir() { // Compropar el estado
 	 * de la poliza ContratacionPage_MAC contratacionPage_MAC = new
 	 * ContratacionPage_MAC(this.browserContext);
-	 * 
+	 *
 	 * Assert.assertTrue(contratacionPage_MAC.checkPolizaError()); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^busco el proyecto usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void busco_el_proyecto_usando_el_acceso_y_el_usuario( String
 	 * loginAcess, String user) {
-	 * 
+	 *
 	 * // Login
 	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacionMAC());
-	 * 
+	 *
 	 * // Abrir el buscador de proyectos // if
 	 * (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
 	 * LoginAccessGestionLine)) // { // GestionOnlineHomePage
@@ -1942,33 +1942,33 @@ public class Steps extends StepObject {
 	 * gestionOnlineHomePage.openMisProyectosWeb(); //
 	 * gestionOnlineHomePage.buscarProyectoWeb(this.tCData.getNoCotizacionMAC())
 	 * ;
-	 * 
+	 *
 	 * //
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), //
 	 * this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacion()); // }
-	 * 
+	 *
 	 * // if (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
 	 * LoginAccessInnova)) // { //
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), //
 	 * this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacion()); // }
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("autorizo el proyecto MAC usando el acceso \"([^\"]*)\" y usuario \"([^\"]*)\"$"
 	 * ) public void autorizo_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario(
 	 * String loginAcess, String user) {
-	 * 
+	 *
 	 * // Login this.browserContext.initializeVariables(loginAcess =
 	 * this.tCData.getAccesoAuth());
 	 * this.browserContext.applicationAccessHelper.LoginAndSearchAutorizacion(
 	 * this.tCData.getUsuarioAuth(),
 	 * this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // Abrir la busqueda de autorizaciones InnovaHomePage innovaHomePage =
 	 * new InnovaHomePage(userS);
 	 * innovaHomePage.OpenGestionAutorizaciones(); GestionAutorizacionesPage
@@ -1976,7 +1976,7 @@ public class Steps extends StepObject {
 	 * userS.getTestDataManager());
 	 * gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización",
 	 * "Pendiente de autorizar", this.tCData.getNoCotizacionMAC());
-	 * 
+	 *
 	 * // Autorizar el proyecto gestionAutorizacionesPage.autorizar(); }
 	 *
 	 * //@Cuando("envio el proyecto a la compañia") public void
@@ -1987,7 +1987,7 @@ public class Steps extends StepObject {
 	 * inquilinosAvalistasPage_MAC.enviarACompania(); //
 	 * this.browserContext.getWebDriver().quit();
 	 * logger.debug("END - envio_el_proyecto_a__la_compania"); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("deniego el proyecto MAC usando el acceso \"([^\"]*)\" y usuario \"([^\"]*)\"$"
 	 * ) public void deniego_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario(
@@ -1998,7 +1998,7 @@ public class Steps extends StepObject {
 	 * this.browserContext.applicationAccessHelper.LoginAndSearchAutorizacion(
 	 * this.tCData.getUsuarioAuth(),
 	 * this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // Abrir la busqueda de autorizaciones InnovaHomePage innovaHomePage =
 	 * new InnovaHomePage(userS);
 	 * innovaHomePage.OpenGestionAutorizaciones(); GestionAutorizacionesPage
@@ -2006,18 +2006,18 @@ public class Steps extends StepObject {
 	 * userS.getTestDataManager());
 	 * gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización",
 	 * "Pendiente de autorizar", this.tCData.getNoCotizacionMAC());
-	 * 
+	 *
 	 * // Denegar el proyecto gestionAutorizacionesPage.denegar();
 	 * this.browserContext.getWebDriver().quit(); logger.
 	 * debug("END - deniego_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario");
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^completo el proceso de contratacion usando el acceso \"([^\"]*)\" y usuario \"([^\"]*)\"$"
 	 * ) public void
 	 * completo_el_proceso_de_contratacion_usando_el_acceso_y_usuario( String
 	 * loginAcess, String user) {
-	 * 
+	 *
 	 * loginAcess = this.userS.getTestVar("acceso"); if
 	 * (loginAcess.equals(ProjectConstants.LoginAccessGestionLine)) { // Login a
 	 * GestionLine this.browserContext.initializeVariables(loginAcess =
@@ -2025,7 +2025,7 @@ public class Steps extends StepObject {
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this
 	 * .tCData.getUsuario(), //
 	 * this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * //
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), //
@@ -2033,148 +2033,148 @@ public class Steps extends StepObject {
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacionMAC());
-	 * 
+	 *
 	 * // Abrir el buscador de proyectos GestionOnlineHomePage
 	 * gestionOnlineHomePage = new GestionOnlineHomePage(webDriver,
 	 * userS.getTestDataManager()); //
 	 * gestionOnlineHomePage.openMisProyectosWeb(); //
 	 * gestionOnlineHomePage.buscarProyectoWeb(this.tCData.getNoCotizacionMAC())
 	 * ;
-	 * 
+	 *
 	 * // Click en modificar gestionOnlineHomePage.modificarProyecto(); }
-	 * 
+	 *
 	 * else if (loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
-	 * 
+	 *
 	 * // Login to Innov@ this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun,
 	 * this.tCData.getNoCotizacionMAC());
-	 * 
+	 *
 	 * GestionCotizacionesBuscadorPage gestionCotizacionesBuscadorPage = new
 	 * GestionCotizacionesBuscadorPage(userS);
 	 * gestionCotizacionesBuscadorPage.modificarProjecto(); AsignarMediadorPage
 	 * asignarMediadorPage = new AsignarMediadorPage(webDriver,
 	 * userS.getTestDataManager());
 	 * asignarMediadorPage.SelectMediadorMACAndClickOnContinuar();
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new
 	 * PrecioPorModalidadPage_MAC(this.browserContext);
 	 * precioPorModalidadPage_MAC.continuar();
-	 * 
+	 *
 	 * // Continuar InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC =
 	 * new InquilinosAvalistasPage_MAC(this.browserContext);
 	 * inquilinosAvalistasPage_MAC.clickOnContinuar();
-	 * 
+	 *
 	 * // Rellenar datos de contratacion, pagina 3 TomadorYAseguradoPage_MAC
 	 * tomadorYAseguradoPage_MAC = new
 	 * TomadorYAseguradoPage_MAC(this.browserContext);
 	 * tomadorYAseguradoPage_MAC.executeActionsInTomadorYAseguradoPage();
-	 * 
+	 *
 	 * InmueblePage_MAC inmueblePage_MAC = new
 	 * InmueblePage_MAC(this.browserContext);
 	 * inmueblePage_MAC.executeActionsInInmueblePage();
-	 * 
+	 *
 	 * DocumentacionPage_MAC documentacionPage_MAC = new
 	 * DocumentacionPage_MAC(this.browserContext);
 	 * documentacionPage_MAC.addDocumentContratacion();
-	 * 
+	 *
 	 * ContratacionPage_MAC contratacionPage_MAC = new
 	 * ContratacionPage_MAC(this.browserContext);
 	 * contratacionPage_MAC.seleccionarCheckYContratar(); }
-	 * 
+	 *
 	 * //@Cuando("^completo el proceso de contratacion MAC$") public void
 	 * completo_el_proceso_de_contratacion_MAC() { // Click en contratar
-	 * 
+	 *
 	 * // Completar los datos
-	 * 
+	 *
 	 * //
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^valido un proyecto \"([^\"]*)\" usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void valido_un_proyecto_usando_el_acceso_y_el_usuario( String
 	 * loginAcess, String user) {
-	 * 
+	 *
 	 * // Login this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.LoginAndCreateProjectMEC(this
 	 * .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // Asignar mediador AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.SelectMediadorMACAndClickOnContinuar();
-	 * 
+	 *
 	 * // SCS Precio PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new
 	 * PrecioPorModalidadPage_MAC(this.browserContext);
 	 * precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
-	 * 
+	 *
 	 * // SCS Inquilinos InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC
 	 * = new InquilinosAvalistasPage_MAC(this.browserContext);
 	 * inquilinosAvalistasPage_MAC.
 	 * executeActionsInInquilinosAvalistasPageSinDocumentacion(); //
 	 * inquilinosAvalistasPage_MAC.ValidacionViabilidadInquilino(); }
-	 * 
+	 *
 	 * //@Cuando("^valido el proyecto$") public void valido_el_proyecto() {
 	 * InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
 	 * InquilinosAvalistasPage_MAC(this.browserContext);
 	 * inquilinosAvalistasPage_MAC.validacionViabilidadInquilino(); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^busco un edificio por \"([^\"]*)\" usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void busco_un_edificio_por_usando_el_acceso_y_el_usuario( String
 	 * filtroBuscador, String loginAcess, String user) {
-	 * 
+	 *
 	 * this.tCData.setFiltroBuscadorEdificio(getValuesDataSet(this.tCData.
 	 * gethMapDataSet(), filtroBuscador, this.tCData.getTestID()));
-	 * 
+	 *
 	 * // Login this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // FichaEdificioPage FichaEdificioPage fichaEdificioPage = new
 	 * FichaEdificioPage(userS);
 	 * fichaEdificioPage.accederAlBuscadorEdificios();
 	 * fichaEdificioPage.buscarConFiltroBusqueda(); }
-	 * 
+	 *
 	 * //@Cuando("^abro la ficha de edificio desde el grid de resultados$")
 	 * public void abro_ficha_edificio_desde_grid_resultados() { //
 	 * FichaEdificioPage FichaEdificioPage fichaEdificioPage = new
 	 * FichaEdificioPage(userS);
 	 * fichaEdificioPage.openFichaEdificioDesdeGrid(); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^busco edificios por direcciones iterando con los datos del fichero \"([^\"]*)\"$"
 	 * ) public void busco_edificios_por_direcciones_con_el_fichero( String
 	 * nombreFichero) {
-	 * 
+	 *
 	 * // FichaEdificioPage FichaEdificioPage fichaEdificioPage = new
 	 * FichaEdificioPage(userS);
 	 * fichaEdificioPage.accederAlBuscadorEdificios();
-	 * 
+	 *
 	 * fichaEdificioPage.setFiltroBusqueda(ProjectConstants.
 	 * FILTRO_BUSCADOR_DIRECCION);
 	 * fichaEdificioPage.iterarEdificiosPorDirecciones(getValuesDataSet(this.
 	 * tCData.gethMapDataSet(), nombreFichero, this.tCData.getTestID())); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^busco edificios por direcciones en el buscador MEC iterando con los datos del fichero \"([^\"]*)\"$"
 	 * ) public void
 	 * busco_edificios_por_direcciones_en_buscador_MEC_con_el_fichero( String
 	 * nombreFichero) { this.inicio_sesion();
-	 * 
+	 *
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); innovaHomePage.openMutuaEdificioConfort();
 	 * innovaHomePage.CreateNewProject();
-	 * 
+	 *
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar();
-	 * 
+	 *
 	 * UbicacionRiesgoPage ubicacionRiesgoPage = new
 	 * UbicacionRiesgoPage(userS);
 	 * ubicacionRiesgoPage.iterarEdificiosPorDirecciones(getValuesDataSet(this.
@@ -2184,36 +2184,36 @@ public class Steps extends StepObject {
 	 * fichaEdificioPage.IterarEdificiosPorDirecciones( //
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), nombreFichero,
 	 * this.tCData.getTestID())); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^busco edificios por referencias iterando con los datos del fichero \"([^\"]*)\"$"
 	 * ) public void busco_edificios_por_referencias_con_el_fichero( String
 	 * nombreFichero) { this.inicio_sesion();
-	 * 
+	 *
 	 * // FichaEdificioPage FichaEdificioPage fichaEdificioPage = new
 	 * FichaEdificioPage(userS);
 	 * fichaEdificioPage.accederAlBuscadorEdificios();
-	 * 
+	 *
 	 * fichaEdificioPage.setFiltroBusqueda(ProjectConstants.
 	 * FILTRO_BUSCADOR_CATASTRAL);
 	 * fichaEdificioPage.iterarEdificiosPorReferencias(getValuesDataSet(this.
 	 * tCData.gethMapDataSet(), nombreFichero, this.tCData.getTestID())); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^busco edificios por referencias en el buscador MEC iterando con los datos del fichero \"([^\"]*)\"$"
 	 * ) public void
 	 * busco_edificios_por_referencias_en_el_buscador_MEC_con_el_fichero( String
 	 * nombreFichero) { this.inicio_sesion();
-	 * 
+	 *
 	 * // FichaEdificioPage InnovaHomePage innovaHomePage = new
 	 * InnovaHomePage(userS);
 	 * innovaHomePage.openMutuaEdificioConfort();
 	 * innovaHomePage.CreateNewProject();
-	 * 
+	 *
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar();
-	 * 
+	 *
 	 * UbicacionRiesgoPage ubicacionRiesgoPage = new
 	 * UbicacionRiesgoPage(userS);
 	 * System.out.println("Nombre fichero en action steps: " + nombreFichero);
@@ -2223,39 +2223,39 @@ public class Steps extends StepObject {
 	 * ubicacionRiesgoPage.iterarEdificiosPorReferencias(
 	 * System.getProperty("user.dir") + "/" + ProjectConstants.ResourcesFolder +
 	 * "/" + this.tCData.value("fichero"));
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@Cuando("^modifico los ingresos a \"([^\"]*)\"$") public void
 	 * modificar_ingresos( String ingresos) { //
 	 * this.tCData.setIngresosNetosInquilino(getValuesDataSet(this.tCData.
 	 * gethMapDataSet(), ingresos, this.tCData.getTestID()) != null // ?
 	 * Integer.parseInt(getValuesDataSet(this.tCData.gethMapDataSet(), ingresos,
 	 * this.tCData.getTestID())) : null);
-	 * 
+	 *
 	 * InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
 	 * InquilinosAvalistasPage_MAC(this.browserContext);
 	 * inquilinosAvalistasPage_MAC.modificarRentasInquilino();
-	 * 
+	 *
 	 * inquilinosAvalistasPage_MAC.validacionViabilidadInquilino();
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@Cuando("^añado avalista$") public void anado_avalista() {
 	 * InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
 	 * InquilinosAvalistasPage_MAC(this.browserContext);
 	 * inquilinosAvalistasPage_MAC.addDatosAval();
-	 * 
+	 *
 	 * inquilinosAvalistasPage_MAC.anadirDocumentacionAval();
-	 * 
+	 *
 	 * inquilinosAvalistasPage_MAC.validacionViabilidadInquilino(); }
-	 * 
+	 *
 	 * //@Cuando("^inicio sesion$") public void inicio_sesion() {
 	 * System.out.println("Acceso: " + this.userS.getTestVar("acceso"));
 	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^inicio sesion con el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void inicio_sesion_con_acceso_y_usuario( String loginAccess,
@@ -2263,11 +2263,11 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), loginAccess,
 	 * this.tCData.getTestID())); //
 	 * this.tCData.setUsuario(this.tCData.getUsuario());
-	 * 
+	 *
 	 * this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta una simulación actualizando datos iterando por el fichero \"([^\"]*)\"$"
 	 * ) public void
@@ -2281,26 +2281,26 @@ public class Steps extends StepObject {
 	 * System.out.println("Filename: " + fileName); fileName =
 	 * fileName.substring(0, fileName.length() - 4);
 	 * System.out.println("Filename: " + fileName);
-	 * 
+	 *
 	 * this.inicio_sesion();
-	 * 
+	 *
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); innovaHomePage.openMutuaEdificioConfort();
-	 * 
+	 *
 	 * String[][] datosAltoValor = loadDataFileToArray(
 	 * System.getProperty("user.dir") + "/" + ProjectConstants.ResourcesFolder +
 	 * "/" + fileName + ".csv", false); // String[][] datosAltoValor =
 	 * loadDataFileToArray(fileName, false);
-	 * 
+	 *
 	 * for (int i = 1; i < datosAltoValor.length; i++) {
 	 * innovaHomePage.CreateNewSimulation(); // address =
 	 * getValuesDataSetByID(datosAltoValor, "provincia", i) + ", " +
 	 * getValuesDataSetByID(datosAltoValor, "poblacion", i) + ", " // +
 	 * getValuesDataSetByID(datosAltoValor, "direccion", i) + ", " +
 	 * getValuesDataSetByID(datosAltoValor, "numero", i);
-	 * 
+	 *
 	 * // address = getValuesDataSetByID(datosAltoValor, "ref_catastral", i);
-	 * 
+	 *
 	 * this.tCData.setReferenciaCatastral(getValuesDataSetByID(datosAltoValor,
 	 * "ref_catastral", i)); //
 	 * this.tCData.setDireccionProvincia(getValuesDataSetByID(datosAltoValor,
@@ -2314,13 +2314,13 @@ public class Steps extends StepObject {
 	 * getValuesDataSetByID(datosAltoValor, "codigo_postal", i); //
 	 * this.tCData.setDireccionCodigoPostal(codigoPostal.length() == 4 ? "0" +
 	 * codigoPostal : codigoPostal);
-	 * 
+	 *
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar(); try {
 	 * UbicacionRiesgoPage ubicacionRiesgoPage = new
 	 * UbicacionRiesgoPage(userS);
-	 * 
+	 *
 	 * if (!ubicacionRiesgoPage.fillInmuebleAndGetAvailability()) { logText +=
 	 * "Mas de una referencia catastral encontrada para la direccion " + address
 	 * + "\n"; System.out.println("Mas de una referencia catastral encontrada");
@@ -2330,7 +2330,7 @@ public class Steps extends StepObject {
 	 * " (log file).txt", logText); continue; }
 	 * ubicacionRiesgoPage.closeNotification();
 	 * ubicacionRiesgoPage.clickOnContinuar();
-	 * 
+	 *
 	 * ValidacionesExcepcionesReglasUbicacionRiesgoPage
 	 * validacionesExcepcionesReglasUbicacionRiesgo = new
 	 * ValidacionesExcepcionesReglasUbicacionRiesgoPage( this.browserContext);
@@ -2339,7 +2339,7 @@ public class Steps extends StepObject {
 	 * userS.getTestDataManager()); String anyoConstruccion =
 	 * this.detallesRiesgoPage.completarDatosRiesgoMinimos();
 	 * this.detallesRiesgoPage.ClikOnContinuar();
-	 * 
+	 *
 	 * PrecioPorModalidadPage precioPorModalidadPage = new
 	 * PrecioPorModalidadPage(userS); //
 	 * precioPorModalidadPage.modificarRC("600.000,00"); //
@@ -2347,19 +2347,19 @@ public class Steps extends StepObject {
 	 * gethMapDataSet(), this.tCData.getDescuento(), //
 	 * this.tCData.getTestID()));
 	 * precioPorModalidadPage.agregarDescuento(this.tCData.getDescuento());
-	 * 
+	 *
 	 * String precioTotal = precioPorModalidadPage.getPrecioTotal();
 	 * precioPorModalidadPage.clickOnGuardar(); String numSimulacion =
 	 * precioPorModalidadPage.getNumSimulacion();
-	 * 
+	 *
 	 * datosAltoValor = setValuesDataSetByID(datosAltoValor, "prima_total", i,
 	 * precioTotal); datosAltoValor = setValuesDataSetByID(datosAltoValor,
 	 * "anyo_antiguedad", i, anyoConstruccion); datosAltoValor =
 	 * setValuesDataSetByID(datosAltoValor, "numero_proyecto", i,
 	 * numSimulacion);
-	 * 
+	 *
 	 * writeArrayIntoCSVFile(fileName + " (modificado).csv", datosAltoValor);
-	 * 
+	 *
 	 * precioPorModalidadPage.clickOnCancelar(); } catch (Exception e) { logText
 	 * += "Comprobacion de datos no contemplada para la direccion " + address +
 	 * "\n"; writeFile(fileName + " (log file).txt", logText);
@@ -2367,15 +2367,15 @@ public class Steps extends StepObject {
 	 * this.browserContext.webElementHelper.exitFromFrame();
 	 * innovaHomePage.openInnovaHome();
 	 * innovaHomePage.openMutuaEdificioConfort(); } }
-	 * 
+	 *
 	 * this.browserContext.getWebDriver().quit();
-	 * 
+	 *
 	 * logger.
 	 * debug("END - doy_alta_simulacion_actualizando_datos_iterando_por_el_fichero"
 	 * ); }
-	 * 
+	 *
 	 * //@Cuando("^prueba$") public void prueba() { // this.tCData.prueba(); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^modifico un proyecto iterando por el fichero \"([^\"]*)\" cambiando el mediador$"
 	 * ) public void modifico_proyecto_iterando_cambio_mediador( String
@@ -2387,40 +2387,40 @@ public class Steps extends StepObject {
 	 * DataObject data = new
 	 * DataObject(FileUtils.csvFileToMData(tCData.value("fileName")));
 	 * this.inicio_sesion();
-	 * 
+	 *
 	 * String[][] datosAltoValor = loadDataFileToArray(fileName + ".csv",
 	 * false);
-	 * 
+	 *
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); innovaHomePage.OpenGestionCotizaciones();
-	 * 
+	 *
 	 * for (int i = 1; i < datosAltoValor.length; i++) { //
 	 * data.setKey(Integer.toString(i)); // data.value("ref_catastral"); String
 	 * cotizacion = getValuesDataSetByID(datosAltoValor, "numero_proyecto", i);
-	 * 
+	 *
 	 * if (cotizacion == null || cotizacion.isEmpty()) continue;
-	 * 
+	 *
 	 * GestionCotizacionesBuscadorPage gestionCotizacionesBuscadorPage = new
 	 * GestionCotizacionesBuscadorPage(userS);
 	 * gestionCotizacionesBuscadorPage.searchCotizacion(cotizacion);
 	 * gestionCotizacionesBuscadorPage.modificarProjecto();
-	 * 
+	 *
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar();
-	 * 
+	 *
 	 * UbicacionRiesgoPage ubicacionRiesgoPage = new
 	 * UbicacionRiesgoPage(userS);
 	 * ubicacionRiesgoPage.clickOnGuardar();
 	 * ubicacionRiesgoPage.closeAvisoSistemaPopup();
-	 * 
+	 *
 	 * innovaHomePage.openInnovaHome();
 	 * innovaHomePage.OpenGestionCotizaciones(); }
-	 * 
+	 *
 	 * this.browserContext.getWebDriver().quit();
-	 * 
+	 *
 	 * logger.debug("END - modifico_proyecto_iterando_cambio_mediador"); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta un proyecto actualizando datos iterando por el fichero \"([^\"]*)\"$"
 	 * ) public void
@@ -2432,12 +2432,12 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), fileName,
 	 * this.tCData.getTestID()); fileName = fileName.substring(0,
 	 * fileName.length() - 4);
-	 * 
+	 *
 	 * this.inicio_sesion();
-	 * 
+	 *
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); innovaHomePage.openMutuaEdificioConfort();
-	 * 
+	 *
 	 * String[][] datosCargaMEC = loadDataFileToArray(fileName + ".csv", false);
 	 * datosCargaMEC = addColumnToArray(datosCargaMEC, "capital_continente");
 	 * datosCargaMEC = addColumnToArray(datosCargaMEC, "total_asegurado");
@@ -2447,14 +2447,14 @@ public class Steps extends StepObject {
 	 * addColumnToArray(datosCargaMEC, "precios_despues_proyecto");
 	 * datosCargaMEC = addColumnToArray(datosCargaMEC, "precio_basic");
 	 * datosCargaMEC = addColumnToArray(datosCargaMEC, "precio_plus");
-	 * 
+	 *
 	 * for (int i = 1; i < datosCargaMEC.length; i++) {
 	 * innovaHomePage.CreateNewSimulation(); address =
 	 * getValuesDataSetByID(datosCargaMEC, "provincia", i) + ", " +
 	 * getValuesDataSetByID(datosCargaMEC, "poblacion", i) + ", " +
 	 * getValuesDataSetByID(datosCargaMEC, "direccion", i) + ", " +
 	 * getValuesDataSetByID(datosCargaMEC, "numero", i);
-	 * 
+	 *
 	 * this.tCData.setDireccionProvincia(getValuesDataSetByID(datosCargaMEC,
 	 * "provincia", i));
 	 * this.tCData.setDireccionPoblacion(getValuesDataSetByID(datosCargaMEC,
@@ -2466,13 +2466,13 @@ public class Steps extends StepObject {
 	 * "codigo_postal", i);
 	 * this.tCData.setDireccionCodigoPostal(codigoPostal.length() == 4 ? "0" +
 	 * codigoPostal : codigoPostal);
-	 * 
+	 *
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar(); try {
 	 * UbicacionRiesgoPage ubicacionRiesgoPage = new
 	 * UbicacionRiesgoPage(userS);
-	 * 
+	 *
 	 * if (!ubicacionRiesgoPage.fillInmuebleAndGetAvailability()) { logText +=
 	 * "Mas de una referencia catastral encontrada para la direccion " + address
 	 * + "\n"; System.out.println("Mas de una referencia catastral encontrada");
@@ -2482,7 +2482,7 @@ public class Steps extends StepObject {
 	 * " (log file).txt", logText); continue; }
 	 * ubicacionRiesgoPage.closeNotification();
 	 * ubicacionRiesgoPage.clickOnContinuar();
-	 * 
+	 *
 	 * ValidacionesExcepcionesReglasUbicacionRiesgoPage
 	 * validacionesExcepcionesReglasUbicacionRiesgo = new
 	 * ValidacionesExcepcionesReglasUbicacionRiesgoPage( this.browserContext);
@@ -2490,26 +2490,26 @@ public class Steps extends StepObject {
 	 * ; this.detallesRiesgoPage = new DetallesRiesgoPage(webDriver,
 	 * userS.getTestDataManager());
 	 * this.detallesRiesgoPage.completarDatosRiesgoMinimos();
-	 * 
+	 *
 	 * String capitalContinente =
 	 * this.detallesRiesgoPage.getCapitalContinente(); String totalAsegurado =
 	 * this.detallesRiesgoPage.getCapitalContinenteTotalAsegurado(); String
 	 * capitalContenido = this.detallesRiesgoPage.getCapitalContenido();
-	 * 
+	 *
 	 * this.detallesRiesgoPage.ClikOnContinuar();
-	 * 
+	 *
 	 * PrecioPorModalidadPage precioPorModalidadPage = new
 	 * PrecioPorModalidadPage(userS); String
 	 * precioComplet = precioPorModalidadPage.getPrecioTotal(); String
 	 * precioBasic = precioPorModalidadPage.getPrecioBasic(); String precioPlus
 	 * = precioPorModalidadPage.getPrecioPlus();
-	 * 
+	 *
 	 * precioPorModalidadPage.clickOnGuardar(); // TODO // Convertir a proyecto
 	 * // seguir los pasos // Terminar de crear la poliza
-	 * 
+	 *
 	 * // escribir los datos: numeroProyecto, precios antes de proyecto, precios
 	 * despues de // proyecto
-	 * 
+	 *
 	 * datosCargaMEC = setValuesDataSetByID(datosCargaMEC, "capital_continente",
 	 * i, capitalContinente); datosCargaMEC =
 	 * setValuesDataSetByID(datosCargaMEC, "total_asegurado", i,
@@ -2520,11 +2520,11 @@ public class Steps extends StepObject {
 	 * precioBasic); datosCargaMEC = setValuesDataSetByID(datosCargaMEC,
 	 * "precio_plus", i, precioPlus); // datosCargaMEC =
 	 * setValuesDataSetByID(datosCargaMEC, "numero_proyecto", i, numSimulacion);
-	 * 
+	 *
 	 * writeArrayIntoCSVFile(fileName + " - " + new
 	 * ConfigurationProperties().environment + " (resultados).csv",
 	 * datosCargaMEC);
-	 * 
+	 *
 	 * innovaHomePage.openInnovaHome();
 	 * innovaHomePage.openMutuaEdificioConfort(); } catch (Exception e) {
 	 * logText += "Comprobacion de datos no contemplada para la direccion " +
@@ -2533,13 +2533,13 @@ public class Steps extends StepObject {
 	 * e.toString()); this.browserContext.webElementHelper.exitFromFrame();
 	 * innovaHomePage.openInnovaHome();
 	 * innovaHomePage.openMutuaEdificioConfort(); } }
-	 * 
+	 *
 	 * this.browserContext.getWebDriver().quit();
-	 * 
+	 *
 	 * logger.
 	 * debug("END - doy_alta_proyecto_actualizando_datos_iterando_por_el_fichero"
 	 * ); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^se da de alta un proyecto MEC donde la antiguedad del edificio es mayor que 50 anyos y se solicita peritacion, iterando por el fichero \"([^\"]*)\""
 	 * ) public void
@@ -2551,22 +2551,22 @@ public class Steps extends StepObject {
 	 * this.tCData.value("fichero"); System.out.println("Filename: " +
 	 * fileName); fileName = fileName.substring(0, fileName.length() - 4);
 	 * System.out.println("Filename: " + fileName);
-	 * 
+	 *
 	 * this.inicio_sesion();
-	 * 
+	 *
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); innovaHomePage.openMutuaEdificioConfort();
-	 * 
+	 *
 	 * String[][] datosAltoValor = loadDataFileToArray(
 	 * System.getProperty("user.dir") + "/" + ProjectConstants.ResourcesFolder +
 	 * "/" + fileName + ".csv", false);
-	 * 
+	 *
 	 * for (int i = 1; i < datosAltoValor.length; i++) {
 	 * innovaHomePage.CreateNewProject();
-	 * 
+	 *
 	 * this.tCData.setReferenciaCatastral(getValuesDataSetByID(datosAltoValor,
 	 * "ref_catastral", i));
-	 * 
+	 *
 	 * AsignarMediadorPage asignarMediadorPage = new
 	 * AsignarMediadorPage(userS);
 	 * asignarMediadorPage.selectMediadorAndClickOnContinuar(); try {
@@ -2575,7 +2575,7 @@ public class Steps extends StepObject {
 	 * ubicacionRiesgoPage.fillInmuebleAndClickOnContinue(); //
 	 * ubicacionRiesgoPage.closeNotification(); //
 	 * ubicacionRiesgoPage.clickOnContinuar();
-	 * 
+	 *
 	 * ValidacionesExcepcionesReglasUbicacionRiesgoPage
 	 * validacionesExcepcionesReglasUbicacionRiesgo = new
 	 * ValidacionesExcepcionesReglasUbicacionRiesgoPage( this.browserContext);
@@ -2607,21 +2607,21 @@ public class Steps extends StepObject {
 	 * tomadorYAseguradoPage.clickOnContinuar(); DatosBancariosPage
 	 * datosBancariosPage = new DatosBancariosPage(webDriver,
 	 * userS.getTestDataManager());
-	 * 
+	 *
 	 * datosBancariosPage.introducirFormaPagoYPulsarSolicitarPeritacion(); //
 	 * this.browserContext.writeTestCaseData(); //
 	 * this.browserContext.getWebDriver().quit();
-	 * 
+	 *
 	 * Iterable<String> PeritajeIterator = Splitter.on('
 	 * ').split(datosBancariosPage.getMensajePeritaje()); String[] PeritajeList
 	 * = Iterables.toArray(PeritajeIterator, String.class);
-	 * 
+	 *
 	 * logText += "Solicitud peritaje concluida para referencia catastral " +
 	 * getValuesDataSetByID(datosAltoValor, "ref_catastral", i) + " (Proyecto: "
 	 * + datosBancariosPage.getProjectNumber() + ", " + "Referencia solicitud: "
 	 * + PeritajeList[7] + ")" + "\n"; writeFile(fileName + " (log file).txt",
 	 * logText);
-	 * 
+	 *
 	 * innovaHomePage.openInnovaHome();
 	 * innovaHomePage.openMutuaEdificioConfort(); } catch (Exception e) {
 	 * logText +=
@@ -2632,43 +2632,43 @@ public class Steps extends StepObject {
 	 * this.browserContext.webElementHelper.exitFromFrame();
 	 * innovaHomePage.openInnovaHome();
 	 * innovaHomePage.openMutuaEdificioConfort(); } }
-	 * 
+	 *
 	 * this.browserContext.getWebDriver().quit();
-	 * 
+	 *
 	 * logger.
 	 * debug("END - alta_masiva_proyectos_MEC_antiguedad_edificio_mayor_50"); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^busco un cliente por \"([^\"]*)\" usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void busco_un_cliente_por_usando_el_acceso_y_el_usuario( String
 	 * filtroBuscador, String loginAcess, String user) {
-	 * 
+	 *
 	 * this.tCData.setFiltroBuscadorCliente(getValuesDataSet(this.tCData.
 	 * gethMapDataSet(), filtroBuscador, this.tCData.getTestID()));
-	 * 
+	 *
 	 * // Login this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // Clientes Page ClientesPage clientesPage = new ClientesPage(webDriver,
 	 * userS.getTestDataManager()); clientesPage.accederAlBuscadorClientes();
 	 * clientesPage.buscarConFiltroBusqueda(); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta un nuevo tomador usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void doy_alta_nuevo_tomador_usando_el_acceso_y_el_usuario(
 	 * String loginAcess, String user) {
-	 * 
+	 *
 	 * // Login this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // Clientes Page ClientesPage clientesPage = new ClientesPage(webDriver,
 	 * userS.getTestDataManager()); clientesPage.accederAlBuscadorClientes();
 	 * clientesPage.crearNuevoTomador(); }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta un prospect usando el \"([^\"]*)\" y el usuario \"([^\"]*)\" iterando por el fichero \"([^\"]*)\"$"
 	 * ) public void
@@ -2677,12 +2677,12 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.tCData.gethMapDataSet(), fileName,
 	 * this.tCData.getTestID()); fileName = fileName.substring(0,
 	 * fileName.length() - 4);
-	 * 
+	 *
 	 * this.inicio_sesion();
-	 * 
+	 *
 	 * String[][] datosMediadores = loadDataFileToArray(fileName + ".csv",
 	 * false);
-	 * 
+	 *
 	 * for (int i = 1; i < datosMediadores.length; i++) {
 	 * this.tCData.setNivelEstructura(getValuesDataSetByID(datosMediadores,
 	 * "nivelEstructura", i));
@@ -2705,70 +2705,70 @@ public class Steps extends StepObject {
 	 * "poblacion", i));
 	 * this.tCData.setNombreVia(getValuesDataSetByID(datosMediadores,
 	 * "nombreVia", i));
-	 * 
+	 *
 	 * try { this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); innovaHomePage.openMediadores();
-	 * 
+	 *
 	 * MediadoresHomePage mediadoresHomePage = new MediadoresHomePage(webDriver,
 	 * userS.getTestDataManager()); mediadoresHomePage.openAltaProspect();
-	 * 
+	 *
 	 * MediadoresAltaProspectPage mediadoresAltaProspectPage = new
 	 * MediadoresAltaProspectPage(userS);
 	 * mediadoresAltaProspectPage.executeActionsAltaProspectPage();
-	 * 
+	 *
 	 * } catch (Exception e) {
-	 * 
+	 *
 	 * } } }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta un prospect usando el \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void doy_de_alta_prospect_usando_acceso_y_usuario( String
 	 * loginAcess, String user) {
-	 * 
+	 *
 	 * this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); innovaHomePage.openMediadores();
-	 * 
+	 *
 	 * MediadoresHomePage mediadoresHomePage = new MediadoresHomePage(webDriver,
 	 * userS.getTestDataManager()); mediadoresHomePage.openAltaProspect();
-	 * 
+	 *
 	 * MediadoresAltaProspectPage mediadoresAltaProspectPage = new
 	 * MediadoresAltaProspectPage(userS);
 	 * mediadoresAltaProspectPage.executeActionsAltaProspectPage();
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^doy de alta un mediador usando el \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void doy_de_alta_mediador_usando_acceso_y_usuario( String
 	 * loginAcess, String user) {
-	 * 
+	 *
 	 * this.browserContext.initializeVariables(loginAcess =
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
 	 * userS.getTestDataManager()); innovaHomePage.openMediadores();
-	 * 
+	 *
 	 * MediadoresHomePage mediadoresHomePage = new MediadoresHomePage(webDriver,
 	 * userS.getTestDataManager()); mediadoresHomePage.openAltaMediador();
-	 * 
+	 *
 	 * MediadoresAltaMediadorPage mediadoresAltaMediadorPage = new
 	 * MediadoresAltaMediadorPage(userS);
 	 * mediadoresAltaMediadorPage.executeActionsAltaMediadorPage();
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^comunico un siniestro usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void comunico_siniestro( String loginAcess, String user) {
@@ -2776,9 +2776,9 @@ public class Steps extends StepObject {
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Cuando("^busco el siniestro usando el acceso \"([^\"]*)\" y el usuario \"([^\"]*)\"$"
 	 * ) public void busco_siniestro( String loginAcess, String user) {
@@ -2786,88 +2786,88 @@ public class Steps extends StepObject {
 	 * this.userS.getTestVar("acceso"));
 	 * this.browserContext.applicationAccessHelper.login(this.tCData.getUsuario(
 	 * ), this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@Cuando("^la renta mensual alquiler es \"([^\"]*)\"$") public void
 	 * la_renta_mensual_es( String rentaMensualAlquiler) {
 	 * PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new
 	 * PrecioPorModalidadPage_MAC(this.browserContext);
 	 * precioPorModalidadPage_MAC.CompletarRentaMensualAlquiler(); }
-	 * 
+	 *
 	 * //@Cuando("^la suma asegurada de impago alquiler es \"([^\"]*)\" meses$")
 	 * public void la_suma_asegurada_de_impago_alquiler_es( String
 	 * sumaAseguradaImpagoAlquiler) { PrecioPorModalidadPage_MAC
 	 * precioPorModalidadPage_MAC = new
 	 * PrecioPorModalidadPage_MAC(this.browserContext);
 	 * precioPorModalidadPage_MAC.seleccionarImpagoAlquiler(); }
-	 * 
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
+	 *
 	 * /////////////////////////////////////////////////////////////////////////
 	 * //////////////////////////////////////////////////// ////// CHECK STEPS
 	 * /////////////////////////////////////////////////////////////////////////
 	 * ///////////////////////////////////////////////////
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
 	 * public ChecksSteps(BrowserContext browserContext) { this.browserContext =
 	 * browserContext; this.tCData = browserContext.getTestCaseData(); }
-	 * 
+	 *
 	 * //@Entonces("^el edificio se encuentra$") public void
 	 * el_edificio_se_encuentra() {
 	 * logger.debug("BEGIN - el_edificio_se_encuentra");
-	 * 
+	 *
 	 * FichaEdificioPage fichaEdificioPage = new FichaEdificioPage(webDriver,
 	 * userS.getTestDataManager());
 	 * org.junit.Assert.assertTrue(fichaEdificioPage.checkResultadoDireccion());
-	 * 
+	 *
 	 * logger.debug("END - el_edificio_se_encuentra"); }
-	 * 
+	 *
 	 * //@Entonces("^se visualiza la cabecera de la ficha de edificio$") public
 	 * void visualiza_cabecera_ficha_edificio() {
 	 * logger.debug("BEGIN - visualiza_cabecera_ficha_edificio");
-	 * 
+	 *
 	 * FichaEdificioPage fichaEdificioPage = new FichaEdificioPage(webDriver,
 	 * userS.getTestDataManager());
 	 * org.junit.Assert.assertTrue(fichaEdificioPage.checkCabeceraFicha());
-	 * 
+	 *
 	 * logger.debug("END - visualiza_cabecera_ficha_edificio"); }
-	 * 
+	 *
 	 * //@Entonces("^se visualiza la pestaña Resumen de la ficha de edificio$")
 	 * public void visualiza_pestana_resumen_ficha_edificio() {
 	 * logger.debug("BEGIN - visualiza_pestana_resumen_ficha_edificio");
-	 * 
+	 *
 	 * FichaEdificioPage fichaEdificioPage = new FichaEdificioPage(webDriver,
 	 * userS.getTestDataManager());
 	 * org.junit.Assert.assertTrue(fichaEdificioPage.checkPestanaResumenVisible(
 	 * ));
-	 * 
+	 *
 	 * logger.debug("END - visualiza_pestana_resumen_ficha_edificio"); }
-	 * 
+	 *
 	 * //@Entonces("^se visualiza la pestaña Pólizas de la ficha de edificio$")
 	 * public void visualiza_pestana_polizas_ficha_edificio() {
 	 * logger.debug("BEGIN - visualiza_pestana_polizas_ficha_edificio");
-	 * 
+	 *
 	 * FichaEdificioPage fichaEdificioPage = new FichaEdificioPage(webDriver,
 	 * userS.getTestDataManager());
 	 * org.junit.Assert.assertTrue(fichaEdificioPage.checkPestanaPolizasVisible(
 	 * ));
-	 * 
+	 *
 	 * logger.debug("END - visualiza_pestana_polizas_ficha_edificio"); }
-	 * 
+	 *
 	 * //@Entonces("^el cliente se encuentra$") public void
 	 * el_cliente_se_encuentra() {
 	 * logger.debug("BEGIN - el_cliente_se_encuentra");
-	 * 
+	 *
 	 * ClientesPage clientePage = new ClientesPage(webDriver,
 	 * userS.getTestDataManager());
 	 * org.junit.Assert.assertTrue(clientePage.checkResultadoNIF()); // TODO
 	 * Agregar la comprobacion de resultado de busqueda en la ficha cliente
-	 * 
+	 *
 	 * logger.debug("END - el_cliente_se_encuentra"); }
-	 * 
+	 *
 	 * // //@Entonces("^el resultado es que el projecto se crea correctamente$")
 	 * // public void el_resultado_es_que_el_projecto_se_crea_correctamente() //
 	 * { // logger.
@@ -2879,23 +2879,23 @@ public class Steps extends StepObject {
 	 * getNoCotizacion()); // } // logger.
 	 * debug("END - el_resultado_es_que_el_projecto_se_crea_correctamente"); //
 	 * }
-	 * 
+	 *
 	 * //@Entonces("^el resultado es que el projecto se crea correctamente$")
 	 * public void el_resultado_es_que_el_projecto_se_crea_correctamente() {
 	 * logger.
 	 * debug("BEGIN - el_resultado_es_que_el_projecto_se_crea_correctamente");
-	 * 
+	 *
 	 * if (this.userS.getTestVar("acceso").equals(ProjectConstants.
 	 * LoginAccessInnova)) { // For the time being we check that the policy
 	 * appears correctly in Innov@, but this should be changed to check the
 	 * policy in GO.
-	 * 
+	 *
 	 * this.browserContext.initializeVariables(this.tCData.getCambioAcceso());
 	 * this.browserContext.applicationAccessHelper.
 	 * LoginAndSearchPolizaByPolizaNumber(this.tCData.getCambioUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
 	 * String.valueOf(this.tCData.getNumPoliza()));
-	 * 
+	 *
 	 * GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new
 	 * GestionPolizasBuscadorPage(userS);
 	 * gestionPolizasBuscadorPage.SearchPolizaByPolizaNumber(String.valueOf(this
@@ -2904,9 +2904,9 @@ public class Steps extends StepObject {
 	 * gestionPolizasConsultarPage = new GestionPolizasConsultarPage(webDriver,
 	 * userS.getTestDataManager());
 	 * gestionPolizasConsultarPage.CheckPolizaNumber();
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * if (this.userS.getTestVar("acceso").equals(ProjectConstants.
 	 * LoginAccessGestionLine)) { // Here we check if the policy created in GO
 	 * appears correctly in Innov@ // Login
@@ -2915,7 +2915,7 @@ public class Steps extends StepObject {
 	 * LoginAndSearchPolizaByPolizaNumber(this.tCData.getCambioUsuario(),
 	 * this.browserContext.getProperties().passwordComun,
 	 * String.valueOf(this.tCData.getNumPoliza()));
-	 * 
+	 *
 	 * GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new
 	 * GestionPolizasBuscadorPage(userS);
 	 * gestionPolizasBuscadorPage.SearchPolizaByPolizaNumber(String.valueOf(this
@@ -2924,24 +2924,24 @@ public class Steps extends StepObject {
 	 * gestionPolizasConsultarPage = new GestionPolizasConsultarPage(webDriver,
 	 * userS.getTestDataManager());
 	 * gestionPolizasConsultarPage.CheckPolizaNumber();
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * logger.
 	 * debug("END - el_resultado_es_que_el_projecto_se_crea_correctamente"); }
-	 * 
+	 *
 	 * //@Entonces("^el valor de los capitales varia$") public void
 	 * el_valor_de_los_capitales_varia() { if
 	 * (this.browserContext.getTestCaseData().isCantidadesModifiedError()) {
 	 * throw new AssertionError(this.browserContext.getTestCaseData().
 	 * getCantidadesModifiedErrorMessage()); } }
-	 * 
+	 *
 	 * //@Entonces("^resultado es que el projecto se crea correctamente$")
 	 * public void el_resultado_es_que_el_proyecto_se_crea_correctamente() {
 	 * ContratacionPage_MAC contratacionPage_MAC = new
 	 * ContratacionPage_MAC(this.browserContext);
 	 * Assert.assertTrue(contratacionPage_MAC.checkPolizaCreada()); }
-	 * 
+	 *
 	 * //@
 	 * Entonces("^el resultado es que aparece un mensaje indicando que se va a crear un infraseguro$"
 	 * ) public void
@@ -2949,12 +2949,12 @@ public class Steps extends StepObject {
 	 * () { // Este paso es puramente informativo. Esta comprobación se hace
 	 * cada vez que se crea un // ifraseguro en la pantalla de validacion
 	 * excepciones // reglas }
-	 * 
+	 *
 	 * //@Entonces("^aparece una clausula adicional$") public void
 	 * aparece_una_clausula_adicional() { // Este paso es puramente informativo.
 	 * Esta comprobación se hace cadea vez que se crea un // infraseguro en la
 	 * pantalla de clausulas }
-	 * 
+	 *
 	 * //@
 	 * Entonces("^el resultado es que aparece un mensaje indicando que se va a crear un supraseguro$"
 	 * ) public void
@@ -2962,24 +2962,24 @@ public class Steps extends StepObject {
 	 * () { // Este paso es puramente informativo. Esta comprobación se hace
 	 * cada vez que se crea un // supraseguro en la pantalla de validacion
 	 * excepciones // reglas }
-	 * 
+	 *
 	 * //@Entonces("^los datos de ese cliente se completan automáticamente$")
 	 * public void los_datos_de_ese_cliente_se_completan_automáticamente() { //
 	 * Este paso es puramente informativo. Esta comprobación se hace en la
 	 * pantalla de datos basicos // tomador al seleccionar como cliente un
 	 * cliente // existente }
-	 * 
+	 *
 	 * //@Entonces("^sale un aviso si el precio no cambia$") public void
 	 * sale_un_aviso_si_el_precio_no_cambia() { if
 	 * (this.browserContext.getTestCaseData().isCapitalesModifiedError()) {
 	 * throw new AssertionError(this.browserContext.getTestCaseData().
 	 * getCapitalesModifiedErrorMessage()); } }
-	 * 
+	 *
 	 * //@Entonces("^se añade una franquicia obligatoria$") public void
 	 * se_añade_una_franquicia_obligatoria() { // Este paso es puramente
 	 * informativo. Esta comprobación se hace en la pantalla de Precio cada //
 	 * vez que se añade un descuento. }
-	 * 
+	 *
 	 * //@
 	 * Entonces("^el valor de los capitales varia una vez se añade la cobertura opcional$"
 	 * ) public void
@@ -2987,13 +2987,13 @@ public class Steps extends StepObject {
 	 * { if (this.browserContext.getTestCaseData().isCapitalesModifiedError()) {
 	 * throw new AssertionError(this.browserContext.getTestCaseData().
 	 * getCapitalesModifiedErrorMessage()); } }
-	 * 
+	 *
 	 * //@Entonces("^aparece aviso \"([^\"]*)\"$") public void aparece_aviso(
 	 * String aviso) { ValidacionExcepcionesReglasDetallesRiesgoPage
 	 * validacionDetallesRiesgoPage = new
 	 * ValidacionExcepcionesReglasDetallesRiesgoPage( this.browserContext);
 	 * boolean check = false;
-	 * 
+	 *
 	 * switch (aviso) { case ProjectConstants.AvisoPeritajeAntiguead: check =
 	 * validacionDetallesRiesgoPage.
 	 * CheckAvisoPeritajeConstructionYearGreaterThan50(); break; case
@@ -3020,7 +3020,7 @@ public class Steps extends StepObject {
 	 * detallesRiesgoPage.CheckAvisoGarajesWithException(); break; default:
 	 * throw new Exception(ProjectConstants.AvisoNoContemplado); } if (check)
 	 * validacionDetallesRiesgoPage.CheckAviso(aviso); }
-	 * 
+	 *
 	 * //@
 	 * Entonces("^aparece un mensaje indicando que el projecto será revisado por la compañia$"
 	 * ) public void
@@ -3031,7 +3031,7 @@ public class Steps extends StepObject {
 	 * logger.
 	 * debug("END - aparece_un_mensaje_indicando_que_el_projecto_será_revisado_por_la_compañia"
 	 * ); }
-	 * 
+	 *
 	 * //@Entonces("^la cotizacion se actualiza correctamente$") public void
 	 * la_cotizacion_se_actualiza_correctamente() {
 	 * logger.debug("BEGIN - la_cotizacion_se_actualiza_correctamente");
@@ -3039,9 +3039,9 @@ public class Steps extends StepObject {
 	 * MensajeConfirmacionPage(userS);
 	 * mensajeConfirmacionPage.CheckIfPageHasLoadedCorrectly();
 	 * logger.debug("END - la_cotizacion_se_actualiza_correctamente");
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@Entonces("^la copia tomador deberia tener los nuevos datos$") public
 	 * void la_copia_tomador_deberia_tener_los_nuevos_datos() {
 	 * logger.debug("BEGIN - la_copia_tomador_deberia_tener_los_nuevos_datos");
@@ -3050,26 +3050,26 @@ public class Steps extends StepObject {
 	 * mensajeConfirmacionPage.CheckIfPageHasLoadedCorrectly();
 	 * mensajeConfirmacionPage.searchTextInCopiaTomadorPDF();
 	 * logger.debug("END - la_copia_tomador_deberia_tener_los_nuevos_datos");
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Entonces("^el resultado es que aparece un mensaje de error y los campos deshabilitación y edificio madera aparecen resaltados en rojo$"
 	 * ) public void
 	 * el_resultado_es_que_aparece_un_mensaje_de_error_y_los_campos_deshabilitación_y_edificio_madera_aparecen_resaltados_en_rojo
 	 * () throws Throwable { // Step puramente informativo. Los chequeos se
 	 * hacen en el paso que crea la simulación. }
-	 * 
+	 *
 	 * //@Entonces("^se muestra la ventana para imprimir la poliza$") public
 	 * void se_muestra_la_ventana_para_imprimir_la_poliza() { // Step puramente
 	 * informativo. Los chequeos se hacen en el último paso de la simulacion, en
 	 * la // pantalla con el listado de documentos }
-	 * 
+	 *
 	 * //@Entonces("^la poliza muestra \"([^\"]*)\" en la solapa Coberturas$")
 	 * public void la_poliza_muestra_en_la_solapa_Coberturas( String arg1) {
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@Entonces("^el campo cotización contiene el valor \"([^\"]*)\"$")
 	 * public void el_campo_cotización_contiene_el_valor( String
 	 * cotizacionValue) {
@@ -3079,7 +3079,7 @@ public class Steps extends StepObject {
 	 * String cotizacion = gestionCotizacionesBuscacorPage.getCotizacion();
 	 * Assert.assertTrue(cotizacion.contains(this.tCData.getNoCotizacion()));
 	 * logger.debug("END - el_campo_cotización_contiene_el_valor"); }
-	 * 
+	 *
 	 * //@Entonces("^la poliza \"([^\"]*)\" en la pestaña \"([^\"]*)\"$") public
 	 * void la_poliza_muestra_en_la_pestanya( String toBeChecked, String tab) {
 	 * this.browserContext.applicationAccessHelper.OpenGestionPolizas();
@@ -3090,7 +3090,7 @@ public class Steps extends StepObject {
 	 * gestionPolizasBuscadorPage.ConsultarPoliza(); GestionPolizasConsultarPage
 	 * gestionPolizasConsultarPage = new GestionPolizasConsultarPage(webDriver,
 	 * userS.getTestDataManager());
-	 * 
+	 *
 	 * switch (toBeChecked) { case
 	 * ProjectConstants.PolizaDetailConstructionYear:
 	 * gestionPolizasConsultarPage.CheckValueInTab(ProjectConstants.
@@ -3178,21 +3178,21 @@ public class Steps extends StepObject {
 	 * this.tCData.getFranquiciaVoluntaria()); break; default: throw new
 	 * Exception(String.format("El checqueo para %s no se ha implementado",
 	 * toBeChecked)); } }
-	 * 
+	 *
 	 * //@Entonces("^esta habilitado el campo \"([^\"]*)\"$") public void
 	 * esta_habilitado_el_campo( String fieldValue) { DetallesRiesgoPage
 	 * detallesRiesgoPage = new DetallesRiesgoPage(webDriver,
 	 * userS.getTestDataManager());
 	 * Assert.assertTrue(String.format("El campo %s no está habilitado",
 	 * fieldValue), detallesRiesgoPage.IsFieldEnabled(fieldValue)); }
-	 * 
+	 *
 	 * //@Entonces("^el proyecto MAC se deniega$") public void
 	 * el_proyecto_MAC_se_deniega() { InquilinosAvalistasPage_MAC
 	 * inquilinosAvalistasPage_MAC = new
 	 * InquilinosAvalistasPage_MAC(this.browserContext); Assert.assertTrue(
 	 * inquilinosAvalistasPage_MAC.recuperarTextoMensajeError().contains(String.
 	 * format("¡Error! Se ha denegado la emisión del proyecto"))); }
-	 * 
+	 *
 	 * //@Entonces("^el proyecto MAC se acepta$") public void
 	 * el_proyecto_MAC_se_acepta() { InquilinosAvalistasPage_MAC
 	 * inquilinosAvalistasPage_MAC = new
@@ -3201,7 +3201,7 @@ public class Steps extends StepObject {
 	 * recuperarTextoMensajeValidacionOK().contains(
 	 * "El proyecto deberá ser revisado por compañía, debe adjuntar los documentos obligatorios del estudio de viabilidad, por favor cuando termine todas las gestiones no olvide pulsar el botón Enviar a Compañía. Puede continuar al siguiente paso, para seguir rellenando el resto de campos de la cotización, pero no podrá emitirla."
 	 * )); }
-	 * 
+	 *
 	 * //@Entonces("^el proyecto esta en estado denegado$") public void
 	 * el_proyecto_esta_en_estado_denegado() { if
 	 * (this.userS.getTestVar("acceso").equals(ProjectConstants.
@@ -3209,16 +3209,16 @@ public class Steps extends StepObject {
 	 * new GestionOnlineHomePage(userS);
 	 * Assert.assertEquals(String.format("Denegado"),
 	 * gestionOnlineHomePage.recuperarEstadoPoliza()); }
-	 * 
+	 *
 	 * if (this.userS.getTestVar("acceso").equals(ProjectConstants.
 	 * LoginAccessInnova)) { GestionCotizacionesBuscadorPage
 	 * gestionCotizacionesBuscadorPage = new
 	 * GestionCotizacionesBuscadorPage(userS);
 	 * Assert.assertEquals(String.format("Desestimada"),
 	 * gestionCotizacionesBuscadorPage.getEstadoCotizacion()); }
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Entonces("se puede autorizar usando el acceso \"([^\"]*)\" y usuario \"([^\"]*)\"$"
 	 * ) public void se_puede_autorizar_usando_el_acceso_Innova_y_usuario(
@@ -3226,9 +3226,9 @@ public class Steps extends StepObject {
 	 * InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
 	 * InquilinosAvalistasPage_MAC(this.browserContext);
 	 * inquilinosAvalistasPage_MAC.enviarACompania();
-	 * 
+	 *
 	 * // Cerrar el navegador this.browserContext.getWebDriver().quit();
-	 * 
+	 *
 	 * // Login // this.browserContext.initializeVariables( //
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * loginAcess, this.browserContext.getTestCaseData().getTestID())); //
@@ -3237,13 +3237,13 @@ public class Steps extends StepObject {
 	 * getValuesDataSet(this.browserContext.getTestCaseData().gethMapDataSet(),
 	 * user, this.browserContext.getTestCaseData().getTestID()), //
 	 * this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * System.out.println("Valor accesoAuth: " + this.tCData.getAccesoAuth());
 	 * this.browserContext.initializeVariables(this.tCData.getAccesoAuth());
 	 * this.browserContext.applicationAccessHelper.LoginAndSearchAutorizacion(
 	 * this.tCData.getUsuarioAuth(),
 	 * this.browserContext.getProperties().passwordComun);
-	 * 
+	 *
 	 * // Abrir la busqueda de autorizaciones InnovaHomePage innovaHomePage =
 	 * new InnovaHomePage(userS);
 	 * innovaHomePage.OpenGestionAutorizaciones(); GestionAutorizacionesPage
@@ -3252,12 +3252,12 @@ public class Steps extends StepObject {
 	 * gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización",
 	 * "Pendiente de autorizar",
 	 * this.browserContext.getTestCaseData().getNoCotizacionMAC());
-	 * 
+	 *
 	 * // Autorizar el proyecto gestionAutorizacionesPage.autorizar();
 	 * Assert.assertTrue(gestionAutorizacionesPage.
 	 * recuperarResultadoAutorizacion().
 	 * contains("ha sido autorizada correctamente.")); }
-	 * 
+	 *
 	 * //@Entonces("^los datos de prospect grabados coinciden$") public void
 	 * datos_prospect_grabados_coinciden() { String nombreComercial =
 	 * String.valueOf(this.tCData.getNombreComercialProspect()).toUpperCase();
@@ -3265,7 +3265,7 @@ public class Steps extends StepObject {
 	 * MediadoresFichaMediadorPage(userS);
 	 * Assert.assertTrue(fichaMediadorPage.getContenidoTituloPagina().contains(
 	 * nombreComercial)); }
-	 * 
+	 *
 	 * //@Entonces("^los datos de mediador grabados coinciden$") public void
 	 * datos_mediador_grabados_coinciden() { if
 	 * (this.tCData.getTipoNombreComercialMediador().
@@ -3278,7 +3278,7 @@ public class Steps extends StepObject {
 	 * MediadoresFichaMediadorPage(userS);
 	 * Assert.assertTrue(fichaMediadorPage.getContenidoTituloPagina().contains(
 	 * nombreComercial)); }
-	 * 
+	 *
 	 * if (this.tCData.getTipoNombreComercialMediador().
 	 * equals("Diferente que el fiscal")) { String nombreComercial =
 	 * String.valueOf(this.tCData.getNombreComercialMediador()).toUpperCase();
@@ -3286,9 +3286,9 @@ public class Steps extends StepObject {
 	 * MediadoresFichaMediadorPage(userS);
 	 * Assert.assertTrue(fichaMediadorPage.getContenidoTituloPagina().contains(
 	 * nombreComercial)); }
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * //@
 	 * Entonces("^debería aparecer ¡Error! Rebasada la renta máxima permitida de 3.000,00 €$"
 	 * ) public void deberia_aparecer_error_rebasada_la_renta_máxima_permitida()
@@ -3297,7 +3297,7 @@ public class Steps extends StepObject {
 	 * error correspondiente Assert.assertTrue(
 	 * precioPorModalidadPage_MAC.recuperarTextoMensajeError().contains(String.
 	 * format("¡Error! Rebasada la renta máxima permitida de 3.000,00 €"))); }
-	 * 
+	 *
 	 * //@
 	 * Entonces("^debería aparecer ¡Error! Situación de reaseguro no es posible la contratación$"
 	 * ) public void deberia_aparecer_error_situacion_reasegurado() {
@@ -3308,7 +3308,7 @@ public class Steps extends StepObject {
 	 * .contains(String.
 	 * format("¡Error! Situación de reaseguro no es posible la contratación")));
 	 * }
-	 * 
+	 *
 	 * //@Entonces("^no debería estar habilitado Convertir a proyecto$") public
 	 * void no_deberia_estar_habilitado_convertir_a_proyecto() {
 	 * PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new
@@ -3316,9 +3316,9 @@ public class Steps extends StepObject {
 	 * queda deshabilitado Convertir a proyecto
 	 * Assert.assertFalse(precioPorModalidadPage_MAC.
 	 * checkConvertirAProyectoIsPresent()); }
-	 * 
-	 * 
-	 * 
+	 *
+	 *
+	 *
 	 */
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -3326,88 +3326,88 @@ public class Steps extends StepObject {
 	//////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
-	 * 
+	 *
 	 * public void CreateProject() {
 	 * this.gestionOnlineHomePage.createNewProject(); }
-	 * 
+	 *
 	 * public void CreateSimulation() {
 	 * this.gestionOnlineHomePage.createNewSimulation(); }
-	 * 
+	 *
 	 * public void OpenMutuaEdificioConfort() {
 	 * this.gestionOnlineHomePage.openMutuaEdificioConfort(); }
-	 * 
+	 *
 	 * // @Override // public void openMisProyectosWeb() throws AWTException, //
 	 * InterruptedException, IOException // { //
 	 * this.gestionOnlineHomePage.openMisProyectosWeb();
-	 * 
+	 *
 	 * // }
-	 * 
+	 *
 	 * public void searchCotizacion(String cotizacion) { //
 	 * GestionCotizacionesBuscadorPage gestionCotizacionesBuscacorPage = new //
 	 * GestionCotizacionesBuscadorPage(userS);
 	 * // gestionCotizacionesBuscacorPage.searchCotizacion(cotizacion);
 	 * this.gestionOnlineHomePage.buscarProyectoWeb(cotizacion); }
-	 * 
+	 *
 	 * public void OpenGestionPolizas() { //
 	 * this.gestionOnlineHomePage.openGestionCotizaciones(); }
-	 * 
+	 *
 	 * public void SearchPolizaByPolizaNumber(String poliza) {
 	 * GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new
 	 * GestionPolizasBuscadorPage(userS);
 	 * gestionPolizasBuscadorPage.SearchPolizaByPolizaNumber(poliza); }
-	 * 
+	 *
 	 * public void loginAndSearchCotizacion(String userId, String password,
 	 * String cotizacion) throws Exception { this.login(userId, password); //
 	 * this.OpenMutuaEdificioConfort(); this.openGestionCotizaciones();
 	 * this.searchCotizacion(cotizacion); }
-	 * 
+	 *
 	 * public void LoginAndSearchPolizaByPolizaNumber(String userId, String
 	 * password, String poliza) throws Exception { this.login(userId, password);
 	 * this.OpenGestionPolizas(); this.SearchPolizaByPolizaNumber(poliza); }
-	 * 
+	 *
 	 * public void LoginAndCreateProjectMEC(String userId, String password)
 	 * throws Exception { this.login(userId, password);
 	 * this.OpenMutuaEdificioConfort(); this.CreateProject(); }
-	 * 
+	 *
 	 * public void LoginAndCreateProjectMAC(String userId, String password)
 	 * throws Exception { this.login(userId, password);
 	 * this.OpenMutuaAlquilerConfort(); this.CreateProject(); }
-	 * 
+	 *
 	 * public void LoginAndCreateSimulation(String userId, String password)
 	 * throws Exception { this.login(userId, password);
-	 * 
+	 *
 	 * this.OpenMutuaEdificioConfort();
-	 * 
+	 *
 	 * // this.CreateSimulation(); }
-	 * 
+	 *
 	 * public void LoginAndSearchPolizaByNifNie(String userId, String password,
 	 * String nifNie) throws Exception { this.login(userId, password);
 	 * this.OpenGestionPolizas();
-	 * 
+	 *
 	 * }
-	 * 
+	 *
 	 * public void SearchPolizaByNifNie(String nifNie) {
 	 * GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new
 	 * GestionPolizasBuscadorPage(userS);
 	 * gestionPolizasBuscadorPage.SearchPolizaByNifNumber(nifNie); }
-	 * 
+	 *
 	 * public void OpenMutuaAlquilerConfort() throws AWTException,
 	 * InterruptedException, IOException { new GestionOnlineHomePage(webDriver,
 	 * userS.getTestDataManager()).openMutuaAlquilerConfort(); }
-	 * 
+	 *
 	 * public void LoginAndSearchAutorizacion(String userId, String password)
 	 * throws Exception { this.login(userId, password); }
-	 * 
+	 *
 	 * public void openGestionCotizaciones() throws AWTException,
 	 * InterruptedException, IOException {
 	 * this.gestionOnlineHomePage.openMisProyectosWeb(); }
-	 * 
+	 *
 	 * /////////////////////////////////////////////////////////////////////////
 	 * ///////////////////////////// ///////// 18-04-18 DESDE INNOVA ACCESS
 	 * HELPER
 	 * /////////////////////////////////////////////////////////////////////////
 	 * /////////////////////////////
-	 * 
+	 *
 	 */
 	public void loginAndCreateSimulation(String userId, String password) throws Exception {
 
@@ -3434,13 +3434,13 @@ public class Steps extends StepObject {
 
 		// Assign mediador
 		String mediador = getScenarioVar("mediador");
-		if(loginAccess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
+		if (loginAccess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
 			new AsignarMediadorPage(userS)
-				.SelectMediadorMACAndClickOnContinuar(userS.getScenario());
-		} else if(loginAccess.equals(ProjectConstants.LoginAccessInnova)) {
+					.SelectMediadorMACAndClickOnContinuar(userS.getScenario());
+		} else if (loginAccess.equals(ProjectConstants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.SeleccionarMediadorMACPorCodigo(mediador)
-				.clickOnContinuarButton();
+					.SeleccionarMediadorMACPorCodigo(mediador)
+					.clickOnContinuarButton();
 		}
 
 		// Login
@@ -3468,7 +3468,7 @@ public class Steps extends StepObject {
 
 		// Precio
 		new PrecioPorModalidadPage_MAC(userS)
-			.executeActionsInPrecioPorModalidadPage();
+				.executeActionsInPrecioPorModalidadPage();
 
 		// SCS Precio
 		// PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new
@@ -3476,8 +3476,7 @@ public class Steps extends StepObject {
 		// precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
 
 		// Inquilinos
-		new InquilinosAvalistasPage_MAC(userS)
-			.executeActionsInInquilinosAvalistasPage();
+		new InquilinosAvalistasPage_MAC(userS).executeActionsInInquilinosAvalistasPage();
 
 		// SCS Inquilinos
 		// InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
@@ -3494,29 +3493,27 @@ public class Steps extends StepObject {
 
 	}
 
-    public void searchAuthorisation() throws Exception {
-        new InnovaHomePage(userS).OpenGestionAutorizaciones();
+	public void searchAuthorisation() throws Exception {
+		new InnovaHomePage(userS).OpenGestionAutorizaciones();
 		new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", this.getTestVar("NumCotizacion"));
 
-    }
+	}
 
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
-	 		new InquilinosAvalistasPage_MAC(userS).enviarACompania();
-	 		this.webDriver.quit();
+		new InquilinosAvalistasPage_MAC(userS).enviarACompania();
+		this.webDriver.quit();
 		debugEnd();
 	}
 
- 	public void cerrar_navegador() {
+	public void cerrar_navegador() {
 		debugBegin();
-			this.webDriver.quit();
+		this.webDriver.quit();
 		debugEnd();
 	}
 
-<<<<<<< HEAD
 	public void autorizar_el_proyecto_MAC(
-			String loginAcess, String user) throws Exception
-	{
+			String loginAcess, String user) throws Exception {
 
 		// Login
 		//this.LoginAndSearchAutorizacion(this.tCData.getUsuarioAuth(), this.browserContext.getProperties().passwordComun);
@@ -3527,21 +3524,24 @@ public class Steps extends StepObject {
 
 		// Autorizar el proyecto
 		//gestionAutorizacionesPage.autorizar();
-=======
-	public void login_y_autorizar_el_proyecto_MAC(String loginAccess, String user) throws Exception	{
+	}
+
+	public void login_y_autorizar_el_proyecto_MAC(String loginAccess, String user) throws Exception {
 		this.el_usuario_accede(loginAccess, user);
-        this.searchAuthorisation();
+		this.searchAuthorisation();
 		new GestionAutorizacionesPage(userS).autorizar();
->>>>>>> df564e22578d1e9e6e0dd9285e59eebc6b4013ec
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC(String loginAcess, String user) throws Exception {
 		debugBegin();
-			this.el_usuario_accede(loginAcess, user);
-			new InnovaHomePage(userS).openGestionCotizaciones();
-			new GestionCotizacionesBuscadorPage(userS).searchCotizacion("NumCotizacion");
+		this.el_usuario_accede(loginAcess, user);
+		new InnovaHomePage(userS).openGestionCotizaciones();
 
+		GestionCotizacionesBuscadorPage gestionCotizacionesBuscadorPage = new GestionCotizacionesBuscadorPage(userS);
+		gestionCotizacionesBuscadorPage.searchCotizacion(this.getTestVar("NumCotizacion"));
+		new GestionCotizacionesBuscadorPage(userS).modificarProjecto();
 
+		new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar(userS.getScenario());
 
 
 //		loginAcess = this.tCData.getAcceso();

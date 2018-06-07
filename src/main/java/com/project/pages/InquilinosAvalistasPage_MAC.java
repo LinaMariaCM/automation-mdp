@@ -155,8 +155,9 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException {
 		this.addDatosInquilino();
 		this.anadirDocumentacion();
-		this.setTestVar("NumCotizacion", this.recuperarNumeroCotizacion());
-		System.out.println("*** Num cotizacion: " + this.recuperarNumeroCotizacion());
+		this.setTestVar("NumCotizacion", recuperarNumeroCotizacion());
+		System.out.println("***NumCotizacion in executeActionsInInquilinosAvalistasPage: " + getTestVar("NumCotizacion"));
+		//this.setTestVar(this.recuperarNumeroCotizacion());
 		this.validacionViabilidadInquilino();
 	}
 	// public void executeActionsInInquilinosAvalistasPage() throws
