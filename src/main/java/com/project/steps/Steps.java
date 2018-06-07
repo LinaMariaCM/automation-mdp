@@ -3513,10 +3513,26 @@ public class Steps extends StepObject {
 		debugEnd();
 	}
 
+<<<<<<< HEAD
+	public void autorizar_el_proyecto_MAC(
+			String loginAcess, String user) throws Exception
+	{
+
+		// Login
+		//this.LoginAndSearchAutorizacion(this.tCData.getUsuarioAuth(), this.browserContext.getProperties().passwordComun);
+		//this.loginAndCreateProjectMAC(getTestVar("usuario"), getConfigVar("passwordComun"));
+		// Abrir la busqueda de autorizaciones
+		//new InnovaHomePage(userS).OpenGestionAutorizaciones();
+		//new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", this.tCData.getNoCotizacionMAC());
+
+		// Autorizar el proyecto
+		//gestionAutorizacionesPage.autorizar();
+=======
 	public void login_y_autorizar_el_proyecto_MAC(String loginAccess, String user) throws Exception	{
 		this.el_usuario_accede(loginAccess, user);
         this.searchAuthorisation();
 		new GestionAutorizacionesPage(userS).autorizar();
+>>>>>>> df564e22578d1e9e6e0dd9285e59eebc6b4013ec
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC(String loginAcess, String user) throws Exception {

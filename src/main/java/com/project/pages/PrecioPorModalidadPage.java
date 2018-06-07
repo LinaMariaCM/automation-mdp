@@ -46,7 +46,8 @@ public class PrecioPorModalidadPage extends PageObject {
 	private By hiddenFrame = By.cssSelector("#hideFrame");
 
 	// @FindBy(xpath = ".//*[text()='Continuar']")
-	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
+	//private By btnContinuar = By.xpath(".//*[text()='Continuar']");
+	private By btnContinuar = By.id("botonContinuar");
 
 	// //@FindBy(xpath = ".//*[text()='Guardar']")
 	// @FindBy(css = "button[ng-click='save(formPrecioModalidad)']")
@@ -271,6 +272,7 @@ public class PrecioPorModalidadPage extends PageObject {
 		debugBegin();
 		// this.cuerpoFrame.click();
 		// this.webDriver.scrollToBottom();
+		this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.cuerpoFrame);
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
 		debugEnd();
 
@@ -313,7 +315,9 @@ public class PrecioPorModalidadPage extends PageObject {
 	public PrecioPorModalidadPage completarCoberturaPorMaquinaria() throws IOException, InterruptedException {
 		debugBegin();
 		
-		String completarCoberturaMaquinaria = this.testDataM.getTestVar(testId, "CoberturaOpcionalMaquinaHerramientaIncluida");
+		
+		System.out.println("VARIABLE CoberturaOpcionalMaquinaHerramientaIncluida: "+getConfigVar("CoberturaOpcionalMaquinaHerramientaIncluida"));
+		String completarCoberturaMaquinaria = getConfigVar("CoberturaOpcionalMaquinaHerramientaIncluida");
 		if(completarCoberturaMaquinaria.equals(ProjectConstants.CoberturaOpcionalncluida)) {
 			this.getPreciosBefore();
 			this.coberturasAdicionales = this.getCoberturasOpcionales();
@@ -369,8 +373,8 @@ public class PrecioPorModalidadPage extends PageObject {
 				this.webDriver.switchToFrame(this.cuerpoFrame);
 				this.webDriver.click(this.btnAnadirMaquinaria);
 				this.webDriver.click(this.btnAnadirMaquinariaModalWindow);
-				this.webDriver.clickElementFromDropDownByText(this.cmbTipoMaquinaria, this.testDataM.getTestVar(testId, "cob_opc_tipo_maquinaria"));
-				this.webDriver.appendText(this.txtValor, String.valueOf(this.testDataM.getTestVar(testId, "cob_opc_valor_maquinaria")));
+				this.webDriver.clickElementFromDropDownByText(this.cmbTipoMaquinaria, getScenarioVar("cob_opc_tipo_maquinaria"));
+				this.webDriver.appendText(this.txtValor, String.valueOf(getScenarioVar("cob_opc_valor_maquinaria")));
 				this.webDriver.click(this.btnGuardarMaquinariaModalWindow);
 				this.getPreciosAfter();
 				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterMaquinaria);
@@ -387,8 +391,9 @@ public class PrecioPorModalidadPage extends PageObject {
 	public PrecioPorModalidadPage completarCoberturasEmpleados() throws IOException {
 		debugBegin();
 		
-		String coberturaEmpleados = this.testDataM.getTestVar(testId, "CoberturaOpcionalAccidentesPersonalesEmpleadosIncluida");
-
+		String coberturaEmpleados = getConfigVar("CoberturaOpcionalAccidentesPersonalesEmpleadosIncluida");
+		System.out.println("VARIABLE CoberturaOpcionalAccidentesPersonalesEmpleadosIncluida: " + getConfigVar("CoberturaOpcionalAccidentesPersonalesEmpleadosIncluida"));
+		
 		if(coberturaEmpleados.equals(ProjectConstants.CoberturaOpcionalncluida)) {
 			this.getPreciosBefore();
 			this.coberturasAdicionales = this.getCoberturasOpcionales();
@@ -422,16 +427,16 @@ public class PrecioPorModalidadPage extends PageObject {
 
 				this.webDriver.clickElementFromDropDownByText(this.cmbTipoDocumento, ProjectConstants.NIF);
 				this.webDriver.appendText(this.txtNumeroDocumento, DniGeneratorHelper.generaNif(null));
-				this.webDriver.appendText(this.txtEmpleadoNombre, this.testDataM.getTestVar(testId, "EmpleadoNombre"));
-				this.webDriver.appendText(this.txtEmpleadoApellido1, this.testDataM.getTestVar(testId, "EmpleadoPrimerApellido"));
-				this.webDriver.appendText(this.txtEmpleadoApellido2, this.testDataM.getTestVar(testId, "EmpleadoSegundoApellido"));
-				this.webDriver.clickElementFromDropDownByText(this.cmbEmpleadoProfesion, this.testDataM.getTestVar(testId, "EmpleadoProfesion"));
-				this.webDriver.appendText(this.txtEmpleadoProfesionDescripcion, this.testDataM.getTestVar(testId, "EmpleadoPofesionDescripcion"));
+				this.webDriver.appendText(this.txtEmpleadoNombre, getScenarioVar("EmpleadoNombre"));
+				this.webDriver.appendText(this.txtEmpleadoApellido1, getScenarioVar("EmpleadoPrimerApellido"));
+				this.webDriver.appendText(this.txtEmpleadoApellido2, getScenarioVar("EmpleadoSegundoApellido"));
+				this.webDriver.clickElementFromDropDownByText(this.cmbEmpleadoProfesion, getScenarioVar("EmpleadoProfesion"));
+				this.webDriver.appendText(this.txtEmpleadoProfesionDescripcion, getScenarioVar("EmpleadoPofesionDescripcion"));
 
-				this.webDriver.appendText(this.txtEmpleadoCapital, this.testDataM.getTestVar(testId, "EmpleadoCapital"));
-				this.webDriver.appendText(this.txtEmpleadoFechaNacimiento, this.testDataM.getTestVar(testId, "EmpleadoFechaNacimiento"));
-				this.webDriver.clickElementFromDropDownByText(this.txtEmpleadoBeneficiario, this.testDataM.getTestVar(testId, "EmpleadoBeneficiario"));
-				this.webDriver.appendText(this.txtEmpleadoBeneficiarioDescripcion, this.testDataM.getTestVar(testId, "EmpleadoBeneficiarioDescripcion"));
+				this.webDriver.appendText(this.txtEmpleadoCapital, getScenarioVar("EmpleadoCapital"));
+				this.webDriver.appendText(this.txtEmpleadoFechaNacimiento, getScenarioVar("EmpleadoFechaNacimiento"));
+				this.webDriver.clickElementFromDropDownByText(this.txtEmpleadoBeneficiario, getScenarioVar("EmpleadoBeneficiario"));
+				this.webDriver.appendText(this.txtEmpleadoBeneficiarioDescripcion, getScenarioVar("EmpleadoBeneficiarioDescripcion"));
 				this.webDriver.click(this.btnAsegurarAccidentesModalWindow);
 				this.webDriver.exitFrame();
 				this.getPreciosAfter();
@@ -448,8 +453,12 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage completarCoberturasEnergiaSolar() throws IOException {
 		debugBegin();
-		String coberturasolar = this.testDataM.getTestVar(testId, "CoberturaOpcionalInstalacionesFotovoltaicasIncluida");
-
+		String coberturasolar = getConfigVar("CoberturaOpcionalInstalacionesFotovoltaicasIncluida");
+		
+		System.out.println("\n");
+		System.out.println("$$$$ VARIABLE CoberturaOpcionalInstalacionesFotovoltaicasIncluida: " + getConfigVar("CoberturaOpcionalInstalacionesFotovoltaicasIncluida"));
+		System.out.println("\n");
+		
 		if(coberturasolar.equals(ProjectConstants.CoberturaOpcionalncluida)) {
 			this.getPreciosBefore();
 			this.coberturasAdicionales = this.getCoberturasOpcionales();
@@ -478,8 +487,8 @@ public class PrecioPorModalidadPage extends PageObject {
 				this.webDriver.click(this.btnAnadirPlacaSolar);
 				this.webDriver.click(this.btnAnadirPlacaSolarModalWindow);
 
-				this.webDriver.appendText(this.txtInstalacionFotovoltaicaDescripcion, this.testDataM.getTestVar(testId, "InstalacionesFotovoltaicasDescripcion"));
-				this.webDriver.appendText(this.txtInstalcionFotovoltaicaValor, String.valueOf(this.testDataM.getTestVar(testId, "InstalacionesFotovoltaicasValor")));
+				this.webDriver.appendText(this.txtInstalacionFotovoltaicaDescripcion, getScenarioVar("InstalacionesFotovoltaicasDescripcion"));
+				this.webDriver.appendText(this.txtInstalcionFotovoltaicaValor, String.valueOf(getScenarioVar("InstalacionesFotovoltaicasValor")));
 				this.webDriver.click(this.btnGuardarInstalacionSolarModalWindow);
 				this.webDriver.exitFrame();
 				this.getPreciosAfter();
@@ -497,7 +506,8 @@ public class PrecioPorModalidadPage extends PageObject {
 	public PrecioPorModalidadPage seleccionarModalidad() {
 		debugBegin();
 
-		String modalidad = this.testDataM.getTestVar(testId, "modalidad");
+		System.out.println("VARIABLE modalidad: " + getScenarioVar("modalidad"));
+		String modalidad = getScenarioVar("modalidad");
 
 		switch(modalidad) {
 			case ProjectConstants.ModalidadBasic:
@@ -531,24 +541,24 @@ public class PrecioPorModalidadPage extends PageObject {
 		String DescuentoValue = this.webDriver.getText(this.lblPorcentajeDescuentoPantallaPrincipal);
 		this.webDriver.exitFrame();
 
-		if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "descuentoEnabled")) || Boolean.parseBoolean(this.testDataM.getTestVar(testId, "recargo"))
+		if(Boolean.parseBoolean(getScenarioVar("descuentoEnabled")) || Boolean.parseBoolean(getScenarioVar("recargo"))
 			|| !DescuentoValue.equals(ProjectConstants.CantidadDescuentoNoEspecificado)) {
 			this.getPreciosBefore();
 			this.webDriver.switchToFrame(this.cuerpoFrame);
 			// this.webDriver.moveToElementAndClick(this.btnAddTipoDescuento);
 			String ErrorMessage = null;
 
-			if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "descuentoEnabled"))) {
+			if(Boolean.parseBoolean(getScenarioVar("descuentoEnabled"))) {
 				this.webDriver.appendText(this.txtPorcentajeDescuento, ProjectConstants.PorcentajeDescuentoRecargo);
 				this.webDriver.click(this.rdnDescuento);
 				this.webDriver.clickElementFromDropDownByText(this.cmbTipoDescuento, ProjectConstants.TipoDescuento);
 				ErrorMessage = ProjectConstants.AfterAddingDiscount;
-			} else if(Boolean.parseBoolean(this.testDataM.getTestVar(testId, "recargo"))) {
+			} else if(Boolean.parseBoolean(getScenarioVar("recargo"))) {
 				this.webDriver.click(this.rdnRecargo);
 				this.webDriver.appendText(this.txtPorcentajeDescuento, ProjectConstants.PorcentajeDescuentoRecargo);
 				ErrorMessage = ProjectConstants.AfterAddingAdditionalCharge;
-			} else if(!DescuentoValue.equals(ProjectConstants.CantidadDescuentoNoEspecificado) && !Boolean.parseBoolean(this.testDataM.getTestVar(testId, "descuentoEnabled"))
-				&& !Boolean.parseBoolean(this.testDataM.getTestVar(testId, "recargo"))) {
+			} else if(!DescuentoValue.equals(ProjectConstants.CantidadDescuentoNoEspecificado) && !Boolean.parseBoolean(getScenarioVar("descuentoEnabled"))
+				&& !Boolean.parseBoolean(getScenarioVar("recargo"))) {
 				// this.webDriver.click(this.btnAddTipoDescuento);
 				this.webDriver.appendText(this.txtPorcentajeDescuento, "");
 				this.webDriver.tabulateElement(this.txtPorcentajeDescuento);
@@ -567,7 +577,11 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage completarFranquiciaVoluntaria() {
 		debugBegin();
-		String franquiciaVoluntaria = this.testDataM.getTestVar(testId, "franquicia_voluntaria");
+		System.out.println("\n");
+		System.out.println("VARIABLE franquicia_voluntaria: " + getConfigVar("franquicia_voluntaria"));
+		System.out.println("\n");
+		
+		String franquiciaVoluntaria = getConfigVar("franquicia_voluntaria");
 
 		if(franquiciaVoluntaria != null) {
 			this.getPreciosBefore();
@@ -575,6 +589,7 @@ public class PrecioPorModalidadPage extends PageObject {
 			this.webDriver.clickElementFromDropDownByText(this.cmbFranquiciaVoluntaria, franquiciaVoluntaria);
 			this.getPreciosAfter();
 			this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterAddingFranquiciaVoluntaria);
+			
 		}
 		
 		debugEnd();
@@ -618,11 +633,11 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage compareValues(String ComparisonType, String Modification) {
 		debugBegin();
-		debugInfo("ComparisonType: " + ComparisonType + ", Modalidad: " + this.testDataM.getTestVar(testId, "modalidad"));
+		debugInfo("ComparisonType: " + ComparisonType + ", Modalidad: " + getScenarioVar("modalidad"));
 		switch(ComparisonType) {
 
 			case ProjectConstants.NotEqual:
-				switch(this.testDataM.getTestVar(testId, "modalidad")) {
+				switch(getScenarioVar("modalidad")) {
 					case ProjectConstants.ModalidadPlus:
 						if(this.PrecioPlusBefore.equals(this.PrecioPlusAfter)) {
 							this.testDataM.setTestVar(testId, "capitalesModifiedError", "true");

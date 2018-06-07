@@ -36,8 +36,8 @@ public class DatosBasicosTomadorPage extends PageObject {
 	///html/body/div/div[1]/div/div[3]/footer/div/button[2]
 	
 	// @FindBy(xpath = ".//*[text()='Continuar']")
-	private By btnContinuar = By.cssSelector("footer [ng-click*='continuar']");
-	
+	//private By btnContinuar = By.cssSelector("footer [ng-click*='continuar']");
+	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
 
 
 	// @FindBy(xpath = ".//*[text()='Aceptar']")
@@ -59,11 +59,11 @@ public class DatosBasicosTomadorPage extends PageObject {
 
 	private By btnVolver = By.id("botonVolver");
 
-	private By btnAceptarVolver = By.cssSelector("button[ng-click*='com_aceptar']");
+	//private By btnAceptarVolver = By.cssSelector("button[ng-click*='com_aceptar']");
 	
 	private By loaderModal = By.cssSelector("#modalLoader");
 	
-	// private By btnAceptarVolver = By.cssSelector("com_aceptar");
+	private By btnAceptarVolver = By.cssSelector("#com_aceptar");
 	// private By btnAceptarVolver = By.id("Aceptar");
 	// private By btnAceptarVolver = By.xpath(".//*[text()='Aceptar']");
 	// endregion
@@ -85,9 +85,18 @@ public class DatosBasicosTomadorPage extends PageObject {
 	// region methods
 	public DatosBasicosTomadorPage clickOnContinuar() {
 		debugBegin();
+		this.webDriver.waitWithDriver(4000);
+
 		this.webDriver.waitForElementToBeClickableInFrame(this.loaderModal, this.cuerpoFrame);
+
 		//this.webDriver.waitForElementToBeClickableInFrame(this.procesandoWindow, this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.scrollToElement(this.btnContinuar);
+		
+		this.webDriver.scrollToElement(this.btnContinuar);
+		this.webDriver.waitWithDriver(4000);
+		this.webDriver.click(this.btnContinuar);
+		this.webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -141,14 +150,24 @@ public class DatosBasicosTomadorPage extends PageObject {
 				// this.browserContext.getTestCaseData().getTomadorSegundoApellido());
 
 				// Select documento tomador
-				this.webDriver.waitWithDriver(1000);
+				this.webDriver.waitWithDriver(1500);
 				this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
-				this.webDriver.waitWithDriver(1000);
+				this.webDriver.waitWithDriver(1500);
 				if(this.webDriver.isPresentInFrame(this.btnVolver, this.cuerpoFrame)) {
 					this.webDriver.clickInFrame(this.btnVolver, this.cuerpoFrame);
 					this.webDriver.clickInFrame(this.btnAceptarVolver, this.cuerpoFrame);
 				}
-				this.webDriver.waitWithDriver(2000);
+				//this.webDriver.waitWithDriver(2000);
+				this.webDriver.waitForElementNotToBeClickableInFrame(this.loaderModal, this.cuerpoFrame);
+				this.webDriver.waitWithDriver(5500);
+				System.out.println("~$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				System.out.println("\n");
+				System.out.println("VARIABLE tipoDocumento: " + this.cmbTipoDocumento);
+				System.out.println("VARIABLE this.cuerpoFrame: " + this.cuerpoFrame);
+				System.out.println("VARIABLE ProjectConstants.NIF: "+ ProjectConstants.NIF);
+				System.out.println("\n");
+				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
 				setTestVar("tomador_dni", DniGeneratorHelper.generaNif(null));
 				this.webDriver.clickInFrame(this.txtNumeroDocumento, this.cuerpoFrame);
