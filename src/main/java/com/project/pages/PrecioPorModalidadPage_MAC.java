@@ -175,14 +175,12 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// logger.debug("END - seleccionarFranquicia");
 	// }
 	//
-	// public void continuar()
-	// {
-	// logger.debug("BEGIN - Continuar");
-	//
-	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.cuerpoFrame);
-	// logger.debug("END - Continuar");
-	// }
-	//
+	public void clickContinuar() {
+		debugBegin();
+		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		debugEnd();
+	}
+
 	// public void selectModalidad()
 	// {
 	// logger.debug("BEGIN - selectModalidad");
