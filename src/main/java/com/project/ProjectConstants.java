@@ -20,7 +20,7 @@ public class ProjectConstants {
 	
 	public static final String DeshabitacionInferior = "Inferior al 75%";
 	
-	public static final String NuevoTomadorYAseguradoPrincipal = "nuevo Tomador y asegurado principal";
+	public static final String TomadorYAseguradoPrincipal = "tomadorYAseguradoPrincipal";
 	public static final String NuevoInquilinoPrincipal = "nuevo Inquilino";
 	public static final String ClienteExistente = "cliente existente";
 	public static final String LoginAccessInnova = "Innova";

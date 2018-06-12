@@ -13,6 +13,10 @@ import com.mutuaPropietarios.testCasesData.context.IApplicationAccessHelper;
 import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
 import com.project.pages.*;
+
+
+
+
 /*
 import com.project.utils.GestionCotizacionesBuscadorPage;
 import com.project.utils.GestionOnlineAccessHelper;
@@ -3542,7 +3546,10 @@ public class Steps extends StepObject {
 		new GestionCotizacionesBuscadorPage(userS).modificarProjecto();
 
 		new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar(userS.getScenario());
+		new PrecioPorModalidadPage_MAC(userS).clickContinuar();
+		new InquilinosAvalistasPage_MAC(userS).clickContinuar();
 
+		new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();
 
 //		loginAcess = this.tCData.getAcceso();
 //		if (loginAcess.equals(MutuaPropietariosConstants.LoginAccessGestionLine))

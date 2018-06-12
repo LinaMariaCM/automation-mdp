@@ -135,7 +135,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 		// debugBegin();
 
 		switch(tomadorType) {
-			case ProjectConstants.NuevoTomadorYAseguradoPrincipal:
+			case ProjectConstants.TomadorYAseguradoPrincipal:
 				// this.wh.sendValueToWebElementInFrame(this.txtNumeroDocumento,
 				// this.cuerpoFrame,
 				// this.browserContext.getTestCaseData().getTomadorDNI());

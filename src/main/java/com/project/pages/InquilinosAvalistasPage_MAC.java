@@ -156,8 +156,6 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		this.addDatosInquilino();
 		this.anadirDocumentacion();
 		this.setTestVar("NumCotizacion", recuperarNumeroCotizacion());
-		System.out.println("***NumCotizacion in executeActionsInInquilinosAvalistasPage: " + getTestVar("NumCotizacion"));
-		//this.setTestVar(this.recuperarNumeroCotizacion());
 		this.validacionViabilidadInquilino();
 	}
 	// public void executeActionsInInquilinosAvalistasPage() throws
@@ -491,6 +489,13 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// return result;
 	// }
 	//
+	 public void clickContinuar()
+	 {
+	 debugBegin();
+	 this.webDriver.clickInFrame(this.btnContinuar, this.mainFrame);
+	 debugEnd();
+	 }
+
 	// public void clickOnContinuar()
 	// {
 	// logger.debug("BEGIN - Continuar");

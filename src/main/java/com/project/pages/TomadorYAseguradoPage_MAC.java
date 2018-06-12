@@ -2,10 +2,13 @@ package com.project.pages;
 
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import com.project.ProjectConstants;
+import org.openqa.selenium.By;
+
 
 public class TomadorYAseguradoPage_MAC extends PageObject {
 	
-	TomadorYAseguradoPage_MAC(UserStory userS) {
+	public TomadorYAseguradoPage_MAC(UserStory userS) {
 		super(userS);
 	}
 	// final static Logger logger =
@@ -17,6 +20,7 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 	// // region webelements
 	// @FindBy(name = "cuerpo")
 	// private WebElement cuerpoFrame;
+	private By mainFrame = By.cssSelector("#mainFrame");
 	//
 	// // DATOS TOMADOR
 	// @FindBy(xpath = ".//*[text()='Tomador']")
@@ -24,15 +28,21 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 	//
 	// @FindBy(xpath = "//*[@id='TOMADOR_TIPOTOMASEG_CONF']")
 	// private WebElement drpDwnAlta;
+	private By drpDwnAlta = By.cssSelector("#TOMADOR_TIPOTOMASEG_CONF");
 	//
 	// @FindBy(xpath = "//*[@id='TOMADOR_TIPOPERSONA_CONF']")
 	// private WebElement drpDwnTipoPersona;
+	private By drpDwnTipoPersona = By.cssSelector("#TOMADOR_TIPOPERSONA_CONF");
 	//
 	// @FindBy(xpath = "//*[@id='TOMADOR_TIPODOCFIS_CONF']")
 	// private WebElement drpDwnDocumento;
+	private By drpDwnDocumento = By.cssSelector("#TOMADOR_TIPODOCFIS_CONF");
+
 	//
 	// @FindBy(xpath = "//*[@id='TOMADOR_MEDIOPAGO_CONF']")
 	// private WebElement drpDwnMedioPago;
+	private By drpDwnMedioPago = By.cssSelector("#TOMADOR_MEDIOPAGO_CONF");
+
 	//
 	// @FindBy(xpath = ".//*[text()='Asegurado']")
 	// private WebElement btnAsegurado;
@@ -56,6 +66,8 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 	// @FindBy(css = "button[onclick='aniadirTomadorAsegurado(); return
 	// false;']")
 	// private WebElement btnAnadirDatosTomadorPantallaPrincipal;
+	private By btnAnadirDatosTomadorPantallaPrincipal = By.cssSelector("#addTomaAsegurados");
+
 	//
 	// @FindBy(xpath = "//*[@id='botonInmuebleVisual']")
 	// private WebElement btnAnadirDireccion;
@@ -116,6 +128,11 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 	// PageFactory.initElements(browserContext.getWebDriver(), this);
 	// }
 	//
+
+	 public void executeActionsInTomadorYAseguradoPage() {
+	 // Add datos tomador
+	 this.addDatosTomadorAsegurado();
+	 }
 	// public void executeActionsInTomadorYAseguradoPage() throws
 	// InterruptedException, IOException
 	// {
@@ -123,133 +140,92 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 	// this.AddDatosTomador();
 	// }
 	//
-	// public void AddDatosTomador()
-	// {
-	// logger.debug("BEGIN - AddDatosTomador");
-	//
-	// if
-	// (this.tData.getTomador().equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal))
-	// {
-	//
-	// //
-	// this.wh.MoveToElementInFrameWithJavaScript(this.btnAnadirDatosTomadorPantallaPrincipal,
-	// this.cuerpoFrame);
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosTomadorPantallaPrincipal,
-	// this.cuerpoFrame);
-	// // this.wh.SwitchToFrame(this.cuerpoFrame);
-	// //
-	// this.wh.ClickOnWebElement(this.btnAnadirDatosTomadorPantallaPrincipal);
-	//
-	// // Select Tomador
-	// this.SeleccionarTomador("Tomador");
-	// // Select persona fisica
-	// this.SeleccionarTipoPersona("Física");
-	// // Select documento tomador DNI
-	// this.SeleccionarTipoDocumento("NIF");
-	//
-	// // Select documento tomador
-	// this.wh.sendValueToWebElementInFrame(this.txtTomadorDNI,
-	// this.cuerpoFrame, String.valueOf(this.tData.getTomadorDNI()));
-	// // Select nombre tomador
-	// this.wh.sendValueToWebElementInFrame(this.txtTomadorNombre,
-	// this.cuerpoFrame, String.valueOf(this.tData.getTomadorNombre()));
-	// // Select primer apellido
-	// this.wh.sendValueToWebElementInFrame(this.txtTomadorPrimerApellido,
-	// this.cuerpoFrame, String.valueOf(this.tData.getTomadorPrimerApellido()));
-	// // Select segundo apellido
-	// this.wh.sendValueToWebElementInFrame(this.txtTomadorSegundoApellido,
-	// this.cuerpoFrame,
-	// String.valueOf(this.tData.getTomadorSegundoApellido()));
-	//
-	// // Domicilio
-	// this.wh.clickOnWebElementInFrame(this.btnRellenarDireccion,
-	// this.cuerpoFrame);
-	//
-	// // Provincia
-	// this.wh.sendValueToWebElementInFrame(this.txtProvincia, this.cuerpoFrame,
-	// String.valueOf(this.tData.getTomadorProvincia()));
-	// this.wh.clickOnWebElementInFrame(this.itemProvincia, this.cuerpoFrame);
-	// // Poblacion
-	// this.wh.sendValueToWebElementInFrame(this.txtPoblacion, this.cuerpoFrame,
-	// String.valueOf(this.tData.getTomadorPoblacion()));
-	// this.wh.clickOnWebElementInFrame(this.itemPoblacion, this.cuerpoFrame);
-	// // Nombre via
-	// this.wh.sendValueToWebElementInFrame(this.txtNomVia, this.cuerpoFrame,
-	// String.valueOf(this.tData.getTomadorDireccion()));
-	// this.wh.clickOnWebElementInFrame(this.itemNomVia, this.cuerpoFrame);
-	// // Num via
-	// this.wh.sendValueToWebElementInFrame(this.txtNumVia, this.cuerpoFrame,
-	// String.valueOf(this.tData.getTomadorNumeroPortal()));
-	//
-	// // Click añadir direccion
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDireccion,
-	// this.cuerpoFrame);
-	//
-	// // Fecha nacimiento
-	// this.wh.sendValueToWebElementInFrame(this.txtFechaNacimiento,
-	// this.cuerpoFrame,
-	// String.valueOf(this.tData.getTomadorFechaNacimiento()));
-	//
-	// // Medio pago
-	// this.SeleccionarMedioPago();
-	//
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosTomador,
-	// this.cuerpoFrame);
-	// }
-	//
-	// logger.debug("END - AddDatosTomador");
-	// }
-	//
-	// public void SeleccionarTomador()
-	// {
-	// this.SeleccionarTomador(this.browserContext.getTestCaseData().getTomador());
-	// }
-	//
-	// public void SeleccionarTomador(
-	// String tomador)
-	// {
-	// logger.debug("BEGIN - SeleccionarTomador");
-	// this.wh.selectValueInDropDownInFrame(this.drpDwnAlta, this.cuerpoFrame,
-	// tomador);
-	//
-	// /*
-	// * switch (tomador) { case MutuaPropietariosConstants.ALTA_TOMADOR:
-	// this.wh.SelectValueInDropDownInFrame(this.btnElegirAlta,
-	// this.cuerpoFrame,
-	// * tomador); break; case MutuaPropietariosConstants.ALTA_ASEGURADO:
-	// this.wh.SelectValueInDropDownInFrame(this.btnElegirAlta,
-	// this.cuerpoFrame,
-	// * tomador); break; }
-	// */
-	//
-	// logger.debug("END - SeleccionarTomador");
-	// }
-	//
-	// public void SeleccionarTipoDocumento(
-	// String tipo)
-	// {
-	// logger.debug("BEGIN - SeleccionarTipoDocumento");
-	//
-	// this.wh.selectValueInDropDownInFrame(this.drpDwnDocumento,
-	// this.cuerpoFrame, tipo);
-	//
-	// logger.debug("END - SeleccionarTipoDocumento");
-	// }
-	//
-	// public void SeleccionarTipoPersona(
-	// String tipo)
-	// {
-	// logger.debug("BEGIN - SeleccionarTipoPersona");
-	//
-	// this.wh.selectValueInDropDownInFrame(this.drpDwnTipoPersona,
-	// this.cuerpoFrame, tipo);
-	// /*
-	// * this.wh.SwitchToFrame(this.cuerpoFrame);
-	// this.wh.MoveToElementWithJavaScript(this.btnFisica);
-	// */
-	//
-	// logger.debug("END - SeleccionarTipoPersona");
-	// }
+	public void addDatosTomadorAsegurado() {
+		debugBegin();
+		if (getScenarioVar("tipo_alta").equals(ProjectConstants.TomadorYAseguradoPrincipal)) {
+			this.webDriver.clickInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, mainFrame);
+
+			// Seleccionar tipo alta
+			this.seleccionarTipoAlta("Tomador");
+
+			// Select persona fisica
+			this.seleccionarTipoPersona("Física");
+
+			// // Select documento tomador DNI
+			// this.SeleccionarTipoDocumento("NIF");
+			//
+			// // Select documento tomador
+			// this.wh.sendValueToWebElementInFrame(this.txtTomadorDNI,
+			// this.cuerpoFrame, String.valueOf(this.tData.getTomadorDNI()));
+			// // Select nombre tomador
+			// this.wh.sendValueToWebElementInFrame(this.txtTomadorNombre,
+			// this.cuerpoFrame, String.valueOf(this.tData.getTomadorNombre()));
+			// // Select primer apellido
+			// this.wh.sendValueToWebElementInFrame(this.txtTomadorPrimerApellido,
+			// this.cuerpoFrame, String.valueOf(this.tData.getTomadorPrimerApellido()));
+			// // Select segundo apellido
+			// this.wh.sendValueToWebElementInFrame(this.txtTomadorSegundoApellido,
+			// this.cuerpoFrame,
+			// String.valueOf(this.tData.getTomadorSegundoApellido()));
+			//
+			// // Domicilio
+			// this.wh.clickOnWebElementInFrame(this.btnRellenarDireccion,
+			// this.cuerpoFrame);
+			//
+			// // Provincia
+			// this.wh.sendValueToWebElementInFrame(this.txtProvincia, this.cuerpoFrame,
+			// String.valueOf(this.tData.getTomadorProvincia()));
+			// this.wh.clickOnWebElementInFrame(this.itemProvincia, this.cuerpoFrame);
+			// // Poblacion
+			// this.wh.sendValueToWebElementInFrame(this.txtPoblacion, this.cuerpoFrame,
+			// String.valueOf(this.tData.getTomadorPoblacion()));
+			// this.wh.clickOnWebElementInFrame(this.itemPoblacion, this.cuerpoFrame);
+			// // Nombre via
+			// this.wh.sendValueToWebElementInFrame(this.txtNomVia, this.cuerpoFrame,
+			// String.valueOf(this.tData.getTomadorDireccion()));
+			// this.wh.clickOnWebElementInFrame(this.itemNomVia, this.cuerpoFrame);
+			// // Num via
+			// this.wh.sendValueToWebElementInFrame(this.txtNumVia, this.cuerpoFrame,
+			// String.valueOf(this.tData.getTomadorNumeroPortal()));
+			//
+			// // Click añadir direccion
+			// this.wh.clickOnWebElementInFrame(this.btnAnadirDireccion,
+			// this.cuerpoFrame);
+			//
+			// // Fecha nacimiento
+			// this.wh.sendValueToWebElementInFrame(this.txtFechaNacimiento,
+			// this.cuerpoFrame,
+			// String.valueOf(this.tData.getTomadorFechaNacimiento()));
+			//
+			// // Medio pago
+			// this.SeleccionarMedioPago();
+			//
+			// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosTomador,
+			// this.cuerpoFrame);
+			// }
+			//
+			// logger.debug("END - AddDatosTomador");
+		}
+	}
+
+
+	public void seleccionarTipoAlta(String tipoAlta) {
+		debugBegin();
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpDwnAlta, this.mainFrame, tipoAlta);
+		debugEnd();
+	}
+
+	public void SeleccionarTipoDocumento(String tipoDocumento) {
+		debugBegin();
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpDwnDocumento, this.mainFrame, tipoDocumento);
+		debugEnd();
+	}
+
+	public void SeleccionarTipoPersona(String tipoPersona) {
+	 	debugBegin();
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpDwnTipoPersona, this.mainFrame, tipoPersona);
+		debugEnd();
+	}
 	//
 	// public void SeleccionarMedioPago()
 	// {

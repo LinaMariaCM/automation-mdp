@@ -9,7 +9,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// region webelements
 	// @FindBy(name = "cuerpo")
 	// private WebElement cuerpoFrame;
-	private By cuerpoFrame = By.cssSelector("#mainFrame");
+	private By mainFrame = By.cssSelector("#mainFrame");
 
 	// @FindBy(id = "nombdato_MODALIDAD_1")
 	// private WebElement drpdwnModalidad;
@@ -73,8 +73,8 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	//
 	public void completarRentaMensualAlquiler() {
 		debugBegin();
-		this.webDriver.clearAndAppendTextInFrame(this.txtRenta, this.cuerpoFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));
-		this.webDriver.tabulateElementInFrame(this.txtRenta, this.cuerpoFrame);
+		this.webDriver.clearAndAppendTextInFrame(this.txtRenta, this.mainFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));
+		this.webDriver.tabulateElementInFrame(this.txtRenta, this.mainFrame);
 		debugEnd();
 	}
 
@@ -88,12 +88,12 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// logger.debug("END - CompletarRentaMensualAlquiler");
 	// }
 	//
-	public void clickOnConvertirAProyecto() throws InterruptedException {
+	public void clickOnConvertirAProyecto() {
 		debugBegin();
 		// this.wh.scrollToEndOfPage();
 		// this.wh.scrollToWebElementWithJavaScriptInFrame(this.btnConvertirProyecto,
 		// this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnConvertirProyecto, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnConvertirProyecto, this.mainFrame);
 		debugEnd();
 	}
 
@@ -122,7 +122,6 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		if(Franquicia != null) {
 			this.seleccionarFranquicia();
 		}
-		
 		debugEnd();
 	}
 
@@ -147,7 +146,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	//
 	public void seleccionarImpagoAlquiler() {
 		debugBegin();
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnImpagoAlquiler, this.cuerpoFrame, String.valueOf(getScenarioVar("impago_alquiler")));
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnImpagoAlquiler, this.mainFrame, String.valueOf(getScenarioVar("impago_alquiler")));
 		debugEnd();
 	}
 
@@ -162,7 +161,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 
 	public void seleccionarFranquicia() {
 		debugBegin();
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnFranquicia, this.cuerpoFrame, String.valueOf(getScenarioVar("franquiciaMAC")));
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnFranquicia, this.mainFrame, String.valueOf(getScenarioVar("franquiciaMAC")));
 		debugEnd();
 	}
 
@@ -175,6 +174,13 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// logger.debug("END - seleccionarFranquicia");
 	// }
 	//
+
+	 public void clickContinuar() {
+		 debugBegin();
+		 this.webDriver.clickInFrame(this.btnContinuar, this.mainFrame);
+		 debugEnd();
+	 }
+
 	// public void continuar()
 	// {
 	// logger.debug("BEGIN - Continuar");
