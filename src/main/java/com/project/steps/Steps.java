@@ -3588,19 +3588,12 @@ public class Steps extends StepObject {
 //
 //		}
 //
-//		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(this.browserContext);
-//		precioPorModalidadPage_MAC.continuar();
-//
-//		// Continuar
-//		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(this.browserContext);
-//		inquilinosAvalistasPage_MAC.clickOnContinuar();
-//
-//		// Rellenar datos de contratacion, pagina 3
-//		TomadorYAseguradoPage_MAC tomadorYAseguradoPage_MAC = new TomadorYAseguradoPage_MAC(this.browserContext);
-//		tomadorYAseguradoPage_MAC.executeActionsInTomadorYAseguradoPage();
-//
-//		InmueblePage_MAC inmueblePage_MAC = new InmueblePage_MAC(this.browserContext);
-//		inmueblePage_MAC.executeActionsInInmueblePage();
+		new PrecioPorModalidadPage_MAC(userS).clickContinuar();
+		new InquilinosAvalistasPage_MAC(userS).clickContinuar();
+
+		// Rellenar datos de contratacion, pagina 3
+		new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();
+        new InmueblePage_MAC(userS).executeActionsInInmueblePage();
 //
 //		DocumentacionPage_MAC documentacionPage_MAC = new DocumentacionPage_MAC(this.browserContext);
 //		documentacionPage_MAC.addDocumentContratacion();

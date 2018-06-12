@@ -119,9 +119,12 @@ public class AsignarMediadorPage extends PageObject {
 	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(String codigoMediador) throws InterruptedException {
 		debugBegin();
 
-		this.webDriver.clearAndAppendTextInFrame(this.txtCodigoMediadorMAC, this.mainFrame, codigoMediador);
-		this.webDriver.clickInFrame(this.btnBuscarMAC, this.mainFrame);
+		this.webDriver.switchToFrame(this.mainFrame);
+		this.webDriver.appendText(this.txtCodigoMediadorMAC, codigoMediador);
 
+		this.webDriver.click(this.btnBuscarMAC);
+
+		this.webDriver.exitFrame();
 
 		// this.wh.ClickOnWebElementInFrame(this.radioBtnResultadoBusqueda,
 		// this.cuerpoFrame);
