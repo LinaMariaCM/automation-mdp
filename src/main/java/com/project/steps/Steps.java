@@ -3434,7 +3434,7 @@ public class Steps extends StepObject {
 		this.el_usuario_accede(loginAccess, user);
 
 		// Create project MAC
-		this.createProjectMAC();
+		this.createProjectMAC(loginAccess);
 
 		// Assign mediador
 		String mediador = getScenarioVar("mediador");
@@ -3489,12 +3489,15 @@ public class Steps extends StepObject {
 		debugEnd();
 	}
 
-	public void createProjectMAC() throws Exception {
-		// this.login(userId, password);
-		new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
-		// this.OpenMutuaAlquilerConfort(); this.CreateProject();
-		new InnovaHomePage(userS).CreateNewProject();
-
+	public void createProjectMAC(String accessType) throws Exception {
+        debugBegin();
+        if (accessType.equals(ProjectConstants.LoginAccessGestionLine)) {
+            new GestionOnlineHomePage(userS).openMutuaAlquilerConfort();
+        } else if (accessType.equals(ProjectConstants.LoginAccessInnova)) {
+            new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
+            new InnovaHomePage(userS).CreateNewProject();
+        }
+        debugEnd();
 	}
 
 	public void searchAuthorisation() throws Exception {
@@ -3534,22 +3537,34 @@ public class Steps extends StepObject {
 		this.el_usuario_accede(loginAccess, user);
 		this.searchAuthorisation();
 		new GestionAutorizacionesPage(userS).autorizar();
+		this.webDriver.quit();
 	}
 
-	public void completo_el_proceso_de_contratacion_MAC(String loginAcess, String user) throws Exception {
+	public void completo_el_proceso_de_contratacion_MAC(String accessType, String user) throws Exception {
 		debugBegin();
-		this.el_usuario_accede(loginAcess, user);
-		new InnovaHomePage(userS).openGestionCotizaciones();
+		this.el_usuario_accede(accessType, user);
 
-		GestionCotizacionesBuscadorPage gestionCotizacionesBuscadorPage = new GestionCotizacionesBuscadorPage(userS);
-		gestionCotizacionesBuscadorPage.searchCotizacion(this.getTestVar("NumCotizacion"));
-		new GestionCotizacionesBuscadorPage(userS).modificarProjecto();
+        if (accessType.equals(ProjectConstants.LoginAccessGestionLine)) {
+            new GestionOnlineHomePage(userS)
+                //.openMutuaAlquilerConfort()
+                .openMisProyectosWeb()
+                .buscarProyectoWeb(this.getTestVar("NumCotizacion"));
+            new GestionOnlineHomePage(userS).modificarProyecto();
 
-		new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar(userS.getScenario());
-		new PrecioPorModalidadPage_MAC(userS).clickContinuar();
-		new InquilinosAvalistasPage_MAC(userS).clickContinuar();
+        } else if (accessType.equals(ProjectConstants.LoginAccessInnova)) {
+            new InnovaHomePage(userS).openGestionCotizaciones();
+            new GestionCotizacionesBuscadorPage(userS).searchCotizacion(this.getTestVar("NumCotizacion"));
+            new GestionCotizacionesBuscadorPage(userS).modificarProjecto();
+            new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar(userS.getScenario());
+        }
 
-		new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();
+        new PrecioPorModalidadPage_MAC(userS).clickContinuar();
+        new InquilinosAvalistasPage_MAC(userS).clickContinuar();
+        // Completar paso Contratación
+        new ContratacionPage_MAC(userS).ExecuteActionsInContratacionPage();
+
+
+
 
 //		loginAcess = this.tCData.getAcceso();
 //		if (loginAcess.equals(MutuaPropietariosConstants.LoginAccessGestionLine))
@@ -3588,18 +3603,9 @@ public class Steps extends StepObject {
 //
 //		}
 //
-		new PrecioPorModalidadPage_MAC(userS).clickContinuar();
-		new InquilinosAvalistasPage_MAC(userS).clickContinuar();
 
-		// Rellenar datos de contratacion, pagina 3
-		new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();
-        new InmueblePage_MAC(userS).executeActionsInInmueblePage();
-//
-//		DocumentacionPage_MAC documentacionPage_MAC = new DocumentacionPage_MAC(this.browserContext);
-//		documentacionPage_MAC.addDocumentContratacion();
-//
-//		ContratacionPage_MAC contratacionPage_MAC = new ContratacionPage_MAC(this.browserContext);
-//		contratacionPage_MAC.seleccionarCheckYContratar();
+
+
 		debugEnd();
 	}
 }

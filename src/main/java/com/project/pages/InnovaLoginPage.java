@@ -16,13 +16,13 @@ public class InnovaLoginPage extends PageObject {
 	private By menuFrame = By.cssSelector("#leftFrame");
 
 	// @FindBy(id = "usuario")
-	private By user = By.cssSelector("#usuario");
+	private By txtUserId = By.cssSelector("#usuario");
 
 	// @FindBy(id = "clave")
-	private By password = By.cssSelector("#clave");
+	private By txtPassword = By.cssSelector("#clave");
 
 	// @FindBy(id = "botonEntrar")
-	private By enter = By.cssSelector("#botonEntrar");
+	private By btnEnter = By.cssSelector("#botonEntrar");
 	// endregion
 
 	/*
@@ -36,14 +36,14 @@ public class InnovaLoginPage extends PageObject {
 	public InnovaLoginPage(UserStory userS) {
 		super(userS);
 	}
+
 	// region methods
+
 	public InnovaLoginPage login(String userId, String password) {
 		debugBegin();
-		this.webDriver.appendText(this.user, userId);
-		System.out.println("*** Password: " + password);
-		this.webDriver.appendText(this.password, password);
-
-		this.webDriver.click(this.enter);
+		this.webDriver.appendText(this.txtUserId, userId);
+		this.webDriver.appendText(this.txtPassword, password);
+		this.webDriver.click(this.btnEnter);
 		Assert.assertTrue("La aplicación no ha hecho el login correctamente", this.webDriver.isClickable(menuFrame));
 		debugEnd();
 

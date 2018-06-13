@@ -56,8 +56,8 @@ public class LoginPage extends PageObject {
 					.login(user, testDataM.getGlobalVar("password"));
 
 				new GestionOnlineHomePage(userS)
-					.acceptCookies()
-					.closeNovedadesDialog();
+					.acceptCookies();
+					//.closeNovedadesDialog();
 				break;
 			default:
 				throw new Exception("Not implemented login access type selected");

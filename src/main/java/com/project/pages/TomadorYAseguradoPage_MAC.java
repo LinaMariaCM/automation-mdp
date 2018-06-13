@@ -172,7 +172,7 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 
 	public void AddDatosTomadorAsegurado() {
 		debugBegin();
-		if (this.getScenarioVar("tomador").equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal)) {
+		if (this.getScenarioVar("tipo_alta").equals(ProjectConstants.TomadorYAseguradoPrincipal)) {
 			//this.webDriver.moveToElementInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.mainFrame);
 			this.webDriver.clickInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.mainFrame);
 

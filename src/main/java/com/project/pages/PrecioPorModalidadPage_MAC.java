@@ -70,7 +70,6 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		this.clickOnConvertirAProyecto();
 	}
 
-	//
 	public void completarRentaMensualAlquiler() {
 		debugBegin();
 		this.webDriver.clearAndAppendTextInFrame(this.txtRenta, this.mainFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));

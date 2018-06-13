@@ -17,24 +17,22 @@ import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 public class GestionOnlineHomePage extends PageObject {
 
 	// region webelements
-	@FindBy(id = "blockrandom")
-	private By frameAppMainWindow;
+	//@FindBy(id = "blockrandom")
+	//private By frameAppMainWindow;
+	//private By frameAppMainWindow = By.cssSelector("#blockrandom");
 
-	@FindBy(id = "topFrame")
-	private By topFrame;
+	private By topFrame = By.cssSelector("#topFrame");
 
-	@FindBy(id = "leftFrame")
-	private By frameLeftFrame;
+	private By leftFrame = By.cssSelector("#leftFrame");
 
-	@FindBy(id = "mainFrame")
-	private By mainFrame;
+    private By mainFrame = By.cssSelector("#mainFrame");
 
-	@FindBy(name = "iframe")
-	private By buscadorFrame;
+	private By contentFrame = By.cssSelector("#blockrandom");
 
 	private By btnNovedadesDialogClose = By.xpath(".//*[contains(@class,'modal-header')]/button");
 
-	private By btnContratacionSelector = By.xpath("#t3-mainnav > div > div > div > div > ul > li:nth-child(6) > a");
+	private By btnContratacionSelector = By.cssSelector("div.nav-collapse:nth-child(2) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)");
+            //"#t3-mainnav > div > div > div > div > ul > li:nth-child(6) > a");
 
 	@FindBy(linkText = "Siniestros")
 	private By btnSiniestrosSelector;
@@ -43,21 +41,22 @@ public class GestionOnlineHomePage extends PageObject {
 
 	// @FindBy(xpath = ".//*[contains(text(),'Contratar Online Proyectos')]")
 
-	private By btnContratarOnlineProyectosOption = By.xpath("#t3-mainnav > div > div > div > div > ul > li:nth-child(6) > div > div > div > div > div > ul > li:nth-child(1) > a");
+	private By btnContratacion = By.cssSelector(".contratacion");
 
 	// @FindBy(xpath = ".//*[contains(text(),'Mis proyectos web')]")
 
-	private By btnMisProyectosWebOption = By.xpath("#t3-mainnav > div > div > div > div > ul > li:nth-child(6) > div > div > div > div > div > ul > li:nth-child(2) > a");
+	private By btnMisProyectosWebOption = By.cssSelector(".mis-proyectos-web");
+    //private By btnMisProyectosWebOption = By.cssSelector("div.nav-collapse:nth-child(2) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(6) > div:nth-child(2) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(2) > a:nth-child(1)");
 
 	// @FindBy(xpath = ".//*[contains(text(),'Mutua Edificio
 	// Confort')]/../..//*[contains(text(),'Contratar')]")
 
-	private By btnContratarmutuaEdificioSeleccionPlus = By.xpath("#dropdown-comunidad > div > a.span2.contratar_btn.popup.prod-mdp > p > span");
+	private By btnContratarMutuaEdificioSeleccionPlus = By.xpath("#dropdown-comunidad > div > a.span2.contratar_btn.popup.prod-mdp > p > span");
 
 	// @FindBy(xpath = ".//*[contains(text(),'Mutua Alquiler
 	// Confort')]/../..//*[contains(text(),'Contratar')]")
 
-	private By btnContratarmutuaAlquiler = By.xpath("#dropdown-alquiler > div > a.span2.contratar_btn.popup.prod-mdp > p > span");
+	private By btnContratarMutuaAlquiler = By.cssSelector("#dropdown-alquiler > div:nth-child(1) > a:nth-child(1) > p:nth-child(1) > span:nth-child(1) > strong:nth-child(2)");
 
 	private By btnMutuaEdificioConfort = By.xpath(".//*[contains(@title,'MUTUA EDIFICIO CONFORT.')]");
 
@@ -67,10 +66,11 @@ public class GestionOnlineHomePage extends PageObject {
 
 	// @FindBy(xpath = ".//*[text()='Acepto']")
 	// @FindBy(css = ".accept")
-	private By btnAcepto = By.xpath(".//*[text()='Acepto']");
+	//private By btnAcepto = By.xpath(".//*[text()='Acepto']");
+    private By btnAceptarCookies = By.cssSelector("#ca_banner > div.accept");
 
-	@FindBy(linkText = "Aceptar")
-	private By btnAceptar;
+    //@FindBy(linkText = "Aceptar")
+	//private By btnAceptar;
 
 	// @FindBy(xpath = ".//*[text()=' Mapa del sitio']")
 	// @FindBy(css = "#Mod222 > div > div > div > p > a")
@@ -83,16 +83,13 @@ public class GestionOnlineHomePage extends PageObject {
 	private By btnGestionPolizas = By.xpath(".//*[@title='Gestión de pólizas']");
 
 	// @FindBy(xpath = ".//*[@id='pr_id']")
-	private By codigoProyecto = By.xpath(".//*[@id='pr_id']");
+	private By txtCodigoProyecto = By.cssSelector("#pr_id");
 
-	@FindBy(id = "tprpoyecto")
-	private By tipoProyectoDropdown;
+	private By tipoProyectoDropdown = By.cssSelector("#tprpoyecto");
 
-	@FindBy(id = "producto")
-	private By productoDropdown;
+	private By productoDropdown = By.cssSelector("#producto");
 
-	@FindBy(id = "search")
-	private By btnBuscar;
+	private By btnBuscar = By.cssSelector("#search");
 
 	// @FindBy(css = "table[id*='DataTables_Table'] a[onclick*='javascript:
 	// editarProyecto']")
@@ -106,7 +103,8 @@ public class GestionOnlineHomePage extends PageObject {
 	private By consultarProyecto = By.xpath("table[id*='DataTables_Table'] a[onclick*='javascript: verEjemplar']");
 
 	// @FindBy(css = "[id^='eliminar_'] > div > a")
-	private By drpdwnAcciones = By.xpath("[id^='eliminar_'] > div > a");
+	//private By drpdwnAcciones = By.xpath("[id^='eliminar_'] > div > a");
+    private By drpdwnAcciones = By.cssSelector(("a.dropdown-toggle > img:nth-child(1)"));
 
 	// @FindBy(css = "tr.odd:nth-child(1) > td:nth-child(13)")
 	// @FindBy(css = "#DataTables_Table_0 > tbody > tr > td:nth-child(13)") //
@@ -146,21 +144,22 @@ public class GestionOnlineHomePage extends PageObject {
 	// region methods
 	public GestionOnlineHomePage acceptCookies() {
 		debugBegin();
-		this.webDriver.click(this.btnAcepto);
+		this.webDriver.click(this.btnAceptarCookies);
 		debugEnd();
 
 		return this;
 	}
 
-	public GestionOnlineHomePage closeNovedadesDialog() {
-		debugBegin();
-		if(!this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
-			this.webDriver.click(this.btnAceptar);
-		}
-		debugEnd();
-
-		return this;
-	}
+	// This doesn't appear anymore
+//	public GestionOnlineHomePage closeNovedadesDialog() {
+//		debugBegin();
+//		if(!this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
+//			this.webDriver.click(this.btnAceptar);
+//		}
+//		debugEnd();
+//
+//		return this;
+//	}
 
 	public GestionOnlineHomePage createNewProject() {
 		debugBegin();
@@ -187,14 +186,16 @@ public class GestionOnlineHomePage extends PageObject {
 	public GestionOnlineHomePage openMutuaEdificioConfort() throws AWTException, InterruptedException, IOException {
 		debugBegin();
 		// In GO UatPj environment, only need to hover over option.
-		if(this.testDataM.getConfigVar("environment").equals("UatPj")) {
-			this.webDriver.moveToElement(this.btnContratacionSelector);
-		} else {
-			this.webDriver.click(this.btnContratacionSelector);
-		}
-		this.webDriver.click(this.btnContratarOnlineProyectosOption);
+//		if(this.testDataM.getConfigVar("environment").equals("UatPj")) {
+//			this.webDriver.moveToElement(this.btnContratacionSelector);
+//		} else {
+//			this.webDriver.click(this.btnContratacionSelector);
+//		}
+        //this.webDriver.moveToElement(this.btnContratacionSelector);
+
+        this.webDriver.click(this.btnContratacion);
 		// this.webDriver.waitForPageLoadToFinish();
-		this.webDriver.clickInFrame(this.btnContratarmutuaEdificioSeleccionPlus, this.frameAppMainWindow);
+		this.webDriver.clickInFrame(this.btnContratarMutuaEdificioSeleccionPlus, this.contentFrame);
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
@@ -206,15 +207,16 @@ public class GestionOnlineHomePage extends PageObject {
 	public GestionOnlineHomePage openMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException {
 		debugBegin();
 
-		// In GO UatPj environment, only need to hover over option.
-		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
-			this.webDriver.moveToElement(this.btnContratacionSelector);
-		} else {
-			this.webDriver.click(this.btnContratacionSelector);
-		}
+//		// In GO UatPj environment, only need to hover over option.
+//		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
+//			this.webDriver.moveToElement(this.btnContratacionSelector);
+//		} else {
+//			this.webDriver.click(this.btnContratacionSelector);
+//		}
+        //this.webDriver.moveToElement(this.btnContratacionSelector);
 
-		this.webDriver.click(this.btnContratarOnlineProyectosOption);
-		this.webDriver.clickInFrame(this.btnContratarmutuaAlquiler, this.frameAppMainWindow);
+		this.webDriver.click(this.btnContratacion);
+		this.webDriver.clickInFrame(this.btnContratarMutuaAlquiler, this.contentFrame);
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
@@ -226,12 +228,13 @@ public class GestionOnlineHomePage extends PageObject {
 	public GestionOnlineHomePage openMisProyectosWeb() throws AWTException, InterruptedException, IOException {
 		debugBegin();
 		
-		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
-			this.webDriver.moveToElement(this.btnContratacionSelector);
-		} else {
-			this.webDriver.click(this.btnContratacionSelector);
-		}
-		this.webDriver.click(this.btnMisProyectosWebOption);
+//		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
+////			this.webDriver.moveToElement(this.btnContratacionSelector);
+////		} else {
+////			this.webDriver.click(this.btnContratacionSelector);
+////		}
+        this.webDriver.click(this.btnContratacion);
+        this.webDriver.click(this.btnMisProyectosWebOption);
 
 		debugEnd();
 
@@ -241,7 +244,7 @@ public class GestionOnlineHomePage extends PageObject {
 	public GestionOnlineHomePage openSiniestros() throws AWTException, InterruptedException, IOException {
 		debugBegin();
 		
-		this.webDriver.click(this.btnAceptar);
+		//this.webDriver.click(this.btnAceptar);
 		this.webDriver.click(this.btnContratacionSelector);
 		this.webDriver.click(this.btnMisProyectosWebOption);
 
@@ -253,28 +256,36 @@ public class GestionOnlineHomePage extends PageObject {
 	public GestionOnlineHomePage buscarProyectoWeb(String noCotizacion) throws AWTException, InterruptedException, IOException {
 		debugBegin();
 		
-		this.webDriver.clickInFrame(this.codigoProyecto, this.buscadorFrame);
-		this.webDriver.appendTextInFrame(this.codigoProyecto, this.buscadorFrame, noCotizacion);
-		this.webDriver.clickInFrame(this.btnBuscar, this.buscadorFrame);
+		this.webDriver.clickInFrame(this.txtCodigoProyecto, this.contentFrame);
+		this.webDriver.appendTextInFrame(this.txtCodigoProyecto, this.contentFrame, noCotizacion);
+		this.webDriver.clickInFrame(this.btnBuscar, this.contentFrame);
 
-		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
-			while(!this.webDriver.isPresentInFrame(this.drpdwnAcciones, this.buscadorFrame)) {
-				// Si aparece el error de busqueda, cierralo y buscar de nuevo.
-				if(this.webDriver.isPresent(this.errorBuscar)) {
-					this.webDriver.click(this.cerrarErrorBuscar);
-					this.webDriver.clickInFrame(this.btnBuscar, this.buscadorFrame);
-				}
-			}
-		} else {
-			while(!this.webDriver.isPresentInFrame(this.consultarProyecto, this.buscadorFrame)) {
-				// Si aparece el error de busqueda, cierralo y buscar de nuevo.
-				if(this.webDriver.isPresent(this.errorBuscar)) {
-					this.webDriver.click(this.cerrarErrorBuscar);
-					this.webDriver.clickInFrame(this.btnBuscar, this.buscadorFrame);
-				}
+//		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
+//			while(!this.webDriver.isPresentInFrame(this.drpdwnAcciones, this.contentFrame)) {
+//				// Si aparece el error de busqueda, cierralo y buscar de nuevo.
+//				if(this.webDriver.isPresent(this.errorBuscar)) {
+//					this.webDriver.click(this.cerrarErrorBuscar);
+//					this.webDriver.clickInFrame(this.btnBuscar, this.contentFrame);
+//				}
+//			}
+//		} else {
+//			while(!this.webDriver.isPresentInFrame(this.consultarProyecto, this.contentFrame)) {
+//				// Si aparece el error de busqueda, cierralo y buscar de nuevo.
+//				if(this.webDriver.isPresent(this.errorBuscar)) {
+//					this.webDriver.click(this.cerrarErrorBuscar);
+//					this.webDriver.clickInFrame(this.btnBuscar, this.contentFrame);
+//				}
+//			}
+//		}
+
+        while(!this.webDriver.isPresentInFrame(this.drpdwnAcciones, this.contentFrame)) {
+			// Si aparece el error de busqueda, cierralo y buscar de nuevo.
+			if(this.webDriver.isPresent(this.errorBuscar)) {
+				this.webDriver.click(this.cerrarErrorBuscar);
+				this.webDriver.clickInFrame(this.btnBuscar, this.contentFrame);
 			}
 		}
-		
+
 		debugEnd();
 
 		return this;
@@ -283,25 +294,26 @@ public class GestionOnlineHomePage extends PageObject {
 	public GestionOnlineHomePage modificarProyecto() throws AWTException, InterruptedException, IOException {
 		debugBegin();
 		
-		this.webDriver.switchToFrame(this.buscadorFrame);
+		this.webDriver.switchToFrame(this.contentFrame);
 
-		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
-			System.out.println("In modificarProyecto UatPJ if");
-			// this.webDriver.clickInFrame(this.drpdwnAcciones,
-			// this.buscadorFrame);
-			// this.webDriver.clickInFrame(this.modificarProyectoUatPj,
-			// this.buscadorFrame);
-			this.webDriver.click(this.drpdwnAcciones);
-			this.webDriver.click(this.modificarProyectoUatPj);
-		} else {
-			System.out.println("In modificarProyecto UatPJ if else");
-			try {
-				this.webDriver.click(this.modificarProyecto);
-			} catch(Exception e) {
-				this.webDriver.click(this.modificarProyecto);
-			}
-		}
-
+//		if(this.testDataM.getConfigVar("environmnent").equals("UatPj")) {
+//			System.out.println("In modificarProyecto UatPJ if");
+//			// this.webDriver.clickInFrame(this.drpdwnAcciones,
+//			// this.buscadorFrame);
+//			// this.webDriver.clickInFrame(this.modificarProyectoUatPj,
+//			// this.buscadorFrame);
+//			this.webDriver.click(this.drpdwnAcciones);
+//			this.webDriver.click(this.modificarProyectoUatPj);
+//		} else {
+//			System.out.println("In modificarProyecto UatPJ if else");
+//			try {
+//				this.webDriver.click(this.modificarProyecto);
+//			} catch(Exception e) {
+//				this.webDriver.click(this.modificarProyecto);
+//			}
+//		}
+        this.webDriver.click(this.drpdwnAcciones);
+        this.webDriver.click(this.modificarProyectoUatPj);
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
@@ -312,9 +324,9 @@ public class GestionOnlineHomePage extends PageObject {
 
 	public String recuperarEstadoPoliza() {
 		debugBegin();
-		this.webDriver.getTextInFrame(this.estadoPoliza, this.buscadorFrame);
+		this.webDriver.getTextInFrame(this.estadoPoliza, this.contentFrame);
 		debugEnd();
-		return this.webDriver.getTextInFrame(this.estadoPoliza, this.buscadorFrame);
+		return this.webDriver.getTextInFrame(this.estadoPoliza, this.contentFrame);
 	}
 
 	// public void openGestionCotizaciones()
