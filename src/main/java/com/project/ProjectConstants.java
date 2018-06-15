@@ -20,11 +20,11 @@ public class ProjectConstants {
 	
 	public static final String DeshabitacionInferior = "Inferior al 75%";
 	
-	public static final String NuevoTomadorYAseguradoPrincipal = "nuevo Tomador y asegurado principal";
+	public static final String TomadorYAseguradoPrincipal = "tomadorYAseguradoPrincipal";
 	public static final String NuevoInquilinoPrincipal = "nuevo Inquilino";
 	public static final String ClienteExistente = "cliente existente";
 	public static final String LoginAccessInnova = "Innova";
-	public static final String LoginAccessGestionLine = "GestionLine";
+	public static final String LoginAccessGestionLine = "GOL";
 	public static final String MutuaEdificioConfort = "MUTUA EDIFICIO CONFORT";
 	public static final String MutuaAlquierConfort = "MUTUA ALQUILER CONFORT";
 	public static final String ModifiedDataInitialValue = "NOT_MODIFIED";

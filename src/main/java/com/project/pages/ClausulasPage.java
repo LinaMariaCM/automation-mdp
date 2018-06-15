@@ -137,7 +137,7 @@ public class ClausulasPage extends PageObject {
 		debugBegin();
 		
 		this.webDriver.switchToFrame(this.cuerpoFrame);
-		if(this.testDataM.getTestVar(testId, "modificar_clausulas").equals(ProjectConstants.ModificarClausulas)) {
+		if(getConfigVar("ModificarClausulas").equals(ProjectConstants.ModificarClausulas)) {
 			for(int pageNumber = 1; pageNumber < 6; pageNumber++) {
 
 				this.ActivateClausesInPage(pageNumber);

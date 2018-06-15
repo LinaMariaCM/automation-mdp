@@ -2,25 +2,21 @@ package com.project.pages;
 
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import org.openqa.selenium.By;
 
 public class ContratacionPage_MAC extends PageObject {
 
 	public ContratacionPage_MAC(UserStory userS) {
 		super(userS);
 	}
-	// // region webelements
-	// @FindBy(name = "cuerpo")
-	// private WebElement cuerpoFrame;
-	//
-	// @FindBy(xpath = ".//*[text()='Contratar']")
-	// // @FindBy(id = "btnContratar")
-	// private WebElement btnContratar;
+	// region webelements
+	private By mainFrame = By.cssSelector("#mainFrame");
+	private By btnContratar = By.cssSelector("#btnContratar");
 	//
 	// @FindBy(xpath = "//*[@id='VALIDACONTR']")
 	// private WebElement errorMessage;
-	//
-	// @FindBy(id = "chkLopd")
-	// private WebElement checkLopd;
+
+	private By checkLopd = By.cssSelector("#chkLopd");
 	//
 	// @FindBy(xpath = "./html/body/table[1]/tbody/tr/td")
 	// private WebElement messagePoliza;
@@ -28,38 +24,32 @@ public class ContratacionPage_MAC extends PageObject {
 	// @FindBy(xpath = "./html/body/table[1]/tbody/tr/td")
 	// private WebElement messageRecibo;
 	//
-	// public void ExecuteActionsInContratacionPage() throws
-	// InterruptedException, IOException
-	// {
-	// // Add datos tomador
-	// TomadorYAseguradoPage_MAC tomadorYAseguradoPage_MAC = new
-	// TomadorYAseguradoPage_MAC(this.browserContext);
-	// tomadorYAseguradoPage_MAC.executeActionsInTomadorYAseguradoPage();
-	//
-	// // Add datos inmueble
-	// InmueblePage_MAC inmueblePage_MAC = new
-	// InmueblePage_MAC(this.browserContext);
-	// inmueblePage_MAC.executeActionsInInmueblePage();
-	//
-	// // Add documentacion
-	//
-	// // Click btn contratar
-	// // this.wh.clickOnWebElementInFrame(this.btnContratar, this.cuerpoFrame);
-	// this.wh.clickOnWebElement(this.btnContratar);
-	//
-	// }
-	//
-	// public void seleccionarCheckYContratar() throws InterruptedException,
-	// IOException
-	// {
-	// logger.debug("BEGIN - seleccionarCheckYContratar");
-	// // Marcar el check
-	// this.wh.clickOnWebElementInFrame(this.checkLopd, this.cuerpoFrame);
-	// // Contratar
-	// this.wh.clickOnWebElementInFrame(this.btnContratar, this.cuerpoFrame);
-	// logger.debug("END - seleccionarCheckYContratar");
-	// }
-	//
+	public void ExecuteActionsInContratacionPage() throws InterruptedException {
+		debugBegin();
+		// Add datos tomador
+		new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();
+
+		// Add datos inmueble
+		new InmueblePage_MAC(userS).executeActionsInInmueblePage();
+
+		// Add documentacion
+		new DocumentacionPage_MAC(userS).addDocumentContratacion();
+        Thread.sleep(10000);
+		// Tick lopd and click contratar
+		this.seleccionarCheckYContratar();
+
+		debugEnd();
+	}
+
+	 public void seleccionarCheckYContratar() {
+	 	debugBegin();
+	    // Marcar el check
+	 	this.webDriver.clickInFrame(this.checkLopd, this.mainFrame);
+	 	// Contratar
+	 	this.webDriver.clickInFrame(this.btnContratar, this.mainFrame);
+	 	debugEnd();
+	 }
+
 	// public boolean checkPolizaError()
 	// {
 	// logger.debug("BEGIN - checkPolizaError");
