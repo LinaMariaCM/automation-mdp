@@ -1,6 +1,11 @@
 package com.automation.model.webdriver.configuration;
 
+import java.util.logging.Level;
+
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,60 +14,63 @@ import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 
 public class ChromeConfiguration {
-	
+
 	final static Logger logger = LoggerFactory.getLogger(ChromeConfiguration.class);
-	
+
 	public static void downloadDriver(boolean forceCache) {
 		logger.debug("[BEGIN] - Starting BrowserManager setup");
 		BrowserManager manager = ChromeDriverManager.getInstance();
-		
+
 		if(manager != null) {
 			if(forceCache) manager.forceCache();
 			manager.setup();
 		}
-		
+
 		logger.debug("[ END ] - BrowserManager setup finished");
 	}
 
 	public static DesiredCapabilities createDesiredCapabilities(boolean headless) {
 		DesiredCapabilities cap = DesiredCapabilities.chrome();
 		cap.setCapability(ChromeOptions.CAPABILITY, createChromeOptions(headless));
-		
-		//CREACION DEL PROXY
-		
-		
-		//cap.setCapability(CapabilityType.PROXY, value);
-		
-		/*String proxyIp = "110.164.156.194";
-		String proxyPort = "8080";
-		
-		String proxyAddress = proxyIp + ":" + proxyPort;
-		
-		Proxy proxy = new Proxy();
-		
-		proxy.setHttpProxy(proxyAddress)
-			.setFtpProxy(proxyAddress)
-			.setSslProxy(proxyAddress);
-		
-		cap.setCapability(CapabilityType.PROXY, proxy);*/
-		
+
+		// CREACION DEL PROXY
+		// cap.setCapability(CapabilityType.PROXY, value);
+
+		/*
+		 * String proxyIp = "110.164.156.194"; String proxyPort = "8080";
+		 * 
+		 * String proxyAddress = proxyIp + ":" + proxyPort;
+		 * 
+		 * Proxy proxy = new Proxy();
+		 * 
+		 * proxy.setHttpProxy(proxyAddress) .setFtpProxy(proxyAddress)
+		 * .setSslProxy(proxyAddress);
+		 * 
+		 * cap.setCapability(CapabilityType.PROXY, proxy);
+		 */
+
 		return cap;
 	}
 
 	public static ChromeOptions createChromeOptions(boolean headless) {
+		LoggingPreferences prefs = new LoggingPreferences();
+		prefs.enable(LogType.BROWSER, Level.ALL);
+
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("disable-popup-blocking");
-		
+		options.setCapability(CapabilityType.LOGGING_PREFS, prefs);
+
 		if(headless) {
 			options.addArguments("-headless");
 			options.addArguments("--disable-gpu");
 		}
 
-		//options.addArguments("--start-maximized");
-		//Map<String, Object> preferences = new Hashtable<>();
-		//options.setExperimentalOption("prefs", preferences);
+		// options.addArguments("--start-maximized");
+		// Map<String, Object> preferences = new Hashtable<>();
+		// options.setExperimentalOption("prefs", preferences);
 
-		//preferences.put("plugins.plugins_disabled", new String[]{ "Chrome PDF Viewer"});
+		// preferences.put("plugins.plugins_disabled", new String[]{ "Chrome PDF
+		// Viewer"});
 
 		return options;
 	}

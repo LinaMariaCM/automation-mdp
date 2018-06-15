@@ -8,8 +8,10 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
+import com.automation.model.utils.ArrayUtils;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.webdriver.DriverHelper;
+import com.project.ProjectConstants;
 
 /**
  * The UserStory class is the base to execute test, having a reference to a TestDataManager, which uses using its String
@@ -30,6 +32,7 @@ public class UserStory {
 	private String browser;
 	private String timeStamp;
 	private String reportPath;
+	private SuiteManager suiteM;
 	private String lastException = "";
 	private String testId = "0";
 	private String scenario = "";
@@ -148,6 +151,10 @@ public class UserStory {
 
 	public String getConfigVar(String key) {
 		return testDataM.getConfigVar(key);
+	}
+
+	public void setSuiteManager(SuiteManager suiteM) {
+		this.suiteM = suiteM;
 	}
 
 	public void setTestVar(String key, String value) {
@@ -388,8 +395,8 @@ public class UserStory {
 			webDriver.setPageLoadWait(Integer.parseInt(driverConf.getValue(AutomationConstants.PAGE_LOAD_WAIT)));
 		}
 		
-		if(driverConf.getValue(AutomationConstants.WINDOW_HEIGTH) != null && driverConf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
-			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGTH)), 
+		if(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT) != null && driverConf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
+			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT)), 
 				Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)));
 		}
 		
@@ -508,6 +515,11 @@ public class UserStory {
 					System.out.println("[INFO] (" + testId + ") - Saving results as " + testDataM.getTimeStamp() + ".csv");
 					new File(testDataM.getReportPath()).mkdirs();
 					FileUtils.writeArrayIntoCSVFile(testDataM.getReportPath() + testDataM.getTimeStamp() + ".csv", resultMatrix);
+
+					if(ArrayUtils.countOcurrences(resultMatrix, AutomationConstants.TEST_UNDONE, resultArray.length - 3) == 0) {
+						suiteM.sendCsvToDatabase();
+					}
+					
 					System.out.println("[ END ] (" + testId + ") - Updating result matrix");
 				} catch(Exception e) {
 					e.printStackTrace();

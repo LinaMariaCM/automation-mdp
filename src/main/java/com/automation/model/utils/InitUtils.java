@@ -24,6 +24,8 @@ public class InitUtils {
 		
 		suiteM.addConsoleLog(testCase, id, userS.getDriver().getConsoleLogs());
 		
+		userS.setSuiteManager(suiteM);
+		
 		return userS;
 	}
 	
@@ -83,7 +85,13 @@ public class InitUtils {
 	public static String[][] getResultMatrixFromCsvFile(String filePath) {
 		filePath = filePath.endsWith(".csv") ? filePath : filePath + ".csv";
 		
-		return FileUtils.loadDataFileToArray(filePath, true);
+		return FileUtils.loadCsvFileToArray(filePath, true);
+	}
+	
+	public static String[][] getResultMatrixFromCsvString(String csvFile, String fileName) {
+		fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
+		
+		return FileUtils.loadCsvStringToArray(csvFile, true);
 	}
 	
 	public static String[][] getCasesMatrixFromResultMatrix(String[][] resultMatrix, String testCase) {

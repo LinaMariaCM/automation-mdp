@@ -68,6 +68,7 @@ public class IEConfiguration {
 		//options.setCapability("enablePersistentHover", true);
 		//options.setCapability("ignoreZoomSetting", true);
 		//options.enableNativeEvents();
+		options.destructivelyEnsureCleanSession();
 		options.enablePersistentHovering();
 		options.ignoreZoomSettings();
 		options.introduceFlakinessByIgnoringSecurityDomains();

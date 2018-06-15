@@ -46,7 +46,7 @@ public class AutomationConstants {
 	
 	public static final String REPORTING_LVL = "reporting_level";
 
-	public static final String WINDOW_HEIGTH = "window_heigth";
+	public static final String WINDOW_HEIGHT = "window_height";
 	public static final String WINDOW_WIDTH = "window_width";
 	public static final String TIMEOUT = "timeout";
 	public static final String REMOTE_MODE = "remote";

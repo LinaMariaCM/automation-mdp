@@ -229,7 +229,7 @@ public class HtmlElement {
 		} else {
 			htmlText += tab + "<" + getTag()
 				+ (getAttributes().isEmpty() ? "" : " " + getAttributes()) + ">"
-				+ (getContent().isEmpty() ? "" : "\n\t" + tab + getContent());
+				+ (getContent().isEmpty() ? "" : (!getContent().isEmpty() || getChilds().size() > 0 ? "\n\t" + tab : "") + getContent());
 		}
 		
 		for(int i = 0; i < getChilds().size(); i++) {
@@ -237,7 +237,7 @@ public class HtmlElement {
 		}
 		
 		if(!getTag().isEmpty() && !ArrayUtils.stringInArray(notFinishingTags, getTag())) {
-			htmlText += "\n" + tab + "</" + getTag() + ">";
+			htmlText += (!getContent().isEmpty() || getChilds().size() > 0 ? "\n" + tab : "") + "</" + getTag() + ">";
 		}
 		
 		return htmlText;
