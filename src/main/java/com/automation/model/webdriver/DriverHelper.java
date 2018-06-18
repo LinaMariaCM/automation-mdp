@@ -1549,22 +1549,15 @@ public class DriverHelper {
 
 		return isClickable;
 	}
-
-	public boolean waitForElementNotToBeClickableInFrame(By waitElement, By frame) {
-		logger.trace("[BEGIN] - waitForElementNotToBeClickable");
-		waitForLoadToComplete();
-
-		boolean isClickable = isClickable(waitElement);
-		switchToFrame(frame);
-		for(int i = 0; isClickable && i < implicitTimeout; i += shortWait) {
-			isClickable = isClickable(waitElement);
-		}
-		exitFrame();
-		logger.trace("[END] - waitForElementNotToBeClickable");
-		
-		return isClickable;
-	}
 	
+	public boolean waitForElementNotToBeClickableInFrame(By waitElement, By frame) {
+		switchToFrame(frame);
+		boolean result = waitForElementNotToBeClickable(waitElement);
+		exitFrame();
+		
+		return result;
+	}
+
 	public void waitForElementToBeClickableInFrame(By waitElement, By frame) {
 		switchToFrame(frame);
 		waitForElementToBeClickable(waitElement);

@@ -271,7 +271,7 @@ public class SuiteManager {
 				}
 			}
 			
-			// If resultMatrix was not filled by a request, try to fill it with an existant file
+			// If resultMatrix was not filled by a request, try to fill it with an existent file
 			if(resultMatrix == null && new File(testData.getReportPath() + testData.getTimeStamp() + ".csv").exists()) {
 				System.out.println("[INFO] - Getting test data from file");
 				resultMatrix = InitUtils.getResultMatrixFromCsvFile(testData.getReportPath() + testData.getTimeStamp() + ".csv");

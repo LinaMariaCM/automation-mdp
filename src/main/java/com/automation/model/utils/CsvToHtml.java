@@ -367,14 +367,15 @@ public class CsvToHtml {
 					wrapper.addChild(new HtmlElement("section")
 						.addAttribute("class", "boxes ac-button")
 						.addChild(new HtmlElement("div")
-							.addAttribute("class", "box bg-" + (nFailures == 0 ? "green" : nSuccess == 0 ? "pink" : "yellow") + " clr-white")
+							.addAttribute("class", "box bg-" + (nFailures == 0 ? "green" : nSuccess == 0 ? "pink" : "yellow"))
+							.addAttribute("style", "color: white;")
 							.addChild(new HtmlElement("div")
 								.addAttribute("class", "number")
 								.addChild("span", "class=\"success\"", Integer.toString(nSuccess))
 								.addChild(new HtmlElement("span")
 									.addAttribute("class", "error")
 									.setContent(" / ")
-									.addChild("span", "class=\"clr-red\"", Integer.toString(nFailures))))
+									.addChild("span", nFailures > 0 ? "style=\"color: #CC444B;\"" : "", Integer.toString(nFailures))))
 							.addChild("div", "class=\"subtitle\"", translate(translationFile, "[REPORTNAME] results")
 								.replace("[REPORTNAME]", StringUtils.snakeCaseToNatural(translate(translationFile, testCase))))
 							.addChild(new HtmlElement("div")
@@ -457,11 +458,11 @@ public class CsvToHtml {
 					.addAttribute("height", "50"))
 				.addChild(new HtmlElement("div")
 					.addAttribute("class", "number")
-					.addChild("span", "class=\"success\"", Integer.toString(successes))
+					.addChild("span", "class=\"success\"" + (successes > 0 ? " style=\"color: green;\"" : ""), Integer.toString(successes))
 					.addChild(new HtmlElement("span")
 						.addAttribute("class", "error")
 						.setContent(" / ")
-						.addChild("span", "class=\"clr-red\"", Integer.toString(failures)))));
+						.addChild("span", failures > 0 ? "style=\"color: #CC444B;\"" : "", Integer.toString(failures)))));
 		}
 
 		return container;
@@ -490,7 +491,7 @@ public class CsvToHtml {
 			if(successes > 0) {
 				table.getChildByTag("tbody").getChild(i).getChild(1).addAttribute("style", "color: green;");
 			}
-
+			
 			if(failures > 0) {
 				table.getChildByTag("tbody").getChild(i).getChild(2).addAttribute("style", "color: red;");
 			}
