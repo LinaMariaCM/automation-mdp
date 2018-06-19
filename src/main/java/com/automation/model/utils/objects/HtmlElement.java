@@ -18,7 +18,7 @@ public class HtmlElement {
 	private String attributes = "";
 	private String content = "";
 	private HtmlElement parentNode = null;
-	private ArrayList<HtmlElement> childs = new ArrayList<HtmlElement>();
+	private ArrayList<HtmlElement> children = new ArrayList<HtmlElement>();
 	private static String[] notFinishingTags = new String[]{"br", "hr"};
 	
 	public HtmlElement(String tag) {
@@ -80,7 +80,7 @@ public class HtmlElement {
 	}
 	
 	public HtmlElement addAttribute(String attribute, String value) {
-		this.attributes += " " + attribute + "=\"" + value + "\"";
+		this.attributes += (attributes.isEmpty() ? "" : " ") + attribute + "=\"" + value + "\"";
 		
 		return this;
 	}
@@ -123,8 +123,8 @@ public class HtmlElement {
 		return this.parentNode == null ? 0 : this.parentNode.getLevel() + 1;
 	}
 	
-	public ArrayList<HtmlElement> getChilds() {		
-		return childs;
+	public ArrayList<HtmlElement> getChildren() {		
+		return children;
 	}
 	
 	public HtmlElement setId(String newId) {
@@ -140,7 +140,7 @@ public class HtmlElement {
 	}
 	
 	public HtmlElement getChild(int index) {
-		return childs.get(index);
+		return children.get(index);
 	}
 	
 	public HtmlElement getChildByTag(String tag) {		
@@ -151,10 +151,10 @@ public class HtmlElement {
 		int currentIndex = 0;
 		HtmlElement child = null;
 		
-		for(int i = 0; i < childs.size(); i++) {
-			if(childs.get(i).getTag().equals(tag)) {
+		for(int i = 0; i < children.size(); i++) {
+			if(children.get(i).getTag().equals(tag)) {
 				if(currentIndex == nth) {
-					child = childs.get(i);
+					child = children.get(i);
 				}
 				
 				currentIndex++;
@@ -174,35 +174,35 @@ public class HtmlElement {
 	
 	public HtmlElement addChild(String tag, String attribute, String content) {
 		HtmlElement element = new HtmlElement(tag, attribute, content);
-		childs.add(element);
+		children.add(element);
 		element.setParent(this);
 		
 		return this;
 	}
 	
 	public HtmlElement addChild(HtmlElement child) {
-		childs.add(child);
+		children.add(child);
 		child.setParent(this);
 		
 		return this;
 	}
 	
 	public HtmlElement addChildAt(HtmlElement child, int index) {
-		childs.add(index, child);
+		children.add(index, child);
 		child.setParent(this);
 		
 		return this;
 	}
 	
 	public HtmlElement removeChild(HtmlElement child) {
-		childs.remove(child);
+		children.remove(child);
 		
 		return this;
 	}
 	
 	
 	public HtmlElement removeChildAt(int index) {
-		childs.remove(index);
+		children.remove(index);
 		
 		return this;
 	}
@@ -210,8 +210,8 @@ public class HtmlElement {
 	public HtmlElement cloneNode() {
 		HtmlElement clonedNode = new HtmlElement(tag, attributes, content);
 		
-		for(int i = 0; i < this.childs.size(); i++) {
-			clonedNode.addChild(childs.get(i).cloneNode());
+		for(int i = 0; i < this.children.size(); i++) {
+			clonedNode.addChild(children.get(i).cloneNode());
 		}
 		
 		return clonedNode;
@@ -229,15 +229,15 @@ public class HtmlElement {
 		} else {
 			htmlText += tab + "<" + getTag()
 				+ (getAttributes().isEmpty() ? "" : " " + getAttributes()) + ">"
-				+ (getContent().isEmpty() ? "" : (!getContent().isEmpty() || getChilds().size() > 0 ? "\n\t" + tab : "") + getContent());
+				+ (getContent().isEmpty() ? "" : (!getContent().isEmpty() || getChildren().size() > 0 ? "\n\t" + tab : "") + getContent());
 		}
 		
-		for(int i = 0; i < getChilds().size(); i++) {
-			htmlText += "\n" + getChilds().get(i).toString();
+		for(int i = 0; i < getChildren().size(); i++) {
+			htmlText += "\n" + getChildren().get(i).toString();
 		}
 		
 		if(!getTag().isEmpty() && !ArrayUtils.stringInArray(notFinishingTags, getTag())) {
-			htmlText += (!getContent().isEmpty() || getChilds().size() > 0 ? "\n" + tab : "") + "</" + getTag() + ">";
+			htmlText += (!getContent().isEmpty() || getChildren().size() > 0 ? "\n" + tab : "") + "</" + getTag() + ">";
 		}
 		
 		return htmlText;

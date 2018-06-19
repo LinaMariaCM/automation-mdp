@@ -36,6 +36,7 @@ public class UserStory {
 	private String lastException = "";
 	private String testId = "0";
 	private String scenario = "";
+	private String testCase = "";
 	private String[][] resultMatrix;
 	private TestDataManager testDataM;
 	private DataObject driverConf;
@@ -48,10 +49,12 @@ public class UserStory {
 
 	public UserStory(String scenario) {
 		this.scenario = scenario;
+		this.testCase = scenario;
 	}
 
 	public UserStory(String id, String scenario) {
 		this.scenario = scenario;
+		this.testCase = scenario;
 		this.testId = id;
 	}
 
@@ -516,7 +519,9 @@ public class UserStory {
 					new File(testDataM.getReportPath()).mkdirs();
 					FileUtils.writeArrayIntoCSVFile(testDataM.getReportPath() + testDataM.getTimeStamp() + ".csv", resultMatrix);
 
-					if(ArrayUtils.countOcurrences(resultMatrix, AutomationConstants.TEST_UNDONE, resultArray.length - 3) == 0) {
+					suiteM.updateTestsFinished(testCase);
+					
+					if(suiteM.getTestsFinished(testCase) == suiteM.getTestsToRun(testCase)) {
 						suiteM.sendCsvToDatabase();
 					}
 					

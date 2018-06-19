@@ -71,22 +71,18 @@ public class CsvToHtml {
 				if(auxHash.get(dataMatrix[j][i]) == null) {
 					auxHash.put(dataMatrix[j][i], new int[]{ 0, 0});
 				}
-			}
-
-			result.put(dataMatrix[0][i], auxHash);
-		}
-
-		// Calculate successes and failures for each case
-		for(int i = 1; i < dataMatrix.length; i++) {
-			if(dataMatrix[i][dataMatrix[0].length - 3] != null && !dataMatrix[i][dataMatrix[0].length - 3].isEmpty()) {
-				for(int j = 0; j < dataMatrix[0].length; j++) {
-					if(dataMatrix[i][dataMatrix[0].length - 3].equals(AutomationConstants.TEST_SUCCESS)) {
-						result.get(dataMatrix[0][j]).get(dataMatrix[i][j])[0]++;
+				
+				// Calculate successes and failures for each case
+				if(dataMatrix[j][dataMatrix[0].length - 3] != null && !dataMatrix[j][dataMatrix[0].length - 3].isEmpty()) {
+					if(dataMatrix[j][dataMatrix[0].length - 3].equals(AutomationConstants.TEST_SUCCESS)) {
+						auxHash.get(dataMatrix[j][i])[0]++;
 					} else {
-						result.get(dataMatrix[0][j]).get(dataMatrix[i][j])[1]++;
+						auxHash.get(dataMatrix[j][i])[1]++;
 					}
 				}
 			}
+
+			result.put(dataMatrix[0][i], auxHash);
 		}
 
 		return result;
@@ -238,7 +234,6 @@ public class CsvToHtml {
 	public static HtmlElement createJointHtmlNode(String timeStamp, String reportPath, String reportName, String[] testCases, int[] relevantColumns, String translationFile) {
 		HtmlElement body = new HtmlElement("body");
 		HtmlElement htmlNode = new HtmlElement("html")
-			.addAttribute("dir", "ltr")
 			.addChild(new HtmlElement("head")
 				.addChild("meta", "charset=\"UTF-8\"")
 				.addChild("title", "", translate(translationFile, "Test report"))
@@ -354,7 +349,7 @@ public class CsvToHtml {
 
 						for(int i = 0; i < columnCasesOrder.get("browser").size(); i++) {
 							select.addChild(new HtmlElement("option")
-								.setContent(translate(translationFile, columnCasesOrder.get("browser").get(0))));
+								.setContent(translate(translationFile, columnCasesOrder.get("browser").get(i))));
 						}
 
 						browserElement = new HtmlElement("div")
@@ -386,17 +381,15 @@ public class CsvToHtml {
 						.addAttribute("class", "columns ac-content");
 
 					// Add relevant columns tables from test variables
-					for(int j = 0; j < relevantColumns; j++) {
-						if(j == 0) {
-							accordionContent.addChild(new HtmlElement("div").addAttribute("class", "columns-wrapper"));
-						} else if(j == 1) {
-							accordionContent.addChild(new HtmlElement("div").addAttribute("class", "columns-wrapper"));
+					for(int i = 0; i < relevantColumns; i++) {
+						if(i == 0 || i == 1) {
+							accordionContent.addChild("div", "class=\"columns-wrapper\"");
 						}
 
 						HtmlElement variableData;
 
 						boolean haveImages = true;
-						String[] variables = ArrayUtils.objetArrayToStringArray(columnCasesOrder.get(dataMatrix[0][j]).toArray());
+						String[] variables = ArrayUtils.objetArrayToStringArray(columnCasesOrder.get(dataMatrix[0][i]).toArray());
 
 						for(String variable : variables) {
 							if(!new File(reportPath + AutomationConstants.THUMBNAILS_FOLDER + "/" + variable + ".png").exists()) {
@@ -405,14 +398,14 @@ public class CsvToHtml {
 						}
 
 						if(haveImages) {
-							variableData = createImagesTable(testStats, columnCasesOrder, reportPath, dataMatrix, j, translationFile);
+							variableData = createImagesTable(testStats.get(dataMatrix[0][i]), columnCasesOrder.get(dataMatrix[0][i]), translationFile);
 						} else {
-							variableData = createTableByIndex(testStats, columnCasesOrder, reportPath, dataMatrix, j, translationFile);
+							variableData = createTableByIndex(testStats.get(dataMatrix[0][i]), columnCasesOrder.get(dataMatrix[0][i]), translationFile);
 						}
 
-						accordionContent.getChild(j % 2).addChild(new HtmlElement("div")
+						accordionContent.getChild(i % 2).addChild(new HtmlElement("div")
 							.addAttribute("class", "column")
-							.addChild("h2", "", StringUtils.snakeCaseToNatural(translate(translationFile, dataMatrix[0][j])))
+							.addChild("h2", "", StringUtils.snakeCaseToNatural(translate(translationFile, dataMatrix[0][i])))
 							.addChild(variableData));
 					}
 
@@ -437,16 +430,15 @@ public class CsvToHtml {
 		}
 	}
 
-	private static HtmlElement createImagesTable(HashMap<String, HashMap<String, int[]>> testStats, HashMap<String, ArrayList<String>> columnCasesOrder,
-		String reportPath, String[][] dataMatrix, int columnIndex, String translationFile) {
+	private static HtmlElement createImagesTable(HashMap<String, int[]> columnResults, ArrayList<String> columnOrder, String translationFile) {
 		HtmlElement container = new HtmlElement("div")
 			.addAttribute("class", "boxes thumbnails");
 
-		for(int i = 0; i < columnCasesOrder.get(dataMatrix[0][columnIndex]).size(); i++) {
-			String testVariable = columnCasesOrder.get(dataMatrix[0][columnIndex]).get(i);
+		for(int i = 0; i < columnOrder.size(); i++) {
+			String testVariable = columnOrder.get(i);
 
-			int successes = testStats.get(dataMatrix[0][columnIndex]).get(columnCasesOrder.get(dataMatrix[0][columnIndex]).get(i))[0];
-			int failures = testStats.get(dataMatrix[0][columnIndex]).get(columnCasesOrder.get(dataMatrix[0][columnIndex]).get(i))[1];
+			int successes = columnResults.get(columnOrder.get(i))[0];
+			int failures = columnResults.get(columnOrder.get(i))[1];
 
 			container.addChild(new HtmlElement("div")
 				.addAttribute("class", "box")
@@ -468,32 +460,33 @@ public class CsvToHtml {
 		return container;
 	}
 
-	private static HtmlElement createTableByIndex(HashMap<String, HashMap<String, int[]>> testStats, HashMap<String, ArrayList<String>> columnCasesOrder,
-		String reportPath, String[][] dataMatrix, int columnIndex, String translationFile) {
-		HtmlElement table = HtmlUtils.createTable(columnCasesOrder.get(dataMatrix[0][columnIndex]).size(), 3);
+	private static HtmlElement createTableByIndex( HashMap<String, int[]> columnResults, ArrayList<String> columnOrder, String translationFile) {
+		HtmlElement table = HtmlUtils.createTable(columnOrder.size(), 3);
 
 		table.addChildAt(new HtmlElement("thead")
-			.addChild("th", "", "Variable")
-			.addChild("th", "", "Success")
-			.addChild("th", "", "Failures"), 0);
+			.addChild("th", "", translate(translationFile, "Variable"))
+			.addChild("th", "", translate(translationFile, "Success"))
+			.addChild("th", "", translate(translationFile, "Failure")), 0);
 
-		for(int i = 0; i < columnCasesOrder.get(dataMatrix[0][columnIndex]).size(); i++) {
-			String testVariable = columnCasesOrder.get(dataMatrix[0][columnIndex]).get(i);
+		for(int i = 0; i < columnOrder.size(); i++) {
+			String testVariable = columnOrder.get(i);
 
-			int successes = testStats.get(dataMatrix[0][columnIndex]).get(columnCasesOrder.get(dataMatrix[0][columnIndex]).get(i))[0];
-			int failures = testStats.get(dataMatrix[0][columnIndex]).get(columnCasesOrder.get(dataMatrix[0][columnIndex]).get(i))[1];
+			int successes = columnResults.get(columnOrder.get(i))[0];
+			int failures = columnResults.get(columnOrder.get(i))[1];
+			
+			HtmlElement rowElement = table.getChildByTag("tbody").getChild(i);
 
-			table.getChildByTag("tbody").getChild(i).getChild(0).setContent(StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)));
+			rowElement.getChild(0).setContent(StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)));
 
-			table.getChildByTag("tbody").getChild(i).getChild(1).setContent(Integer.toString(successes));
-			table.getChildByTag("tbody").getChild(i).getChild(2).setContent(Integer.toString(failures));
+			rowElement.getChild(1).setContent(Integer.toString(successes));
+			rowElement.getChild(2).setContent(Integer.toString(failures));
 
 			if(successes > 0) {
-				table.getChildByTag("tbody").getChild(i).getChild(1).addAttribute("style", "color: green;");
+				rowElement.getChild(1).addAttribute("style", "color: green;");
 			}
 			
 			if(failures > 0) {
-				table.getChildByTag("tbody").getChild(i).getChild(2).addAttribute("style", "color: red;");
+				rowElement.getChild(2).addAttribute("style", "color: red;");
 			}
 		}
 
