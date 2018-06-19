@@ -59,23 +59,17 @@ public class IEConfiguration {
 
 	public static InternetExplorerOptions createIEOptions() {
 		InternetExplorerOptions options = new InternetExplorerOptions();
-		
-		//DesiredCapabilities cap = DesiredCapabilities.internetExplorer();
+
 		options.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
 		options.setCapability("unexpectedAlertBehaviour", "accept");
-		//options.setCapability("ignoreProtectedModeSettings", true);
 		options.setCapability("disable-popup-blocking", true);
-		//options.setCapability("enablePersistentHover", true);
-		//options.setCapability("ignoreZoomSetting", true);
-		//options.enableNativeEvents();
 		options.destructivelyEnsureCleanSession();
 		options.enablePersistentHovering();
 		options.ignoreZoomSettings();
 		options.introduceFlakinessByIgnoringSecurityDomains();
 		options.requireWindowFocus();
-		
 		options.addCommandSwitches("disable-popup-blocking");
-		options.addCommandSwitches("--start-maximized");
+		options.addCommandSwitches("--start-fullscreen");
 		//options.merge(cap);
 		
 		
