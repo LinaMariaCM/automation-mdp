@@ -125,6 +125,7 @@ public class ClausulasPage extends PageObject {
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.cuerpoFrame.click();
 		this.webDriver.scrollToBottom();
+		this.webDriver.waitWithDriver(4000);
 		this.webDriver.click(this.btnContinuarInCreation);
 		this.webDriver.exitFrame();
 		

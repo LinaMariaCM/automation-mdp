@@ -79,15 +79,20 @@ public class AsignarMediadorPage extends PageObject {
 		//webDriver.waitWithDriver(2000);
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.waitForElementToBeClickable(this.txtCodigoMediador);
 		this.webDriver.click(this.txtCodigoMediador);
+		webDriver.waitWithDriver(2000);
 		this.webDriver.appendText(this.txtCodigoMediador, codigoMediador);
 
 		this.webDriver.click(this.txtDocumento);
 		this.webDriver.click(this.btnBuscar);
 		
-		this.webDriver.waitForElementNotToBeClickable(loaderModal);
+		//this.webDriver.waitForElementNotToBeClickable(loaderModal);
+		//this.webDriver.waitForElementToBeClickableAndClick(this.radioBtnResultadoBusqueda);
+		//this.webDriver.waitForAngular();
+		webDriver.waitWithDriver(2500);
 		this.webDriver.click(this.radioBtnResultadoBusqueda);
-		// this.webDriver.waitForLoadToComplete();
+		//this.webDriver.waitForLoadToComplete();
 		this.webDriver.exitFrame();
 		this.webDriver.waitForElementNotToBeClickable(loaderModal);
 

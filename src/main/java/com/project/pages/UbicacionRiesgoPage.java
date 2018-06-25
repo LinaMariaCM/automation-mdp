@@ -154,6 +154,7 @@ public class UbicacionRiesgoPage extends PageObject {
 
 	public void fillInmuebleAndClickOnContinue(String scenario) throws InterruptedException {
 		// this.addInmueble(this.browserContext.getTestCaseData().getInmueble());
+		
 		this.fillInmuebleAndGetAvailability(scenario);
 		this.clickOnContinuar();
 	}
@@ -285,8 +286,9 @@ public class UbicacionRiesgoPage extends PageObject {
 		this.webDriver.waitWithDriver(1000);
 		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.waitWithDriver(1500);
 		this.webDriver.moveToElement(this.btnAnadirInmueblePantallaPrincipal);
-
+		this.webDriver.waitForElementToBeClickable(this.btnAnadirInmueblePantallaPrincipal);
 		this.webDriver.click(this.btnAnadirInmueblePantallaPrincipal);
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
@@ -313,7 +315,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		// this.cuerpoFrame);
 	
 		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
-		this.webDriver.waitWithDriver(1500);
+		this.webDriver.waitWithDriver(3500);
 		this.webDriver.click(this.btnAnadirInmuebleReferenciaCatastral);
 		this.webDriver.waitWithDriver(1500);
 		this.webDriver.exitFrame();
@@ -331,7 +333,8 @@ public class UbicacionRiesgoPage extends PageObject {
 		// this.GuardarRefCatastral(this.webDriver.getTextInFrame(this.txtCurrentReferenciaCatastral,
 		// this.cuerpoFrame));
 		this.GuardarRefCatastral(this.webDriver.getText(this.txtCurrentReferenciaCatastral));
-
+		//this.webDriver.waitForElementToBeClickableAndClick(this.btnContinuar);
+		this.webDriver.waitForAngular();
 		this.webDriver.click(this.btnContinuar);
 		this.webDriver.exitFrame();
 		debugEnd();

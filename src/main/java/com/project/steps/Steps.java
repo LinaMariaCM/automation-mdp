@@ -2,6 +2,7 @@ package com.project.steps;
 
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.StepObject;
+import com.automation.model.webdriver.DriverHelper;
 /*
 import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 import com.mutuaPropietarios.WebdriverContext.BrowserType;
@@ -30,6 +31,8 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
+
+import org.openqa.selenium.By;
 
 import com.project.ProjectConstants;
 
@@ -71,6 +74,49 @@ public class Steps extends StepObject {
 		debugEnd();
 	}
 
+	
+	//método pensado para acabar con las esperas que cortan la ejecución automática
+	
+	
+	public static void waitForIt(DriverHelper webDriver) {
+		By loaderModal = By.cssSelector("#modalLoader");;
+		By procesandoWindow = By.cssSelector(".smallbox");
+				
+		if(webDriver.isPresent(loaderModal)) webDriver.waitForElementNotToBeClickable(loaderModal);
+		else webDriver.waitWithDriver(2500);
+		
+		if(webDriver.isPresent(procesandoWindow)) webDriver.waitForElementNotToBeClickable(procesandoWindow);
+		else webDriver.waitWithDriver(2500);
+				
+
+	}
+	
+	
+	//método pensado para acabar con las esperas que cortan la ejecución automática	genérico
+		
+	public static void waitForIt(DriverHelper webDriver, By by) {
+		
+		if(webDriver.isPresent(by)) webDriver.waitForElementNotToBeClickable(by);
+		else webDriver.waitWithDriver(2500);
+		
+	}
+		
+	//mismo método con 2 elementos genéricos de entrada
+	public static void waitForIt(DriverHelper webDriver, By by, By cy) {
+		
+		waitForIt(webDriver, by);
+		waitForIt(webDriver, cy);
+		
+	}
+	
+	// cuando se necesita esperar x milisegundos
+	public static void waitForIt(DriverHelper webDriver, int x){
+				
+	webDriver.waitWithDriver(x);
+
+	}
+	
+	
 	public void doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(String loginAcess, String user) throws Exception {
 		debugBegin();
 
@@ -149,10 +195,13 @@ public class Steps extends StepObject {
 
 			new ClausulasPage(userS)
 				.activateclausesAndClickOnContinue();
-
+			
+//			new DatosBasicosTomadorPage(userS)
+//			.fillTomadorData(getScenarioVar("tomador"))
+//			.clickOnContinuar();
+			
 			new DatosBasicosTomadorPage(userS)
-				.fillTomadorData(getScenarioVar("tomador"))
-				.clickOnContinuar();
+				.anyadirDatosMin();
 			
 			new PrecioPorModalidadPage(userS)
 				.executeActionsInPrecioPorModalidadPage();
@@ -3513,10 +3562,9 @@ public class Steps extends StepObject {
 		debugEnd();
 	}
 
-<<<<<<< HEAD
-	public void autorizar_el_proyecto_MAC(
-			String loginAcess, String user) throws Exception
-	{
+
+//	public void autorizar_el_proyecto_MAC(
+//			String loginAcess, String user){
 
 		// Login
 		//this.LoginAndSearchAutorizacion(this.tCData.getUsuarioAuth(), this.browserContext.getProperties().passwordComun);
@@ -3527,12 +3575,12 @@ public class Steps extends StepObject {
 
 		// Autorizar el proyecto
 		//gestionAutorizacionesPage.autorizar();
-=======
+
 	public void login_y_autorizar_el_proyecto_MAC(String loginAccess, String user) throws Exception	{
 		this.el_usuario_accede(loginAccess, user);
         this.searchAuthorisation();
 		new GestionAutorizacionesPage(userS).autorizar();
->>>>>>> df564e22578d1e9e6e0dd9285e59eebc6b4013ec
+
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC(String loginAcess, String user) throws Exception {
@@ -3601,5 +3649,6 @@ public class Steps extends StepObject {
 //		ContratacionPage_MAC contratacionPage_MAC = new ContratacionPage_MAC(this.browserContext);
 //		contratacionPage_MAC.seleccionarCheckYContratar();
 		debugEnd();
+	
 	}
 }
