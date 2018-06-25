@@ -29,7 +29,7 @@ public class MacTest extends TestObject {
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
 		Steps steps = new Steps(userS);
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			/*

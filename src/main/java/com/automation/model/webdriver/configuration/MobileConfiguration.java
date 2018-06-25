@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,6 +44,15 @@ public class MobileConfiguration {
 	public static FirefoxOptions createFirefoxMobileOptions(String browserType) {
 		FirefoxOptions options = new FirefoxOptions();
 		options.addArguments("--start-maximized");
+		options.addArguments("--disable-notifications");
+		
+		FirefoxProfile geoDisabled = new FirefoxProfile();
+		geoDisabled.setPreference("geo.enabled", true);
+		geoDisabled.setPreference("geo.provider.use_corelocation", true);
+		geoDisabled.setPreference("geo.prompt.testing", true);
+		geoDisabled.setPreference("geo.prompt.testing.allow", true);
+		options.setProfile(geoDisabled);
+	
 		options.addArguments("-headless");
 		//options.addArguments("--disable-setuid-sandbox");
 		//Map<String, Object> preferences = new Hashtable<>();

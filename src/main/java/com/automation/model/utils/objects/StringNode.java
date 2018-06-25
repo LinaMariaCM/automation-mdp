@@ -7,7 +7,7 @@ public class StringNode {
 	private String id = "";
 	private String content;
 	private StringNode parentNode = null;
-	private ArrayList<StringNode> childs = new ArrayList<StringNode>();
+	private ArrayList<StringNode> children = new ArrayList<StringNode>();
 
 	public StringNode(String content) {
 		this.content = content;
@@ -35,7 +35,7 @@ public class StringNode {
 	}
 	
 	public ArrayList<StringNode> getChilds() {		
-		return childs;
+		return children;
 	}
 	
 	public StringNode setId(String newId) {
@@ -57,14 +57,14 @@ public class StringNode {
 	}
 	
 	public StringNode addNodeChild(StringNode child) {
-		childs.add(child);
+		children.add(child);
 		child.setParent(this);
 		
 		return this;
 	}
 	
 	public StringNode addNodeChild(String content) {
-		childs.add(new StringNode(content, this));
+		children.add(new StringNode(content, this));
 		
 		return this;
 	}
@@ -72,8 +72,8 @@ public class StringNode {
 	public StringNode cloneNode() {
 		StringNode clonedNode = new StringNode(content);
 		
-		for(int i = 0; i < this.childs.size(); i++) {
-			clonedNode.addNodeChild(childs.get(i).cloneNode());
+		for(int i = 0; i < this.children.size(); i++) {
+			clonedNode.addNodeChild(children.get(i).cloneNode());
 		}
 		
 		return clonedNode;

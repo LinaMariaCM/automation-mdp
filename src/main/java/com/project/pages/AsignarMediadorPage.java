@@ -12,7 +12,7 @@ public class AsignarMediadorPage extends PageObject {
 
 	// region webelements
 	// @FindBy(name = "cuerpo")
-	private By cuerpoFrame = By.cssSelector("#mainFrame");
+	private By mainFrame = By.cssSelector("#mainFrame");
 
 	// @FindBy(id = "nombreRazonSocial")
 	private By razonSocial = By.cssSelector("#nombreRazonSocial");
@@ -67,7 +67,7 @@ public class AsignarMediadorPage extends PageObject {
 		
 		this.webDriver.waitWithDriver(3000);
 		//this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		this.webDriver.clickInFrame(this.btnContinuar, this.mainFrame);
 		
 		debugEnd();
 
@@ -78,8 +78,12 @@ public class AsignarMediadorPage extends PageObject {
 		debugBegin();
 		//webDriver.waitWithDriver(2000);
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
+<<<<<<< HEAD
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.waitForElementToBeClickable(this.txtCodigoMediador);
+=======
+		this.webDriver.switchToFrame(this.mainFrame);
+>>>>>>> 0369a17ce28b47793923d4fa27207a638794dded
 		this.webDriver.click(this.txtCodigoMediador);
 		webDriver.waitWithDriver(2000);
 		this.webDriver.appendText(this.txtCodigoMediador, codigoMediador);
@@ -124,7 +128,7 @@ public class AsignarMediadorPage extends PageObject {
 	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(String codigoMediador) throws InterruptedException {
 		debugBegin();
 
-		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.switchToFrame(this.mainFrame);
 		this.webDriver.appendText(this.txtCodigoMediadorMAC, codigoMediador);
 
 		this.webDriver.click(this.btnBuscarMAC);

@@ -20,7 +20,7 @@ public class HtmlUtils {
 		HtmlElement rowNode = new HtmlElement("tr");
 		
 		for(int i = 0; i < columns; i++) {
-			rowNode.addChild("th", "", "");
+			rowNode.addChild("th");
 		}
 		
 		return rowNode;

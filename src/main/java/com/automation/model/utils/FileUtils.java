@@ -3,7 +3,6 @@ package com.automation.model.utils;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -16,29 +15,43 @@ import com.automation.configuration.AutomationConstants;
 public class FileUtils {
 
 	/**
-	 * Method to return a Array of a section of a file "ownId" indicates if the
+	 * Method to return a Array of a section of a CSV file "ownId" indicates if the
 	 * file has a column on the left indicating the row ID - If true, then the
 	 * Array have the row ID as the key - Otherwise the key is the number of
 	 * line
 	 *
 	 * @param fileName
-	 * @param initialLine
-	 * @param finalLine
 	 * @param ownId
 	 * @return hashMap
 	 */
-	public static String[][] loadDataFileToArray(String filePath, boolean ownId) {
+	public static String[][] loadCsvFileToArray(String filePath, boolean ownId) {
 		String[][] result = null;
 		
-		try {
-			String text = getTextFromFile(filePath);
-			
-			int nLines = text.isEmpty() ? 0 : StringUtils.countOcurrencesInString(text, "\n") + 1;
-			
-			result = loadDataSectionToArray(text, 0, nLines, ownId);
-		} catch(FileNotFoundException e) {
-			System.out.println("File not found: " + e.toString());
-		}
+		String text = getTextFromFile(filePath);
+
+		int nLines = text.isEmpty() ? 0 : StringUtils.countOcurrencesInString(text, "\n") + 1;
+
+		result = loadCsvSectionToArray(text, 0, nLines, ownId);
+		
+		return result;
+	}
+
+	/**
+	 * Method to return a Array of a section of a CSV string "ownId" indicates if the
+	 * file has a column on the left indicating the row ID - If true, then the
+	 * Array have the row ID as the key - Otherwise the key is the number of
+	 * line
+	 *
+	 * @param csvString
+	 * @param ownId
+	 * @return hashMap
+	 */
+	public static String[][] loadCsvStringToArray(String csvString, boolean ownId) {
+		String[][] result = null;
+
+		int nLines = csvString.isEmpty() ? 0 : StringUtils.countOcurrencesInString(csvString, "\n") + 1;
+
+		result = loadCsvSectionToArray(csvString, 0, nLines, ownId);
 		
 		return result;
 	}
@@ -55,7 +68,7 @@ public class FileUtils {
 	 * @param ownId
 	 * @return hashMap
 	 */
-	public static String[][] loadDataSectionToArray(String text, int initialLine, int finalLine, boolean ownId) {
+	public static String[][] loadCsvSectionToArray(String text, int initialLine, int finalLine, boolean ownId) {
 		int nId = 0;
 		String[] textArray = StringUtils.stringToArray(text, "\n");
 
@@ -88,29 +101,30 @@ public class FileUtils {
 		}
 	}
 
-	public static String getTextFromFile(String filePath) throws FileNotFoundException {
-		String line, text = "";
+	public static String getTextFromFile(String filePath) {
+		String line, text = null;
 		BufferedReader bufferedReader = null;
-
-		FileInputStream inputStream = new FileInputStream(new File(filePath));
+		FileInputStream inputStream = null;
 		
 		try {
+			inputStream = new FileInputStream(new File(filePath));
+			
 			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 			line = bufferedReader.readLine();
 	
-			if(line != null) text += line;
+			if(line != null) text = line;
 	
 			while((line = bufferedReader.readLine()) != null) text += "\n" + line;
-	
-			inputStream.close();
-			bufferedReader.close();
-			
-			return text;
 		} catch(IOException e) {
 			System.out.println("Error accesing file " + e.toString());
-		} 
+		} finally {
+			try {
+				if(inputStream != null) inputStream.close();
+				if(bufferedReader != null) bufferedReader.close();
+			} catch(Exception e) {}
+		}
 		
-		return null;
+		return text;
 	}
 
 	public static HashMap<String, HashMap<String, String>> csvFileToMData(String filePath) {
@@ -122,11 +136,7 @@ public class FileUtils {
 			filePath = System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath;
 		}
 		
-		try {
-			result = csvStringToMData(getTextFromFile(filePath));
-		} catch(FileNotFoundException e) {
-			System.out.println("File not found: " + e.toString());
-		}
+		result = csvStringToMData(getTextFromFile(filePath));
 		
 		return result;
 	}
@@ -146,6 +156,7 @@ public class FileUtils {
 	public static HashMap<String, HashMap<String, String>> csvFileToDMData(String filePath) {
 		String line, key = null;
 		String[] keyArray = null;
+		FileInputStream inputStream = null;
 		BufferedReader bufferedReader = null;
 		HashMap<String, HashMap<String, String>> result = new HashMap<String, HashMap<String, String>>();
 
@@ -154,7 +165,7 @@ public class FileUtils {
 		}
 
 		try {
-			FileInputStream inputStream = new FileInputStream(new File(filePath));
+			inputStream = new FileInputStream(new File(filePath));
 			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
 			while((line = bufferedReader.readLine()) != null) {
@@ -165,11 +176,13 @@ public class FileUtils {
 				if(keyArray == null) keyArray = StringUtils.stringToArray(line, ";");
 				else result.put(key, StringUtils.stringToDMRow(keyArray, StringUtils.stringToArray(line, ";")));
 			}
-
-			inputStream.close();
-			bufferedReader.close();
 		} catch(IOException e) {
 			System.out.println("File not found: " + e.toString());
+		} finally {
+			try {
+				if(inputStream != null) inputStream.close();
+				if(bufferedReader != null) bufferedReader.close();
+			} catch(Exception e) {}
 		}
 
 		return result;
@@ -181,13 +194,14 @@ public class FileUtils {
 		}
 		
 		String line;
-		ArrayList<String> list = new ArrayList<String>();
+		FileInputStream inputStream = null;
 		BufferedReader bufferedReader = null;
+		ArrayList<String> list = new ArrayList<String>();
 		HashMap<String, String> auxMap = new HashMap<String, String>();
 		HashMap<String, HashMap<String, String>> result = new HashMap<String, HashMap<String, String>>();
 
 		try {
-			FileInputStream inputStream = new FileInputStream(new File(filePath));
+			inputStream = new FileInputStream(new File(filePath));
 			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
 			while((line = bufferedReader.readLine()) != null) {
@@ -196,9 +210,6 @@ public class FileUtils {
 					list.add(line);
 				}
 			}
-
-			inputStream.close();
-			bufferedReader.close();
 			
 			for(int i = 0; i < list.size(); i++) {
 				if(list.get(i).contains("=")) {
@@ -209,6 +220,11 @@ public class FileUtils {
 			result.put("config", auxMap);
 		} catch(IOException e) {
 			System.out.println("File not found: " + e.toString());
+		} finally {
+			try {
+				if(inputStream != null) inputStream.close();
+				if(bufferedReader != null) bufferedReader.close();
+			} catch(Exception e) {}
 		}
 
 		return result;

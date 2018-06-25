@@ -17,19 +17,20 @@ public class GestionCotizacionesBuscadorPage extends PageObject {
 	private By menuFrame = By.name("toc");
 
 	// @FindBy(id = "topFrame")
-	private By topFrame = By.cssSelector("topFrame");
+	private By topFrame = By.cssSelector("#topFrame");
 
 	// @FindBy(id = "mainFrame")
-	private By mainFrame = By.cssSelector("mainFrame");
+	private By mainFrame = By.cssSelector("#mainFrame");
 
 	// @FindBy(name = "botonBuscar")
 	private By btnBuscar = By.name("botonBuscar");
 
 	// @FindBy(xpath = ".//*[@value='COTIZACION']")
-	private By rdnNoCotizacion = By.xpath(".//*[@value='COTIZACION']");
+	//private By rdnNoCotizacion = By.xpath(".//*[@value='COTIZACION']");
+	private By rdnNoCotizacion = By.cssSelector("#filtro1");
 
 	// @FindBy(id = "cotizsec")
-	private By txtNumeroCotizacion = By.cssSelector("cotizsec");
+	private By txtNumeroCotizacion = By.cssSelector("#cotizsec");
 
 	// @FindBy(name = "producto_cotizacion")
 	private By cmbProductoCotizacion = By.name("producto_cotizacion");
@@ -57,22 +58,23 @@ public class GestionCotizacionesBuscadorPage extends PageObject {
 
 	// region methods
 	public void searchCotizacion(String cotizacion) {
+	//public void searchCotizacion(String cotizacion) {
 		debugBegin();
-		
 		this.webDriver.clickInFrame(this.rdnNoCotizacion, this.mainFrame);
-		if(cotizacion == "Mec")
+		if(this.testDataM.getTestCase().contains("Mec"))
 		// if
 		// (this.tData.getAcceso().equals(MutuaPropietariosConstants.MutuaEdificioConfort))
 		{
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProductoCotizacion, this.mainFrame, ProjectConstants.MutuaEdificioConfort);
-		} else if(cotizacion == "Mac")
+		} else if(this.testDataM.getTestCase().contains("Mac"))
 		// else if
 		// (this.tData.getAcceso().equals(MutuaPropietariosConstants.MutuaAlquierConfort))
 		{
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProductoCotizacion, this.mainFrame, ProjectConstants.MutuaAlquierConfort);
 		}
 
-		this.webDriver.appendTextInFrame(this.txtNumeroCotizacion, this.mainFrame, this.testDataM.getTestVar(testId, "CotizacionNum"));
+		this.webDriver.clearAndAppendTextInFrame(this.txtNumeroCotizacion, this.mainFrame, cotizacion);
+		//this.testDataM.getTestVar(testId, "CotizacionNum"));
 		this.webDriver.clickInFrame(this.btnBuscar, this.mainFrame);
 		
 		debugEnd();

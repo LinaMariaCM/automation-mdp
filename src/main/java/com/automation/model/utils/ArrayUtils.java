@@ -169,7 +169,7 @@ public class ArrayUtils {
 		String[] result = new String[array.length];
 
 		for(int i = 0; i < array.length; i++) {
-			result[i] = array[i].toString();
+			result[i] = array[i] != null ? array[i].toString() : null;
 		}
 
 		return result;
@@ -261,6 +261,17 @@ public class ArrayUtils {
 		
 		for(int i = 0; i < result.length; i++) {
 			result[i] = newArrays.get(i);
+		}
+		
+		return result;
+	}
+	public static int countOcurrences(String[][] matrix, String string, int index) {
+		int result = 0;
+		
+		for(int i = 0; i < matrix.length; i++) {
+			if(matrix[i] != null && matrix[i][index] != null && matrix[i][index].equals(string)) {
+				result ++;
+			}
 		}
 		
 		return result;

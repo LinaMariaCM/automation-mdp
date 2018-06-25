@@ -3,8 +3,10 @@ package com.automation.model.webdriver.configuration;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.logging.Level;
 
 import org.openqa.selenium.Proxy;
+import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
@@ -18,51 +20,57 @@ import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 
 public class FirefoxConfiguration {
-	
+
 	private DataObject config;
 	final static Logger logger = LoggerFactory.getLogger(FirefoxConfiguration.class);
-	
+
 	public static void downloadDriver(boolean forceCache) {
 		logger.debug("[BEGIN] - Starting BrowserManager setup");
 		BrowserManager manager = FirefoxDriverManager.getInstance();
-		
+
 		if(manager != null) {
 			if(forceCache) manager.forceCache();
 			manager.setup();
 		}
-		
+
 		logger.debug("[ END ] - BrowserManager setup finished");
 	}
 
 	public static DesiredCapabilities createDesiredCapabilities(boolean headless) {
-		//System.setProperty("webdriver.gecko.driver","~/Gecko/geckodriver");
-		
+		// System.setProperty("webdriver.gecko.driver","~/Gecko/geckodriver");
+
 		DesiredCapabilities cap = DesiredCapabilities.firefox();
 		cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, createFirefoxOptions(headless));
-		
-		/*FirefoxProfile firefoxProfile = new FirefoxProfile();
-        //Then add the proxy setting to the Firefox profile we created
-        firefoxProfile.setPreference("network.proxy.http", "110.164.156.194");
-        firefoxProfile.setPreference("network.proxy.http_port", "8080");
-        
-        cap.setCapability("requiredCapabilities", firefoxProfile);*/
-		
+
+		/*
+		 * FirefoxProfile firefoxProfile = new FirefoxProfile(); //Then add the
+		 * proxy setting to the Firefox profile we created
+		 * firefoxProfile.setPreference("network.proxy.http",
+		 * "110.164.156.194");
+		 * firefoxProfile.setPreference("network.proxy.http_port", "8080");
+		 * 
+		 * cap.setCapability("requiredCapabilities", firefoxProfile);
+		 */
+
 		return cap;
 	}
 
 	public static FirefoxOptions createFirefoxOptions(boolean headless) {
 		FirefoxOptions options = new FirefoxOptions();
-		
+
 		options.addArguments("--start-maximized");
+
+		options.setLogLevel(FirefoxDriverLogLevel.fromLevel(Level.WARNING));
+
 		if(headless) options.addArguments("-headless");
-		
+
 		return options;
 	}
 
 	public DesiredCapabilities createDesiredCapabilities(Proxy proxy) {
 		DesiredCapabilities cap = DesiredCapabilities.firefox();
 		cap.setCapability(CapabilityType.PROXY, proxy);
-		
+
 		return cap;
 	}
 
@@ -78,7 +86,7 @@ public class FirefoxConfiguration {
 		BrowserManager manager = FirefoxDriverManager.getInstance();
 		manager.forceCache();
 		manager.setup();
-		
+
 		FirefoxProfile firefoxProfile = new FirefoxProfile();
 
 		if(Boolean.valueOf(this.config.getValue(AutomationConstants.FIREFOX_ENABLE_FIREBUG))) {
@@ -106,7 +114,7 @@ public class FirefoxConfiguration {
 			firefoxProfile.setPreference("browser.download.folderList", 2);
 			firefoxProfile.setPreference("browser.download.manager.showWhenStarting", false);
 			firefoxProfile.setPreference("browser.helperApps.alwaysAsk.force", false);
-			
+
 			if(this.config.getValue(AutomationConstants.FILE_DOWNLOAD_TEMP) != null) {
 				firefoxProfile.setPreference("browser.download.dir", Paths.get(this.config.getValue(AutomationConstants.FILE_DOWNLOAD_TEMP)).toString());
 			}
@@ -115,7 +123,7 @@ public class FirefoxConfiguration {
 
 			// firefoxProfile.setEnableNativeEvents(true);
 		}
-		
+
 		return firefoxProfile;
 	}
 }

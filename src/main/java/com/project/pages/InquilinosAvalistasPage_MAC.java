@@ -155,8 +155,9 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException {
 		this.addDatosInquilino();
 		this.anadirDocumentacion();
-		this.setTestVar("NumCotizacion", this.recuperarNumeroCotizacion());
-		System.out.println("*** Num cotizacion: " + this.recuperarNumeroCotizacion());
+		this.setTestVar("NumCotizacion", recuperarNumeroCotizacion());
+		System.out.println("***NumCotizacion in executeActionsInInquilinosAvalistasPage: " + getTestVar("NumCotizacion"));
+		//this.setTestVar(this.recuperarNumeroCotizacion());
 		this.validacionViabilidadInquilino();
 	}
 	// public void executeActionsInInquilinosAvalistasPage() throws
@@ -436,6 +437,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
 	 this.webDriver.sendKeysFrame(this.elmntFichero, this.mainFrame, "C:/Users/JCHRISTOPHER/Desktop/Documentos para pruebas/DocumentoAñadido.txt");
+	 //this.webDriver.sendKeysFrame(this.elmntFichero, this.mainFrame,  "C:/Users/chris/Desktop/New Text Document.txt");
 	 debugEnd();
 	 }
 
@@ -489,14 +491,13 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("END - RecuperarTextoMensajeValidacionOK");
 	// return result;
 	// }
-	//
-	// public void clickOnContinuar()
-	// {
-	// logger.debug("BEGIN - Continuar");
-	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.mainFrame);
-	// logger.debug("END - Continuar");
-	// }
-	//
+
+	 public void clickContinuar() {
+		 debugBegin();
+		 this.webDriver.clickInFrame(this.btnContinuar, this.mainFrame);
+		 debugEnd();
+	 }
+
 	 public String recuperarNumeroCotizacion()
 	 {
 	 debugBegin();

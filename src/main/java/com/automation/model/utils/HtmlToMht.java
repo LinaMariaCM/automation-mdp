@@ -32,7 +32,7 @@ public class HtmlToMht {
 				(args.length > 4  && !org.apache.commons.lang3.StringUtils.isNumeric(args[4]) ? "." + args[4] : "");
 			
 			
-			HtmlElement htmlNode = CsvToHtml.createHtmlNode(timeStamp, reportPath, args[3], relevantColumns, null);
+			HtmlElement htmlNode = CsvToHtml.createJointHtmlNode(timeStamp, reportPath, args[3], new String[]{ args[3]}, new int[]{ relevantColumns}, null);
 			
 			try {
 				generateMht(reportPath + timeStamp, htmlNode.toString().replace("thumbnails/", "").replace("images/", "")

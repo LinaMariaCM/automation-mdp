@@ -31,7 +31,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.automation.model.utils.StringUtils;
-import com.automation.model.utils.objects.HtmlElement;
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
 import com.automation.model.utils.ArrayUtils;
@@ -342,10 +341,13 @@ public class DriverHelper {
 						break;
 					default:
 						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
-							debugInfo("Initializing chrome driver for " + browserType);
-							driver = new FirefoxDriver(MobileConfiguration.createFirefoxMobileOptions(browserType));
-						} else {
 							debugInfo("Initializing firefox driver for " + browserType);
+							driver = new FirefoxDriver(MobileConfiguration.createFirefoxMobileOptions(browserType));
+							
+							Dimension dimension = new Dimension(320, 568);
+							driver.manage().window().setSize(dimension);
+						} else {
+							debugInfo("Initializing chrome driver for " + browserType);
 							driver = new ChromeDriver(MobileConfiguration.createChromeMobileOptions(browserType));
 						}
 						mobileEmulation = true;
@@ -713,6 +715,18 @@ public class DriverHelper {
 		driver.get(url);
 		waitForLoadToComplete();
 	}
+
+	public void refresh() {
+		driver.navigate().refresh();
+	}
+
+	public void forward() {
+		driver.navigate().forward();
+	}
+
+	public void back() {
+		driver.navigate().back();
+	}
 	// endregion
 
 	public WebElement selectClickableElement(By by) {
@@ -747,8 +761,12 @@ public class DriverHelper {
 	public void click(WebElement element) {
 		logger.trace("[BEGIN] - click");
 		
-		if(browserType.equals(BrowserType.INTERNET_EXPLORER)) {
-			((JavascriptExecutor) driver).executeScript("arguments[0].click()", element);
+		if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
+			try {
+				new Actions(driver).moveToElement(element).click().perform();
+			} catch(Exception e) {
+				((JavascriptExecutor) driver).executeScript("arguments[0].click()", element);
+			}
 		} else {
 			waitForElementToBeClickable(element).click();
 		}
@@ -800,22 +818,29 @@ public class DriverHelper {
 		logger.trace("[BEGIN] - clickRelativePosition");
 		waitForElementToBeClickable(el);
 
-		try {
-			((JavascriptExecutor) driver).executeScript("document.elementFromPoint("
-				+ "arguments[0].getBoundingClientRect().x + (arguments[0].getBoundingClientRect().width * " + xPer + "), "
-				+ "arguments[0].getBoundingClientRect().y + (arguments[0].getBoundingClientRect().height * " + yPer + ")).click();", el);
-		} catch(WebDriverException e) {
+		if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
+			Dimension size = el.getSize();
+			
+			new Actions(driver).moveToElement(el).moveByOffset((int) ((- size.width / 2) + size.width * yPer), 
+																(int) ((- size.height / 2) + size.height * yPer)).click().perform();
+		} else {
 			try {
-				new Actions(driver).moveToElement(el).click().perform();
-			} catch(Exception e1) {
-				System.out.println("Element not found");
-				e.printStackTrace();
-
-				throw e;
+				((JavascriptExecutor) driver).executeScript("document.elementFromPoint("
+					+ "arguments[0].getBoundingClientRect().x + (arguments[0].getBoundingClientRect().width * " + xPer + "), "
+					+ "arguments[0].getBoundingClientRect().y + (arguments[0].getBoundingClientRect().height * " + yPer + ")).click();", el);
+			} catch(WebDriverException e) {
+				try {
+					new Actions(driver).moveToElement(el).click().perform();
+				} catch(Exception e1) {
+					System.out.println("Element not found");
+					e.printStackTrace();
+	
+					throw e;
+				}
+	
 			}
-
 		}
-
+		
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
 		logger.trace("[END] - clickRelativePosition");
@@ -829,21 +854,25 @@ public class DriverHelper {
 		logger.trace("[BEGIN] - clickOver");
 		waitForElementToBeClickable(el);
 
-		try {
-			((JavascriptExecutor) driver).executeScript("document.elementFromPoint("
-				+ "arguments[0].getBoundingClientRect().x, "
-				+ "arguments[0].getBoundingClientRect().y).click();", el);
-		} catch(WebDriverException e) {
+		if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
+			new Actions(driver).moveToElement(el).click().perform();
+		} else {
 			try {
-				new Actions(driver).moveToElement(el).click().perform();
-			} catch(Exception e1) {
-				debugInfo("Element not found");
-				e.printStackTrace();
-
-				throw e;
+				((JavascriptExecutor) driver).executeScript("document.elementFromPoint("
+					+ "arguments[0].getBoundingClientRect().x, "
+					+ "arguments[0].getBoundingClientRect().y).click();", el);
+			} catch(WebDriverException e) {
+				try {
+					new Actions(driver).moveToElement(el).click().perform();
+				} catch(Exception e1) {
+					debugInfo("Element not found");
+					e.printStackTrace();
+	
+					throw e;
+				}
 			}
 		}
-
+		
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
 		logger.trace("[END] - clickOver");
@@ -1197,7 +1226,7 @@ public class DriverHelper {
 	public void moveToElement(WebElement element) {
 		logger.trace("[BEGIN] - moveToElement");
 
-		if(!driverType.equals(AutomationConstants.MOBILE_APP) && browserType.equals(BrowserType.FIREFOX)) {
+		if(!driverType.equals(AutomationConstants.MOBILE_APP) && browserType != null &&  browserType.equals(BrowserType.FIREFOX)) {
 			((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('mouseover', {bubbles:true}));", element);
 		} else if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
 			new Actions(driver).moveToElement(element).perform();
@@ -1210,7 +1239,7 @@ public class DriverHelper {
 	public void moveOverElement(By by) {
 		logger.trace("[BEGIN] - moveOverElement");
 
-		if(!driverType.equals(AutomationConstants.MOBILE_APP) && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
+		if(!driverType.equals(AutomationConstants.MOBILE_APP) && browserType != null &&  browserType.equals(BrowserType.INTERNET_EXPLORER)) {
 			new Actions(driver).moveToElement(driver.findElement(by)).perform();
 		} else if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
 			((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('mouseover', {bubbles:true}));", driver.findElement(by));
@@ -1380,9 +1409,11 @@ public class DriverHelper {
 	public void waitForPageToLoad() {
 		logger.trace("[BEGIN] - waitForPageToLoad");
 		
-		new WebDriverWait(driver, implicitTimeout)
-			.pollingEvery(Duration.ofMillis(500))
-			.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript("return !document ? false : !document.readyState ? false : document.readyState;")));
+		try {
+			new WebDriverWait(driver, implicitTimeout)
+				.pollingEvery(Duration.ofMillis(500))
+				.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript("return !document ? false : !document.readyState ? false : document.readyState;")));
+		} catch(JavascriptException e) {}
 
 		logger.trace("[END] - waitForPageToLoad");
 	}
@@ -1518,22 +1549,15 @@ public class DriverHelper {
 
 		return isClickable;
 	}
-
-	public boolean waitForElementNotToBeClickableInFrame(By waitElement, By frame) {
-		logger.trace("[BEGIN] - waitForElementNotToBeClickable");
-		waitForLoadToComplete();
-
-		boolean isClickable = isClickable(waitElement);
-		switchToFrame(frame);
-		for(int i = 0; isClickable && i < implicitTimeout; i += shortWait) {
-			isClickable = isClickable(waitElement);
-		}
-		exitFrame();
-		logger.trace("[END] - waitForElementNotToBeClickable");
-		
-		return isClickable;
-	}
 	
+	public boolean waitForElementNotToBeClickableInFrame(By waitElement, By frame) {
+		switchToFrame(frame);
+		boolean result = waitForElementNotToBeClickable(waitElement);
+		exitFrame();
+		
+		return result;
+	}
+
 	public void waitForElementToBeClickableInFrame(By waitElement, By frame) {
 		switchToFrame(frame);
 		waitForElementToBeClickable(waitElement);
@@ -1576,11 +1600,13 @@ public class DriverHelper {
 	}
 
 	public ArrayList<String> getCurrentLogs() {
-		ArrayList<String> list = new ArrayList<String>();
-
-		driver.manage().logs().get("browser").forEach(p -> {
-			list.add(p.getLevel().getName() + ": " + p.getMessage());
-		});
+		ArrayList<String> list = new ArrayList<String>();		
+		
+		if(browserType.equals(BrowserType.CHROME)) {
+			driver.manage().logs().get("browser").forEach(p -> {
+				list.add(p.getLevel().getName() + ": " + p.getMessage());
+			});
+		}
 
 		return list;
 	}
@@ -1588,41 +1614,42 @@ public class DriverHelper {
 	public void addToLog() {
 		ArrayList<String> list = getCurrentLogs();
 
-		if(consoleLogs.size() > 0 && list.size() > 0) {
-			int pos = 0;
-			boolean isEqual = false;
-			int maxSize = consoleLogs.size() < list.size() ? consoleLogs.size() : list.size();
-
-			for(int i = 0; i < list.size() && i < consoleLogs.size(); i++) {
-				int currentMaxSize = maxSize - i;
-
-				for(int j = 0; j < currentMaxSize; j++) {
-					if(!list.get(j).equals(consoleLogs.get(consoleLogs.size() - currentMaxSize + j))) {
+		if(browserType.equals(BrowserType.CHROME)) {
+			if(consoleLogs.size() > 0 && list.size() > 0) {
+				int pos = 0;
+				boolean isEqual = false;
+				int maxSize = consoleLogs.size() < list.size() ? consoleLogs.size() : list.size();
+	
+				for(int i = 0; i < maxSize; i++) {
+					int currentMaxSize = maxSize - i;
+	
+					for(int j = 0; j < currentMaxSize; j++) {
+						if(!list.get(j).equals(consoleLogs.get(consoleLogs.size() - currentMaxSize + j))) {
+							break;
+						}
+	
+						if(j + 1 == currentMaxSize) {
+							isEqual = true;
+							pos = j;
+						}
+					}
+	
+					if(isEqual) {
 						break;
 					}
-
-					if(j + 1 == currentMaxSize) {
-						isEqual = true;
-						pos = j;
-					}
 				}
-
-				if(isEqual) {
-					break;
+	
+				for(int i = pos; i < list.size(); i++) {
+					consoleLogs.add(list.get(i));
+					System.out.println(list.get(i));
 				}
-			}
-
-			for(int i = pos; i < maxSize; i++) {
-				consoleLogs.add(list.get(i));
-				System.out.println(list.get(i));
-			}
-		} else {
-			for(String log : list) {
-				consoleLogs.add(log);
-				System.out.println(log);
+			} else {
+				for(String log : list) {
+					consoleLogs.add(log);
+					System.out.println(log);
+				}
 			}
 		}
-
 	}
 
 	public boolean isSelected(By webElement) {
