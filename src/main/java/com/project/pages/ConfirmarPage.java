@@ -8,9 +8,9 @@ import com.automation.model.testing.objects.PageObject;
 //import com.mutuaPropietarios.testCasesData.Helpers.MotivosSuplementoHelper;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class ConfirmarPolizaPage extends PageObject {
+public class ConfirmarPage extends PageObject {
 
-	public ConfirmarPolizaPage(UserStory userS) {
+	public ConfirmarPage(UserStory userS) {
 		super(userS);
 	}
 

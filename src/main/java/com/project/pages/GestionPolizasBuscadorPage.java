@@ -1,7 +1,10 @@
 package com.project.pages;
 
+import org.openqa.selenium.By;
+
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import com.project.steps.Steps;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
@@ -10,7 +13,7 @@ import com.automation.model.testing.objects.PageObject;
 
 public class GestionPolizasBuscadorPage extends PageObject {
 	
-	GestionPolizasBuscadorPage(UserStory userS) {
+ public	GestionPolizasBuscadorPage(UserStory userS) {
 		super(userS);
 	}
 	// final static Logger logger =
@@ -19,10 +22,12 @@ public class GestionPolizasBuscadorPage extends PageObject {
 	// private WebElementHelper wh;
 	// TestCaseData tData;
 	//
-	// // region webelements
-	// // @FindBy(xpath = ".//*[@value='POLIZA']")
+ 
+	// region webelements
+ 
+	// @FindBy(xpath = ".//*[@value='POLIZA']")
 	// @FindBy(id = "filtro1")
-	// private WebElement rdnNoPoliza;
+	private By rdnNoPoliza = By.id("filtro1");
 	//
 	// @FindBy(name = "toc")
 	// private WebElement menuFrame;
@@ -31,11 +36,13 @@ public class GestionPolizasBuscadorPage extends PageObject {
 	// private WebElement topFrame;
 	//
 	// @FindBy(id = "mainFrame")
-	// private WebElement mainFrame;
-	//
+	private By cuerpoFrame = By.id("mainFrame");
+	
+	
 	// @FindBy(name = "botonBuscar")
-	// private WebElement btnBuscar;
-	//
+	private By btnBuscar = By.name("botonBuscar");
+	
+	
 	// @FindBy(name = "producto_poliza")
 	// private WebElement cmbProductoCotizacion;
 	//
@@ -63,6 +70,13 @@ public class GestionPolizasBuscadorPage extends PageObject {
 	// @FindBy(id = "numedocu")
 	// private WebElement txtNifCif;
 	//
+	
+	private By lineaNegocioMec = By.cssSelector("#producto_poliza > option:nth-child(3)");
+	
+	private By inputNumeroPoliza = By.id("polizsec");
+	
+	private By continuar = By.xpath("//*[@id='capaAjax']/table/tbody/tr[2]/td[12]/a");
+	
 	// // endregion
 	//
 	// public GestionPolizasBuscadorPage(BrowserContext browserContext)
@@ -87,7 +101,37 @@ public class GestionPolizasBuscadorPage extends PageObject {
 	// this.wh.exitFromFrame();
 	// logger.debug("END - SearchPoliza");
 	// }
-	//
+	
+	public void BuscarPorNumeroPoliza(String numPoliza)
+	{
+		this.debugBegin();
+		
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.click(this.rdnNoPoliza);
+		
+		this.webDriver.selectClickableElement(this.lineaNegocioMec);
+		
+		this.webDriver.clearAndAppendText(inputNumeroPoliza, numPoliza);
+		this.webDriver.click(this.btnBuscar);
+		Steps.waitForIt(webDriver);
+		this.webDriver.exitFrame();
+		
+		this.debugEnd();
+	}
+	
+	public void SeleccionarResultado()
+	{
+		this.debugBegin();
+		
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		
+		if(webDriver.isPresent(this.continuar)) this.webDriver.click(this.continuar);
+		else System.out.println("No se han encontrado resultados para la búsqueda realizada");
+		
+		this.webDriver.exitFrame();
+		this.debugEnd();
+	}
+	
 	// public void SearchPolizaByNifNumber(String NifNumber)
 	// {
 	// logger.debug("BEGIN - SearchPoliza");

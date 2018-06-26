@@ -1,11 +1,18 @@
 package com.project.pages;
 
+import org.openqa.selenium.By;
+
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import com.project.steps.Steps;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	
-	SiniestrosAltaAperturaDeclaracionPage(UserStory userS) {
+	public SiniestrosAltaAperturaDeclaracionPage(UserStory userS) {
 		super(userS);
 	}
 	// final static Logger logger =
@@ -15,6 +22,9 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	// TestCaseData tData;
 	//
 	// // region webelements
+	
+	// #####	FRAMES	#####
+	
 	// @FindBy(id = "leftFrame")
 	// private WebElement menuFrame;
 	//
@@ -22,40 +32,51 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	// private WebElement topFrame;
 	//
 	// @FindBy(id = "mainFrame")
-	// private WebElement mainFrame;
-	//
+	 private By cuerpoFrame = By.id("mainFrame");
+	
+	 
+	 // #####	DATOS OCURRENCIA	#####
+	 
 	// @FindBy(id = "fechsini")
-	// private WebElement txtFechaOcurrencia;
-	//
+	 private By txtFechaOcurrencia = By.id("fechsini");
+	
+	 
+	 //	#####	DATOS DECLARACION	####
+	 
 	// @FindBy(id = "tipodecl")
 	// private WebElement drpdwnTipoDeclarante;
-	//
-	// @FindBy(id = "mododecl")
+	 
+	 private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
+	
+	 // @FindBy(id = "mododecl")
 	// private WebElement drpdwnMedioDeclaracion;
-	//
+	 
+	 private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
+	 
 	// @FindBy(id = "FECHDENU")
 	// private WebElement txtFechaDenuncia;
-	//
+	
+	
+	//	#####	ASISTENCIA	#####
+	 
 	// @FindBy(id = "asistenciaSi")
-	// private WebElement rdbtnAsistenciaSi;
+	 private By rdbtnAsistenciaSi = By.id("asistenciaSi");
 	//
 	// @FindBy(id = "asistenciaNo")
-	// private WebElement rdbtnAsistenciaNo;
-	//
+	 private By rdbtnAsistenciaNo = By.id("asistenciaNo");
+	
+	 
 	// @FindBy(id = "botonContinuar")
-	// private WebElement btnContinuar;
-	// // endregion
-	//
-	// public SiniestrosAltaAperturaDeclaracionPage(BrowserContext
-	// browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
+	 private By btnContinuar = By.id("botonContinuar");
+	 
+	// endregion
+	
+	 
+	//############################################################################## 
+	 
+	 
+	// region methods
+	 
 	// public void writeFechaOcurrencia(
 	// String fechaOcurrencia)
 	// {
@@ -105,12 +126,38 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	// this.wh.clickOnWebElementInFrame(this.rdbtnAsistenciaNo, this.mainFrame);
 	// logger.debug("END - selectAsistenciaNo");
 	// }
-	//
-	// public void clickContinuar()
-	// {
-	// logger.debug("BEGIN - clickContinuar");
-	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.mainFrame);
-	// logger.debug("END - clickContinuar");
-	// }
+	
+	 public void clickContinuar()
+	 {
+		this.debugBegin();
+		
+		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		Steps.waitForIt(webDriver);
+		
+	 	this.debugEnd();
+	 }
+	
+	 DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
+	 
+	 public void completarMinimos() // método que completa el mínimo de campos para realizar una prueba
+	 {
+		this.debugBegin();
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		
+		this.webDriver.click(this.tipoDeclaranteTomador);
+		
+		this.webDriver.appendText(this.txtFechaOcurrencia, fOcurrencia.format(new Date()));
+		
+		this.webDriver.click(this.medioDeclaracionCorreoElec);
+		
+		this.webDriver.click(this.rdbtnAsistenciaNo);
+		
+		this.webDriver.exitFrame();
+		
+		this.clickContinuar();
+		this.debugEnd();
+	 }
+	 
+	 
 	// endregion
 }

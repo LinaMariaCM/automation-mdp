@@ -1,32 +1,37 @@
 package com.project.pages;
 
+import org.openqa.selenium.By;
+
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import com.project.steps.Steps;
 
 public class SiniestrosHomePage extends PageObject {
 	
-	SiniestrosHomePage(UserStory userS) {
-		super(userS);
-	}
+
 	// final static Logger logger =
 	// LoggerFactory.getLogger(SiniestrosHomePage.class);
 	// BrowserContext browserContext;
 	// private WebElementHelper wh;
 	// TestCaseData tData;
-	//
-	// // region webelements
+	
+	
+	
+	// region webelements
+	
 	// @FindBy(id = "leftFrame")
-	// private WebElement menuFrame;
+	 private By menuFrame = By.id("leftFrame");
 	//
 	// @FindBy(id = "topFrame")
 	// private WebElement topFrame;
 	//
 	// @FindBy(id = "mainFrame")
 	// private WebElement mainFrame;
-	//
+	
+	 
 	// @FindBy(id = "jt2")
-	// private WebElement btnAperturaAlta;
-	//
+	 private By btnAperturaAlta = By.id("jt2");	
+	 
 	// @FindBy(id = "jt3")
 	// private WebElement btnAperturaModificar;
 	//
@@ -43,23 +48,25 @@ public class SiniestrosHomePage extends PageObject {
 	// private WebElement btnGestionEventos;
 	// // endregion
 	//
-	// public SiniestrosHomePage(BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
-	// public void openAperturaAlta()
-	// {
-	// logger.debug("BEGIN - openAperturaAlta");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnAperturaAlta,
-	// this.menuFrame);
-	// logger.debug("END - openAperturaAlta");
-	// }
-	//
+
+	//Constructor 
+	 
+	public SiniestrosHomePage(UserStory userS) {
+			super(userS);
+		}
+	 
+	 
+	// region methods
+	
+	 public void openAperturaAlta()
+	 {
+		this.debugBegin(); 
+		this.webDriver.clickInFrame(this.btnAperturaAlta,
+		this.menuFrame);
+		Steps.waitForIt(webDriver);
+		this.debugEnd();
+	 }
+	
 	// public void openAperturaModificar()
 	// {
 	// logger.debug("BEGIN - openAperturaModificar");

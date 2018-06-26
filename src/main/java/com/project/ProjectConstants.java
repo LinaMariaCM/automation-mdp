@@ -11,10 +11,25 @@ public class ProjectConstants {
 	// User type
 	
 	public static final String USER_TYPE = "user_type";
+	
+	
+	/* tipo de prueba: MAC */
+	
 	public static final String MAC = "Mac";
 	
+
+	/* tipo de prueba: MEC */
 	//16/04/18
+	
 	public static final String MEC = "Mec";
+		
+	
+	/* tipo de prueba: SiniestrosMEC */
+	//25/06/18
+	
+	public static final String MEC_SINIESTROS = "MecSin";
+	
+	
 	
 	//Mutua de Propietarios Constants	
 	

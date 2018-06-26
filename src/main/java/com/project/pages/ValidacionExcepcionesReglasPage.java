@@ -17,16 +17,21 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	// @FindBy(name = "botonContinuar")
 	//private By btnContinuar = By.name("botonContinuar");
 
-	private By btnContinuar = By.cssSelector("[ng-click='cp.continuar()']");
+	private By btnContinuar = By.cssSelector("#botonContinuar");
+	
+	//private By btnContinuarAltaSiniestro = By.cssSelector("#botonContinuar");
 	
 	
 	// endregion
+	
+	// CONSTRUCTOR
 
 	public ValidacionExcepcionesReglasPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region methods
+	// REGION METHODS
+	
 	public ValidacionExcepcionesReglasPage clickOnContinuarButton() {
 		debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -43,5 +48,13 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 
 		return this;
 	}
+	
+	public void ContinuarAltaSiniestro()
+	{
+		this.debugBegin();
+		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		this.debugEnd();
+	}
+	
 	// endregion
 }

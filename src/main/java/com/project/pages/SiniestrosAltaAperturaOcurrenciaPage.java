@@ -2,75 +2,84 @@ package com.project.pages;
 
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import com.project.steps.Steps;
+
+import org.openqa.selenium.By;
 
 public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	
-	SiniestrosAltaAperturaOcurrenciaPage(UserStory userS) {
+	
+	String pulp = "Ezequiel, 25-17: El camino del hombre recto está por todos lados rodeado por la avaricia de los egoístas y la tiranía de los hombres malos.";
+	
+	public SiniestrosAltaAperturaOcurrenciaPage(UserStory userS) {
 		super(userS);
 	}
-	// final static Logger logger =
-	// LoggerFactory.getLogger(SiniestrosAltaAperturaOcurrenciaPage.class);
-	// BrowserContext browserContext;
-	// private WebElementHelper wh;
-	// TestCaseData tData;
-	//
-	// // region webelements
+
+
+	// region webelements
+	
+	
+	//	#####	FRAMES	####
+	
 	// @FindBy(id = "leftFrame")
-	// private WebElement menuFrame;
+	// private By menuFrame;
 	//
 	// @FindBy(id = "topFrame")
-	// private WebElement topFrame;
+	// private By topFrame;
 	//
 	// @FindBy(id = "mainFrame")
-	// private WebElement mainFrame;
-	//
+		private By cuerpoFrame =  By.id("mainFrame");
+
+	
+	//	####	LUGAR DE OCURRENCIA	####
+	
 	// @FindBy(id = "cabRechazar")
-	// private WebElement btnRechazarApertura;
+	// private By btnRechazarApertura;
 	//
 	// @FindBy(xpath = "./html/body/div[3]/div/ul/li[1]/a/span")
-	// private WebElement btnVolverABuscador;
+	// private By btnVolverABuscador;
 	//
 	// @FindBy(id = "listaLugares")
-	// private WebElement drpdwnLugarOcurrencia;
-	//
+	// private By drpdwnLugarOcurrencia;
+	
+		
+	//	####	CAUSAS	####
+	
 	// @FindBy(id = "GRUCAUSA")
-	// private WebElement drpdwnGrupoCausas;
+		private By grupoCausasAccidentes = By.cssSelector("#GRUCAUSA > option:nth-child(2)");
 	//
 	// @FindBy(id = "TIPOCAUS")
-	// private WebElement drpdwnTipoCausas;
-	//
+		private By tipoCausasAccidentes = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
+	
+	
+	//	####	DATOS DE LA OCURRENCIA	####
+	
 	// @FindBy(id = "version")
-	// private WebElement txtDescripcionSiniestro;
+		private By txtDescripcionSiniestro = By.id("version");
 	//
 	// @FindBy(id = "implicadosSi")
-	// private WebElement rdbtnImplicadosSi;
+		private By rdbtnImplicadosSi = By.id("implicadosSi");
 	//
 	// @FindBy(id = "implicadosNo")
-	// private WebElement rdbtnImplicadosNo;
+		private By rdbtnImplicadosNo = By.id("implicadosNo");
 	//
 	// @FindBy(id = "encargoSi")
-	// private WebElement rdbtnEncargoSi;
+		private By rdbtnEncargoSi = By.id("encargoSi");
 	//
 	// @FindBy(id = "encargoNo")
-	// private WebElement rdbtnEncargoNo;
+		private By rdbtnEncargoNo = By.id("encargoNo");
 	//
 	// @FindBy(id = "botonGuardar")
-	// private WebElement btnGuardarSalir;
+		private By btnGuardarSalir = By.id("botonGuardar");
 	//
 	// @FindBy(id = "botonContinuar")
-	// private WebElement btnContinuar;
-	// // endregion
-	//
-	// public SiniestrosAltaAperturaOcurrenciaPage(BrowserContext
-	// browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
+		private By btnContinuar = By.id("botonContinuar");
+		
+	// endregion
+	
+		
+	// region methods
+		
 	// public void clickRechazarApertura()
 	// {
 	// logger.debug("BEGIN - clickRechazarApertura");
@@ -164,5 +173,27 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.mainFrame);
 	// logger.debug("END - clickContinuar");
 	// }
-	// endregion
+
+		
+	public void datosMinOcurrencia()	//rellena los datos mínimos de una ocurrencia para que pase la prueba
+	{	
+		this.debugBegin();
+		
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		
+		this.webDriver.click(this.grupoCausasAccidentes);
+		this.webDriver.click(this.tipoCausasAccidentes);
+		
+		this.webDriver.appendText(this.txtDescripcionSiniestro, pulp);
+		this.webDriver.click(this.rdbtnImplicadosNo);
+		this.webDriver.click(this.rdbtnEncargoNo);
+		
+		this.webDriver.click(this.btnContinuar);
+		Steps.waitForIt(webDriver);
+		
+		this.webDriver.exitFrame();
+		
+		this.debugEnd();
+	}
+	// endregion		
 }
