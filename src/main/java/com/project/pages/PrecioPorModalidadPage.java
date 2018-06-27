@@ -12,6 +12,7 @@ import com.automation.model.helpers.DniGeneratorHelper;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
 import com.project.ProjectConstants;
+import com.project.steps.Steps;
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.DniGeneratorHelper;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
@@ -257,11 +258,13 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	// region methods
 	public PrecioPorModalidadPage executeActionsInPrecioPorModalidadPage() throws InterruptedException, IOException {
+		Steps.waitForIt(webDriver);
 		this.seleccionarModalidad();
 		this.completarCoberturaPorMaquinaria();
 		this.completarCoberturasEmpleados();
 		this.completarCoberturasEnergiaSolar();
 		this.completarFranquiciaVoluntaria();
+		Steps.waitForIt(webDriver);
 		this.completarOQuitarDescuentoRecargo();
 		this.clickOnContinuar();
 
@@ -538,6 +541,8 @@ public class PrecioPorModalidadPage extends PageObject {
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		// this.webDriver.click(this.lnkMostrarDescuento);
 		// this.webDriver.moveToElementAndClick(this.lnkMostrarDescuento);
+		Steps.waitForIt(webDriver);
+		Steps.waitForIt(webDriver, this.lblPorcentajeDescuentoPantallaPrincipal);
 		String DescuentoValue = this.webDriver.getText(this.lblPorcentajeDescuentoPantallaPrincipal);
 		this.webDriver.exitFrame();
 

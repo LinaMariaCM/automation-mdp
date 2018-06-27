@@ -1179,13 +1179,18 @@ public class DriverHelper {
 		appendText(by, text);
 		exitFrame();
 	}
+	
+	public void clearAndAppendText(By by, String text) {
+		logger.trace("[BEGIN] - appendText");
+		clearText(by);
+		appendText(by, text);
+		logger.trace("[END] - appendText");
+	}
 
 	public void clearAndAppendTextInFrame(By by, By frame, String text) {
 		switchToFrame(frame);
-		clearText(by);
-		appendText(by, text);
+		clearAndAppendText(by, text);
 		exitFrame();
-		logger.trace("[END] - appendText");
 	}
 
 	public void setTextIfEmpty(By by, String text) {

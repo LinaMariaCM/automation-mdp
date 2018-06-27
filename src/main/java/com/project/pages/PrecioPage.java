@@ -3,6 +3,7 @@ package com.project.pages;
 import org.openqa.selenium.By;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import com.project.steps.Steps;
 
 public class PrecioPage extends PageObject {
 
@@ -20,12 +21,14 @@ public class PrecioPage extends PageObject {
 	// By.xpath(".//*[contains(text(),'Convertir a proyecto')]");
 
 	private By btnConvertirAProyecto = By.cssSelector("button[ng-click*='convertToProject']");
+	
+	//private By btnConvertirAProyecto = By.name("convertToProject");
 
 	// body > div > div:nth-child(1) > div.container.ng-scope.body-precio > form
 	// > div:nth-child(13) > footer > div >
 	// button.btn.btn-primary.ng-binding.ng-scope
 
-	// private By btnConvertirAProyecto = By.name("Convertir a proyecto");
+	//private By btnConvertirAProyecto = By.name("Convertir a proyecto");
 
 	// checkbox of a clausula
 	// @FindBy(xpath = ".//tr[td[contains(text(),'Responsabilidad Civil y daños
@@ -59,7 +62,7 @@ public class PrecioPage extends PageObject {
 
 	private By procesandoWindow = By.cssSelector(".smallbox");
 
-	// private By loaderModal = By.cssSelector("#modalLoader");
+	private By loaderModal = By.cssSelector("#modalLoader");
 
 	// endregion
 
@@ -83,11 +86,21 @@ public class PrecioPage extends PageObject {
 		//this.webDriver.waitWithDriver(10000);
 		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.scrollToBottom();
-		this.webDriver.waitWithDriver(3500);		
+		
+		//this.webDriver.scrollToBottom();
+		//this.webDriver.waitWithDriver(4000);
+		
+		Steps.waitForIt(webDriver);
+		Steps.waitForIt(webDriver, this.btnConvertirAProyecto);
+		//this.webDriver.waitForElementToBeClickableAndClick(this.btnConvertirAProyecto);
+		//this.webDriver.waitForAngular();
 		this.webDriver.click(this.btnConvertirAProyecto);
+		Steps.waitForIt(webDriver, 2000);
+		//this.webDriver.waitForElementNotToBeClickable(loaderModal);
 		//this.webDriver.waitForElementToBeClickableAndClick(this.btnConvertirAProyecto);
 		this.webDriver.exitFrame();
+		
+		//new PageObject(userS).wait()
 
 		if(this.webDriver.isPresentInFrame(this.msgAvisoSistema, this.cuerpoFrame)) {
 			System.out.println("*** Excepción general al convertir a proyecto.");

@@ -6,6 +6,7 @@ import com.automation.model.helpers.DniGeneratorHelper;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
 import com.project.ProjectConstants;
+import com.project.steps.Steps;
 
 public class DatosBasicosTomadorPage extends PageObject {
 
@@ -14,7 +15,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 	private By cuerpoFrame = By.name("cuerpo");
 
 	// @FindBy(id = "tipoDocumento")
-	private By cmbTipoDocumento = By.id("tipoDocumento");
+	private By cmbTipoDocumento = By.cssSelector("#tipoDocumento");
 
 	// @FindBy(id = "numeroDocumento")
 	private By txtNumeroDocumento = By.id("numeroDocumento");
@@ -68,8 +69,18 @@ public class DatosBasicosTomadorPage extends PageObject {
 	// private By btnAceptarVolver = By.xpath(".//*[text()='Aceptar']");
 	// endregion
 	
+	private By btnAnyadir = By.cssSelector("[data-target='#tomadorAseguradoPopUp']");
 	
-
+	private By cumple = By.name("fechaNacimiento");
+	
+	
+	private By checkMismaDirec = By.cssSelector("[ng-model='mismaDireccionRiesgo']");
+	
+	
+	private By btnAceptarAnyadir = By.cssSelector("#tomadorAseguradoPopUp .modal-footer [type='submit']"); //div.modal-footer > button
+	
+	
+	//private By btnAceptarAnyadir = By.xpath(".//div[@class='modal-footer']/button[text()='Añadir datos asegurado principal']");
 
 	public DatosBasicosTomadorPage(UserStory userS) {
 		super(userS);
@@ -102,6 +113,35 @@ public class DatosBasicosTomadorPage extends PageObject {
 		return this;
 	}
 
+	//dentro de la page "7.Tomador y asegurado" añade el mínimo de datos para poder continuar
+	public DatosBasicosTomadorPage anyadirDatosMin(){
+		debugBegin();
+		
+		this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
+		this.webDriver.waitWithDriver(4000);
+
+		this.webDriver.clickInFrame(this.btnAnyadir, this.cuerpoFrame);
+		this.webDriver.switchToFrame(this.cuerpoFrame);
+		this.webDriver.scrollToElement(this.cumple);
+		this.webDriver.waitWithDriver(2000);
+		this.webDriver.appendText(this.cumple, "25/05/1989");
+		this.webDriver.waitWithDriver(2000);
+		//this.webDriver.scrollToBottom();
+		//this.webDriver.waitForElementToBeClickable(this.checkMismaDirec);
+		this.webDriver.click(this.checkMismaDirec);
+		this.webDriver.waitWithDriver(4000);
+		this.webDriver.click(this.btnAceptarAnyadir);
+		this.webDriver.waitWithDriver(2000);
+		this.webDriver.click(this.btnContinuar);
+		this.webDriver.exitFrame();
+		//this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+
+		//this.webDriver.exitFrame();
+		
+	return this;
+	}
+	
+	
 	public DatosBasicosTomadorPage fillStaticTomadorData() {
 		debugBegin();
 
@@ -153,13 +193,15 @@ public class DatosBasicosTomadorPage extends PageObject {
 				this.webDriver.waitWithDriver(1500);
 				this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 				this.webDriver.waitWithDriver(1500);
+
 				if(this.webDriver.isPresentInFrame(this.btnVolver, this.cuerpoFrame)) {
+					this.webDriver.waitForElementToBeClickableInFrame(this.btnVolver, this.cuerpoFrame);
 					this.webDriver.clickInFrame(this.btnVolver, this.cuerpoFrame);
 					this.webDriver.clickInFrame(this.btnAceptarVolver, this.cuerpoFrame);
 				}
 				//this.webDriver.waitWithDriver(2000);
 				this.webDriver.waitForElementNotToBeClickableInFrame(this.loaderModal, this.cuerpoFrame);
-				this.webDriver.waitWithDriver(5500);
+				this.webDriver.waitWithDriver(4000);
 				System.out.println("~$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				System.out.println("\n");
 				System.out.println("VARIABLE tipoDocumento: " + this.cmbTipoDocumento);
@@ -168,6 +210,14 @@ public class DatosBasicosTomadorPage extends PageObject {
 				System.out.println("\n");
 				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				
+				
+				//this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
+				//this.webDriver.waitWithDriver(3500);
+				//this.webDriver.waitForAngular();
+				
+				Steps.waitForIt(webDriver);
+				//Steps.waitForIt(webDriver, this.cmbTipoDocumento);
+				//Steps.waitForIt(webDriver, 1000);
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
 				setTestVar("tomador_dni", DniGeneratorHelper.generaNif(null));
 				this.webDriver.clickInFrame(this.txtNumeroDocumento, this.cuerpoFrame);
@@ -195,10 +245,12 @@ public class DatosBasicosTomadorPage extends PageObject {
 				// this.wh.changeFocusOfWebElement(this.txtSegundoApellidoTomador);
 				// this.wh.exitFromFrame();
 
+				
 				this.webDriver.clickInFrame(this.btnValidarCliente, this.cuerpoFrame);
 				
 				this.webDriver.waitWithDriver(2000);
 				this.webDriver.switchToFrame(this.cuerpoFrame);
+				this.webDriver.waitForElementNotToBeClickable(this.btnAceptar);
 				this.webDriver.click(this.btnAceptar);
 				this.webDriver.exitFrame();
 				this.webDriver.waitWithDriver(5000);
