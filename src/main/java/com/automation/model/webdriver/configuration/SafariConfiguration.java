@@ -12,6 +12,11 @@ public class SafariConfiguration {
 		capabilities.setBrowserName("safari");
 		capabilities.setVersion("10");
 		
+		//Added to work with BrowserStack//
+		capabilities.setCapability("browserstack.local", "false");
+		capabilities.setCapability("browserstack.selenium_version", "3.12");
+		capabilities.setCapability("browserstack.user", "john3937");
+		capabilities.setCapability("browserstack.key", "nKLznfQapSsRkzHq3dyq");
 		return capabilities;
 	}
 
@@ -20,5 +25,4 @@ public class SafariConfiguration {
 		
 		return options;
 	}
-
 }
