@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,7 +102,11 @@ public class FileUtils {
 		}
 	}
 
-	public static String getTextFromFile(String filePath) {
+	public static String getTextFromFile(String filePath) {		
+		return getTextFromFile(filePath, StandardCharsets.UTF_8);
+	}
+
+	public static String getTextFromFile(String filePath, Charset charset) {
 		String line, text = null;
 		BufferedReader bufferedReader = null;
 		FileInputStream inputStream = null;
@@ -109,7 +114,7 @@ public class FileUtils {
 		try {
 			inputStream = new FileInputStream(new File(filePath));
 			
-			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
+			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset));
 			line = bufferedReader.readLine();
 	
 			if(line != null) text = line;

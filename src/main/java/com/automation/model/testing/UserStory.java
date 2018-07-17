@@ -8,7 +8,10 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
+import com.automation.model.httprequest.RequestHelper;
+import com.automation.model.utils.ArrayUtils;
 import com.automation.model.utils.FileUtils;
+import com.automation.model.utils.InitUtils;
 import com.automation.model.webdriver.DriverHelper;
 
 /**
@@ -463,17 +466,20 @@ public class UserStory {
 		return this;
 	}
 
-	private synchronized UserStory takeErrorScreenshot() {
+	public synchronized UserStory takeErrorScreenshot() {
 		try {
 			if(timeStamp != null && webDriver != null) {
-				System.out.println("[BEGIN] (" + testId + ") - Taking screenshot: '[ERROR] - " + timeStamp + ".i" + testId + ".jpg'");
+				String fileName = "[ERROR] - " + timeStamp + ".i" + testId; 
+				
+				System.out.println("[BEGIN] (" + testId + ") - Taking screenshot: " + fileName + ".jpg'");
 				new File(reportPath + "/" + AutomationConstants.IMAGES_FOLDER).mkdirs();
-
-				webDriver.takeScreenshot("[ERROR] - " + timeStamp + ".i" + testId, reportPath + "/" + AutomationConstants.IMAGES_FOLDER);
+				
+				suiteM.sendImgToDatabase(timeStamp + ".i" + testId, webDriver.takeScreenshot(fileName, reportPath + "/" + AutomationConstants.IMAGES_FOLDER));
+				
 				System.out.println("[ END ] (" + testId + ") - Taking screenshot");
 			}
 		} catch(Exception e) {
-			System.out.println("[ERROR] (" + testId + ") - Taking screenshot");
+			System.out.println("[ERROR] (" + testId + ") - Error taking screenshot");
 		}
 
 		return this;

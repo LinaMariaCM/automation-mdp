@@ -1,8 +1,14 @@
 package com.automation.model.testing;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 
 import com.automation.configuration.AutomationConstants;
@@ -32,12 +38,12 @@ public class SuiteManager {
 	private ArrayList<Pair<String, int[]>> testCases = new ArrayList<Pair<String, int[]>>();
 	private HashMap<String, HashMap<String, ArrayList<String>>> consoleLogs = new HashMap<String, HashMap<String, ArrayList<String>>>();
 	private HashMap<String, Pair<TestDataManager, String[][]>> testSuiteObject = new HashMap<String, Pair<TestDataManager, String[][]>>();
-	
+
 	public SuiteManager(String suiteName) {
 		this.suiteName = suiteName;
 		initialTimeStamp = new SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
 	}
-	
+
 	public SuiteManager(String clientId, String suiteName) {
 		this.clientId = clientId;
 		this.suiteName = suiteName;
@@ -50,6 +56,21 @@ public class SuiteManager {
 
 	public void addConsoleLog(String testCase, String id, ArrayList<String> logs) {
 		consoleLogs.get(testCase).put(id, logs);
+	}
+	
+	public void setTestOrder(String[] testList) {
+		ArrayList<Pair<String, int[]>> testCasesAux = new ArrayList<Pair<String, int[]>>();
+		
+		for(String testCase : testList) {
+			for(Pair<String, int[]> testCasePair : testCases) {
+				if(testCasePair.getKey().equals(testCase)) {
+					testCasesAux.add(testCasePair);
+					break;
+				}
+			}
+		}
+		
+		testCases = testCasesAux;
 	}
 
 	public void createHtmlReport() {
@@ -113,6 +134,36 @@ public class SuiteManager {
 		return testDataM;
 	}
 
+	public void sendImgToDatabase(String fileName, byte[] image) {
+		String sendImg = System.getProperty("send_img");
+
+		if(sendImg != null && !sendImg.isEmpty() && Boolean.parseBoolean(sendImg)) {
+			try {
+				String browser = ArrayUtils.arrayToString(InitUtils.getTestBrowsers(), ".");
+				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/images/upload/" + clientId + suiteName
+					+ (browser.isEmpty() ? "" : "." + browser) + initialTimeStamp + "/" + fileName + ".png");
+
+				request.setContentType("multipart/form-data; boundary=--12345");
+				request.addHeader("Encoding", "base64");
+				request.setBody("----12345\n"
+					+ "Content-Disposition: form-data; name=\"imagefile\"; filename=\"[ERROR] - " + fileName + ".png\"\n"
+					+ "Content-Type: image/png\n\n"
+					+ Base64.getEncoder().encodeToString(image)
+					+ "\n----12345--");
+				request.post();
+
+				if(request.getResponseCode() == 201) {
+					System.out.println("[INFO] - Image sent correctly: " + fileName);
+				} else {
+					System.out.println("[INFO] - Error sending image: " + fileName);
+				}
+			} catch(Exception e) {
+				System.out.println("[INFO] - Error sending image: " + fileName);
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public void sendCsvToDatabase() {
 		for(int i = 0; i < testCases.size(); i++) {
 			String sendCsv = System.getProperty("send_csv");
@@ -120,7 +171,7 @@ public class SuiteManager {
 			if(sendCsv == null || sendCsv.isEmpty()) {
 				sendCsv = testSuiteObject.get(testCases.get(i).getKey()).getKey().getConfigVar("send_csv");
 			}
-			
+
 			if(clientId == null) {
 				System.out.println("[ERROR] - File not sent: client id not declared");
 			} else if(apiUrl == null) {
@@ -130,7 +181,7 @@ public class SuiteManager {
 				String timeStamp = testSuiteObject.get(testCases.get(i).getKey()).getKey().getTimeStamp();
 				String fileName = timeStamp + ".csv";
 
-				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/post/" + suiteName + (browser.isEmpty() ? "" : "." + browser)  + "/" 
+				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/post/" + suiteName + (browser.isEmpty() ? "" : "." + browser) + "/"
 					+ clientId + suiteName + (browser.isEmpty() ? "" : "." + browser) + initialTimeStamp);
 
 				request.setContentType("multipart/form-data; boundary=--12345");
@@ -196,7 +247,7 @@ public class SuiteManager {
 
 	public synchronized int getTestsFinished(String testCase) {
 		int result = -1;
-		
+
 		for(int i = 0; i < testCases.size(); i++) {
 			if(testCases.get(i).getKey().equals(testCase)) {
 				synchronized(testCases) {
@@ -204,13 +255,13 @@ public class SuiteManager {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
 	public synchronized int getTestsToRun(String testCase) {
 		int result = -1;
-		
+
 		for(int i = 0; i < testCases.size(); i++) {
 			if(testCases.get(i).getKey().equals(testCase)) {
 				synchronized(testCases) {
@@ -218,7 +269,7 @@ public class SuiteManager {
 				}
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -240,7 +291,7 @@ public class SuiteManager {
 
 	public synchronized void addTestObjects(String testCase, TestDataManager testDataM, String[][] resultMatrix, int testsToRun) {
 		testSuiteObject.put(testCase, new Pair<TestDataManager, String[][]>(testDataM, resultMatrix));
-		testCases.add(new Pair<String, int[]>(testCase, new int[]{testsToRun, 0, -1}));
+		testCases.add(new Pair<String, int[]>(testCase, new int[]{ testsToRun, 0, -1}));
 	}
 
 	public String[][] initializeTestObjects(String testCase) {
@@ -263,10 +314,10 @@ public class SuiteManager {
 		testData.generateTimeStamp(testCase);
 
 		reportPath = testData.getReportPath();
-		
+
 		if(apiUrl == null) {
 			String serverUrl = System.getProperty("api_url");
-			
+
 			if(serverUrl != null && !serverUrl.isEmpty()) {
 				apiUrl = serverUrl;
 				testData.setConfigVar("api_url", apiUrl);
@@ -291,47 +342,50 @@ public class SuiteManager {
 		}
 
 		testData.getTestData().duplicateDataByN(browsers.length);
-		
+
 		boolean fileFromApi = false;
-		
+
 		if(testData.getDailyCase().contains("continue")) {
 			System.out.println("[INFO] - Continue daily");
-			
+
 			String getCsv = System.getProperty("get_csv");
 
 			if(getCsv == null || getCsv.isEmpty()) {
 				getCsv = testData.getConfigVar("get_csv");
 			}
 
-			// If "get_csv" is true, try to initialise resultMatrix from a request
-			if(getCsv != null && !getCsv.isEmpty() && Boolean.parseBoolean(getCsv) && clientId != null && apiUrl != null) {				
+			// If "get_csv" is true, try to initialise resultMatrix from a
+			// request
+			if(getCsv != null && !getCsv.isEmpty() && Boolean.parseBoolean(getCsv) && clientId != null && apiUrl != null) {
 				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/csv/" + testData.getTimeStamp() + ".csv");
 				request.get();
-				
+
 				if(request.getResponseCode() == 200) {
 					System.out.println("[INFO] - File was received correctly: " + testData.getTimeStamp() + ".csv");
 					resultMatrix = InitUtils.getResultMatrixFromCsvString(request.getResponseBody(), testData.getTimeStamp() + ".csv");
-					
+
 					fileFromApi = true;
-				} else {					
+				} else {
 					System.out.println("[ERROR] - File wasn't received: " + testData.getTimeStamp() + ".csv");
 				}
 			}
-			
-			// If resultMatrix was not filled by a request, try to fill it with an existant file
+
+			// If resultMatrix was not filled by a request, try to fill it with
+			// an existant file
 			if(resultMatrix == null && new File(testData.getReportPath() + testData.getTimeStamp() + ".csv").exists()) {
 				System.out.println("[INFO] - Getting test data from file");
 				resultMatrix = InitUtils.getResultMatrixFromCsvFile(testData.getReportPath() + testData.getTimeStamp() + ".csv");
 			}
-			
+
 			// If resultMatrix was filled, fill casesMatrix
 			if(resultMatrix != null) {
 				casesMatrix = InitUtils.getCasesMatrixFromResultMatrix(resultMatrix, testCase);
 			}
-		} 
-		
-		// If neither casesMatrix nor resultMatrix are filled at this point 
-		// (the request didn't return a file, the file doesn't exist or the case is not continue)
+		}
+
+		// If neither casesMatrix nor resultMatrix are filled at this point
+		// (the request didn't return a file, the file doesn't exist or the case
+		// is not continue)
 		if(casesMatrix == null || resultMatrix == null) {
 			System.out.println("[INFO] - Creating test data");
 			casesMatrix = InitUtils.getCasesMatrixFromBrowserArray(testCase, browsers, testData.getTestData().size());
@@ -342,7 +396,7 @@ public class SuiteManager {
 		consoleLogs.put(testCase, new HashMap<String, ArrayList<String>>());
 
 		System.out.println("[INFO] - Test to run on this execution: " + casesMatrix.length);
-		
+
 		if(!fileFromApi && casesMatrix.length == 0) {
 			sendCsvToDatabase();
 		}

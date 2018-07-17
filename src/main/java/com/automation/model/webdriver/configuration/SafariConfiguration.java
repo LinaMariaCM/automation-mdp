@@ -11,8 +11,8 @@ public class SafariConfiguration {
 		capabilities.setPlatform(Platform.MAC);
 		capabilities.setBrowserName("safari");
 		capabilities.setVersion("10");
-		
-		//Added to work with BrowserStack//
+
+		// BrowserStack
 		capabilities.setCapability("browserstack.local", "false");
 		capabilities.setCapability("browserstack.selenium_version", "3.12");
 		capabilities.setCapability("browserstack.user", "john3937");
@@ -22,7 +22,12 @@ public class SafariConfiguration {
 
 	public static SafariOptions createSafariOptions() {
 		SafariOptions options = new SafariOptions();
-		
+
+		options.setCapability("os", "OS X");
+		// options.setCapability("os_version", "High Sierra");
+		options.setCapability("browserstack.debug", "true");
+		// options.setCapability("browser_version", "11.1.1");
+
 		return options;
 	}
 }
