@@ -34,7 +34,6 @@ import com.automation.model.utils.StringUtils;
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
 import com.automation.model.utils.ArrayUtils;
-import com.automation.model.utils.DriverUtils;
 import com.automation.model.utils.ImageUtils;
 import com.automation.model.utils.InitUtils;
 import com.automation.model.utils.OSUtils;
@@ -80,7 +79,9 @@ public class DriverHelper {
 	private String devicePlatform;
 	private String appPackage;
 	private String launchActivity;
-	private String iOsUdid;
+	private String iosVersion;
+	private String iosDevice;
+	private String iosUdid;
 	private String macOsBrowserStackUser;
 	private String macOsBrowserStackKey;
 	private String emulationBrowser = BrowserType.CHROME;
@@ -90,7 +91,7 @@ public class DriverHelper {
 	private boolean remoteMode = false;
 	private boolean downloadDrivers = false;
 	private boolean smallWindowMode = false;
-	private boolean mobileEmulation = false;
+	private boolean deviceEmulation = false;
 	private String reportPath = "";
 	private String browserType;
 	private String driverType;
@@ -121,10 +122,14 @@ public class DriverHelper {
 	public DriverHelper(String browser) {
 		headless = browser.contains("_headless");
 
-		if(ArrayUtils.contains(InitUtils.getMobileBrowsers(), browser.replace("_headless", ""))
+		if(ArrayUtils.contains(InitUtils.getDeviceEmulationBrowsers(), browser.replace("_headless", ""))
 			|| ArrayUtils.contains(InitUtils.getDesktopBrowsers(), browser.replace("_headless", ""))) {
 			browserType = browser.replace("_headless", "");
 			driverType = AutomationConstants.WEB;
+
+			if(browserType.equals(BrowserType.SAFARI_IPHONE)) {
+				emulationBrowser = "safari";
+			}
 		} else {
 			deviceName = browser;
 			driverType = AutomationConstants.MOBILE_APP;
@@ -195,9 +200,33 @@ public class DriverHelper {
 		this.devicePlatform = platform;
 	}
 
+	public String getDevicePlatform() {
+		return this.devicePlatform;
+	}
+
+	public String getDeviceName() {
+		return this.deviceName;
+	}
+
 	public void setMacOsBrowserStack(String browserStackUser, String browserStackKey) {
 		this.macOsBrowserStackUser = browserStackUser;
 		this.macOsBrowserStackKey = browserStackKey;
+	}
+
+	public void setIOSVariables(DataObject configData) {
+
+	}
+
+	public void setAndroidAppVariables(String appPackage, String appActivity) {
+		this.appPackage = appPackage;
+		this.launchActivity = appActivity;
+	}
+
+	public void setIOSAppVariables(String version, String device, String appPackage, String iosUdid) {
+		this.iosVersion = version;
+		this.iosDevice = device;
+		this.appPackage = appPackage;
+		this.iosUdid = iosUdid;
 	}
 
 	public void setAppVariables(DataObject configData) {
@@ -205,12 +234,14 @@ public class DriverHelper {
 			this.appPackage = configData.getValue("app_package");
 			this.launchActivity = configData.getValue("launch_activity");
 		} else {
+			this.iosVersion = configData.getValue(deviceName + "_version");
+			this.iosDevice = configData.getValue(deviceName + "_device");
 			this.appPackage = configData.getValue("ios_package");
-			this.iOsUdid = configData.getValue(deviceName + "_udid");
+			this.iosUdid = configData.getValue(deviceName + "_udid");
 		}
 	}
 
-	public void downloadDriver(String browserType) {
+	public void downloadDriver() {
 		debugBegin();
 
 		switch(browserType) {
@@ -236,6 +267,8 @@ public class DriverHelper {
 				if(emulationBrowser.equals(BrowserType.FIREFOX)) {
 					debugInfo("Checking firefox driver for " + browserType);
 					FirefoxConfiguration.downloadDriver(forceCache);
+				} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
+					debugInfo("Checking safari driver");
 				} else {
 					debugInfo("Checking chrome driver for " + browserType);
 					ChromeConfiguration.downloadDriver(forceCache);
@@ -284,7 +317,7 @@ public class DriverHelper {
 		URL hubUrl = null;
 
 		try {
-			if(browserType != null && browserType.equals(BrowserType.SAFARI) && macOsBrowserStackUser != null && macOsBrowserStackKey != null) {
+			if(browserType != null && browserType.contains(BrowserType.SAFARI) && macOsBrowserStackUser != null && macOsBrowserStackKey != null) {
 				hubUrl = new URL("http://" + macOsBrowserStackUser + ":" + macOsBrowserStackKey + "@hub-cloud.browserstack.com/wd/hub");
 			} else {
 				hubUrl = new URL("http://" + ip + ":" + port + "/wd/hub");
@@ -298,7 +331,7 @@ public class DriverHelper {
 			debugInfo("Desktop device");
 
 			if(downloadDrivers) {
-				downloadDriver(browserType);
+				downloadDriver();
 			}
 
 			if(remoteMode) {
@@ -323,12 +356,14 @@ public class DriverHelper {
 						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
 							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createFirefoxMobileOptions(browserType));
 
-							driver.manage().window().setSize(new Dimension(320, 568));
+							resizeWindow(320, 568);
+						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
+							driver = new RemoteWebDriver(hubUrl, SafariConfiguration.createSafariOptions());
 						} else {
 							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createChromeMobileOptions(browserType));
 						}
 
-						mobileEmulation = true;
+						deviceEmulation = true;
 						break;
 				}
 			} else {
@@ -361,12 +396,15 @@ public class DriverHelper {
 							driver = new FirefoxDriver(MobileConfiguration.createFirefoxMobileOptions(browserType));
 
 							driver.manage().window().setSize(new Dimension(320, 568));
+						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
+							debugInfo("Initializing safari driver for " + browserType);
+							driver = new SafariDriver(SafariConfiguration.createSafariOptions());
 						} else {
 							debugInfo("Initializing chrome driver for " + browserType);
 							driver = new ChromeDriver(MobileConfiguration.createChromeMobileOptions(browserType));
 						}
 
-						mobileEmulation = true;
+						deviceEmulation = true;
 						break;
 				}
 			}
@@ -384,11 +422,11 @@ public class DriverHelper {
 				driver = new AndroidDriver<WebElement>(hubUrl, capabilities);
 			} else {
 				capabilities = DesiredCapabilities.iphone();
-				capabilities.setCapability("platformVersion", "11.2.6");
-				capabilities.setCapability("deviceType", "iPhone 5s");
+				capabilities.setCapability("platformVersion", iosVersion);
+				capabilities.setCapability("deviceType", iosDevice);
 				capabilities.setCapability("automationName", "XCUITest");
 				capabilities.setCapability("platformName", "iOS");
-				capabilities.setCapability("udid", iOsUdid);
+				capabilities.setCapability("udid", iosUdid);
 				capabilities.setCapability("deviceName", deviceName);
 				capabilities.setCapability("app", appPackage);
 
@@ -400,17 +438,24 @@ public class DriverHelper {
 		}
 
 		setTimeouts();
-		if(desktop && !mobileEmulation) {
+		if(desktop && !deviceEmulation) {
 			if(browserType != null && browserType.equals(BrowserType.SAFARI)) {
+				setWindowPosition(0, 0);
 				resizeWindow(defaultWindowHeigth, 1025);
 
-				driver.manage().window().setPosition(new Point(0, 0));
-				driver.manage().window().maximize();
+				maximizeWindow();
 
 				waitWithDriver(2000);
 			} else {
 				resizeWindow(defaultWindowHeigth, defaultWindowWidth);
 			}
+		} else if(desktop && browserType.equals(BrowserType.SAFARI_IPHONE)) {
+			setWindowPosition(0, 0);
+
+			// MacOS is special and with and height is inverted
+			resizeWindow(640, 1136);
+
+			waitWithDriver(3000);
 		}
 
 		if(desktop && Integer.parseInt(((JavascriptExecutor) driver).executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
@@ -446,6 +491,8 @@ public class DriverHelper {
 					default:
 						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
 							sessionId = ((FirefoxDriver) driver).getSessionId();
+						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
+							sessionId = ((SafariDriver) driver).getSessionId();
 						} else {
 							sessionId = ((ChromeDriver) driver).getSessionId();
 						}
@@ -485,6 +532,18 @@ public class DriverHelper {
 		return smallWindowMode;
 	}
 
+	public boolean isDeviceEmulation() {
+		return deviceEmulation;
+	}
+
+	public boolean isMobileEmulation() {
+		return ArrayUtils.contains(InitUtils.getMobileEmulationBrowsers(), browserType);
+	}
+
+	public boolean isTabletEmulation() {
+		return ArrayUtils.contains(InitUtils.getTabletEmulationBrowsers(), browserType);
+	}
+
 	public boolean isNormalViewMode() {
 		return !smallWindowMode;
 	}
@@ -501,7 +560,7 @@ public class DriverHelper {
 		smallWindowLimit = value;
 	}
 
-	public void setPosition(int x, int y) {
+	public void setWindowPosition(int x, int y) {
 		Point position = new Point(x, y);
 
 		if(driver != null) {
@@ -544,7 +603,6 @@ public class DriverHelper {
 	public void resizeWindow(int width, int heigth) {
 		try {
 			if(desktop && driver != null) {
-				driver.manage().window().setPosition(new Point(0, 0));
 				driver.manage().window().setSize(new Dimension(width, heigth));
 			}
 		} catch(Exception e) {}
@@ -633,19 +691,19 @@ public class DriverHelper {
 				el = appDriver.findElement(by);
 			} catch(Exception e) {}
 
-			if(el == null) {
+			if(el == null || !el.isDisplayed()) {
 				scrollToTop();
 
 				try {
 					el = appDriver.findElement(by);
 				} catch(Exception e) {}
 
-				for(int i = 0; i < 10 && el == null; i++) {
+				for(int i = 0; i < 10 && (el == null || !el.isDisplayed()); i++) {
 					Dimension windowSize = appDriver.manage().window().getSize();
 
-					new TouchAction(appDriver).press((int) (windowSize.width / 2), (int) (windowSize.height * 0.5))
+					new TouchAction(appDriver).press((int) (windowSize.width / 2), (int) (windowSize.height * 0.9))
 						.waitAction(Duration.ofMillis(800))
-						.moveTo((int) (windowSize.width / 2), (int) (windowSize.height * 0.25))
+						.moveTo((int) (windowSize.width / 2), (int) (windowSize.height * 0.1))
 						.release().perform();
 
 					try {
@@ -1305,10 +1363,10 @@ public class DriverHelper {
 		} else logger.trace("[END] - Text is the same");
 	}
 
-	public void sendKeysFrame(By by, By frame, String value) {
+	public void setTextInFrame(By by, By frame, String value) {
 		switchToFrame(frame);
 
-		appendText(by, value);
+		setText(by, value);
 
 		exitFrame();
 	}
@@ -1771,6 +1829,10 @@ public class DriverHelper {
 	}
 
 	public boolean isOnScreen(By by) {
+		return isOnScreen(by, -1);
+	}
+
+	public boolean isOnScreen(By by, int percentage) {
 		boolean result = false;
 
 		waitForLoadToComplete();
@@ -1782,38 +1844,49 @@ public class DriverHelper {
 
 			setTimeouts();
 
-			result = isVisible(el);
+			result = isOnScreen(el, percentage);
 		} catch(NoSuchElementException e) {} catch(TimeoutException e) {}
 
 		return result;
 	}
 
-	public boolean isVisible(WebElement webElement) {
+	public boolean isOnScreen(WebElement webElement) {
+		return isOnScreen(webElement, -1);
+	}
+
+	public boolean isOnScreen(WebElement webElement, int percentage) {
 		boolean result = false;
 
 		waitForLoadToComplete();
 
 		try {
-			Rectangle rect = webElement.getRect();
+			Rectangle rect = new Rectangle(webElement.getLocation(), webElement.getSize());
 			Dimension windowSize = getWindowSize();
 			Dimension windowOffset = getWindowOffset();
 
-			Rectangle visibleArea = new Rectangle(0, 0, 0, 0);
+			Rectangle visibleRect = new Rectangle(0, 0, 0, 0);
 
-			if(windowOffset.width - rect.x > windowSize.width || (windowOffset.width - rect.x) + rect.width < 0) {
-				visibleArea.setWidth(0);
+			if(rect.x - windowOffset.width > windowSize.width || (rect.x - windowOffset.width) + rect.width < 0) {
+				visibleRect.setWidth(0);
 			} else {
-				visibleArea.setWidth(Math.min((windowOffset.width - rect.x) + rect.width, windowSize.width) - Math.max(windowOffset.width - rect.x, 0));
+				visibleRect.setWidth(Math.min((rect.x - windowOffset.width) + rect.width, windowSize.width) - Math.max(rect.x - windowOffset.width, 0));
 			}
 
-			if(windowOffset.height - rect.y > windowSize.height || (windowOffset.height - rect.y) + rect.height < 0) {
-				visibleArea.setHeight(0);
+			if(rect.y - windowOffset.height > windowSize.height || (rect.y - windowOffset.height) + rect.height < 0) {
+				visibleRect.setHeight(0);
 			} else {
-				visibleArea.setHeight(Math.min((windowOffset.height - rect.y) + rect.height, windowSize.height) - Math.max(windowOffset.height - rect.y, 0));
+				visibleRect.setHeight(Math.min((rect.y - windowOffset.height) + rect.height, windowSize.height) - Math.max(rect.y - windowOffset.height, 0));
 			}
 
-			if(visibleArea.height > 0 && visibleArea.width > 0) {
+			if(percentage < 0 && visibleRect.height > 0 && visibleRect.width > 0) {
 				result = true;
+			} else {
+				Double elementArea = (double) rect.width * (double) rect.height;
+				Double visibleArea = (double) visibleRect.width * (double) visibleRect.height;
+
+				if((int) (visibleArea / elementArea * 100) >= percentage) {
+					result = true;
+				}
 			}
 		} catch(TimeoutException e) {} catch(NullPointerException e) {} catch(NoSuchElementException e) {} catch(StaleElementReferenceException e) {}
 
@@ -2142,17 +2215,15 @@ public class DriverHelper {
 
 		return text;
 	}
-	
+
 	@SuppressWarnings("rawtypes")
 	public void keyboardSearchAndroid() {
 		this.waitWithDriver(1500);
-		
-		AndroidDriver dr = (AndroidDriver) driver;
-		
-		dr.pressKeyCode(AndroidKeyCode.ENTER);
+
+		((AndroidDriver) driver).pressKeyCode(AndroidKeyCode.ENTER);
 	}
 
-	public void scrollDropdownAndroid(By by, String selection) {		
+	public void scrollDropdownAndroid(By by, String selection) {
 		MobileElement me = (MobileElement) waitForElementToBeClickable(by);
 
 		TouchAction touchAction = new TouchAction((MobileDriver) driver);

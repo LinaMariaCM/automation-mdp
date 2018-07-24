@@ -8,18 +8,17 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
-import com.automation.model.httprequest.RequestHelper;
-import com.automation.model.utils.ArrayUtils;
 import com.automation.model.utils.FileUtils;
-import com.automation.model.utils.InitUtils;
 import com.automation.model.webdriver.DriverHelper;
 
 /**
- * The UserStory class is the base to execute test, having a reference to a TestDataManager, which uses using its String
- * variable "testId" to access the variables specific to a test, and the String variable "scenario" to access the
- * variables specific to a scenario.
+ * The UserStory class is the base to execute test, having a reference to a
+ * TestDataManager, which uses using its String variable "testId" to access the
+ * variables specific to a test, and the String variable "scenario" to access
+ * the variables specific to a scenario.
  * 
- * It also controls the execution of the test, managing the errors to write them in a result file.
+ * It also controls the execution of the test, managing the errors to write them
+ * in a result file.
  *
  * @author Alfredo Moises Boullosa Ramones
  */
@@ -164,7 +163,7 @@ public class UserStory {
 	public void setTestVar(String key, String value) {
 		testDataM.setTestVar(testId, key, value);
 	}
-	
+
 	public void setConfigVar(String key, String value) {
 		testDataM.setConfigVar(key, value);
 	}
@@ -279,7 +278,7 @@ public class UserStory {
 				for(int i = 0; i < actionList.size(); i++) {
 					actionList.get(i).call();
 				}
-				
+
 				System.out.println("[ END ] (" + testId + ") - Test steps");
 
 				System.out.println("[ END ] (" + testId + ") - Test execution ended successfully");
@@ -317,18 +316,18 @@ public class UserStory {
 
 				runFailActions();
 				runEndActions();
-				
+
 				saveExceptionIntoFile(exception != null ? ExceptionUtils.getStackTrace(exception) : error.getStackTrace().toString(), testId);
-				
-				String failure = exception != null ? exception.getMessage() != null ? exception.getMessage() : "" 
+
+				String failure = exception != null ? exception.getMessage() != null ? exception.getMessage() : ""
 					: error.getMessage() != null ? error.getMessage() : "";
-					
+
 				System.out.println("[ END ] (" + testId + ") - Test execution ended with failure" + (failure != null && !failure.isEmpty() ? ": " + failure : ""));
 
 				updateResultMatrix();
 
 				if(exception != null) {
-					throw exception;					
+					throw exception;
 				} else {
 					throw error;
 				}
@@ -344,23 +343,23 @@ public class UserStory {
 			}
 		}
 	}
-	
+
 	private boolean setBooleanOnConfiguration(String key) {
 		String stringValue = System.getProperty(key);
 		if((stringValue != null && stringValue.isEmpty()) || stringValue == null) stringValue = driverConf.getValue(key);
 		else if(stringValue != null) driverConf.setValue(key, stringValue);
-		
+
 		return Boolean.parseBoolean(stringValue);
 	}
-	
+
 	private String setStringOnConfiguration(String key) {
 		String stringValue = System.getProperty(key);
 		if((stringValue != null && stringValue.isEmpty()) || stringValue == null) stringValue = driverConf.getValue(key);
 		else if(stringValue != null) driverConf.setValue(key, stringValue);
-		
+
 		return stringValue;
 	}
-	
+
 	public void setConfigurationVariables() {
 		webDriver.setId(testId);
 		webDriver.setReportPath(testDataM.getReportPath());
@@ -371,18 +370,25 @@ public class UserStory {
 
 		if(System.getProperty("platform") != null && !System.getProperty("platform").isEmpty()) {
 			webDriver.setDevicePlatform(System.getProperty("platform"));
+			
+			String iosVersion= System.getProperty("device_version");
+			if(iosVersion != null && !iosVersion.isEmpty()) driverConf.setValue(webDriver.getDeviceName() + "_version", iosVersion);
+			
+			String iosDevice = System.getProperty("device_type");
+			if(iosDevice != null && !iosDevice.isEmpty()) driverConf.setValue(webDriver.getDeviceName() + "_device", iosDevice);
+			
 			webDriver.setAppVariables(getConfigData());
 		}
-		
+
 		webDriver.setEmulationBrowser(setStringOnConfiguration("emulation_browser"));
 
 		webDriver.setDownloadDrivers(setBooleanOnConfiguration("download"));
 		webDriver.setHub(setStringOnConfiguration(AutomationConstants.IP), setStringOnConfiguration(AutomationConstants.PORT));
-		
+
 		webDriver.setForceCache(setBooleanOnConfiguration("force_cache"));
 
 		webDriver.setRemoteMode(setBooleanOnConfiguration("remote"));
-		
+
 		if(driverConf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT) != null) {
 			webDriver.setSmallWindowLimit(Integer.parseInt(driverConf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT)));
 		}
@@ -398,13 +404,12 @@ public class UserStory {
 			webDriver.setScriptWait(Integer.parseInt(driverConf.getValue(AutomationConstants.SCRIPT_WAIT)));
 			webDriver.setPageLoadWait(Integer.parseInt(driverConf.getValue(AutomationConstants.PAGE_LOAD_WAIT)));
 		}
-		
+
 		if(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT) != null && driverConf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
-			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT)), 
-				Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)));
+			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT)), Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)));
 		}
-		
-		System.out.println("[INFO ] (" + testId + ") - browser: " + browser + ", ip: " + driverConf.getValue(AutomationConstants.IP) 
+
+		System.out.println("[INFO ] (" + testId + ") - browser: " + browser + ", ip: " + driverConf.getValue(AutomationConstants.IP)
 			+ ", port: " + driverConf.getValue(AutomationConstants.PORT) + ", remote: " + driverConf.getValue(AutomationConstants.REMOTE_MODE));
 	}
 
@@ -414,14 +419,14 @@ public class UserStory {
 		this.browser = browser;
 		this.maxTries = Integer.parseInt(driverConf.getValue("max_tries"));
 		this.retryOnFail = setBooleanOnConfiguration(AutomationConstants.RETRY_ON_FAIL);
-		//setBooleanOnConfiguration("driver_type");
+		// setBooleanOnConfiguration("driver_type");
 
 		testDataM.setTestVar(testId, "browser", browser);
-		
+
 		webDriver = new DriverHelper(browser);
-		
+
 		setConfigurationVariables();
-		
+
 		System.out.println("[ END ] (" + testId + ") - Setting driver configuration");
 
 		return this;
@@ -431,7 +436,7 @@ public class UserStory {
 		boolean result = false;
 
 		String failure = exception != null ? exception.getClass().getCanonicalName() : error.getClass().getCanonicalName();
-		
+
 		System.out.println("[INFO ] (" + testId + ") - Checking retryOnFail: " + retryOnFail
 			+ (retryOnFail ? ", max tries: " + maxTries + ", current tries: " + (tries + 1) : "")
 			+ ((lastException != null && lastException.equals(failure)) ? ", stopping execution because of same error" : ""));
@@ -469,13 +474,13 @@ public class UserStory {
 	public synchronized UserStory takeErrorScreenshot() {
 		try {
 			if(timeStamp != null && webDriver != null) {
-				String fileName = "[ERROR] - " + timeStamp + ".i" + testId; 
-				
+				String fileName = "[ERROR] - " + timeStamp + ".i" + testId;
+
 				System.out.println("[BEGIN] (" + testId + ") - Taking screenshot: " + fileName + ".jpg'");
 				new File(reportPath + "/" + AutomationConstants.IMAGES_FOLDER).mkdirs();
-				
+
 				suiteM.sendImgToDatabase(timeStamp + ".i" + testId, webDriver.takeScreenshot(fileName, reportPath + "/" + AutomationConstants.IMAGES_FOLDER));
-				
+
 				System.out.println("[ END ] (" + testId + ") - Taking screenshot");
 			}
 		} catch(Exception e) {
@@ -503,7 +508,7 @@ public class UserStory {
 				try {
 					System.out.println("[BEGIN] (" + testId + ") - Updating result matrix");
 					System.out.println("[INFO] (" + testId + "/" + (testDataM.getTestData().size() - 1) + ") -" + testDataM.caseVariablesToString(testId)
-						+ ", browser: " + getBrowser() + ", time: " + duration 
+						+ ", browser: " + getBrowser() + ", time: " + duration
 						+ (lastException.isEmpty() || result.equals(AutomationConstants.TEST_SUCCESS) ? "" : ", report: " + lastException));
 
 					String[] resultArray = new String[testDataM.getCaseVariables().length + 4];
@@ -524,11 +529,16 @@ public class UserStory {
 					FileUtils.writeArrayIntoCSVFile(testDataM.getReportPath() + testDataM.getTimeStamp() + ".csv", resultMatrix);
 
 					suiteM.updateTestsFinished(testCase);
-					
+
 					if(suiteM.getTestsFinished(testCase) == suiteM.getTestsToRun(testCase)) {
+						System.out.println("[INFO] (" + testId + ") - Last test execution ("
+							+ suiteM.getTestsFinished(testCase) + "/" + suiteM.getTestsToRun(testCase) + ")");
 						suiteM.sendCsvToDatabase();
+					} else {
+						System.out.println("[INFO] (" + testId + ") - Remaining executions "
+							+ (suiteM.getTestsToRun(testCase) - suiteM.getTestsFinished(testCase)) + " from " + suiteM.getTestsToRun(testCase));
 					}
-					
+
 					System.out.println("[ END ] (" + testId + ") - Updating result matrix");
 				} catch(Exception e) {
 					e.printStackTrace();

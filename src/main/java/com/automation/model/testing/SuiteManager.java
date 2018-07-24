@@ -1,11 +1,6 @@
 package com.automation.model.testing;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -57,10 +52,10 @@ public class SuiteManager {
 	public void addConsoleLog(String testCase, String id, ArrayList<String> logs) {
 		consoleLogs.get(testCase).put(id, logs);
 	}
-	
+
 	public void setTestOrder(String[] testList) {
 		ArrayList<Pair<String, int[]>> testCasesAux = new ArrayList<Pair<String, int[]>>();
-		
+
 		for(String testCase : testList) {
 			for(Pair<String, int[]> testCasePair : testCases) {
 				if(testCasePair.getKey().equals(testCase)) {
@@ -69,7 +64,7 @@ public class SuiteManager {
 				}
 			}
 		}
-		
+
 		testCases = testCasesAux;
 	}
 
@@ -172,9 +167,9 @@ public class SuiteManager {
 				sendCsv = testSuiteObject.get(testCases.get(i).getKey()).getKey().getConfigVar("send_csv");
 			}
 
-			if(clientId == null) {
+			if(sendCsv != null && !sendCsv.isEmpty() && Boolean.parseBoolean(sendCsv) && clientId == null) {
 				System.out.println("[ERROR] - File not sent: client id not declared");
-			} else if(apiUrl == null) {
+			} else if(sendCsv != null && !sendCsv.isEmpty() && Boolean.parseBoolean(sendCsv) && apiUrl == null) {
 				System.out.println("[ERROR] - File not sent: api_url is null");
 			} else if(sendCsv != null && !sendCsv.isEmpty() && Boolean.parseBoolean(sendCsv)) {
 				String browser = ArrayUtils.arrayToString(InitUtils.getTestBrowsers(), ".");
@@ -184,12 +179,17 @@ public class SuiteManager {
 				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/post/" + suiteName + (browser.isEmpty() ? "" : "." + browser) + "/"
 					+ clientId + suiteName + (browser.isEmpty() ? "" : "." + browser) + initialTimeStamp);
 
+				if(testCases.get(i).getValue()[2] >= 0 && testSuiteObject.get(testCases.get(i).getKey()).getValue().length > 1) {
+					String key = testSuiteObject.get(testCases.get(i).getKey()).getValue()[0][testCases.get(i).getValue()[2]];
+					testSuiteObject.get(testCases.get(i).getKey()).getValue()[0][testCases.get(i).getValue()[2]] = "*" + key;
+				}
+
 				request.setContentType("multipart/form-data; boundary=--12345");
 				request.setBody("----12345\n"
 					+ "Content-Disposition: form-data; name=\"file\"; filename=\"" + fileName + "\"\n"
 					+ "Content-Type: text/csv\n\n"
-					+ FileUtils.getTextFromFile(reportPath + fileName)
-					+ "\n----12345--");
+					+ ArrayUtils.matrixToString(testSuiteObject.get(testCases.get(i).getKey()).getValue(), "\n", ";") + "\n"
+					+ "----12345--");
 				request.post();
 
 				if(request.getResponseCode() == 201) {
@@ -273,11 +273,43 @@ public class SuiteManager {
 		return result;
 	}
 
-	public synchronized String[][] removeMobileCases(String testCase, String[][] casesMatrix) {
+	public synchronized String[][] removeDeviceEmulationCases(String testCase, String[][] casesMatrix) {
 		String[][] resultMatrix = getResultMatrix(testCase);
-		String[][] result = ArrayUtils.removeRowsContaining(casesMatrix, InitUtils.getMobileBrowsers(), 2);
+		String[][] result = ArrayUtils.removeRowsContaining(casesMatrix, InitUtils.getDeviceEmulationBrowsers(), 2);
 
-		resultMatrix = ArrayUtils.removeRowsContaining(resultMatrix, InitUtils.getMobileBrowsers(), 2);
+		resultMatrix = ArrayUtils.removeRowsContaining(resultMatrix, InitUtils.getDeviceEmulationBrowsers(), 2);
+
+		if(casesMatrix.length == 0) {
+			testCases.remove(testCase);
+			testSuiteObject.remove(testCase);
+		} else {
+			testSuiteObject.replace(testCase, new Pair<TestDataManager, String[][]>(testSuiteObject.get(testCase).getKey(), resultMatrix));
+		}
+
+		return result;
+	}
+
+	public synchronized String[][] removeMobileEmulationCases(String testCase, String[][] casesMatrix) {
+		String[][] resultMatrix = getResultMatrix(testCase);
+		String[][] result = ArrayUtils.removeRowsContaining(casesMatrix, InitUtils.getMobileEmulationBrowsers(), 2);
+
+		resultMatrix = ArrayUtils.removeRowsContaining(resultMatrix, InitUtils.getMobileEmulationBrowsers(), 2);
+
+		if(casesMatrix.length == 0) {
+			testCases.remove(testCase);
+			testSuiteObject.remove(testCase);
+		} else {
+			testSuiteObject.replace(testCase, new Pair<TestDataManager, String[][]>(testSuiteObject.get(testCase).getKey(), resultMatrix));
+		}
+
+		return result;
+	}
+
+	public synchronized String[][] removeTabletEmulationCases(String testCase, String[][] casesMatrix) {
+		String[][] resultMatrix = getResultMatrix(testCase);
+		String[][] result = ArrayUtils.removeRowsContaining(casesMatrix, InitUtils.getTabletEmulationBrowsers(), 2);
+
+		resultMatrix = ArrayUtils.removeRowsContaining(resultMatrix, InitUtils.getTabletEmulationBrowsers(), 2);
 
 		if(casesMatrix.length == 0) {
 			testCases.remove(testCase);
@@ -292,6 +324,111 @@ public class SuiteManager {
 	public synchronized void addTestObjects(String testCase, TestDataManager testDataM, String[][] resultMatrix, int testsToRun) {
 		testSuiteObject.put(testCase, new Pair<TestDataManager, String[][]>(testDataM, resultMatrix));
 		testCases.add(new Pair<String, int[]>(testCase, new int[]{ testsToRun, 0, -1}));
+	}
+
+	private ArrayList<Integer> joinIndexes(ArrayList<Integer> indexes1, ArrayList<Integer> indexes2) {
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+
+		for(int index : indexes1) {
+			indexes.add(index);
+		}
+
+		for(int index : indexes2) {
+			if(!indexes.contains(index)) {
+				indexes.add(index);
+			}
+		}
+
+		return indexes;
+	}
+
+	private ArrayList<Integer> interceptIndexes(ArrayList<Integer> indexes1, ArrayList<Integer> indexes2) {
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+
+		for(int index : indexes1) {
+			if(indexes2.contains(index)) {
+				indexes.add(index);
+			}
+		}
+
+		return indexes;
+	}
+
+	private ArrayList<Integer> getFiltersIndexes(String filter, String[][] matrix) {
+		String div = filter.contains(",") ? "," : "\\.";
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+
+		String[] unparsedFilters = filter.split("\\]");
+
+		if(unparsedFilters.length > 0) {
+			unparsedFilters[0] = unparsedFilters[0].replace("[", "");
+			unparsedFilters[unparsedFilters.length - 1] = unparsedFilters[unparsedFilters.length - 1].replace("]", "");
+
+			for(int i = 0; i < unparsedFilters.length; i++) {
+				String unparsedFilter = unparsedFilters[i];
+
+				if(unparsedFilter != null && !unparsedFilter.isEmpty()
+					&& unparsedFilter.split("=").length > 1 && unparsedFilter.split("=")[1].split(div).length > 0) {
+					String unparsedKey = unparsedFilter.split("=")[0];
+					String parsedKey = unparsedKey.substring(unparsedKey.indexOf("[") + 1);
+					ArrayList<String[]> filters = new ArrayList<String[]>();
+
+					for(int j = 0; j < unparsedFilter.split("=")[1].split(div).length; j++) {
+						filters.add(new String[]{ parsedKey, unparsedFilter.split("=")[1].split(div)[j]});
+					}
+
+					ArrayList<Integer> auxIndexes = getFilterIndex(filters, matrix);
+
+					if(unparsedKey.replace(parsedKey, "").contains("|")) {
+						indexes = interceptIndexes(indexes, auxIndexes);
+					} else if(!unparsedKey.replace(parsedKey, "").contains("|")) {
+						indexes = joinIndexes(indexes, auxIndexes);
+					}
+				}
+			}
+		}
+
+		return indexes;
+	}
+
+	private ArrayList<Integer> getFilterIndex(ArrayList<String[]> filters, String[][] matrix) {
+		ArrayList<Integer> indexes = new ArrayList<Integer>();
+
+		for(int i = 1; i < matrix.length; i++) {
+			boolean remove = true;
+
+			for(int j = 0; j < filters.size(); j++) {
+				if((filters.get(j)[1].startsWith("!")
+					&& !matrix[i][ArrayUtils.getPositionInArray(matrix[0], filters.get(j)[0])].equals(filters.get(j)[1].substring(1)))
+					|| matrix[i][ArrayUtils.getPositionInArray(matrix[0], filters.get(j)[0])].equals(filters.get(j)[1])) {
+					remove = false;
+				}
+			}
+
+			if(remove) indexes.add(i);
+		}
+
+		return indexes;
+	}
+
+	private String[][] removeRowsFromCasesMatrix(ArrayList<Integer> indexes, String[][] matrix) {
+		for(int i = matrix.length - 1; i >= 0; i--) {
+			if(indexes.contains(i + 1)) {
+				matrix = ArrayUtils.removeRowFromMatrix(matrix, i);
+			}
+		}
+
+		return matrix;
+	}
+
+	private String[][] removeRowsFromResultMatrix(ArrayList<Integer> indexes, String[][] matrix) {
+		for(int i = matrix.length - 1; i > 0; i--) {
+			if(indexes.contains(i)) {
+				matrix = ArrayUtils.removeRowFromMatrix(matrix, i);
+			}
+		}
+
+		return matrix;
 	}
 
 	public String[][] initializeTestObjects(String testCase) {
@@ -371,7 +508,7 @@ public class SuiteManager {
 			}
 
 			// If resultMatrix was not filled by a request, try to fill it with
-			// an existant file
+			// an existent file
 			if(resultMatrix == null && new File(testData.getReportPath() + testData.getTimeStamp() + ".csv").exists()) {
 				System.out.println("[INFO] - Getting test data from file");
 				resultMatrix = InitUtils.getResultMatrixFromCsvFile(testData.getReportPath() + testData.getTimeStamp() + ".csv");
@@ -390,6 +527,27 @@ public class SuiteManager {
 			System.out.println("[INFO] - Creating test data");
 			casesMatrix = InitUtils.getCasesMatrixFromBrowserArray(testCase, browsers, testData.getTestData().size());
 			resultMatrix = InitUtils.getResultMatrixFromTestData(testData.getTestData(), browsers, testData.getCaseVariables());
+		}
+
+		// Filters the cases to execute depending on "execution_filter" leaving
+		// the resultMatrix without modification
+		String executionFilter = System.getProperty("execution_filter");
+
+		if(executionFilter != null && !executionFilter.isEmpty()) {
+			ArrayList<Integer> indexes = getFiltersIndexes(executionFilter, resultMatrix);
+
+			casesMatrix = removeRowsFromCasesMatrix(indexes, casesMatrix);
+		}
+
+		// Filters the cases to execute depending on "test_filter" modifying the
+		// resultMatrix leaving only the cases executed
+		String testFilter = System.getProperty("test_filter");
+
+		if(testFilter != null && !testFilter.isEmpty()) {
+			ArrayList<Integer> indexes = getFiltersIndexes(testFilter, resultMatrix);
+
+			resultMatrix = removeRowsFromResultMatrix(indexes, resultMatrix);
+			casesMatrix = InitUtils.getCasesMatrixFromResultMatrix(resultMatrix, testCase);
 		}
 
 		addTestObjects(testCase, testData, resultMatrix, casesMatrix.length);

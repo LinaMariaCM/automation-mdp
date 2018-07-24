@@ -20,7 +20,7 @@ import com.automation.model.webdriver.configuration.BrowserType;
 
 public class CsvToHtml {
 
-	private static final String[] testResults = new String[]{ AutomationConstants.TEST_SUCCESS, AutomationConstants.TEST_FAILURE, AutomationConstants.TEST_UNDONE};
+	// private static final String[] testResults = new String[]{ AutomationConstants.TEST_SUCCESS, AutomationConstants.TEST_FAILURE, AutomationConstants.TEST_UNDONE};
 
 	public static void main(String[] args) {
 		if(args.length >= 4 && !args[3].contains(",") && !args[3].contains(".")) {
@@ -119,7 +119,8 @@ public class CsvToHtml {
 		timeStamp = ArrayUtils.arrayToString(timeStampArray, ".");
 
 		HtmlElement htmlNode = createJointHtmlNode(timeStamp, reportPath, reportName, testCases, relevantColumns, translationFile);
-
+		
+		if(!new File(reportPath).exists()) new File(reportPath).mkdirs();
 		writeHtml(htmlNode, reportPath + timeStamp.replace("[TESTCASE]", reportName).replace("_headless", "") + ".html");
 	}
 
@@ -134,7 +135,7 @@ public class CsvToHtml {
 				if(auxHash.get(dataMatrix[j][i]) == null) {
 					auxHash.put(dataMatrix[j][i], new int[]{ 0, 0});
 				}
-				
+
 				// Calculate successes and failures for each case
 				if(dataMatrix[j][dataMatrix[0].length - 3] != null && !dataMatrix[j][dataMatrix[0].length - 3].isEmpty()) {
 					if(dataMatrix[j][dataMatrix[0].length - 3].equals(AutomationConstants.TEST_SUCCESS)) {
@@ -198,7 +199,7 @@ public class CsvToHtml {
 		return container;
 	}
 
-	private static HtmlElement createTableByIndex( HashMap<String, int[]> columnResults, ArrayList<String> columnOrder, String translationFile) {
+	private static HtmlElement createTableByIndex(HashMap<String, int[]> columnResults, ArrayList<String> columnOrder, String translationFile) {
 		HtmlElement table = HtmlUtils.createTable(columnOrder.size(), 3);
 
 		table.addChildAt(new HtmlElement("thead")
@@ -211,7 +212,7 @@ public class CsvToHtml {
 
 			int successes = columnResults.get(columnOrder.get(i))[0];
 			int failures = columnResults.get(columnOrder.get(i))[1];
-			
+
 			HtmlElement rowElement = table.getChildByTag("tbody").getChild(i);
 
 			rowElement.getChild(0).setContent(StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)));
@@ -222,7 +223,7 @@ public class CsvToHtml {
 			if(successes > 0) {
 				rowElement.getChild(1).addAttribute("style", "color: green;");
 			}
-			
+
 			if(failures > 0) {
 				rowElement.getChild(2).addAttribute("style", "color: red;");
 			}
@@ -269,22 +270,22 @@ public class CsvToHtml {
 				if(new File(reportPath + imagePath).exists()) {
 					table.addAttribute("class", "accordion")
 						.getChildByTag("thead")
-							.addAttribute("class", "ac-button")
-							.getChildByTag("tr")
-								.getChildByTag("th")
-									.getChildByTag("div")
-										.addChild(arrow);
+						.addAttribute("class", "ac-button")
+						.getChildByTag("tr")
+						.getChildByTag("th")
+						.getChildByTag("div")
+						.addChild(arrow);
 
 					table.getChildByTag("tbody")
 						.addAttribute("class", "ac-content")
 						.addAttribute("style", "display: none;")
 						.getChildByTag("tr")
-							.getChildByTag("th")
-								.addChild(new HtmlElement("img")
-									.addAttribute("class", "responsive")
-									.addAttribute("title", dataMatrix[i][dataMatrix[0].length - 3])
-									.addAttribute("src", imagePath)
-									.addAttribute("alt", "Cannot load image"));
+						.getChildByTag("th")
+						.addChild(new HtmlElement("img")
+							.addAttribute("class", "responsive")
+							.addAttribute("title", dataMatrix[i][dataMatrix[0].length - 3])
+							.addAttribute("src", imagePath)
+							.addAttribute("alt", "Cannot load image"));
 				} else {
 					table.removeChildAt(1);
 				}
@@ -331,11 +332,9 @@ public class CsvToHtml {
 
 					int nSuccess = resultsMap.get(AutomationConstants.TEST_SUCCESS) != null ? resultsMap.get(AutomationConstants.TEST_SUCCESS)[0] : 0;
 					int nFailures = resultsMap.get(AutomationConstants.TEST_FAILURE) != null ? resultsMap.get(AutomationConstants.TEST_FAILURE)[1] : 0;
-					
-					String wrapperColor = nSuccess > 0 && nFailures == 0 ? "green" :
-						nFailures > 0 && nSuccess == 0 ? "red":
-							nSuccess > 0 && nFailures > 0 ? "yellow" : "white";
-							
+
+					String wrapperColor = nSuccess > 0 && nFailures == 0 ? "green" : nFailures > 0 && nSuccess == 0 ? "red" : nSuccess > 0 && nFailures > 0 ? "yellow" : "white";
+
 					wrapper.addAttribute("class", "wrapper column accordion bg-light-" + wrapperColor);
 
 					// Create browser element
@@ -369,7 +368,7 @@ public class CsvToHtml {
 							.addAttribute("height", "15")
 							.addAttribute("width", "30")
 							.addChild("path", "d=\"M0 0 L15 15 L30 0 Z\""));
-					
+
 					wrapper.addChild(new HtmlElement("section")
 						.addAttribute("class", "boxes ac-button")
 						.addChild(new HtmlElement("div")
@@ -512,7 +511,7 @@ public class CsvToHtml {
 			BufferedWriter bw = null;
 
 			try {
-				bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));;
+				bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
 				bw.write(htmlNode.toString());
 				System.out.println("[INFO] - HTML created");
 				bw.close();

@@ -166,9 +166,18 @@ public class InitUtils {
 		return resultMatrix;
 	}
 
-	public static String[] getMobileBrowsers() {		
-		return new String[] { BrowserType.NEXUS5X, BrowserType.NEXUS6P, BrowserType.GALAXYS5, BrowserType.IPAD, BrowserType.IPADPRO
-				, BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS};
+	public static String[] getDeviceEmulationBrowsers() {		
+		return new String[] { BrowserType.NEXUS5X, BrowserType.NEXUS6P, BrowserType.GALAXYS5, BrowserType.IPAD, BrowserType.IPADPRO, 
+				BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS, BrowserType.SAFARI_IPHONE};
+	}
+
+	public static String[] getMobileEmulationBrowsers() {		
+		return new String[] { BrowserType.NEXUS5X, BrowserType.NEXUS6P, BrowserType.GALAXYS5, 
+				BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS, BrowserType.SAFARI_IPHONE};
+	}
+
+	public static String[] getTabletEmulationBrowsers() {		
+		return new String[] { BrowserType.IPAD, BrowserType.IPADPRO};
 	}
 
 	public static String[] getDesktopBrowsers() {		
