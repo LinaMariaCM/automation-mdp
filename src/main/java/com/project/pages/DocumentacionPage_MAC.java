@@ -83,7 +83,7 @@ public class DocumentacionPage_MAC extends PageObject {
 			this.webDriver.clickInFrame(this.chbxTitularidadContratacion, this.mainFrame);
 			//this.webDriver.switchToFrame(this.mainFrame);
 			//this.webDriver.sendKeysFrame(this.txtFile, this.mainFrame, "C:/Users/amaris2/Desktop/prueba.pdf");
-            this.webDriver.sendKeysFrame(this.txtFile, this.mainFrame, "C:/Users/JCHRISTOPHER/Desktop/Documentos para pruebas/DocumentoAñadido.txt");
+            this.webDriver.appendTextInFrame(this.txtFile, this.mainFrame, "C:/Users/JCHRISTOPHER/Desktop/Documentos para pruebas/DocumentoAñadido.txt");
             //this.webDriver.exitFromFrame();
 			this.webDriver.clickInFrame(this.btnAnadirContratacion, this.mainFrame);
 			this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
