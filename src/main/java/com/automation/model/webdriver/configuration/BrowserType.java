@@ -9,6 +9,7 @@ public interface BrowserType {
 	String EDGE = "edge";
 
 	String SAFARI_IPHONE = "safari_iphone";
+	String SAFARI_IPAD = "safari_ipad";
 	
 	String GALAXYS5 = "galaxys5";
 	String NEXUS5X = "nexus5x";

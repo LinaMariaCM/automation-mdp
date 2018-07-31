@@ -176,6 +176,10 @@ public class DriverHelper {
 		}
 	}
 
+	public boolean isRemoteMode() { 
+		return remoteMode; 
+	}
+
 	public void setRemoteMode(boolean value) {
 		remoteMode = value;
 	}
@@ -353,12 +357,15 @@ public class DriverHelper {
 						driver = new RemoteWebDriver(hubUrl, SafariConfiguration.createSafariOptions());
 						break;
 					default:
+					    debugInfo("EmulationBrowser: " + emulationBrowser);
 						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
-							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createFirefoxMobileOptions(browserType));
+							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createFirefoxMobileOptions(browserType, headless));
 
 							resizeWindow(320, 568);
 						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
+						    debugInfo("Initializing safari remote driver");
 							driver = new RemoteWebDriver(hubUrl, SafariConfiguration.createSafariOptions());
+							debugInfo("Safari remote driver initialized");
 						} else {
 							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createChromeMobileOptions(browserType));
 						}
@@ -393,7 +400,7 @@ public class DriverHelper {
 					default:
 						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
 							debugInfo("Initializing firefox driver for " + browserType);
-							driver = new FirefoxDriver(MobileConfiguration.createFirefoxMobileOptions(browserType));
+							driver = new FirefoxDriver(MobileConfiguration.createFirefoxMobileOptions(browserType, headless));
 
 							driver.manage().window().setSize(new Dimension(320, 568));
 						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
@@ -417,6 +424,7 @@ public class DriverHelper {
 				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
 				capabilities.setCapability("appPackage", appPackage);
 				capabilities.setCapability("appActivity", launchActivity);
+				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
 
 				driver = new AndroidDriver<WebElement>(hubUrl, capabilities);
@@ -456,7 +464,13 @@ public class DriverHelper {
 			resizeWindow(640, 1136);
 
 			waitWithDriver(3000);
-		}
+		} else if(desktop && browserType.equals(BrowserType.SAFARI_IPAD)) {
+		    setWindowPosition(0, 0);
+
+		    resizeWindow(1536, 2048);
+
+		    waitWithDriver(3000);
+        }
 
 		if(desktop && Integer.parseInt(((JavascriptExecutor) driver).executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
 			smallWindowMode = true;
@@ -701,9 +715,9 @@ public class DriverHelper {
 				for(int i = 0; i < 10 && (el == null || !el.isDisplayed()); i++) {
 					Dimension windowSize = appDriver.manage().window().getSize();
 
-					new TouchAction(appDriver).press((int) (windowSize.width / 2), (int) (windowSize.height * 0.9))
+					new TouchAction(appDriver).press((int) (windowSize.width / 2), (int) (windowSize.height * 0.7))
 						.waitAction(Duration.ofMillis(800))
-						.moveTo((int) (windowSize.width / 2), (int) (windowSize.height * 0.1))
+						.moveTo((int) (windowSize.width / 2), (int) (windowSize.height * 0.3))
 						.release().perform();
 
 					try {
@@ -1509,6 +1523,14 @@ public class DriverHelper {
 		}
 	}
 
+	public void scrollToElement(By by) {
+		if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
+			scrollToElement(driver.findElement(by));
+		} else {
+			getElement(by);
+		}
+	}
+
 	public void scrollToElement(WebElement el) {
 		scrollToElement(el, false);
 	}
@@ -1525,14 +1547,6 @@ public class DriverHelper {
 		} catch(Exception e) {
 			e.printStackTrace();
 			logger.trace("Exception in function scrollToWebElement WebElement", e);
-		}
-	}
-
-	public void scrollToElement(By by) {
-		if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
-			scrollToElement(driver.findElement(by));
-		} else {
-			getElement(by);
 		}
 	}
 	// endregion

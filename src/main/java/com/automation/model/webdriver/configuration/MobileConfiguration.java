@@ -41,7 +41,7 @@ public class MobileConfiguration {
 		return options;
 	}
 	
-	public static FirefoxOptions createFirefoxMobileOptions(String browserType) {
+	public static FirefoxOptions createFirefoxMobileOptions(String browserType, boolean headless) {
 		FirefoxOptions options = new FirefoxOptions();
 		options.addArguments("--start-maximized");
 		options.addArguments("--disable-notifications");
@@ -53,7 +53,9 @@ public class MobileConfiguration {
 		geoDisabled.setPreference("geo.prompt.testing.allow", true);
 		options.setProfile(geoDisabled);
 	
-		options.addArguments("-headless");
+		if(headless) {
+			options.addArguments("-headless");
+		}
 		//options.addArguments("--disable-setuid-sandbox");
 		//Map<String, Object> preferences = new Hashtable<>();
 		

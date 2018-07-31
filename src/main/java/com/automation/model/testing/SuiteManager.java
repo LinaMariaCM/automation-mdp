@@ -221,6 +221,10 @@ public class SuiteManager {
 		return result;
 	}
 
+	public synchronized String getReportPath(String reportPath) {
+		return this.reportPath;
+	}
+
 	public synchronized void setReportPath(String reportPath) {
 		this.reportPath = reportPath;
 	}

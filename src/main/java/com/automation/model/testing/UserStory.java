@@ -46,6 +46,7 @@ public class UserStory {
 	private ArrayList<Callable<Void>> onFailList = new ArrayList<Callable<Void>>();
 	private ArrayList<Callable<Void>> onSuccessList = new ArrayList<Callable<Void>>();
 	private ArrayList<Callable<Void>> onEndList = new ArrayList<Callable<Void>>();
+	private ArrayList<Callable<Void>> afterLastList = new ArrayList<Callable<Void>>();
 
 	public UserStory(String scenario) {
 		this.scenario = scenario;
@@ -212,6 +213,12 @@ public class UserStory {
 		return this;
 	}
 
+	public UserStory afterLastIteration(Callable<Void> actions) {
+		afterLastList.add(actions);
+
+		return this;
+	}
+
 	private void runFailActions() {
 		if(onFailList.size() > 0) {
 			System.out.println("[ERROR] (" + testId + ") -" + testDataM.caseVariablesToString(testId) + " browser: " + getBrowser() + ", lastException: " + lastException);
@@ -222,7 +229,6 @@ public class UserStory {
 					onFailList.get(i).call();
 				}
 				System.out.println("[ END ] (" + testId + ") - On fail steps");
-
 			} catch(Exception e1) {
 				System.out.println("[ERROR] (" + testId + ") - " + testId + " ON FAIL ACTIONS");
 				e1.printStackTrace();
@@ -238,7 +244,6 @@ public class UserStory {
 					onSuccessList.get(i).call();
 				}
 				System.out.println("[ END ] (" + testId + ") - On success steps");
-
 			} catch(Exception e1) {
 				System.out.println("[ERROR] (" + testId + ") - " + testId + " ON SUCCESS ACTIONS");
 				e1.printStackTrace();
@@ -254,9 +259,23 @@ public class UserStory {
 					onEndList.get(i).call();
 				}
 				System.out.println("[ END ] (" + testId + ") - On end steps");
-
 			} catch(Exception e1) {
 				System.out.println("[ERROR] (" + testId + ") - " + testId + " ON END ACTIONS");
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	private void runAfterLastIterationActions() {
+		if(afterLastList.size() > 0) {
+			try {
+				System.out.println("[BEGIN] (" + testId + ") - After last iteration steps");
+				for(int i = 0; i < afterLastList.size(); i++) {
+					afterLastList.get(i).call();
+				}
+				System.out.println("[ END ] (" + testId + ") - After las iteration steps");
+			} catch(Exception e1) {
+				System.out.println("[ERROR] (" + testId + ") - " + testId + " AFTER LAST ITERATION ACTIONS");
 				e1.printStackTrace();
 			}
 		}
@@ -273,7 +292,7 @@ public class UserStory {
 		try {
 			try {
 				System.out.println("[BEGIN] (" + testId + ") - Test steps");
-				System.out.println("[INFO] (" + testId + "/" + (testDataM.getTestData().size() - 1) + ") -" + testDataM.caseVariablesToString(testId) + ", browser: " + getBrowser());
+				System.out.println("[INFO] (" + testId + "/" + suiteM.getTestsToRun(testCase) + ") -" + testDataM.caseVariablesToString(testId) + ", browser: " + getBrowser());
 
 				for(int i = 0; i < actionList.size(); i++) {
 					actionList.get(i).call();
@@ -303,6 +322,10 @@ public class UserStory {
 		}
 
 		webDriver.quit();
+		
+		if(suiteM.getTestsFinished(testCase) + 1 == suiteM.getTestsToRun(testCase) && afterLastList.size() > 0) {
+			runAfterLastIterationActions();
+		}
 
 		if(!testResult && checkTries(exception, error)) {
 			runFailActions();
@@ -531,8 +554,7 @@ public class UserStory {
 					suiteM.updateTestsFinished(testCase);
 
 					if(suiteM.getTestsFinished(testCase) == suiteM.getTestsToRun(testCase)) {
-						System.out.println("[INFO] (" + testId + ") - Last test execution ("
-							+ suiteM.getTestsFinished(testCase) + "/" + suiteM.getTestsToRun(testCase) + ")");
+						System.out.println("[INFO] (" + testId + ") - Last test execution from " + suiteM.getTestsToRun(testCase));
 						suiteM.sendCsvToDatabase();
 					} else {
 						System.out.println("[INFO] (" + testId + ") - Remaining executions "
