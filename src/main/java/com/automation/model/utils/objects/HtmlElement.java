@@ -229,7 +229,8 @@ public class HtmlElement {
 		} else {
 			htmlText += tab + "<" + getTag()
 				+ (getAttributes().isEmpty() ? "" : " " + getAttributes()) + ">"
-				+ (getContent().isEmpty() ? "" : (!getContent().isEmpty() || getChildren().size() > 0 ? "\n\t" + tab : "") + getContent());
+				+ (getContent().isEmpty() ? "" :
+					((!getContent().isEmpty() || getChildren().size() > 0) && !getTag().equals("pre") ? "\n\t" + tab : "") + getContent());
 		}
 		
 		for(int i = 0; i < getChildren().size(); i++) {
@@ -237,7 +238,7 @@ public class HtmlElement {
 		}
 		
 		if(!getTag().isEmpty() && !ArrayUtils.stringInArray(notFinishingTags, getTag())) {
-			htmlText += (!getContent().isEmpty() || getChildren().size() > 0 ? "\n" + tab : "") + "</" + getTag() + ">";
+			htmlText += ((!getContent().isEmpty() || getChildren().size() > 0) && !getTag().equals("pre") ? "\n" + tab : "") + "</" + getTag() + ">";
 		}
 		
 		return htmlText;

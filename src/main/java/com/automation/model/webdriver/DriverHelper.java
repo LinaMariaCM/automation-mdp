@@ -363,9 +363,7 @@ public class DriverHelper {
 
 							resizeWindow(320, 568);
 						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
-						    debugInfo("Initializing safari remote driver");
 							driver = new RemoteWebDriver(hubUrl, SafariConfiguration.createSafariOptions());
-							debugInfo("Safari remote driver initialized");
 						} else {
 							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createChromeMobileOptions(browserType));
 						}
@@ -790,8 +788,10 @@ public class DriverHelper {
 		((JavascriptExecutor) driver).executeScript("arguments[0].removeAttribute(arguments[1]);", driver.findElement(by), attribute);
 	}
 
-	public void executeJavaScript(String script) {
-		((JavascriptExecutor) driver).executeScript(script);
+	public String executeJavaScript(String script) {
+		String value = ((JavascriptExecutor) driver).executeScript(script) + "";
+
+		return value;
 	}
 
 	public String getSource() {

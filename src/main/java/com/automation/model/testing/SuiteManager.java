@@ -7,6 +7,7 @@ import java.util.Base64;
 import java.util.HashMap;
 
 import com.automation.configuration.AutomationConstants;
+import com.automation.data.DataManagerObject;
 import com.automation.data.DataObject;
 import com.automation.model.httprequest.RequestHelper;
 import com.automation.model.utils.ArrayUtils;
@@ -28,8 +29,9 @@ public class SuiteManager {
 	private String apiUrl;
 	private String clientId;
 	private String suiteName;
-	private String initialTimeStamp;
 	private String reportPath;
+	private DataManagerObject suiteData = new DataManagerObject();
+	private String initialTimeStamp;
 	private ArrayList<Pair<String, int[]>> testCases = new ArrayList<Pair<String, int[]>>();
 	private HashMap<String, HashMap<String, ArrayList<String>>> consoleLogs = new HashMap<String, HashMap<String, ArrayList<String>>>();
 	private HashMap<String, Pair<TestDataManager, String[][]>> testSuiteObject = new HashMap<String, Pair<TestDataManager, String[][]>>();
@@ -47,6 +49,18 @@ public class SuiteManager {
 
 	public String getName() {
 		return suiteName;
+	}
+
+	public DataObject getSuiteData(String dataKey) {
+		return this.suiteData.getData(dataKey);
+	}
+	
+	public void addSuiteData(DataObject dataObject, String dataKey) {
+		if(suiteData.containsKey(dataKey)) {
+			suiteData.replaceData(dataKey, dataObject);
+		} else {
+			suiteData.addData(dataKey, dataObject);
+		}
 	}
 
 	public void addConsoleLog(String testCase, String id, ArrayList<String> logs) {
@@ -221,7 +235,7 @@ public class SuiteManager {
 		return result;
 	}
 
-	public synchronized String getReportPath(String reportPath) {
+	public synchronized String getReportPath() {
 		return this.reportPath;
 	}
 

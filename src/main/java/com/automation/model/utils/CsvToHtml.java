@@ -58,14 +58,20 @@ public class CsvToHtml {
 			createJointReport(year + "." + month + "." + day + ".[TESTCASE]." + browser, path, args[5], testCases, relevantColInt);
 		}
 	}
-
-	private static String translate(String translationFile, String text) {
+	
+	private static String translateOrFormat(String translationFile, String text) {
 		String result = text;
 
 		if(translationFile != null) {
 			DataObject translationObject = new DataObject(FileUtils.variablesFileToArray(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + translationFile));
 
-			result = translationObject.getValue(text) != null ? translationObject.getValue(text) : result;
+			if(translationObject.getValue(text) != null) {
+				result = translationObject.getValue(text);
+			} else {
+				result = StringUtils.snakeCaseToNatural(result);
+			}
+		} else {
+			result = StringUtils.snakeCaseToNatural(result);
 		}
 
 		return result;
@@ -185,8 +191,8 @@ public class CsvToHtml {
 				.addAttribute("class", "box")
 				.addChild(new HtmlElement("img")
 					.addAttribute("src", AutomationConstants.THUMBNAILS_FOLDER + testVariable + ".png")
-					.addAttribute("alt", StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)).toUpperCase())
-					.addAttribute("title", StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)).toUpperCase())
+					.addAttribute("alt", translateOrFormat(translationFile, testVariable).toUpperCase())
+					.addAttribute("title", translateOrFormat(translationFile, testVariable).toUpperCase())
 					.addAttribute("width", "50")
 					.addAttribute("height", "50"))
 				.addChild(new HtmlElement("div")
@@ -203,9 +209,9 @@ public class CsvToHtml {
 		HtmlElement table = HtmlUtils.createTable(columnOrder.size(), 3);
 
 		table.addChildAt(new HtmlElement("thead")
-			.addChild("th", "", translate(translationFile, "Variable"))
-			.addChild("th", "", translate(translationFile, "Success"))
-			.addChild("th", "", translate(translationFile, "Failure")), 0);
+			.addChild("th", "", translateOrFormat(translationFile, "Variable"))
+			.addChild("th", "", translateOrFormat(translationFile, "Success"))
+			.addChild("th", "", translateOrFormat(translationFile, "Failure")), 0);
 
 		for(int i = 0; i < columnOrder.size(); i++) {
 			String testVariable = columnOrder.get(i);
@@ -215,7 +221,7 @@ public class CsvToHtml {
 
 			HtmlElement rowElement = table.getChildByTag("tbody").getChild(i);
 
-			rowElement.getChild(0).setContent(StringUtils.snakeCaseToNatural(translate(translationFile, testVariable)));
+			rowElement.getChild(0).setContent(translateOrFormat(translationFile, testVariable));
 
 			rowElement.getChild(1).setContent(Integer.toString(successes));
 			rowElement.getChild(2).setContent(Integer.toString(failures));
@@ -256,8 +262,8 @@ public class CsvToHtml {
 				for(int j = 0; j < dataMatrix[0].length - 4; j++) {
 					caseVariables.addChild(new HtmlElement("div")
 						.addAttribute("class", "box case")
-						.setContent(StringUtils.snakeCaseToNatural(translate(translationFile, dataMatrix[0][j])) + ": "
-							+ StringUtils.snakeCaseToNatural(translate(translationFile, dataMatrix[i][j]))));
+						.setContent(translateOrFormat(translationFile, dataMatrix[0][j]) + ": "
+							+ translateOrFormat(translationFile, dataMatrix[i][j])));
 				}
 
 				table.addChildAt(new HtmlElement("thead")
@@ -298,7 +304,7 @@ public class CsvToHtml {
 			.addAttribute("class", "accordion")
 			.addChild(new HtmlElement("div")
 				.addAttribute("class", "boxes ac-button")
-				.addChild("h2", "class=\"box\"", translate(translationFile, "Page Failures"))
+				.addChild("h2", "class=\"box\"", translateOrFormat(translationFile, "Page Failures"))
 				.addChild(arrow))
 			.addChild(accordionContent);
 
@@ -340,18 +346,18 @@ public class CsvToHtml {
 					// Create browser element
 					HtmlElement browserElement;
 					if(columnCasesOrder.get("browser") != null && columnCasesOrder.get("browser").size() == 1) {
-						browserElement = new HtmlElement("h3").setContent(translate(translationFile, "Browser") + ": "
-							+ StringUtils.snakeCaseToNatural(translate(translationFile, columnCasesOrder.get("browser").get(0).replace("_headless", ""))));
+						browserElement = new HtmlElement("h3").setContent(translateOrFormat(translationFile, "Browser") + ": "
+							+ translateOrFormat(translationFile, columnCasesOrder.get("browser").get(0).replace("_headless", "")));
 					} else if(columnCasesOrder.get("browser") != null && columnCasesOrder.get("browser").size() > 1) {
 						HtmlElement select = new HtmlElement("select")
 							.addChild(new HtmlElement("option")
 								.addAttribute("disabled", "")
 								.addAttribute("selected", "")
-								.setContent(translate(translationFile, "Browser")));
+								.setContent(translateOrFormat(translationFile, "Browser")));
 
 						for(int i = 0; i < columnCasesOrder.get("browser").size(); i++) {
 							select.addChild(new HtmlElement("option")
-								.setContent(translate(translationFile, columnCasesOrder.get("browser").get(i))));
+								.setContent(translateOrFormat(translationFile, columnCasesOrder.get("browser").get(i))));
 						}
 
 						browserElement = new HtmlElement("div")
@@ -375,7 +381,7 @@ public class CsvToHtml {
 							.addAttribute("class", "box sum-up bg-" + wrapperColor)
 							.addChild(new HtmlElement("div")
 								.addAttribute("class", "boxes")
-								.addChild("h2", "class=\"box subtitle\"", StringUtils.snakeCaseToNatural(translate(translationFile, testCase)))
+								.addChild("h2", "class=\"box subtitle\"", translateOrFormat(translationFile, testCase))
 								.addChild(browserElement))
 							.addChild(new HtmlElement("div")
 								.addAttribute("class", "boxes")
@@ -416,7 +422,7 @@ public class CsvToHtml {
 
 						accordionContent.getChild(i % 2).addChild(new HtmlElement("div")
 							.addAttribute("class", "column bg-white")
-							.addChild("h2", "", StringUtils.snakeCaseToNatural(translate(translationFile, dataMatrix[0][i])))
+							.addChild("h2", "", translateOrFormat(translationFile, dataMatrix[0][i]))
 							.addChild(variableData));
 					}
 
@@ -446,15 +452,15 @@ public class CsvToHtml {
 		HtmlElement htmlNode = new HtmlElement("html")
 			.addChild(new HtmlElement("head")
 				.addChild("meta", "charset=\"UTF-8\"")
-				.addChild("title", "", translate(translationFile, "Test report"))
+				.addChild("title", "", translateOrFormat(translationFile, "Test report"))
 				.addChild("style", "type=\"text/css\"", FileUtils.getTextFromFile(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "styles/styles.css")))
 			.addChild(body
 				.addChild(new HtmlElement("header")
 					.addChild(new HtmlElement("div")
 						.addAttribute("class", "title")
 						.addAttribute("align", "center")
-						.addChild("h1", "", translate(translationFile, "Report [SUITENAME] from [DATE]")
-							.replace("[SUITENAME]", StringUtils.snakeCaseToNatural(translate(translationFile, reportName)))
+						.addChild("h1", "", translateOrFormat(translationFile, "Report [SUITENAME] from [DATE]")
+							.replace("[SUITENAME]", translateOrFormat(translationFile, reportName))
 							.replace("[DATE]", timeStamp.split("\\.")[2] + "/" + timeStamp.split("\\.")[1] + "/" + timeStamp.split("\\.")[0])))));
 
 		// Create HTMLs
