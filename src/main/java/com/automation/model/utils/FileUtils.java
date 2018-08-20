@@ -16,9 +16,9 @@ import com.automation.configuration.AutomationConstants;
 public class FileUtils {
 
 	/**
-	 * Method to return a Array of a section of a CSV file "ownId" indicates if the
-	 * file has a column on the left indicating the row ID - If true, then the
-	 * Array have the row ID as the key - Otherwise the key is the number of
+	 * Method to return a Array of a section of a CSV file "ownId" indicates if
+	 * the file has a column on the left indicating the row ID - If true, then
+	 * the Array have the row ID as the key - Otherwise the key is the number of
 	 * line
 	 *
 	 * @param fileName
@@ -27,21 +27,21 @@ public class FileUtils {
 	 */
 	public static String[][] loadCsvFileToArray(String filePath, boolean ownId) {
 		String[][] result = null;
-		
+
 		String text = getTextFromFile(filePath);
 
 		int nLines = text.isEmpty() ? 0 : StringUtils.countOcurrencesInString(text, "\n") + 1;
 
 		result = loadCsvSectionToArray(text, 0, nLines, ownId);
-		
+
 		return result;
 	}
 
 	/**
-	 * Method to return a Array of a section of a CSV string "ownId" indicates if the
-	 * file has a column on the left indicating the row ID - If true, then the
-	 * Array have the row ID as the key - Otherwise the key is the number of
-	 * line
+	 * Method to return a Array of a section of a CSV string "ownId" indicates
+	 * if the file has a column on the left indicating the row ID - If true,
+	 * then the Array have the row ID as the key - Otherwise the key is the
+	 * number of line
 	 *
 	 * @param csvString
 	 * @param ownId
@@ -53,7 +53,7 @@ public class FileUtils {
 		int nLines = csvString.isEmpty() ? 0 : StringUtils.countOcurrencesInString(csvString, "\n") + 1;
 
 		result = loadCsvSectionToArray(csvString, 0, nLines, ownId);
-		
+
 		return result;
 	}
 
@@ -74,7 +74,7 @@ public class FileUtils {
 		String[] textArray = StringUtils.stringToArray(text, "\n");
 
 		if(textArray.length > 0) {
-			String[][] matrix = new String[finalLine - initialLine][StringUtils.countOcurrencesInString(textArray[0], ";") + 1 + (ownId ? 0:1)];
+			String[][] matrix = new String[finalLine - initialLine][StringUtils.countOcurrencesInString(textArray[0], ";") + 1 + (ownId ? 0 : 1)];
 
 			for(int i = 0; i < finalLine; i++) {
 				if(i >= initialLine) {
@@ -102,7 +102,7 @@ public class FileUtils {
 		}
 	}
 
-	public static String getTextFromFile(String filePath) {		
+	public static String getTextFromFile(String filePath) {
 		return getTextFromFile(filePath, StandardCharsets.UTF_8);
 	}
 
@@ -110,16 +110,23 @@ public class FileUtils {
 		String line, text = null;
 		BufferedReader bufferedReader = null;
 		FileInputStream inputStream = null;
-		
+
+		if(filePath == null || filePath.isEmpty()) return null;
+
+		if(new File(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath).exists()) {
+			filePath = System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath;
+		}
+
 		try {
 			inputStream = new FileInputStream(new File(filePath));
-			
+
 			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, charset));
 			line = bufferedReader.readLine();
-	
+
 			if(line != null) text = line;
-	
-			while((line = bufferedReader.readLine()) != null) text += "\n" + line;
+
+			while((line = bufferedReader.readLine()) != null)
+				text += "\n" + line;
 		} catch(IOException e) {
 			System.out.println("Error accesing file " + e.toString());
 		} finally {
@@ -128,21 +135,21 @@ public class FileUtils {
 				if(bufferedReader != null) bufferedReader.close();
 			} catch(Exception e) {}
 		}
-		
+
 		return text;
 	}
 
 	public static HashMap<String, HashMap<String, String>> csvFileToMData(String filePath) {
 		HashMap<String, HashMap<String, String>> result = null;
-		
+
 		if(filePath == null || filePath.isEmpty()) return null;
 
 		if(new File(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath).exists()) {
 			filePath = System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath;
 		}
-		
+
 		result = csvStringToMData(getTextFromFile(filePath));
-		
+
 		return result;
 	}
 
@@ -150,7 +157,7 @@ public class FileUtils {
 		String[] csvLines = csvString.split("\n");
 		String[] keyArray = StringUtils.stringToArray("row;" + csvLines[0], ";");
 		HashMap<String, HashMap<String, String>> result = new HashMap<String, HashMap<String, String>>();
-		
+
 		for(int i = 1; i < csvLines.length; i++) {
 			result.put(Integer.toString(i - 1), StringUtils.stringToDMRow(keyArray, StringUtils.stringToArray(Integer.toString(i - 1) + ";" + csvLines[i], ";")));
 		}
@@ -197,7 +204,7 @@ public class FileUtils {
 		if(new File(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath).exists()) {
 			filePath = System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + filePath;
 		}
-		
+
 		String line;
 		FileInputStream inputStream = null;
 		BufferedReader bufferedReader = null;
@@ -210,18 +217,18 @@ public class FileUtils {
 			bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
 			while((line = bufferedReader.readLine()) != null) {
-				line = line.trim().substring(0, line.trim().indexOf('#') >= 0 ? line.trim().indexOf('#'):line.trim().length());
+				line = line.trim().substring(0, line.trim().indexOf('#') >= 0 ? line.trim().indexOf('#') : line.trim().length());
 				if(!line.isEmpty()) {
 					list.add(line);
 				}
 			}
-			
+
 			for(int i = 0; i < list.size(); i++) {
 				if(list.get(i).contains("=")) {
 					auxMap.put(StringUtils.stringToArray(list.get(i), "=")[0], StringUtils.stringToArray(list.get(i), "=")[1]);
 				}
 			}
-			
+
 			result.put("config", auxMap);
 		} catch(IOException e) {
 			System.out.println("File not found: " + e.toString());

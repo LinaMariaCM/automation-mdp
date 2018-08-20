@@ -413,7 +413,7 @@ public class DriverHelper {
 						break;
 				}
 			}
-		} else {
+		} else if(devicePlatform != null) {
 			debugInfo("Mobile device");
 			capabilities = new DesiredCapabilities();
 
@@ -1758,8 +1758,8 @@ public class DriverHelper {
 		Dimension size = new Dimension(0, 0);
 
 		if(desktop) {
-			int width = Integer.parseInt(((JavascriptExecutor) driver).executeScript("return window.innerWidth;").toString());
-			int height = Integer.parseInt(((JavascriptExecutor) driver).executeScript("return window.innerHeight;").toString());
+			int width = Integer.parseInt(((JavascriptExecutor) driver).executeScript("return window.innerWidth;") + "");
+			int height = Integer.parseInt(((JavascriptExecutor) driver).executeScript("return window.innerHeight;") + "");
 
 			size = new Dimension(width, height);
 		} else {
@@ -1773,8 +1773,8 @@ public class DriverHelper {
 		Dimension size = new Dimension(0, 0);
 
 		if(desktop) {
-			double xOffset = Double.parseDouble(((JavascriptExecutor) driver).executeScript("return window.pageXOffset;").toString());
-			double yOffset = Double.parseDouble(((JavascriptExecutor) driver).executeScript("return window.pageYOffset;").toString());
+			double xOffset = Double.parseDouble(((JavascriptExecutor) driver).executeScript("return window.pageXOffset;") + "");
+			double yOffset = Double.parseDouble(((JavascriptExecutor) driver).executeScript("return window.pageYOffset;") + "");
 			size = new Dimension((int) xOffset, (int) yOffset);
 		}
 

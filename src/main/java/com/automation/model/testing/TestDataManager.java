@@ -1,6 +1,7 @@
 package com.automation.model.testing;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataManagerObject;
@@ -8,6 +9,7 @@ import com.automation.data.DataObject;
 import com.automation.model.utils.ArrayUtils;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.utils.InitUtils;
+import com.automation.model.utils.StringUtils;
 
 /**
  * The TestDataManager class is used to manage the test data, having
@@ -254,11 +256,20 @@ public class TestDataManager {
 	}
 	
 	public void addTestData(String testDataFile) {
-		DataObject testData = null;
+		DataObject testData = null;		
 		
 		if(testDataFile != null) {
 			try {
-				testData = new DataObject(FileUtils.csvFileToMData(testDataFile));
+				String testFilter = System.getProperty("test_filter");
+				String[][] csvMatrix = FileUtils.loadCsvFileToArray(testDataFile, true);
+		
+				if(testFilter != null && !testFilter.isEmpty()) {
+					ArrayList<Integer> removeIndexes = ArrayUtils.getFiltersIndexes(testFilter, csvMatrix);
+					
+					csvMatrix = ArrayUtils.removeRowsFromMatrix(removeIndexes, csvMatrix, true);
+				}
+						
+				testData = new DataObject(FileUtils.csvStringToMData(ArrayUtils.matrixToString(csvMatrix, "\n", ";")));
 				data.setKey(AutomationConstants.TEST_DATA);
 			} catch(Exception e) { System.out.println("No test data file found");}
 		}

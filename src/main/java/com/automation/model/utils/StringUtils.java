@@ -4,6 +4,29 @@ import java.util.HashMap;
 
 public class StringUtils {
 	
+	
+	public static String[][] csvStringToMatrix(String csvString) {		
+		return stringToMatrix(csvString, "\n", ";");
+	}
+	
+	
+	public static String[][] stringToMatrix(String csvString, String rowDiv, String colDiv) {
+		String[][] result = new String[0][0];
+		
+		if(!csvString.isEmpty()) {
+			int nRows = countOcurrencesInString(csvString, rowDiv) + 1;
+			int nCol = countOcurrencesInString(csvString.split(rowDiv)[0], colDiv) + 1;
+			
+			result = new String[nRows][nCol];
+			
+			for(int i = 0; i < nRows; i++) {
+				result[i] = csvString.split(rowDiv)[i].split(colDiv);
+			}
+		}
+		
+		return result;
+	}
+	
 	public static String correctUrlSlashes(String url) {
 		String firstPart = "", secondPart = url;
 		if(url.startsWith("http")) {

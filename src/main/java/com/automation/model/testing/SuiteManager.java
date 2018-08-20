@@ -12,6 +12,7 @@ import com.automation.data.DataObject;
 import com.automation.model.httprequest.RequestHelper;
 import com.automation.model.utils.ArrayUtils;
 import com.automation.model.utils.CsvToHtml;
+import com.automation.model.utils.CsvToPdf;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.utils.InitUtils;
 import com.automation.model.utils.StringUtils;
@@ -54,7 +55,7 @@ public class SuiteManager {
 	public DataObject getSuiteData(String dataKey) {
 		return this.suiteData.getData(dataKey);
 	}
-	
+
 	public void addSuiteData(DataObject dataObject, String dataKey) {
 		if(suiteData.containsKey(dataKey)) {
 			suiteData.replaceData(dataKey, dataObject);
@@ -88,6 +89,14 @@ public class SuiteManager {
 
 	public void createHtmlReport(String translationFile) {
 		CsvToHtml.createJointReport(this, translationFile);
+	}
+
+	public void createPdfReport() {
+		createPdfReport(null);
+	}
+
+	public void createPdfReport(String translationFile) {
+		CsvToPdf.createJointReport(this, translationFile);
 	}
 
 	public void createLogReport() {
@@ -344,111 +353,6 @@ public class SuiteManager {
 		testCases.add(new Pair<String, int[]>(testCase, new int[]{ testsToRun, 0, -1}));
 	}
 
-	private ArrayList<Integer> joinIndexes(ArrayList<Integer> indexes1, ArrayList<Integer> indexes2) {
-		ArrayList<Integer> indexes = new ArrayList<Integer>();
-
-		for(int index : indexes1) {
-			indexes.add(index);
-		}
-
-		for(int index : indexes2) {
-			if(!indexes.contains(index)) {
-				indexes.add(index);
-			}
-		}
-
-		return indexes;
-	}
-
-	private ArrayList<Integer> interceptIndexes(ArrayList<Integer> indexes1, ArrayList<Integer> indexes2) {
-		ArrayList<Integer> indexes = new ArrayList<Integer>();
-
-		for(int index : indexes1) {
-			if(indexes2.contains(index)) {
-				indexes.add(index);
-			}
-		}
-
-		return indexes;
-	}
-
-	private ArrayList<Integer> getFiltersIndexes(String filter, String[][] matrix) {
-		String div = filter.contains(",") ? "," : "\\.";
-		ArrayList<Integer> indexes = new ArrayList<Integer>();
-
-		String[] unparsedFilters = filter.split("\\]");
-
-		if(unparsedFilters.length > 0) {
-			unparsedFilters[0] = unparsedFilters[0].replace("[", "");
-			unparsedFilters[unparsedFilters.length - 1] = unparsedFilters[unparsedFilters.length - 1].replace("]", "");
-
-			for(int i = 0; i < unparsedFilters.length; i++) {
-				String unparsedFilter = unparsedFilters[i];
-
-				if(unparsedFilter != null && !unparsedFilter.isEmpty()
-					&& unparsedFilter.split("=").length > 1 && unparsedFilter.split("=")[1].split(div).length > 0) {
-					String unparsedKey = unparsedFilter.split("=")[0];
-					String parsedKey = unparsedKey.substring(unparsedKey.indexOf("[") + 1);
-					ArrayList<String[]> filters = new ArrayList<String[]>();
-
-					for(int j = 0; j < unparsedFilter.split("=")[1].split(div).length; j++) {
-						filters.add(new String[]{ parsedKey, unparsedFilter.split("=")[1].split(div)[j]});
-					}
-
-					ArrayList<Integer> auxIndexes = getFilterIndex(filters, matrix);
-
-					if(unparsedKey.replace(parsedKey, "").contains("|")) {
-						indexes = interceptIndexes(indexes, auxIndexes);
-					} else if(!unparsedKey.replace(parsedKey, "").contains("|")) {
-						indexes = joinIndexes(indexes, auxIndexes);
-					}
-				}
-			}
-		}
-
-		return indexes;
-	}
-
-	private ArrayList<Integer> getFilterIndex(ArrayList<String[]> filters, String[][] matrix) {
-		ArrayList<Integer> indexes = new ArrayList<Integer>();
-
-		for(int i = 1; i < matrix.length; i++) {
-			boolean remove = true;
-
-			for(int j = 0; j < filters.size(); j++) {
-				if((filters.get(j)[1].startsWith("!")
-					&& !matrix[i][ArrayUtils.getPositionInArray(matrix[0], filters.get(j)[0])].equals(filters.get(j)[1].substring(1)))
-					|| matrix[i][ArrayUtils.getPositionInArray(matrix[0], filters.get(j)[0])].equals(filters.get(j)[1])) {
-					remove = false;
-				}
-			}
-
-			if(remove) indexes.add(i);
-		}
-
-		return indexes;
-	}
-
-	private String[][] removeRowsFromCasesMatrix(ArrayList<Integer> indexes, String[][] matrix) {
-		for(int i = matrix.length - 1; i >= 0; i--) {
-			if(indexes.contains(i + 1)) {
-				matrix = ArrayUtils.removeRowFromMatrix(matrix, i);
-			}
-		}
-
-		return matrix;
-	}
-
-	private String[][] removeRowsFromResultMatrix(ArrayList<Integer> indexes, String[][] matrix) {
-		for(int i = matrix.length - 1; i > 0; i--) {
-			if(indexes.contains(i)) {
-				matrix = ArrayUtils.removeRowFromMatrix(matrix, i);
-			}
-		}
-
-		return matrix;
-	}
-
 	public String[][] initializeTestObjects(String testCase) {
 		return initializeTestObjects(testCase, null, null);
 	}
@@ -552,9 +456,10 @@ public class SuiteManager {
 		String executionFilter = System.getProperty("execution_filter");
 
 		if(executionFilter != null && !executionFilter.isEmpty()) {
-			ArrayList<Integer> indexes = getFiltersIndexes(executionFilter, resultMatrix);
+			System.out.println("[INFO] - Applying execution filter (" + executionFilter + ")");
+			ArrayList<Integer> removeIndexes = ArrayUtils.getFiltersIndexes(executionFilter, resultMatrix);
 
-			casesMatrix = removeRowsFromCasesMatrix(indexes, casesMatrix);
+			casesMatrix = ArrayUtils.removeRowsFromMatrix(removeIndexes, casesMatrix, false);
 		}
 
 		// Filters the cases to execute depending on "test_filter" modifying the
@@ -562,9 +467,10 @@ public class SuiteManager {
 		String testFilter = System.getProperty("test_filter");
 
 		if(testFilter != null && !testFilter.isEmpty()) {
-			ArrayList<Integer> indexes = getFiltersIndexes(testFilter, resultMatrix);
+			System.out.println("[INFO] - Applying test filter (" + testFilter + ")");
+			ArrayList<Integer> removeIndexes = ArrayUtils.getFiltersIndexes(testFilter, resultMatrix);
 
-			resultMatrix = removeRowsFromResultMatrix(indexes, resultMatrix);
+			resultMatrix = ArrayUtils.removeRowsFromMatrix(removeIndexes, resultMatrix, true);
 			casesMatrix = InitUtils.getCasesMatrixFromResultMatrix(resultMatrix, testCase);
 		}
 
