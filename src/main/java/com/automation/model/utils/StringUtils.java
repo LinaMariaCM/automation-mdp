@@ -1,85 +1,98 @@
 package com.automation.model.utils;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class StringUtils {
-	
-	
-	public static String[][] csvStringToMatrix(String csvString) {		
+
+	public static String[][] csvStringToMatrix(String csvString) {
 		return stringToMatrix(csvString, "\n", ";");
 	}
-	
-	
+
+	public static String priceToASCII(String data) {
+		String result = "";
+		List<Character> allowedChars = Arrays.asList('€', '£', 'р', 'у', 'б', '원');
+
+		for(int i = 0; i < data.length(); i++) {
+			char ch = data.charAt(i);
+
+			if(ch < 128 || allowedChars.contains(ch)) result += ch;
+		}
+
+		return result;
+	}
+
 	public static String[][] stringToMatrix(String csvString, String rowDiv, String colDiv) {
 		String[][] result = new String[0][0];
-		
+
 		if(!csvString.isEmpty()) {
 			int nRows = countOcurrencesInString(csvString, rowDiv) + 1;
 			int nCol = countOcurrencesInString(csvString.split(rowDiv)[0], colDiv) + 1;
-			
+
 			result = new String[nRows][nCol];
-			
+
 			for(int i = 0; i < nRows; i++) {
 				result[i] = csvString.split(rowDiv)[i].split(colDiv);
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public static String correctUrlSlashes(String url) {
 		String firstPart = "", secondPart = url;
 		if(url.startsWith("http")) {
 			firstPart = url.substring(0, url.indexOf("://") + 3);
 			secondPart = url.substring(url.indexOf("://") + 3);
 		}
-		
+
 		secondPart = secondPart.replaceAll("\\/+", "/");
-		
+
 		return firstPart + secondPart;
 	}
-	
+
 	public static String snakeCaseToNatural(String snakeCaseText) {
 		return snakeCaseText.substring(0, 1).toUpperCase() + snakeCaseText.substring(1).toLowerCase().replace("_", " ");
 	}
-	
+
 	public static String camelCaseToNatural(String camelCaseText) {
 		camelCaseText = camelCaseText.substring(0, 1).toUpperCase() + camelCaseText.substring(1);
-		
+
 		for(int i = 0; i < camelCaseText.length(); i++) {
 			if(Character.isUpperCase(camelCaseText.charAt(i))) {
 				camelCaseText = camelCaseText.substring(i) + " " + Character.toLowerCase(camelCaseText.charAt(i));
 				i++;
 			}
 		}
-		
+
 		return camelCaseText;
 	}
-	
+
 	public static String naturalToCamelCase(String naturalText) {
 		naturalText = naturalText.toLowerCase();
-		
+
 		for(int i = 0; i < naturalText.length(); i++) {
 			if(naturalText.charAt(i) == ' ') {
 				naturalText = naturalText.substring(i) + naturalText.substring(i + 1);
 				i--;
 			}
 		}
-		
+
 		return naturalText;
 	}
-	
+
 	public static String naturalToSnakeCase(String naturalText) {
 		return naturalText.substring(0, 1).toLowerCase() + naturalText.substring(1).toLowerCase().replace(" ", "_");
 	}
-	
+
 	public static String replaceTextInBetween(String text, String replaceString, String leftSubstring, String rightSubstring) {
 		String textInside = "";
-		
+
 		try {
 			textInside = StringUtils.stringToArray(text, leftSubstring, rightSubstring)[0];
 		} catch(ArrayIndexOutOfBoundsException e) {}
-		
+
 		return text.replace(leftSubstring + textInside + rightSubstring, leftSubstring + replaceString + rightSubstring);
 	}
 
@@ -146,7 +159,7 @@ public class StringUtils {
 		String result = "";
 		String[] keySet = ArrayUtils.objetArrayToStringArray(mappedData.keySet().toArray());
 		HashMap<String, String> mappedRow = null;
-		
+
 		for(int i = 0; i < keySet.length; i++) {
 			mappedRow = mappedData.get(keySet[i]);
 
