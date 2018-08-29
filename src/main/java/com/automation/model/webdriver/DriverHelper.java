@@ -212,13 +212,21 @@ public class DriverHelper {
 		return this.deviceName;
 	}
 
+	public int getWindowDefaultWidth() {
+		return this.defaultWindowWidth;
+	}
+
+	public int getWindowDefaultHeight() {
+		return this.defaultWindowHeigth;
+	}
+	
 	public void setMacOsBrowserStack(String browserStackUser, String browserStackKey) {
 		this.macOsBrowserStackUser = browserStackUser;
 		this.macOsBrowserStackKey = browserStackKey;
 	}
 
 	public void setIOSVariables(DataObject configData) {
-
+		// TODO
 	}
 
 	public void setAndroidAppVariables(String appPackage, String appActivity) {
@@ -400,7 +408,7 @@ public class DriverHelper {
 							debugInfo("Initializing firefox driver for " + browserType);
 							driver = new FirefoxDriver(MobileConfiguration.createFirefoxMobileOptions(browserType, headless));
 
-							driver.manage().window().setSize(new Dimension(320, 568));
+							resizeWindow(320, 568);
 						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
 							debugInfo("Initializing safari driver for " + browserType);
 							driver = new SafariDriver(SafariConfiguration.createSafariOptions());

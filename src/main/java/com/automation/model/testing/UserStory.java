@@ -429,7 +429,11 @@ public class UserStory {
 		}
 
 		if(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT) != null && driverConf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
-			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT)), Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)));
+			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)), Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT)));
+		} else if (driverConf.getValue(AutomationConstants.WINDOW_HEIGHT) != null) {
+			webDriver.setWindowSize(webDriver.getWindowDefaultHeight(), Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT)));
+		} else if (driverConf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
+			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)), webDriver.getWindowDefaultWidth());
 		}
 
 		System.out.println("[INFO ] (" + testId + ") - browser: " + browser + ", ip: " + driverConf.getValue(AutomationConstants.IP)

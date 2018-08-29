@@ -155,7 +155,7 @@ public class SuiteManager {
 	public void sendImgToDatabase(String fileName, byte[] image) {
 		String sendImg = System.getProperty("send_img");
 
-		if(sendImg != null && !sendImg.isEmpty() && Boolean.parseBoolean(sendImg)) {
+		if(image != null && sendImg != null && !sendImg.isEmpty() && Boolean.parseBoolean(sendImg)) {
 			try {
 				String browser = ArrayUtils.arrayToString(InitUtils.getTestBrowsers(), ".");
 				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/images/upload/" + clientId + suiteName
