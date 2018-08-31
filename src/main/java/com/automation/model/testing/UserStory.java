@@ -428,6 +428,8 @@ public class UserStory {
 			webDriver.setPageLoadWait(Integer.parseInt(driverConf.getValue(AutomationConstants.PAGE_LOAD_WAIT)));
 		}
 
+		webDriver.setMaximize(setBooleanOnConfiguration("maximize"));
+		
 		if(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT) != null && driverConf.getValue(AutomationConstants.WINDOW_WIDTH) != null) {
 			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)), Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_HEIGHT)));
 		} else if (driverConf.getValue(AutomationConstants.WINDOW_HEIGHT) != null) {
