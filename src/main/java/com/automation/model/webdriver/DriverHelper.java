@@ -65,6 +65,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 public class DriverHelper {
 
 	private WebDriver driver;
+	private boolean maximize = true;
 	private boolean waitForAngular = true;
 	private boolean waitForJQuery = false;
 	private boolean showConsoleLog = false;
@@ -477,6 +478,8 @@ public class DriverHelper {
 
 		    waitWithDriver(3000);
         }
+		
+		if(maximize) maximizeWindow();
 
 		if(desktop && Integer.parseInt(((JavascriptExecutor) driver).executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
 			smallWindowMode = true;
@@ -816,6 +819,10 @@ public class DriverHelper {
 		}
 	}
 
+	public void setMaximize(boolean value) {
+		this.maximize = value;
+	}
+
 	public void setWaitForAngular(boolean value) {
 		this.waitForAngular = value;
 	}
@@ -961,7 +968,13 @@ public class DriverHelper {
 		logger.trace("[BEGIN] - clickRelativePosition");
 		waitForElementToBeClickable(el);
 
-		if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
+
+		if(driverType == null && driverType.equals(AutomationConstants.MOBILE_APP)) {
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+			Dimension size = el.getSize();
+
+			new TouchAction(appDriver).press(el, (int) (size.width * xPer), (int) (size.height * yPer)).release().perform();
+		} else if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
 			Dimension size = el.getSize();
 
 			new Actions(driver).moveToElement(el).moveByOffset((int) ((-size.width / 2) + size.width * yPer), (int) ((-size.height / 2) + size.height * yPer)).click().perform();
@@ -1063,7 +1076,7 @@ public class DriverHelper {
 	public void swipeDown(By by) {
 		double distance = 0.5;
 
-		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
+		if(driverType == null && driverType.equals(AutomationConstants.MOBILE_APP)) {
 			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
 			WebElement element = driver.findElement(by);
 			Dimension size = element.getSize();
