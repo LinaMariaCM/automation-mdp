@@ -65,6 +65,7 @@ import io.appium.java_client.remote.MobileCapabilityType;
 public class DriverHelper {
 
 	private WebDriver driver;
+	private boolean maximize = true;
 	private boolean waitForAngular = true;
 	private boolean waitForJQuery = false;
 	private boolean showConsoleLog = false;
@@ -477,6 +478,8 @@ public class DriverHelper {
 
 		    waitWithDriver(3000);*/
         }
+		
+		if(maximize) maximizeWindow();
 
 		if(desktop && Integer.parseInt(((JavascriptExecutor) driver).executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
 			smallWindowMode = true;
@@ -814,6 +817,10 @@ public class DriverHelper {
 			String id = list.get(i).getAttribute("id").equals("") ? "" : "id='" + list.get(i).getAttribute("id") + "'";
 			System.out.println(list.get(i).getTagName() + " " + className + " " + id);
 		}
+	}
+
+	public void setMaximize(boolean value) {
+		this.maximize = value;
 	}
 
 	public void setWaitForAngular(boolean value) {
