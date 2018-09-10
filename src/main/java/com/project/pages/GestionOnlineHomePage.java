@@ -51,12 +51,16 @@ public class GestionOnlineHomePage extends PageObject {
 	// @FindBy(xpath = ".//*[contains(text(),'Mutua Edificio
 	// Confort')]/../..//*[contains(text(),'Contratar')]")
 
-	private By btnContratarMutuaEdificioSeleccionPlus = By.xpath("#dropdown-comunidad > div > a.span2.contratar_btn.popup.prod-mdp > p > span");
-
+	//private By btnContratarMutuaEdificioSeleccionPlus = By.xpath("#dropdown-comunidad > div > a.span2.contratar_btn.popup.prod-mdp > p > span");
+	//private By btnContratarMutuaEdificioConfort = By.cssSelector("#dropdown-comunidad > div:nth-child(#dropdown-comunidad > div:nth-child(1) > a:nth-child(1) > p:nth-child(1) > span:nth-child(1) > strong:nth-child(2)");
+	private By btnContratarMutuaEdificioConfort = By.cssSelector("#dropdown-comunidad > div:nth-child(1) > a:nth-child(1)");
 	// @FindBy(xpath = ".//*[contains(text(),'Mutua Alquiler
 	// Confort')]/../..//*[contains(text(),'Contratar')]")
 
-	private By btnContratarMutuaAlquiler = By.cssSelector("#dropdown-alquiler > div:nth-child(1) > a:nth-child(1) > p:nth-child(1) > span:nth-child(1) > strong:nth-child(2)");
+	private By drpdownComunidades = By.cssSelector(".span14 > div:nth-child(1) > div:nth-child(1) > a:nth-child(1)");
+	private By drpdownImpagoAlquileres = By.cssSelector("div.border1px:nth-child(3) > a:nth-child(1)");
+
+	private By btnContratarMutuaAlquilerConfort = By.cssSelector("#dropdown-alquiler > div:nth-child(1) > a:nth-child(1) > p:nth-child(1) > span:nth-child(1) > strong:nth-child(2)");
 
 	private By btnMutuaEdificioConfort = By.xpath(".//*[contains(@title,'MUTUA EDIFICIO CONFORT.')]");
 
@@ -169,21 +173,21 @@ public class GestionOnlineHomePage extends PageObject {
 		return this;
 	}
 
-	public GestionOnlineHomePage createNewSimulation() {
-		debugBegin();
-		// this.webDriver.doubleClick(this.btnMutuaEdificioConfort,
-		// this.frameLeftFrame);
-		// this.webDriver.doubleclickInFrame(this.btnNuevaSimulaion,
-		// this.frameLeftFrame);
-		this.webDriver.doubleClick(this.btnMutuaEdificioConfort);
-		this.webDriver.doubleClick(this.btnNuevaSimulaion);
+//	public GestionOnlineHomePage createNewSimulation() {
+//		debugBegin();
+//		// this.webDriver.doubleClick(this.btnMutuaEdificioConfort,
+//		// this.frameLeftFrame);
+//		// this.webDriver.doubleclickInFrame(this.btnNuevaSimulaion,
+//		// this.frameLeftFrame);
+//		this.webDriver.doubleClick(this.btnMutuaEdificioConfort);
+//		this.webDriver.doubleClick(this.btnNuevaSimulaion);
+//
+//		debugEnd();
+//
+//		return this;
+//	}
 
-		debugEnd();
-		
-		return this;
-	}
-
-	public GestionOnlineHomePage openMutuaEdificioConfort() throws AWTException, InterruptedException, IOException {
+	public GestionOnlineHomePage openContratarMutuaEdificioConfort() throws AWTException, InterruptedException, IOException {
 		debugBegin();
 		// In GO UatPj environment, only need to hover over option.
 //		if(this.testDataM.getConfigVar("environment").equals("UatPj")) {
@@ -194,9 +198,10 @@ public class GestionOnlineHomePage extends PageObject {
         //this.webDriver.moveToElement(this.btnContratacionSelector);
 
         this.webDriver.click(this.btnContratacion);
-		// this.webDriver.waitForPageLoadToFinish();
-		this.webDriver.clickInFrame(this.btnContratarMutuaEdificioSeleccionPlus, this.contentFrame);
+        this.webDriver.clickInFrame(this.drpdownComunidades, this.contentFrame);
+		this.webDriver.clickInFrame(this.btnContratarMutuaEdificioConfort, this.contentFrame);
 		this.webDriver.switchToWindow(1);
+		this.webDriver.maximizeWindow();
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
 		debugEnd();
@@ -204,7 +209,7 @@ public class GestionOnlineHomePage extends PageObject {
 		return this;
 	}
 
-	public GestionOnlineHomePage openMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException {
+	public GestionOnlineHomePage openContratarMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException {
 		debugBegin();
 
 //		// In GO UatPj environment, only need to hover over option.
@@ -216,7 +221,7 @@ public class GestionOnlineHomePage extends PageObject {
         //this.webDriver.moveToElement(this.btnContratacionSelector);
 
 		this.webDriver.click(this.btnContratacion);
-		this.webDriver.clickInFrame(this.btnContratarMutuaAlquiler, this.contentFrame);
+		this.webDriver.clickInFrame(this.btnContratarMutuaAlquilerConfort, this.contentFrame);
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();

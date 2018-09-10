@@ -127,7 +127,7 @@ public class TomadorYAseguradoPage extends PageObject {
 
 		// if
 		// (this.tData.getTomador().equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal))
-		if(this.testDataM.getTestVar(testId, "Tomador").equals(ProjectConstants.TomadorYAseguradoPrincipal)) {
+		if(this.testDataM.getTestVar(testId, "Tomador").equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal)) {
 			// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirDatosTomadorPantallaPrincipal,
 			// this.cuerpoFrame);
 			this.webDriver.moveToElementInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.cuerpoFrame);

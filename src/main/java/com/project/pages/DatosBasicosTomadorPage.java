@@ -172,10 +172,10 @@ public class DatosBasicosTomadorPage extends PageObject {
 	}
 
 	public DatosBasicosTomadorPage fillTomadorData(String tomadorType) {
-		// debugBegin();
+		debugBegin();
 
 		switch(tomadorType) {
-			case ProjectConstants.TomadorYAseguradoPrincipal:
+			case ProjectConstants.NuevoTomadorYAseguradoPrincipal:
 				// this.wh.sendValueToWebElementInFrame(this.txtNumeroDocumento,
 				// this.cuerpoFrame,
 				// this.browserContext.getTestCaseData().getTomadorDNI());
@@ -258,6 +258,8 @@ public class DatosBasicosTomadorPage extends PageObject {
 				this.webDriver.click(this.btnContinuar);
 				this.webDriver.exitFrame();
 				break;
+
+
 			case ProjectConstants.ClienteExistente:
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
 				// this.browserContext.getTestCaseData().setTomadorDNI(this.browserContext.getTestCaseData().getTomadorDNI());
@@ -277,6 +279,8 @@ public class DatosBasicosTomadorPage extends PageObject {
 				this.webDriver.exitFrame();
 
 				break;
+
+
 			case ProjectConstants.TomadorCifEnTramite:
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.CIF);
 				this.webDriver.clickInFrame(this.chkCIFEnTramite, this.cuerpoFrame);

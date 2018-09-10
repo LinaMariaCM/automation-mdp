@@ -51,7 +51,8 @@ public class UbicacionRiesgoPage extends PageObject {
 
 	// @FindBy(xpath = ".//*[@ng-click='ur.modalBuscador.updateInmueble()' and
 	// text()='Añadir inmueble']")
-	private By btnAnadirInmuebleReferenciaCatastral = By.xpath(".//*[@ng-click='ur.modalBuscador.updateInmueble()' and text()='Añadir inmueble']");
+	//private By btnAnadirInmuebleReferenciaCatastral = By.xpath(".//*[@ng-click='ur.modalBuscador.updateInmueble()' and text()='Añadir inmueble']");
+	private By btnAnadirInmuebleReferenciaCatastral = By.cssSelector(".modal-lg > div:nth-child(1) > div:nth-child(3) > button:nth-child(2)");
 
 	// @FindBy(xpath = ".//*[@ng-model='ur.inmueble.data.asegurarGarajes']")
 	private By chkAsegurarUnicamenteGarajes = By.xpath(".//*[@ng-model='ur.inmueble.data.asegurarGarajes']");
@@ -299,7 +300,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		this.webDriver.waitForElementToBeClickable(this.radioBtnCriterioBusquedaReferenciaCatastral);
 //		 this.webDriver.appendText(this.txtReferenciaCatastral,
 //		 referenciaCatastral);
-		System.out.println("Valor referenciaCatastral: " + referenciaCatastral);
+		//System.out.println("Valor referenciaCatastral: " + referenciaCatastral);
 		this.webDriver.appendText(txtReferenciaCatastral, referenciaCatastral);
 		this.webDriver.click(this.btnBuscar);
 		// this.webDriver.waitForAngular();
