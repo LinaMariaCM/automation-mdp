@@ -65,7 +65,6 @@ import io.appium.java_client.remote.MobileCapabilityType;
 public class DriverHelper {
 
 	private WebDriver driver;
-	private boolean maximize = true;
 	private boolean waitForAngular = true;
 	private boolean waitForJQuery = false;
 	private boolean showConsoleLog = false;
@@ -128,7 +127,7 @@ public class DriverHelper {
 			browserType = browser.replace("_headless", "");
 			driverType = AutomationConstants.WEB;
 
-			if(browserType.equals(BrowserType.SAFARI_IPHONE)) {
+			if(browserType.equals(BrowserType.SAFARI_IPHONE) || browserType.equals((BrowserType.SAFARI_IPAD))) {
 				emulationBrowser = "safari";
 			}
 		} else {
@@ -433,7 +432,8 @@ public class DriverHelper {
 				capabilities.setCapability("appActivity", launchActivity);
 				capabilities.setCapability("autoGrantPermissions", true);
 				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
-
+				
+				debugInfo("Initializing Android driver on hub: " + hubUrl);
 				driver = new AndroidDriver<WebElement>(hubUrl, capabilities);
 			} else {
 				capabilities = DesiredCapabilities.iphone();
@@ -445,9 +445,7 @@ public class DriverHelper {
 				capabilities.setCapability("deviceName", deviceName);
 				capabilities.setCapability("app", appPackage);
 
-				debugInfo("Initializing iOs driver");
-
-				debugInfo("HubURL: " + hubUrl);
+				debugInfo("Initializing iOs driver on hub: " + hubUrl);
 				driver = new IOSDriver<WebElement>(hubUrl, capabilities);
 			}
 		}
@@ -465,21 +463,20 @@ public class DriverHelper {
 				resizeWindow(defaultWindowHeigth, defaultWindowWidth);
 			}
 		} else if(desktop && browserType.equals(BrowserType.SAFARI_IPHONE)) {
-			setWindowPosition(0, 0);
+			waitWithDriver(5000);
 
-			// MacOS is special and with and height is inverted
+			setWindowPosition(0, 0);
 			resizeWindow(640, 1136);
 
 			waitWithDriver(3000);
 		} else if(desktop && browserType.equals(BrowserType.SAFARI_IPAD)) {
+		   /* waitWithDriver(10000);
+
 		    setWindowPosition(0, 0);
+		    resizeWindow(2048, 1536);
 
-		    resizeWindow(1536, 2048);
-
-		    waitWithDriver(3000);
+		    waitWithDriver(3000);*/
         }
-		
-		if(maximize) maximizeWindow();
 
 		if(desktop && Integer.parseInt(((JavascriptExecutor) driver).executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
 			smallWindowMode = true;
@@ -817,10 +814,6 @@ public class DriverHelper {
 			String id = list.get(i).getAttribute("id").equals("") ? "" : "id='" + list.get(i).getAttribute("id") + "'";
 			System.out.println(list.get(i).getTagName() + " " + className + " " + id);
 		}
-	}
-
-	public void setMaximize(boolean value) {
-		this.maximize = value;
 	}
 
 	public void setWaitForAngular(boolean value) {
@@ -2272,6 +2265,11 @@ public class DriverHelper {
 		alert.accept();
 
 		exitFrame();
+	}
+
+	public Cookie getCookie(String cookie){
+
+		return driver.manage().getCookieNamed(cookie);
 	}
 	// endregion
 }

@@ -170,7 +170,7 @@ public class InitUtils {
 
 	public static String[] getDeviceEmulationBrowsers() {		
 		return new String[] { BrowserType.NEXUS5X, BrowserType.NEXUS6P, BrowserType.GALAXYS5, BrowserType.IPAD, BrowserType.IPADPRO, 
-				BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS, BrowserType.SAFARI_IPHONE};
+				BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS, BrowserType.SAFARI_IPHONE, BrowserType.SAFARI_IPAD};
 	}
 
 	public static String[] getMobileEmulationBrowsers() {		
@@ -179,7 +179,7 @@ public class InitUtils {
 	}
 
 	public static String[] getTabletEmulationBrowsers() {		
-		return new String[] { BrowserType.IPAD, BrowserType.IPADPRO};
+		return new String[] { BrowserType.IPAD, BrowserType.IPADPRO, BrowserType.SAFARI_IPAD};
 	}
 
 	public static String[] getDesktopBrowsers() {		

@@ -17,7 +17,7 @@ public class StringUtils {
 		for(int i = 0; i < data.length(); i++) {
 			char ch = data.charAt(i);
 
-			if(ch < 128 || allowedChars.contains(ch)) result += ch;
+			if((ch >43 && ch < 65) || allowedChars.contains(ch)) result += ch;
 		}
 
 		return result;
