@@ -182,9 +182,29 @@ public class SuiteManager {
 		}
 	}
 
+	public String[][] getCsvFromDatabase(String timeStamp) {
+		String[][] result = null;
+		String buildGroup = System.getProperty("build_group");
+		buildGroup = buildGroup == null || buildGroup.isEmpty() ? null : buildGroup;
+		
+		RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/csv/" + timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
+		request.get();
+
+		if(request.getResponseCode() == 200) {
+			System.out.println("[INFO] - File was received correctly: " + timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
+			result = InitUtils.getResultMatrixFromCsvString(request.getResponseBody(), timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
+		} else {
+			System.out.println("[ERROR] - File wasn't received: " + timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
+		}
+		
+		return result;
+	}
+	
 	public void sendCsvToDatabase() {
 		for(int i = 0; i < testCases.size(); i++) {
 			String sendCsv = System.getProperty("send_csv");
+			String buildGroup = System.getProperty("build_group");
+			buildGroup = buildGroup == null || buildGroup.isEmpty() ? null : buildGroup;
 
 			if(sendCsv == null || sendCsv.isEmpty()) {
 				sendCsv = testSuiteObject.get(testCases.get(i).getKey()).getKey().getConfigVar("send_csv");
@@ -197,10 +217,10 @@ public class SuiteManager {
 			} else if(sendCsv != null && !sendCsv.isEmpty() && Boolean.parseBoolean(sendCsv)) {
 				String browser = ArrayUtils.arrayToString(InitUtils.getTestBrowsers(), ".");
 				String timeStamp = testSuiteObject.get(testCases.get(i).getKey()).getKey().getTimeStamp();
-				String fileName = timeStamp + ".csv";
+				String fileName = timeStamp + (buildGroup != null ? "." + buildGroup: "") + ".csv";
 
 				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/post/" + suiteName + (browser.isEmpty() ? "" : "." + browser) + "/"
-					+ clientId + suiteName + (browser.isEmpty() ? "" : "." + browser) + initialTimeStamp);
+					+ clientId + suiteName + (browser.isEmpty() ? "" : "." + browser + (buildGroup != null ? "." + buildGroup: "")) + initialTimeStamp);
 
 				if(testCases.get(i).getValue()[2] >= 0 && testSuiteObject.get(testCases.get(i).getKey()).getValue().length > 1) {
 					String key = testSuiteObject.get(testCases.get(i).getKey()).getValue()[0][testCases.get(i).getValue()[2]];
@@ -416,17 +436,9 @@ public class SuiteManager {
 			// If "get_csv" is true, try to initialise resultMatrix from a
 			// request
 			if(getCsv != null && !getCsv.isEmpty() && Boolean.parseBoolean(getCsv) && clientId != null && apiUrl != null) {
-				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/csv/" + testData.getTimeStamp() + ".csv");
-				request.get();
-
-				if(request.getResponseCode() == 200) {
-					System.out.println("[INFO] - File was received correctly: " + testData.getTimeStamp() + ".csv");
-					resultMatrix = InitUtils.getResultMatrixFromCsvString(request.getResponseBody(), testData.getTimeStamp() + ".csv");
-
-					fileFromApi = true;
-				} else {
-					System.out.println("[ERROR] - File wasn't received: " + testData.getTimeStamp() + ".csv");
-				}
+				resultMatrix = getCsvFromDatabase(testData.getTimeStamp());
+				
+				if(resultMatrix != null) fileFromApi = true;
 			}
 
 			// If resultMatrix was not filled by a request, try to fill it with
