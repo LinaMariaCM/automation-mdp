@@ -136,9 +136,8 @@ public class Steps extends StepObject {
 			// Convertir a un step de logearse con el usuario X, parando el
 			// usuario por el parametro "usuario"
 
-			this.userS.getTestVar("login_access");
-
-			// this.LoginAndCreateSimulation(this.tCData.getUsuario(),
+			//this.userS.getTestVar("login_access");
+			//this.LoginAndCreateSimulation(this.tCData.getUsuario(),
 			// this.browserContext.getProperties().passwordComun);
 			//this.loginAndCreateSimulation(this.userS.getTestVar("usuario"), this.userS.getConfigVar("passwordComun"));
 
@@ -146,11 +145,11 @@ public class Steps extends StepObject {
 			String mediador = this.userS.getScenarioVar("mediador");
 
 			if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine)) { // && !mediador.equals("640")) {
-				System.out.println("1");
 				new GestionOnlineHomePage(userS).openContratarMutuaEdificioConfort();
 				//new GestionOnlineHomePage(userS).createNewSimulation();
 				//new AsignarMediadorPage(userS).selectMediadorAndClickOnContinuar(userS.getScenario());
 			} else if(loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
+				this.openSimulationMec();
 				new AsignarMediadorPage(userS)
 					.seleccionarMediadorPorCodigo(mediador)
 					.clickOnContinuarButton();
@@ -202,17 +201,17 @@ public class Steps extends StepObject {
 			// .fillTomadorData(getScenarioVar("tomador"))
 			// .clickOnContinuar();
 
-			new DatosBasicosTomadorPage(userS)
-				.anyadirDatosMin();
+			//new DatosBasicosTomadorPage(userS)
+			//	.anyadirDatosMin();
 
-			new PrecioPorModalidadPage(userS)
-				.executeActionsInPrecioPorModalidadPage();
+			//new PrecioPorModalidadPage(userS)
+			//	.executeActionsInPrecioPorModalidadPage();
 
-			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
+			//new ValidacionExcepcionesReglasPage(userS)
+			//	.clickOnContinuarButton();
 
-			new ClausulasPage(userS)
-				.activateclausesAndClickOnContinue();
+			//new ClausulasPage(userS)
+			//	.activateclausesAndClickOnContinue();
 
 			new TomadorYAseguradoPage(userS)
 				.addDatosTomador()
@@ -3421,20 +3420,26 @@ public class Steps extends StepObject {
 	 * /////////////////////////////
 	 *
 	 */
-	public void loginAndCreateSimulation(String userId, String password) throws Exception {
+//	public void loginAndCreateSimulation(String userId, String password) throws Exception {
+//
+//		// this.logIn(userId, password);
+//
+//		new InnovaHomePage(userS).openMutuaEdificioConfort();
+//
+//		// this.logIn(userId, password);
+//
+//		// this.OpenMutuaEdificioConfort();
+//
+//		new InnovaHomePage(userS).createNewSimulation();
+//
+//		// this.CreateSimulation();
+//	}
 
-		// this.logIn(userId, password);
-
+	public void openSimulationMec() throws Exception {
 		new InnovaHomePage(userS).openMutuaEdificioConfort();
-
-		// this.logIn(userId, password);
-
-		// this.OpenMutuaEdificioConfort();
-
-		new InnovaHomePage(userS).createNewSimulation();
-
-		// this.CreateSimulation();
+		new InnovaHomePage(userS).openNewSimulationMec();
 	}
+
 
 	public void crear_un_proyecto_MAC(String loginAccess, String user) throws Exception {
 		debugBegin();
@@ -3503,7 +3508,7 @@ public class Steps extends StepObject {
 			new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
 		} else if(accessType.equals(ProjectConstants.LoginAccessInnova)) {
 			new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
-			new InnovaHomePage(userS).CreateNewProject();
+			new InnovaHomePage(userS).openNewProjectMec();
 		}
 		debugEnd();
 	}

@@ -218,6 +218,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 				Steps.waitForIt(webDriver);
 				//Steps.waitForIt(webDriver, this.cmbTipoDocumento);
 				//Steps.waitForIt(webDriver, 1000);
+
 				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
 				setTestVar("tomador_dni", DniGeneratorHelper.generaNif(null));
 				this.webDriver.clickInFrame(this.txtNumeroDocumento, this.cuerpoFrame);

@@ -52,7 +52,7 @@ public class UbicacionRiesgoPage extends PageObject {
 	// @FindBy(xpath = ".//*[@ng-click='ur.modalBuscador.updateInmueble()' and
 	// text()='Añadir inmueble']")
 	//private By btnAnadirInmuebleReferenciaCatastral = By.xpath(".//*[@ng-click='ur.modalBuscador.updateInmueble()' and text()='Añadir inmueble']");
-	private By btnAnadirInmuebleReferenciaCatastral = By.cssSelector(".modal-lg > div:nth-child(1) > div:nth-child(3) > button:nth-child(2)");
+	private By btnAnadirInmueble = By.cssSelector(".modal-lg > div:nth-child(1) > div:nth-child(3) > button:nth-child(2)");
 
 	// @FindBy(xpath = ".//*[@ng-model='ur.inmueble.data.asegurarGarajes']")
 	private By chkAsegurarUnicamenteGarajes = By.xpath(".//*[@ng-model='ur.inmueble.data.asegurarGarajes']");
@@ -267,7 +267,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		// boolean value =
 		// this.webDriver.isPresentInFrameAndClick(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
-		boolean value = this.webDriver.isPresentAndClickInFrame(this.btnAnadirInmuebleReferenciaCatastral, this.cuerpoFrame);
+		boolean value = this.webDriver.isPresentAndClickInFrame(this.btnAnadirInmueble, this.cuerpoFrame);
 		// this.webDriver.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
 		debugEnd();
@@ -314,11 +314,12 @@ public class UbicacionRiesgoPage extends PageObject {
 
 		// this.browserContext.webElementHelper.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
 		// this.cuerpoFrame);
-	
-		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
-		this.webDriver.waitWithDriver(3500);
-		this.webDriver.click(this.btnAnadirInmuebleReferenciaCatastral);
-		this.webDriver.waitWithDriver(1500);
+
+		//this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
+		this.webDriver.waitWithDriver(4000);
+		//this.webDriver.waitForElementToBeClickable(this.btnAnadirInmuebleReferenciaCatastral);
+		this.webDriver.click(this.btnAnadirInmueble);
+		//this.webDriver.waitWithDriver(1500);
 		this.webDriver.exitFrame();
 		
 		debugEnd();
@@ -334,9 +335,9 @@ public class UbicacionRiesgoPage extends PageObject {
 		// this.GuardarRefCatastral(this.webDriver.getTextInFrame(this.txtCurrentReferenciaCatastral,
 		// this.cuerpoFrame));
 		this.GuardarRefCatastral(this.webDriver.getText(this.txtCurrentReferenciaCatastral));
-		//this.webDriver.waitForElementToBeClickableAndClick(this.btnContinuar);
-		this.webDriver.waitForAngular();
-		this.webDriver.click(this.btnContinuar);
+		this.webDriver.waitForElementToBeClickableAndClick(this.btnContinuar);
+		//this.webDriver.waitForAngular();
+		//this.webDriver.click(this.btnContinuar);
 		this.webDriver.exitFrame();
 		debugEnd();
 	}
@@ -594,7 +595,7 @@ public class UbicacionRiesgoPage extends PageObject {
 				// FichaEdificioPage
 				InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
 				innovaHomePage.openMutuaEdificioConfort();
-				innovaHomePage.CreateNewProject();
+				innovaHomePage.openNewProjectMec();
 
 				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
 				//
