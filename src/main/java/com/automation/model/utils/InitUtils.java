@@ -88,9 +88,7 @@ public class InitUtils {
 		return FileUtils.loadCsvFileToArray(filePath, true);
 	}
 	
-	public static String[][] getResultMatrixFromCsvString(String csvFile, String fileName) {
-		fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
-		
+	public static String[][] getResultMatrixFromCsvString(String csvFile, String fileName) {		
 		return FileUtils.loadCsvStringToArray(csvFile, true);
 	}
 	
@@ -108,14 +106,18 @@ public class InitUtils {
 			}
 		}
 
-		int currentCase = 0; 
-		String[][] testMatrixAux = new String[casesToRun][testMatrix[0].length - 1];
-
-		if(testMatrixAux.length > 0) testMatrixAux[0] = testMatrix[0];
-
-		for(int i = 0; i < testMatrix.length; i++) {
-			if(!resultMatrix[i + 1][resultMatrix[0].length - 3].equals(AutomationConstants.TEST_SUCCESS)) {
-				testMatrixAux[currentCase++] = testMatrix[i];
+		int currentCase = 0;
+		String[][] testMatrixAux = new String[0][0];
+		
+		if(testMatrix.length > 0) {
+			testMatrixAux = new String[casesToRun][testMatrix[0].length - 1];
+	
+			if(testMatrixAux.length > 0) testMatrixAux[0] = testMatrix[0];
+	
+			for(int i = 0; i < testMatrix.length; i++) {
+				if(!resultMatrix[i + 1][resultMatrix[0].length - 3].equals(AutomationConstants.TEST_SUCCESS)) {
+					testMatrixAux[currentCase++] = testMatrix[i];
+				}
 			}
 		}
 		
@@ -166,9 +168,18 @@ public class InitUtils {
 		return resultMatrix;
 	}
 
-	public static String[] getMobileBrowsers() {		
-		return new String[] { BrowserType.NEXUS5X, BrowserType.NEXUS6P, BrowserType.GALAXYS5, BrowserType.IPAD, BrowserType.IPADPRO
-				, BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS};
+	public static String[] getDeviceEmulationBrowsers() {		
+		return new String[] { BrowserType.NEXUS5X, BrowserType.NEXUS6P, BrowserType.GALAXYS5, BrowserType.IPAD, BrowserType.IPADPRO, 
+				BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS, BrowserType.SAFARI_IPHONE, BrowserType.SAFARI_IPAD};
+	}
+
+	public static String[] getMobileEmulationBrowsers() {		
+		return new String[] { BrowserType.NEXUS5X, BrowserType.NEXUS6P, BrowserType.GALAXYS5, 
+				BrowserType.IPHONE5, BrowserType.IPHONE6, BrowserType.IPHONE6PLUS, BrowserType.SAFARI_IPHONE};
+	}
+
+	public static String[] getTabletEmulationBrowsers() {		
+		return new String[] { BrowserType.IPAD, BrowserType.IPADPRO, BrowserType.SAFARI_IPAD};
 	}
 
 	public static String[] getDesktopBrowsers() {		

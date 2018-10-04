@@ -38,10 +38,11 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		//this.webDriver.scrollToElement(this.btnContinuar);
 		//this.webDriver.waitForElementToBeClickable(this.btnContinuar);
+
 		System.out.println("ELEMENTO WEB btnContinuar: " + this.btnContinuar);
-		this.webDriver.waitWithDriver(2500);
-		this.webDriver.scrollToElement(this.btnContinuar);
-		this.webDriver.waitWithDriver(2500);
+		//this.webDriver.waitWithDriver(2500);
+		//this.webDriver.scrollToElement(this.btnContinuar);
+		//this.webDriver.waitWithDriver(2500);
 		this.webDriver.click(this.btnContinuar);
 
 		this.webDriver.exitFrame();

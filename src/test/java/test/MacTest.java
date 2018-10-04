@@ -60,7 +60,7 @@ public class MacTest extends TestObject {
 			 * correctamente
 			 **/
 
-			steps.dar_de_alta_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 			steps.enviar_el_proyecto_a_la_compania();
 			steps.cerrar_navegador();
 			steps.login_y_autorizar_el_proyecto_MAC(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));

@@ -20,12 +20,12 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 
 	@Override
 	public void CreateProject() {
-		this.innovaHomePage.CreateNewProject();
+		this.innovaHomePage.openNewProjectMec();
 	}
 
 	@Override
 	public void CreateSimulation() {
-		this.innovaHomePage.createNewSimulation();
+		this.innovaHomePage.openNewSimulationMec();
 	}
 
 	@Override

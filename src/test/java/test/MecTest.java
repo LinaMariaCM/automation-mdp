@@ -30,8 +30,8 @@ public class MecTest extends TestObject {
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
 		Steps steps = new Steps(userS);
 
-		//userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
-		userS.addDMData("datosMecThu.csv", "fichero_referencias");
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			// Escenario: [Mec01] - Alta proyecto: datos catastro+cliente nuevo+complet+cobro mediador
@@ -46,8 +46,7 @@ public class MecTest extends TestObject {
 			 * Entonces el resultado es que el projecto se crea correctamente
 			 **/
 
-			steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(
-				userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			steps.contratar_poliza_MEC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
 			return null;
 		}).run();

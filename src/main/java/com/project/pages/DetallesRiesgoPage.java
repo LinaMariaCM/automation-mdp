@@ -939,7 +939,7 @@ public class DetallesRiesgoPage extends PageObject {
 		int year = dateTime.year().get();
 		// this.webDriver.appendTextInFrame(this.txtAnyoConstruccion,
 		// this.cuerpoFrame, String.valueOf(year - 51));
-		this.webDriver.sendKeysFrame(this.txtAnyoConstruccion, this.cuerpoFrame, String.valueOf(year - 51));
+		this.webDriver.appendTextInFrame(this.txtAnyoConstruccion, this.cuerpoFrame, String.valueOf(year - 51));
 	}
 
 	// endregion

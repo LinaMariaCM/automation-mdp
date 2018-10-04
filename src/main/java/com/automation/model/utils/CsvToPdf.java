@@ -12,13 +12,16 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.itextpdf.text.DocumentException;
+import org.xhtmlrenderer.pdf.ITextRenderer;
+
 import com.automation.configuration.AutomationConstants;
 import com.automation.model.testing.SuiteManager;
 import com.automation.data.DataObject;
 import com.automation.model.utils.objects.HtmlElement;
 import com.automation.model.webdriver.configuration.BrowserType;
 
-public class CsvToHtml {
+public class CsvToPdf {
 
 	// private static final String[] testResults = new String[]{ AutomationConstants.TEST_SUCCESS, AutomationConstants.TEST_FAILURE, AutomationConstants.TEST_UNDONE};
 
@@ -90,7 +93,7 @@ public class CsvToHtml {
 
 		HtmlElement htmlNode = createTestCaseWrapper(timeStamp, reportPath, testCase, relevantColumns, translationFile);
 
-		writeHtml(htmlNode, reportPath + timeStamp + ".html");
+		writePdf(htmlNode, reportPath + timeStamp + ".pdf");
 	}
 
 	public static void createJointReport(SuiteManager suiteM) {
@@ -127,7 +130,7 @@ public class CsvToHtml {
 		HtmlElement htmlNode = createJointHtmlNode(timeStamp, reportPath, reportName, testCases, relevantColumns, translationFile);
 		
 		if(!new File(reportPath).exists()) new File(reportPath).mkdirs();
-		writeHtml(htmlNode, reportPath + timeStamp.replace("[TESTCASE]", reportName).replace("_headless", "") + ".html");
+		writePdf(htmlNode, reportPath + timeStamp.replace("[TESTCASE]", reportName).replace("_headless", "") + ".pdf");
 	}
 
 	private static HashMap<String, HashMap<String, int[]>> initializeHashMap(String[][] dataMatrix) {
@@ -177,7 +180,7 @@ public class CsvToHtml {
 		return result;
 	}
 
-	private static HtmlElement createImagesTable(HashMap<String, int[]> columnResults, ArrayList<String> columnOrder, String translationFile) {
+	private static HtmlElement createImagesTable(HashMap<String, int[]> columnResults, ArrayList<String> columnOrder, String translationFile, String reportPath) {
 		HtmlElement container = new HtmlElement("div")
 			.addAttribute("class", "boxes thumbnails");
 
@@ -189,12 +192,10 @@ public class CsvToHtml {
 
 			container.addChild(new HtmlElement("div")
 				.addAttribute("class", "box")
-				.addChild(new HtmlElement("img")
-					.addAttribute("src", AutomationConstants.THUMBNAILS_FOLDER + testVariable + ".png")
-					.addAttribute("alt", translateOrFormat(translationFile, testVariable).toUpperCase())
-					.addAttribute("title", translateOrFormat(translationFile, testVariable).toUpperCase())
-					.addAttribute("width", "50")
-					.addAttribute("height", "50"))
+				.addChild(new HtmlElement("div")
+						.addAttribute("class", "media")
+						.addAttribute("data-src", reportPath + AutomationConstants.THUMBNAILS_FOLDER + testVariable + ".png")
+                        .addAttribute("style", "width: 25px; height: 25px;"))
 				.addChild(new HtmlElement("div")
 					.addAttribute("class", "number")
 					.addChild("span", "class=\"success\"" + (successes > 0 ? " style=\"color: green;\"" : " style=\"color: black;\""), Integer.toString(successes))
@@ -239,9 +240,7 @@ public class CsvToHtml {
 	}
 
 	private static HtmlElement getErrorReportNode(String[][] dataMatrix, String reportPath, String timeStamp, String translationFile) {
-		HtmlElement accordionContent = new HtmlElement("div")
-			.addAttribute("class", "ac-content")
-			.addAttribute("style", "display: none;");
+		HtmlElement accordionContent = new HtmlElement("div");
 
 		HtmlElement arrow = new HtmlElement("div")
 			.addChild(new HtmlElement("svg")
@@ -284,14 +283,13 @@ public class CsvToHtml {
 
 					table.getChildByTag("tbody")
 						.addAttribute("class", "ac-content")
-						.addAttribute("style", "display: none;")
 						.getChildByTag("tr")
 						.getChildByTag("th")
-						.addChild(new HtmlElement("img")
-							.addAttribute("class", "responsive")
-							.addAttribute("title", dataMatrix[i][dataMatrix[0].length - 3])
-							.addAttribute("src", imagePath)
-							.addAttribute("alt", "Cannot load image"));
+						.addChild(new HtmlElement("div")
+                                .addAttribute("class", "media")
+                                .addAttribute("data-src", reportPath + imagePath)
+                        .addAttribute("style", "width: 650px; height: 310px;"));
+					System.out.println(reportPath + imagePath);
 				} else {
 					table.removeChildAt(1);
 				}
@@ -415,7 +413,7 @@ public class CsvToHtml {
 						}
 
 						if(haveImages) {
-							variableData = createImagesTable(testStats.get(dataMatrix[0][i]), columnCasesOrder.get(dataMatrix[0][i]), translationFile);
+							variableData = createImagesTable(testStats.get(dataMatrix[0][i]), columnCasesOrder.get(dataMatrix[0][i]), translationFile, reportPath);
 						} else {
 							variableData = createTableByIndex(testStats.get(dataMatrix[0][i]), columnCasesOrder.get(dataMatrix[0][i]), translationFile);
 						}
@@ -484,48 +482,30 @@ public class CsvToHtml {
 			}
 		}
 
-		htmlNode.getChildByTag("body").addChild(new HtmlElement("script")
-			.addAttribute("type", "text/javascript")
-			.setContent("var els = document.querySelectorAll('.accordion');\n"
-				+ "for(var i = 0; i < els.length; i++) {\n"
-				+ "\tels[i].querySelector('.ac-button').addEventListener('click', function() {\n"
-				+ "\t\tvar content = this.nextElementSibling;\n"
-				+ "\t\tif(content.getAttribute('style') == 'display: none;') {\n"
-				+ "\t\t\tcontent.removeAttribute('style');\n"
-				+ "\t\t} else {\n"
-				+ "\t\t\tcontent.setAttribute('style', 'display: none;');\n"
-				+ "\t\t}\n"
-				+ "\t})"
-				+ "}"
-				+ "var imgEls = document.querySelectorAll('img.responsive');\n"
-				+ "for(var i = 0; i < imgEls.length; i++) {\n"
-				+ "\timgEls[i].addEventListener('click', function() {\n"
-				+ "\t\tvar content = this.parentElement.parentElement.parentElement;\n"
-				+ "\t\tif(content.getAttribute('style') == 'display: none;') {\n"
-				+ "\t\t\tcontent.removeAttribute('style');\n"
-				+ "\t\t} else {\n"
-				+ "\t\t\tcontent.setAttribute('style', 'display: none;');\n"
-				+ "\t\t}\n"
-				+ "\t})"
-				+ "}"));
-
 		return htmlNode;
 	}
 
-	private static void writeHtml(HtmlElement htmlNode, String path) {
+	private static void writePdf(HtmlElement htmlNode, String path) {
 		if(htmlNode != null) {
-			BufferedWriter bw = null;
+			OutputStream os = null;
 
 			try {
-				bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8));
-				bw.write(htmlNode.toString());
-				System.out.println("[INFO] - HTML created");
-				bw.close();
-			} catch(IOException e) {
+			    os = new FileOutputStream(path);
+
+			    ITextRenderer renderer = new ITextRenderer();
+			    renderer.getSharedContext().setReplacedElementFactory(new MediaReplacementHtmlToPdf(renderer.getSharedContext().getReplacedElementFactory()));
+			    renderer.setDocumentFromString(htmlNode.toString());
+			    
+			    renderer.layout();
+			    renderer.createPDF(os);
+				System.out.println("[INFO] - PDF created");
+
+			    os.close();
+			} catch(IOException | DocumentException e) {
 				e.printStackTrace();
-				if(bw != null) {
+				if(os != null) {
 					try {
-						bw.close();
+						os.close();
 					} catch(IOException e1) {
 						e1.printStackTrace();
 					}
