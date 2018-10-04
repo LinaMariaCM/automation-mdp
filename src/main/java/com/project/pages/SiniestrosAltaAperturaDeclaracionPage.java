@@ -6,6 +6,7 @@ import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
 import com.project.steps.Steps;
 
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -67,7 +68,11 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	
 	 
 	// @FindBy(id = "botonContinuar")
+	 
+	// botón continuar para produtos 500 y 510 
 	 private By btnContinuar = By.id("botonContinuar");
+	 
+
 	 
 	// endregion
 	
@@ -131,30 +136,49 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 {
 		this.debugBegin();
 		
+		this.webDriver.waitWithDriver(7000);
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
-		Steps.waitForIt(webDriver);
 		
+		//Steps.waitForIt(webDriver);
+		System.out.println("pam");
 	 	this.debugEnd();
 	 }
 	
 	 DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
 	 
-	 public void completarMinimos() // método que completa el mínimo de campos para realizar una prueba
+	 public void completarMinimos(String numPoliza) // método que completa el mínimo de campos para realizar una prueba
 	 {
+
+		 
 		this.debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
-		
+		this.webDriver.waitWithDriver(2500);
+
 		this.webDriver.click(this.tipoDeclaranteTomador);
 		
 		this.webDriver.appendText(this.txtFechaOcurrencia, fOcurrencia.format(new Date()));
 		
 		this.webDriver.click(this.medioDeclaracionCorreoElec);
 		
-		this.webDriver.click(this.rdbtnAsistenciaNo);
-		
+		this.webDriver.waitWithDriver(2500);
+		System.out.println(numPoliza.substring(0, 3));
+		System.out.println(numPoliza.substring(0, 3).equals("510"));
+		System.out.println(numPoliza.substring(0, 3).compareTo("510"));
+		//if(numPoliza.substring(0, 3).compareTo("510") == 0 || numPoliza.substring(0, 3).compareTo("500") == 0) this.webDriver.click(this.rdbtnAsistenciaNo);
+		if(numPoliza.substring(0, 3).compareTo("900") == 0) {rdbtnAsistenciaNo = By.id("fisicoNo");}
+		this.webDriver.waitWithDriver(2500);
+		System.out.println("pim");
+		this.webDriver.waitForElementToBeClickableAndClick(this.rdbtnAsistenciaNo);
+	
+		this.webDriver.click(this.btnContinuar);
+		this.webDriver.waitWithDriver(2500);
+		System.out.println("pam");
 		this.webDriver.exitFrame();
 		
-		this.clickContinuar();
+		//this.clickContinuar();
+		System.out.println("pum");
+		//Steps.waitForIt(webDriver);
+		
 		this.debugEnd();
 	 }
 	 

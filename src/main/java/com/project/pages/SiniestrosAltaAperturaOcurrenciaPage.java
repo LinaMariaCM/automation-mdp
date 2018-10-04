@@ -1,5 +1,6 @@
 package com.project.pages;
 
+import java.lang.String.*;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
 import com.project.steps.Steps;
@@ -74,6 +75,9 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	//
 	// @FindBy(id = "botonContinuar")
 		private By btnContinuar = By.id("botonContinuar");
+		
+		
+		private By descripOcu = By.id("version");
 		
 	// endregion
 	
@@ -175,18 +179,34 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	// }
 
 		
-	public void datosMinOcurrencia()	//rellena los datos mínimos de una ocurrencia para que pase la prueba
+	public void datosMinOcurrencia(String numPoliza)	//rellena los datos mínimos de una ocurrencia para que pase la prueba
 	{	
 		this.debugBegin();
+		
+		System.out.println("########################################################################");
+		System.out.println("# Rellena los datos mínimos de una ocurrencia para que pase la prueba. #");
+		System.out.println("########################################################################");	
+		
+		//String descripcion = "Un héroe es todo aquel que hace lo que puede";
 		
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		
 		this.webDriver.click(this.grupoCausasAccidentes);
 		this.webDriver.click(this.tipoCausasAccidentes);
 		
+		Steps.waitForIt(webDriver, txtDescripcionSiniestro);
+		this.webDriver.waitWithDriver(3000);
 		this.webDriver.appendText(this.txtDescripcionSiniestro, pulp);
+		this.webDriver.waitWithDriver(3000);
+
+		System.out.println("####################");
+		System.out.println("# escribo algo 2 . #");
+		System.out.println("####################");	
+		
 		this.webDriver.click(this.rdbtnImplicadosNo);
 		this.webDriver.click(this.rdbtnEncargoNo);
+		
+		//if(numPoliza.substring(0, 2).equals("510") || numPoliza.substring(0, 2).equals("500")) this.webDriver.app;
 		
 		this.webDriver.click(this.btnContinuar);
 		Steps.waitForIt(webDriver);

@@ -142,9 +142,13 @@ public class GestionOnlineHomePage extends PageObject {
 	// }
 
 	// region methods
+	
 	public GestionOnlineHomePage acceptCookies() {
 		debugBegin();
+		this.webDriver.waitWithDriver(2500);
+		//this.webDriver.click(this.btnAceptarCookies);
 		this.webDriver.click(this.btnAceptarCookies);
+			;
 		debugEnd();
 
 		return this;

@@ -15,6 +15,7 @@ import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
 import com.project.pages.*;
 
+
 /*
 import com.project.utils.GestionCotizacionesBuscadorPage;
 import com.project.utils.GestionOnlineAccessHelper;
@@ -32,6 +33,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.lang.*;
 
 import org.openqa.selenium.By;
 
@@ -3632,38 +3634,80 @@ public class Steps extends StepObject {
 	 * 
 	 */
 
-	// ALTA SINIESTRO MEC
-	public void alta_siniestro_MEC(String numPoliza) throws Exception {
+	// ALTA SINIESTRO
+	
+
+	
+	
+	public void alta_siniestro(String acceso, String numPoliza) throws Exception {
 		debugBegin();
-
-		// Accedemos a siniestros
-		new InnovaHomePage(userS).openSiniestros();
-
-		// Elegimos la opción "alta" de siniestros
-		new SiniestrosHomePage(userS).openAperturaAlta();
-
-		// Buscamos una póliza por Nº póliza
-		new GestionPolizasBuscadorPage(userS).BuscarPorNumeroPoliza(numPoliza);
-		new GestionPolizasBuscadorPage(userS).SeleccionarResultado();
-
-		// 1.Declaración
-		new SiniestrosAltaAperturaDeclaracionPage(userS).completarMinimos();
-
-		// Validamos cosas
-		new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
-
-		// Completamos el apartado de Ocuirrencia
-		new SiniestrosAltaAperturaOcurrenciaPage(userS).datosMinOcurrencia();
-
-		// Validamos más cosas
-		new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
-
-		new SiniestrosImplicadoAseguradoPage(userS).aperturaSinietro();
-
-		// Página de confirmación
-		new SiniestrosConfirmacionPage(userS).check();
+		
+		// Accedemos a siniestros desde INNOVA
+		
+		if(acceso.compareTo("Innova") == 0){
+			
+			new InnovaHomePage(userS).openSiniestros();
+					
+			// Elegimos la opción "alta" de siniestros
+			new SiniestrosHomePage(userS).openAperturaAlta();
+	
+			// Buscamos una póliza por Nº póliza
+			new GestionPolizasBuscadorPage(userS).BuscarPorNumeroPoliza(numPoliza);
+			new GestionPolizasBuscadorPage(userS).SeleccionarResultado();
+	
+			// 1.Declaración
+			new SiniestrosAltaAperturaDeclaracionPage(userS).completarMinimos(numPoliza);
+	
+			// Validamos cosas
+			new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
+	
+			// Completamos el apartado de Ocurrencia
+			new SiniestrosAltaAperturaOcurrenciaPage(userS).datosMinOcurrencia(numPoliza);
+	
+			// Validamos más cosas
+			new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
+	
+			new SiniestrosImplicadoAseguradoPage(userS).aperturaSinietro();
+	
+			// Página de confirmación
+			new SiniestrosConfirmacionPage(userS).check();
+			}
+		
+		// Accedemos a siniestros desde Gestión On Line
+		
+		else if(acceso.compareTo("GOL") == 0) {
+			
+			new GestionOnlineHomePage(userS).openSiniestros();
+			
+			
+			
+		}
 
 		debugEnd();
 	}
 
+	
+	
+	//TRAMITAR SINIESTRO
+	
+	public void tramitar_siniestro(String acceso, String numPoliza) throws Exception {
+		debugBegin();
+		
+		//necesitamos dar de alta previamente un siniestro
+		
+		alta_siniestro(acceso, numPoliza);
+		
+		new SiniestrosConfirmacionPage(userS).tramitarSiniestro();		
+		
+		debugEnd();
+	}	
+	
+	// REALIZAR PAGO DE UN SINIESTRO (desde dar de alta un pago en siniestro hasta confirmarlo)
+	
+	//realizar_pago_sinietro
 }
+
+
+
+
+
