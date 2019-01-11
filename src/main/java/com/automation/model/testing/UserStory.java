@@ -10,6 +10,7 @@ import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.webdriver.DriverHelper;
+import com.automation.model.webdriver.configuration.BrowserType;
 
 /**
  * The UserStory class is the base to execute test, having a reference to a
@@ -386,6 +387,12 @@ public class UserStory {
 	public void setConfigurationVariables() {
 		webDriver.setId(testId);
 		webDriver.setReportPath(testDataM.getReportPath());
+		
+		if (BrowserType.IPHONE.equals(webDriver.getBrowserType())) {
+			webDriver.setDeviceName(System.getProperty("device_name"));
+		}
+		
+		webDriver.setWebDriverLanguage(setStringOnConfiguration("language"));
 
 		webDriver.setWaitForAngular(setBooleanOnConfiguration("wait_for_angular"));
 		webDriver.setWaitForJQuery(setBooleanOnConfiguration("wait_for_jquery"));
@@ -404,6 +411,12 @@ public class UserStory {
 		}
 
 		webDriver.setEmulationBrowser(setStringOnConfiguration("emulation_browser"));
+		webDriver.setAndroidEmulator(setBooleanOnConfiguration("android_emulator"));
+		
+		if(BrowserType.SAFARI.equals(webDriver.getEmulationBrowser()) || BrowserType.SAFARI.equals(browser)) {
+			webDriver.setMacOsTechnologyPreview(setBooleanOnConfiguration("macos_preview"));
+			webDriver.setMacOsVersion(setStringOnConfiguration("macos_version"));
+		}
 
 		webDriver.setDownloadDrivers(setBooleanOnConfiguration("download"));
 		webDriver.setHub(setStringOnConfiguration(AutomationConstants.IP), setStringOnConfiguration(AutomationConstants.PORT));

@@ -471,7 +471,9 @@ public class CsvToHtml {
 				.replace(BrowserType.CHROME, BrowserType.CHROME + "_headless")
 				.replace(BrowserType.FIREFOX, BrowserType.FIREFOX + "_headless");
 
-			auxTimeStamp = new File(reportPath + "/" + browserTimeStamp + ".csv").exists() ? browserTimeStamp : headlessTimeStamp;
+			auxTimeStamp = new File(reportPath + "/" + browserTimeStamp + ".csv").exists() ? browserTimeStamp :
+					new File(reportPath + "/" + headlessTimeStamp + ".csv").exists() ? headlessTimeStamp : browserTimeStamp;
+
 
 			HtmlElement auxNode = createTestCaseWrapper(auxTimeStamp, reportPath, testCases[i], relevantColumns[i], translationFile);
 

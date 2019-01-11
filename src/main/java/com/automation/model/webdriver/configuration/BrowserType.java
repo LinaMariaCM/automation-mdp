@@ -2,7 +2,6 @@ package com.automation.model.webdriver.configuration;
 
 public interface BrowserType {
 	String FIREFOX = "firefox";
-	String FIREFOX_HEADLESS = "firefox_headless";
 	String CHROME = "chrome";
 	String INTERNET_EXPLORER = "ie";
 	String SAFARI = "safari";
@@ -10,7 +9,7 @@ public interface BrowserType {
 
 	String SAFARI_IPHONE = "safari_iphone";
 	String SAFARI_IPAD = "safari_ipad";
-	
+
 	String GALAXYS5 = "galaxys5";
 	String NEXUS5X = "nexus5x";
 	String NEXUS6P = "nexus6p";
@@ -21,4 +20,6 @@ public interface BrowserType {
 	String IPADPRO = "ipadpro";
 
 	String PHANTOMJS = "phantomjs";
+
+	String IPHONE = "iphone";
 }

@@ -238,7 +238,8 @@ public class SuiteManager {
 				if(request.getResponseCode() == 201) {
 					System.out.println("[INFO] - File sent correctly: " + fileName);
 				} else {
-					System.out.println("[INFO] - Error sending file: " + fileName);
+					System.out.println("[INFO] - Error sending file: " + fileName + " (" + request.getResponseCode() + " - " + request.getResponseMessage()+ ")");
+					System.out.println(request.getResponseBody());
 				}
 			}
 		}
@@ -493,6 +494,10 @@ public class SuiteManager {
 
 		if(!fileFromApi && casesMatrix.length == 0) {
 			sendCsvToDatabase();
+		} else if(fileFromApi && casesMatrix.length == 0) {
+			new File(testData.getReportPath()).mkdirs();
+			
+			FileUtils.writeArrayIntoCSVFile(testData.getReportPath() + testData.getTimeStamp() + ".csv", resultMatrix);
 		}
 
 		return casesMatrix.length == 0 ? null : casesMatrix;

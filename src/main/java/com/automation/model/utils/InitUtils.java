@@ -8,6 +8,7 @@ import com.automation.model.testing.SuiteManager;
 import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
 import com.automation.model.webdriver.configuration.BrowserType;
+import com.automation.model.webdriver.configuration.DeviceType;
 
 public class InitUtils {
 	
@@ -49,6 +50,22 @@ public class InitUtils {
 		}
 		
 		return browsers;
+	}
+	
+	public static String[] getTestDevices() {
+		String[] devices = new String[] { DeviceType.ANDROID};
+
+		if(System.getProperty("browser") != null && !System.getProperty("browser").isEmpty()
+				&& (System.getProperty("device") == null || System.getProperty("device").isEmpty())) {
+			String browser = System.getProperty("browser");
+
+			devices = browser.split(browser.contains(",") ? ",": "\\.");
+		} else if(System.getProperty("device") != null && !System.getProperty("device").isEmpty()
+				&& (System.getProperty("browser") == null || System.getProperty("browser").isEmpty())) {
+			devices = new String[]{ System.getProperty("device")};
+		}
+
+		return devices;
 	}
 	
 	public static String getTestDataPath(String defaultTestData) {
@@ -185,6 +202,10 @@ public class InitUtils {
 	public static String[] getDesktopBrowsers() {		
 		return new String[] { BrowserType.CHROME, BrowserType.FIREFOX, BrowserType.EDGE, BrowserType.INTERNET_EXPLORER, BrowserType.SAFARI};
 	}
+	
+	public static String[] getMobileDevices(){
+		return new String[] { DeviceType.ANDROID, DeviceType.IPHONE};
+	}
 
 	public static boolean browserIsContained(String browser) {
 		return browserIsContained(new String[]{browser});
@@ -201,6 +222,20 @@ public class InitUtils {
 			}
 		}
 		
+		return result;
+	}
+	
+	public static boolean deviceIsContained(String[] devicesToCheck) {
+		boolean result = true;
+		String[] devices = InitUtils.getTestDevices();
+
+		for(String device : devices) {
+			if(!ArrayUtils.contains(devicesToCheck, device)) {
+				result = false;
+				break;
+			}
+		}
+
 		return result;
 	}
 }

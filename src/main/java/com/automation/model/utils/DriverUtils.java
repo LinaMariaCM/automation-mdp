@@ -25,7 +25,7 @@ public class DriverUtils {
 	}
 
 	public static String[] getAppiumClickableElements(String page) {
-		String[] html = StringUtils.stringToArray(page, "\n");
+		String[] html = page.split( "\n");
 		ArrayList<String> elements = new ArrayList<String>();
 
 		for(int i = 0; i < html.length; i++) {

@@ -30,7 +30,6 @@ public class AutomationConstants {
 
 	public static final String SCENARIO_DATA_SET = "scenarioData.csv";
 	public static final String GLOBAL_DATA_SET = "globalData.csv";
-	public static final String TEST_DATA_SET = "testData.csv";
 	public static final String CONFIGURATION_DATA_SET = "configuration.properties";
 
 	public static final String REPORTING_LVL_VERBOSE = "verbose";

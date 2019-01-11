@@ -1,16 +1,16 @@
 package com.automation.model.utils;
 
-import java.io.BufferedWriter;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import javax.imageio.ImageIO;
 
 import com.itextpdf.text.DocumentException;
 import org.xhtmlrenderer.pdf.ITextRenderer;
@@ -22,8 +22,6 @@ import com.automation.model.utils.objects.HtmlElement;
 import com.automation.model.webdriver.configuration.BrowserType;
 
 public class CsvToPdf {
-
-	// private static final String[] testResults = new String[]{ AutomationConstants.TEST_SUCCESS, AutomationConstants.TEST_FAILURE, AutomationConstants.TEST_UNDONE};
 
 	public static void main(String[] args) {
 		if(args.length >= 4 && !args[3].contains(",") && !args[3].contains(".")) {
@@ -61,7 +59,7 @@ public class CsvToPdf {
 			createJointReport(year + "." + month + "." + day + ".[TESTCASE]." + browser, path, args[5], testCases, relevantColInt);
 		}
 	}
-	
+
 	private static String translateOrFormat(String translationFile, String text) {
 		String result = text;
 
@@ -128,7 +126,7 @@ public class CsvToPdf {
 		timeStamp = ArrayUtils.arrayToString(timeStampArray, ".");
 
 		HtmlElement htmlNode = createJointHtmlNode(timeStamp, reportPath, reportName, testCases, relevantColumns, translationFile);
-		
+
 		if(!new File(reportPath).exists()) new File(reportPath).mkdirs();
 		writePdf(htmlNode, reportPath + timeStamp.replace("[TESTCASE]", reportName).replace("_headless", "") + ".pdf");
 	}
@@ -193,9 +191,9 @@ public class CsvToPdf {
 			container.addChild(new HtmlElement("div")
 				.addAttribute("class", "box")
 				.addChild(new HtmlElement("div")
-						.addAttribute("class", "media")
-						.addAttribute("data-src", reportPath + AutomationConstants.THUMBNAILS_FOLDER + testVariable + ".png")
-                        .addAttribute("style", "width: 25px; height: 25px;"))
+					.addAttribute("class", "media")
+					.addAttribute("data-src", reportPath + AutomationConstants.THUMBNAILS_FOLDER + testVariable + ".png")
+					.addAttribute("style", "width: 25px; height: 25px;"))
 				.addChild(new HtmlElement("div")
 					.addAttribute("class", "number")
 					.addChild("span", "class=\"success\"" + (successes > 0 ? " style=\"color: green;\"" : " style=\"color: black;\""), Integer.toString(successes))
@@ -273,6 +271,23 @@ public class CsvToPdf {
 				String imagePath = "images/[ERROR] - " + timeStamp + ".i" + (i - 1) + ".jpg";
 
 				if(new File(reportPath + imagePath).exists()) {
+					int newWidth = 640, newHeight = 300;
+
+					try {
+						BufferedImage img = ImageIO.read(new File(reportPath + imagePath));
+						int imgWidth = img.getWidth(), imgHeight = img.getHeight();
+
+						if(imgWidth > imgHeight) {
+							newWidth = 640;
+							newHeight = 640 * imgHeight / imgWidth;
+						} else {
+							newHeight = 450;
+							newWidth = 450 * imgWidth / imgHeight;
+						}
+					} catch(Exception e) {
+						System.out.println("Couldn't read the image file. Applying default image size.");
+					}
+
 					table.addAttribute("class", "accordion")
 						.getChildByTag("thead")
 						.addAttribute("class", "ac-button")
@@ -286,9 +301,10 @@ public class CsvToPdf {
 						.getChildByTag("tr")
 						.getChildByTag("th")
 						.addChild(new HtmlElement("div")
-                                .addAttribute("class", "media")
-                                .addAttribute("data-src", reportPath + imagePath)
-                        .addAttribute("style", "width: 650px; height: 310px;"));
+							.addAttribute("class", "media")
+							.addAttribute("data-src", reportPath + imagePath)
+							.addAttribute("style", "width: " + newWidth + "px; height: " + newHeight
+								+ "px; margin: auto; top: 0; right: 0; bottom: 0; left: 0;"));
 					System.out.println(reportPath + imagePath);
 				} else {
 					table.removeChildAt(1);
@@ -490,17 +506,17 @@ public class CsvToPdf {
 			OutputStream os = null;
 
 			try {
-			    os = new FileOutputStream(path);
+				os = new FileOutputStream(path);
 
-			    ITextRenderer renderer = new ITextRenderer();
-			    renderer.getSharedContext().setReplacedElementFactory(new MediaReplacementHtmlToPdf(renderer.getSharedContext().getReplacedElementFactory()));
-			    renderer.setDocumentFromString(htmlNode.toString());
-			    
-			    renderer.layout();
-			    renderer.createPDF(os);
+				ITextRenderer renderer = new ITextRenderer();
+				renderer.getSharedContext().setReplacedElementFactory(new MediaReplacementHtmlToPdf(renderer.getSharedContext().getReplacedElementFactory()));
+				renderer.setDocumentFromString(htmlNode.toString());
+
+				renderer.layout();
+				renderer.createPDF(os);
 				System.out.println("[INFO] - PDF created");
 
-			    os.close();
+				os.close();
 			} catch(IOException | DocumentException e) {
 				e.printStackTrace();
 				if(os != null) {

@@ -53,12 +53,12 @@
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server</artifactId>
-			<version>3.11.0</version>
+			<version>3.14.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.appium</groupId>
 			<artifactId>java-client</artifactId>
-			<version>5.0.4</version>
+			<version>6.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
@@ -130,6 +130,11 @@
     		<groupId>javax.mail</groupId>
     		<artifactId>mail</artifactId>
     		<version>1.4.7</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.54</version>
 		</dependency>
 		<dependency>
 			<groupId>org.xhtmlrenderer</groupId>
