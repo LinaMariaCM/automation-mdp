@@ -3465,28 +3465,7 @@ public class Steps extends StepObject {
 				.clickOnContinuarButton();
 		}
 
-		// Login
-		// this.browserContext.initializeVariables(this.tCData.getAcceso());
-		// this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this.tCData.getUsuario(),
-		// this.browserContext.getProperties().passwordComun);
-
-		// if
-		// (this.tCData.getAcceso().equals(MutuaPropietariosConstants.LoginAccessGestionLine))
-		// {
-		// GestionOnlineHomePage gestionOnlineHomePage = new
-		// GestionOnlineHomePage(this.browserContext);
-		// gestionOnlineHomePage.openMutuaAlquilerConfort();
-		// }
-		// if
-		// (this.tCData.getAcceso().equals(MutuaPropietariosConstants.LoginAccessInnova))
-		// {
-		// AsignarMediadorPage asignarMediadorPage = new
-		// AsignarMediadorPage(this.browserContext);
-		// asignarMediadorPage.SelectMediadorMACAndClickOnContinuar();
-		// InnovaHomePage innovaHomePage = new
-		// InnovaHomePage(this.browserContext);
-		// innovaHomePage.OpenMutuaAlquilerConfort();
-		// }
+	
 
 		// Precio
 		new PrecioPorModalidadPage_MAC(userS)

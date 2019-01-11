@@ -226,6 +226,7 @@ public class GestionOnlineHomePage extends PageObject {
 
 		this.webDriver.click(this.btnContratacion);
 		this.webDriver.clickInFrame(this.btnContratarMutuaAlquilerConfort, this.contentFrame);
+		this.webDriver.waitWithDriver(3000);
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();

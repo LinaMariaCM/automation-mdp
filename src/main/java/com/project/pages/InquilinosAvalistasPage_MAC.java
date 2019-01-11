@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.io.IOException;
 
 import com.project.ProjectConstants;
+import com.automation.configuration.AutomationConstants;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
@@ -119,7 +120,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	// @FindBy(id = "btnEnviar")
 	// private WebElement btnEnviarACompania;
-	private By btnEnviarACompania = By.cssSelector("#btnEnviar");
+	private By btnEnviarACompania = By.id("btnEnviar");
 
 	// @FindBy(css = "button[id*='modificarInt']")
 	// private WebElement btnEditar;
@@ -141,8 +142,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	//
 	// @FindBy(xpath = ".//*[@id='formularioEnvio']/div[3]/button[2]")
 	// private WebElement btnEnviarComentarios;
-	private By btnEnviarComentarios = By.cssSelector("#formularioEnvio > div:nth-child(3) > button:nth-child(2)");
+	//private By btnEnviarComentarios = By.cssSelector("#formularioEnvio > div:nth-child(3) > button:nth-child(2)");
 
+	private By btnEnviarComentarios = By.cssSelector("#formularioEnvio > div.modal-footer > button:nth-child(2)");
+	
 	// public InquilinosAvalistasPage_MAC(BrowserContext browserContext)
 	// {
 	// this.browserContext = browserContext;
@@ -438,7 +441,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
-	 this.webDriver.appendTextInFrame(this.elmntFichero, this.mainFrame, "C:/Users/JCHRISTOPHER/Desktop/Documentos para pruebas/DocumentoAñadido.txt");
+	 this.webDriver.appendTextInFrame(this.elmntFichero, this.mainFrame, System.getProperty("user.dir") +"/"+ AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf");
 	 //this.webDriver.sendKeysFrame(this.elmntFichero, this.mainFrame,  "C:/Users/chris/Desktop/New Text Document.txt");
 	 debugEnd();
 	 }
@@ -460,6 +463,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 // TODO: mover la ruta de fichero de upload a configuracion
 	 this.webDriver.clickInFrame(this.btnEnviarACompania, this.mainFrame);
 	 this.webDriver.clickInFrame(this.btnEnviarComentarios, this.mainFrame);
+	 this.webDriver.waitWithDriver(3000);
 	 debugEnd();
 	 }
 

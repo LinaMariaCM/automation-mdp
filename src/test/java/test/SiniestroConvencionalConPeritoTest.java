@@ -51,9 +51,11 @@ public class SiniestroConvencionalConPeritoTest {
 //	1. Alta siniestro desde  INNOVA
 			
 			steps.login("Innova", "Eperez");
+			
 			System.out.println("################################");
 			System.out.println("# He pasado al siguiente step. #");
 			System.out.println("################################");
+			
 			steps.alta_siniestro("Innova","900902646");			
 			
 			
