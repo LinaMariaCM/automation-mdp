@@ -582,10 +582,7 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage completarFranquiciaVoluntaria() {
 		debugBegin();
-		System.out.println("\n");
 		System.out.println("VARIABLE franquicia_voluntaria: " + getConfigVar("franquicia_voluntaria"));
-		System.out.println("\n");
-		
 		String franquiciaVoluntaria = getConfigVar("franquicia_voluntaria");
 
 		if(franquiciaVoluntaria != null) {

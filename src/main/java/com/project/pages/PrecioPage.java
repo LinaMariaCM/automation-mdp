@@ -84,18 +84,18 @@ public class PrecioPage extends PageObject {
 		// this.webDriver.waitWithDriver(5000);
 		// this.webDriver.exitFrame();
 		//this.webDriver.waitWithDriver(10000);
-		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
+		//this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		
 		//this.webDriver.scrollToBottom();
 		//this.webDriver.waitWithDriver(4000);
 		
-		Steps.waitForIt(webDriver);
-		Steps.waitForIt(webDriver, this.btnConvertirAProyecto);
+		//Steps.waitForIt(webDriver);
+		//Steps.waitForIt(webDriver, this.btnConvertirAProyecto);
 		//this.webDriver.waitForElementToBeClickableAndClick(this.btnConvertirAProyecto);
 		//this.webDriver.waitForAngular();
 		this.webDriver.click(this.btnConvertirAProyecto);
-		Steps.waitForIt(webDriver, 2000);
+		//Steps.waitForIt(webDriver, 2000);
 		//this.webDriver.waitForElementNotToBeClickable(loaderModal);
 		//this.webDriver.waitForElementToBeClickableAndClick(this.btnConvertirAProyecto);
 		this.webDriver.exitFrame();

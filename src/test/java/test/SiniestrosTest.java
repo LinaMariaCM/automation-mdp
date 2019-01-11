@@ -10,7 +10,7 @@ import com.automation.model.utils.InitUtils;
 import com.project.ProjectConstants;
 import com.project.steps.Steps;
 
-public class MecSiniestrosTest {
+public class SiniestrosTest {
 
 	
 	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MEC_SINIESTROS);
@@ -73,10 +73,12 @@ public class MecSiniestrosTest {
 			
 			steps.login("Innova", "Eperez");
 			
-	// 2. doy de alta un siniestro tipo MEC
+	// 2. doy de alta un siniestro tipo
 
-			steps.alta_siniestro_MEC("510001249");
-						
+
+			//steps.alta_siniestro("510000148");
+			steps.alta_siniestro("Innova", "900902646");
+		//	steps.alta_siniestro("GOL","000016");			
 			return null;
 		}).run();
 	}

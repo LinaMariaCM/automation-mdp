@@ -1727,21 +1727,6 @@ public class DriverHelper {
 		exitFrame();
 	}
 
-	public void clearAndAppendText(By by, String text) {
-		debugBegin();
-
-		clearText(by);
-		appendText(by, text);
-
-		debugEnd();
-	}
-
-	public void clearAndAppendTextInFrame(By by, By frame, String text) {
-		switchToFrame(frame);
-		clearAndAppendText(by, text);
-		exitFrame();
-	}
-
 	public void setTextIfEmpty(By by, String text) {
 		debugInfo("Checking if element text is empty");
 		if(getText(by).isEmpty()) {

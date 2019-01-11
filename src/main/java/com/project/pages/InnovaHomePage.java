@@ -36,7 +36,7 @@ public class InnovaHomePage extends PageObject {
 	private By btnNuevoProjecto = By.xpath(".//*[normalize-space(text())='Nuevo proyecto']");
 
 	// @FindBy (xpath = ".//*[normalize-space(text())='Nueva Simulación']")
-	private By btnNuevaSimulaion = By.xpath(".//*[normalize-space(text())='Nueva Simulación']");
+	private By btnNuevaSimulacion = By.xpath(".//*[normalize-space(text())='Nueva Simulación']");
 
 	// @FindBy (id = "boton1")
 	private By btnMenuPrincipal = By.cssSelector("#boton1");
@@ -80,15 +80,15 @@ public class InnovaHomePage extends PageObject {
 	}
 
 	// region methods
-	public void CreateNewProject() {
+	public void openNewProjectMec() {
 		debugBegin();
 		this.webDriver.doubleClickInFrame(this.btnNuevoProjecto, this.leftFrame);
 		debugEnd();
 	}
 
-	public void createNewSimulation() {
+	public void openNewSimulationMec() {
 		debugBegin();
-		this.webDriver.doubleClickInFrame(this.btnNuevaSimulaion, this.leftFrame);
+		this.webDriver.doubleClickInFrame(this.btnNuevaSimulacion, this.leftFrame);
 		debugEnd();
 	}
 

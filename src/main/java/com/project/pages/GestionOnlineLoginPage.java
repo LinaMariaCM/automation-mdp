@@ -13,8 +13,8 @@ import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 public class GestionOnlineLoginPage extends PageObject {
 
 	// region webelements
-	private By txtUserId = By.cssSelector("#username");
-	private By txtPassword = By.cssSelector("#password");
+	private By txtUserId = By.id("username");
+	private By txtPassword = By.id("password");
     private By btnEntrar = By.cssSelector("button.btn.btn-primary");
     private By btnAceptar = By.cssSelector("#ca_banner > div.accept");
 

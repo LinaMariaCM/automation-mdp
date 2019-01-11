@@ -15,6 +15,7 @@ import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 */
 import com.project.pages.*;
 
+
 /*
 import com.project.utils.GestionCotizacionesBuscadorPage;
 import com.project.utils.GestionOnlineAccessHelper;
@@ -32,7 +33,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.awt.AWTException;
+import java.io.IOException;
+import java.lang.*;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 
 import com.project.ProjectConstants;
@@ -115,19 +120,19 @@ public class Steps extends StepObject {
 
 	}
 
-	public void doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(String loginAcess, String user) throws Exception {
+	public void contratar_poliza_MEC(String loginAcess, String user) throws Exception {
 		debugBegin();
 
 		// loginAcess = this.userS.getTestVar("acceso");
 
 		// userS.getTestVar("acceso");
 		// userS.getConfigVar("gestion_online_disponible");
-		if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine)
+		//if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine)
 			// &&
 			// this.browserContext.getProperties().GestionOnlineDisponible.equals(ProjectConstants.GestionOnlineDisponible)
-			&& this.userS.getTestVar("get_propeties").equals(ProjectConstants.GestionOnlineDisponible)
-			&& Boolean.parseBoolean(this.userS.getConfigVar("GestionOnlineDisponible"))
-			|| loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
+			//&& this.userS.getTestVar("get_propeties").equals(ProjectConstants.GestionOnlineDisponible)
+			//&& Boolean.parseBoolean(this.userS.getConfigVar("GestionOnlineDisponible"))
+			//|| loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
 			// Convertir a un step de ir a X entorno pasado por el parametro
 			// "acceso"
 
@@ -136,19 +141,20 @@ public class Steps extends StepObject {
 			// Convertir a un step de logearse con el usuario X, parando el
 			// usuario por el parametro "usuario"
 
-			this.userS.getTestVar("login_access");
-
-			// this.LoginAndCreateSimulation(this.tCData.getUsuario(),
+			//this.userS.getTestVar("login_access");
+			//this.LoginAndCreateSimulation(this.tCData.getUsuario(),
 			// this.browserContext.getProperties().passwordComun);
-			this.loginAndCreateSimulation(this.userS.getTestVar("usuario"), this.userS.getConfigVar("passwordComun"));
+			//this.loginAndCreateSimulation(this.userS.getTestVar("usuario"), this.userS.getConfigVar("passwordComun"));
 
 			// String mediador = this.tCData.getMediador();
 			String mediador = this.userS.getScenarioVar("mediador");
-			System.out.println("mediador: " + mediador);
-			if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
-				new AsignarMediadorPage(userS)
-					.selectMediadorAndClickOnContinuar(userS.getScenario());
+
+			if(loginAcess.equals(ProjectConstants.LoginAccessGestionLine)) { // && !mediador.equals("640")) {
+				new GestionOnlineHomePage(userS).openContratarMutuaEdificioConfort();
+				//new GestionOnlineHomePage(userS).createNewSimulation();
+				//new AsignarMediadorPage(userS).selectMediadorAndClickOnContinuar(userS.getScenario());
 			} else if(loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
+				this.openSimulationMec();
 				new AsignarMediadorPage(userS)
 					.seleccionarMediadorPorCodigo(mediador)
 					.clickOnContinuarButton();
@@ -187,7 +193,8 @@ public class Steps extends StepObject {
 				.clickOnContinuar();
 
 			new PrecioPorModalidadPage(userS)
-				.executeActionsInPrecioPorModalidadPage();
+				//.executeActionsInPrecioPorModalidadPage();
+				.clickOnContinuar();
 
 			new ValidacionExcepcionesReglasPage(userS)
 				.clickOnContinuarButton();
@@ -199,17 +206,17 @@ public class Steps extends StepObject {
 			// .fillTomadorData(getScenarioVar("tomador"))
 			// .clickOnContinuar();
 
-			new DatosBasicosTomadorPage(userS)
-				.anyadirDatosMin();
+			//new DatosBasicosTomadorPage(userS)
+			//	.anyadirDatosMin();
 
-			new PrecioPorModalidadPage(userS)
-				.executeActionsInPrecioPorModalidadPage();
+			//new PrecioPorModalidadPage(userS)
+			//	.executeActionsInPrecioPorModalidadPage();
 
-			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
+			//new ValidacionExcepcionesReglasPage(userS)
+			//	.clickOnContinuarButton();
 
-			new ClausulasPage(userS)
-				.activateclausesAndClickOnContinue();
+			//new ClausulasPage(userS)
+			//	.activateclausesAndClickOnContinue();
 
 			new TomadorYAseguradoPage(userS)
 				.addDatosTomador()
@@ -232,7 +239,7 @@ public class Steps extends StepObject {
 				.introducirFormaPagoYPulsarContratar();
 
 			this.webDriver.quit();
-		}
+		//}
 
 		debugEnd();
 	}
@@ -3418,22 +3425,28 @@ public class Steps extends StepObject {
 	 * /////////////////////////////
 	 *
 	 */
-	public void loginAndCreateSimulation(String userId, String password) throws Exception {
+//	public void loginAndCreateSimulation(String userId, String password) throws Exception {
+//
+//		// this.logIn(userId, password);
+//
+//		new InnovaHomePage(userS).openMutuaEdificioConfort();
+//
+//		// this.logIn(userId, password);
+//
+//		// this.OpenMutuaEdificioConfort();
+//
+//		new InnovaHomePage(userS).createNewSimulation();
+//
+//		// this.CreateSimulation();
+//	}
 
-		// this.logIn(userId, password);
-
+	public void openSimulationMec() throws Exception {
 		new InnovaHomePage(userS).openMutuaEdificioConfort();
-
-		// this.logIn(userId, password);
-
-		// this.OpenMutuaEdificioConfort();
-
-		new InnovaHomePage(userS).createNewSimulation();
-
-		// this.CreateSimulation();
+		new InnovaHomePage(userS).openNewSimulationMec();
 	}
 
-	public void dar_de_alta_un_proyecto_MAC(String loginAccess, String user) throws Exception {
+
+	public void crear_un_proyecto_MAC(String loginAccess, String user) throws Exception {
 		debugBegin();
 		// Login
 		this.login(loginAccess, user);
@@ -3445,7 +3458,7 @@ public class Steps extends StepObject {
 		String mediador = getScenarioVar("mediador");
 		if(loginAccess.equals(ProjectConstants.LoginAccessGestionLine) && !mediador.equals("640")) {
 			new AsignarMediadorPage(userS)
-				.SelectMediadorMACAndClickOnContinuar(userS.getScenario());
+				.SelectMediadorMACAndClickOnContinuar();
 		} else if(loginAccess.equals(ProjectConstants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
 				.SeleccionarMediadorMACPorCodigo(mediador)
@@ -3497,10 +3510,10 @@ public class Steps extends StepObject {
 	public void createProjectMAC(String accessType) throws Exception {
 		debugBegin();
 		if(accessType.equals(ProjectConstants.LoginAccessGestionLine)) {
-			new GestionOnlineHomePage(userS).openMutuaAlquilerConfort();
+			new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
 		} else if(accessType.equals(ProjectConstants.LoginAccessInnova)) {
 			new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
-			new InnovaHomePage(userS).CreateNewProject();
+			new InnovaHomePage(userS).openNewProjectMec();
 		}
 		debugEnd();
 	}
@@ -3565,7 +3578,7 @@ public class Steps extends StepObject {
 			new InnovaHomePage(userS).openGestionCotizaciones();
 			new GestionCotizacionesBuscadorPage(userS).searchCotizacion(this.getTestVar("NumCotizacion"));
 			new GestionCotizacionesBuscadorPage(userS).modificarProjecto();
-			new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar(userS.getScenario());
+			new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
 		}
 
 		new PrecioPorModalidadPage_MAC(userS).clickContinuar();
@@ -3632,38 +3645,350 @@ public class Steps extends StepObject {
 	 * 
 	 */
 
-	// ALTA SINIESTRO MEC
-	public void alta_siniestro_MEC(String numPoliza) throws Exception {
+	// ALTA SINIESTRO
+	
+
+	
+	
+	public void alta_siniestro(String acceso, String numPoliza) throws Exception {
 		debugBegin();
-
-		// Accedemos a siniestros
-		new InnovaHomePage(userS).openSiniestros();
-
-		// Elegimos la opción "alta" de siniestros
-		new SiniestrosHomePage(userS).openAperturaAlta();
-
-		// Buscamos una póliza por Nº póliza
-		new GestionPolizasBuscadorPage(userS).BuscarPorNumeroPoliza(numPoliza);
-		new GestionPolizasBuscadorPage(userS).SeleccionarResultado();
-
-		// 1.Declaración
-		new SiniestrosAltaAperturaDeclaracionPage(userS).completarMinimos();
-
-		// Validamos cosas
-		new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
-
-		// Completamos el apartado de Ocuirrencia
-		new SiniestrosAltaAperturaOcurrenciaPage(userS).datosMinOcurrencia();
-
-		// Validamos más cosas
-		new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
-
-		new SiniestrosImplicadoAseguradoPage(userS).aperturaSinietro();
-
-		// Página de confirmación
-		new SiniestrosConfirmacionPage(userS).check();
+		
+		// Accedemos a siniestros desde INNOVA
+		
+		if(acceso.compareTo("Innova") == 0){
+			
+			new InnovaHomePage(userS).openSiniestros();
+					
+			// Elegimos la opción "alta" de siniestros
+			new SiniestrosHomePage(userS).openAperturaAlta();
+	
+			// Buscamos una póliza por Nº póliza
+			new GestionPolizasBuscadorPage(userS).BuscarPorNumeroPoliza(numPoliza);
+			new GestionPolizasBuscadorPage(userS).SeleccionarResultado();
+	
+			// 1.Declaración
+			new SiniestrosAltaAperturaDeclaracionPage(userS).completarMinimos(numPoliza);
+	
+			// Validamos cosas
+			new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
+	
+			// Completamos el apartado de Ocurrencia
+			new SiniestrosAltaAperturaOcurrenciaPage(userS).datosMinOcurrencia(numPoliza);
+	
+			// Validamos más cosas
+			new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
+	
+			new SiniestrosImplicadoAseguradoPage(userS).aperturaSinietro();
+	
+			// Página de confirmación
+			new SiniestrosConfirmacionPage(userS).check();
+			}
+		
+		// Accedemos a siniestros desde Gestión On Line
+		
+		else if(acceso.compareTo("GOL") == 0) {
+			
+			new GestionOnlineHomePage(userS).openSiniestros();
+			
+			
+			
+		}
 
 		debugEnd();
 	}
 
+	
+	
+	//TRAMITAR SINIESTRO
+	
+	public void tramitar_siniestro(String acceso, String numPoliza) throws Exception {
+		debugBegin();
+		
+		//necesitamos dar de alta previamente un siniestro
+		
+		alta_siniestro(acceso, numPoliza);
+		
+		new SiniestrosConfirmacionPage(userS).tramitarSiniestro();		
+		
+		debugEnd();
+	}	
+	
+	// REALIZAR PAGO DE UN SINIESTRO (desde dar de alta un pago en siniestro hasta confirmarlo)
+	
+	//realizar_pago_sinietro
+
+	
+	
+	//MAC: SE INFORMA DE QUE LA POLIZA NO SE PUEDE EMITIR
+	
+		public void se_informa_de_que_la_poliza_no_se_puede_emitir() { // Compropar el estado	
+		Assert.assertTrue(new ContratacionPage_MAC(userS).checkPolizaError());
+	}
+	
+	
+	//MAC: MODIFICAR INGRESOS 	 
+	
+		public void modificar_ingresos( String ingresos) { 
+	  userS.setTestVar("ingresos", ingresos);
 }
+	
+	//MAC AÑADIR AVALISTA
+	
+		 public void anyado_avalista() throws AWTException,
+		 InterruptedException {
+		 InquilinosAvalistasPage_MAC avalista = new InquilinosAvalistasPage_MAC(userS);
+		 avalista.addDatosAval();
+		 
+		 avalista.anadirDocumentacionAval();
+		 
+		 avalista.validacionViabilidadInquilino(); }
+	
+	//MAC DENIEGO EL PROYECTO MAC USANDO ACCESO Y USUARIO
+		 
+		 public void deniego_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario(
+		  String loginAccess, String user) throws Exception 
+		 { 
+			this.debugBegin();
+			this.login(loginAccess, user);
+
+		  // Abrir la busqueda de autorizaciones
+			InnovaHomePage innovaHomePage = new InnovaHomePage(userS) ;
+		  innovaHomePage.OpenGestionAutorizaciones();
+		  GestionAutorizacionesPage gestionAutorizacionesPage = new  GestionAutorizacionesPage(userS);
+		  gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", userS.getTestVar("num_cotizacion"));
+		 
+		  // Denegar el proyecto gestionAutorizacionesPage.denegar();
+		  this.webDriver.quit();
+		 this.debugEnd();
+		 
+		} 
+	
+		 public void busco_el_proyecto_usando_el_acceso_y_el_usuario(
+			 String loginAccess, String user) throws Exception
+		 	{
+			 
+			  // Login
+			  //this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
+			  //this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this.tCData.getUsuario(), this.browserContext.getProperties().passwordComun,
+			  //this.tCData.getNoCotizacionMAC());
+			  
+			  this.login(loginAccess, user);
+			 
+			  // Abrir el buscador de proyectos // 
+			  
+//			  if(this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants. LoginAccessGestionLine))  
+//			  {  GestionOnlineHomePage
+//			  gestionOnlineHomePage = new GestionOnlineHomePage(webDriver,
+//			  userS.getTestDataManager()); 
+//			  gestionOnlineHomePage.openMisProyectosWeb(); 
+//			  gestionOnlineHomePage.buscarProyectoWeb(this.tCData.getNoCotizacionMAC());
+
+			  GestionOnlineHomePage gestionOnlineHomePage = new GestionOnlineHomePage(userS);
+			  gestionOnlineHomePage.openMisProyectosWeb();
+			  gestionOnlineHomePage.buscarProyectoWeb(userS.getTestVar("num_cotizacion"));
+			  
+//			  
+//			  this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this.tCData.getUsuario(),
+//			  this.browserContext.getProperties().passwordComun,
+//			  this.tCData.getNoCotizacion());  }
+			//  if (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.LoginAccessInnova)) // { 
+			//  this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this.tCData.getUsuario(), this.browserContext.getProperties().passwordComun, this.tCData.getNoCotizacion()); // }
+			 
+			  }
+			 
+		 public void doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(
+			 String loginAccess, String user) throws Exception
+		 	{
+		 
+			  // Login
+			  //this.browserContext.initializeVariables(this.userS.getTestVar("acceso"));
+			  //this.browserContext.applicationAccessHelper.LoginAndCreateProjectMAC(this
+			  //.tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
+			 
+			  this.login(loginAccess, user);
+			  
+			  
+//			  // if (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
+//			  LoginAccessGestionLine)) // { // GestionOnlineHomePage
+//			  gestionOnlineHomePage = new GestionOnlineHomePage(webDriver,
+//			  userS.getTestDataManager()); //
+//			  gestionOnlineHomePage.openMutuaAlquilerConfort(); // } if
+//			  (this.userS.getTestVar("acceso").equals(ProjectConstants.
+//			  LoginAccessInnova)) { AsignarMediadorPage asignarMediadorPage = new
+//			  AsignarMediadorPage(userS);
+//			  asignarMediadorPage.SelectMediadorMACAndClickOnContinuar(); //
+//			  InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
+//			  userS.getTestDataManager()); //
+//			  innovaHomePage.OpenMutuaAlquilerConfort(); }
+			 
+			  new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
+
+			  new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar(); 
+			  
+			  new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
+			  
+			  
+			  // SCS Precio 
+			  PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
+			  precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
+			 
+			  // SCS Inquilinos
+			  InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC
+			  = new InquilinosAvalistasPage_MAC(userS);
+			  inquilinosAvalistasPage_MAC.executeActionsInInquilinosAvalistasPage();
+		  }
+		 
+		 
+		 public void el_proyecto_MAC_se_deniega() { 
+			 
+			 InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
+			 Assert.assertTrue(
+			  inquilinosAvalistasPage_MAC.recuperarTextoMensajeError().contains(String.
+			  format("¡Error! Se ha denegado la emisión del proyecto")));
+		}
+		 
+		 public void el_proyecto_MAC_se_acepta() { InquilinosAvalistasPage_MAC
+		  inquilinosAvalistasPage_MAC = new
+		  InquilinosAvalistasPage_MAC(userS);
+		  Assert.assertTrue(inquilinosAvalistasPage_MAC.
+		  recuperarTextoMensajeValidacionOK().contains(
+		  "El proyecto deberá ser revisado por compañía, debe adjuntar los documentos obligatorios del estudio de viabilidad, por favor cuando termine todas las gestiones no olvide pulsar el botón Enviar a Compañía. Puede continuar al siguiente paso, para seguir rellenando el resto de campos de la cotización, pero no podrá emitirla."
+		  )); }
+		 
+		public void el_proyecto_esta_en_estado_denegado() 
+		{ 
+			if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine))
+			{ 
+				GestionOnlineHomePage gestionOnlineHomePage =
+				new GestionOnlineHomePage(userS);
+				Assert.assertEquals(String.format("Denegado"),
+				gestionOnlineHomePage.recuperarEstadoPoliza()); 
+			}
+		 
+		  if (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova))
+			{	
+			  	GestionCotizacionesBuscadorPage
+				gestionCotizacionesBuscadorPage = new
+				GestionCotizacionesBuscadorPage(userS);
+				Assert.assertEquals(String.format("Desestimada"),
+				gestionCotizacionesBuscadorPage.getEstadoCotizacion());
+		  	}
+		 
+		  }	 
+	
+		
+		 public void el_resultado_es_que_el_proyecto_se_crea_correctamente() {
+
+		 Assert.assertTrue(new ContratacionPage_MAC(userS).checkPolizaCreada()); }
+		
+
+		  public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() throws InterruptedException 
+		  {
+			  debugBegin(); 
+			  
+			  new InquilinosAvalistasPage_MAC(userS).clickContinuar(); // Rellenar datos de contratacion, pagina 3 
+			  
+			  new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();
+			 
+			  new InmueblePage_MAC(userS).executeActionsInInmueblePage();
+			 
+			  new DocumentacionPage_MAC(userS).addDocumentContratacion();
+			 
+			  new ContratacionPage_MAC(userS).seleccionarCheckYContratar();
+			  
+			  debugEnd();
+		  }
+		 
+		
+		  public void se_puede_autorizar_usando_el_acceso_Innova_y_usuario(String loginAccess, String user) throws Exception
+		  {
+			  // Enviar el proyecto
+
+			  new InquilinosAvalistasPage_MAC(userS).enviarACompania();
+			 
+			  // Cerrar el navegador 
+			  
+			  this.webDriver.quit();
+			 
+			  // Login // 
+			 
+			  this.login(loginAccess, user);
+			  			 
+			  // Abrir la busqueda de autorizaciones
+			 
+			  new InnovaHomePage(userS).OpenGestionAutorizaciones();
+			  
+			  GestionAutorizacionesPage gestionAutorizacionesPage = new GestionAutorizacionesPage(userS);
+			  new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", this.userS.getTestVar("num_cotizacion"));
+			 
+			  // Autorizar el proyecto gestionAutorizacionesPage.autorizar();
+			  
+			  Assert.assertTrue(gestionAutorizacionesPage.recuperarResultadoAutorizacion().contains("ha sido autorizada correctamente.")); }
+			  
+		  
+			  public void la_renta_mensual_es( String rentaMensualAlquiler) {
+			  PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
+			  precioPorModalidadPage_MAC.completarRentaMensualAlquiler();
+		}
+			  
+			  
+			  
+		public void se_inicia_un_proyecto_con_modalidad(String Modalidad) throws Exception {
+				 
+				// Login
+				
+			 login(userS.getConfigVar("Acceso"),  userS.getConfigVar("Usuario"));
+			  
+			  		
+				  if (this.userS.getTestVar("acceso").equals("GestionOnline"))
+				  {
+					  new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort(); ;
+				  }   
+				  else if(this.userS.getTestVar("acceso").equals("Innova"))
+				  {
+					 new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
+				  }
+				 
+				  // Seleccionar modalidad en Precio page PrecioPorModalidadPage_MAC
+				  
+				  new PrecioPorModalidadPage_MAC(userS).selectModalidad(); 
+			}
+			
+		public void deberia_aparecer_error_rebasada_la_renta_máxima_permitida()
+			  {
+				PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
+				Assert.assertTrue(precioPorModalidadPage_MAC.recuperarTextoMensajeError().contains(String.
+				format("¡Error! Rebasada la renta máxima permitida de 3.000,00 €"))); 
+			  }
+			 
+				 	  			  		
+		  public void no_deberia_estar_habilitado_convertir_a_proyecto() 
+		  {
+			  PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
+			  
+			  Assert.assertFalse(precioPorModalidadPage_MAC.checkConvertirAProyectoIsPresent()); 
+		  }
+		 
+			 
+			 
+		  public void deberia_aparecer_error_situacion_reasegurado() 
+		  {
+			  PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
+			  
+			  Assert.assertTrue(precioPorModalidadPage_MAC.recuperarTextoMensajeError().contains(String.
+			  format("¡Error! Situación de reaseguro no es posible la contratación")));
+		  }
+		
+		  
+			 
+		  public void la_suma_asegurada_de_impago_alquiler_es(String sumaAseguradaImpagoAlquiler)
+		  { 
+			  new PrecioPorModalidadPage_MAC(userS).seleccionarImpagoAlquiler(); 
+		  }
+			 
+			 
+
+//FIN				 
+}
+
+

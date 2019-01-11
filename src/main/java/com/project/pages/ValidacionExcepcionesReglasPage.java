@@ -3,6 +3,7 @@ package com.project.pages;
 import org.openqa.selenium.By;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import com.project.steps.Steps;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
@@ -37,10 +38,11 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		//this.webDriver.scrollToElement(this.btnContinuar);
 		//this.webDriver.waitForElementToBeClickable(this.btnContinuar);
+
 		System.out.println("ELEMENTO WEB btnContinuar: " + this.btnContinuar);
-		this.webDriver.waitWithDriver(2500);
-		this.webDriver.scrollToElement(this.btnContinuar);
-		this.webDriver.waitWithDriver(2500);
+		//this.webDriver.waitWithDriver(2500);
+		//this.webDriver.scrollToElement(this.btnContinuar);
+		//this.webDriver.waitWithDriver(2500);
 		this.webDriver.click(this.btnContinuar);
 
 		this.webDriver.exitFrame();

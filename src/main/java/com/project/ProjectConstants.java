@@ -29,14 +29,14 @@ public class ProjectConstants {
 	
 	public static final String MEC_SINIESTROS = "MecSin";
 	
-	
+	public static final String SINIESTRO_CONVENCIONAL_CON_PERITO = "SinConvPer";
 	
 	//Mutua de Propietarios Constants	
 	
 	public static final String DeshabitacionInferior = "Inferior al 75%";
 	
-	public static final String TomadorYAseguradoPrincipal = "tomadorYAseguradoPrincipal";
-	public static final String NuevoInquilinoPrincipal = "nuevo Inquilino";
+	public static final String NuevoTomadorYAseguradoPrincipal = "nuevo_tomador_y_asegurado_principal";
+	public static final String NuevoInquilinoPrincipal = "nuevo_inquilino";
 	public static final String ClienteExistente = "cliente existente";
 	public static final String LoginAccessInnova = "Innova";
 	public static final String LoginAccessGestionLine = "GOL";

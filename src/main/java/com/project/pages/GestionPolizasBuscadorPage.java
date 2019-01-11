@@ -71,6 +71,10 @@ public class GestionPolizasBuscadorPage extends PageObject {
 	// private WebElement txtNifCif;
 	//
 	
+	//private By lineaNegocioDefault = By.id("producto_poliza");
+	
+	private By lineaNegocioDefault = By.cssSelector("#producto_poliza > option:nth-child(1)");
+	
 	private By lineaNegocioMec = By.cssSelector("#producto_poliza > option:nth-child(3)");
 	
 	private By inputNumeroPoliza = By.id("polizsec");
@@ -109,9 +113,10 @@ public class GestionPolizasBuscadorPage extends PageObject {
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.rdnNoPoliza);
 		
-		this.webDriver.selectClickableElement(this.lineaNegocioMec);
 		
-		this.webDriver.clearAndAppendText(inputNumeroPoliza, numPoliza);
+		this.webDriver.click(this.lineaNegocioDefault);
+		
+		this.webDriver.setText(inputNumeroPoliza, numPoliza);
 		this.webDriver.click(this.btnBuscar);
 		Steps.waitForIt(webDriver);
 		this.webDriver.exitFrame();
