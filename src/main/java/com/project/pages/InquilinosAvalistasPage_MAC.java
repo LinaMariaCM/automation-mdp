@@ -126,7 +126,9 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	//
 	// @FindBy(id = "VERIFIRESULT")
 	// private WebElement msjError;
-	//
+	
+	private By msjError = By.id("VERIFIRESULT");
+	
 	// @FindBy(id = "numCot")
 	// private WebElement numCotizacion;
 	private By numCotizacion = By.cssSelector("#numCot");
@@ -172,10 +174,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// public void modificarRentasInquilino() throws InterruptedException,
 	// IOException, AWTException
 	// {
-	// this.wh.clickOnWebElementInFrame(this.btnEditar, this.mainFrame);
-	// this.wh.sendValueToWebElementInFrame(this.txtIngresos, this.mainFrame,
+	// this.webDriver.clickElementInFrame(this.btnEditar, this.mainFrame);
+	// this.webDriver.sendValueToWebElementInFrame(this.txtIngresos, this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getNuevosIngresosNetosInquilino()));
-	// this.wh.clickOnWebElementInFrame(this.btnModificar, this.mainFrame);
+	// this.webDriver.clickElementInFrame(this.btnModificar, this.mainFrame);
 	// this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
 	// }
 	//
@@ -192,18 +194,18 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		this.webDriver.clickInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal, this.mainFrame);
 
 		// Add Nombre
-		this.webDriver.clearAndAppendTextInFrame(this.txtNombre, this.mainFrame, String.valueOf(getScenarioVar("nombre_inquilino")));
+		this.webDriver.setTextInFrame(this.txtNombre, this.mainFrame, String.valueOf(getScenarioVar("nombre_inquilino")));
 		// Logger.debug("Nombre inquilino: " +
 		// String.valueOf(getNombreInquilino());
 
 		// Add Primer Apellido
-		this.webDriver.clearAndAppendTextInFrame(this.txtPrimerApellido, this.mainFrame, String.valueOf(getScenarioVar("primer_apell_inquilino")));
+		this.webDriver.setTextInFrame(this.txtPrimerApellido, this.mainFrame, String.valueOf(getScenarioVar("primer_apell_inquilino")));
 
 		// Add NIF
-		this.webDriver.clearAndAppendTextInFrame(this.txtDocumento, this.mainFrame, String.valueOf(getScenarioVar("documento_inquilino")));
+		this.webDriver.setTextInFrame(this.txtDocumento, this.mainFrame, String.valueOf(getScenarioVar("documento_inquilino")));
 
 		// Add Ingresos netos
-		this.webDriver.clearAndAppendTextInFrame(this.txtIngresos, this.mainFrame, String.valueOf(getScenarioVar("ingresos_inquilino")));
+		this.webDriver.setTextInFrame(this.txtIngresos, this.mainFrame, String.valueOf(getScenarioVar("ingresos_inquilino")));
 
 		// Situacion laboral
 		this.seleccionarSituacion();
@@ -221,96 +223,96 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// {
 	// logger.debug("BEGIN - AddDatosInquilino");
 	//
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal,
+	// this.webDriver.clickElementInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal,
 	// this.mainFrame);
 	//
 	// // Add Nombre
-	// this.wh.clearAndSetTextInWebElementInFrame(this.txtNombre,
+	// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtNombre,
 	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getNombreInquilino()));
 	// // Logger.debug("Nombre inquilino: " +
 	// String.valueOf(getNombreInquilino());
 	//
 	// // Add Primer Apellido
-	// this.wh.clearAndSetTextInWebElementInFrame(this.txtPrimerApellido,
+	// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtPrimerApellido,
 	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getPrimerApellidoInquilino()));
 	//
 	// // Add NIF
-	// this.wh.clearAndSetTextInWebElementInFrame(this.txtDocumento,
+	// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtDocumento,
 	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getDocumentoInquilino()));
 	//
 	// // Add Ingresos netos
-	// // this.wh.sendValueToWebElementInFrame(this.txtIngresos,
+	// // this.webDriver.sendValueToWebElementInFrame(this.txtIngresos,
 	// this.mainFrame,
 	// //
 	// String.valueOf(this.browserContext.getTestCaseData().getIngresosNetosInquilino()));
 	//
-	// this.wh.clearAndSetTextInWebElementInFrame(this.txtIngresos,
+	// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtIngresos,
 	// this.mainFrame,
 	// String.valueOf(this.browserContext.getTestCaseData().getIngresosNetosInquilino()));
 	//
 	// // Situacion laboral
 	// this.seleccionarSituacion();
 	//
-	// if (this.wh.webElementInFrameIsPresent(this.drpDwnDetalle,
+	// if (this.webDriver.webElementInFrameIsPresent(this.drpDwnDetalle,
 	// this.mainFrame))
 	// {
-	// this.wh.selectValueInDropDownInFrameByIndex(this.drpDwnDetalle,
+	// this.webDriver.selectValueInDropDownInFrameByIndex(this.drpDwnDetalle,
 	// this.mainFrame, 1);
 	// }
 	//
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosInquilino,
+	// this.webDriver.clickElementInFrame(this.btnAnadirDatosInquilino,
 	// this.mainFrame);
 	//
 	// logger.debug("END - AddDatosInquilino");
 	// }
 	//
-	// public void addDatosAval()
-	// {
-	// logger.debug("BEGIN - AddDatosAval");
-	//
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal,
-	// this.mainFrame);
-	//
-	// // Seleccionar que sea aval
-	// this.wh.selectValueInDropDownInFrame(this.tipoInterviniente,
-	// this.mainFrame, "Avalista");
-	//
-	// // Add Nombre
-	// this.wh.clearAndSetTextInWebElementInFrame(this.txtNombre,
-	// this.mainFrame,
-	// String.valueOf(this.browserContext.getTestCaseData().getNombreAval()));
-	//
-	// // Add Primer Apellido
-	// this.wh.clearAndSetTextInWebElementInFrame(this.txtPrimerApellido,
-	// this.mainFrame,
-	// String.valueOf(this.browserContext.getTestCaseData().getPrimerApellidoAval()));
-	//
-	// // Add NIF
-	// this.wh.clearAndSetTextInWebElementInFrame(this.txtDocumento,
-	// this.mainFrame,
-	// String.valueOf(this.browserContext.getTestCaseData().getDocumentoAval()));
-	//
-	// // Add Ingresos Aval
-	// this.wh.sendValueToWebElementInFrame(this.txtIngresos, this.mainFrame,
-	// String.valueOf(this.browserContext.getTestCaseData().getIngresosAval()));
-	//
-	// // Seleccionar parentesco
-	// this.seleccionarParentesco();
-	//
-	// // Situacion laboral
-	// this.seleccionarSituacion();
-	//
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDatosInquilino,
-	// this.mainFrame);
-	//
-	// this.browserContext.getTestCaseData().setNoCotizacionMAC(this.recuperarNumeroCotizacion());
-	//
-	// logger.debug("END - AddDatosAval");
-	// }
-	//
+	
+	 public void addDatosAval()
+	 {
+	 this.debugBegin();
+	
+	 this.webDriver.clickInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal,
+	 this.mainFrame);
+	
+	 // Seleccionar que sea aval
+	 this.webDriver.clickElementFromDropDownByText(this.tipoInterviniente, "Avalista");
+	
+	 // Add Nombre
+	 this.webDriver.setTextInFrame(this.txtNombre,
+	 this.mainFrame,
+	 String.valueOf(this.userS.getTestVar("nombre_aval")));
+	
+	 // Add Primer Apellido
+	 this.webDriver.setTextInFrame(this.txtPrimerApellido,
+	 this.mainFrame,
+	 String.valueOf(this.userS.getTestVar("primer_apell_inqulino")));
+	
+	 // Add NIF
+	 this.webDriver.setTextInFrame(this.txtDocumento,
+	 this.mainFrame,
+	 String.valueOf(this.userS.getTestVar("documento_aval")));
+	
+	 // Add Ingresos Aval
+	 this.webDriver.setTextInFrame(this.txtIngresos, this.mainFrame,
+	 String.valueOf(this.userS.getTestVar("ingresos_aval")));
+	
+	 // Seleccionar parentesco
+	 this.seleccionarParentesco();
+	
+	 // Situacion laboral
+	 this.seleccionarSituacion();
+	
+	 this.webDriver.clickInFrame(this.btnAnadirDatosInquilino,
+	 this.mainFrame);
+	
+	 this.userS.setTestVar("num_cotizacion", this.recuperarNumeroCotizacion());
+	
+	 this.debugEnd();
+	 }
+	
 
 	 public void validacionViabilidadInquilino() throws AWTException, InterruptedException {
 	 	debugBegin();
@@ -322,7 +324,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// public void validacionViabilidadInquilino()
 	// {
 	// logger.debug("BEGIN - ValidacionViabilidadInquilino");
-	// this.wh.clickOnWebElementInFrame(this.btnValidacionViabilidad,
+	// this.webDriver.clickElementInFrame(this.btnValidacionViabilidad,
 	// this.mainFrame);
 	// logger.debug("END - ValidacionViabilidadInquilino");
 	// }
@@ -350,13 +352,13 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// this.browserContext.getTestCaseData().getSituacionLaboralInquilino();
 	// if (situacion.equals(ProjectConstants.SITUACION_LABORAL_ASALARIADO))
 	// {
-	// this.wh.selectValueInDropDownInFrame(this.situacionLaboral,
+	// this.webDriver.selectValueInDropDownInFrame(this.situacionLaboral,
 	// this.mainFrame, situacion);
-	// this.wh.selectValueInDropDownInFrame(this.situacionDetalle,
+	// this.webDriver.selectValueInDropDownInFrame(this.situacionDetalle,
 	// this.mainFrame,
 	// ProjectConstants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 	// }
-	// this.wh.selectValueInDropDownInFrame(this.situacionLaboral,
+	// this.webDriver.selectValueInDropDownInFrame(this.situacionLaboral,
 	// this.mainFrame, situacion);
 	// logger.debug("END - SeleccionarSituacion");
 	// }
@@ -375,7 +377,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// logger.debug("BEGIN - SeleccionarParentesco");
 	// String parentesco =
 	// this.browserContext.getTestCaseData().getParentescoAval();
-	// this.wh.selectValueInDropDownInFrame(this.parentesco, this.mainFrame,
+	// this.webDriver.selectValueInDropDownInFrame(this.parentesco, this.mainFrame,
 	// parentesco);
 	// logger.debug("END - SeleccionarParentesco");
 	// }
@@ -398,39 +400,39 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// InterruptedException
 	// {
 	// logger.debug("BEGIN - AnadirDocumentacion");
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDocumentacionPrincipal,
+	// this.webDriver.clickElementInFrame(this.btnAnadirDocumentacionPrincipal,
 	// this.mainFrame);
-	// this.wh.clickOnWebElementInFrame(this.chkbxDosNominas, this.mainFrame);
-	// this.wh.clickOnWebElementInFrame(this.chkbxAutorizacionConsulta,
+	// this.webDriver.clickElementInFrame(this.chkbxDosNominas, this.mainFrame);
+	// this.webDriver.clickElementInFrame(this.chkbxAutorizacionConsulta,
 	// this.mainFrame);
 	// this.adjuntarDocumentos();
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDocumentoSubido,
+	// this.webDriver.clickElementInFrame(this.btnAnadirDocumentoSubido,
 	// this.mainFrame);
 	// Thread.sleep(2000);
-	// this.wh.clickOnWebElementInFrame(this.btnCerrar, this.mainFrame);
+	// this.webDriver.clickElementInFrame(this.btnCerrar, this.mainFrame);
 	// logger.debug("END - AnadirDocumentacion");
 	// }
-	//
-	// public void anadirDocumentacionAval() throws AWTException,
-	// InterruptedException
-	// {
-	// logger.debug("BEGIN - AnadirDocumentacionAval");
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDocumentacionPrincipal,
-	// this.mainFrame);
-	// this.wh.clickOnWebElementInFrame(this.chkbxDosNominasAval,
-	// this.mainFrame);
-	// this.wh.clickOnWebElementInFrame(this.chkbxAutorizacionConsultaAval,
-	// this.mainFrame);
-	// // this.wh.ClickOnWebElementInFrame(this.btnAnadirDocumentacion,
-	// this.mainFrame);
-	// this.adjuntarDocumentos();
-	// this.wh.clickOnWebElementInFrame(this.btnAnadirDocumentoSubido,
-	// this.mainFrame);
-	// Thread.sleep(2000);
-	// this.wh.clickOnWebElementInFrame(this.btnCerrar, this.mainFrame);
-	// logger.debug("END - AnadirDocumentacionAval");
-	// }
-	//
+	
+	 public void anadirDocumentacionAval() throws AWTException,
+	 InterruptedException
+	 {
+	 this.debugBegin();
+	 this.webDriver.clickInFrame(this.btnAnadirDocumentacionPrincipal,
+	 this.mainFrame);
+	 this.webDriver.clickInFrame(this.chkbxDosNominasAval,
+	 this.mainFrame);
+	 this.webDriver.clickInFrame(this.chkbxAutorizacionConsultaAval,
+	 this.mainFrame);
+	  this.webDriver.clickInFrame(this.btnAnadirDocumentacion,
+	 this.mainFrame);
+	 this.adjuntarDocumentos();
+	 this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido,
+	 this.mainFrame);
+	 Thread.sleep(2000);
+	 this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
+	 this.debugEnd();
+	 }
+	
 
 	 public void adjuntarDocumentos() throws AWTException
 	 {
@@ -445,9 +447,9 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// {
 	// logger.debug("BEGIN - AdjuntarDocumentos");
 	// // TODO: mover la ruta de fichero de upload a configuracion
-	// this.wh.switchToFrame(this.mainFrame);
+	// this.webDriver.switchToFrame(this.mainFrame);
 	// this.elmntFichero.sendKeys("C:/Users/amaris2/Desktop/prueba.pdf");
-	// this.wh.exitFromFrame();
+	// this.webDriver.exitFromFrame();
 	// logger.debug("END - AdjuntarDocumentos");
 	// }
 	//
@@ -465,32 +467,32 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// {
 	// logger.debug("BEGIN - EnviarACompania");
 	// // TODO: mover la ruta de fichero de upload a configuracion
-	// this.wh.clickOnWebElementInFrame(this.btnEnviarACompania,
+	// this.webDriver.clickElementInFrame(this.btnEnviarACompania,
 	// this.mainFrame);
-	// this.wh.clickOnWebElementInFrame(this.btnEnviarComentarios,
+	// this.webDriver.clickElementInFrame(this.btnEnviarComentarios,
 	// this.mainFrame);
 	// logger.debug("END - EnviarACompania");
 	// }
 	//
-	// public String recuperarTextoMensajeError()
-	// {
-	// logger.debug("BEGIN - RecuperarTextoMensajeError");
-	// this.wh.getTextFromWebElementInFrame(this.msjError, this.mainFrame);
-	// logger.debug("END - RecuperarTextoMensajeError");
-	// return this.wh.getTextFromWebElementInFrame(this.msjError,
-	// this.mainFrame);
-	// }
-	//
-	// public String recuperarTextoMensajeValidacionOK()
-	// {
-	//
-	// logger.debug("BEGIN - RecuperarTextoMensajeValidacionOK");
-	// String result = this.wh.getTextFromWebElementInFrame(this.msjError,
-	// this.mainFrame);
-	// System.out.println(result);
-	// logger.debug("END - RecuperarTextoMensajeValidacionOK");
-	// return result;
-	// }
+	 public String recuperarTextoMensajeError()
+	 {
+	 debugBegin();
+	 this.webDriver.getTextInFrame(this.msjError, this.mainFrame);
+	 debugEnd();
+	 return this.webDriver.getTextInFrame(this.msjError,
+	 this.mainFrame);
+	 }
+	
+	 public String recuperarTextoMensajeValidacionOK()
+	 {
+	
+	 debugBegin();
+	 String result = this.webDriver.getTextInFrame(this.msjError,
+	 this.mainFrame);
+	 System.out.println(result);
+	 debugEnd();
+	 return result;
+	 }
 
 	 public void clickContinuar() {
 		 debugBegin();
@@ -505,4 +507,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 debugEnd();
 	 return this.webDriver.getTextInFrame(this.numCotizacion, this.mainFrame);
 	 }
+	 
+	 
+	 
+	 
 }

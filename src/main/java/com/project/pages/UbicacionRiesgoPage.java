@@ -601,7 +601,8 @@ public class UbicacionRiesgoPage extends PageObject {
 				//
 				// REVISAR PARAMETROS DE ENTRADA DE: AsignarMediadorPage
 				//
-				asignarMediadorPage.selectMediadorAndClickOnContinuar(getConfigVar("mediador"));
+				//asignarMediadorPage.selectMediadorAndClickOnContinuar(getConfigVar("mediador"));
+				asignarMediadorPage.selectMediadorAndClickOnContinuar();
 
 				this.webDriver.moveToElementInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
 				this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);

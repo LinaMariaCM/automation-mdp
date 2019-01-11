@@ -116,7 +116,7 @@ public class GestionPolizasBuscadorPage extends PageObject {
 		
 		this.webDriver.click(this.lineaNegocioDefault);
 		
-		this.webDriver.clearAndAppendText(inputNumeroPoliza, numPoliza);
+		this.webDriver.setText(inputNumeroPoliza, numPoliza);
 		this.webDriver.click(this.btnBuscar);
 		Steps.waitForIt(webDriver);
 		this.webDriver.exitFrame();

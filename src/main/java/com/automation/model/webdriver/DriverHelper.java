@@ -1370,19 +1370,6 @@ public class DriverHelper {
 		exitFrame();
 	}
 
-	public void clearAndAppendText(By by, String text) {
-		logger.trace("[BEGIN] - appendText");
-		clearText(by);
-		appendText(by, text);
-		logger.trace("[END] - appendText");
-	}
-
-	public void clearAndAppendTextInFrame(By by, By frame, String text) {
-		switchToFrame(frame);
-		clearAndAppendText(by, text);
-		exitFrame();
-	}
-
 	public void setTextIfEmpty(By by, String text) {
 		logger.trace("[INFO] - Checking if element text is empty");
 		if(getText(by).isEmpty()) {

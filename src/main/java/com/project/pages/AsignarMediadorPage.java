@@ -48,14 +48,14 @@ public class AsignarMediadorPage extends PageObject {
 	}
 
 	// region methods
-	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String scenario) throws InterruptedException {
+	public AsignarMediadorPage selectMediadorAndClickOnContinuar() throws InterruptedException {
 		this.seleccionarMediadorPorCodigo(String.valueOf(getScenarioVar("mediador")));
 		this.clickOnContinuarButton();
 
 		return this;
 	}
 
-	public AsignarMediadorPage SelectMediadorMACAndClickOnContinuar(String scenario) throws InterruptedException {
+	public AsignarMediadorPage SelectMediadorMACAndClickOnContinuar() throws InterruptedException {
 		this.SeleccionarMediadorMACPorCodigo(String.valueOf(getScenarioVar("mediador")));
 		this.clickOnContinuarButton();
 
@@ -76,26 +76,36 @@ public class AsignarMediadorPage extends PageObject {
 
 	public AsignarMediadorPage seleccionarMediadorPorCodigo(String codigoMediador) throws InterruptedException {
 		debugBegin();
-		//webDriver.waitWithDriver(2000);
-		this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
-
-		this.webDriver.switchToFrame(this.mainFrame);
-
-		//this.webDriver.click(this.txtCodigoMediador);
-		//webDriver.waitWithDriver(2000);
-		this.webDriver.appendText(this.txtCodigoMediador, codigoMediador);
-
-		this.webDriver.click(this.txtDocumento);
-		this.webDriver.click(this.btnBuscar);
 		
-		this.webDriver.waitForElementNotToBeClickable(loaderModal);
-		//this.webDriver.waitForElementToBeClickableAndClick(this.radioBtnResultadoBusqueda);
-		//this.webDriver.waitForAngular();
-		//webDriver.waitWithDriver(2500);
-		this.webDriver.click(this.radioBtnResultadoBusqueda);
-		//this.webDriver.waitForLoadToComplete();
-		this.webDriver.exitFrame();
-		this.webDriver.waitForElementNotToBeClickable(loaderModal);
+		if(userS.getScenario().contains("MAC")) {
+			this.webDriver.switchToFrame(this.mainFrame);
+			this.webDriver.appendText(this.txtCodigoMediadorMAC, codigoMediador);
+	
+			this.webDriver.click(this.btnBuscarMAC);
+	
+			this.webDriver.exitFrame();
+		} else {		
+			//webDriver.waitWithDriver(2000);
+			this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
+	
+			this.webDriver.switchToFrame(this.mainFrame);
+	
+			//this.webDriver.click(this.txtCodigoMediador);
+			//webDriver.waitWithDriver(2000);
+			this.webDriver.appendText(this.txtCodigoMediador, codigoMediador);
+	
+			this.webDriver.click(this.txtDocumento);
+			this.webDriver.click(this.btnBuscar);
+			
+			this.webDriver.waitForElementNotToBeClickable(loaderModal);
+			//this.webDriver.waitForElementToBeClickableAndClick(this.radioBtnResultadoBusqueda);
+			//this.webDriver.waitForAngular();
+			//webDriver.waitWithDriver(2500);
+			this.webDriver.click(this.radioBtnResultadoBusqueda);
+			//this.webDriver.waitForLoadToComplete();
+			this.webDriver.exitFrame();
+			this.webDriver.waitForElementNotToBeClickable(loaderModal);
+		}
 
 		debugEnd();
 
