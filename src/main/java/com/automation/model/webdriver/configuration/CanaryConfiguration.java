@@ -1,7 +1,6 @@
 package com.automation.model.webdriver.configuration;
 
-import java.io.IOException;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -9,7 +8,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class CanaryConfiguration {
 
-	public DesiredCapabilities createDesiredCapabilities(boolean headless) throws IOException {
+	public DesiredCapabilities createDesiredCapabilities(boolean headless)  {
 		DesiredCapabilities desiredCapabilitiesLocal = DesiredCapabilities.chrome();
 		desiredCapabilitiesLocal.setCapability(ChromeOptions.CAPABILITY, CanaryConfiguration.createChromeOptions(headless));
 		
@@ -26,7 +25,7 @@ public class CanaryConfiguration {
 		}
 		
 		options.addArguments("--start-maximized");
-		Map<String, Object> preferences = new Hashtable<>();
+		Map<String, Object> preferences = new HashMap<>();
 		options.setExperimentalOption("prefs", preferences);
 
 		// disable flash and the PDF viewer

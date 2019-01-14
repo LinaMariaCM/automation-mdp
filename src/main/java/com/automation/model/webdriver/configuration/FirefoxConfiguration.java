@@ -1,10 +1,13 @@
 package com.automation.model.webdriver.configuration;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.slf4j.Logger;
@@ -15,6 +18,12 @@ import io.github.bonigarcia.wdm.FirefoxDriverManager;
 
 public class FirefoxConfiguration extends BrowserConfiguration {
 
+	private ArrayList<String> pluginFiles = new ArrayList<>();
+
+	public void setPluginFile(ArrayList<String> pluginFiles) {
+		this.pluginFiles = pluginFiles;
+	}
+
 	public static void downloadDriver(boolean forceCache) {
 		BrowserManager manager = FirefoxDriverManager.getInstance();
 
@@ -23,14 +32,6 @@ public class FirefoxConfiguration extends BrowserConfiguration {
 			manager.setup();
 		}
 	}
-
-	/*
-	 * public static DesiredCapabilities createDesiredCapabilities(boolean headless) { 
-	 * DesiredCapabilities cap = DesiredCapabilities.firefox();
-	 * cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, createOptions(headless));
-	 * 
-	 * return cap; }
-	 */
 
 	public FirefoxOptions createOptions() {
 		debugBegin();
@@ -49,6 +50,18 @@ public class FirefoxConfiguration extends BrowserConfiguration {
 			options.addArguments("-headless");
 			options.addArguments("--disable-gpu");
 		}
+		
+		FirefoxProfile profile = new FirefoxProfile();
+
+		for(String fileName : pluginFiles) {
+			if(!fileName.contains("\\.")) {
+				fileName += ".crx";
+			}
+
+			profile.addExtension(new File(System.getProperty("user.dir") + "/" + fileName));
+		}
+		
+		options.setProfile(profile);
 
 		debugEnd();
 

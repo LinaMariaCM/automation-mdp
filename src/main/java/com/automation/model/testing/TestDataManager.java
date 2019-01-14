@@ -9,6 +9,7 @@ import com.automation.data.DataObject;
 import com.automation.model.utils.ArrayUtils;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.utils.InitUtils;
+import com.automation.model.utils.objects.DebugLogger;
 
 /**
  * The TestDataManager class is used to manage the test data, having
@@ -26,6 +27,7 @@ public class TestDataManager {
 	private String reportPath;
 	private String[] caseVariables;
 	private DataManagerObject data;
+	private DebugLogger logger = new DebugLogger();
 
 	public TestDataManager() {
 		data = new DataManagerObject();
@@ -44,12 +46,12 @@ public class TestDataManager {
 	public void generateTimeStamp(String testCase) {
 		this.testCase = testCase;
 		// Time Stamp
-		dailyCase = System.getProperty("special_case") == null ? "" : System.getProperty("special_case");
+		dailyCase = System.getProperty(AutomationConstants.SPECIAL_CASE) == null ? "" : System.getProperty(AutomationConstants.SPECIAL_CASE);
 
 		// If not special case, add time to timeStamp
 		timeStamp = new SimpleDateFormat("yyyy.MM.dd" + (dailyCase.isEmpty() ? ".HH.mm.ss" : "")).format(new java.util.Date());
 
-		System.out.println("[INFO] - Execution ID: " + timeStamp);
+		logger.info("Execution ID: " + timeStamp);
 
 		// Report Folder
 		reportPath = System.getProperty("user.dir") + "/" + AutomationConstants.REPORTS_FOLDER + "T" + timeStamp.replace(".", "") + "/";
@@ -203,7 +205,7 @@ public class TestDataManager {
 				globalData = new DataObject(FileUtils.csvFileToDMData(testDataPath));
 				data.setKey(AutomationConstants.GLOBAL_DATA);
 			} catch(Exception e) { 
-				System.out.println("No global data file found");
+				logger.error("No global data file found");
 				throw e;
 			}
 		}
@@ -230,7 +232,7 @@ public class TestDataManager {
 			try {
 				scenarioData = new DataObject(FileUtils.csvFileToDMData(scenarioDataFile));
 				data.setKey(AutomationConstants.SCENARIO_DATA);
-			} catch(Exception e) { System.out.println("No scenario data file found");}
+			} catch(Exception e) { logger.error("No scenario data file found");}
 		}
 		
 		if(scenarioData != null && data.containsKey(AutomationConstants.SCENARIO_DATA)) {
@@ -245,7 +247,7 @@ public class TestDataManager {
 		
 		try {
 			conf = new DataObject(FileUtils.variablesFileToArray(configDataFile));
-		} catch(Exception e) { System.out.println("No configuration data file found");}
+		} catch(Exception e) { logger.error("No configuration data file found");}
 		
 		if(conf != null && data.containsKey(AutomationConstants.CONFIGURATION_DATA)) {
 			data.replaceData(AutomationConstants.CONFIGURATION_DATA, conf);
@@ -259,7 +261,7 @@ public class TestDataManager {
 		
 		if(testDataFile != null) {
 			try {
-				String testFilter = System.getProperty("test_filter");
+				String testFilter = System.getProperty(AutomationConstants.TEST_FILTER);
 				String[][] csvMatrix = FileUtils.loadCsvFileToArray(testDataFile, true);
 		
 				if(testFilter != null && !testFilter.isEmpty()) {
@@ -270,7 +272,7 @@ public class TestDataManager {
 						
 				testData = new DataObject(FileUtils.csvStringToMData(ArrayUtils.matrixToString(csvMatrix, "\n", ";")));
 				data.setKey(AutomationConstants.TEST_DATA);
-			} catch(Exception e) { System.out.println("No test data file found");}
+			} catch(Exception e) { logger.error("No test data file found");}
 		}
 		
 		if(testData != null && data.containsKey(AutomationConstants.TEST_DATA)) {

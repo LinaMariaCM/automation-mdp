@@ -163,7 +163,7 @@ public class Steps extends StepObject {
 			// The testId variable has been set here because the FillTomadorData
 			// from DatosBasicosTomadorPage requires it. Not sure if this is the
 			// proper usage.
-			String testId = webDriver.getId() == null ? "" : webDriver.getId();
+			String testId = userS.getDriver().getId() == null ? "" : userS.getDriver().getId();
 
 			new UbicacionRiesgoPage(userS)
 				.fillInmuebleAndClickOnContinue(userS.getScenario());
@@ -230,7 +230,7 @@ public class Steps extends StepObject {
 				.introducirFormaPagoYPulsarContratar();
 
 			// this.browserContext.writeTestCaseData();
-			this.webDriver.quit();
+			userS.getDriver().quit();
 
 			new DocumentacionPage(userS)
 				.SubirFichero();
@@ -238,7 +238,7 @@ public class Steps extends StepObject {
 			new DatosBancariosPage(userS)
 				.introducirFormaPagoYPulsarContratar();
 
-			this.webDriver.quit();
+			userS.getDriver().quit();
 		//}
 
 		debugEnd();
@@ -3506,13 +3506,13 @@ public class Steps extends StepObject {
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
 		new InquilinosAvalistasPage_MAC(userS).enviarACompania();
-		this.webDriver.quit();
+		userS.getDriver().quit();
 		debugEnd();
 	}
 
 	public void cerrar_navegador() {
 		debugBegin();
-		this.webDriver.quit();
+		userS.getDriver().quit();
 		debugEnd();
 	}
 
@@ -3539,7 +3539,7 @@ public class Steps extends StepObject {
 		this.searchAuthorisation();
 		new GestionAutorizacionesPage(userS).autorizar();
 
-		this.webDriver.quit();
+		userS.getDriver().quit();
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC(String accessType, String user) throws Exception {
@@ -3737,7 +3737,7 @@ public class Steps extends StepObject {
 		  gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", userS.getTestVar("num_cotizacion"));
 		 
 		  // Denegar el proyecto gestionAutorizacionesPage.denegar();
-		  this.webDriver.quit();
+		  userS.getDriver().quit();
 		 this.debugEnd();
 		 
 		} 
@@ -3887,7 +3887,7 @@ public class Steps extends StepObject {
 			 
 			  // Cerrar el navegador 
 			  
-			  this.webDriver.quit();
+			  userS.getDriver().quit();
 			 
 			  // Login // 
 			 

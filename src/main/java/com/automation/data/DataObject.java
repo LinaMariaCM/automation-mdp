@@ -3,6 +3,7 @@ package com.automation.data;
 import java.util.HashMap;
 
 import com.automation.model.utils.ArrayUtils;
+import com.automation.model.utils.objects.DebugLogger;
 
 /**
  * The DataObject class is used to manage HashMaps<String, HashMap<String,
@@ -19,6 +20,7 @@ import com.automation.model.utils.ArrayUtils;
 public class DataObject {
 
 	private String key;
+	private DebugLogger logger = new DebugLogger();
 	HashMap<String, HashMap<String, String>> data;
 
 	// region Constructors
@@ -73,7 +75,7 @@ public class DataObject {
 		try {
 			if(rowKey != null) return getRow(rowKey).get(valueKey);
 		} catch(NullPointerException e) {
-			System.out.println("NullPointerException: There is no row with value \"" + rowKey + "\"");
+			logger.error("NullPointerException: There is no row with value \"" + rowKey + "\"");
 		}
 
 		return null;
@@ -117,7 +119,7 @@ public class DataObject {
 	}
 
 	public DataObject setKey(String key) {
-		if(!data.containsKey(key)) System.out.println("NullPointerException: There is no row with value \"" + key + "\"");
+		if(!data.containsKey(key)) logger.error("NullPointerException: There is no row with value \"" + key + "\"");
 		this.key = key;
 
 		return this;
@@ -135,7 +137,7 @@ public class DataObject {
 				} else if(rowKey != null) getRow(rowKey).put(valueKey, value);
 			}
 		} catch(NullPointerException e) {
-			System.out.println("NullPointerException: There is no row with value \"" + rowKey + "\"");
+			logger.error("NullPointerException: There is no row with value \"" + rowKey + "\"");
 		}
 	}
 
@@ -154,7 +156,7 @@ public class DataObject {
 		try {
 			keys = ArrayUtils.objetArrayToStringArray(data.get(rowKey).keySet().toArray());
 		} catch(NullPointerException e) {
-			System.out.println("NullPointerException: There is no row with value \"" + rowKey + "\"");
+			logger.error("NullPointerException: There is no row with value \"" + rowKey + "\"");
 		}
 
 		for(int i = 0; i < keys.length; i++) {
