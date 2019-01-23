@@ -11,6 +11,7 @@ import org.openqa.selenium.remote.CapabilityType;
 
 import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class ChromeConfiguration extends BrowserConfiguration {
 
@@ -55,6 +56,14 @@ public class ChromeConfiguration extends BrowserConfiguration {
 		if(headless) {
 			options.addArguments("-headless");
 			options.addArguments("--disable-gpu");
+		}
+
+		if(useProxy) {
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+			proxyCapabilities.setAcceptInsecureCerts(true);
+
+			options.merge(proxyCapabilities);
 		}
 
 		debugEnd();

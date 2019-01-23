@@ -397,7 +397,10 @@ public class UserStory {
 
 	private boolean setBooleanOnConfiguration(String key) {
 		String stringValue = System.getProperty(key);
-		if((stringValue != null && stringValue.isEmpty()) || stringValue == null) stringValue = driverConf.getValue(key);
+
+		if(stringValue != null && stringValue.isEmpty()) stringValue = "true";
+
+		if(stringValue == null) stringValue = driverConf.getValue(key);
 		else driverConf.setValue(key, stringValue);
 
 		return Boolean.parseBoolean(stringValue);
@@ -490,6 +493,7 @@ public class UserStory {
 		webDriver.setId(testId);
 		webDriver.setReportPath(testDataM.getReportPath());
 
+		webDriver.setUseProxy(setBooleanOnConfiguration(AutomationConstants.USE_PROXY));
 		setDriverWaits();
 		
 		setMobileVariables();

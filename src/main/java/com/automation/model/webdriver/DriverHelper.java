@@ -1,20 +1,33 @@
 package com.automation.model.webdriver;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.Toolkit;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.time.Duration;
-
+import com.automation.configuration.AutomationConstants;
+import com.automation.data.DataObject;
+import com.automation.model.utils.*;
+import com.automation.model.utils.objects.DebugLogger;
+import com.automation.model.webdriver.configuration.*;
+import io.appium.java_client.*;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.AutomationName;
+import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
+import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -25,45 +38,19 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.ie.InternetExplorerOptions;
 
-import com.automation.model.utils.StringUtils;
-import com.automation.model.utils.objects.DebugLogger;
-import com.automation.configuration.AutomationConstants;
-import com.automation.data.DataObject;
-import com.automation.model.utils.ArrayUtils;
-import com.automation.model.utils.ImageUtils;
-import com.automation.model.utils.InitUtils;
-import com.automation.model.utils.OSUtils;
-import com.automation.model.webdriver.configuration.BrowserConfiguration;
-import com.automation.model.webdriver.configuration.BrowserType;
-import com.automation.model.webdriver.configuration.ChromeConfiguration;
-import com.automation.model.webdriver.configuration.EdgeConfiguration;
-import com.automation.model.webdriver.configuration.FirefoxConfiguration;
-import com.automation.model.webdriver.configuration.IEConfiguration;
-import com.automation.model.webdriver.configuration.MobileConfiguration;
-import com.automation.model.webdriver.configuration.SafariConfiguration;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.PerformsTouchActions;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
-import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.remote.AutomationName;
-import io.appium.java_client.remote.MobileCapabilityType;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
+import java.awt.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The DriverHelper class implements methods which use Selenium libraries to manage the creation of a webdriver and to
@@ -74,6 +61,7 @@ import io.appium.java_client.touch.offset.PointOption;
 public class DriverHelper {
 
 	private WebDriver driver;
+	private BrowserMobProxy proxy = new BrowserMobProxyServer();
 	private DebugLogger logger;
 	private boolean verbose = false;
 	private boolean maximize = true;
@@ -81,6 +69,7 @@ public class DriverHelper {
 	private boolean waitForAngular = true;
 	private boolean waitForJQuery = false;
 	private boolean showConsoleLog = false;
+	private boolean useProxy = false;
 	private int smallWindowLimit = 1025;
 	private int defaultWindowHeight = 768;
 	private int defaultWindowWidth = 1366;
@@ -142,7 +131,7 @@ public class DriverHelper {
 		headless = browser.contains("_headless");
 
 		if(ArrayUtils.contains(InitUtils.getDeviceEmulationBrowsers(), browser.replace("_headless", ""))
-			|| ArrayUtils.contains(InitUtils.getDesktopBrowsers(), browser.replace("_headless", ""))) {
+		|| ArrayUtils.contains(InitUtils.getDesktopBrowsers(), browser.replace("_headless", ""))) {
 			browserType = browser.replace("_headless", "");
 			driverType = AutomationConstants.WEB;
 
@@ -160,6 +149,10 @@ public class DriverHelper {
 		}
 
 		logger = new DebugLogger().setVerbose(false);
+	}
+
+	public BrowserMobProxy getProxy() {
+		return proxy;
 	}
 	
 	public void addPluginFile(String pluginFile) {
@@ -274,6 +267,14 @@ public class DriverHelper {
 		this.language = language;
 	}
 
+	public boolean isUseProxy() {
+		return useProxy;
+	}
+
+	public void setUseProxy(boolean useProxy) {
+		this.useProxy = useProxy;
+	}
+
 	public boolean isAndroidEmulator() {
 		return androidEmulator;
 	}
@@ -386,7 +387,15 @@ public class DriverHelper {
 			}
 		} else {
 			String[] driverFolders;
-			String mavenLinuxPath = "/var/lib/jenkins/.m2/repository/webdriver/";
+			String mavenLinuxPath;
+			String mavenLinuxPathJenkins = "/var/lib/jenkins/.m2/repository/webdriver/";
+			String mavenLinuxPathHome = System.getProperty("user.home") + "/.m2/repository/webdriver/";
+
+			if(new File(mavenLinuxPathJenkins).list() != null){
+				mavenLinuxPath = mavenLinuxPathJenkins;
+			} else {
+				mavenLinuxPath = mavenLinuxPathHome;
+			}
 
 			switch(browserType) {
 				case BrowserType.FIREFOX:
@@ -450,6 +459,12 @@ public class DriverHelper {
 
 		options.setHeadless(headless);
 		options.setLanguage(language);
+		options.setProxy(useProxy);
+
+		if(useProxy) {
+			options.createProxy(proxy);
+		}
+
 
 		return options;
 	}
@@ -542,6 +557,7 @@ public class DriverHelper {
 				deviceEmulation = true;
 				break;
 		}
+
 
 		return driver;
 	}
@@ -653,6 +669,7 @@ public class DriverHelper {
 				setPropertyDriverPath(OSUtils.getOsName(), browserType);
 
 				driver = createLocalWebDriver(options);
+
 			}
 		} else if(devicePlatform != null) {
 			logger.info("Mobile device");
@@ -793,6 +810,7 @@ public class DriverHelper {
 	public void quit() {
 		try {
 			if(driver != null) {
+				if(useProxy) proxy.stop();
 				driver.quit();
 			}
 		} catch(Exception e) {}

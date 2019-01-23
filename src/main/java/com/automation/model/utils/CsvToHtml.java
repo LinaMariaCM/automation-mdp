@@ -36,15 +36,24 @@ public class CsvToHtml {
 
 	public static void main(String[] args) {
 		CsvToHtml converter = new CsvToHtml();
+		String translationFile = System.getProperty("translation_file");
+		translationFile = translationFile.isEmpty() ? null : translationFile;
+		
 		if(args.length >= 4 && !args[3].contains(",") && !args[3].contains(".")) {
 			converter.setReportPath(System.getProperty("user.dir") + "/" + AutomationConstants.REPORTS_FOLDER + "/T" + args[0] + args[1] + args[2]);
 
-			int relevantColumns = args.length > 5 ? Integer.parseInt(args[5]) : args.length > 4 && org.apache.commons.lang3.StringUtils.isNumeric(args[4]) ? Integer.parseInt(args[4]) : -1;
+			int relevantColumns = -1;
+			
+			if(args.length > 5) {
+				relevantColumns = Integer.parseInt(args[5]);
+			} else if(args.length > 4 && org.apache.commons.lang3.StringUtils.isNumeric(args[4])) {
+				relevantColumns = Integer.parseInt(args[4]);
+			}
 
-			converter.createJointReport(args[0] + "." + args[1] + "." + args[2] + "." + args[3] +
-				(args.length > 4 && !org.apache.commons.lang3.StringUtils.isNumeric(args[4]) ? "." + args[4] : ""), args[3], new String[]{ args[3]}, new int[]{ relevantColumns});
+			converter.createJointReport(args[0] + "." + args[1] + "." + args[2] + "." + args[3] + (args.length > 4 
+					&& !org.apache.commons.lang3.StringUtils.isNumeric(args[4]) ? "." + args[4] : ""), 
+				args[3], new String[]{ args[3]}, new int[]{ relevantColumns}, translationFile);
 		} else if(args.length >= 6 && (args[3].contains(",") || args[3].contains("."))) {
-
 			String year = args[0], month = args[1], day = args[2], browser = args[4];
 			converter.setReportPath(System.getProperty("user.dir") + "/" + AutomationConstants.REPORTS_FOLDER + "/T" + year + month + day);
 
@@ -68,7 +77,7 @@ public class CsvToHtml {
 				}
 			}
 
-			converter.createJointReport(year + "." + month + "." + day + ".[TESTCASE]." + browser, args[5], testCases, relevantColInt);
+			converter.createJointReport(year + "." + month + "." + day + ".[TESTCASE]." + browser, args[5], testCases, relevantColInt, translationFile);
 		}
 	}
 

@@ -75,6 +75,7 @@ public class AutomationConstants {
 	public static final String DEVICE = "device";
 	public static final String DEVICE_NAME = "device_name";
 	public static final String DEVICE_VERSION = "device_version";
+	public static final String USE_PROXY = "use_proxy";
 	
 	public static final String SESSION_ID = "session_id";
 	public static final String IP = "ip";

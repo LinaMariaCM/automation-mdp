@@ -63,6 +63,14 @@ public class FirefoxConfiguration extends BrowserConfiguration {
 		
 		options.setProfile(profile);
 
+		if(useProxy) {
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+			proxyCapabilities.setAcceptInsecureCerts(true);
+
+			options.merge(proxyCapabilities);
+		}
+
 		debugEnd();
 
 		return options;
