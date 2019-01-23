@@ -3625,10 +3625,6 @@ public class Steps extends StepObject {
 	 */
 
 	// ALTA SINIESTRO
-	
-
-	
-	
 	public void alta_siniestro(String acceso, String numPoliza) throws Exception {
 		debugBegin();
 		
@@ -3646,7 +3642,7 @@ public class Steps extends StepObject {
 			new GestionPolizasBuscadorPage(userS).SeleccionarResultado();
 	
 			// 1.Declaración
-			new SiniestrosAltaAperturaDeclaracionPage(userS).completarMinimos(numPoliza);
+			//new SiniestrosAltaAperturaDeclaracionPage(userS).completarMinimos(numPoliza);
 	
 			// Validamos cosas
 			new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();

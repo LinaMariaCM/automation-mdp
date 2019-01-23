@@ -36,6 +36,32 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	
 	// @FindBy(id = "cabRechazar")
 	// private By btnRechazarApertura;
+		//
+		private By buttonRechazarApertura = By.id("cabRechazar");
+		//
+		private By comboLugarOcurrencia = By.id("listaLugares");
+		//
+		private By comboTipoVia = By.id("tdviaocu");
+		//
+		private By txtCalleOcurrencia = By.id("calleocu");
+		//
+		private By txtNumeroOcurrencia = By.id("numcaocu");
+		//
+		private By txtPortalOcurrencia = By.id("portalocu");
+		//
+		private By txtEscaleraOcurrencia = By.id("escalocu");
+		//
+		private By txtPisoOcurrencia = By.id("pisoocu");
+		//
+		private By txtPuertaOcurrencia = By.id("puertaocu");
+		//
+		private By txtCPOcurrencia = By.id("cpocu");
+		//
+		private By txtPoblacionOcurrencia = By.id("poblocu");
+		//
+		private By comboProvincia = By.id("provocu");
+		//
+		private By buttonGoogleMaps = By.id("dirMaps");
 	//
 	// @FindBy(xpath = "./html/body/div[3]/div/ul/li[1]/a/span")
 	// private By btnVolverABuscador;
@@ -51,7 +77,13 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	//
 	// @FindBy(id = "TIPOCAUS")
 		private By tipoCausasAccidentes = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
-	
+	//
+		private By comboGrupoCausas = By.id("GRUCAUSA");
+		//
+		private By comboTiposCausa = By.id("TIPOCAUS");
+		//
+		private By comboGremio = By.id("CODGREMIO");
+		//
 	
 	//	####	DATOS DE LA OCURRENCIA	####
 	
