@@ -23,6 +23,14 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	//
 	// // region webelements
 	
+	//Consulta póliza
+	//
+	private By buttonConsultaPoliza = By.id("enlacePoliza");
+	//
+	private By buttonPersonaContacto = By.id("enlaceDatContacPer");
+	//
+	//private By buttonVolverBuscador = By.id("enlacePoliza");
+	
 	// #####	FRAMES	#####
 	
 	// @FindBy(id = "leftFrame")
@@ -46,16 +54,56 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	// @FindBy(id = "tipodecl")
 	// private WebElement drpdwnTipoDeclarante;
 	 
-	 private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
-	
+	 //private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
+	 //
+	 private By comboTipoDeclarante = By.id("tipodecl");
+	  
+	 
 	 // @FindBy(id = "mododecl")
 	// private WebElement drpdwnMedioDeclaracion;
+	 //private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
+	 //
+	 private By comboMedioDeclaracion = By.id("mododecl");
 	 
-	 private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
+	 //
+	 private By txtObservaciones = By.id("comentario");
+	 
 	 
 	// @FindBy(id = "FECHDENU")
 	// private WebElement txtFechaDenuncia;
-	
+	 //
+	 private By txtFechaDenuncia = By.id("FECHDENU");
+
+	 //
+	 private By txtNombreDeclarante = By.id("nombpers");
+	 //
+	 private By txtPrimerApellido = By.id("ape1pers");
+	 //
+	 private By txtSegundoApellido = By.id("ape2pers");
+	 //
+	 private By txtTelefono = By.id("telefono1");
+	 //
+	 private By comboPrefijo = By.id("ESTRUCTU");
+	 //
+	 private By txtEmail = By.id("email");
+	 //
+	 private By checkEmailNoDisponible = By.id("emailnodisp");
+	 
+	 
+	 //	#####	OTROS DATOS 	####
+
+	 //
+	 private By comboElementoAfectado = By.id("ESTRUCTU");
+	 //
+	 private By comboInstalacionAfectada = By.id("INSTALAC");
+	 //
+	 private By txtReferenciaExternaMed = By.id("nombdato_REFEEXTR_1");
+	 //
+	 private By radioCarpetaFisicaSi = By.id("fisicoSi");
+	 //
+	 private By radioCarpetaFisicaNo = By.id("fisicoNo");
+	 
+	 
 	
 	//	#####	ASISTENCIA	#####
 	 
@@ -64,7 +112,29 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	//
 	// @FindBy(id = "asistenciaNo")
 	 private By rdbtnAsistenciaNo = By.id("asistenciaNo");
-	
+	//
+	 private By rdbtnUrgenteSi = By.id("resolUrgeSi");
+	//
+	 private By rdbtnUrgenteNo = By.id("resolUrgeNo");
+	//
+	 private By txtUbicacionDanos = By.id("nombdato_UBICADAN_1");
+	//
+	 private By rdbtnReparadoSi = By.id("origDanyoSi");
+	//
+	 private By rdbtnReparadoNo = By.id("origDanyoNo");
+	//
+	 private By rdbtnConsecuenciasSi = By.id("consecDanyoSi");
+	//
+	 private By rdbtnConsecuenciasNo = By.id("consecDanyoNo");
+	 //
+	 private By txtRefAsistenciaExt = By.id("nombdato_REFEEXAS_1");
+	 
+	 
+	 
+	 
+	 
+	 
+	 
 	 
 	// @FindBy(id = "botonContinuar")
 	 private By btnContinuar = By.id("botonContinuar");
@@ -76,7 +146,77 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 
 	 
 	// region methods
+	
+	//Basico1
+	 public void altaDatosBasicos(String fechaOcurrencia, String tipoDeclarante, String medioDeclaracion)
+	 {
+		this.debugBegin();
+		
+		this.webDriver.appendText(this.txtFechaOcurrencia, fechaOcurrencia);
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoDeclarante, "value", tipoDeclarante);//Añadir los tipos de value como comentario
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboMedioDeclaracion, "value", medioDeclaracion);
+				
+	 	this.debugEnd();
+	 }
 	 
+	 public void altaDatosDeclaracion(String fechaOcurrencia, String tipoDeclarante, String medioDeclaracion, String fechaDenuncia, String observaciones) 
+	 {
+		 this.debugBegin();
+			
+			this.webDriver.appendText(this.txtFechaOcurrencia, fechaOcurrencia);
+			this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoDeclarante, "value", tipoDeclarante);//Añadir los tipos de value como comentario
+			this.webDriver.clickElementFromDropDownByAttribute(this.comboMedioDeclaracion, "value", medioDeclaracion);
+			this.webDriver.appendText(this.txtFechaDenuncia, fechaDenuncia);
+			this.webDriver.appendText(this.txtObservaciones, observaciones);
+					
+		 this.debugEnd();
+	 }
+	 
+	 public void altaDatosDeclarante(String nombreDeclarante, String apellidoDeclarante, String segundoApellido, String prefijoTelefono, String numeroTelefono, String emailDeclarante, boolean noDisponible) 
+	 {
+		 this.debugBegin();
+
+			this.webDriver.appendText(this.txtNombreDeclarante, nombreDeclarante);
+			this.webDriver.appendText(this.txtPrimerApellido, apellidoDeclarante);
+			this.webDriver.appendText(this.txtSegundoApellido, segundoApellido);
+			this.webDriver.clickElementFromDropDownByAttribute(this.comboPrefijo, "value", prefijoTelefono);//Añadir los tipos de value como comentario
+			this.webDriver.appendText(this.txtTelefono, numeroTelefono);
+			this.webDriver.appendText(this.txtEmail, emailDeclarante);
+			if(noDisponible)this.webDriver.click(this.checkEmailNoDisponible);
+					
+		 this.debugEnd();
+	 }
+	 
+
+	 public void altaOtrosDatos(String estructuraAfectada, String instalacionesAfectadas, String referenciaMediador, boolean carpetaFisica) 
+	 {
+		 this.debugBegin();
+
+			this.webDriver.clickElementFromDropDownByAttribute(this.comboElementoAfectado, "value", estructuraAfectada);//Añadir los tipos de value como comentario
+			this.webDriver.clickElementFromDropDownByAttribute(this.comboInstalacionAfectada, "value", instalacionesAfectadas);//Añadir los tipos de value como comentario
+			this.webDriver.appendText(this.txtReferenciaExternaMed, referenciaMediador);
+			if(carpetaFisica)this.webDriver.click(this.radioCarpetaFisicaSi);
+			else this.webDriver.click(this.radioCarpetaFisicaNo);
+					
+		 this.debugEnd();
+	 }
+	 
+	 public void altaConAsistencia(boolean requiereAsistencia, boolean resolucionUrgente, String ubicacion, boolean origenReparado, boolean consecuencia, String RefAsistenciaExt) 
+	 {
+		 this.debugBegin();
+
+		 	if(requiereAsistencia)this.webDriver.click(this.rdbtnAsistenciaSi);
+			else this.webDriver.click(this.rdbtnAsistenciaNo);
+		 	if(resolucionUrgente)this.webDriver.click(this.rdbtnUrgenteSi);
+			else this.webDriver.click(this.rdbtnUrgenteNo);
+			this.webDriver.appendText(this.txtUbicacionDanos, ubicacion);
+		 	if(origenReparado)this.webDriver.click(this.rdbtnReparadoSi);
+			else this.webDriver.click(this.rdbtnReparadoNo);
+			if(consecuencia)this.webDriver.click(this.rdbtnConsecuenciasSi);
+			else this.webDriver.click(this.rdbtnConsecuenciasNo);
+					
+		 this.debugEnd();
+	 }
 	// public void writeFechaOcurrencia(
 	// String fechaOcurrencia)
 	// {
@@ -139,7 +279,9 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	
 	 DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
 	 
-	 public void completarMinimos() // método que completa el mínimo de campos para realizar una prueba
+	 
+	 
+	 /*public void completarMinimos() // método que completa el mínimo de campos para realizar una prueba
 	 {
 		this.debugBegin();
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -156,7 +298,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		
 		this.clickContinuar();
 		this.debugEnd();
-	 }
+	 }*/
 	 
 	 
 	// endregion
