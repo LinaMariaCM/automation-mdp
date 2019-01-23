@@ -29,7 +29,7 @@ public class ProjectConstants {
 	
 	public static final String MEC_SINIESTROS = "MecSin";
 	
-	
+	public static final String SINIESTRO_CONVENCIONAL_CON_PERITO = "SinConvPer";
 	
 	//Mutua de Propietarios Constants	
 	

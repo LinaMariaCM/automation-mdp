@@ -1,88 +1,91 @@
 package com.automation.model.webdriver;
 
-import java.awt.Toolkit;
+import com.automation.configuration.AutomationConstants;
+import com.automation.data.DataObject;
+import com.automation.model.utils.*;
+import com.automation.model.utils.objects.DebugLogger;
+import com.automation.model.webdriver.configuration.*;
+import io.appium.java_client.*;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.AutomationName;
+import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
+import net.lightbody.bmp.BrowserMobProxy;
+import net.lightbody.bmp.BrowserMobProxyServer;
+import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.Rectangle;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.SessionId;
+import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.safari.SafariOptions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.time.Duration;
-
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.remote.SessionId;
-import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.utils.StringUtils;
-import com.automation.configuration.AutomationConstants;
-import com.automation.data.DataObject;
-import com.automation.model.utils.ArrayUtils;
-import com.automation.model.utils.ImageUtils;
-import com.automation.model.utils.InitUtils;
-import com.automation.model.utils.OSUtils;
-import com.automation.model.webdriver.configuration.BrowserType;
-import com.automation.model.webdriver.configuration.ChromeConfiguration;
-import com.automation.model.webdriver.configuration.EdgeConfiguration;
-import com.automation.model.webdriver.configuration.FirefoxConfiguration;
-import com.automation.model.webdriver.configuration.IEConfiguration;
-import com.automation.model.webdriver.configuration.MobileConfiguration;
-import com.automation.model.webdriver.configuration.SafariConfiguration;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.PerformsTouchActions;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidKeyCode;
-import io.appium.java_client.ios.IOSDriver;
-import io.appium.java_client.remote.AutomationName;
-import io.appium.java_client.remote.MobileCapabilityType;
 
 /**
- * The DriverHelper class implements methods which use Selenium libraries to
- * manage the creation of a webdriver and to interact with different kinds of
- * browser drivers, providing a wide set of configurations.
+ * The DriverHelper class implements methods which use Selenium libraries to manage the creation of a webdriver and to
+ * interact with different kinds of browser drivers, providing a wide set of configurations.
  *
  * @author Alfredo Moises Boullosa Ramones
  */
 public class DriverHelper {
 
 	private WebDriver driver;
+	private BrowserMobProxy proxy = new BrowserMobProxyServer();
+	private DebugLogger logger;
+	private boolean verbose = false;
 	private boolean maximize = true;
+	private boolean waitForPage = true;
 	private boolean waitForAngular = true;
 	private boolean waitForJQuery = false;
 	private boolean showConsoleLog = false;
+	private boolean useProxy = false;
 	private int smallWindowLimit = 1025;
-	private int defaultWindowHeigth = 1366;
-	private int defaultWindowWidth = 768;
+	private int defaultWindowHeight = 768;
+	private int defaultWindowWidth = 1366;
 	private int shortWait = 3;
 	private String id = "0";
 	private String ip = "localhost";
 	private String port = "4444";
 	private String deviceName;
 	private String devicePlatform;
+	private boolean androidEmulator = false;
+	private String language = null;
 	private String appPackage;
 	private String launchActivity;
-	private String iosVersion;
-	private String iosDevice;
-	private String iosUdid;
+	private String platformVersion;
+	private String udid;
+	private String macOsVersion = "10";
 	private String macOsBrowserStackUser;
 	private String macOsBrowserStackKey;
 	private String emulationBrowser = BrowserType.CHROME;
@@ -93,6 +96,7 @@ public class DriverHelper {
 	private boolean downloadDrivers = false;
 	private boolean smallWindowMode = false;
 	private boolean deviceEmulation = false;
+	private boolean macOsTechnologyPreview = false;
 	private String reportPath = "";
 	private String browserType;
 	private String driverType;
@@ -101,15 +105,16 @@ public class DriverHelper {
 	private int scriptTimeout = 50;
 	private int pageLoadTimeout = 50;
 	private DesiredCapabilities capabilities;
-	private ArrayList<String> consoleLogs = new ArrayList<String>();
-	final static Logger logger = LoggerFactory.getLogger(DriverHelper.class);
+	private ArrayList<String> pluginFiles = new ArrayList<>(); 
+	private ArrayList<String> consoleLogs = new ArrayList<>();
 
 	public DriverHelper(DesiredCapabilities cap) {
 		capabilities = cap;
 		browserType = cap.getBrowserName();
 
 		if(capabilities.getCapability("platformName") != null &&
-			(capabilities.getCapability("platformName").toString().equals("ANDROID") || capabilities.getCapability("platformName").toString().equals("iOS"))) {
+			(capabilities.getCapability("platformName").toString().equalsIgnoreCase("ANDROID") 
+				|| capabilities.getCapability("platformName").toString().equalsIgnoreCase("iOS"))) {
 			desktop = false;
 		}
 
@@ -118,53 +123,44 @@ public class DriverHelper {
 		} else {
 			driverType = AutomationConstants.WEB;
 		}
+
+		logger = new DebugLogger().setVerbose(false);
 	}
 
 	public DriverHelper(String browser) {
 		headless = browser.contains("_headless");
 
 		if(ArrayUtils.contains(InitUtils.getDeviceEmulationBrowsers(), browser.replace("_headless", ""))
-			|| ArrayUtils.contains(InitUtils.getDesktopBrowsers(), browser.replace("_headless", ""))) {
+		|| ArrayUtils.contains(InitUtils.getDesktopBrowsers(), browser.replace("_headless", ""))) {
 			browserType = browser.replace("_headless", "");
 			driverType = AutomationConstants.WEB;
 
 			if(browserType.equals(BrowserType.SAFARI_IPHONE) || browserType.equals((BrowserType.SAFARI_IPAD))) {
 				emulationBrowser = "safari";
 			}
+		} else if(BrowserType.IPHONE.equals(browser)) {
+			browserType = browser;
+			driverType = AutomationConstants.MOBILE_APP;
+			desktop = false;
 		} else {
 			deviceName = browser;
 			driverType = AutomationConstants.MOBILE_APP;
 			desktop = false;
 		}
+
+		logger = new DebugLogger().setVerbose(false);
 	}
 
-	private String getDebugLine() {
-		int line = Thread.currentThread().getStackTrace()[3].getLineNumber();
-		String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss").format(new java.util.Date());
-		String className = Thread.currentThread().getStackTrace()[3].getClassName();
-		className = className.contains(".") ? className.substring(className.lastIndexOf(".") + 1) : className;
-
-		return timeStamp + " - " + className + ":" + line;
+	public BrowserMobProxy getProxy() {
+		return proxy;
+	}
+	
+	public void addPluginFile(String pluginFile) {
+		pluginFiles.add(pluginFile);
 	}
 
-	private void debugBegin() {
-		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-
-		System.out.println(getDebugLine() + " - [BEGIN] (" + id + ") - " + methodName);
-	}
-
-	private void debugEnd() {
-		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-
-		System.out.println(getDebugLine() + " - [END] (" + id + ") - " + methodName);
-	}
-
-	private void debugInfo(String message) {
-		System.out.println(getDebugLine() + " - [INFO] (" + id + ") - " + message);
-	}
-
-	private void debugError(String message) {
-		System.out.println(getDebugLine() + " - [ERROR] (" + id + ") - " + message);
+	public void setDebugVerbose(boolean verbose) {
+		logger.setVerbose(verbose);
 	}
 
 	public void setHub(String ip, String port) {
@@ -177,8 +173,50 @@ public class DriverHelper {
 		}
 	}
 
-	public boolean isRemoteMode() { 
-		return remoteMode; 
+	public boolean isRemoteMode() {
+		return remoteMode;
+	}
+
+	public void setMaximize(boolean value) {
+		maximize = value;
+	}
+
+	public void setWaitForPage(boolean value) {
+		waitForPage = value;
+	}
+
+	public void setWaitForAngular(boolean value) {
+		waitForAngular = value;
+	}
+
+	public void setWaitForJQuery(boolean value) {
+		waitForJQuery = value;
+	}
+
+	public void setShowConsoleLog(boolean value) {
+		showConsoleLog = value;
+	}
+
+	private void setTimeouts() {
+		setImplicitWait(implicitTimeout);
+		setScriptWait(scriptTimeout);
+		setPageLoadWait(pageLoadTimeout);
+	}
+
+	private void setTimeouts(int timeOut) {
+		try {
+			if(driver != null) driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
+		} catch(WebDriverException e) {
+			logger.error("Exception setting implicit timeout" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+		}
+
+		try {
+			if(driver != null) driver.manage().timeouts().setScriptTimeout(timeOut, TimeUnit.SECONDS);
+		} catch(WebDriverException e) {}
+
+		try {
+			if(driver != null) driver.manage().timeouts().pageLoadTimeout(timeOut, TimeUnit.SECONDS);
+		} catch(WebDriverException e) {}
 	}
 
 	public void setRemoteMode(boolean value) {
@@ -193,6 +231,10 @@ public class DriverHelper {
 		forceCache = value;
 	}
 
+	public void setVerbose(boolean value) {
+		verbose = value;
+	}
+
 	public void setDownloadDrivers(boolean value) {
 		downloadDrivers = value;
 	}
@@ -205,29 +247,65 @@ public class DriverHelper {
 		this.devicePlatform = platform;
 	}
 
+	public void setAndroidEmulator(boolean androidEmulator) {
+		this.androidEmulator = androidEmulator;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
+	}
+
+	public void setMacOsVersion(String version) {
+		this.macOsVersion = version;
+	}
+
+	public void setMacOsTechnologyPreview(boolean macOsTechnologyPreview) {
+		this.macOsTechnologyPreview = macOsTechnologyPreview;
+	}
+
+	public void setWebDriverLanguage(String language) {
+		this.language = language;
+	}
+
+	public boolean isUseProxy() {
+		return useProxy;
+	}
+
+	public void setUseProxy(boolean useProxy) {
+		this.useProxy = useProxy;
+	}
+
+	public boolean isAndroidEmulator() {
+		return androidEmulator;
+	}
+
+	public String getBrowserType() {
+		return browserType;
+	}
+
+	public String getEmulationBrowser() {
+		return emulationBrowser;
+	}
+
 	public String getDevicePlatform() {
-		return this.devicePlatform;
+		return devicePlatform;
 	}
 
 	public String getDeviceName() {
-		return this.deviceName;
+		return deviceName;
 	}
 
 	public int getWindowDefaultWidth() {
-		return this.defaultWindowWidth;
+		return defaultWindowWidth;
 	}
 
 	public int getWindowDefaultHeight() {
-		return this.defaultWindowHeigth;
+		return defaultWindowHeight;
 	}
-	
+
 	public void setMacOsBrowserStack(String browserStackUser, String browserStackKey) {
 		this.macOsBrowserStackUser = browserStackUser;
 		this.macOsBrowserStackKey = browserStackKey;
-	}
-
-	public void setIOSVariables(DataObject configData) {
-		// TODO
 	}
 
 	public void setAndroidAppVariables(String appPackage, String appActivity) {
@@ -235,62 +313,60 @@ public class DriverHelper {
 		this.launchActivity = appActivity;
 	}
 
-	public void setIOSAppVariables(String version, String device, String appPackage, String iosUdid) {
-		this.iosVersion = version;
-		this.iosDevice = device;
-		this.appPackage = appPackage;
-		this.iosUdid = iosUdid;
-	}
-
 	public void setAppVariables(DataObject configData) {
-		if(devicePlatform != null && devicePlatform.toLowerCase().equals(Platform.ANDROID.toString().toLowerCase())) {
+		if(devicePlatform != null && devicePlatform.equalsIgnoreCase(Platform.ANDROID.toString())) {
 			this.appPackage = configData.getValue("app_package");
 			this.launchActivity = configData.getValue("launch_activity");
 		} else {
-			this.iosVersion = configData.getValue(deviceName + "_version");
-			this.iosDevice = configData.getValue(deviceName + "_device");
+			this.platformVersion = configData.getValue(deviceName + "_version");
 			this.appPackage = configData.getValue("ios_package");
-			this.iosUdid = configData.getValue(deviceName + "_udid");
+			this.udid = configData.getValue(deviceName + "_udid");
 		}
 	}
 
 	public void downloadDriver() {
-		debugBegin();
+		boolean auxVerbose = this.verbose;
+		this.verbose = true;
+
+		logger.begin();
 
 		switch(browserType) {
 			case BrowserType.FIREFOX:
-				debugInfo("Checking firefox driver");
+				logger.info("Checking firefox driver");
 				FirefoxConfiguration.downloadDriver(forceCache);
 				break;
 			case BrowserType.CHROME:
-				debugInfo("Checking chrome driver");
+				logger.info("Checking chrome driver");
 				ChromeConfiguration.downloadDriver(forceCache);
 				break;
 			case BrowserType.INTERNET_EXPLORER:
-				debugInfo("Checking Internet Explorer driver");
+				logger.info("Checking Internet Explorer driver");
 				IEConfiguration.downloadDriver(forceCache);
 				break;
 			case BrowserType.EDGE:
-				debugInfo("Checking edge driver");
+				logger.info("Checking edge driver");
+				EdgeConfiguration.downloadDriver(forceCache);
 				break;
 			case BrowserType.SAFARI:
-				debugInfo("Checking safari driver");
+				logger.info("Checking safari driver");
 				break;
 			default:
 				if(emulationBrowser.equals(BrowserType.FIREFOX)) {
-					debugInfo("Checking firefox driver for " + browserType);
+					logger.info("Checking firefox driver for " + browserType);
 					FirefoxConfiguration.downloadDriver(forceCache);
 				} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
-					debugInfo("Checking safari driver");
+					logger.info("Checking safari driver");
 				} else {
-					debugInfo("Checking chrome driver for " + browserType);
+					logger.info("Checking chrome driver for " + browserType);
 					ChromeConfiguration.downloadDriver(forceCache);
 				}
 
 				break;
 		}
 
-		debugEnd();
+		logger.end();
+
+		this.verbose = auxVerbose;
 	}
 
 	private void setPropertyDriverPath(String operativeS, String browserType) {
@@ -304,13 +380,22 @@ public class DriverHelper {
 					System.setProperty("webdriver.gecko.driver", mavenWindowsPath + "geckodriver/win64/" + driverFolders[driverFolders.length - 1] + "/geckodriver.exe");
 					break;
 				case BrowserType.CHROME:
+				default:
 					driverFolders = new File(mavenWindowsPath + "chromedriver/win32").list();
 					System.setProperty("webdriver.chrome.driver", mavenWindowsPath + "chromedriver/win32/" + driverFolders[driverFolders.length - 1] + "/chromedriver.exe");
 					break;
 			}
 		} else {
 			String[] driverFolders;
-			String mavenLinuxPath = "/var/lib/jenkins/.m2/repository/webdriver/";
+			String mavenLinuxPath;
+			String mavenLinuxPathJenkins = "/var/lib/jenkins/.m2/repository/webdriver/";
+			String mavenLinuxPathHome = System.getProperty("user.home") + "/.m2/repository/webdriver/";
+
+			if(new File(mavenLinuxPathJenkins).list() != null){
+				mavenLinuxPath = mavenLinuxPathJenkins;
+			} else {
+				mavenLinuxPath = mavenLinuxPathHome;
+			}
 
 			switch(browserType) {
 				case BrowserType.FIREFOX:
@@ -318,6 +403,7 @@ public class DriverHelper {
 					System.setProperty("webdriver.gecko.driver", mavenLinuxPath + "geckodriver/linux64/" + driverFolders[driverFolders.length - 1] + "/geckodriver");
 					break;
 				case BrowserType.CHROME:
+				default:
 					driverFolders = new File(mavenLinuxPath + "chromedriver/linux64").list();
 					System.setProperty("webdriver.chrome.driver", mavenLinuxPath + "chromedriver/linux64/" + driverFolders[driverFolders.length - 1] + "/chromedriver");
 					break;
@@ -325,8 +411,234 @@ public class DriverHelper {
 		}
 	}
 
+	private BrowserConfiguration setSafariConfiguration(BrowserConfiguration options) {
+		((SafariConfiguration) options).setTechnologyPreview(macOsTechnologyPreview);
+		((SafariConfiguration) options).setVersion(macOsVersion);
+
+		return options;
+	}
+
+	private BrowserConfiguration setMobileConfiguration(BrowserConfiguration options) {
+		((MobileConfiguration) options).setBrowserType(browserType);
+		((MobileConfiguration) options).setEmulationBrowser(emulationBrowser);
+
+		if(emulationBrowser.equals(BrowserType.SAFARI)) {
+			((MobileConfiguration) options).setTechnologyPreview(macOsTechnologyPreview);
+		}
+
+		return options;
+	}
+
+	private BrowserConfiguration createBrowserConfiguration() {
+		BrowserConfiguration options = null;
+
+		switch(browserType) {
+			case BrowserType.FIREFOX:
+				options = new FirefoxConfiguration();
+				((FirefoxConfiguration) options).setPluginFile(pluginFiles);
+				break;
+			case BrowserType.CHROME:
+				options = new ChromeConfiguration();
+				((ChromeConfiguration) options).setPluginFile(pluginFiles);
+				break;
+			case BrowserType.INTERNET_EXPLORER:
+				options = new IEConfiguration();
+				break;
+			case BrowserType.EDGE:
+				options = new EdgeConfiguration();
+				break;
+			case BrowserType.SAFARI:
+				options = new SafariConfiguration();
+				setSafariConfiguration(options);
+				break;
+			default:
+				options = new MobileConfiguration();
+				setMobileConfiguration(options);
+				break;
+		}
+
+		options.setHeadless(headless);
+		options.setLanguage(language);
+		options.setProxy(useProxy);
+
+		if(useProxy) {
+			options.createProxy(proxy);
+		}
+
+
+		return options;
+	}
+
+	private WebDriver createRemoteWebDriver(URL hubUrl, BrowserConfiguration options) {
+		WebDriver driver = null;
+
+		switch(browserType) {
+			case BrowserType.FIREFOX:
+				logger.info("Initializing remote firefox driver");
+				driver = new RemoteWebDriver(hubUrl, (FirefoxOptions) options.createOptions());
+				break;
+			case BrowserType.CHROME:
+				logger.info("Initializing remote chrome driver");				
+				driver = new RemoteWebDriver(hubUrl, (ChromeOptions) options.createOptions());
+				break;
+			case BrowserType.INTERNET_EXPLORER:
+				logger.info("Initializing remote internet explorer driver");
+				driver = new RemoteWebDriver(hubUrl, (InternetExplorerOptions) options.createOptions());
+				break;
+			case BrowserType.EDGE:
+				logger.info("Initializing remote edge driver");
+				driver = new RemoteWebDriver(hubUrl, (EdgeOptions) options.createOptions());
+				break;
+			case BrowserType.SAFARI:
+				logger.info("Initializing remote safari driver");
+				driver = new RemoteWebDriver(hubUrl, (SafariOptions) options.createOptions());
+				break;
+			default:
+				logger.info("EmulationBrowser: " + emulationBrowser);
+				
+				if(!emulationBrowser.equals(BrowserType.SAFARI)) {
+					if(emulationBrowser.equals(BrowserType.FIREFOX)) {
+						driver = new RemoteWebDriver(hubUrl, (FirefoxOptions) options.createOptions());
+					} else {
+						driver = new RemoteWebDriver(hubUrl, (ChromeOptions) options.createOptions());
+					}
+				} else {
+					driver = new RemoteWebDriver(hubUrl, (SafariOptions) options.createOptions());
+				}
+
+				deviceEmulation = true;
+
+				break;
+		}
+
+		return driver;
+	}
+
+	private WebDriver createLocalWebDriver(BrowserConfiguration options) {
+		WebDriver driver = null;
+
+		switch(browserType) {
+			case BrowserType.FIREFOX:
+				logger.info("Initializing firefox driver");
+				driver = new FirefoxDriver((FirefoxOptions) options.createOptions());
+				break;
+			case BrowserType.CHROME:
+				logger.info("Initializing chrome driver");
+				driver = new ChromeDriver((ChromeOptions) options.createOptions());
+				break;
+			case BrowserType.INTERNET_EXPLORER:
+				logger.info("Initializing Internet Explorer driver");
+				driver = new InternetExplorerDriver((InternetExplorerOptions) options.createOptions());
+				break;
+			case BrowserType.EDGE:
+				logger.info("Initializing edge driver");
+				driver = new EdgeDriver((EdgeOptions) options.createOptions());
+				break;
+			case BrowserType.SAFARI:
+				logger.info("Initializing safari driver");				
+				driver = new SafariDriver((SafariOptions) options.createOptions());
+				break;
+			default:
+				logger.info("EmulationBrowser: " + emulationBrowser);
+
+				if(!emulationBrowser.equals(BrowserType.SAFARI)) {
+					if(emulationBrowser.equals(BrowserType.FIREFOX)) {
+						logger.info("Initializing firefox driver for " + browserType);
+						driver = new FirefoxDriver((FirefoxOptions) options.createOptions());
+					} else {
+						logger.info("Initializing chrome driver for " + browserType);
+						driver = new ChromeDriver((ChromeOptions) options.createOptions());
+					}
+				} else {
+					logger.info("Initializing safari driver for " + browserType);
+					driver = new SafariDriver((SafariOptions) options.createOptions());
+				}
+
+				deviceEmulation = true;
+				break;
+		}
+
+
+		return driver;
+	}
+
+	private WebDriver createAppDriver(URL hubUrl) {
+		WebDriver appDriver = null;
+
+		capabilities = new DesiredCapabilities();
+
+		if(devicePlatform.equalsIgnoreCase(Platform.ANDROID.toString())) {
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, platformVersion);
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
+			capabilities.setCapability("appPackage", appPackage);
+			capabilities.setCapability("appActivity", launchActivity);
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
+
+			if(androidEmulator) {
+				logger.info("Android Emulator detected.");
+				capabilities.setCapability("app", "/app/" + appPackage + ".apk");
+				capabilities.setCapability("appWaitPackage", appPackage);
+				capabilities.setCapability("appWaitDuration", 40000);
+				capabilities.setCapability("deviceReadyTimeout", 10);
+				capabilities.setCapability("androidInstallTimeout", 130000);
+			}
+
+			logger.info("Initializing Android driver on hub: " + hubUrl);
+			appDriver = new AndroidDriver<WebElement>(hubUrl, capabilities);
+		} else {
+			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.IOS);
+			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, platformVersion);
+			capabilities.setCapability(MobileCapabilityType.UDID, udid);
+			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
+			capabilities.setCapability(MobileCapabilityType.APP, appPackage);
+
+			logger.info("Initializing iOs driver on hub: " + hubUrl);
+			logger.info("Capabilities: " + capabilities.toString());
+			appDriver = new IOSDriver<WebElement>(hubUrl, capabilities);
+		}
+
+		return appDriver;
+	}
+
+	private void setWindowSizeConfiguration() {
+		if(desktop && !deviceEmulation) {
+			if(browserType != null && browserType.equals(BrowserType.SAFARI)) {
+				resizeWindow(1024, 675);
+				setWindowPosition(2, 2);
+				waitWithDriver(2000);
+			} else {
+				resizeWindow(defaultWindowWidth, defaultWindowHeight);
+			}
+		} else if(desktop && browserType.equals(BrowserType.SAFARI_IPHONE)) {
+			resizeWindow(375, 667);
+			setWindowPosition(2, 2); // TODO: Selenium bug transforms 0 and 1 to boolean, change to 0, 0 when fixed
+			waitWithDriver(3000);
+		} else if(desktop && browserType.equals(BrowserType.SAFARI_IPAD)) {
+			resizeWindow(860, 670);
+			setWindowPosition(2, 2); // TODO: Selenium bug transforms 0 and 1 to boolean, change to 0, 0 when fixed
+			waitWithDriver(3000);
+		} else if(desktop && deviceEmulation && emulationBrowser.equals(BrowserType.FIREFOX)) {
+			if(ArrayUtils.contains(InitUtils.getMobileEmulationBrowsers(), browserType)) {
+				resizeWindow(360, 640);
+			} else {
+				resizeWindow(1024, 768);
+			}
+		}
+
+		if(maximize) maximizeWindow();
+
+		if(desktop && Integer.parseInt(((JavascriptExecutor) driver).executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
+			smallWindowMode = true;
+		}
+	}
+
 	public void initializeDriver() {
-		debugBegin();
+		boolean verbose = this.verbose;
+		this.verbose = true;
+
+		logger.begin();
 		URL hubUrl = null;
 
 		try {
@@ -336,159 +648,45 @@ public class DriverHelper {
 				hubUrl = new URL("http://" + ip + ":" + port + "/wd/hub");
 			}
 		} catch(MalformedURLException e) {
-			debugError("Error with url");
+			logger.error("Error with url");
 			e.printStackTrace();
 		}
 
 		if(desktop) {
-			debugInfo("Desktop device");
+			logger.info("Desktop device");
 
 			if(downloadDrivers) {
 				downloadDriver();
 			}
 
+			BrowserConfiguration options = createBrowserConfiguration();
+
 			if(remoteMode) {
-				debugInfo("Initializing remote driver");
-				switch(browserType) {
-					case BrowserType.FIREFOX:
-						driver = new RemoteWebDriver(hubUrl, FirefoxConfiguration.createFirefoxOptions(headless));
-						break;
-					case BrowserType.CHROME:
-						driver = new RemoteWebDriver(hubUrl, ChromeConfiguration.createChromeOptions(headless));
-						break;
-					case BrowserType.INTERNET_EXPLORER:
-						driver = new RemoteWebDriver(hubUrl, IEConfiguration.createIEOptions());
-						break;
-					case BrowserType.EDGE:
-						driver = new RemoteWebDriver(hubUrl, EdgeConfiguration.createEdgeOptions());
-						break;
-					case BrowserType.SAFARI:
-						driver = new RemoteWebDriver(hubUrl, SafariConfiguration.createSafariOptions());
-						break;
-					default:
-					    debugInfo("EmulationBrowser: " + emulationBrowser);
-						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
-							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createFirefoxMobileOptions(browserType, headless));
+				logger.info("Initializing remote driver");
 
-							resizeWindow(320, 568);
-						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
-							driver = new RemoteWebDriver(hubUrl, SafariConfiguration.createSafariOptions());
-						} else {
-							driver = new RemoteWebDriver(hubUrl, MobileConfiguration.createChromeMobileOptions(browserType));
-						}
-
-						deviceEmulation = true;
-						break;
-				}
+				driver = createRemoteWebDriver(hubUrl, options);
 			} else {
 				setPropertyDriverPath(OSUtils.getOsName(), browserType);
 
-				switch(browserType) {
-					case BrowserType.FIREFOX:
-						debugInfo("Initializing firefox driver");
-						driver = new FirefoxDriver(FirefoxConfiguration.createFirefoxOptions(headless));
-						break;
-					case BrowserType.CHROME:
-						debugInfo("Initializing chrome driver");
-						driver = new ChromeDriver(ChromeConfiguration.createChromeOptions(headless));
-						break;
-					case BrowserType.INTERNET_EXPLORER:
-						debugInfo("Initializing Internet Explorer driver");
-						driver = new InternetExplorerDriver(IEConfiguration.createIEOptions());
-						break;
-					case BrowserType.EDGE:
-						debugInfo("Initializing edge driver");
-						driver = new EdgeDriver(EdgeConfiguration.createEdgeOptions());
-						break;
-					case BrowserType.SAFARI:
-						debugInfo("Initializing safari driver");
-						driver = new SafariDriver(SafariConfiguration.createSafariOptions());
-						break;
-					default:
-						if(emulationBrowser.equals(BrowserType.FIREFOX)) {
-							debugInfo("Initializing firefox driver for " + browserType);
-							driver = new FirefoxDriver(MobileConfiguration.createFirefoxMobileOptions(browserType, headless));
+				driver = createLocalWebDriver(options);
 
-							resizeWindow(320, 568);
-						} else if(emulationBrowser.equals(BrowserType.SAFARI)) {
-							debugInfo("Initializing safari driver for " + browserType);
-							driver = new SafariDriver(SafariConfiguration.createSafariOptions());
-						} else {
-							debugInfo("Initializing chrome driver for " + browserType);
-							driver = new ChromeDriver(MobileConfiguration.createChromeMobileOptions(browserType));
-						}
-
-						deviceEmulation = true;
-						break;
-				}
 			}
 		} else if(devicePlatform != null) {
-			debugInfo("Mobile device");
-			capabilities = new DesiredCapabilities();
-
-			if(devicePlatform.toUpperCase().equals(Platform.ANDROID.toString())) {
-				capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.ANDROID);
-				capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-				capabilities.setCapability("appPackage", appPackage);
-				capabilities.setCapability("appActivity", launchActivity);
-				capabilities.setCapability("autoGrantPermissions", true);
-				capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.ANDROID_UIAUTOMATOR2);
-				
-				debugInfo("Initializing Android driver on hub: " + hubUrl);
-				driver = new AndroidDriver<WebElement>(hubUrl, capabilities);
-			} else {
-				capabilities = DesiredCapabilities.iphone();
-				capabilities.setCapability("platformVersion", iosVersion);
-				capabilities.setCapability("deviceType", iosDevice);
-				capabilities.setCapability("automationName", "XCUITest");
-				capabilities.setCapability("platformName", "iOS");
-				capabilities.setCapability("udid", iosUdid);
-				capabilities.setCapability("deviceName", deviceName);
-				capabilities.setCapability("app", appPackage);
-
-				debugInfo("Initializing iOs driver on hub: " + hubUrl);
-				driver = new IOSDriver<WebElement>(hubUrl, capabilities);
-			}
+			logger.info("Mobile device");
+			driver = createAppDriver(hubUrl);
 		}
 
 		setTimeouts();
-		if(desktop && !deviceEmulation) {
-			if(browserType != null && browserType.equals(BrowserType.SAFARI)) {
-				setWindowPosition(0, 0);
-				resizeWindow(defaultWindowHeigth, 1025);
 
-				maximizeWindow();
+		setWindowSizeConfiguration();
 
-				waitWithDriver(2000);
-			} else {
-				resizeWindow(defaultWindowHeigth, defaultWindowWidth);
-			}
-		} else if(desktop && browserType.equals(BrowserType.SAFARI_IPHONE)) {
-			waitWithDriver(5000);
+		logger.end();
 
-			setWindowPosition(0, 0);
-			resizeWindow(640, 1136);
-
-			waitWithDriver(3000);
-		} else if(desktop && browserType.equals(BrowserType.SAFARI_IPAD)) {
-		   /* waitWithDriver(10000);
-
-		    setWindowPosition(0, 0);
-		    resizeWindow(2048, 1536);
-
-		    waitWithDriver(3000);*/
-        }
-		
-		if(maximize) maximizeWindow();
-
-		if(desktop && Integer.parseInt(((JavascriptExecutor) driver).executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
-			smallWindowMode = true;
-		}
-
-		debugEnd();
+		this.verbose = verbose;
 	}
 
-	public String getSessionId() {
+	@SuppressWarnings("unchecked")
+	public SessionId getSessionId() {
 		SessionId sessionId = null;
 
 		if(desktop) {
@@ -531,7 +729,7 @@ public class DriverHelper {
 			}
 		}
 
-		return sessionId == null ? null : sessionId.toString();
+		return sessionId;
 	}
 
 	// region WebDriver
@@ -541,6 +739,15 @@ public class DriverHelper {
 
 	public void setId(String value) {
 		id = value;
+		logger.setId(id);
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public String getPort() {
+		return port;
 	}
 
 	public WebDriver getDriver() {
@@ -591,8 +798,8 @@ public class DriverHelper {
 		}
 	}
 
-	public void setWindowSize(int heigth, int width) {
-		defaultWindowHeigth = heigth;
+	public void setWindowSize(int width, int height) {
+		defaultWindowHeight = height;
 		defaultWindowWidth = width;
 	}
 
@@ -603,6 +810,7 @@ public class DriverHelper {
 	public void quit() {
 		try {
 			if(driver != null) {
+				if(useProxy) proxy.stop();
 				driver.quit();
 			}
 		} catch(Exception e) {}
@@ -615,8 +823,13 @@ public class DriverHelper {
 			} else if(capabilities.getCapability("platformName") != null && capabilities.getCapability("platformName").equals("iOS")
 				&& driver != null) {
 				java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-				Point position = new Point(0, 0);
+
+				Point position = new Point(2, 2); // TODO: Selenium bug
+													// transforms 0 and 1 to
+													// boolean, change to 0, 0
+													// when fixed
 				driver.manage().window().setPosition(position);
+
 				Dimension maximizedScreenSize = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
 				driver.manage().window().setSize(maximizedScreenSize);
 			}
@@ -662,7 +875,7 @@ public class DriverHelper {
 	public String getCurrentPage() {
 		if(driverType != null && driverType.equals(AutomationConstants.MOBILE_APP)) {
 			@SuppressWarnings("unchecked")
-			String[] activityArray = StringUtils.stringToArray(((AndroidDriver<WebElement>) driver).currentActivity(), ".");
+			String[] activityArray = ((AndroidDriver<WebElement>) driver).currentActivity().split(".");
 
 			return activityArray[activityArray.length - 1];
 		} else return driver.getCurrentUrl();
@@ -673,12 +886,12 @@ public class DriverHelper {
 	}
 
 	public List<WebElement> getElementChildren(By element) {
-		logger.trace("[BEGIN] - getElementChildren");
+		logger.begin();
 		waitForElementToBePresent(element);
 
 		List<WebElement> elements = driver.findElement(element).findElements(By.xpath("*"));
 
-		logger.trace("[END] - getElementChildren");
+		logger.end();
 
 		return elements;
 	}
@@ -702,6 +915,7 @@ public class DriverHelper {
 		return positionList;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public WebElement getElement(By by) {
 		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
 			@SuppressWarnings("unchecked")
@@ -724,9 +938,9 @@ public class DriverHelper {
 				for(int i = 0; i < 10 && (el == null || !el.isDisplayed()); i++) {
 					Dimension windowSize = appDriver.manage().window().getSize();
 
-					new TouchAction(appDriver).press((int) (windowSize.width / 2), (int) (windowSize.height * 0.7))
-						.waitAction(Duration.ofMillis(800))
-						.moveTo((int) (windowSize.width / 2), (int) (windowSize.height * 0.3))
+					new TouchAction(appDriver).press(PointOption.point((int) (windowSize.width / 2), (int) (windowSize.height * 0.7)))
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(800)))
+						.moveTo(PointOption.point((int) (windowSize.width / 2), (int) (windowSize.height * 0.3)))
 						.release().perform();
 
 					try {
@@ -756,8 +970,7 @@ public class DriverHelper {
 		try {
 			((JavascriptExecutor) driver).executeScript("arguments[0].remove()", driver.findElement(by));
 		} catch(Exception e) {
-			debugError("Error removing element");
-			throw e;
+			logger.error("Error removing element");
 		}
 	}
 
@@ -780,7 +993,7 @@ public class DriverHelper {
 			String auxStyle = attribute.substring(attribute.indexOf(key));
 
 			boolean inValue = false;
-			for(int i = auxStyle.indexOf(":") + 1; i < auxStyle.length(); i++) {
+			for(int i = auxStyle.indexOf(':') + 1; i < auxStyle.length(); i++) {
 				if(!inValue && auxStyle.charAt(i) != ' ') {
 					inValue = true;
 				} else if(inValue && (i + 1 == auxStyle.length() || auxStyle.charAt(i) == ';' || auxStyle.charAt(i) == ' ')) {
@@ -800,9 +1013,7 @@ public class DriverHelper {
 	}
 
 	public String executeJavaScript(String script) {
-		String value = ((JavascriptExecutor) driver).executeScript(script) + "";
-
-		return value;
+		return ((JavascriptExecutor) driver).executeScript(script) + "";
 	}
 
 	public String getSource() {
@@ -814,47 +1025,10 @@ public class DriverHelper {
 
 		for(int i = 0; i < list.size(); i++) {
 			String className = list.get(i).getAttribute("class").equals("") ? "" : "class='" + list.get(i).getAttribute("class") + "'";
-			String id = list.get(i).getAttribute("id").equals("") ? "" : "id='" + list.get(i).getAttribute("id") + "'";
-			System.out.println(list.get(i).getTagName() + " " + className + " " + id);
+			String elementId = list.get(i).getAttribute("id").equals("") ? "" : "id='" + list.get(i).getAttribute("id") + "'";
+			
+			logger.info(list.get(i).getTagName() + " " + className + " " + elementId);
 		}
-	}
-
-	public void setMaximize(boolean value) {
-		this.maximize = value;
-	}
-
-	public void setWaitForAngular(boolean value) {
-		this.waitForAngular = value;
-	}
-
-	public void setWaitForJQuery(boolean value) {
-		this.waitForJQuery = value;
-	}
-
-	public void setShowConsoleLog(boolean value) {
-		this.showConsoleLog = value;
-	}
-
-	private void setTimeouts() {
-		setImplicitWait(implicitTimeout);
-		setScriptWait(scriptTimeout);
-		setPageLoadWait(pageLoadTimeout);
-	}
-
-	private void setTimeouts(int timeOut) {
-		try {
-			if(driver != null) driver.manage().timeouts().implicitlyWait(timeOut, TimeUnit.SECONDS);
-		} catch(WebDriverException e) {
-			debugError("Exception  set implicit timeout" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
-		}
-
-		try {
-			if(driver != null) driver.manage().timeouts().setScriptTimeout(timeOut, TimeUnit.SECONDS);
-		} catch(WebDriverException e) {}
-
-		try {
-			if(driver != null) driver.manage().timeouts().pageLoadTimeout(timeOut, TimeUnit.SECONDS);
-		} catch(WebDriverException e) {}
 	}
 
 	public void go(String url) {
@@ -867,21 +1041,33 @@ public class DriverHelper {
 	}
 
 	public void refresh() {
+		logger.begin();
 		driver.navigate().refresh();
+		waitForLoadToComplete();
+		logger.end();
 	}
 
 	public void forward() {
+		logger.begin();
 		driver.navigate().forward();
+		waitForLoadToComplete();
+		logger.end();
 	}
 
 	public void back() {
+		logger.begin();
 		driver.navigate().back();
+		waitForLoadToComplete();
+		logger.end();
 	}
 	// endregion
 
 	public WebElement selectClickableElement(By by) {
+		logger.begin();
+
+		WebElement el = null;
+
 		if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
-			WebElement el = null;
 			List<WebElement> els = driver.findElements(by);
 
 			if(els.size() == 0) {
@@ -896,11 +1082,13 @@ public class DriverHelper {
 					}
 				}
 			}
-
-			return el;
 		} else {
-			return getElement(by);
+			el = getElement(by);
 		}
+
+		logger.end();
+
+		return el;
 	}
 
 	// region Clicks
@@ -909,7 +1097,7 @@ public class DriverHelper {
 	}
 
 	public void click(WebElement element) {
-		logger.trace("[BEGIN] - click");
+		logger.begin();
 
 		if(browserType != null && (browserType.equals(BrowserType.INTERNET_EXPLORER) || browserType.equals(BrowserType.SAFARI))) {
 			try {
@@ -923,21 +1111,21 @@ public class DriverHelper {
 
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
-		logger.trace("[END] - click");
+		logger.end();
 	}
 
 	public void dispatchEvent(By by, String event) {
-		dispatchEvent(waitForElementToBeClickable(by), event);
+		dispatchEvent(waitForElementToBePresent(by), event);
 	}
 
 	public void dispatchEvent(WebElement element, String event) {
-		logger.trace("[BEGIN] - dispatchEvent: " + event);
+		logger.begin();
 
 		((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('" + event + "', {bubbles:true}));", element);
 
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
-		logger.trace("[END] - dispatchEvent");
+		logger.end();
 	}
 
 	public void triggerAngularEvent(By by, String event) {
@@ -945,13 +1133,13 @@ public class DriverHelper {
 	}
 
 	public void triggerAngularEvent(WebElement element, String event) {
-		logger.trace("[BEGIN] - dispatchEvent: " + event);
+		logger.begin();
 
 		((JavascriptExecutor) driver).executeScript("angular.element(arguments[0]).triggerHandler('" + event + "');", element);
 
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
-		logger.trace("[END] - dispatchEvent");
+		logger.end();
 	}
 
 	public void clickInFrame(By by, By frame) {
@@ -960,24 +1148,42 @@ public class DriverHelper {
 		exitFrame();
 	}
 
+	@SuppressWarnings("rawtypes")
+	public void clickOnCoordinates(int xCor, int yCor) {
+		logger.begin();
+
+		if(driverType != null && driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+
+			new TouchAction(appDriver).press(PointOption.point(xCor, yCor)).release().perform();
+		} else if(driverType != null && !driverType.equals(AutomationConstants.MOBILE_APP)) {
+			new Actions(driver).moveByOffset(xCor, yCor).click().perform();
+		}
+
+		logger.end();
+	}
+
 	public void clickRelativePosition(By by, double xPer, double yPer) {
 		clickRelativePosition(driver.findElement(by), xPer, yPer);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void clickRelativePosition(WebElement el, double xPer, double yPer) {
-		logger.trace("[BEGIN] - clickRelativePosition");
+		logger.begin();
 		waitForElementToBeClickable(el);
 
-
-		if(driverType == null && driverType.equals(AutomationConstants.MOBILE_APP)) {
+		if(driverType != null && driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
 			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
-			Dimension size = el.getSize();
+			Rectangle rect = el.getRect();
 
-			new TouchAction(appDriver).press(el, (int) (size.width * xPer), (int) (size.height * yPer)).release().perform();
+			new TouchAction(appDriver).press(PointOption.point((int) (rect.width * xPer) + rect.x, (int) (rect.height * yPer) + rect.y)).release().perform();
 		} else if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
 			Dimension size = el.getSize();
 
-			new Actions(driver).moveToElement(el).moveByOffset((int) ((-size.width / 2) + size.width * yPer), (int) ((-size.height / 2) + size.height * yPer)).click().perform();
+			new Actions(driver).moveToElement(el).moveByOffset((int) (((double) -size.width / 2) + size.width * yPer), 
+				(int) (((double) -size.height / 2) + size.height * yPer)).click().perform();
 		} else {
 			try {
 				((JavascriptExecutor) driver).executeScript("document.elementFromPoint("
@@ -987,7 +1193,7 @@ public class DriverHelper {
 				try {
 					new Actions(driver).moveToElement(el).click().perform();
 				} catch(Exception e1) {
-					System.out.println("Element not found");
+					logger.error("Element not found");
 					e.printStackTrace();
 
 					throw e;
@@ -998,7 +1204,7 @@ public class DriverHelper {
 
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
-		logger.trace("[END] - clickRelativePosition");
+		logger.end();
 	}
 
 	public void clickOver(By by) {
@@ -1006,7 +1212,8 @@ public class DriverHelper {
 	}
 
 	public void clickOver(WebElement el) {
-		logger.trace("[BEGIN] - clickOver");
+		logger.begin();
+
 		waitForElementToBeClickable(el);
 
 		if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
@@ -1020,7 +1227,7 @@ public class DriverHelper {
 				try {
 					new Actions(driver).moveToElement(el).click().perform();
 				} catch(Exception e1) {
-					debugInfo("Element not found");
+					logger.info("Element not found");
 					e.printStackTrace();
 
 					throw e;
@@ -1030,7 +1237,7 @@ public class DriverHelper {
 
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
-		logger.trace("[END] - clickOver");
+		logger.end();
 	}
 
 	public void doubleClick(By by) {
@@ -1038,13 +1245,14 @@ public class DriverHelper {
 	}
 
 	public void doubleClick(WebElement element) {
-		logger.trace("[BEGIN] - doubleClick");
+		logger.begin();
 
 		waitForElementToBeClickable(element);
 		new Actions(driver).moveToElement(element).doubleClick().perform();
 
+		waitForLoadToComplete();
 		takeScreenshotWithCondition();
-		logger.trace("[END] - doubleClick");
+		logger.end();
 	}
 
 	public void doubleClickInFrame(By by, By frame) {
@@ -1060,7 +1268,7 @@ public class DriverHelper {
 		new Actions(driver).moveToElement(element).moveByOffset((int) (-size.width * 0.4), 0).clickAndHold().pause(2500)
 			.moveByOffset((int) (size.width * 0.8), 0).pause(1000).release().perform();
 
-		waitForPageToLoad();
+		waitForLoadToComplete();
 	}
 
 	public void swipeLeft(By by) {
@@ -1070,46 +1278,126 @@ public class DriverHelper {
 		new Actions(driver).moveToElement(element).moveByOffset((int) (size.width * 0.4), 0).clickAndHold().pause(2500)
 			.moveByOffset((int) (-size.width * 0.8), 0).pause(1000).release().perform();
 
-		waitForPageToLoad();
+		waitForLoadToComplete();
 	}
 
-	public void swipeDown(By by) {
-		double distance = 0.5;
+	@SuppressWarnings("rawtypes")
+	public void swipeDown(double percentage) {
+		if(percentage < 0.3) {
+			percentage = 0.4;
+		} else if(percentage > 1) {
+			percentage = 1;
+		}
 
-		if(driverType == null && driverType.equals(AutomationConstants.MOBILE_APP)) {
+		if(driverType != null && driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+			Dimension size = driver.manage().window().getSize();
+
+			logger.info("Scrolling from point " + (size.getHeight() * 0.3) + " to " + (size.getHeight() * percentage));
+			new TouchAction(appDriver).press(PointOption.point((size.getWidth() / 2), (int) (size.getHeight() * 0.3)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+				.moveTo(PointOption.point((size.getWidth() / 2), (int) (size.getHeight() * percentage)))
+				.release().perform();
+		} else {
+			Dimension size = driver.manage().window().getSize();
+
+			new Actions(driver).moveByOffset(0, (int) (-size.height * 0.3)).clickAndHold().pause(2500)
+				.moveByOffset(0, (int) (size.height * percentage)).pause(1000).release().perform();
+		}
+
+		waitForLoadToComplete();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void swipeDown(By by) {
+		if(driverType != null && driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
 			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
 			WebElement element = driver.findElement(by);
-			Dimension size = element.getSize();
+			Rectangle rect = element.getRect();
 
-			new TouchAction(appDriver).press(element, (int) (size.width / 2), (int) (size.height * 0.1))
-				.waitAction(Duration.ofMillis(100))
-				.moveTo(element, (int) (size.width / 2), (int) (-size.height * distance)).release().perform();
+			new TouchAction(appDriver).press(PointOption.point((rect.getX() + rect.getWidth() / 2), (int) (rect.getY() + (rect.getHeight() * 0.3))))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+				.moveTo(PointOption.point((rect.getX() + rect.getWidth() / 2), (int) (rect.getY() + (rect.getHeight() * 0.8))))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
+				.release().perform();
 
 		} else {
 			WebElement element = waitForElementToBeClickable(by);
 			Dimension size = element.getSize();
 
 			new Actions(driver).moveToElement(element).moveByOffset(0, (int) (-size.height * 0.4)).clickAndHold().pause(2500)
-				.moveByOffset(0, (int) (size.height * distance)).pause(1000).release().perform();
+				.moveByOffset(0, (int) (size.height * 0.1)).pause(1000).release().perform();
 		}
 
 		waitForLoadToComplete();
 	}
 
-	public void swipeUp(By by) {
-		double distance = 0.5;
+	@SuppressWarnings("rawtypes")
+	public void swipeDown() {
+		if(driverType != null || driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+			Dimension size = driver.manage().window().getSize();
 
+			logger.info("Scrolling from point " + (size.getHeight() * 0.3) + " to " + (size.getHeight() * 0.8));
+			new TouchAction(appDriver).press(PointOption.point((size.getWidth() / 2), (int) (size.getHeight() * 0.3)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+				.moveTo(PointOption.point((size.getWidth() / 2), (int) (size.getHeight() * 0.8)))
+				.release().perform();
+
+		} else {
+			Dimension size = driver.manage().window().getSize();
+
+			new Actions(driver).moveByOffset(0, (int) (-size.height * 0.4)).clickAndHold().pause(2500)
+				.moveByOffset(0, (int) (size.height * 0.5)).pause(1000).release().perform();
+		}
+
+		waitForLoadToComplete();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void swipeUp(double percentage) {
+		if(percentage < 0.3) {
+			percentage = 0.4;
+		} else if(percentage > 1) {
+			percentage = 1;
+		}
+
+		if(driverType != null && driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+			Dimension size = driver.manage().window().getSize();
+
+			logger.info("Scrolling from point " + (size.getHeight() * percentage) + " to " + (size.getHeight() * 0.3));
+			new TouchAction(appDriver).press(PointOption.point((size.getWidth() / 2), (int) (size.getHeight() * percentage)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+				.moveTo(PointOption.point((size.getWidth() / 2), (int) (size.getHeight() * 0.3)))
+				.release().perform();
+		} else {
+			Dimension size = driver.manage().window().getSize();
+
+			new Actions(driver).moveByOffset(0, (int) (-size.height * 0.3)).clickAndHold().pause(2500)
+				.moveByOffset(0, (int) (size.height * percentage)).pause(1000).release().perform();
+		}
+
+		waitForLoadToComplete();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void swipeUp(By by) {
 		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
 			WebElement element = driver.findElement(by);
 
+			@SuppressWarnings("unchecked")
 			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
-			Dimension size = element.getSize();
+			Rectangle rect = element.getRect();
 
-			new TouchAction(appDriver).press(element, (int) (size.getWidth() / 2), (int) (size.getHeight() * 0.1))
-				.waitAction(Duration.ofMillis(100))
-				.moveTo(element, (int) (size.getWidth() / 2), (int) (size.getHeight() * distance)).release().perform()
-				.waitAction(Duration.ofMillis(100)).press((int) (size.getWidth() / 2), (int) (size.getHeight() * 0.1))
-				.waitAction(Duration.ofMillis(100)).release();
+			new TouchAction(appDriver).press(PointOption.point((rect.getX() + rect.getWidth() / 2), (int) (rect.getY() + rect.getHeight() * 0.8)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+				.moveTo(PointOption.point((rect.getX() + rect.getWidth() / 2), (int) (rect.getY() + rect.getHeight() * 0.3)))
+				.release().perform();
 
 		} else {
 			WebElement element = waitForElementToBeClickable(by);
@@ -1117,7 +1405,31 @@ public class DriverHelper {
 			Dimension size = element.getSize();
 
 			new Actions(driver).moveToElement(element).moveByOffset(0, (int) (size.height * 0.4)).clickAndHold().pause(2500)
-				.moveByOffset(0, (int) (-size.height * distance)).pause(1000).release().perform();
+				.moveByOffset(0, (int) (-size.height * 0.5)).pause(1000).release().perform();
+		}
+
+		waitForLoadToComplete();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void swipeUp() {
+		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+			Dimension size = this.getDriver().manage().window().getSize();
+
+			new TouchAction(appDriver).press(PointOption.point((size.getWidth() / 2), (int) (size.getHeight() * 0.8)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+				.moveTo(PointOption.point((size.getWidth() / 2), (int) (size.getHeight() * 0.3)))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
+				.release().perform();
+
+		} else {
+
+			Dimension size = this.getDriver().manage().window().getSize();
+
+			new Actions(driver).moveByOffset(0, (int) (size.height * 0.4)).clickAndHold().pause(2500)
+				.moveByOffset(0, (int) (-size.height * 0.5)).pause(1000).release().perform();
 		}
 
 		waitForLoadToComplete();
@@ -1128,9 +1440,7 @@ public class DriverHelper {
 	public String getText(By by) {
 		waitForLoadToComplete();
 
-		String text = getText(driver.findElement(by));
-
-		return text;
+		return getText(driver.findElement(by));
 	}
 
 	public String getTextInFrame(By by, By frame) {
@@ -1144,7 +1454,7 @@ public class DriverHelper {
 	}
 
 	public String getText(WebElement webElement) {
-		logger.trace("[BEGIN] - getText");
+		logger.begin();
 		waitForLoadToComplete();
 
 		String text = webElement.getText();
@@ -1157,17 +1467,20 @@ public class DriverHelper {
 			}
 		}
 
-		logger.trace("[END] - getText");
+		logger.end();
+
 		return text;
 	}
 
 	public void clickElementFromDropDownByText(By dropDown, String value) {
-		logger.trace("[BEGIN] - clickElementFromDropDownByText");
+		logger.begin();
 		waitForElementToBeClickable(dropDown);
+
 		Select select = new Select(driver.findElement(dropDown));
 		select.selectByVisibleText(value);
+
 		waitForLoadToComplete();
-		logger.trace("[END] - clickElementFromDropDownByText");
+		logger.end();
 	}
 
 	public void clickElementFromDropDownByTextInFrame(By dropDown, By frame, String value) {
@@ -1177,13 +1490,13 @@ public class DriverHelper {
 	}
 
 	public void clickElementFromDropDownByAttribute(By elementToClick, By elementList, String attribute, String value) {
-		logger.trace("[BEGIN] - clickElementFromDropDownByAttribute");
+		logger.begin();
 		waitForElementToBeClickable(elementToClick).click();
 
 		clickElementFromListByAttribute(elementList, attribute, value);
 
 		waitForLoadToComplete();
-		logger.trace("[END] - clickElementFromDropDownByAttribute");
+		logger.end();
 	}
 
 	public void clickElementFromDropDownByAttribute(By containingElement, String attribute, String value) {
@@ -1191,23 +1504,25 @@ public class DriverHelper {
 	}
 
 	public void clickElementFromListByAttribute(By elementList, String attribute, String value) {
-		logger.trace("[BEGIN] - clickElementFromListByAttribute");
+		logger.begin();
 		WebElement el = getElementFromListByAttribute(elementList, attribute, value);
 
 		if(el != null) el.click();
 		else {
-			logger.debug("[INFO] No child elements found on " + elementList);
+			logger.info("No child elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
-		logger.trace("[END] - clickElementFromListByAttribute");
+		logger.end();
 	}
 
 	public WebElement getElementFromListByAttribute(By elementList, String attribute, String value) {
-		logger.trace("[BEGIN] - getElementFromListByAttribute");
+		logger.begin();
 		waitForElementToBeClickable(elementList);
+
 		WebElement webElement = driver.findElement(elementList).findElement(By.cssSelector("[" + attribute + "='" + value + "']"));
-		logger.trace("[END] - getElementFromListByAttribute");
+
+		logger.end();
 
 		return webElement;
 	}
@@ -1234,106 +1549,128 @@ public class DriverHelper {
 	}
 
 	public void clickElementChildByIndex(By elementList, int index) {
-		logger.trace("[BEGIN] - clickElementChildByIndex");
+		logger.begin();
 		WebElement el = getElementChildByIndex(elementList, index);
 
 		if(el != null) el.click();
 		else {
-			debugInfo("No child elements found on " + elementList);
+			logger.info("No child elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
-		logger.trace("[END] - clickElementChildByIndex");
+		logger.end();
 	}
 
 	public WebElement getElementChildByIndex(By elementList, int index) {
-		logger.trace("[BEGIN] - getElementChildByIndex");
+		logger.begin();
 		waitForElementToBeClickable(elementList);
+
+		WebElement webElement = null;
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.xpath("*"));
-		WebElement webElement = elements.size() > 0 ? index >= 0 ? elements.get(index) : elements.get(elements.size() + index) : null;
-		logger.trace("[END] - getElementChildByIndex");
+		
+		if(elements.isEmpty() && index >= 0) {
+			webElement = elements.get(index);
+		} else if(elements.isEmpty() && index < 0) {
+			webElement = elements.get(elements.size() + index);
+		}
+
+		logger.end();
 
 		return webElement;
 	}
 
 	public void clickElementChildByText(By elementList, String text) {
-		logger.trace("[BEGIN] - clickElementChildByText");
+		logger.begin();
+
 		WebElement el = getElementChildByText(elementList, text);
 
 		if(el != null) el.click();
 		else {
-			debugInfo("No child elements found on " + elementList);
+			logger.info("No child elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
-		logger.trace("[END] - clickElementChildByText");
+		logger.end();
 	}
 
 	public WebElement getElementChildByText(By elementList, String text) {
-		logger.trace("[BEGIN] - getElementChildByText");
+		logger.begin();
 		waitForElementToBeClickable(elementList);
+
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.xpath("*[contains(text(), '" + text + "')]"));
-		WebElement webElement = elements.size() > 0 ? elements.get(0) : null;
-		logger.trace("[END] - getElementChildByText");
+		WebElement webElement = elements.isEmpty() ? elements.get(0) : null;
+
+		logger.end();
 
 		return webElement;
 	}
 
 	public void clickElementChildByAttribute(By elementList, String attribute, String value) {
-		logger.trace("[BEGIN] - clickElementChildByAttribute");
+		logger.begin();
+
 		WebElement el = getElementChildByAttribute(elementList, attribute, value);
 
 		if(el != null) el.click();
 		else {
-			debugInfo("No child elements found on " + elementList);
+			logger.info("No child elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
-		logger.trace("[END] - clickElementChildByAttribute");
+		logger.end();
 	}
 
 	public WebElement getElementChildByAttribute(By elementList, String attribute, String value) {
-		logger.trace("[BEGIN] - getElementChildByAttribute");
+		logger.begin();
 		waitForElementToBeClickable(elementList);
+
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.cssSelector("[" + attribute + "='" + value + "']"));
-		WebElement webElement = elements.size() > 0 ? elements.get(0) : null;
-		logger.trace("[END] - getElementChildByAttribute");
+		WebElement webElement = elements.isEmpty() ? elements.get(0) : null;
+
+		logger.end();
 
 		return webElement;
 	}
 
 	public void clickElementFromCollectionByIndex(By elementList, int index) {
-		logger.trace("[BEGIN] - clickElementFromCollectionByIndex");
+		logger.begin();
+
 		WebElement el = getElementFromCollectionByIndex(elementList, index);
 
 		if(el != null) el.click();
 		else {
-			debugInfo("No elements found on " + elementList);
+			logger.info("No elements found on " + elementList);
 		}
 
 		waitForLoadToComplete();
-		logger.trace("[END] - clickElementFromCollectionByIndex");
+		logger.end();
 	}
 
 	public WebElement getElementFromCollectionByIndex(By elementList, int index) {
-		logger.trace("[BEGIN] - getElementFromCollectionByIndex");
+		logger.begin();
 		waitForElementToBeClickable(elementList);
 
+		WebElement webElement = null;
 		List<WebElement> elements = driver.findElements(elementList);
-		WebElement webElement = elements.size() > 0 ? index >= 0 ? elements.get(index) : elements.get(elements.size() + index) : null;
-		logger.trace("[END] - getElementFromCollectionByIndex");
+		
+		if(elements.isEmpty() && index >= 0) {
+			webElement = elements.get(index);
+		} else if(elements.isEmpty() && index < 0) {
+			webElement = elements.get(elements.size() + index);
+		}
+
+		logger.end();
 
 		return webElement;
 	}
 
 	public void clearText(By by) {
-		logger.trace("[BEGIN] - clearText");
+		logger.begin();
 		WebElement el = waitForElementToBeClickable(by);
 
 		el.clear();
 
 		waitForLoadToComplete();
-		logger.trace("[END] - clearText");
+		logger.end();
 	}
 
 	public void clearTextInFrame(By by, By frame) {
@@ -1342,26 +1679,55 @@ public class DriverHelper {
 		exitFrame();
 	}
 
+	public void pressMultipleKeys(String[] keysArray) {
+		if(keysArray != null && keysArray.length == 0) {
+			try {
+				Robot robot = new Robot();
+
+				for(String key : keysArray) {
+					if(key != null) robot.keyPress((int) key.charAt(0));
+				}
+			} catch(AWTException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void releaseMultipleKeys(String[] keysArray) {
+		if(keysArray != null && keysArray.length == 0) {
+			try {
+				Robot robot = new Robot();
+
+				for(String key : keysArray) {
+					if(key != null) robot.keyRelease((int) key.charAt(0));
+				}
+			} catch(AWTException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void sendMultipleKeys(String[] keysArray) {
+		pressMultipleKeys(keysArray);
+
+		releaseMultipleKeys(keysArray);
+	}
+
 	public void setText(By by, String text) {
 		waitForLoadToComplete();
-
-		if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
-			click(by);
-		}
 
 		clearText(by);
 		appendText(by, text);
 	}
 
 	public void appendText(By by, String text) {
-		logger.trace("[BEGIN] - appendText");
-		WebElement el = waitForElementToBeClickable(by);
+		logger.begin();
 
+		WebElement el = waitForElementToBeClickable(by);
 		el.sendKeys(text);
 
 		waitForLoadToComplete();
-
-		logger.trace("[END] - appendText");
+		logger.end();
 	}
 
 	public void appendTextInFrame(By by, By frame, String text) {
@@ -1371,10 +1737,12 @@ public class DriverHelper {
 	}
 
 	public void clearAndAppendText(By by, String text) {
-		logger.trace("[BEGIN] - appendText");
+		logger.begin();
+
 		clearText(by);
 		appendText(by, text);
-		logger.trace("[END] - appendText");
+
+		logger.end();
 	}
 
 	public void clearAndAppendTextInFrame(By by, By frame, String text) {
@@ -1384,18 +1752,20 @@ public class DriverHelper {
 	}
 
 	public void setTextIfEmpty(By by, String text) {
-		logger.trace("[INFO] - Checking if element text is empty");
+		logger.info("Checking if element text is empty");
 		if(getText(by).isEmpty()) {
 			setText(by, text);
+		} else {
+			logger.info("Element text is not empty");
 		}
 	}
 
 	public void setTextIfDifferent(By by, String text) {
-		logger.trace("[INFO] - Checking if element contains the same text");
+		logger.info("Checking if element contains the same text");
 		if(!getAttribute(by, "value").equals(text)) {
 			clearText(by);
 			appendText(by, text);
-		} else logger.trace("[END] - Text is the same");
+		} else logger.info("Text is the same");
 	}
 
 	public void setTextInFrame(By by, By frame, String value) {
@@ -1419,7 +1789,7 @@ public class DriverHelper {
 	}
 
 	public void moveToElement(WebElement element) {
-		logger.trace("[BEGIN] - moveToElement");
+		logger.begin();
 
 		if(!driverType.equals(AutomationConstants.MOBILE_APP) && browserType != null && browserType.equals(BrowserType.FIREFOX)) {
 			((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new Event('mouseover', {bubbles:true}));", element);
@@ -1428,11 +1798,11 @@ public class DriverHelper {
 		}
 
 		waitForLoadToComplete();
-		logger.trace("[END] - moveToElement");
+		logger.end();
 	}
 
 	public void moveOverElement(By by) {
-		logger.trace("[BEGIN] - moveOverElement");
+		logger.begin();
 
 		if(!driverType.equals(AutomationConstants.MOBILE_APP) && browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
 			new Actions(driver).moveToElement(driver.findElement(by)).perform();
@@ -1441,7 +1811,7 @@ public class DriverHelper {
 		}
 
 		waitForLoadToComplete();
-		logger.trace("[END] - moveOverElement");
+		logger.end();
 	}
 	// endregion
 
@@ -1452,28 +1822,27 @@ public class DriverHelper {
 			AppiumDriver<WebElement> appDriver = ((AppiumDriver<WebElement>) driver);
 			appDriver.switchTo().frame(driver.findElement(by));
 		} else {
-			logger.trace("[INFO] - switchToFrame");
 			driver.switchTo().frame(driver.findElement(by));
 		}
 	}
 
 	public void switchToParentFrame() {
-		logger.trace("[INFO] - switchToFrame");
 		driver.switchTo().parentFrame();
 	}
 
 	public void exitFrame() {
-		logger.trace("[INFO] - exitFrame");
 		driver.switchTo().defaultContent();
 	}
 	// endregion
 
 	// region Focus
 	public void tabulateElement(By by) {
-		logger.trace("[BEGIN] - tabulateElement");
+		logger.begin();
 		waitForElementToBeClickable(by);
+
 		driver.findElement(by).sendKeys(Keys.TAB);
-		logger.trace("[END] - tabulateElement");
+
+		logger.end();
 	}
 
 	public void tabulateElementInFrame(By by, By frame) {
@@ -1485,62 +1854,115 @@ public class DriverHelper {
 
 	// region Scrolls
 	public void scrollPageDown() {
-		logger.trace("[BEGIN] - scrollPageDown");
+		logger.begin();
 		waitForLoadToComplete();
 
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(window.pageXOffset, window.pageYOffset + (window.innerHeight * 0.8));");
-		logger.trace("[END] - scrollPageDown");
-	}
 
-	public void scrollToTop() {
-		logger.trace("[BEGIN] - scrollToTop");
-		waitForLoadToComplete();
-
-		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
-			@SuppressWarnings("unchecked")
-			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
-
-			for(int i = 0; i < 5; i++) {
-				Dimension windowSize = appDriver.manage().window().getSize();
-
-				new TouchAction(appDriver).press((int) (windowSize.width / 2), (int) (windowSize.height * 0.1))
-					.waitAction(Duration.ofMillis(100))
-					.moveTo((int) (windowSize.width / 2), (int) (windowSize.height * 0.8)).release().perform();
-			}
-		} else {
-			((JavascriptExecutor) driver).executeScript("window.scrollTo(window.pageXOffset, 0);");
-		}
-
-		logger.trace("[END] - scrollToTop");
-
-	}
-
-	public void scrollToBottom() {
-		logger.trace("[BEGIN] - scrollToBottom");
-		waitForLoadToComplete();
-
-		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
-			@SuppressWarnings("unchecked")
-			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
-
-			for(int i = 0; i < 5; i++) {
-				Dimension windowSize = appDriver.manage().window().getSize();
-
-				new TouchAction(appDriver).press((int) (windowSize.width / 2), (int) (windowSize.height * 0.8))
-					.waitAction(Duration.ofMillis(100))
-					.moveTo((int) (windowSize.width / 2), 1).release()
-					.waitAction(Duration.ofMillis(150)).perform();
-			}
-		} else {
-			((JavascriptExecutor) driver).executeScript("window.scrollTo(window.pageXOffset, document.body.scrollHeight);");
-		}
-
-		logger.trace("[END] - scrollToBottom");
+		logger.end();
 	}
 
 	public void scrollNthPageDown(int numberOfPages) {
 		for(int i = 0; i < numberOfPages; i++) {
 			scrollPageDown();
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void scrollToTop() {
+		logger.begin();
+		waitForLoadToComplete();
+
+		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+
+			for(int i = 0; i < 5; i++) {
+				Dimension windowSize = appDriver.manage().window().getSize();
+
+				new TouchAction(appDriver).press(PointOption.point((int) (windowSize.width / 2), (int) (windowSize.height * 0.1)))
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(200)))
+					.moveTo(PointOption.point((int) (windowSize.width / 2), (int) (windowSize.height * 0.8))).release().perform();
+			}
+		} else {
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(window.pageXOffset, 0);");
+		}
+
+		logger.end();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void scrollToBottom() {
+		logger.begin();
+		waitForLoadToComplete();
+
+		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+
+			for(int i = 0; i < 5; i++) {
+				Dimension windowSize = appDriver.manage().window().getSize();
+
+				new TouchAction(appDriver).press(PointOption.point((int) (windowSize.width / 2), (int) (windowSize.height * 0.8)))
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100)))
+					.moveTo(PointOption.point((int) (windowSize.width / 2), 1)).release()
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(150))).perform();
+			}
+		} else {
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(window.pageXOffset, document.body.scrollHeight);");
+		}
+
+		logger.end();
+	}
+
+	public void scrollToRightLimit() {
+		logger.begin();
+		waitForLoadToComplete();
+
+		if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(document.body.scrollWidth, window.pageYOffset);");
+		}
+
+		logger.end();
+	}
+
+	public void scrollToLeftLimit() {
+		logger.begin();
+		waitForLoadToComplete();
+
+		if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(0, window.pageYOffset);");
+		}
+
+		logger.end();
+	}
+
+	/**
+	 * Scrolls inside an element enough pixels to make sure that a child element is visible.
+	 *
+	 * @param scroll
+	 *            the element that will be scrolled
+	 * @param el
+	 *            the element that we want to be visible
+	 * @param extraScroll
+	 *            extra pixels that will be scrolled
+	 */
+	public void scrollToElementInsideParent(By scroll, By el, int extraScroll) {
+		WebElement parentWE = driver.findElement(scroll);
+		WebElement elementWE = driver.findElement(el);
+
+		int parentHeight = parentWE.getSize().height;
+		int parentTop = parentWE.getLocation().y;
+		int elementHeight = elementWE.getSize().height;
+		int elementTop = elementWE.getLocation().y;
+
+		int scrolledPixels = (((elementTop + elementHeight) - parentTop) - parentHeight) + extraScroll;
+
+		if(scrolledPixels > 0) {
+			logger.info("Scrolling to element (" + scrolledPixels + " pixels)");
+			((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop=" + scrolledPixels + ";", parentWE);
+		} else {
+			logger.info("No need to scroll the element. It's already visible.");
 		}
 	}
 
@@ -1556,6 +1978,10 @@ public class DriverHelper {
 		scrollToElement(el, false);
 	}
 
+	public void scrollToElement(By by, boolean complete) {
+		scrollToElement(driver.findElement(by), complete);
+	}
+
 	public void scrollToElement(WebElement el, boolean complete) {
 		try {
 			if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
@@ -1567,7 +1993,7 @@ public class DriverHelper {
 			throw e;
 		} catch(Exception e) {
 			e.printStackTrace();
-			logger.trace("Exception in function scrollToWebElement WebElement", e);
+			logger.error("Exception found: " + e.getMessage());
 		}
 	}
 	// endregion
@@ -1582,20 +2008,22 @@ public class DriverHelper {
 	}
 
 	public void waitForElementToBeClickableAndClick(By by) {
-		logger.trace("[BEGIN] - waitForElementToBeClickableAndClick");
+		logger.begin();
 		waitForElementToBeClickable(by);
 
 		click(by);
 
 		waitForLoadToComplete();
-
-		logger.trace("[END] - waitForElementToBeClickableAndClick");
+		logger.end();
 	}
 
 	public void waitForLoadToComplete() {
+		logger.begin();
+
 		if(desktop && !driverType.equals(AutomationConstants.MOBILE_APP)) {
-			logger.trace("[BEGIN] - waitForLoadToComplete");
-			waitForPageToLoad();
+			if(waitForPage) {
+				waitForPageToLoad();
+			}
 
 			if(waitForAngular) {
 				waitForAngular();
@@ -1608,13 +2036,13 @@ public class DriverHelper {
 			if(showConsoleLog) {
 				addToLog();
 			}
-
-			logger.trace("[END] - waitForLoadToComplete");
 		}
+
+		logger.end();
 	}
 
 	public void waitForPageToLoad() {
-		logger.trace("[BEGIN] - waitForPageToLoad");
+		logger.begin();
 
 		try {
 			new WebDriverWait(driver, implicitTimeout)
@@ -1622,11 +2050,12 @@ public class DriverHelper {
 				.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript("return !document ? false : !document.readyState ? false : document.readyState;")));
 		} catch(JavascriptException e) {}
 
-		logger.trace("[END] - waitForPageToLoad");
+		logger.end();
 	}
 
 	public void waitForJQuery() {
-		logger.trace("[BEGIN] - waitForJQuery");
+		logger.begin();
+
 		try {
 			if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
 				new WebDriverWait(driver, implicitTimeout)
@@ -1636,52 +2065,127 @@ public class DriverHelper {
 			}
 		} catch(WebDriverException e) {
 			if(e.getMessage() == null || (e.getMessage() != null && !e.getMessage().contains("jQuery is not defined"))) {
-				System.out.println("[ERROR] (" + id + ") - Exception in wait for jQuery" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+				logger.error("Exception in wait for jQuery" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
 			}
 		}
 
-		logger.trace("[END] - waitForJQuery");
+		logger.end();
 	}
 
 	public void waitForAngular() {
-		logger.trace("[BEGIN] - waitForAngular");
+		logger.begin();
+
 		try {
 			if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
 				new WebDriverWait(driver, implicitTimeout)
 					.pollingEvery(Duration.ofMillis(500))
-					.until((ExpectedCondition<Boolean>) wd -> (((JavascriptExecutor) wd).executeScript("return !window.angular || (!!window.angular && !!angular.element(document).injector()"
+					.until((ExpectedCondition<Boolean>) wd -> (((JavascriptExecutor) wd).executeScript("return !window.angular"
+						+ " || (!!window.angular && !!angular.element(document).injector()"
 						+ " && angular.element(document).injector().get('$http').pendingRequests.length === 0);") + "").toString().equals("true"));
 			}
 		} catch(WebDriverException e) {
-			debugError("Exception in wait for angular" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+			logger.error("Exception in wait for angular" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
 		}
 
-		logger.trace("[END] - waitForAngular");
+		logger.end();
+	}
+
+	public void listenToAJAXRequest(String url) {
+		logger.begin();
+
+		((JavascriptExecutor) driver).executeScript("var origOpen = XMLHttpRequest.prototype.open;" +
+			"XMLHttpRequestComplete = false;" +
+			"XMLHttpRequest.prototype.open = function() {" +
+			"    if (this.resource.url.includes(\"" + url + "\")) {" +
+			"        XMLHttpRequestComplete = false;" +
+			"        this.addEventListener('load', function() {" +
+			"            XMLHttpRequestComplete = true;" +
+			"        });" +
+			"    }" +
+			"    origOpen.apply(this, arguments);" +
+			"};");
+
+		logger.end();
+	}
+
+	public boolean waitForAJAXRequest() {
+		logger.begin();
+		boolean ajaxComplete = false;
+
+		try {
+			new WebDriverWait(driver, implicitTimeout)
+				.pollingEvery(Duration.ofMillis(100))
+				.until((ExpectedCondition<Boolean>) wd -> (((JavascriptExecutor) wd).executeScript("return typeof(XMLHttpRequestComplete) != 'undefined' && XMLHttpRequestComplete").toString()
+					.equals("true")));
+
+			ajaxComplete = true;
+		} catch(Exception e) {
+			logger.error(e.getMessage());
+		}
+
+		logger.end();
+
+		return ajaxComplete;
+	}
+
+	@SuppressWarnings("unchecked")
+	public WebElement waitForElementToBePresent(By waitElement) {
+		logger.begin();
+		waitForLoadToComplete();
+		WebElement el = null;
+
+		if((browserType != null && browserType.equals(BrowserType.SAFARI))
+				|| (deviceEmulation && emulationBrowser.equals(BrowserType.SAFARI))) {
+			boolean isPresent = false;
+
+			long checkDuration = shortWait * 1000;
+
+			for(int i = 0; !isPresent && i < implicitTimeout * 1000; i += checkDuration) {
+				long initialTime = System.currentTimeMillis();
+				isPresent = isPresent(waitElement);
+				checkDuration = System.currentTimeMillis() - initialTime;
+			}
+			
+			if(isPresent) {
+				el = driver.findElement(waitElement);
+			}
+		} else {
+			el = new WebDriverWait(!driverType.equals(AutomationConstants.WEB) ? ((AndroidDriver<WebElement>) driver) : driver, implicitTimeout)
+				.pollingEvery(Duration.ofMillis(500))
+				.ignoring(WebDriverException.class)
+				.until(ExpectedConditions.presenceOfElementLocated(waitElement));
+		}
+
+		logger.end();
+
+		return el;
+	}
+
+	public WebElement waitForElementToBePresentInFrame(By waitElement, By frame) {
+		this.switchToFrame(frame);
+
+		WebElement el = waitForElementToBePresent(waitElement);
+
+		this.exitFrame();
+
+		return el;
 	}
 
 	public WebElement waitForElementToBeClickable(By waitElement) {
-		logger.trace("[BEGIN] - waitForElementToBeClickable");
+		logger.begin();
 
 		if(desktop && driverType.equals(AutomationConstants.WEB)) {
 			WebElement webElement = waitForElementToBePresent(waitElement);
 
-			Dimension windowSize = getWindowSize();
-			Dimension windowOffset = getWindowOffset();
-			Dimension elementSize = webElement.getSize();
-			Point elementLocation = webElement.getLocation();
-
-			if(!isClickable(waitElement) || ((elementLocation.x + elementSize.width < windowOffset.width
-				|| elementLocation.x > windowSize.width + windowOffset.width)
-				&& elementLocation.y + elementSize.height < windowOffset.height
-				|| elementLocation.y > windowSize.height + windowOffset.height)) {
-				scrollToElement(waitElement);
+			if(!isClickable(webElement) || !isOnScreen(webElement)) {
+				scrollToElement(webElement);
 			}
 
 			boolean isClickable = false;
 
-			long checkDuration = shortWait;
+			long checkDuration = shortWait * 1000;
 
-			for(int i = 0; !isClickable && i < implicitTimeout; i += checkDuration) {
+			for(int i = 0; !isClickable && i < implicitTimeout * 1000; i += checkDuration) {
 				long initialTime = System.currentTimeMillis();
 				isClickable = isClickable(waitElement);
 				checkDuration = System.currentTimeMillis() - initialTime;
@@ -1690,69 +2194,45 @@ public class DriverHelper {
 			scrollToElement(waitElement);
 		}
 
-		logger.trace("[END] - waitForElementToBeClickable");
+		logger.end();
 
 		return driver.findElement(waitElement);
 	}
 
 	public WebElement waitForElementToBeClickable(WebElement waitElement) {
-		logger.trace("[BEGIN] - waitForElementToBeClickable");
+		logger.begin();
 		waitForLoadToComplete();
 
 		boolean isClickable = false;
 
-		long checkDuration = shortWait;
+		long checkDuration = shortWait * 1000;
 
 		for(int i = 0; !isClickable && i < implicitTimeout; i += checkDuration) {
 			long initialTime = System.currentTimeMillis();
 			isClickable = isClickable(waitElement);
 			checkDuration = System.currentTimeMillis() - initialTime;
 		}
-		logger.trace("[END] - waitForElementToBeClickable");
+
+		logger.end();
 
 		return waitElement;
 	}
 
-	public WebElement waitForElementToBePresent(By waitElement) {
-		logger.trace("[BEGIN] - waitForElementToBePresent");
-		waitForLoadToComplete();
-
-		@SuppressWarnings("unchecked")
-		WebElement el = new WebDriverWait(!driverType.equals(AutomationConstants.WEB) ? ((AndroidDriver<WebElement>) driver) : driver, implicitTimeout)
-			.pollingEvery(Duration.ofMillis(500))
-			.until(ExpectedConditions.presenceOfElementLocated(waitElement));
-
-		logger.trace("[END] - waitForElementToBePresent");
-
-		return el;
-	}
-
-	public WebElement waitForElementToBePresentInFrame(By waitElement, By frame) {
-		logger.trace("[BEGIN] - waitForElementToBePresent");
-		this.switchToFrame(frame);
-		waitForLoadToComplete();
-
-		WebElement el = new WebDriverWait(driver, implicitTimeout)
-			.pollingEvery(Duration.ofMillis(500))
-			.until(ExpectedConditions.presenceOfElementLocated(waitElement));
-		this.exitFrame();
-
-		logger.trace("[END] - waitForElementToBePresent");
-
-		return el;
-	}
-
 	public boolean waitForElementNotToBeClickable(By waitElement) {
-		logger.trace("[BEGIN] - waitForElementNotToBeClickable");
+		logger.begin();
 		waitForLoadToComplete();
 
 		boolean isClickable = isClickable(waitElement);
 
-		for(int i = 0; isClickable && i < implicitTimeout; i += shortWait) {
+		long checkDuration = shortWait * 1000;
+
+		for(int i = 0; isClickable && i < implicitTimeout * 1000; i += checkDuration) {
+			long initialTime = System.currentTimeMillis();
 			isClickable = isClickable(waitElement);
+			checkDuration = System.currentTimeMillis() - initialTime;
 		}
 
-		logger.trace("[END] - waitForElementNotToBeClickable");
+		logger.end();
 
 		return isClickable;
 	}
@@ -1776,7 +2256,7 @@ public class DriverHelper {
 	}
 
 	public Dimension getWindowSize() {
-		Dimension size = new Dimension(0, 0);
+		Dimension size;
 
 		if(desktop) {
 			int width = Integer.parseInt(((JavascriptExecutor) driver).executeScript("return window.innerWidth;") + "");
@@ -1807,12 +2287,11 @@ public class DriverHelper {
 	}
 
 	public ArrayList<String> getCurrentLogs() {
-		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<String> list = new ArrayList<>();
 
 		if(browserType.equals(BrowserType.CHROME)) {
-			driver.manage().logs().get("browser").forEach(p -> {
-				list.add(p.getLevel().getName() + ": " + p.getMessage());
-			});
+			driver.manage().logs().get("browser").forEach(p -> 
+				list.add(p.getLevel().getName() + ": " + p.getMessage()));
 		}
 
 		return list;
@@ -1822,7 +2301,7 @@ public class DriverHelper {
 		ArrayList<String> list = getCurrentLogs();
 
 		if(browserType.equals(BrowserType.CHROME)) {
-			if(consoleLogs.size() > 0 && list.size() > 0) {
+			if(consoleLogs.isEmpty() && list.isEmpty()) {
 				int pos = 0;
 				boolean isEqual = false;
 				int maxSize = consoleLogs.size() < list.size() ? consoleLogs.size() : list.size();
@@ -1848,12 +2327,12 @@ public class DriverHelper {
 
 				for(int i = pos; i < list.size(); i++) {
 					consoleLogs.add(list.get(i));
-					System.out.println(list.get(i));
+					logger.info(list.get(i));
 				}
 			} else {
 				for(String log : list) {
 					consoleLogs.add(log);
-					System.out.println(log);
+					logger.info(log);
 				}
 			}
 		}
@@ -1880,7 +2359,10 @@ public class DriverHelper {
 			setTimeouts();
 
 			result = isOnScreen(el, percentage);
-		} catch(NoSuchElementException e) {} catch(TimeoutException e) {}
+		} catch(NoSuchElementException | TimeoutException e) {
+			logger.info("Error trying to find element of screen"
+				+ (e.getMessage() != null && !e.getMessage().isEmpty() ? ": " + e.getMessage() : ""));
+		}
 
 		return result;
 	}
@@ -1923,7 +2405,10 @@ public class DriverHelper {
 					result = true;
 				}
 			}
-		} catch(TimeoutException e) {} catch(NullPointerException e) {} catch(NoSuchElementException e) {} catch(StaleElementReferenceException e) {}
+		} catch(TimeoutException | NullPointerException | NoSuchElementException | StaleElementReferenceException e) {
+			logger.info("Error trying to find element of screen"
+				+ (e.getMessage() != null && !e.getMessage().isEmpty() ? ": " + e.getMessage() : ""));
+		}
 
 		return result;
 	}
@@ -1941,7 +2426,10 @@ public class DriverHelper {
 			setTimeouts();
 
 			result = isClickable(el);
-		} catch(NoSuchElementException e) {} catch(TimeoutException e) {}
+		} catch(WebDriverException e) {
+			logger.info("Error trying to find if element is clickable"
+				+ (e.getMessage() != null && !e.getMessage().isEmpty() ? ": " + e.getMessage() : ""));
+		}
 
 		setTimeouts();
 		return result;
@@ -1959,7 +2447,10 @@ public class DriverHelper {
 				.until(ExpectedConditions.elementToBeClickable(webElement));
 
 			result = true;
-		} catch(TimeoutException e) {} catch(NullPointerException e) {} catch(NoSuchElementException e) {} catch(StaleElementReferenceException e) {}
+		} catch(TimeoutException | NullPointerException | NoSuchElementException | StaleElementReferenceException e) {
+			logger.info("Error trying to find if element is clickable"
+				+ (e.getMessage() != null && !e.getMessage().isEmpty() ? ": " + e.getMessage() : ""));
+		}
 
 		setTimeouts();
 		return result;
@@ -1977,7 +2468,9 @@ public class DriverHelper {
 				.until(ExpectedConditions.presenceOfElementLocated(by));
 
 			result = true;
-		} catch(TimeoutException e) {} catch(NullPointerException e) {} catch(NoSuchElementException e) {} catch(StaleElementReferenceException e) {} catch(ElementNotVisibleException e) {}
+		} catch( NullPointerException | WebDriverException e) {
+			logger.info("Error trying to find if element is present"
+				+ (e.getMessage() != null && !e.getMessage().isEmpty() ? ": " + e.getMessage() : ""));}
 
 		setTimeouts();
 		return result;
@@ -1996,10 +2489,10 @@ public class DriverHelper {
 	public boolean isPresentAndClick(By by) {
 		boolean value = false;
 
-		logger.trace("[BEGIN] - webElementisPresentAndClick");
+		logger.begin();
 		value = isPresent(by);
 		if(value) click(by);
-		logger.trace("[END] - webElementisPresentAndClick");
+		logger.end();
 
 		return value;
 	}
@@ -2017,10 +2510,10 @@ public class DriverHelper {
 	public boolean isClickableAndClick(By by) {
 		boolean value = false;
 
-		logger.trace("[BEGIN] - webElementisPresentAndClick");
+		logger.begin();
 		value = isClickable(by);
 		if(value) click(by);
-		logger.trace("[END] - webElementisPresentAndClick");
+		logger.end();
 
 		return value;
 	}
@@ -2060,23 +2553,23 @@ public class DriverHelper {
 	}
 
 	public Set<String> getListOfWindowHandles() {
-		logger.trace("[BEGIN] - getListOfWindowHandles");
+		logger.begin();
 		Set<String> result = driver.getWindowHandles();
-		logger.trace("[END] - getListOfWindowHandles");
+		logger.end();
 
 		return result;
 	}
 
 	public String getMainWindowHandle() {
-		logger.trace("[BEGIN] - getMainWindowHandle");
+		logger.begin();
 		String result = driver.getWindowHandle();
-		logger.trace("[END] - getMainWindowHandle");
+		logger.end();
 
 		return result;
 	}
 
 	public void moveToSecondWindow(String mainFrameWindowHandle) {
-		logger.trace("[BEGIN] - moveToSecondWindow");
+		logger.begin();
 		Set<String> handles = driver.getWindowHandles();
 
 		handles.forEach(p -> {
@@ -2086,11 +2579,11 @@ public class DriverHelper {
 			}
 		});
 
-		logger.trace("[END] - moveToSecondWindow");
+		logger.end();
 	}
 
 	public void closeSecondWindow(String mainFrameWindowHandle) {
-		logger.trace("[BEGIN] - closeSecondWindow");
+		logger.begin();
 		Set<String> handles = driver.getWindowHandles();
 
 		if(handles.size() > 1) {
@@ -2102,33 +2595,47 @@ public class DriverHelper {
 				}
 			});
 		}
-		logger.trace("[END] - closeSecondWindow");
+
+		logger.end();
 	}
 
 	public void moveToWindow(String windowHandle) {
-		logger.trace("[BEGIN] - moveToWindow");
+		logger.begin();
 		driver.switchTo().window(windowHandle);
-		logger.trace("[END] - moveToWindow");
+		logger.end();
 	}
 	// endregion
 
 	// region Screenshots
 	public byte[] getFullScreenshot() {
-		logger.trace("[BEGIN] - getFullScreenshot");
+		logger.begin();
 		byte[] screenshot = null;
 
 		try {
 			screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+			if(BrowserType.SAFARI.equals(browserType) ||
+				BrowserType.SAFARI_IPHONE.equals(browserType) ||
+				BrowserType.SAFARI_IPAD.equals(browserType)) {
+				logger.info("Cropping screenshot");
+
+				int screenshotWidth = ImageUtils.byteToBuffImage(screenshot).getWidth();
+				int screenshotHeight = ImageUtils.byteToBuffImage(screenshot).getHeight();
+
+				logger.info("Offset: " + getWindowOffset().getWidth() + " " + getWindowOffset().getHeight());
+				logger.info("Dimmensions: " + getWindowSize().getWidth() + " " + getWindowSize().getHeight());
+				screenshot = ImageUtils.cropImage(screenshot, getWindowOffset().getWidth(), getWindowOffset().getHeight(), Math.min(getWindowSize().getWidth(), screenshotWidth), Math
+					.min(getWindowSize().getHeight(), screenshotHeight));
+			}
 		} catch(Exception e) {
-			logger.trace("Ha habido un problema obteniendo la imagen");
+			logger.error("Ha habido un problema obteniendo la imagen");
 		}
 
-		logger.trace("[END] - getFullScreenshot");
+		logger.end();
 		return screenshot;
 	}
 
 	public byte[] takeScreenshot(String fileName, String directory) {
-		logger.trace("[BEGIN] - takeScreenshot");
+		logger.begin();
 		byte[] screenshot = null;
 
 		if(!fileName.isEmpty()) {
@@ -2145,10 +2652,10 @@ public class DriverHelper {
 				stream.write(screenshot);
 			}
 		} catch(Exception e) {
-			logger.trace("Ha habido un problema obteniendo la imagen");
+			logger.error("Ha habido un problema obteniendo la imagen");
 		}
 
-		logger.trace("[END] - takeScreenshot");
+		logger.end();
 		return screenshot;
 	}
 
@@ -2157,7 +2664,7 @@ public class DriverHelper {
 	}
 
 	public byte[] takeScreenshot(String screenshotName, int x, int y, int w, int h) {
-		logger.trace("[BEGIN] - takeScreenshot");
+		logger.begin();
 		byte[] screenshot = null;
 		String fileName = screenshotName;
 
@@ -2165,7 +2672,7 @@ public class DriverHelper {
 			if(!screenshotName.contains("/") && !screenshotName.contains("\\")) {
 				screenshotName = "./" + screenshotName;
 			} else {
-				File folder = new File(screenshotName.substring(0, screenshotName.lastIndexOf("/")));
+				File folder = new File(screenshotName.substring(0, screenshotName.lastIndexOf('/')));
 				if(!folder.exists()) folder.mkdirs();
 			}
 
@@ -2180,8 +2687,18 @@ public class DriverHelper {
 			Dimension windowSize = getWindowSize();
 			x = x - windowOffset.width < 0 ? 0 : x - windowOffset.width;
 			y = y - windowOffset.height < 0 ? 0 : y - windowOffset.height;
-			w = w + x > windowSize.width ? windowSize.width - x : w + x < 0 ? 0 : w;
-			h = h + y > windowSize.height ? windowSize.height - y : h + y < 0 ? 0 : h;
+			
+			if(w + x > windowSize.width) {
+				w = windowSize.width - x;
+			} else if(w + x < 0) {
+				w = 0;
+			}
+			
+			if(h + y > windowSize.height) {
+				h = windowSize.height - y;
+			} else if(w + x < 0) {
+				h = 0;
+			}
 
 			screenshot = ImageUtils.cropImage(screenshot, x, y, w, h);
 
@@ -2189,10 +2706,10 @@ public class DriverHelper {
 				ImageUtils.writeByteImageToFile(screenshot, fileName);
 			}
 		} catch(Exception e) {
-			logger.trace("There has been an error obtaining the image");
+			logger.error("There has been an error obtaining the image");
 		}
 
-		logger.trace("[END] - takeScreenshot");
+		logger.begin();
 		return screenshot;
 	}
 
@@ -2225,7 +2742,7 @@ public class DriverHelper {
 			path = path.endsWith("/") ? path : path + "/";
 
 			for(String el : elements) {
-				String[] bounds = StringUtils.stringToArray(StringUtils.stringToArray(el, "bounds=\"[", "]\" ")[0].replaceAll("\\]\\[", ","), ",");
+				String[] bounds = StringUtils.stringToArray(el, "bounds=\"[", "]\" ")[0].replaceAll("\\]\\[", ",").split(",");
 
 				String locator = el.contains("resource-id") ? StringUtils.stringToArray(el, "resource-id=\"", "\" ")[0] + "[" + StringUtils.stringToArray(el, "instance=\"", "\"")[0] + "]"
 					: StringUtils.stringToArray(el, "class=\"", "\" ")[0] + "[" + StringUtils.stringToArray(el, "instance=\"", "\"")[0] + "]";
@@ -2234,13 +2751,66 @@ public class DriverHelper {
 
 				takeScreenshot(path + activity + " - " + locator, Integer.parseInt(bounds[0]), Integer.parseInt(bounds[1]), Integer.parseInt(bounds[2])
 					- Integer.parseInt(bounds[0]), Integer.parseInt(bounds[3]) - Integer.parseInt(bounds[1]));
-				System.out.println("Loc: " + locator);
 			}
 		}
 	}
 	// endregion
 
-	// region Alert
+	// region Android
+	@SuppressWarnings("rawtypes")
+	public void sendAndroidKey(AndroidKey androidKey) {
+		((AndroidDriver) driver).pressKey(new KeyEvent(androidKey));
+	}
+
+	@SuppressWarnings("rawtypes")
+	public boolean isAndroidKeyboardShown() {
+		return ((AndroidDriver) driver).isKeyboardShown();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void hideAndroidKeyboard() {
+		((AndroidDriver) driver).hideKeyboard();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void scrollDropdownAndroid(By by, String selection) {
+		MobileElement me = (MobileElement) waitForElementToBeClickable(by);
+		int x = me.getCenter().x;
+		int y = me.getCenter().y;
+
+		TouchAction touchAction = new TouchAction((MobileDriver) driver);
+		touchAction.press(PointOption.point(x, y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).moveTo(PointOption.point(0, 50)).release();
+		((PerformsTouchActions) driver).performTouchAction(touchAction);
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void clickAndHold(By by, long duration) {
+		MobileElement me = (MobileElement) waitForElementToBeClickable(by);
+		Point center = me.getCenter();
+
+		TouchAction touchAction = new TouchAction((MobileDriver) driver);
+		touchAction.press(PointOption.point(center.x, center.y)).waitAction(WaitOptions.waitOptions(Duration.ofMillis(duration))).release();
+		((PerformsTouchActions) driver).performTouchAction(touchAction);
+	}
+	// endregion
+
+	// region Alerts
+	public boolean alertIsPresent() {
+		boolean result = false;
+
+		try {
+			driver.switchTo().alert().getText();
+
+			exitFrame();
+
+			result = true;
+		} catch(Exception e) {
+			logger.info("Error trying to get alert present state");
+		}
+
+		return result;
+	}
+
 	public String getAlertText() {
 		Alert alert = driver.switchTo().alert();
 
@@ -2251,21 +2821,6 @@ public class DriverHelper {
 		return text;
 	}
 
-	@SuppressWarnings("rawtypes")
-	public void keyboardSearchAndroid() {
-		this.waitWithDriver(1500);
-
-		((AndroidDriver) driver).pressKeyCode(AndroidKeyCode.ENTER);
-	}
-
-	public void scrollDropdownAndroid(By by, String selection) {
-		MobileElement me = (MobileElement) waitForElementToBeClickable(by);
-
-		TouchAction touchAction = new TouchAction((MobileDriver) driver);
-		touchAction.press(me).waitAction(Duration.ofMillis(1000)).moveTo(0, 50).release();
-		((PerformsTouchActions) driver).performTouchAction(touchAction);
-	}
-
 	public void acceptAlert() {
 		Alert alert = driver.switchTo().alert();
 
@@ -2274,9 +2829,38 @@ public class DriverHelper {
 		exitFrame();
 	}
 
-	public Cookie getCookie(String cookie){
+	public void dismissAlert() {
+		Alert alert = driver.switchTo().alert();
 
-		return driver.manage().getCookieNamed(cookie);
+		alert.dismiss();
+
+		exitFrame();
+	}
+	// endregion
+
+	// region Cookies
+	public Cookie getCookie(String cookieName) {
+		return driver.manage().getCookieNamed(cookieName);
+	}
+
+	public Set<Cookie> getCookies() {
+		return driver.manage().getCookies();
+	}
+
+	public void addCookie(Cookie cookie) {
+		driver.manage().addCookie(cookie);
+	}
+
+	public void cleanCookies() {
+		driver.manage().deleteAllCookies();
+	}
+
+	public void deleteCookie(Cookie cookie) {
+		driver.manage().deleteCookie(cookie);
+	}
+
+	public void deleteCookieByName(String cookieName) {
+		driver.manage().deleteCookieNamed(cookieName);
 	}
 	// endregion
 }

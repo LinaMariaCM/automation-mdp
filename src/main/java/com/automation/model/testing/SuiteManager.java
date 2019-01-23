@@ -16,12 +16,12 @@ import com.automation.model.utils.CsvToPdf;
 import com.automation.model.utils.FileUtils;
 import com.automation.model.utils.InitUtils;
 import com.automation.model.utils.StringUtils;
+import com.automation.model.utils.objects.DebugLogger;
 
 import javafx.util.Pair;
 
 /**
- * The SuiteManager class is used to manage test objects like the
- * TestDataManager and the result matrix.
+ * The SuiteManager class is used to manage test objects like the TestDataManager and the result matrix.
  *
  * @author Alfredo Moises Boullosa Ramones
  */
@@ -31,21 +31,22 @@ public class SuiteManager {
 	private String clientId;
 	private String suiteName;
 	private String reportPath;
-	private DataManagerObject suiteData = new DataManagerObject();
 	private String initialTimeStamp;
-	private ArrayList<Pair<String, int[]>> testCases = new ArrayList<Pair<String, int[]>>();
-	private HashMap<String, HashMap<String, ArrayList<String>>> consoleLogs = new HashMap<String, HashMap<String, ArrayList<String>>>();
-	private HashMap<String, Pair<TestDataManager, String[][]>> testSuiteObject = new HashMap<String, Pair<TestDataManager, String[][]>>();
+	private DebugLogger logger = new DebugLogger();
+	private DataManagerObject suiteData = new DataManagerObject();
+	private ArrayList<Pair<String, int[]>> testCases = new ArrayList<>();
+	private HashMap<String, HashMap<String, ArrayList<String>>> consoleLogs = new HashMap<>();
+	private HashMap<String, Pair<TestDataManager, String[][]>> testSuiteObject = new HashMap<>();
 
 	public SuiteManager(String suiteName) {
 		this.suiteName = suiteName;
-		initialTimeStamp = new SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+		initialTimeStamp = new SimpleDateFormat("yyyyMMddHHmm").format(new java.util.Date());
 	}
 
 	public SuiteManager(String clientId, String suiteName) {
 		this.clientId = clientId;
 		this.suiteName = suiteName;
-		initialTimeStamp = new SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+		initialTimeStamp = new SimpleDateFormat("yyyyMMddHHmm").format(new java.util.Date());
 	}
 
 	public String getName() {
@@ -69,7 +70,7 @@ public class SuiteManager {
 	}
 
 	public void setTestOrder(String[] testList) {
-		ArrayList<Pair<String, int[]>> testCasesAux = new ArrayList<Pair<String, int[]>>();
+		ArrayList<Pair<String, int[]>> testCasesAux = new ArrayList<>();
 
 		for(String testCase : testList) {
 			for(Pair<String, int[]> testCasePair : testCases) {
@@ -83,12 +84,20 @@ public class SuiteManager {
 		testCases = testCasesAux;
 	}
 
+	public void createModifiedHtmlReport(CsvToHtml reportClass) {
+		createModifiedHtmlReport(reportClass, null);
+	}
+
+	public void createModifiedHtmlReport(CsvToHtml reportClass, String translationFile) {
+		reportClass.createJointReport(this, translationFile);
+	}
+
 	public void createHtmlReport() {
 		createHtmlReport(null);
 	}
 
 	public void createHtmlReport(String translationFile) {
-		CsvToHtml.createJointReport(this, translationFile);
+		new CsvToHtml().createJointReport(this, translationFile);
 	}
 
 	public void createPdfReport() {
@@ -153,7 +162,7 @@ public class SuiteManager {
 	}
 
 	public void sendImgToDatabase(String fileName, byte[] image) {
-		String sendImg = System.getProperty("send_img");
+		String sendImg = System.getProperty(AutomationConstants.SEND_IMG);
 
 		if(image != null && sendImg != null && !sendImg.isEmpty() && Boolean.parseBoolean(sendImg)) {
 			try {
@@ -171,12 +180,12 @@ public class SuiteManager {
 				request.post();
 
 				if(request.getResponseCode() == 201) {
-					System.out.println("[INFO] - Image sent correctly: " + fileName);
+					logger.info("Image sent correctly: " + fileName);
 				} else {
-					System.out.println("[INFO] - Error sending image: " + fileName);
+					logger.info("Error sending image: " + fileName);
 				}
 			} catch(Exception e) {
-				System.out.println("[INFO] - Error sending image: " + fileName);
+				logger.error("Error sending image: " + fileName);
 				e.printStackTrace();
 			}
 		}
@@ -184,43 +193,46 @@ public class SuiteManager {
 
 	public String[][] getCsvFromDatabase(String timeStamp) {
 		String[][] result = null;
-		String buildGroup = System.getProperty("build_group");
+		String buildGroup = System.getProperty(AutomationConstants.BUILD_GROUP);
 		buildGroup = buildGroup == null || buildGroup.isEmpty() ? null : buildGroup;
-		
+
 		RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/csv/" + timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
 		request.get();
 
 		if(request.getResponseCode() == 200) {
-			System.out.println("[INFO] - File was received correctly: " + timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
-			result = InitUtils.getResultMatrixFromCsvString(request.getResponseBody(), timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
+			logger.info("File was received correctly: " + timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
+			result = InitUtils.getResultMatrixFromCsvString(request.getResponseBody());
 		} else {
-			System.out.println("[ERROR] - File wasn't received: " + timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
+			logger.error("File wasn't received: " + timeStamp + (buildGroup != null ? "." + buildGroup : "") + ".csv");
 		}
-		
+
 		return result;
 	}
-	
+
 	public void sendCsvToDatabase() {
 		for(int i = 0; i < testCases.size(); i++) {
-			String sendCsv = System.getProperty("send_csv");
-			String buildGroup = System.getProperty("build_group");
+			String sendCsv = System.getProperty(AutomationConstants.SEND_CSV);
+			String buildGroup = System.getProperty(AutomationConstants.BUILD_GROUP);
 			buildGroup = buildGroup == null || buildGroup.isEmpty() ? null : buildGroup;
 
 			if(sendCsv == null || sendCsv.isEmpty()) {
-				sendCsv = testSuiteObject.get(testCases.get(i).getKey()).getKey().getConfigVar("send_csv");
+				sendCsv = testSuiteObject.get(testCases.get(i).getKey()).getKey().getConfigVar(AutomationConstants.SEND_CSV);
 			}
 
 			if(sendCsv != null && !sendCsv.isEmpty() && Boolean.parseBoolean(sendCsv) && clientId == null) {
-				System.out.println("[ERROR] - File not sent: client id not declared");
+				logger.error("File not sent: client id not declared");
 			} else if(sendCsv != null && !sendCsv.isEmpty() && Boolean.parseBoolean(sendCsv) && apiUrl == null) {
-				System.out.println("[ERROR] - File not sent: api_url is null");
+				logger.error("File not sent: api_url is null");
 			} else if(sendCsv != null && !sendCsv.isEmpty() && Boolean.parseBoolean(sendCsv)) {
 				String browser = ArrayUtils.arrayToString(InitUtils.getTestBrowsers(), ".");
+				String platform = System.getProperty("platform");
 				String timeStamp = testSuiteObject.get(testCases.get(i).getKey()).getKey().getTimeStamp();
-				String fileName = timeStamp + (buildGroup != null ? "." + buildGroup: "") + ".csv";
+				String buildGroupAux = buildGroup != null ? "." + buildGroup : "";
+				String fileName = timeStamp + buildGroupAux + ".csv";
+				String platformToAPI = (browser != null ? browser : "") + (platform != null ? "." + platform : "");
 
-				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/post/" + suiteName + (browser.isEmpty() ? "" : "." + browser) + "/"
-					+ clientId + suiteName + (browser.isEmpty() ? "" : "." + browser + (buildGroup != null ? "." + buildGroup: "")) + initialTimeStamp);
+				RequestHelper request = new RequestHelper(apiUrl + "/" + clientId + "/post/" + suiteName + "/"
+					+ clientId + suiteName + (platformToAPI.isEmpty() ? "" : "." + platformToAPI + buildGroupAux) + initialTimeStamp);
 
 				if(testCases.get(i).getValue()[2] >= 0 && testSuiteObject.get(testCases.get(i).getKey()).getValue().length > 1) {
 					String key = testSuiteObject.get(testCases.get(i).getKey()).getValue()[0][testCases.get(i).getValue()[2]];
@@ -236,9 +248,11 @@ public class SuiteManager {
 				request.post();
 
 				if(request.getResponseCode() == 201) {
-					System.out.println("[INFO] - File sent correctly: " + fileName);
+					logger.info("File sent correctly: " + fileName);
 				} else {
-					System.out.println("[INFO] - Error sending file: " + fileName);
+					logger.info("Error sending file: " + fileName +
+						(request.getResponseMessage() != null ? " (" + request.getResponseCode() + " - " + request.getResponseMessage() + ")" : ""));
+					logger.info(request.getResponseBody());
 				}
 			}
 		}
@@ -382,9 +396,10 @@ public class SuiteManager {
 	}
 
 	public String[][] initializeTestObjects(String testCase, String scenarioDataPath, String testDataPath) {
-		System.out.println("[INFO] - Case: " + testCase);
+		logger.info("Case: " + testCase);
 		String[][] casesMatrix = null;
-		String defaultTestData = InitUtils.getTestDataPath(testDataPath), defaultScenarioData = scenarioDataPath;
+		String defaultScenarioData = scenarioDataPath;
+		String defaultTestData = InitUtils.getTestDataPath(testDataPath);
 		String[] browsers = InitUtils.getTestBrowsers();
 
 		String[][] resultMatrix = null;
@@ -395,23 +410,23 @@ public class SuiteManager {
 		reportPath = testData.getReportPath();
 
 		if(apiUrl == null) {
-			String serverUrl = System.getProperty("api_url");
+			String serverUrl = System.getProperty(AutomationConstants.API_URL);
 
 			if(serverUrl != null && !serverUrl.isEmpty()) {
 				apiUrl = serverUrl;
-				testData.setConfigVar("api_url", apiUrl);
+				testData.setConfigVar(AutomationConstants.API_URL, apiUrl);
 			} else {
-				apiUrl = testData.getConfigVar("api_url");
+				apiUrl = testData.getConfigVar(AutomationConstants.API_URL);
 			}
 		} else {
-			testData.setConfigVar("api_url", apiUrl);
+			testData.setConfigVar(AutomationConstants.API_URL, apiUrl);
 		}
 
 		if(defaultTestData != null) {
 			testData.addTestData(defaultTestData);
 			testData.setCaseVariables(FileUtils.loadCsvFileToArray(defaultTestData, true)[0]);
 		} else {
-			HashMap<String, HashMap<String, String>> hashMapAux = new HashMap<String, HashMap<String, String>>();
+			HashMap<String, HashMap<String, String>> hashMapAux = new HashMap<>();
 
 			String[] keyArray = new String[]{ "row", "id"};
 			hashMapAux.put("0", StringUtils.stringToDMRow(keyArray, new String[]{ "0", "0"}));
@@ -425,26 +440,24 @@ public class SuiteManager {
 		boolean fileFromApi = false;
 
 		if(testData.getDailyCase().contains("continue")) {
-			System.out.println("[INFO] - Continue daily");
+			logger.info("Continue daily");
 
-			String getCsv = System.getProperty("get_csv");
+			String getCsv = System.getProperty(AutomationConstants.GET_CSV);
 
 			if(getCsv == null || getCsv.isEmpty()) {
-				getCsv = testData.getConfigVar("get_csv");
+				getCsv = testData.getConfigVar(AutomationConstants.GET_CSV);
 			}
 
-			// If "get_csv" is true, try to initialise resultMatrix from a
-			// request
+			// If "get_csv" is true, try to initialise resultMatrix from a request
 			if(getCsv != null && !getCsv.isEmpty() && Boolean.parseBoolean(getCsv) && clientId != null && apiUrl != null) {
 				resultMatrix = getCsvFromDatabase(testData.getTimeStamp());
-				
+
 				if(resultMatrix != null) fileFromApi = true;
 			}
 
-			// If resultMatrix was not filled by a request, try to fill it with
-			// an existent file
+			// If resultMatrix was not filled by a request, try to fill it with an existent file
 			if(resultMatrix == null && new File(testData.getReportPath() + testData.getTimeStamp() + ".csv").exists()) {
-				System.out.println("[INFO] - Getting test data from file");
+				logger.info("Getting test data from file");
 				resultMatrix = InitUtils.getResultMatrixFromCsvFile(testData.getReportPath() + testData.getTimeStamp() + ".csv");
 			}
 
@@ -455,20 +468,18 @@ public class SuiteManager {
 		}
 
 		// If neither casesMatrix nor resultMatrix are filled at this point
-		// (the request didn't return a file, the file doesn't exist or the case
-		// is not continue)
+		// (the request didn't return a file, the file doesn't exist or the case is not continue)
 		if(casesMatrix == null || resultMatrix == null) {
-			System.out.println("[INFO] - Creating test data");
+			logger.info("Creating test data");
 			casesMatrix = InitUtils.getCasesMatrixFromBrowserArray(testCase, browsers, testData.getTestData().size());
 			resultMatrix = InitUtils.getResultMatrixFromTestData(testData.getTestData(), browsers, testData.getCaseVariables());
 		}
 
-		// Filters the cases to execute depending on "execution_filter" leaving
-		// the resultMatrix without modification
-		String executionFilter = System.getProperty("execution_filter");
+		// Filters the cases to execute depending on "execution_filter" leaving the resultMatrix without modification
+		String executionFilter = System.getProperty(AutomationConstants.EXECUTION_FILTER);
 
 		if(executionFilter != null && !executionFilter.isEmpty()) {
-			System.out.println("[INFO] - Applying execution filter (" + executionFilter + ")");
+			logger.info("Applying execution filter (" + executionFilter + ")");
 			ArrayList<Integer> removeIndexes = ArrayUtils.getFiltersIndexes(executionFilter, resultMatrix);
 
 			casesMatrix = ArrayUtils.removeRowsFromMatrix(removeIndexes, casesMatrix, false);
@@ -476,10 +487,10 @@ public class SuiteManager {
 
 		// Filters the cases to execute depending on "test_filter" modifying the
 		// resultMatrix leaving only the cases executed
-		String testFilter = System.getProperty("test_filter");
+		String testFilter = System.getProperty(AutomationConstants.TEST_FILTER);
 
 		if(testFilter != null && !testFilter.isEmpty()) {
-			System.out.println("[INFO] - Applying test filter (" + testFilter + ")");
+			logger.info("Applying test filter (" + testFilter + ")");
 			ArrayList<Integer> removeIndexes = ArrayUtils.getFiltersIndexes(testFilter, resultMatrix);
 
 			resultMatrix = ArrayUtils.removeRowsFromMatrix(removeIndexes, resultMatrix, true);
@@ -489,10 +500,14 @@ public class SuiteManager {
 		addTestObjects(testCase, testData, resultMatrix, casesMatrix.length);
 		consoleLogs.put(testCase, new HashMap<String, ArrayList<String>>());
 
-		System.out.println("[INFO] - Test to run on this execution: " + casesMatrix.length);
+		logger.info("Test to run on this execution: " + casesMatrix.length);
 
 		if(!fileFromApi && casesMatrix.length == 0) {
 			sendCsvToDatabase();
+		} else if(fileFromApi && casesMatrix.length == 0) {
+			new File(testData.getReportPath()).mkdirs();
+
+			FileUtils.writeArrayIntoCSVFile(testData.getReportPath() + testData.getTimeStamp() + ".csv", resultMatrix);
 		}
 
 		return casesMatrix.length == 0 ? null : casesMatrix;

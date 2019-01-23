@@ -73,7 +73,7 @@ public class GestionCotizacionesBuscadorPage extends PageObject {
 			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProductoCotizacion, this.mainFrame, ProjectConstants.MutuaAlquierConfort);
 		}
 
-		this.webDriver.clearAndAppendTextInFrame(this.txtNumeroCotizacion, this.mainFrame, cotizacion);
+		this.webDriver.setTextInFrame(this.txtNumeroCotizacion, this.mainFrame, cotizacion);
 		//this.testDataM.getTestVar(testId, "CotizacionNum"));
 		this.webDriver.clickInFrame(this.btnBuscar, this.mainFrame);
 		

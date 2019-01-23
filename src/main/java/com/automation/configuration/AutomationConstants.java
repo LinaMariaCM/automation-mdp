@@ -30,7 +30,6 @@ public class AutomationConstants {
 
 	public static final String SCENARIO_DATA_SET = "scenarioData.csv";
 	public static final String GLOBAL_DATA_SET = "globalData.csv";
-	public static final String TEST_DATA_SET = "testData.csv";
 	public static final String CONFIGURATION_DATA_SET = "configuration.properties";
 
 	public static final String REPORTING_LVL_VERBOSE = "verbose";
@@ -46,20 +45,48 @@ public class AutomationConstants {
 	
 	public static final String REPORTING_LVL = "reporting_level";
 
+	public static final String API_URL = "api_url";
+	public static final String GET_CSV = "get_csv";
+	public static final String SEND_CSV = "send_csv";
+	public static final String SEND_IMG = "send_img";
+	
+	public static final String EXECUTION_FILTER = "execution_filter";
+	public static final String TEST_FILTER = "test_filter";
+
+	public static final String MAXIMIZE_ON_START = "maximize";
 	public static final String WINDOW_HEIGHT = "window_height";
 	public static final String WINDOW_WIDTH = "window_width";
+	public static final String SMALL_WINDOW_LIMIT = "small_window_limit";
+
+	public static final String BROWSER = "browser";
+	public static final String DRIVER_PLUGINS = "driver_plugins";
+	public static final String BUILD_GROUP = "build_group";
+	public static final String SPECIAL_CASE = "special_case";
 	public static final String TIMEOUT = "timeout";
 	public static final String REMOTE_MODE = "remote";
 	public static final String FORCE_CACHE= "force_cache";
+	public static final String DRIVER_DOWNLOAD= "download";
 	public static final String RETRY_ON_FAIL = "retry";
-	public static final String SMALL_WINDOW_LIMIT = "small_window_limit";
-	public static final String FIREFOX_ENABLE_FIREBUG = "firefox_enable_firebug";
+	public static final String SHOW_CONSOLE_LOG= "show_console_log";
+	public static final String DRIVER_LANGUAGE = "language";
+	public static final String EMULATION_BROWSER = "emulation_browser";
+	public static final String ANDROID_EMULATOR = "android_emulator";
+	public static final String PLATFORM = "platform";
+	public static final String DEVICE = "device";
+	public static final String DEVICE_NAME = "device_name";
+	public static final String DEVICE_VERSION = "device_version";
+	public static final String USE_PROXY = "use_proxy";
+	
 	public static final String SESSION_ID = "session_id";
 	public static final String IP = "ip";
 	public static final String PORT = "port";
-	public static final String MOBILE_PORT = "mobile_port";
+	
+	public static final String WAIT_FOR_PAGE= "wait_for_page";
+	public static final String WAIT_FOR_ANGULAR= "wait_for_angular";
+	public static final String WAIT_FOR_JQUERY= "wait_for_jquery";
 	public static final String IMPLICIT_WAIT = "implicit_wait";
 	public static final String PAGE_LOAD_WAIT = "page_load_wait";
 	public static final String SCRIPT_WAIT = "script_wait";
-	public static final String FILE_DOWNLOAD_TEMP = "file_download_temp_path";
+	
+	public static final String MACOS_PREVIEW = "macos_preview";
 }

@@ -25,14 +25,13 @@ public class DriverUtils {
 	}
 
 	public static String[] getAppiumClickableElements(String page) {
-		String[] html = StringUtils.stringToArray(page, "\n");
+		String[] html = page.split("\n");
 		ArrayList<String> elements = new ArrayList<String>();
 
 		for(int i = 0; i < html.length; i++) {
 			if(html[i].contains("<android") && ((!html[i].contains("LinearLayout") && !html[i].contains("RelativeLayout")
 				&& !html[i].contains("view.View") && !html[i].contains("FrameLayout") && !html[i].contains("RecyclerView")
 				&& !html[i].contains("DrawerLayout")) || html[i].contains("resource-id="))) {
-				//if(html[i].contains("resource-id=")) System.out.println("LINE: " + html[i]);
 				elements.add(html[i]);
 			}
 		}
