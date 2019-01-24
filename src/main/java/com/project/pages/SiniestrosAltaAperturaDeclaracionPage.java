@@ -55,14 +55,14 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	// @FindBy(id = "tipodecl")
 	// private WebElement drpdwnTipoDeclarante;
 	 
-	 //private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
+	 private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
 	 //
 	 private By comboTipoDeclarante = By.id("tipodecl");
 	  
 	 
 	 // @FindBy(id = "mododecl")
 	// private WebElement drpdwnMedioDeclaracion;
-	 //private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
+	 private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
 	 //
 	 private By comboMedioDeclaracion = By.id("mododecl");
 	 
@@ -156,6 +156,8 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 public void altaDatosBasicos(String fechaOcurrencia, String tipoDeclarante, String medioDeclaracion)
 	 {
 		this.debugBegin();
+		
+		fOcurrencia.format(fechaOcurrencia);
 		
 		this.webDriver.appendText(this.txtFechaOcurrencia, fechaOcurrencia);
 		this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoDeclarante, "value", tipoDeclarante);//Añadir los tipos de value como comentario
@@ -288,7 +290,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 
 	 
 	 
-	 /*public void completarMinimos() // método que completa el mínimo de campos para realizar una prueba
+	 public void completarMinimos(String numPoliza) // método que completa el mínimo de campos para realizar una prueba
 	 {
 
 		 
@@ -322,7 +324,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		//Steps.waitForIt(webDriver);
 		
 		this.debugEnd();
-	 }*/
+	 }
 	 
 	 
 	// endregion

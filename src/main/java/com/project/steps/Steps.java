@@ -3642,8 +3642,8 @@ public class Steps extends StepObject {
 			new GestionPolizasBuscadorPage(userS).SeleccionarResultado();
 	
 			// 1.Declaración
-			//new SiniestrosAltaAperturaDeclaracionPage(userS).completarMinimos(numPoliza);
-	
+			new SiniestrosAltaAperturaDeclaracionPage(userS).completarMinimos(numPoliza);
+			//new SiniestrosAltaAperturaDeclaracionPage(userS).altaDatosBasicos("", tipoDeclarante, medioDeclaracion);
 			// Validamos cosas
 			new ValidacionExcepcionesReglasPage(userS).ContinuarAltaSiniestro();
 	
