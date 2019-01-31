@@ -1,17 +1,16 @@
 package com.automation.model.webdriver.configuration;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.logging.Level;
-
+import io.github.bonigarcia.wdm.BrowserManager;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
-
-import io.github.bonigarcia.wdm.BrowserManager;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class ChromeConfiguration extends BrowserConfiguration {
 

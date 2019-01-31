@@ -15,15 +15,17 @@ public abstract class BrowserConfiguration {
 	protected boolean headless = false;
 	protected boolean useProxy = false;
 	protected DebugLogger logger = new DebugLogger().setVerbose(false);
-	
+
 	public BrowserConfiguration() {}
-	
-	public BrowserConfiguration(String id) { logger.setId(id);}
-	
+
+	public BrowserConfiguration(String id) {
+		logger.setId(id);
+	}
+
 	public void setHeadless(boolean value) {
 		headless = value;
 	}
-	
+
 	public void setLanguage(String value) {
 		language = value;
 	}
@@ -32,49 +34,57 @@ public abstract class BrowserConfiguration {
 		this.useProxy = useProxy;
 	}
 
-	public void createProxy(BrowserMobProxy proxy) {
+	public String createProxy(BrowserMobProxy proxy) {
 		proxy.setTrustAllServers(true);
 		proxy.start();
 
 		seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
+
+		String port = Integer.toString(proxy.getPort());
 
 		try {
 			String hostIp;
 
-			try(final DatagramSocket socket = new DatagramSocket()){
+			try(final DatagramSocket socket = new DatagramSocket()) {
 				socket.connect(InetAddress.getByName("8.8.8.8"), 10002);
 				hostIp = socket.getLocalAddress().getHostAddress();
 			}
 
-			seleniumProxy.setHttpProxy(hostIp + ":" + proxy.getPort());
-			seleniumProxy.setSslProxy(hostIp + ":" + proxy.getPort());
-		} catch (Exception e ) {
+			seleniumProxy.setHttpProxy(hostIp + ":" + port);
+			seleniumProxy.setSslProxy(hostIp + ":" + port);
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
+
+		return port;
 	}
 
-	public void createProxy(BrowserMobProxy proxy, String proxyIP) {
+	public String createProxy(BrowserMobProxy proxy, String proxyIP) {
 		proxy.setTrustAllServers(true);
 		proxy.start();
 
 		seleniumProxy = ClientUtil.createSeleniumProxy(proxy);
-		seleniumProxy.setHttpProxy(proxyIP + ":" + proxy.getPort());
-		seleniumProxy.setSslProxy(proxyIP + ":" + proxy.getPort());
 
+		String port = Integer.toString(proxy.getPort());
+
+		seleniumProxy.setHttpProxy(proxyIP + ":" + port);
+		seleniumProxy.setSslProxy(proxyIP + ":" + port);
+
+		return port;
 	}
 
 	public static void downloadDriver(boolean forceCache) {}
 
 	public abstract MutableCapabilities createOptions();
-	
+
 	public void debugBegin() {
 		logger.begin();
 	}
-	
+
 	public void debugEnd() {
 		logger.end();
 	}
-	
+
 	public void debugInfo(String message) {
 		logger.info(message);
 	}

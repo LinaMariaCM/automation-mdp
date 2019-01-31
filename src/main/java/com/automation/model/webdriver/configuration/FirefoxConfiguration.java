@@ -1,20 +1,16 @@
 package com.automation.model.webdriver.configuration;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.logging.Level;
-
-import org.openqa.selenium.Proxy;
+import io.github.bonigarcia.wdm.BrowserManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import io.github.bonigarcia.wdm.BrowserManager;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class FirefoxConfiguration extends BrowserConfiguration {
 
@@ -52,13 +48,16 @@ public class FirefoxConfiguration extends BrowserConfiguration {
 		}
 		
 		FirefoxProfile profile = new FirefoxProfile();
+		profile.setAcceptUntrustedCertificates(true);
 
 		for(String fileName : pluginFiles) {
 			if(!fileName.contains("\\.")) {
-				fileName += ".crx";
+				fileName += ".xpi";
 			}
 
 			profile.addExtension(new File(System.getProperty("user.dir") + "/" + fileName));
+
+
 		}
 		
 		options.setProfile(profile);

@@ -413,7 +413,7 @@ public class UserStory {
 
 		return stringValue;
 	}
-	
+
 	private void setDriverWaits() {
 		if(driverConf.getValue(AutomationConstants.WAIT_FOR_PAGE) != null
 			|| (System.getProperty(AutomationConstants.WAIT_FOR_PAGE) != null
@@ -437,7 +437,7 @@ public class UserStory {
 			webDriver.setPageLoadWait(Integer.parseInt(driverConf.getValue(AutomationConstants.PAGE_LOAD_WAIT)));
 		}
 	}
-	
+
 	private void setMobileVariables() {
 		if(BrowserType.IPHONE.equals(webDriver.getBrowserType())) {
 			webDriver.setDeviceName(System.getProperty(AutomationConstants.DEVICE_NAME));
@@ -455,7 +455,7 @@ public class UserStory {
 		webDriver.setEmulationBrowser(setStringOnConfiguration(AutomationConstants.EMULATION_BROWSER));
 		webDriver.setAndroidEmulator(setBooleanOnConfiguration(AutomationConstants.ANDROID_EMULATOR));
 	}
-	
+
 	private void setWindowVariables() {
 		if(driverConf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT) != null) {
 			webDriver.setSmallWindowLimit(Integer.parseInt(driverConf.getValue(AutomationConstants.SMALL_WINDOW_LIMIT)));
@@ -471,17 +471,17 @@ public class UserStory {
 			webDriver.setWindowSize(Integer.parseInt(driverConf.getValue(AutomationConstants.WINDOW_WIDTH)), webDriver.getWindowDefaultWidth());
 		}
 	}
-	
+
 	private void setDriverPlugins() {
 		String plugins = setStringOnConfiguration(AutomationConstants.DRIVER_PLUGINS);
-		
+
 		if(plugins != null && !plugins.isEmpty()) {
 			if(!plugins.contains("\\.") && !plugins.contains(",")) {
 				webDriver.addPluginFile(plugins);
 			} else {
 				String div = plugins.contains("\\.") ? "." : ",";
 				String[] pluginsArray = plugins.split(div);
-				
+
 				for(String plugin : pluginsArray) {
 					webDriver.addPluginFile(plugin);
 				}
@@ -495,7 +495,7 @@ public class UserStory {
 
 		webDriver.setUseProxy(setBooleanOnConfiguration(AutomationConstants.USE_PROXY));
 		setDriverWaits();
-		
+
 		setMobileVariables();
 
 		webDriver.setWebDriverLanguage(setStringOnConfiguration(AutomationConstants.DRIVER_LANGUAGE));
@@ -504,12 +504,12 @@ public class UserStory {
 			webDriver.setMacOsTechnologyPreview(setBooleanOnConfiguration(AutomationConstants.MACOS_PREVIEW));
 			webDriver.setMacOsVersion(setStringOnConfiguration("macos_version"));
 		}
-		
+
 		setDriverPlugins();
 
 		webDriver.setDownloadDrivers(setBooleanOnConfiguration(AutomationConstants.DRIVER_DOWNLOAD));
 		webDriver.setForceCache(setBooleanOnConfiguration(AutomationConstants.FORCE_CACHE));
-		
+
 		webDriver.setHub(setStringOnConfiguration(AutomationConstants.IP), setStringOnConfiguration(AutomationConstants.PORT));
 		webDriver.setRemoteMode(setBooleanOnConfiguration(AutomationConstants.REMOTE_MODE));
 

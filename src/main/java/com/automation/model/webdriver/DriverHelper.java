@@ -70,13 +70,14 @@ public class DriverHelper {
 	private boolean waitForJQuery = false;
 	private boolean showConsoleLog = false;
 	private boolean useProxy = false;
+	private int shortWait = 3;
 	private int smallWindowLimit = 1025;
 	private int defaultWindowHeight = 768;
 	private int defaultWindowWidth = 1366;
-	private int shortWait = 3;
 	private String id = "0";
 	private String ip = "localhost";
 	private String port = "4444";
+	private String proxyPort = "";
 	private String deviceName;
 	private String devicePlatform;
 	private boolean androidEmulator = false;
@@ -454,6 +455,7 @@ public class DriverHelper {
 			default:
 				options = new MobileConfiguration();
 				setMobileConfiguration(options);
+				((MobileConfiguration) options).setPluginFile(pluginFiles);
 				break;
 		}
 
@@ -462,9 +464,9 @@ public class DriverHelper {
 		options.setProxy(useProxy);
 
 		if(useProxy) {
-			options.createProxy(proxy);
+			proxyPort = options.createProxy(proxy);
+			logger.info("Proxy location: localhost:" + proxyPort);
 		}
-
 
 		return options;
 	}
@@ -657,7 +659,7 @@ public class DriverHelper {
 
 			if(downloadDrivers) {
 				downloadDriver();
-			}
+			}			
 
 			BrowserConfiguration options = createBrowserConfiguration();
 
@@ -1568,9 +1570,9 @@ public class DriverHelper {
 		WebElement webElement = null;
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.xpath("*"));
 		
-		if(elements.isEmpty() && index >= 0) {
+		if(!elements.isEmpty() && index >= 0) {
 			webElement = elements.get(index);
-		} else if(elements.isEmpty() && index < 0) {
+		} else if(!elements.isEmpty() && index < 0) {
 			webElement = elements.get(elements.size() + index);
 		}
 
@@ -1598,7 +1600,7 @@ public class DriverHelper {
 		waitForElementToBeClickable(elementList);
 
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.xpath("*[contains(text(), '" + text + "')]"));
-		WebElement webElement = elements.isEmpty() ? elements.get(0) : null;
+		WebElement webElement = !elements.isEmpty() ? elements.get(0) : null;
 
 		logger.end();
 
@@ -1624,7 +1626,7 @@ public class DriverHelper {
 		waitForElementToBeClickable(elementList);
 
 		List<WebElement> elements = driver.findElement(elementList).findElements(By.cssSelector("[" + attribute + "='" + value + "']"));
-		WebElement webElement = elements.isEmpty() ? elements.get(0) : null;
+		WebElement webElement = !elements.isEmpty() ? elements.get(0) : null;
 
 		logger.end();
 
@@ -1652,9 +1654,9 @@ public class DriverHelper {
 		WebElement webElement = null;
 		List<WebElement> elements = driver.findElements(elementList);
 		
-		if(elements.isEmpty() && index >= 0) {
+		if(!elements.isEmpty() && index >= 0) {
 			webElement = elements.get(index);
-		} else if(elements.isEmpty() && index < 0) {
+		} else if(!elements.isEmpty() && index < 0) {
 			webElement = elements.get(elements.size() + index);
 		}
 
@@ -2250,6 +2252,18 @@ public class DriverHelper {
 		waitForElementToBeClickable(waitElement);
 		exitFrame();
 	}
+
+	public boolean waitForAPIResponse(long milliseconds) {
+		boolean modHeader = System.getProperty("use_modheader") != null && System.getProperty("use_modheader").equals("true") ? true : false;
+		if(!modHeader && !useProxy) {
+			waitWithDriver(milliseconds);
+			return true;
+		}
+
+		return false;
+	}
+
+	//endregion
 
 	public boolean isEnabled(By by) {
 		return driver.findElement(by).isEnabled();
