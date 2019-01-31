@@ -11,36 +11,26 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 	SiniestrosAltaAperturaPage(UserStory userS) {
 		super(userS);
 	}
-	// final static Logger logger =
-	// LoggerFactory.getLogger(SiniestrosAltaAperturaPage.class);
-	// BrowserContext browserContext;
-	// private WebElementHelper wh;
-	// TestCaseData tData;
+	// region webelements
 	//
-	// // region webelements
-	// @FindBy(id = "leftFrame")
-	// private WebElement menuFrame;
 	private By menuFrame = By.id("leftFrame");
-	
+	//
 	private By topFrame = By.id("topFrame");
-	
+	//
 	private By mainFrame = By.id("mainFrame");
-	
+	//
 	private By rdbtnNumPoliza = By.id("filtro1");
-	
+	//
 	private By rdbtnNombreTomador = By.id("filtro2");
-	
+	//
 	private By rdbtnNIF = By.id("filtro3");
-	
+	//
 	private By rdbtnDireccion = By.id("filtro4");
-	
+	//
 	private By rdbtnPolProcedencia = By.id("filtro5");
-	
+	//
 	private By rdbtnOtros = By.id("filtro6");
-	
-	// @FindBy(xpath =
-	// ".//*[@id='capaAjax']/table[4]/tbody/tr[2]/td[12]/a/span")
-	// private WebElement btnContinuar;
+	//
 	//private By btnContinuar = By.xpath(".//*[@id='capaAjax']/table[4]/tbody/tr[2]/td[12]/a/span");
 	private By btnContinuar = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(12) > a > span");
 	//
@@ -57,55 +47,38 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 	private By txtNombre = By.id("nombpcom");
 	//
 	private By txtNifDocumento = By.id("numedocu");	
-
+	//
 	private By txtProvincia = By.id("BUSC_EDIF_PROVINCIA");	
-
+	//
 	private By txtPoblacion = By.id("BUSC_EDIF_POBLACION");	
-
+	//
 	private By txtVia = By.id("BUSC_EDIF_VIA");	
-	
+	//
 	private By txtNumVia = By.id("BUSC_EDIF_NUMVIA");	
-	
+	//
 	private By txtRestoVia = By.id("BUSC_EDIF_RESTVIA");	
-
+	//
 	private By txtCodigoPostal = By.id("BUSC_EDIF_POSTCOD");	
-	
+	//
 	private By txtPolProcedencia = By.id("poliproce");	
-	
+	//
 	private By txtFechaDesde = By.id("desde");	
-	
+	//
 	private By txtFechaHasta = By.id("hasta");	
-
+	//
 	private By comboEstado = By.id("estado");
-
+	//
 	private By comboLineaNegocio = By.id("producto");	
-	
+	//
 	private By txtCodMediador = By.id("codMediador");	
-
+	//
 	private By comboIntervalo = By.id("intervalo");	
-
+	//
 	private By comboPaginas = By.id("paginas");	
-	
+	//
 	
 	
 	// endregion
-	//
-	// public SiniestrosAltaAperturaPage(BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
-	// public void selectBuscarPorNumPoliza()
-	// {
-	// logger.debug("BEGIN - selectBuscarPorNumPoliza");
-	// this.wh.doubleClickOnWebElementInFrame(this.rdbtnNumPoliza,
-	// this.mainFrame);
-	// logger.debug("END - selectBuscarPorNumPoliza");
-	// }
 	
 	//Busqueda por numero de póliza
 	public void buscarNumPoliza(String numPoliza)
@@ -229,7 +202,7 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 		 	this.debugEnd();
 		 }
 
-	//Busqueda por Direccion con la información obligatoria
+	//Busqueda por Direccion con la información obligatoriav TBD
 	/*public void buscarDireccion(String provincia, String poblacion, String via, String numVia)
 	 {
 		this.debugBegin();
@@ -245,36 +218,6 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 	 }*/
 	
 	
-	
-	//
-	// public void selectBuscarPorNombreTomador()
-	// {
-	// logger.debug("BEGIN - selectBuscarPorNombreTomador");
-	// this.wh.doubleClickOnWebElementInFrame(this.rdbtnNombreTomador,
-	// this.mainFrame);
-	// logger.debug("END - selectBuscarPorNombreTomador");
-	// }
-	//
-	// public void selectBuscarPorNIF()
-	// {
-	// logger.debug("BEGIN - selectBuscarPorNIF");
-	// this.wh.doubleClickOnWebElementInFrame(this.rdbtnNIF, this.mainFrame);
-	// logger.debug("END - selectBuscarPorNIF");
-	// }
-	//
-	// public void selectBuscarPorOtros()
-	// {
-	// logger.debug("BEGIN - selectBuscarPorOtros");
-	// this.wh.doubleClickOnWebElementInFrame(this.rdbtnOtros, this.mainFrame);
-	// logger.debug("END - selectBuscarPorOtros");
-	// }
-	//
-	// public void clickContinuar()
-	// {
-	// logger.debug("BEGIN - clickContinuar");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnContinuar,
-	// this.mainFrame);
-	// logger.debug("END - clickContinuar");
-	// }
+
 	// endregion
 }

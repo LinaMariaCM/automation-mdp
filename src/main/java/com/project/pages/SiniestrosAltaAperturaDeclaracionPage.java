@@ -16,12 +16,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	public SiniestrosAltaAperturaDeclaracionPage(UserStory userS) {
 		super(userS);
 	}
-	// final static Logger logger =
-	// LoggerFactory.getLogger(SiniestrosAltaAperturaDeclaracionPage.class);
-	// BrowserContext browserContext;
-	// private WebElementHelper wh;
-	// TestCaseData tData;
-	//
+	
 	// // region webelements
 	
 	//Consulta póliza
@@ -30,51 +25,37 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	//
 	private By buttonPersonaContacto = By.id("enlaceDatContacPer");
 	//
-	//private By buttonVolverBuscador = By.id("enlacePoliza");
+	private By buttonVolverBuscador = By.id("enlacePoliza");
 	
 	// #####	FRAMES	#####
 	
-	// @FindBy(id = "leftFrame")
-	// private WebElement menuFrame;
 	//
-	// @FindBy(id = "topFrame")
-	// private WebElement topFrame;
+	 private By leftFrame = By.id("leftFrame");
 	//
-	// @FindBy(id = "mainFrame")
+	 private By topFrame = By.id("topFrame");
+	//
 	 private By cuerpoFrame = By.id("mainFrame");
 	
 	 
 	 // #####	DATOS OCURRENCIA	#####
-	 
-	// @FindBy(id = "fechsini")
+
+
 	 private By txtFechaOcurrencia = By.id("fechsini");
 	
 	 
 	 //	#####	DATOS DECLARACION	####
-	 
-	// @FindBy(id = "tipodecl")
-	// private WebElement drpdwnTipoDeclarante;
-	 
+	 	 
 	 private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
 	 //
-	 private By comboTipoDeclarante = By.id("tipodecl");
-	  
-	 
-	 // @FindBy(id = "mododecl")
-	// private WebElement drpdwnMedioDeclaracion;
+	 private By comboTipoDeclarante = By.id("tipodecl");	 
+	 //
 	 private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
 	 //
 	 private By comboMedioDeclaracion = By.id("mododecl");
-	 
 	 //
 	 private By txtObservaciones = By.id("comentario");
-	 
-	 
-	// @FindBy(id = "FECHDENU")
-	// private WebElement txtFechaDenuncia;
 	 //
 	 private By txtFechaDenuncia = By.id("FECHDENU");
-
 	 //
 	 private By txtNombreDeclarante = By.id("nombpers");
 	 //
@@ -108,10 +89,9 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	
 	//	#####	ASISTENCIA	#####
 	 
-	// @FindBy(id = "asistenciaSi")
+	//
 	 private By rdbtnAsistenciaSi = By.id("asistenciaSi");
 	//
-	// @FindBy(id = "asistenciaNo")
 	 private By rdbtnAsistenciaNo = By.id("asistenciaNo");
 	//
 	 private By rdbtnUrgenteSi = By.id("resolUrgeSi");
@@ -130,16 +110,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 //
 	 private By txtRefAsistenciaExt = By.id("nombdato_REFEEXAS_1");
 	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	// @FindBy(id = "botonContinuar")
-	 
-	// botón continuar para produtos 500 y 510 
+	 // botón continuar para produtos 500 y 510 
 	 private By btnContinuar = By.id("botonContinuar");
 	 
 
@@ -152,7 +123,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 
 	// region methods
 	
-	//Basico1
+	//Introducir datos Basicos
 	 public void altaDatosBasicos(String fechaOcurrencia, String tipoDeclarante, String medioDeclaracion)
 	 {
 		this.debugBegin();
@@ -166,6 +137,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 	this.debugEnd();
 	 }
 	 
+	 //Introducir Datos declaracion
 	 public void altaDatosDeclaracion(String fechaOcurrencia, String tipoDeclarante, String medioDeclaracion, String fechaDenuncia, String observaciones) 
 	 {
 		 this.debugBegin();
@@ -179,6 +151,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		 this.debugEnd();
 	 }
 	 
+	//Introducir Datos declarante
 	 public void altaDatosDeclarante(String nombreDeclarante, String apellidoDeclarante, String segundoApellido, String prefijoTelefono, String numeroTelefono, String emailDeclarante, boolean noDisponible) 
 	 {
 		 this.debugBegin();
@@ -194,7 +167,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		 this.debugEnd();
 	 }
 	 
-
+	//Introducir Otros Datos
 	 public void altaOtrosDatos(String estructuraAfectada, String instalacionesAfectadas, String referenciaMediador, boolean carpetaFisica) 
 	 {
 		 this.debugBegin();
@@ -208,6 +181,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		 this.debugEnd();
 	 }
 	 
+	 //Introducir datos asistencia
 	 public void altaConAsistencia(boolean requiereAsistencia, boolean resolucionUrgente, String ubicacion, boolean origenReparado, boolean consecuencia, String RefAsistenciaExt) 
 	 {
 		 this.debugBegin();
@@ -224,56 +198,8 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 					
 		 this.debugEnd();
 	 }
-	// public void writeFechaOcurrencia(
-	// String fechaOcurrencia)
-	// {
-	// logger.debug("BEGIN - writeFechaOcurrencia");
-	// this.wh.sendValueToWebElementInFrame(this.txtFechaOcurrencia,
-	// this.mainFrame, fechaOcurrencia);
-	// logger.debug("END - writeFechaOcurrencia");
-	// }
-	//
-	// public void selectTipoDeclarante(
-	// String tipoDeclarante)
-	// {
-	// logger.debug("BEGIN - selectTipoDeclarante");
-	// this.wh.sendValueToWebElementInFrame(this.drpdwnTipoDeclarante,
-	// this.mainFrame, tipoDeclarante);
-	// logger.debug("END - selectTipoDeclarante");
-	// }
-	//
-	// public void selectMedioDeclaracion(
-	// String medioDeclaracion)
-	// {
-	// logger.debug("BEGIN - selectMedioDeclaracion");
-	// this.wh.sendValueToWebElementInFrame(this.drpdwnMedioDeclaracion,
-	// this.mainFrame, medioDeclaracion);
-	// logger.debug("END - selectMedioDeclaracion");
-	// }
-	//
-	// public void writeFechaDenuncia(
-	// String fechaDenuncia)
-	// {
-	// logger.debug("BEGIN - writeFechaDenuncia");
-	// this.wh.sendValueToWebElementInFrame(this.txtFechaDenuncia,
-	// this.mainFrame, fechaDenuncia);
-	// logger.debug("END - writeFechaDenuncia");
-	// }
-	//
-	// public void selectAsistenciaSi()
-	// {
-	// logger.debug("BEGIN - selectAsistenciaSi");
-	// this.wh.clickOnWebElementInFrame(this.rdbtnAsistenciaSi, this.mainFrame);
-	// logger.debug("END - selectAsistenciaSi");
-	// }
-	//
-	// public void selectAsistenciaNo()
-	// {
-	// logger.debug("BEGIN - selectAsistenciaNo");
-	// this.wh.clickOnWebElementInFrame(this.rdbtnAsistenciaNo, this.mainFrame);
-	// logger.debug("END - selectAsistenciaNo");
-	// }
-	
+	 
+	 //Continuar
 	 public void clickContinuar()
 	 {
 		this.debugBegin();
@@ -289,7 +215,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
 	 
 	 
-	 
+	 //Minimos TEST ZERO
 	 public void completarMinimos(String numPoliza) // método que completa el mínimo de campos para realizar una prueba
 	 {
 
