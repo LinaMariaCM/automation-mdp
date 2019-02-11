@@ -224,7 +224,7 @@ public class FileUtils {
 			}
 
 			for(int i = 0; i < list.size(); i++) {
-				if(list.get(i).contains("=")) {
+				if(list.get(i).contains("=") && list.get(i).split("=").length == 2) {
 					auxMap.put(StringUtils.stringToArray(list.get(i), "=")[0], StringUtils.stringToArray(list.get(i), "=")[1]);
 				}
 			}

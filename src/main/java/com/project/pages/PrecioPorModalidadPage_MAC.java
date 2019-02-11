@@ -72,21 +72,19 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 
 	public void completarRentaMensualAlquiler() {
 		debugBegin();
-		this.webDriver.clearAndAppendTextInFrame(this.txtRenta, this.mainFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));
+		this.webDriver.setTextInFrame(this.txtRenta, this.mainFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));
 		this.webDriver.tabulateElementInFrame(this.txtRenta, this.mainFrame);
 		debugEnd();
 	}
 
-	// public void CompletarRentaMensualAlquiler() throws IOException
-	// {
-	// logger.debug("BEGIN - CompletarRentaMensualAlquiler");
-	// this.wh.clearAndSetTextInWebElementInFrame(this.txtRenta,
-	// this.cuerpoFrame,
-	// String.valueOf(this.browserContext.getTestCaseData().getRentaMensualAlquiler()));
-	// this.wh.changeFocusOfWebElementInFrame(this.txtRenta, this.cuerpoFrame);
-	// logger.debug("END - CompletarRentaMensualAlquiler");
-	// }
-	//
+//	 public void CompletarRentaMensualAlquiler()
+//	 {
+//	 debugBegin();
+//	 this.webDriver.setTextInFrame(this.txtRenta, this.mainFrame, String.valueOf(userS.getTestVar("renta_mensual_alquiler")));
+//	 this.webDriver.tabulateElementInFrame(this.txtRenta, this.mainFrame);
+//	 debugEnd();
+//	 }
+	
 	public void clickOnConvertirAProyecto() {
 		debugBegin();
 		// this.wh.scrollToEndOfPage();
@@ -187,36 +185,38 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.cuerpoFrame);
 	// logger.debug("END - Continuar");
 	// }
-	//
-	// public void selectModalidad()
-	// {
-	// logger.debug("BEGIN - selectModalidad");
-	// this.wh.selectValueInDropDownInFrame(this.drpdwnModalidad,
-	// this.cuerpoFrame, this.browserContext.getTestCaseData().getModalidad());
-	// logger.debug("END - selectModalidad");
-	// }
-	//
-	// public String recuperarTextoMensajeError()
-	// {
-	// logger.debug("BEGIN - recuperarTextoMensajeError");
-	// this.wh.getTextFromWebElementInFrame(this.msjError,
-	// this.cuerpoFrame).substring(2); // Se pone substring para quitar el aspa
-	// del boton cerrar que
-	// // aparece al principio del mensaje devuelto.
-	// // logger.debug("ERROR RECUPERADO - " +
-	// this.wh.getTextFromWebElementInFrame(this.msjError,
-	// this.cuerpoFrame).substring(2));
-	// logger.debug("END - recuperarTextoMensajeError");
-	// return this.wh.getTextFromWebElementInFrame(this.msjError,
-	// this.cuerpoFrame);
-	// }
-	//
-	// public boolean checkConvertirAProyectoIsPresent()
-	// {
-	// logger.debug("BEGIN - checkConvertirAProyectoIsEnabled");
-	// logger.debug("END - checkConvertirAProyectoIsEnabled");
-	// return this.wh.webElementInFrameIsPresent(this.btnConvertirProyecto,
-	// this.cuerpoFrame);
-	// }
+	
+	 
+	 public void selectModalidad()
+	 {
+	 debugBegin();
+	 this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdwnModalidad, this.mainFrame, userS.getTestVar("modalidad"));
+	 debugEnd();
+	 }
+	
+	 
+	 public String recuperarTextoMensajeError()
+	 {
+		 debugBegin();
+		 this.webDriver.getTextInFrame(this.msjError,this.mainFrame).substring(2); 
+		 // Se pone substring para quitar el aspa del boton cerrar que
+		 // aparece al principio del mensaje devuelto.
+		 debugError("ERROR RECUPERADO - ");
+		 this.webDriver.getTextInFrame(this.msjError,this.mainFrame).substring(2);
+		 debugEnd();
+		 return this.webDriver.getTextInFrame(this.msjError, this.mainFrame);
+	 }
+	 
+	
+	 public boolean checkConvertirAProyectoIsPresent()
+	 {
+		 debugBegin();
+		 boolean checker = this.webDriver.isPresentInFrame(this.btnConvertirProyecto, this.mainFrame);
+		 debugEnd();
+		 return checker;
+		 
+	 }
+	 
+	 
 	// endregion
 }

@@ -70,7 +70,7 @@ public class GestionAutorizacionesPage extends PageObject {
 		this.webDriver.clickInFrame(this.cmbEstado, this.mainFrame);
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEstado, this.mainFrame, seleccionEstado);
 		this.webDriver.clickInFrame(this.numCotizacion, this.mainFrame);
-		this.webDriver.clearAndAppendTextInFrame(this.numCotizacion, this.mainFrame, noCotizacion);
+		this.webDriver.setTextInFrame(this.numCotizacion, this.mainFrame, noCotizacion);
 		this.webDriver.clickInFrame(this.btnBuscar, this.mainFrame);
 		
 		debugEnd();

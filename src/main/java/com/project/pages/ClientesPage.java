@@ -395,7 +395,7 @@ public class ClientesPage extends PageObject {
 		// Set Contacto
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtContacto,
 		// this.cuerpoFrame, this.tData.getContactoCliente());
-		this.webDriver.clearAndAppendTextInFrame(this.txtContacto, this.cuerpoFrame, this.userS.getTestVar("ContactoCliente"));
+		this.webDriver.setTextInFrame(this.txtContacto, this.cuerpoFrame, this.userS.getTestVar("ContactoCliente"));
 	}
 
 	private void buscarClientePorRecibo() {
@@ -405,7 +405,7 @@ public class ClientesPage extends PageObject {
 		// Set Recibo
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtRecibo,
 		// this.cuerpoFrame, this.tData.getReciboCliente());
-		this.webDriver.clearAndAppendTextInFrame(this.txtRecibo, this.cuerpoFrame, this.userS.getTestVar("ReciboCliente"));
+		this.webDriver.setTextInFrame(this.txtRecibo, this.cuerpoFrame, this.userS.getTestVar("ReciboCliente"));
 	}
 
 	private void buscarClientePorColectivo() {
@@ -415,7 +415,7 @@ public class ClientesPage extends PageObject {
 		// Set Cotizacion
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtColectivo,
 		// this.cuerpoFrame, this.tData.getColectivoCliente());
-		this.webDriver.clearAndAppendTextInFrame(this.txtColectivo, this.cuerpoFrame, this.userS.getTestVar("ColectivoCliente"));
+		this.webDriver.setTextInFrame(this.txtColectivo, this.cuerpoFrame, this.userS.getTestVar("ColectivoCliente"));
 	}
 
 	private void buscarClientePorCotizacion() {
@@ -425,7 +425,7 @@ public class ClientesPage extends PageObject {
 		// Set Cotizacion
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtCotizacion,
 		// this.cuerpoFrame, this.tData.getNoCotizacion());
-		this.webDriver.clearAndAppendTextInFrame(this.txtCotizacion, this.cuerpoFrame, this.userS.getTestVar("CotizacionNum"));
+		this.webDriver.setTextInFrame(this.txtCotizacion, this.cuerpoFrame, this.userS.getTestVar("CotizacionNum"));
 	}
 
 	private void buscarClientePorPoliza() {
@@ -436,7 +436,7 @@ public class ClientesPage extends PageObject {
 
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtPoliza,
 		// this.cuerpoFrame, this.tData.getNumPoliza().toString());
-		this.webDriver.clearAndAppendTextInFrame(this.txtPoliza, this.cuerpoFrame, this.userS.getTestVar("NumPoliza"));
+		this.webDriver.setTextInFrame(this.txtPoliza, this.cuerpoFrame, this.userS.getTestVar("NumPoliza"));
 	}
 
 	private void buscarClientePorNombre() {
@@ -459,7 +459,7 @@ public class ClientesPage extends PageObject {
 		// Set NIF
 		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtNIF,
 		// this.cuerpoFrame, numNIF);
-		this.webDriver.clearAndAppendTextInFrame(this.txtNIF, this.cuerpoFrame, numNIF);
+		this.webDriver.setTextInFrame(this.txtNIF, this.cuerpoFrame, numNIF);
 
 		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 	}

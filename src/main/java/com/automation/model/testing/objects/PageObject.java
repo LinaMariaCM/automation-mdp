@@ -1,17 +1,17 @@
 package com.automation.model.testing.objects;
 
-import java.text.SimpleDateFormat;
-
 import com.automation.configuration.AutomationConstants;
 import com.automation.data.DataObject;
 import com.automation.model.testing.TestDataManager;
 import com.automation.model.testing.UserStory;
+import com.automation.model.utils.objects.DebugLogger;
 import com.automation.model.webdriver.DriverHelper;
 
 public class PageObject {
 
 	protected String testId;
 	protected UserStory userS;
+	protected DebugLogger logger;
 	protected DriverHelper webDriver;
 	protected TestDataManager testDataM;
 
@@ -25,17 +25,20 @@ public class PageObject {
 		}
 		
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+		logger = new DebugLogger(testId);
 	}
 	
 	public PageObject(DriverHelper webDriver) {
 		this.webDriver = webDriver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+		logger = new DebugLogger(testId);
 	}
 	
 	public PageObject(DriverHelper webDriver, TestDataManager testDataManager) {
 		this.testDataM = testDataManager;
 		this.webDriver = webDriver;
 		this.testId = webDriver.getId() == null ? "" : webDriver.getId();
+		logger = new DebugLogger(testId);
 	}
 	
 	// Get data methods
@@ -91,32 +94,23 @@ public class PageObject {
 	}
 
 	// Print to console methods
-	private String getDebugLine() {
-		int line = Thread.currentThread().getStackTrace()[3].getLineNumber();
-		String timeStamp = new SimpleDateFormat("dd.MM.yyyy HH.mm.ss").format(new java.util.Date());
-		String className = Thread.currentThread().getStackTrace()[3].getClassName();
-		className = className.contains(".") ? className.substring(className.lastIndexOf(".") + 1) : className;
-		
-		return timeStamp + " - " + className + ":" + line;
-	}
-	
 	protected void debugBegin() {
-		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-		
-		System.out.println(getDebugLine() + " - [BEGIN] (" + userS.getTestId() + ") - " + methodName);
+		logger.begin();
 	}
 	
 	protected void debugEnd() {
-		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-		
-		System.out.println(getDebugLine() + " - [END] (" + userS.getTestId() + ") - " + methodName);
+		logger.end();
 	}
 	
 	protected void debugInfo(String message) {
-		System.out.println(getDebugLine() + " - [INFO] (" + userS.getTestId() + ") - " + message);
+		logger.info(message);
 	}
 	
 	protected void debugError(String message) {
-		System.out.println(getDebugLine() + " - [ERROR] (" + userS.getTestId() + ") - " + message);
+		logger.error(message);
+	}
+	
+	protected void setDebugVerbose(boolean verbose) {
+		logger.setVerbose(verbose);
 	}
 }

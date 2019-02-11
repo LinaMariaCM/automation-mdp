@@ -30,11 +30,14 @@ public class SiniestrosHomePage extends PageObject {
 	
 	 
 	// @FindBy(id = "jt2")
+	 
 	 private By btnAperturaAlta = By.id("jt2");	
 	 
 	// @FindBy(id = "jt3")
 	// private WebElement btnAperturaModificar;
-	//
+	
+	 private By btnAperturaModificar = By.id("jt3");
+	 
 	// @FindBy(id = "jt5")
 	// private WebElement btnGestionSiniestros;
 	//
@@ -67,14 +70,13 @@ public class SiniestrosHomePage extends PageObject {
 		this.debugEnd();
 	 }
 	
-	// public void openAperturaModificar()
-	// {
-	// logger.debug("BEGIN - openAperturaModificar");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnAperturaModificar,
-	// this.menuFrame);
-	// logger.debug("END - openAperturaModificar");
-	// }
-	//
+	 public void openAperturaModificar()
+	 {
+	 this.debugBegin();
+	 this.webDriver.clickInFrame(this.btnAperturaModificar, this.menuFrame);
+	 this.debugEnd();
+	 }
+	
 	// public void openGestionSiniestros()
 	// {
 	// logger.debug("BEGIN - openGestionSiniestros");

@@ -54,9 +54,9 @@ public class LoginPage extends PageObject {
 			case ProjectConstants.LoginAccessGestionLine:
 				new GestionOnlineLoginPage(userS)
 					.login(user, testDataM.getGlobalVar("password"));
-
-				new GestionOnlineHomePage(userS)
-					.acceptCookies();
+				webDriver.waitWithDriver(2000);
+//				new GestionOnlineHomePage(userS)
+//					.acceptCookies();
 					//.closeNovedadesDialog();
 				break;
 			default:

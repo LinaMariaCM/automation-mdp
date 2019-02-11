@@ -1,68 +1,41 @@
 package com.automation.model.webdriver.configuration;
 
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.Proxy.ProxyType;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class IEConfiguration {
-	
-	final static Logger logger = LoggerFactory.getLogger(IEConfiguration.class);
-	
+public class IEConfiguration extends BrowserConfiguration {
+
 	public static void downloadDriver(boolean forceCache) {
-		logger.debug("[BEGIN] - Starting BrowserManager setup");
 		BrowserManager manager = InternetExplorerDriverManager.getInstance();
 
 		if(manager != null) {
 			if(forceCache) manager.forceCache();
 			manager.setup();
 		}
-		
-		logger.debug("[ END ] - BrowserManager setup finished");
 	}
 
-	public Proxy createProxy() {
-		Proxy proxy = new Proxy();
-		proxy.setProxyType(ProxyType.SYSTEM);
-		
-		return proxy;
-	}
+	/*
+	 * public static DesiredCapabilities createDesiredCapabilities() {
+	 * DesiredCapabilities cap = DesiredCapabilities.internetExplorer();
+	 * cap.setJavascriptEnabled(true);
+	 * 
+	 * return cap; }
+	 */
 
-	public static DesiredCapabilities createDesiredCapabilities() {
-		DesiredCapabilities cap = DesiredCapabilities.internetExplorer();
-		//if(!Boolean.valueOf(this.config.getValue(ProjectConstants.REMOTE_MODE))) cap.setCapability(InternetExplorerOptions.CAPABILITY, createIEOptions());
-		cap.setCapability("disable-popup-blocking", true);
-		cap.setCapability("--start-maximized", true);
-		cap.setJavascriptEnabled(true);
-		
-		/*String proxyIp = "110.164.156.194";
-		String proxyPort = "8080";
-		
-		String proxyAddress = proxyIp + ":" + proxyPort;
-		
-		Proxy proxy = new Proxy();
-		
-		proxy.setHttpProxy(proxyAddress)
-			.setFtpProxy(proxyAddress)
-			.setSslProxy(proxyAddress);
-		
-		cap.setCapability(CapabilityType.PROXY, proxy);*/
-		
-		return cap;
-	}
+	public InternetExplorerOptions createOptions() {
+		debugBegin();
 
-	public static InternetExplorerOptions createIEOptions() {
 		InternetExplorerOptions options = new InternetExplorerOptions();
 
 		options.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
 		options.setCapability("unexpectedAlertBehaviour", "accept");
 		options.setCapability("disable-popup-blocking", true);
+		options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		options.destructivelyEnsureCleanSession();
 		options.enablePersistentHovering();
 		options.ignoreZoomSettings();
@@ -70,10 +43,19 @@ public class IEConfiguration {
 		options.requireWindowFocus();
 		options.addCommandSwitches("disable-popup-blocking");
 		options.addCommandSwitches("--start-fullscreen");
-		//options.merge(cap);
-		
-		
+
+
+		// options.merge(cap);
+
+		if(useProxy) {
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+
+			options.merge(proxyCapabilities);
+		}
+
+		debugEnd();
+
 		return options;
 	}
-
 }

@@ -146,9 +146,13 @@ public class GestionOnlineHomePage extends PageObject {
 	// }
 
 	// region methods
+	
 	public GestionOnlineHomePage acceptCookies() {
 		debugBegin();
+		this.webDriver.waitWithDriver(2500);
+		//this.webDriver.click(this.btnAceptarCookies);
 		this.webDriver.click(this.btnAceptarCookies);
+			;
 		debugEnd();
 
 		return this;
@@ -222,6 +226,7 @@ public class GestionOnlineHomePage extends PageObject {
 
 		this.webDriver.click(this.btnContratacion);
 		this.webDriver.clickInFrame(this.btnContratarMutuaAlquilerConfort, this.contentFrame);
+		this.webDriver.waitWithDriver(3000);
 		this.webDriver.switchToWindow(1);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
