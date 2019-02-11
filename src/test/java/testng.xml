@@ -3,7 +3,7 @@
   <test name="Test">
     <classes>
       <!-- <class name="configuration.TestMEC" /> -->
-      <class name="test.MecTest" />
+      <class name="test.FichaClientTest" />
     </classes>
   </test> <!-- Test -->
 </suite> <!--MEC-->
