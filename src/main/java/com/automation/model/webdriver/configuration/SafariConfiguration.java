@@ -1,6 +1,7 @@
 package com.automation.model.webdriver.configuration;
 
 import org.openqa.selenium.Platform;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariOptions;
 
@@ -55,6 +56,13 @@ public class SafariConfiguration extends BrowserConfiguration {
 		// options.setCapability("os_version", "High Sierra");
 		// options.setCapability("browserstack.debug", "true");
 		// options.setCapability("browser_version", "11.1.1");
+
+		if(useProxy) {
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+
+			options.merge(proxyCapabilities);
+		}
 
 		debugEnd();
 

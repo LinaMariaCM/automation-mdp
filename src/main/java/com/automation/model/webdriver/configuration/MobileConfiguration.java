@@ -1,5 +1,7 @@
 package com.automation.model.webdriver.configuration;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
@@ -8,12 +10,7 @@ import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariOptions;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.automation.model.utils.objects.DebugLogger;
 
 import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
@@ -21,9 +18,15 @@ import io.github.bonigarcia.wdm.FirefoxDriverManager;
 
 public class MobileConfiguration extends BrowserConfiguration {
 
+	private boolean technologyPreview = true;
 	private String browserType = BrowserType.GALAXYS5;
 	private String emulationBrowser = BrowserType.CHROME;
-	private boolean technologyPreview = true;
+
+	private ArrayList<String> pluginFiles = new ArrayList<>();
+
+	public void setPluginFile(ArrayList<String> pluginFiles) {
+		this.pluginFiles = pluginFiles;
+	}
 
 	public void setTechnologyPreview(boolean technologyPreview) {
 		this.technologyPreview = technologyPreview;
@@ -52,18 +55,6 @@ public class MobileConfiguration extends BrowserConfiguration {
 		}
 	}
 
-	/*
-	 * public static DesiredCapabilities createDesiredCapabilities(String browserType) { 
-	 * DesiredCapabilities desiredCapabilitiesLocal = DesiredCapabilities.chrome();
-	 * 
-	 * Map<String, Object> chromeOptions = new HashMap<String, Object>();
-	 * chromeOptions.put("mobileEmulation", getMobileEmulationMap(browserType));
-	 * 
-	 * desiredCapabilitiesLocal.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
-	 * 
-	 * return desiredCapabilitiesLocal; }
-	 */
-
 	public MutableCapabilities createOptions() {
 		debugBegin();
 
@@ -74,6 +65,14 @@ public class MobileConfiguration extends BrowserConfiguration {
 			options = new ChromeOptions();
 			((ChromeOptions) options).addArguments("disable-popup-blocking");
 			((ChromeOptions) options).addArguments("--start-maximized");
+
+			for(String fileName : pluginFiles) {
+				if(!fileName.contains("\\.")) {
+					fileName += ".crx";
+				}
+
+				((ChromeOptions) options).addExtensions(new File(System.getProperty("user.dir") + "/" + fileName));
+			}
 
 			Map<String, Object> preferences = new Hashtable<>();
 			((ChromeOptions) options).setExperimentalOption("prefs", preferences);
@@ -130,7 +129,7 @@ public class MobileConfiguration extends BrowserConfiguration {
 
 	private Map<String, String> getMobileEmulationMap(String browserType) {
 		debugBegin();
-		Map<String, String> mobileEmulation = new HashMap<String, String>();
+		Map<String, String> mobileEmulation = new HashMap<>();
 
 		switch(browserType) {
 			case BrowserType.GALAXYS5:

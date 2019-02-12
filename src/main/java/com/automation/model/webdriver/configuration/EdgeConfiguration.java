@@ -2,9 +2,8 @@ package com.automation.model.webdriver.configuration;
 
 import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.EdgeDriverManager;
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.Proxy.ProxyType;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class EdgeConfiguration extends BrowserConfiguration {
@@ -32,8 +31,16 @@ public class EdgeConfiguration extends BrowserConfiguration {
 		// options.setPageLoadStrategy("disable-popup-blocking");
 		// options.setPageLoadStrategy("--start-maximized");
 
+		if(useProxy) {
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+
+			options.merge(proxyCapabilities);
+		}
+
 		debugEnd();
 
 		return options;
 	}
+
 }

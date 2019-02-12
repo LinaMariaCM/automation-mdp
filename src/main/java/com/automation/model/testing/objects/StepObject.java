@@ -8,77 +8,63 @@ import com.automation.model.webdriver.DriverHelper;
 
 public class StepObject {
 
+	protected String testId;
 	protected UserStory userS;
 	protected DebugLogger logger;
-	protected DriverHelper webDriver;
-	protected TestDataManager testDataM;
-
-	public StepObject(DriverHelper driver) {
-		this.webDriver = driver;
-		
-		String testId = webDriver.getId() == null ? "" : webDriver.getId();
-		logger = new DebugLogger(testId);
-	}
-
+	
 	public StepObject(UserStory userStory) {
 		this.userS = userStory;
-		this.testDataM = userS.getTestDataManager();
-		this.webDriver = userS.getDriver();
 		
-		String testId = webDriver.getId() == null ? "" : webDriver.getId();
+		testId = userS.getDriver().getId() == null ? "0" : userS.getDriver().getId();
 		logger = new DebugLogger(testId);
 	}
 	
 	// Get data methods
 	protected DataObject getData(String key) {
-		return testDataM.getData(key);
+		return userS.getData(key);
 	}
 	
 	protected String getConfigVar(String key) {
-		return testDataM.getConfigVar(key);
+		return userS.getConfigVar(key);
 	}
 	
 	protected String getGlobalVar(String key) {
-		return testDataM.getGlobalVar(key);
+		return userS.getGlobalVar(key);
 	}
 	
 	protected String getScenarioVar(String key) {
 		String result = null;
 		
 		if(userS != null && userS.getScenario() != null) {
-			result = testDataM.getScenarioVar(userS.getScenario(), key);
+			result = userS.getScenarioVar(key);
 		}
 		
 		return result;
 	}
 	
 	protected String getTestVar(String key) {
-		return testDataM.getTestVar(webDriver.getId(), key);
-	}
-	
-	protected String getVar(String rowKey, String key) {
-		return testDataM.getVar(rowKey, key);
+		return userS.getTestVar(key);
 	}
 
 	// Set data methods
 	protected void setData(DataObject data, String key) {
-		testDataM.addData(data, key);
+		userS.addData(data, key);
 	}
 	
 	protected void setConfigVar(String key, String value) {
-		testDataM.setConfigVar(key, value);
+		userS.setConfigVar(key, value);
 	}
 	
 	protected void setGlobalVar(String key, String value) {
-		testDataM.setGlobalVar(key, value);
+		userS.setGlobalVar(key, value);
 	}
 	
 	protected void setScenarioVar(String key, String value) {
-		testDataM.setScenarioVar(userS.getScenario(), key, value);
+		userS.setScenarioVar(key, value);
 	}
 	
 	protected void setTestVar(String key, String value) {
-		testDataM.setTestVar(webDriver.getId(), key, value);
+		userS.setTestVar(key, value);
 	}
 
 	// Print to console methods

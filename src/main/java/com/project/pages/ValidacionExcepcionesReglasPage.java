@@ -20,6 +20,8 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 
 	private By btnContinuar = By.cssSelector("#botonContinuar");
 	
+	private By labelTitulo = By.cssSelector("#formDatos > div.sis-font-l");
+	
 	//private By btnContinuarAltaSiniestro = By.cssSelector("#botonContinuar");
 	
 	
@@ -51,6 +53,18 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 		return this;
 	}
 	
+	public String comprobarNombrePagina()
+	{
+		String titulo;
+		titulo = "";
+		System.out.println("El 1er valor del título de la página es:" + titulo);
+		this.debugBegin();
+		if(this.webDriver.isPresent(labelTitulo))titulo = this.webDriver.getText(labelTitulo);
+		this.debugEnd();
+		System.out.println("El valor final del título de la página es:" + titulo);
+		return titulo;
+	}
+	
 	public void ContinuarAltaSiniestro()
 	{
 		this.debugBegin();
@@ -58,5 +72,13 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 		this.debugEnd();
 	}
 	
+	public void clickContinuar()
+	{
+		this.debugBegin();
+		this.webDriver.click(btnContinuar);
+		this.debugEnd();
+	}
+	
+		
 	// endregion
 }

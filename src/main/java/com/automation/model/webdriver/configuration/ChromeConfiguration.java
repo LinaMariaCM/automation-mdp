@@ -1,16 +1,24 @@
 package com.automation.model.webdriver.configuration;
 
-import java.util.logging.Level;
-
+import io.github.bonigarcia.wdm.BrowserManager;
+import io.github.bonigarcia.wdm.ChromeDriverManager;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
 import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
-import io.github.bonigarcia.wdm.BrowserManager;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class ChromeConfiguration extends BrowserConfiguration {
+
+	private ArrayList<String> pluginFiles = new ArrayList<>();
+
+	public void setPluginFile(ArrayList<String> pluginFiles) {
+		this.pluginFiles = pluginFiles;
+	}
 
 	public static void downloadDriver(boolean forceCache) {
 		BrowserManager manager = ChromeDriverManager.getInstance();
@@ -21,14 +29,6 @@ public class ChromeConfiguration extends BrowserConfiguration {
 		}
 	}
 
-	/*
-	 * public static DesiredCapabilities createDesiredCapabilities(boolean headless) { 
-	 * DesiredCapabilities cap = DesiredCapabilities.chrome();
-	 * cap.setCapability(ChromeOptions.CAPABILITY, createOptions(headless));
-	 * 
-	 * return cap; }
-	 */
-
 	public ChromeOptions createOptions() {
 		debugBegin();
 
@@ -36,6 +36,14 @@ public class ChromeConfiguration extends BrowserConfiguration {
 		prefs.enable(LogType.PERFORMANCE, Level.INFO);
 
 		ChromeOptions options = new ChromeOptions();
+
+		for(String fileName : pluginFiles) {
+			if(!fileName.contains("\\.")) {
+				fileName += ".crx";
+			}
+
+			options.addExtensions(new File(System.getProperty("user.dir") + "/" + fileName));
+		}
 
 		options.addArguments("disable-popup-blocking");
 		options.setCapability(CapabilityType.LOGGING_PREFS, prefs);
@@ -49,12 +57,13 @@ public class ChromeConfiguration extends BrowserConfiguration {
 			options.addArguments("--disable-gpu");
 		}
 
-		// options.addArguments("--start-maximized");
-		// Map<String, Object> preferences = new Hashtable<>();
-		// options.setExperimentalOption("prefs", preferences);
+		if(useProxy) {
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+			proxyCapabilities.setAcceptInsecureCerts(true);
 
-		// preferences.put("plugins.plugins_disabled", new String[]{ "Chrome PDF
-		// Viewer"});
+			options.merge(proxyCapabilities);
+		}
 
 		debugEnd();
 

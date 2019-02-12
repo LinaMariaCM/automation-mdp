@@ -39,14 +39,14 @@ public class InitUtils {
 	public static String[] getTestBrowsers() {
 		String[] browsers = new String[]{ BrowserType.CHROME};
 
-		if(System.getProperty("browser") != null && !System.getProperty("browser").isEmpty()
-			&& (System.getProperty("device") == null || System.getProperty("device").isEmpty())) {
-			String browser = System.getProperty("browser");
+		if(System.getProperty(AutomationConstants.BROWSER) != null && !System.getProperty(AutomationConstants.BROWSER).isEmpty()
+			&& (System.getProperty(AutomationConstants.DEVICE) == null || System.getProperty(AutomationConstants.DEVICE).isEmpty())) {
+			String browser = System.getProperty(AutomationConstants.BROWSER);
 			
 			browsers = browser.split(browser.contains(",") ? ",": "\\.");
-		} else if(System.getProperty("device") != null && !System.getProperty("device").isEmpty()
-			&& (System.getProperty("browser") == null || System.getProperty("browser").isEmpty())) {
-			browsers = new String[]{ System.getProperty("device")};
+		} else if(System.getProperty(AutomationConstants.DEVICE) != null && !System.getProperty(AutomationConstants.DEVICE).isEmpty()
+			&& (System.getProperty(AutomationConstants.BROWSER) == null || System.getProperty(AutomationConstants.BROWSER).isEmpty())) {
+			browsers = new String[]{ System.getProperty(AutomationConstants.DEVICE)};
 		}
 		
 		return browsers;
@@ -55,21 +55,21 @@ public class InitUtils {
 	public static String[] getTestDevices() {
 		String[] devices = new String[] { DeviceType.ANDROID};
 
-		if(System.getProperty("browser") != null && !System.getProperty("browser").isEmpty()
-				&& (System.getProperty("device") == null || System.getProperty("device").isEmpty())) {
-			String browser = System.getProperty("browser");
+		if(System.getProperty(AutomationConstants.BROWSER) != null && !System.getProperty(AutomationConstants.BROWSER).isEmpty()
+				&& (System.getProperty(AutomationConstants.DEVICE) == null || System.getProperty(AutomationConstants.DEVICE).isEmpty())) {
+			String browser = System.getProperty(AutomationConstants.BROWSER);
 
 			devices = browser.split(browser.contains(",") ? ",": "\\.");
-		} else if(System.getProperty("device") != null && !System.getProperty("device").isEmpty()
-				&& (System.getProperty("browser") == null || System.getProperty("browser").isEmpty())) {
-			devices = new String[]{ System.getProperty("device")};
+		} else if(System.getProperty(AutomationConstants.DEVICE) != null && !System.getProperty(AutomationConstants.DEVICE).isEmpty()
+				&& (System.getProperty(AutomationConstants.BROWSER) == null || System.getProperty(AutomationConstants.BROWSER).isEmpty())) {
+			devices = new String[]{ System.getProperty(AutomationConstants.DEVICE)};
 		}
 
 		return devices;
 	}
 	
 	public static String getTestDataPath(String defaultTestData) {
-		String testDataFile = System.getProperty("test_data");
+		String testDataFile = System.getProperty(AutomationConstants.TEST_DATA);
 		
 		if(testDataFile != null && !testDataFile.isEmpty()) {
 			testDataFile = AutomationConstants.RESOURCES_FOLDER + "/" + testDataFile;
@@ -105,7 +105,7 @@ public class InitUtils {
 		return FileUtils.loadCsvFileToArray(filePath, true);
 	}
 	
-	public static String[][] getResultMatrixFromCsvString(String csvFile, String fileName) {		
+	public static String[][] getResultMatrixFromCsvString(String csvFile) {		
 		return FileUtils.loadCsvStringToArray(csvFile, true);
 	}
 	

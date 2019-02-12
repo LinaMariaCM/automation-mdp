@@ -5,6 +5,8 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 
 import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class IEConfiguration extends BrowserConfiguration {
 
@@ -33,6 +35,7 @@ public class IEConfiguration extends BrowserConfiguration {
 		options.setCapability(InternetExplorerDriver.NATIVE_EVENTS, false);
 		options.setCapability("unexpectedAlertBehaviour", "accept");
 		options.setCapability("disable-popup-blocking", true);
+		options.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		options.destructivelyEnsureCleanSession();
 		options.enablePersistentHovering();
 		options.ignoreZoomSettings();
@@ -40,7 +43,16 @@ public class IEConfiguration extends BrowserConfiguration {
 		options.requireWindowFocus();
 		options.addCommandSwitches("disable-popup-blocking");
 		options.addCommandSwitches("--start-fullscreen");
+
+
 		// options.merge(cap);
+
+		if(useProxy) {
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+
+			options.merge(proxyCapabilities);
+		}
 
 		debugEnd();
 

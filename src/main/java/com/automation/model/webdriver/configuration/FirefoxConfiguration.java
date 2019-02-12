@@ -1,19 +1,24 @@
 package com.automation.model.webdriver.configuration;
 
-import java.util.logging.Level;
-
-import org.openqa.selenium.Proxy;
-import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.CapabilityType;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.github.bonigarcia.wdm.BrowserManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.logging.Level;
 
 public class FirefoxConfiguration extends BrowserConfiguration {
+
+	private ArrayList<String> pluginFiles = new ArrayList<>();
+
+	public void setPluginFile(ArrayList<String> pluginFiles) {
+		this.pluginFiles = pluginFiles;
+	}
 
 	public static void downloadDriver(boolean forceCache) {
 		BrowserManager manager = FirefoxDriverManager.getInstance();
@@ -23,14 +28,6 @@ public class FirefoxConfiguration extends BrowserConfiguration {
 			manager.setup();
 		}
 	}
-
-	/*
-	 * public static DesiredCapabilities createDesiredCapabilities(boolean headless) { 
-	 * DesiredCapabilities cap = DesiredCapabilities.firefox();
-	 * cap.setCapability(FirefoxOptions.FIREFOX_OPTIONS, createOptions(headless));
-	 * 
-	 * return cap; }
-	 */
 
 	public FirefoxOptions createOptions() {
 		debugBegin();
@@ -48,6 +45,29 @@ public class FirefoxConfiguration extends BrowserConfiguration {
 		if(headless) {
 			options.addArguments("-headless");
 			options.addArguments("--disable-gpu");
+		}
+		
+		FirefoxProfile profile = new FirefoxProfile();
+		profile.setAcceptUntrustedCertificates(true);
+
+		for(String fileName : pluginFiles) {
+			if(!fileName.contains("\\.")) {
+				fileName += ".xpi";
+			}
+
+			profile.addExtension(new File(System.getProperty("user.dir") + "/" + fileName));
+
+
+		}
+		
+		options.setProfile(profile);
+
+		if(useProxy) {
+			DesiredCapabilities proxyCapabilities = new DesiredCapabilities();
+			proxyCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+			proxyCapabilities.setAcceptInsecureCerts(true);
+
+			options.merge(proxyCapabilities);
 		}
 
 		debugEnd();

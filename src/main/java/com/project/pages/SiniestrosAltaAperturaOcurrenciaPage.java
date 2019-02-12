@@ -29,13 +29,39 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	// private By topFrame;
 	//
 	// @FindBy(id = "mainFrame")
-		private By cuerpoFrame =  By.id("mainFrame");
+	private By cuerpoFrame =  By.id("mainFrame");
 
 	
 	//	####	LUGAR DE OCURRENCIA	####
 	
 	// @FindBy(id = "cabRechazar")
 	// private By btnRechazarApertura;
+	//
+	private By buttonRechazarApertura = By.id("cabRechazar");
+	//
+	private By comboLugarOcurrencia = By.id("listaLugares");
+	//
+	private By comboTipoVia = By.id("tdviaocu");
+	//
+	private By txtCalleOcurrencia = By.id("calleocu");
+	//
+	private By txtNumeroOcurrencia = By.id("numcaocu");
+	//
+	private By txtPortalOcurrencia = By.id("portalocu");
+	//
+	private By txtEscaleraOcurrencia = By.id("escalocu");
+	//
+	private By txtPisoOcurrencia = By.id("pisoocu");
+	//
+	private By txtPuertaOcurrencia = By.id("puertaocu");
+	//
+	private By txtCPOcurrencia = By.id("cpocu");
+	//
+	private By txtPoblacionOcurrencia = By.id("poblocu");
+	//
+	private By comboProvincia = By.id("provocu");
+	//
+	private By buttonGoogleMaps = By.id("dirMaps");
 	//
 	// @FindBy(xpath = "./html/body/div[3]/div/ul/li[1]/a/span")
 	// private By btnVolverABuscador;
@@ -47,42 +73,118 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	//	####	CAUSAS	####
 	
 	// @FindBy(id = "GRUCAUSA")
-		private By grupoCausasAccidentes = By.cssSelector("#GRUCAUSA > option:nth-child(2)");
+	private By grupoCausasAccidentes = By.cssSelector("#GRUCAUSA > option:nth-child(2)");
 	//
 	// @FindBy(id = "TIPOCAUS")
-		private By tipoCausasAccidentes = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
-	
+	private By tipoCausasAccidentes = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
+	//
+	private By comboGrupoCausas = By.id("GRUCAUSA");
+	//
+	private By comboTiposCausa = By.id("TIPOCAUS");
+	//
+	private By comboGremio = By.id("CODGREMIO");
+	//
 	
 	//	####	DATOS DE LA OCURRENCIA	####
 	
 	// @FindBy(id = "version")
-		private By txtDescripcionSiniestro = By.id("version");
+	private By txtDescripcionSiniestro = By.id("version");
 	//
 	// @FindBy(id = "implicadosSi")
-		private By rdbtnImplicadosSi = By.id("implicadosSi");
+	private By rdbtnImplicadosSi = By.id("implicadosSi");
 	//
 	// @FindBy(id = "implicadosNo")
-		private By rdbtnImplicadosNo = By.id("implicadosNo");
+	private By rdbtnImplicadosNo = By.id("implicadosNo");
 	//
 	// @FindBy(id = "encargoSi")
-		private By rdbtnEncargoSi = By.id("encargoSi");
+	private By rdbtnEncargoSi = By.id("encargoSi");
 	//
 	// @FindBy(id = "encargoNo")
-		private By rdbtnEncargoNo = By.id("encargoNo");
+	private By rdbtnEncargoNo = By.id("encargoNo");
 	//
 	// @FindBy(id = "botonGuardar")
-		private By btnGuardarSalir = By.id("botonGuardar");
+	private By btnGuardarSalir = By.id("botonGuardar");
 	//
 	// @FindBy(id = "botonContinuar")
-		private By btnContinuar = By.id("botonContinuar");
-		
-		
-		private By descripOcu = By.id("version");
-		
+	private By btnContinuar = By.id("botonContinuar");
+	
+	
+	private By descripOcu = By.id("version");
+	
 	// endregion
 	
 		
 	// region methods
+		
+	//Lugar es el riesgo asegurado
+	public void altaRiesgoAsegurado()
+	{
+		this.debugBegin();
+		
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboLugarOcurrencia, "value", "RIES");
+						
+		this.debugEnd(); 
+	}
+
+	//Otro lugar de ocurrencia
+	public void altaOtroLugarOcurrencia(String tipoVia, String calle, String numero, String portal, String escalera, String piso, String puerta, String cp, String poblacion, String provincia)
+	{
+		this.debugBegin();
+
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboLugarOcurrencia, "value", "OTRO");
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoVia, "value", tipoVia);
+		this.webDriver.appendText(this.txtCalleOcurrencia, calle);
+		this.webDriver.appendText(this.txtNumeroOcurrencia, numero);
+		this.webDriver.appendText(this.txtPortalOcurrencia, portal);
+		this.webDriver.appendText(this.txtEscaleraOcurrencia, escalera);
+		this.webDriver.appendText(this.txtPisoOcurrencia, piso);
+		this.webDriver.appendText(this.txtPuertaOcurrencia, puerta);
+		this.webDriver.appendText(this.txtCPOcurrencia, cp);
+		this.webDriver.appendText(this.txtPoblacionOcurrencia, poblacion);
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboProvincia, "value", provincia);
+							
+		this.debugEnd(); 
+	}
+
+	//Seleccionar Causas
+	public void altaSeleccionarCausas(String grupoCausa, String tipoCausa, String gremioCausa)
+	{
+		this.debugBegin();
+
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboGrupoCausas, "value", grupoCausa);
+		this.webDriver.waitWithDriver(1500);
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboTiposCausa, "value", tipoCausa);
+		this.webDriver.waitWithDriver(1500);
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboGremio, "value", gremioCausa);
+						
+		this.debugEnd(); 
+	}
+	
+
+	//Rellenar Datos
+	public void altaRellenarDatos(String descripcion, boolean implicadosExisten, boolean encargo)
+	{
+		this.debugBegin();
+
+		this.webDriver.appendText(this.txtDescripcionSiniestro, descripcion);
+		if(implicadosExisten)this.webDriver.click(this.rdbtnImplicadosSi);
+		else this.webDriver.click(this.rdbtnImplicadosNo);
+		if(encargo)this.webDriver.click(this.rdbtnEncargoSi);
+		else this.webDriver.click(this.rdbtnEncargoNo);
+						
+		this.debugEnd(); 
+	}
+		
+	
+	//Click en continuar
+	public void clickContinuar()
+	{
+		this.debugBegin();
+
+		this.webDriver.click(this.btnContinuar);
+						
+		this.debugEnd(); 
+	}
 		
 	// public void clickRechazarApertura()
 	// {
