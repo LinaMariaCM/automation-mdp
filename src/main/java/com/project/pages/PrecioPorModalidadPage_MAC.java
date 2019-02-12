@@ -65,13 +65,18 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// }
 	//
 	public void executeActionsInPrecioPorModalidadPage() throws InterruptedException {
+		this.webDriver.waitWithDriver(4000);
 		this.completarRentaMensualAlquiler();
 		this.completarGarantiasBasicas();
+		
 		this.clickOnConvertirAProyecto();
 	}
 
 	public void completarRentaMensualAlquiler() {
 		debugBegin();
+		
+		webDriver.waitWithDriver(8000);
+		
 		this.webDriver.setTextInFrame(this.txtRenta, this.mainFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));
 		this.webDriver.tabulateElementInFrame(this.txtRenta, this.mainFrame);
 		debugEnd();
@@ -87,9 +92,12 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	
 	public void clickOnConvertirAProyecto() {
 		debugBegin();
+		
 		// this.wh.scrollToEndOfPage();
 		// this.wh.scrollToWebElementWithJavaScriptInFrame(this.btnConvertirProyecto,
 		// this.cuerpoFrame);
+		//this.webDriver.waitForElementToBeClickableInFrame(this.btnConvertirProyecto, this.mainFrame);
+		this.webDriver.waitWithDriver(8000);
 		this.webDriver.clickInFrame(this.btnConvertirProyecto, this.mainFrame);
 		debugEnd();
 	}
@@ -174,6 +182,8 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 
 	 public void clickContinuar() {
 		 debugBegin();
+		 //this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.mainFrame);
+		 this.webDriver.waitWithDriver(6000);
 		 this.webDriver.clickInFrame(this.btnContinuar, this.mainFrame);
 		 debugEnd();
 	 }

@@ -9,7 +9,7 @@ public class GestionAutorizacionesPage extends PageObject {
 	// region webelements
 
 	// @FindBy(id = "PROCESO")
-	private By cmbProceso = By.cssSelector("#PROCESO");
+	private By cmbProceso = By.name("PROCESO");
 
 	// @FindBy(id = "ESTADO")
 	private By cmbEstado = By.cssSelector("#ESTADO");
@@ -66,6 +66,7 @@ public class GestionAutorizacionesPage extends PageObject {
 		debugBegin();
 		
 		this.webDriver.clickInFrame(this.cmbProceso, this.mainFrame);
+		
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProceso, this.mainFrame, seleccionProceso);
 		this.webDriver.clickInFrame(this.cmbEstado, this.mainFrame);
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEstado, this.mainFrame, seleccionEstado);

@@ -394,7 +394,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.mainFrame);
 	 this.adjuntarDocumentos();
 	 this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.mainFrame);
-	 Thread.sleep(2000);
+	 this.webDriver.waitWithDriver(6000);
 	 this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
 	 debugEnd();
 	 }
@@ -441,6 +441,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
+	 webDriver.waitWithDriver(10000);
 	 this.webDriver.appendTextInFrame(this.elmntFichero, this.mainFrame, System.getProperty("user.dir") +"/"+ AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf");
 	 //this.webDriver.sendKeysFrame(this.elmntFichero, this.mainFrame,  "C:/Users/chris/Desktop/New Text Document.txt");
 	 debugEnd();
@@ -461,6 +462,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
+	 webDriver.waitWithDriver(2000);
 	 this.webDriver.clickInFrame(this.btnEnviarACompania, this.mainFrame);
 	 this.webDriver.clickInFrame(this.btnEnviarComentarios, this.mainFrame);
 	 this.webDriver.waitWithDriver(3000);

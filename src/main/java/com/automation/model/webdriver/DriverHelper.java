@@ -1951,6 +1951,16 @@ public class DriverHelper {
 		}
 	}
 
+	public void scrollToElementInFrame(By by, By frame) {
+		switchToFrame(frame);
+		if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
+			scrollToElement(driver.findElement(by));
+		} else {
+			getElement(by);
+		}
+		exitFrame();
+	}	
+	
 	public void scrollToElement(WebElement el) {
 		scrollToElement(el, false);
 	}
