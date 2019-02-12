@@ -152,8 +152,10 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		this.debugBegin();
 
 		this.webDriver.clickElementFromDropDownByAttribute(this.comboGrupoCausas, "value", grupoCausa);
+		this.webDriver.waitWithDriver(1500);
 		this.webDriver.clickElementFromDropDownByAttribute(this.comboTiposCausa, "value", tipoCausa);
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboGremio, "value", tipoCausa);
+		this.webDriver.waitWithDriver(1500);
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboGremio, "value", gremioCausa);
 						
 		this.debugEnd(); 
 	}

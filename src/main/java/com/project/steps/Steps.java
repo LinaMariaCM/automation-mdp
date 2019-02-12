@@ -3672,7 +3672,96 @@ public class Steps extends StepObject {
 		debugEnd();
 	}
 
-	
+	// ALTA SINIESTRO ALTERNATIVA
+		public void alta_siniestroAlt(String acceso, String numPoliza, boolean asistencia) throws Exception {
+			debugBegin();
+			String ramo = "";
+			
+			// Accedemos a siniestros desde INNOVA
+			
+			if(acceso.compareTo("Innova") == 0){
+				
+				InnovaHomePage innovaHome = new InnovaHomePage(userS);
+				innovaHome.openSiniestros();
+						
+				// Elegimos la opción "alta" de siniestros
+				SiniestrosHomePage siniestrosHome = new SiniestrosHomePage(userS);
+				siniestrosHome.openAperturaAlta();
+				
+				// Buscamos una póliza por Nº póliza
+				SiniestrosAltaAperturaPage altaApertura = new SiniestrosAltaAperturaPage(userS);
+				if(numPoliza.startsWith("510")) ramo = "510";
+				else if(numPoliza.startsWith("920")||numPoliza.startsWith("900")) ramo = "920";
+				else if(numPoliza.startsWith("660")) ramo = "660";
+				else if(numPoliza.startsWith("400")||numPoliza.startsWith("200")||numPoliza.startsWith("150")||(numPoliza.startsWith("500")&&!numPoliza.startsWith("5000"))) ramo = "500";
+				else if(numPoliza.startsWith("5000")||numPoliza.startsWith("600")||numPoliza.startsWith("610")||numPoliza.startsWith("620")||numPoliza.startsWith("630")||numPoliza.startsWith("640")) ramo = "640";
+				//
+				altaApertura.buscarNumPoliza(ramo, numPoliza);
+				altaApertura.continuarPrimeraPoliza();
+		
+				// 1.Declaración
+				SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
+				datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
+				//Comprobamos si necesita asistencia
+				if(asistencia) {
+					datosDeclaracion.altaConAsistencia(true, false, "", "Daños ubicados en el interior del riesgo asegurado", true, false, "");
+				}
+				else {
+					if(datosDeclaracion.posibilidadAsistencia())datosDeclaracion.altaSinAsistencia();
+				}
+				datosDeclaracion.clickContinuar();
+				
+				// Validamos cosas
+				ValidacionExcepcionesReglasPage validarReglas = new ValidacionExcepcionesReglasPage(userS);
+				if(validarReglas.comprobarNombrePagina().contains("excepciones"))validarReglas.clickContinuar();
+		
+				// Completamos el apartado de Ocurrencia
+				SiniestrosAltaAperturaOcurrenciaPage datosOcurrencia = new SiniestrosAltaAperturaOcurrenciaPage(userS); 
+				datosOcurrencia.altaRiesgoAsegurado();
+				String gCausa = "";
+				String tCausa = "";
+				String gremio = "";
+				if(ramo=="510" || ramo=="660" || ramo=="500" || ramo=="640")
+				{
+					gCausa="GC02";
+					tCausa="TC002000";
+					gremio="1";
+				}
+				else if(ramo=="920")
+				{
+					gCausa="GC25";
+					tCausa="TC025000";
+					gremio="1";
+				}
+				datosOcurrencia.altaSeleccionarCausas(gCausa, tCausa, gremio);
+				datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", false, false);
+				datosOcurrencia.clickContinuar();
+				
+				// Validamos más cosas
+				ValidacionExcepcionesReglasPage validarReglas2 = new ValidacionExcepcionesReglasPage(userS);
+				if(validarReglas2.comprobarNombrePagina().contains("excepciones"))validarReglas2.clickContinuar();
+				
+				// Completamos el apartado de Implicado asegurado
+				SiniestrosImplicadoAseguradoPage implicadoAsegurado = new SiniestrosImplicadoAseguradoPage(userS);
+				implicadoAsegurado.clickApertura();
+										
+				// Página de confirmación
+				SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+				confirmarAltaSiniestro.confirmarSiniestroOK();
+				}
+			
+			// Accedemos a siniestros desde Gestión On Line
+			
+			else if(acceso.compareTo("GOL") == 0) {
+				
+				new GestionOnlineHomePage(userS).openSiniestros();
+				
+				
+				
+			}
+
+			debugEnd();
+		}
 	
 	//TRAMITAR SINIESTRO
 	

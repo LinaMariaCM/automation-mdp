@@ -98,6 +98,8 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	//
 	 private By rdbtnUrgenteNo = By.id("resolUrgeNo");
 	//
+	 private By comboMotivo = By.id("MOTIASIS");
+	//
 	 private By txtUbicacionDanos = By.id("nombdato_UBICADAN_1");
 	//
 	 private By rdbtnReparadoSi = By.id("origDanyoSi");
@@ -113,6 +115,17 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 // botón continuar para produtos 500 y 510 
 	 private By btnContinuar = By.id("botonContinuar");
 	 
+	 
+	 // #### BOTONES EXTRA (escenarios fallo) #### 
+	 
+	 //
+	 private By labelErrorEnDeclaracion = By.cssSelector("body > table > tbody > tr > td > p > strong");
+	 //
+	 private By btnVolver = By.id("botonVolver");
+	 //
+	 
+	 
+	 
 
 	 
 	// endregion
@@ -124,13 +137,11 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	// region methods
 	
 	//Introducir datos Basicos
-	 public void altaDatosBasicos(String fechaOcurrencia, String tipoDeclarante, String medioDeclaracion)
+	 public void altaDatosBasicos(String tipoDeclarante, String medioDeclaracion)
 	 {
 		this.debugBegin();
-		
-		fOcurrencia.format(fechaOcurrencia);
-		
-		this.webDriver.appendText(this.txtFechaOcurrencia, fechaOcurrencia);
+				
+		this.webDriver.appendText(this.txtFechaOcurrencia, fOcurrencia.format(new Date()));
 		this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoDeclarante, "value", tipoDeclarante);//Añadir los tipos de value como comentario
 		this.webDriver.clickElementFromDropDownByAttribute(this.comboMedioDeclaracion, "value", medioDeclaracion);
 				
@@ -181,20 +192,42 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		 this.debugEnd();
 	 }
 	 
+	 //Necesita asistencia
+	 public boolean posibilidadAsistencia() 
+	 {
+		 this.webDriver.waitWithDriver(2500);
+		 if(this.webDriver.isClickable(rdbtnAsistenciaSi))return true;
+		 else return false;
+	 }
+	 
+	//Introducir datos asistencia NO
+	 public void altaSinAsistencia() 
+	 {
+		 this.debugBegin();
+
+		 this.webDriver.click(this.rdbtnAsistenciaNo);
+		 	
+		 this.debugEnd();
+	 }
+	 
 	 //Introducir datos asistencia
-	 public void altaConAsistencia(boolean requiereAsistencia, boolean resolucionUrgente, String ubicacion, boolean origenReparado, boolean consecuencia, String RefAsistenciaExt) 
+	 public void altaConAsistencia(boolean requiereAsistencia, boolean resolucionUrgente, String motivo, String ubicacion, boolean origenReparado, boolean consecuencia, String RefAsistenciaExt) 
 	 {
 		 this.debugBegin();
 
 		 	if(requiereAsistencia)this.webDriver.click(this.rdbtnAsistenciaSi);
 			else this.webDriver.click(this.rdbtnAsistenciaNo);
-		 	if(resolucionUrgente)this.webDriver.click(this.rdbtnUrgenteSi);
+		 	if(resolucionUrgente) {
+		 		this.webDriver.click(this.rdbtnUrgenteSi);
+		 		this.webDriver.clickElementFromDropDownByAttribute(comboMotivo, "value", motivo);
+		 	}
 			else this.webDriver.click(this.rdbtnUrgenteNo);
-			this.webDriver.appendText(this.txtUbicacionDanos, ubicacion);
+			this.webDriver.setText(this.txtUbicacionDanos, ubicacion);
 		 	if(origenReparado)this.webDriver.click(this.rdbtnReparadoSi);
 			else this.webDriver.click(this.rdbtnReparadoNo);
 			if(consecuencia)this.webDriver.click(this.rdbtnConsecuenciasSi);
 			else this.webDriver.click(this.rdbtnConsecuenciasNo);
+			this.webDriver.setText(this.txtRefAsistenciaExt, RefAsistenciaExt);
 					
 		 this.debugEnd();
 	 }
@@ -204,8 +237,9 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 {
 		this.debugBegin();
 		
-		this.webDriver.waitWithDriver(7000);
-		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		//this.webDriver.waitWithDriver(7000);
+		//this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		this.webDriver.click(btnContinuar);
 		
 		//Steps.waitForIt(webDriver);
 		System.out.println("pam");

@@ -82,6 +82,23 @@ public class SiniestrosTest {
 			return null;
 		}).run();
 	}
+	
+	/*
+	public void siniestrosMec02(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		
+		userS.testActions(() -> {
+		
+			steps.login("Innova", "Eperez");
+
+			steps.alta_siniestroAlt("Innova", "510000020");
+		
+			return null;
+		}).run();
+	}
+	*/
 
 	@AfterSuite
 	public void afterSuite() {
