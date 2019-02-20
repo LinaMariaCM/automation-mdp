@@ -35,7 +35,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "510000020", false);
+			steps.alta_siniestroAlt("Innova", "510000020", false, false, false);
 		
 			return null;
 		}).run();
@@ -52,7 +52,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "920017000", false);
+			steps.alta_siniestroAlt("Innova", "920017000", false, false, false);
 		
 			return null;
 		}).run();
@@ -70,7 +70,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "900918881", false);
+			steps.alta_siniestroAlt("Innova", "900911779", false, false, false);
 		
 			return null;
 		}).run();
@@ -88,7 +88,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "500553299", false);
+			steps.alta_siniestroAlt("Innova", "500553299", false, false, false);
 		
 			return null;
 		}).run();
@@ -107,7 +107,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "400009108", false);
+			steps.alta_siniestroAlt("Innova", "400009108", false, false, false);
 		
 			return null;
 		}).run();
@@ -125,7 +125,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "150403130", false);
+			steps.alta_siniestroAlt("Innova", "150401435", false, false, false);
 		
 			return null;
 		}).run();
@@ -142,7 +142,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "200226110", false);
+			steps.alta_siniestroAlt("Innova", "200226110", false, false, false);
 		
 			return null;
 		}).run();
@@ -159,7 +159,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "660000097", false);
+			steps.alta_siniestroAlt("Innova", "660000097", false, false, false);
 		
 			return null;
 		}).run();
@@ -177,7 +177,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "50002522", false);
+			steps.alta_siniestroAlt("Innova", "50002522", false, false, false);
 		
 			return null;
 		}).run();
@@ -195,7 +195,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "600600172", false);
+			steps.alta_siniestroAlt("Innova", "600600172", false, false, false);
 		
 			return null;
 		}).run();
@@ -213,7 +213,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "610619142", false);
+			steps.alta_siniestroAlt("Innova", "610619142", false, false, false);
 		
 			return null;
 		}).run();
@@ -230,7 +230,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "620664851", false);
+			steps.alta_siniestroAlt("Innova", "620664851", false, false, false);
 		
 			return null;
 		}).run();
@@ -247,7 +247,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "630674325", false);
+			steps.alta_siniestroAlt("Innova", "630674325", false, false, false);
 		
 			return null;
 		}).run();
@@ -265,7 +265,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "640701098", false);
+			steps.alta_siniestroAlt("Innova", "640701098", false, false, false);
 		
 			return null;
 		}).run();
@@ -282,12 +282,29 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "510000076", true);
+			steps.alta_siniestroAlt("Innova", "510000076", true, false, false);
 		
 			return null;
 		}).run();
 	}
 	
+
+	@Test(dataProvider = "dataProviderSiniestrosMec01")
+	
+	public void siniestroEncargoImplicadoAdicional510(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		
+		userS.testActions(() -> {
+		
+			steps.login("Innova", "Eperez");
+
+			steps.alta_siniestroAlt("Innova", "510004024", false, true, true);
+		
+			return null;
+		}).run();
+	}
 	
 	@AfterSuite
 	public void afterSuite() {

@@ -7,6 +7,7 @@ import com.project.pages.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
+import java.util.Date;
 import java.util.Locale;
 import java.awt.AWTException;
 import java.io.IOException;
@@ -3648,7 +3649,7 @@ public class Steps extends StepObject {
 	}
 
 	// ALTA SINIESTRO ALTERNATIVA
-		public void alta_siniestroAlt(String acceso, String numPoliza, boolean asistencia) throws Exception {
+		public void alta_siniestroAlt(String acceso, String numPoliza, boolean asistencia, boolean otrosImplicados, boolean encargo) throws Exception {
 			debugBegin();
 			String ramo = "";
 			
@@ -3696,7 +3697,7 @@ public class Steps extends StepObject {
 				String gCausa = "";
 				String tCausa = "";
 				String gremio = "";
-				if(ramo=="510" || ramo=="660" || ramo=="500" || ramo=="640")
+				if(ramo=="510" || ramo=="500")
 				{
 					gCausa="GC02";
 					tCausa="TC002000";
@@ -3708,8 +3709,20 @@ public class Steps extends StepObject {
 					tCausa="TC025000";
 					gremio="1";
 				}
+				else if(ramo=="640")
+				{
+					gCausa="GC51";
+					tCausa="TC002000";
+					gremio="1";
+				}
+				else if(ramo=="660")
+				{
+					gCausa="GC32";
+					tCausa="TC002000";
+					gremio="1";
+				}
 				datosOcurrencia.altaSeleccionarCausas(gCausa, tCausa, gremio);
-				datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", false, false);
+				datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", otrosImplicados, encargo);
 				datosOcurrencia.clickContinuar();
 				
 				// Validamos más cosas
@@ -3719,7 +3732,32 @@ public class Steps extends StepObject {
 				// Completamos el apartado de Implicado asegurado
 				SiniestrosImplicadoAseguradoPage implicadoAsegurado = new SiniestrosImplicadoAseguradoPage(userS);
 				implicadoAsegurado.clickApertura();
+				
+				//Comprobamos si se requiere añadir un implicado extra
+				if(otrosImplicados)
+				{
+				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
+				altaOtrosImplicados.clickNuevoImplicado();
+				SiniestrosOtrosImplicadosDatos otroImplicadoDatos = new SiniestrosOtrosImplicadosDatos(userS);
+				otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "", "", "666885985", "", "", "implicadoextra@mail.com");
+				otroImplicadoDatos.introducirDatosDireccion("", "", "", "", "", "", "", "", "ES21", "2100", "0001", "05", "0000000001");
+				otroImplicadoDatos.clickGrabar();
+				altaOtrosImplicados.clickContinuar();
+				}
 										
+				//Comprobamos si se requiere añadir un encargo
+				
+				if(encargo)
+				{
+				SiniestrosEncargoAlta altaEncargo = new SiniestrosEncargoAlta(userS);
+				altaEncargo.clickNuevoEncargo();
+				SiniestrosEncargoDatos encargoDatos = new SiniestrosEncargoDatos(userS);
+				encargoDatos.seleccionarTipoEncargo("PGRA", "PERIGRAL", "PERITACI");
+				encargoDatos.seleccionarDatosEncargo(new Date(), "");
+				encargoDatos.clickGrabar();
+				altaEncargo.clickContinuar();
+				}
+				
 				// Página de confirmación
 				SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
 				confirmarAltaSiniestro.confirmarSiniestroOK();
