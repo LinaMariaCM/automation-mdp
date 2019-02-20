@@ -58,41 +58,6 @@ public class MacTest extends TestObject {
 	
 	public void mac01a(String testCase, String id, String browser) throws Exception {
 		
-		/*
-		 * 
-		 * @Mac01a
-			Escenario: [Mac01a] - Alta de proyecto de alquiler desde GO, completando los datos sin esperar la aprobacion
-			Dado la renta de alquiler mensual es "renta_mensual_alquiler"
-			Y el nombre del inquilino "nombre_inquilino"
-			Y el primer apellido del inquilino "primer_apell_inqulino"
-			Y el documento aleatoreo
-			Y con ingresos "ingresos_inquilino"
-			Y situacion laboral "situacion_laboral" 
-			Y el tomador es "tomador"
-			Y el tipo de persona es "tipo_persona"
-			Y el documento de tomador es aleatoreo
-			Y el nombre de tomador es "tomador_nombre"
-			Y el primer apellido de tomador es "tomador_apellido"
-			Y la provincia de tomador es "provincia"
-			Y la poblacion de tomador es "poblacion"
-			Y la direccion de tomador es "nombre_via"
-			Y el numero de portal de tomador es "numero_via"
-			Y la fecha de nacimiento de tomador es "fecha_nacimiento"
-			Y el numero de cuenta es "numero_cuenta"
-			Y la provincia del inmueble es "provincia_inm"
-			Y la poblacion del inmueble es "poblacion_inm"
-			Y la direccion del inmueble es "via_inm"
-			Y el numero de portal del inmueble es "numerovia_inm"
-			Y la fecha de contrato del alquiler es "fecha_contr_alq"
-			############################################################################################################################
-			Cuando doy de alta un proyecto MAC que llega hasta la pantalla contratación usando el acceso "acceso" y el usuario "usuario"
-			Y envio el proyecto a la compañia
-			Y completo el proceso de contratacion MAC sin autorizacion
-			############################################################################################################################
-			Entonces se informa de que la poliza no se puede emitir
-		 * 
-		 * */
-
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
 		Steps steps = new Steps(userS);
 		

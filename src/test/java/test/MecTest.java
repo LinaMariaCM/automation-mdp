@@ -16,42 +16,93 @@ public class MecTest extends TestObject {
 
 	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MEC);
 
-	// PRUEBA MEC01
+	// PRUEBAS MEC
 	@DataProvider(parallel = true)
-	public String[][] dataProviderMec01() {
-		String testCase = ProjectConstants.MEC + "01";
+	public String[][] dataProviderMec() {
+		String testCase = ProjectConstants.MEC;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "dataProviderMec01")
+	@Test(dataProvider = "dataProviderMec")
 	public void mec01(String testCase, String id, String browser) throws Exception {
+		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
 		Steps steps = new Steps(userS);
 
+		userS.setScenario(testCase + "1");
+		
 		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
-		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
 
 		userS.testActions(() -> {
-			// Escenario: [Mec01] - Alta proyecto: datos catastro+cliente nuevo+complet+cobro mediador
-
-			/*
-			 * Dado el mediador "mediador" 
-			 * Y la referencia catastral "ref_catastral" 
-			 * Y la modalidad "modalidad" Y el tomador es "tomador"
-			 * Y el medio de pago es "medio_pago"
-			 * Cuando doy de alta una simulacion y convierto esta simulacion a un projecto usando el acceso "acceso" y el usuario "usuario"
-			 * Y cierro el navegador
-			 * Entonces el resultado es que el projecto se crea correctamente
-			 **/
-
-			steps.contratar_poliza_MEC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
-
+	
+			steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+			
 			return null;
 		}).run();
 	}
 
+	public void mec02(String testCase, String id, String browser) throws Exception {
+		
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.setScenario(testCase + "2");
+		
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+	
+			steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+			
+			return null;
+		}).run();
+	}
+	
+	public void mec03(String testCase, String id, String browser) throws Exception {
+		
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.setScenario(testCase + "3");
+		
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+	
+			steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+			
+			return null;
+		}).run();
+	}
+	
+	public void mec04(String testCase, String id, String browser) throws Exception {
+		
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.setScenario(testCase + "4");
+		
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+	
+			steps.doy_de_alta_una_simulacion_que_llega_hasta_la_pantalla_de_precio_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"),userS.getScenarioVar("usuario"));
+			
+			steps.aparece_aviso("La dirección del riesgo no está normalizada");
+			
+			return null;
+		}).run();
+	}
+
+	
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
