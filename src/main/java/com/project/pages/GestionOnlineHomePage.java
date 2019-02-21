@@ -126,13 +126,6 @@ public class GestionOnlineHomePage extends PageObject {
 
 	// endregion
 
-	/*
-	 * public GestionOnlineHomePage(BrowserContext browserContext) {
-	 * this.browserContext = browserContext; this.wh =
-	 * browserContext.webElementHelper; this.tData =
-	 * browserContext.getTestCaseData();
-	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
-	 */
 
 	public GestionOnlineHomePage(UserStory userS) {
 		super(userS);
@@ -177,19 +170,19 @@ public class GestionOnlineHomePage extends PageObject {
 		return this;
 	}
 
-//	public GestionOnlineHomePage createNewSimulation() {
-//		debugBegin();
-//		// this.webDriver.doubleClick(this.btnMutuaEdificioConfort,
-//		// this.frameLeftFrame);
-//		// this.webDriver.doubleclickInFrame(this.btnNuevaSimulaion,
-//		// this.frameLeftFrame);
-//		this.webDriver.doubleClick(this.btnMutuaEdificioConfort);
-//		this.webDriver.doubleClick(this.btnNuevaSimulaion);
-//
-//		debugEnd();
-//
-//		return this;
-//	}
+	public GestionOnlineHomePage createNewSimulation() {
+		debugBegin();
+		// this.webDriver.doubleClick(this.btnMutuaEdificioConfort,
+		// this.frameLeftFrame);
+		// this.webDriver.doubleclickInFrame(this.btnNuevaSimulaion,
+		// this.frameLeftFrame);
+		this.webDriver.doubleClick(this.btnMutuaEdificioConfort);
+		this.webDriver.doubleClick(this.btnNuevaSimulaion);
+
+		debugEnd();
+
+		return this;
+	}
 
 	public GestionOnlineHomePage openContratarMutuaEdificioConfort() throws AWTException, InterruptedException, IOException {
 		debugBegin();
@@ -339,14 +332,14 @@ public class GestionOnlineHomePage extends PageObject {
 		return this.webDriver.getTextInFrame(this.estadoPoliza, this.contentFrame);
 	}
 
-	// public void openGestionCotizaciones()
-	// {
-	// logger.debug("BEGIN - OpenGestionCotizaciones");
-	// this.webDriver.click(this.btnMapaWeb);
-	// this.webDriver.doubleclickInFrame(this.btnGestionCotizaciones,
-	// this.mainFrame);
-	// logger.debug("END - OpenGestionCotizaciones");
-	// }
+	public void openGestionCotizaciones()
+	 {
+		 debugBegin();
+		 this.webDriver.click(this.btnMapaWeb);
+		 this.webDriver.doubleClickInFrame(this.btnGestionCotizaciones,
+		 this.mainFrame);
+		 debugEnd();
+	 }
 
 	public GestionOnlineHomePage openGestionPolizas() {
 		debugBegin();
