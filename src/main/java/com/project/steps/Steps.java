@@ -3792,7 +3792,8 @@ public class Steps extends StepObject {
 			
 			else if(acceso.compareTo("GOL") == 0) {
 				
-				new GestionOnlineHomePage(userS).openSiniestros();
+				GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
+				goHome.openSiniestros();
 				
 				
 				
