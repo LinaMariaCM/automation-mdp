@@ -195,7 +195,7 @@ public class SiniestrosTest2 {
 		
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "600600172", false, false, false);
+			steps.alta_siniestroAlt("Innova", "600601384", false, false, false);
 		
 			return null;
 		}).run();
