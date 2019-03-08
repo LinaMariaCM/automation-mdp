@@ -3,11 +3,11 @@ package com.project.steps;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.StepObject;
 import com.automation.model.webdriver.DriverHelper;
-import com.mutuaPropietarios.testCasesData.Pages.AsignarMediadorPage;
-import com.mutuaPropietarios.testCasesData.Pages.DetallesRiesgoPage;
-import com.mutuaPropietarios.testCasesData.Pages.GestionCotizacionesBuscadorPage;
-import com.mutuaPropietarios.testCasesData.Pages.UbicacionRiesgoPage;
-import com.mutuaPropietarios.testCasesData.context.MutuaPropietariosConstants;
+//import com.mutuaPropietarios.testCasesData.Pages.AsignarMediadorPage;
+//import com.mutuaPropietarios.testCasesData.Pages.DetallesRiesgoPage;
+//import com.mutuaPropietarios.testCasesData.Pages.GestionCotizacionesBuscadorPage;
+//import com.mutuaPropietarios.testCasesData.Pages.UbicacionRiesgoPage;
+//import com.mutuaPropietarios.testCasesData.context.MutuaPropietariosConstants;
 import com.project.pages.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -4267,7 +4267,7 @@ public class Steps extends StepObject {
 				  }
 				 
 				  
-				 public void lo_consulto_en_el_buscador_de_cotizaciones(String loginAcess, String user) 
+				 public void lo_consulto_en_el_buscador_de_cotizaciones(String loginAcess, String user) throws Exception 
 				 	{
 						  debugBegin();
 						  
@@ -4296,65 +4296,64 @@ public class Steps extends StepObject {
 				 
 				 
 				  
-				 public void el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar( String loginAcess, String user)
-				 	{ 
-					 	debugBegin();
-				 
-					 	loginAcess = this.userS.getTestVar("acceso");
-				 
-					 	this.browserContext.initializeVariables(loginAcess);
-					 	
-						this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
-						  .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-						 
-						  String mediador = this.tCData.getMediador();
-						  
-						if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine) && this.tCData != null && !mediador.equals("640")) {
-							AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
-							asignarMediadorPage.selectMediadorAndClickOnContinuar();
-							
-						} else if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
-							AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
-							asignarMediadorPage.SeleccionarMediadorPorCodigo(this.tCData.getMediador().toString());
-							asignarMediadorPage.clickOnContinuarButton();
-						}
-				
-						UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
-						ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
-						ValidacionesExcepcionesReglasUbicacionRiesgoPage validacionesExcepcionesReglasUbicacionRiesgo = new ValidacionesExcepcionesReglasUbicacionRiesgoPage(this.browserContext);
-						validacionesExcepcionesReglasUbicacionRiesgo.isUbicacionRiesgoUtilizada();
-						this.detallesRiesgoPage = new DetallesRiesgoPage(webDriver,
-							userS.getTestDataManager());
-						this.detallesRiesgoPage.completarDatosEnDetallesRiesgo();
-						ValidacionExcepcionesReglasDetallesRiesgoPage validacionExcepcionesReglasDetallesRiesgoPage = new ValidacionExcepcionesReglasDetallesRiesgoPage(this.browserContext);
-						validacionExcepcionesReglasDetallesRiesgoPage.clickOnContinuar();
-						PrecioPage precioPage = new PrecioPage(webDriver,
-							userS.getTestDataManager());
-						precioPage.ClickOnConvertirAProjecto();
-						DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(userS);
-						datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
-						datosBasicosTomadorPage.clickOnContinuar();
-						PrecioPorModalidadPage precioPorModalidadPage = new PrecioPorModalidadPage(webDriver,
-							userS.getTestDataManager());
-						precioPorModalidadPage.ExecuteActionsInPrecioPorModalidadPage();
-						ValidacionExcepcionesReglasPage validacionExcepcionesReglasPage = new ValidacionExcepcionesReglasPage(userS);
-						validacionExcepcionesReglasPage.clickOnContinuarButton();
-						ClausulasPage clausulasPage = new ClausulasPage(userS);
-						clausulasPage.ActivateclausesAndClickOnContinue();
-						TomadorYAseguradoPage tomadorYAseguradoPage = new TomadorYAseguradoPage(webDriver,
-							userS.getTestDataManager());
-						tomadorYAseguradoPage.AddDatosTomador();
-						tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
-						tomadorYAseguradoPage.clickOnContinuar();
-						DatosBancariosPage datosBancariosPage = new DatosBancariosPage(webDriver,
-							userS.getTestDataManager());
-						datosBancariosPage.introducirFormaPagoYPulsarGuardar();
-						this.browserContext.writeTestCaseData();
-				  
-						  debugEnd(); 
-				 
-				  }
-				 
+//				 public void el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar( String loginAcess, String user)
+//				 	{ 
+//					 	debugBegin();
+//				 
+//					 	loginAcess = this.userS.getTestVar("acceso");
+//				 
+//					 	this.browserContext.initializeVariables(loginAcess);
+//					 	
+//						this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
+//						  .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
+//						 
+//						  String mediador = this.tCData.getMediador();
+//						  
+//						if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine) && this.tCData != null && !mediador.equals("640")) {
+//							AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
+//							asignarMediadorPage.selectMediadorAndClickOnContinuar();
+//							
+//						} else if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova)) {
+//							AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
+//							asignarMediadorPage.SeleccionarMediadorPorCodigo(userS.getScenarioVar("mediador").toString());
+//							asignarMediadorPage.clickOnContinuarButton();
+//						}
+//				
+//						new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue("userS");
+//						ValidacionesExcepcionesReglasUbicacionRiesgoPage validacionesExcepcionesReglasUbicacionRiesgo = new ValidacionesExcepcionesReglasUbicacionRiesgoPage(this.browserContext);
+//						validacionesExcepcionesReglasUbicacionRiesgo.isUbicacionRiesgoUtilizada();
+//						this.detallesRiesgoPage = new DetallesRiesgoPage(webDriver,
+//							userS.getTestDataManager());
+//						this.detallesRiesgoPage.completarDatosEnDetallesRiesgo();
+//						ValidacionExcepcionesReglasDetallesRiesgoPage validacionExcepcionesReglasDetallesRiesgoPage = new ValidacionExcepcionesReglasDetallesRiesgoPage(this.browserContext);
+//						validacionExcepcionesReglasDetallesRiesgoPage.clickOnContinuar();
+//						PrecioPage precioPage = new PrecioPage(webDriver,
+//							userS.getTestDataManager());
+//						precioPage.ClickOnConvertirAProjecto();
+//						DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(userS);
+//						datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
+//						datosBasicosTomadorPage.clickOnContinuar();
+//						PrecioPorModalidadPage precioPorModalidadPage = new PrecioPorModalidadPage(webDriver,
+//							userS.getTestDataManager());
+//						precioPorModalidadPage.ExecuteActionsInPrecioPorModalidadPage();
+//						ValidacionExcepcionesReglasPage validacionExcepcionesReglasPage = new ValidacionExcepcionesReglasPage(userS);
+//						validacionExcepcionesReglasPage.clickOnContinuarButton();
+//						ClausulasPage clausulasPage = new ClausulasPage(userS);
+//						clausulasPage.ActivateclausesAndClickOnContinue();
+//						TomadorYAseguradoPage tomadorYAseguradoPage = new TomadorYAseguradoPage(webDriver,
+//							userS.getTestDataManager());
+//						tomadorYAseguradoPage.AddDatosTomador();
+//						tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
+//						tomadorYAseguradoPage.clickOnContinuar();
+//						DatosBancariosPage datosBancariosPage = new DatosBancariosPage(webDriver,
+//							userS.getTestDataManager());
+//						datosBancariosPage.introducirFormaPagoYPulsarGuardar();
+//						this.browserContext.writeTestCaseData();
+//				  
+//						  debugEnd(); 
+//				 
+//				  }
+//				 
 				 
 				 
 				 

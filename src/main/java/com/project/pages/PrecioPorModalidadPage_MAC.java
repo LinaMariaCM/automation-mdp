@@ -65,17 +65,19 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	// }
 	//
 	public void executeActionsInPrecioPorModalidadPage() throws InterruptedException {
+		debugBegin();
 		this.webDriver.waitWithDriver(4000);
 		this.completarRentaMensualAlquiler();
 		this.completarGarantiasBasicas();
 		
 		this.clickOnConvertirAProyecto();
+		debugEnd();
 	}
 
 	public void completarRentaMensualAlquiler() {
 		debugBegin();
 		
-		webDriver.waitWithDriver(8000);
+		webDriver.waitWithDriver(4000);
 		
 		this.webDriver.setTextInFrame(this.txtRenta, this.mainFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));
 		this.webDriver.tabulateElementInFrame(this.txtRenta, this.mainFrame);
