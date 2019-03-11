@@ -3623,8 +3623,23 @@ public class Steps extends StepObject {
 	 * ############## # SINIESTROS # ##############
 	 * 
 	 */
+	
+	public void acceder_cliente() throws Exception {//aporte Jenney
+		debugBegin();
+		new ClientePage(userS).clickNuevoTomador();
+		new ClientePage(userS).datosTomador();
+		new ClientePage(userS).localizacionDomicilioTomador();
+		//new ClientePage(userS).nuevoClienteSeleccionado();
+		
+		debugEnd();
 
+	}
+	
 	// ALTA SINIESTRO
+	
+	
+	
+	
 	public void alta_siniestro(String acceso, String numPoliza) throws Exception {
 		debugBegin();
 		

@@ -26,7 +26,7 @@ public class ProjectConstants {
 	/* tipo de prueba: MEC */
 	//16/04/18
 	
-	public static final String FICHA_CLIENT = "FichaCliente";
+	public static final String FICHA_CLIENT = "fichaClient";
 	
 	/* tipo de prueba: SiniestrosMEC */
 	//25/06/18

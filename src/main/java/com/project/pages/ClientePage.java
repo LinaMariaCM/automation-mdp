@@ -1,30 +1,51 @@
 package com.project.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
+import com.google.common.collect.TreeMultiset;
 import com.project.ProjectConstants;
+import com.project.steps.Steps;
+
+import net.bytebuddy.asm.Advice.Enter;
 
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
 //import com.mutuaPropietarios.testCasesData.context.ProjectConstants;
 //import com.mutuaPropietarios.testCasesData.context.TestCaseData;
 
-public class ClientesPage extends PageObject {
+public class ClientePage extends PageObject {
 
 	// region webelements
+	
 	@FindBy(name = "cuerpo")
 	private By cuerpoFrame = By.name("cuerpo");
 
 	@FindBy(id = "leftFrame")
 	private By menuFrame = By.cssSelector("leftFrame");
-
-	//@FindBy(xpath = ".//*[text()='Clientes']")
-	//private By clientesLink = By.xpath(".//*[text()='Clientes']");
 	
-	@FindBy(id = "#jt13")                        
+	
+	@FindBy(id = "leftFrame")
+	private By cajaMenuCliente = By.cssSelector("#jt6son");
+	
+	private By topFrame = By.cssSelector("#leftFrame");
+	
+	//#topFrame
+	@FindBy(id = "#jt13")
+	private By administracion = By.cssSelector("#jt13");
+	
+	//@FindBy(id = "leftFrame")
+	//private By menuFrameCliente = By.cssSelector("#layerInner > div > div");
+
+  @FindBy(id= "#jt13")
 	private By clientesLink = By.cssSelector("#jt13");
+		//+ "#jt6son > #jt13");
+	
+	//@FindBy(id = "#jt13")                        
+	//private By clientesLink = By.cssSelector("#jt13");
 	
 	@FindBy(id = "filtro1")
 	private By rdbNombre = By.cssSelector("filtro1");
@@ -87,13 +108,46 @@ public class ClientesPage extends PageObject {
 	@FindBy(xpath = "/html/body/div[3]/div/ul/li[4]/a/span")
 	private By btnNuevoInterveniente = By.xpath("/html/body/div[3]/div/ul/li[4]/a/span");
 
+	
+	@FindBy(id = "#mainFrame")
+	private By menuFrameTomador = By.cssSelector("#mainFrame");
+	
+	@FindBy(id = "#capaIframe")
+	private By capaIframe = By.cssSelector("#capaIframe");
+	
+	@FindBy(id = "#dialog-modal > .ifrmodal")
+	private By frameDomiclilio = By.cssSelector("#dialog-modal >iframe");
+	
+	
+	@FindBy(id = "body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(2) > a")
+	private By btnNuevoTomadorMant = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(2) > a");
+	
 	@FindBy(id = "ALTACLIE_TIPODOC")
-	private By drpdwnTipoDocumento = By.cssSelector("#ALTACLIE_TIPODOC");                        
+	private By drpdwnTipoDocumento = By.cssSelector("#ALTACLIE_TIPODOC");   
+	
+	@FindBy(id = "#ALTACLIE_TIPODOC > option:nth-child(3)")
+	private By optionNie = By.cssSelector("#ALTACLIE_TIPODOC > option:nth-child(2)");
+	
 	
 	//@FindBy(id = "ALTACLIE_TIPODOC > option[value="NIE"]")
-	//private By drpdwnTipoDocumento1 = By.cssSelector("#ALTACLIE_TIPODOC > option[value="NIE"]");                        
+	//private By drpdwnTipoDocumento1 = By.cssSelector("#ALTACLIE_TIPODOC > option[value="NIE"]");   
+	
+	//label localización domicilio
+	@FindBy(id = "body > ul:nth-child(4) > li > a")
+	private By labelProvincia = By.cssSelector("body > ul:nth-child(4) > li > a");
+	
+	@FindBy(id = "#ui-active-menuitem")
+	private By labelPoblacion = By.cssSelector("#ui-active-menuitem");
 	
 	
+	
+	@FindBy(id = "body > ul:nth-child(6) > li")
+	private By labelNombreVia = By.cssSelector("body > ul:nth-child(6) > li");
+	
+	@FindBy(id = "#litePosta")
+	private By labelCodigoPostal = By.cssSelector("#litePosta");
+	
+	//txt localización de domicilio
 	@FindBy(id = "ALTACLIE_NUMDOC")
 	private By txtNumeroDocumento = By.cssSelector("#ALTACLIE_NUMDOC");
 
@@ -109,7 +163,7 @@ public class ClientesPage extends PageObject {
 	//@FindBy(id = "ALTACLIE_RAZSOC")
 	//private By txtRazonSocial = By.cssSelector("ALTACLIE_RAZSOC");
 	
-	@FindBy(id = "ALTACLIE_APELLIDO1")
+	@FindBy(id = "#ALTACLIE_APELLIDO2")
 	private By txtApellido1Cliente2 = By.cssSelector("#ALTACLIE_APELLIDO2");
 	
 	
@@ -138,13 +192,17 @@ public class ClientesPage extends PageObject {
 	private By txtMedPref = By.cssSelector("#ALTACLIE_MEDPREF");                        
 	
 	@FindBy(id = "ALTACLIE_PNACIM")
-	private By cmbPnacim = By.cssSelector("#ALTACLIE_PNACIM");                        
+	private By cmbPnacim = By.cssSelector("#ALTACLIE_PNACIM");    
+	
+	@FindBy(id = "#ALTACLIE_PNACIO > option:nth-child(64)")
+	private By elementEspa = By.cssSelector("#ALTACLIE_PNACIO > option:nth-child(64)");
+	
 	
 	@FindBy(id = "capaTomadorOtrosDatos > table > tbody > tr:nth-child(2) > td > img")
 	private By btnIconFecha = By.cssSelector("#capaTomadorOtrosDatos > table > tbody > tr:nth-child(2) > td > img");                        
 	
 	@FindBy(id = "ALTACLIE_FECNAC")
-	private By cmbFenac = By.cssSelector("#ALTACLIE_FECNAC");                        
+	private By txtFenac = By.cssSelector("#ALTACLIE_FECNAC");                        
 	
 	@FindBy(id = "ALTACLIE_PNACIO")
 	private By cmbPnacio = By.cssSelector("#ALTACLIE_PNACIO");                        
@@ -163,7 +221,17 @@ public class ClientesPage extends PageObject {
 
 	
 	//-----Popup Localización del domicilio----------------------
+	/*@FindBy(id = "#capaIframe")
+	private By domicilioFrame = By.cssSelector("#capaIframe");
 	
+	@FindBy(xpath = "//*[@id=\"ALTACLIE_PROVINCIA_ARVATO\"]")
+	private By txtProvincia = By.xpath("//*[@id=\"ALTACLIE_PROVINCIA_ARVATO\"]");
+	
+	@FindBy(xpath = "//*[@id=\"ALTACLIE_POBLACION_ARVATO\"]")
+	private By txtPoblacion = By.xpath("//*[@id=\"ALTACLIE_POBLACION_ARVATO\"]");*/
+	
+	@FindBy(id = "#ALTACLIE_PNACIO_ARVATO")
+	private By txtPais = By.cssSelector("#ALTACLIE_PNACIO_ARVATO");
 	
 	@FindBy(id = "ALTACLIE_PROVINCIA_ARVATO")
 	private By txtProvincia = By.cssSelector("#ALTACLIE_PROVINCIA_ARVATO");
@@ -177,10 +245,10 @@ public class ClientesPage extends PageObject {
 	@FindBy(id = "ALTACLIE_CODPOST_ARVATO")
 	private By txtCodPost = By.cssSelector("#ALTACLIE_CODPOST_ARVATO");
 	
-	@FindBy(id = "BOTON_NORMADOM")
-	private By btnComprobarDireccion = By.cssSelector("#BOTON_BORRADOM");
+	@FindBy(id = "#BOTON_NORMADOM")
+	private By btnComprobarDireccion = By.cssSelector("#BOTON_NORMADOM");
 
-	@FindBy(id = "BOTON_ACEPTAR")
+	@FindBy(id = "#BOTON_ACEPTAR")
 	private By btnAceptar = By.cssSelector("#BOTON_ACEPTAR");
 
 	@FindBy(id = "botonGrabar")
@@ -311,37 +379,109 @@ public class ClientesPage extends PageObject {
 	
 	
 
-	public ClientesPage(UserStory userS) {
+	public ClientePage(UserStory userS) {
 		super(userS);
 	}
 
 	// region methods
-	public void accederAlBuscadorClientes() throws InterruptedException {
-		// Click en link Clientes
-		this.webDriver.moveToElementInFrame(this.clientesLink, this.menuFrame);
-		this.webDriver.doubleClickInFrame(this.clientesLink, this.menuFrame);
-		// this.webDriver.waitForPageLoadWithAngular();
+	
+	public void clickNuevoTomador() {//aporte jenney
 		
+		this.webDriver.waitForElementToBeClickableInFrame(this.clientesLink, this.topFrame);
+		this.webDriver.clickInFrame(this.clientesLink, this.topFrame);
+		this.webDriver.waitForElementToBeClickableInFrame(this.btnNuevoTomadorMant, this.menuFrameTomador);
+		this.webDriver.clickInFrame(this.btnNuevoTomadorMant, this.menuFrameTomador);
 	}
-
-	public void crearNuevoTomador() throws InterruptedException {
-		// TODO
-		webDriver.click(btnNuevoTomador);// click en nuevo tomador
-		webDriver.click(drpdwnTipoDocumento);
+	
+	public void datosTomador() {//aporte Jenney
 		
-		By tipoDocumento = By.cssSelector("#ALTACLIE_TIPODOC > option[value=" + "NIE" + "]");
-		webDriver.click(tipoDocumento);
-		
-
-		// completar datos de nuevo tomador
-		// tipo documento
-		// numero document
-		// nombre y apellidos
-		// contacto
-		// direccion
-
-		// click en grabar
+		this.webDriver.waitForElementToBeClickableInFrame(this.drpdwnTipoDocumento, this.menuFrameTomador);
+	    this.webDriver.clickInFrame(this.drpdwnTipoDocumento, this.menuFrameTomador);
+	    debugInfo("Test1");
+	    this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdwnTipoDocumento,this.menuFrameTomador,this.getTestVar("tipo_documento"));
+	    this.webDriver.waitForElementToBeClickableInFrame(this.txtNumeroDocumento, this.menuFrameTomador);
+	    this.webDriver.clickInFrame(this.txtNumeroDocumento, this.menuFrameTomador);
+	    //NIE
+	    this.webDriver.appendTextInFrame(this.txtNumeroDocumento,this.menuFrameTomador,this.getTestVar("ci"));
+	    //Nombre
+	    this.webDriver.appendTextInFrame(this.txtNombreCliente,this.menuFrameTomador,this.getTestVar("nombre"));
+	    //Apellido1
+	    this.webDriver.appendTextInFrame(this.txtApellido1Cliente,this.menuFrameTomador,this.getTestVar("apellido1"));
+	    //Apellido2
+	    this.webDriver.appendTextInFrame(this.txtApellido1Cliente2,this.menuFrameTomador,this.getTestVar("apellido2"));
+	    //txt telefono fijo
+	    this.webDriver.appendTextInFrame(this.txtTelefonoFijo,this.menuFrameTomador,this.getTestVar("phone_fijo"));
+	    
+	    this.webDriver.waitWithDriver(6000);
+	    //telefono movil
+	    this.webDriver.appendTextInFrame(this.txtTelefonoMovil,this.menuFrameTomador,this.getTestVar("phone_movil"));
+	    //email
+	    this.webDriver.appendTextInFrame(this.txtEmail,this.menuFrameTomador,this.getTestVar("email"));
+	    this.webDriver.waitWithDriver(6000);
+	    //cmb medio preferido de comunicacion
+	    this.webDriver.clickElementFromDropDownByTextInFrame(this.txtMedPref,this.menuFrameTomador,"Email");
+	     //nacionalidad
+	    this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbPnacio,this.menuFrameTomador,"ANDORRA");
+	    System.out.println("Fin CMB nacionalidad");
+	    //fecha de nacimiento
+	    this.webDriver.waitWithDriver(6000);
+	    this.webDriver.appendTextInFrame(this.txtFenac,this.menuFrameTomador,this.getTestVar("fecha_nacimiento"));//hasta aqui perfecto
+	 
+	    //sexo
+	    this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbSexo,this.menuFrameTomador,this.getTestVar("sexo"));
+	    this.webDriver.clickInFrame(this.btnDomicilioFiscal, this.menuFrameTomador);
 	}
+	
+	public void localizacionDomicilioTomador(){//aporte Jenney
+		
+	   debugInfo("Test1");
+	    //dirección
+	    //boton domiciliohttp://mant-innova.mutuadepropietarios.es/web/
+	    //this.webDriver.appendText(this.txtProvincia,"Barcelona");
+	    this.webDriver.switchToFrame(this.menuFrameTomador);
+	    this.webDriver.appendTextInFrame(this.txtProvincia,this.capaIframe,this.getTestVar("provincia"));
+	    this.webDriver.switchToFrame(this.menuFrameTomador);
+        this.webDriver.clickInFrame(this.labelProvincia, this.capaIframe);
+        
+        this.webDriver.switchToFrame(this.menuFrameTomador);
+	    this.webDriver.appendTextInFrame(this.txtPoblacion,this.capaIframe, this.getTestVar("poblacion"));	 
+	    this.webDriver.switchToFrame(this.menuFrameTomador);
+        this.webDriver.clickInFrame(this.labelPoblacion, this.capaIframe);
+       
+        this.webDriver.switchToFrame(this.menuFrameTomador);
+	    this.webDriver.appendTextInFrame(this.txtVia,this.capaIframe,this.getTestVar("via"));
+	    this.webDriver.switchToFrame(this.menuFrameTomador);
+        this.webDriver.clickInFrame(this.labelNombreVia, this.capaIframe);
+        
+	    this.webDriver.switchToFrame(this.menuFrameTomador);
+	    this.webDriver.appendTextInFrame(this.txtCodPost,this.capaIframe, this.getTestVar("codigo_postal"));
+	    this.webDriver.waitWithDriver(3000);
+	    
+	    this.webDriver.switchToFrame(this.menuFrameTomador);
+	    this.webDriver.waitWithDriver(3000);
+	    this.webDriver.clickInFrame(this.btnComprobarDireccion,this.capaIframe);
+	    
+	    this.webDriver.switchToFrame(this.menuFrameTomador);
+	    this.webDriver.waitWithDriver(2000);
+	    this.webDriver.clickInFrame(this.btnAceptar,this.capaIframe);
+	    
+	    this.webDriver.waitWithDriver(5000);
+	    
+	    this.webDriver.clickInFrame(this.btnGrabar,this.menuFrameTomador);
+	    }
+	    
+	    /*public void nuevoClienteSeleccionado() {---------> Ahora no aparece esto
+	    	this.webDriver.switchToFrame(this.menuFrameTomador);
+	    	this.webDriver.clickInFrame(this.btnGrabar,this.menuFrameTomador);
+	    	//this.webDriver.clickInFrame(this.btnGrabar,this.menuFrameTomador);
+	    	
+	    }*/
+
+
+		
+	
+	//#mainFrame  div   #dialog-modal > .ifrmodal 
+	
 
 	public void setFiltroBusqueda(String filtro) {
 		// this.tData.setFiltroBuscadorCliente(filtro);
@@ -380,9 +520,9 @@ public class ClientesPage extends PageObject {
 		debugEnd();
 	}
 
-	public void clickNuevoTomador() {
+	/*public void clickNuevoTomador() {
 		this.webDriver.clickInFrame(this.btnNuevoTomador, this.cuerpoFrame);
-	}
+	}*/
 
 	public void clickNuevoInterveniente() {
 		this.webDriver.clickInFrame(this.btnNuevoInterveniente, this.cuerpoFrame);
