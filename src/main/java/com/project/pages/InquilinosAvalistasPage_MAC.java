@@ -73,7 +73,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	//
 	// @FindBy(name = "nombdato_VALASNEF_1")
 	// private WebElement btnValidacionViabilidad;
-	private By btnValidacionViabilidad = By.cssSelector("#INQUIAVAL_VALASNEF_CONF");
+	private By btnValidacionViabilidad = By.id("INQUIAVAL_VALASNEF_CONF");
 
 	//
 	// @FindBy(id = "INQUIAVAL_GRABINTERV_CONF")
@@ -138,7 +138,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// @FindBy(css = "#capaAdjuntarDocumentacion #modalAddDocuInterv
 	// button[data-dismiss='modal']")
 	// private WebElement btnCerrar;
-	private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv button[data-dismiss='modal']");
+	//private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv button[data-dismiss='modal']");
+	private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv > div > div > div.modal-footer > button");
 	//
 	// @FindBy(xpath = ".//*[@id='formularioEnvio']/div[3]/button[2]")
 	// private WebElement btnEnviarComentarios;
@@ -158,12 +159,14 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	}
 
 	public void executeActionsInInquilinosAvalistasPage() throws InterruptedException, IOException, AWTException {
+		debugBegin();
 		this.addDatosInquilino();
 		this.anadirDocumentacion();
 		this.setTestVar("NumCotizacion", recuperarNumeroCotizacion());
 		System.out.println("***NumCotizacion in executeActionsInInquilinosAvalistasPage: " + getTestVar("NumCotizacion"));
 		//this.setTestVar(this.recuperarNumeroCotizacion());
 		this.validacionViabilidadInquilino();
+		debugEnd();
 	}
 	// public void executeActionsInInquilinosAvalistasPage() throws
 	// InterruptedException, IOException, AWTException
@@ -319,8 +322,11 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	 public void validacionViabilidadInquilino() throws AWTException, InterruptedException {
 	 	debugBegin();
-	 	    Thread.sleep(2000);
-	 		this.webDriver.clickInFrame(this.btnValidacionViabilidad, this.mainFrame);
+	 	    this.webDriver.waitWithDriver(4000);
+	 	    //this.webDriver.waitForElementToBeClickableInFrame(btnValidacionViabilidad, this.mainFrame);
+	 		//this.webDriver.clickInFrame(this.btnValidacionViabilidad, this.mainFrame);
+	 	   this.webDriver.clickInFrame(this.btnValidacionViabilidad, this.mainFrame);
+	 	    //this.webDriver.waitWithDriver(4000);
 	 	debugEnd();
 	 }
 
@@ -394,8 +400,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.mainFrame);
 	 this.adjuntarDocumentos();
 	 this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.mainFrame);
-	 Thread.sleep(2000);
+	 this.webDriver.waitWithDriver(3000);
 	 this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
+	 this.webDriver.waitWithDriver(10000);
+	 if(webDriver.isPresentInFrame(this.btnCerrar, this.mainFrame)) this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
 	 debugEnd();
 	 }
 
@@ -441,6 +449,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
+	 webDriver.waitWithDriver(10000);
 	 this.webDriver.appendTextInFrame(this.elmntFichero, this.mainFrame, System.getProperty("user.dir") +"/"+ AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf");
 	 //this.webDriver.sendKeysFrame(this.elmntFichero, this.mainFrame,  "C:/Users/chris/Desktop/New Text Document.txt");
 	 debugEnd();
@@ -461,6 +470,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
+	 webDriver.waitWithDriver(2000);
 	 this.webDriver.clickInFrame(this.btnEnviarACompania, this.mainFrame);
 	 this.webDriver.clickInFrame(this.btnEnviarComentarios, this.mainFrame);
 	 this.webDriver.waitWithDriver(3000);

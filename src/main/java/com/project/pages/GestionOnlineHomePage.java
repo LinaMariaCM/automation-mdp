@@ -29,7 +29,7 @@ public class GestionOnlineHomePage extends PageObject {
 
 	private By contentFrame = By.cssSelector("#blockrandom");
 
-	private By btnNovedadesDialogClose = By.xpath(".//*[contains(@class,'modal-header')]/button");
+	private By btnNovedadesDialogClose = By.cssSelector(".//*[contains(@class,'modal-header')]/button");
 
 	private By btnContratacionSelector = By.cssSelector("div.nav-collapse:nth-child(2) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)");
             //"#t3-mainnav > div > div > div > div > ul > li:nth-child(6) > a");
@@ -37,7 +37,7 @@ public class GestionOnlineHomePage extends PageObject {
 	@FindBy(linkText = "Siniestros")
 	private By btnSiniestrosSelector;
 
-	private By btnContratarOnlineOption = By.xpath(".//*[@class='navbar-inner']//*[text()='Contratar online ']");
+	private By btnContratarOnlineOption = By.cssSelector(".//*[@class='navbar-inner']//*[text()='Contratar online ']");
 
 	// @FindBy(xpath = ".//*[contains(text(),'Contratar Online Proyectos')]")
 
@@ -51,7 +51,7 @@ public class GestionOnlineHomePage extends PageObject {
 	// @FindBy(xpath = ".//*[contains(text(),'Mutua Edificio
 	// Confort')]/../..//*[contains(text(),'Contratar')]")
 
-	//private By btnContratarMutuaEdificioSeleccionPlus = By.xpath("#dropdown-comunidad > div > a.span2.contratar_btn.popup.prod-mdp > p > span");
+	//private By btnContratarMutuaEdificioSeleccionPlus = By.cssSelector("#dropdown-comunidad > div > a.span2.contratar_btn.popup.prod-mdp > p > span");
 	//private By btnContratarMutuaEdificioConfort = By.cssSelector("#dropdown-comunidad > div:nth-child(#dropdown-comunidad > div:nth-child(1) > a:nth-child(1) > p:nth-child(1) > span:nth-child(1) > strong:nth-child(2)");
 	private By btnContratarMutuaEdificioConfort = By.cssSelector("#dropdown-comunidad > div:nth-child(1) > a:nth-child(1)");
 	// @FindBy(xpath = ".//*[contains(text(),'Mutua Alquiler
@@ -62,15 +62,15 @@ public class GestionOnlineHomePage extends PageObject {
 
 	private By btnContratarMutuaAlquilerConfort = By.cssSelector("#dropdown-alquiler > div:nth-child(1) > a:nth-child(1) > p:nth-child(1) > span:nth-child(1) > strong:nth-child(2)");
 
-	private By btnMutuaEdificioConfort = By.xpath(".//*[contains(@title,'MUTUA EDIFICIO CONFORT.')]");
+	private By btnMutuaEdificioConfort = By.cssSelector(".//*[contains(@title,'MUTUA EDIFICIO CONFORT.')]");
 
-	private By btnNuevoProjecto = By.xpath(".//*[normalize-space(text())='Nuevo proyecto']");
+	private By btnNuevoProjecto = By.cssSelector(".//*[normalize-space(text())='Nuevo proyecto']");
 
-	private By btnNuevaSimulaion = By.xpath(".//*[normalize-space(text())='Nueva Simulación']");
+	private By btnNuevaSimulaion = By.cssSelector(".//*[normalize-space(text())='Nueva Simulación']");
 
 	// @FindBy(xpath = ".//*[text()='Acepto']")
 	// @FindBy(css = ".accept")
-	//private By btnAcepto = By.xpath(".//*[text()='Acepto']");
+	//private By btnAcepto = By.cssSelector(".//*[text()='Acepto']");
     private By btnAceptarCookies = By.cssSelector("#ca_banner > div.accept");
 
     //@FindBy(linkText = "Aceptar")
@@ -78,13 +78,13 @@ public class GestionOnlineHomePage extends PageObject {
 
 	// @FindBy(xpath = ".//*[text()=' Mapa del sitio']")
 	// @FindBy(css = "#Mod222 > div > div > div > p > a")
-	private By btnMapaWeb = By.xpath("#Mod222 > div > div > div > p > a");
+	private By btnMapaWeb = By.cssSelector("#Mod222 > div > div > div > p > a");
 
 	// @FindBy(xpath = ".//*[text()='Gestión de cotizaciones']")
-	private By btnGestionCotizaciones = By.xpath(".//*[text()='Gestión de cotizaciones']");
+	private By btnGestionCotizaciones = By.cssSelector(".//*[text()='Gestión de cotizaciones']");
 
 	// @FindBy(xpath = ".//*[@title='Gestión de pólizas']")
-	private By btnGestionPolizas = By.xpath(".//*[@title='Gestión de pólizas']");
+	private By btnGestionPolizas = By.cssSelector(".//*[@title='Gestión de pólizas']");
 
 	// @FindBy(xpath = ".//*[@id='pr_id']")
 	private By txtCodigoProyecto = By.cssSelector("#pr_id");
@@ -97,42 +97,35 @@ public class GestionOnlineHomePage extends PageObject {
 
 	// @FindBy(css = "table[id*='DataTables_Table'] a[onclick*='javascript:
 	// editarProyecto']")
-	private By modificarProyecto = By.xpath("table[id*='DataTables_Table'] a[onclick*='javascript: editarProyecto']");
+	private By modificarProyecto = By.cssSelector("table[id*='DataTables_Table'] a[onclick*='javascript: editarProyecto']");
 
 	// @FindBy(css = "[id^='eliminar_'] > div > ul > li:nth-child(3) > a")
-	private By modificarProyectoUatPj = By.xpath("[id^='eliminar_'] > div > ul > li:nth-child(3) > a");
+	private By modificarProyectoUatPj = By.cssSelector("td[id*='eliminar_'] > div > ul > li:nth-child(3) > a");
 
 	// @FindBy(css = "table[id*='DataTables_Table'] a[onclick*='javascript:
 	// verEjemplar']")
-	private By consultarProyecto = By.xpath("table[id*='DataTables_Table'] a[onclick*='javascript: verEjemplar']");
+	private By consultarProyecto = By.cssSelector("table[id*='DataTables_Table'] a[onclick*='javascript: verEjemplar']");
 
 	// @FindBy(css = "[id^='eliminar_'] > div > a")
-	//private By drpdwnAcciones = By.xpath("[id^='eliminar_'] > div > a");
+	//private By drpdwnAcciones = By.cssSelector("[id^='eliminar_'] > div > a");
     private By drpdwnAcciones = By.cssSelector(("a.dropdown-toggle > img:nth-child(1)"));
 
 	// @FindBy(css = "tr.odd:nth-child(1) > td:nth-child(13)")
 	// @FindBy(css = "#DataTables_Table_0 > tbody > tr > td:nth-child(13)") //
 	// By from UatPj
-	private By estadoPoliza = By.xpath("#DataTables_Table_0 > tbody > tr > td:nth-child(13)");
+	private By estadoPoliza = By.cssSelector("#DataTables_Table_0 > tbody > tr > td:nth-child(13)");
 
 	// @FindBy(css = ".mis-proyectos-web div[id *= modalWindow")
 	// @FindBy(css = "#modalWindow")
-	private By errorBuscar = By.xpath(".mis-proyectos-web div[id *= modalWindow");
+	private By errorBuscar = By.cssSelector(".mis-proyectos-web div[id *= modalWindow");
 
 	// @FindBy(css = "#modalWindow .modal-footer .btn-primary")
 	// @FindBy(css = "#modalWindow > div.modal-footer > button") // This is the
 	// By from UatPj
-	private By cerrarErrorBuscar = By.xpath("#modalWindow > div.modal-footer > button");
+	private By cerrarErrorBuscar = By.cssSelector("#modalWindow > div.modal-footer > button");
 
 	// endregion
 
-	/*
-	 * public GestionOnlineHomePage(BrowserContext browserContext) {
-	 * this.browserContext = browserContext; this.wh =
-	 * browserContext.webElementHelper; this.tData =
-	 * browserContext.getTestCaseData();
-	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
-	 */
 
 	public GestionOnlineHomePage(UserStory userS) {
 		super(userS);
@@ -177,19 +170,19 @@ public class GestionOnlineHomePage extends PageObject {
 		return this;
 	}
 
-//	public GestionOnlineHomePage createNewSimulation() {
-//		debugBegin();
-//		// this.webDriver.doubleClick(this.btnMutuaEdificioConfort,
-//		// this.frameLeftFrame);
-//		// this.webDriver.doubleclickInFrame(this.btnNuevaSimulaion,
-//		// this.frameLeftFrame);
-//		this.webDriver.doubleClick(this.btnMutuaEdificioConfort);
-//		this.webDriver.doubleClick(this.btnNuevaSimulaion);
-//
-//		debugEnd();
-//
-//		return this;
-//	}
+	public GestionOnlineHomePage createNewSimulation() {
+		debugBegin();
+		// this.webDriver.doubleClick(this.btnMutuaEdificioConfort,
+		// this.frameLeftFrame);
+		// this.webDriver.doubleclickInFrame(this.btnNuevaSimulaion,
+		// this.frameLeftFrame);
+		this.webDriver.doubleClick(this.btnMutuaEdificioConfort);
+		this.webDriver.doubleClick(this.btnNuevaSimulaion);
+
+		debugEnd();
+
+		return this;
+	}
 
 	public GestionOnlineHomePage openContratarMutuaEdificioConfort() throws AWTException, InterruptedException, IOException {
 		debugBegin();
@@ -339,14 +332,14 @@ public class GestionOnlineHomePage extends PageObject {
 		return this.webDriver.getTextInFrame(this.estadoPoliza, this.contentFrame);
 	}
 
-	// public void openGestionCotizaciones()
-	// {
-	// logger.debug("BEGIN - OpenGestionCotizaciones");
-	// this.webDriver.click(this.btnMapaWeb);
-	// this.webDriver.doubleclickInFrame(this.btnGestionCotizaciones,
-	// this.mainFrame);
-	// logger.debug("END - OpenGestionCotizaciones");
-	// }
+	public void openGestionCotizaciones()
+	 {
+		 debugBegin();
+		 this.webDriver.click(this.btnMapaWeb);
+		 this.webDriver.doubleClickInFrame(this.btnGestionCotizaciones,
+		 this.mainFrame);
+		 debugEnd();
+	 }
 
 	public GestionOnlineHomePage openGestionPolizas() {
 		debugBegin();
