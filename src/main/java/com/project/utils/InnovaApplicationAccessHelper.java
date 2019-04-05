@@ -71,6 +71,10 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeHogarMig);
 				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-HogarMig"));
 				break;
+			case ProjectConstants.RecibosCheckEnvironment:
+				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeHogarMig);
+				this.webDriver.go(testDataM.getTestVar(testId, "InnovaHome-RecibosCheck"));
+				break;
 			default:
 				throw new Exception("Environment not available");
 		}

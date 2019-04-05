@@ -84,6 +84,7 @@ public class ProjectConstants {
 	public static final String MigracionEnvironment = "Migracion";
 	public static final String UatPjEnvironment = "UatPj";
 	public static final String HogarMigEnvironment = "HogarMig";
+	public static final String RecibosCheckEnvironment = "RecibosCheck";
 	public static final String CapitalContinenteNoHaVariado = "El capital continente no ha variado en la pantalla de detalles de riesgo";
 	public static final String CapitalContenidoNoHaVariado = "El capital contenido no ha variado en la pantalla de detalles de riesgo";
 	public static final String CapitalTotalNoHaVariado = "El capital total asegurado no ha variado en la pantalla de detalles de riesgo";

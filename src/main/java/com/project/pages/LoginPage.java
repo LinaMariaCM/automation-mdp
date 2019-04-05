@@ -42,6 +42,9 @@ public class LoginPage extends PageObject {
 			case ProjectConstants.HogarMigEnvironment:
 				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-HogarMig"));
 				break;
+			case ProjectConstants.RecibosCheckEnvironment:
+				this.webDriver.go(testDataM.getConfigVar(accessType + "Home-RecibosCheck"));
+				break;
 			default:
 				throw new Exception("Environment not available");
 		}
