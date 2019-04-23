@@ -273,8 +273,12 @@ public class ClientePage extends PageObject {
 		
 		this.webDriver.waitForElementToBeClickableInFrame(this.clientesLink, this.topFrame);
 		this.webDriver.clickInFrame(this.clientesLink, this.topFrame);
+		}
+		
+	public void clickNuevoTomadorSecond() {
 		this.webDriver.waitForElementToBeClickableInFrame(this.btnNuevoTomadorMant, this.menuFrameTomador);
 		this.webDriver.clickInFrame(this.btnNuevoTomadorMant, this.menuFrameTomador);
+		this.webDriver.waitWithDriver(5000);
 	}
 	
 	public void datosTomador() {//aporte Jenney

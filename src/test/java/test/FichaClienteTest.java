@@ -53,6 +53,27 @@ return null;
 }).run();//error aqui
 }
 	
+	@Test(dataProvider = "dataProviderAltaCliente")
+	public void emitirMarca(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+
+		userS.testActions(() -> {
+			
+			steps.login("Innova","mcena");
+		    steps.marcaCliente();
+		    
+			
+
+return null;
+}).run();//error aqui
+}
+	
+	
+	
+	
+	
 @AfterSuite
 public void afterSuite() {
 suiteM.createHtmlReport();

@@ -3608,11 +3608,18 @@ public class Steps extends StepObject {
 	public void accederCliente() {//aporte Jenney
 		debugBegin();
 		new ClientePage(userS).clickNuevoTomador();
+		new ClientePage(userS).clickNuevoTomadorSecond();
 		new ClientePage(userS).datosTomador();
 		new ClientePage(userS).localizacionDomicilioTomador();
 		
 		debugEnd();
 
+	}
+	
+	public void marcaCliente() {
+		
+		new ClientePage(userS).clickNuevoTomador();
+		
 	}
 	
 	// ALTA SINIESTRO
