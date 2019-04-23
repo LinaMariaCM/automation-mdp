@@ -1,15 +1,24 @@
-tipo_documento;ci;nombre;apellido1;apellido2;phone_fijo;phone_movil;email;fecha_nacimiento;sexo;provincia;poblacion;via;codigo_postal
+Garaje en otra dirección no se habilita dar de alta detalles
 
-NIF;94913173Q;Anabel;Perez;Diaz;932222222;666666666;anabel@yahoo.com;03/03/1998;Mujer;BARCELONA;BARCELONA;ANTIC DE SANT JOAN;8316
+En Contratación no se habilita dar de alta a detalles de otra direción
+Captura1
+ 
 
-NIF;80706961F;Pedro;Silva;Q;932222222;666666666;pedro@yahoo.com;05/03/1984;Hombre;BARCELONA;Mataro;Gatassa;8303
+-Emisión tardía
+Captura 2
 
-NIE;Y7463962Q;Ernesto;LLerena;Grobas;932222222;666666666;erneto@yahoo.com;05/09/1984;Hombre;BARCELONA;Mataro;Gatassa;8303
+ 
 
-NIE;Z0567255B;Alenna;Garcia;Perez;932222222;666666666;alenna@yahoo.com;25/08/1984;Mujer;BARCELONA;Mataro;Gatassa;8303
+Pólizas MAC
 
-CIF;P35994276;Camilo;Silva;Soler;932222222;666666666;camilo@yahoo.com;15/03/1984;Hombre;BARCELONA;Mataro;Gatassa;8303
+2017/900931939 		
 
-CIF;L24634461;Raisa;Silva;Pascual;932222222;666666666;raisa@yahoo.com;05/10/1984;Mujer;BARCELONA;Mataro;Ressello;8303
+2019/920019657
 
-NIE;X6646818W;Nelson;Lopez;Barrios;932222222;666666666;nelson@yahoo.com;22/03/1984;Hombre;BARCELONA;Mataro;Gatassa;8303
+Al seleccionar documentación no se desbloquea el botón añadir para agregar la documentación seleccionada
+Captura3
+
+
+
+ 
+

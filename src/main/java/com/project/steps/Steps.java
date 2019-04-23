@@ -3605,12 +3605,11 @@ public class Steps extends StepObject {
 	 * 
 	 */
 	
-	public void acceder_cliente() throws Exception {//aporte Jenney
+	public void accederCliente() {//aporte Jenney
 		debugBegin();
 		new ClientePage(userS).clickNuevoTomador();
 		new ClientePage(userS).datosTomador();
 		new ClientePage(userS).localizacionDomicilioTomador();
-		//new ClientePage(userS).nuevoClienteSeleccionado();
 		
 		debugEnd();
 

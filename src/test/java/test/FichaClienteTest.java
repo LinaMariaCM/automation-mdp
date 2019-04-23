@@ -45,13 +45,8 @@ public class FichaClienteTest {
 		userS.testActions(() -> {
 			
 			steps.login("Innova","mcena");
-			
-			System.out.println("################################");
-			System.out.println("# He pasado al siguiente step. #");
-			System.out.println("################################");
-			
-			System.out.println("Inicio Second Step");
-		    steps.acceder_cliente();
+		    steps.accederCliente();
+		    
 			
 
 return null;
