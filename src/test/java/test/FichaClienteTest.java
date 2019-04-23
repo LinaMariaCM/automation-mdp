@@ -63,6 +63,11 @@ return null;
 			
 			steps.login("Innova","mcena");
 		    steps.marcaCliente();
+		    steps.buscaClientePorNif();
+		    steps.buscadorCliente();
+		    steps.marcaRelacion();
+		    steps.marcaNegativa();
+		   
 		    
 			
 

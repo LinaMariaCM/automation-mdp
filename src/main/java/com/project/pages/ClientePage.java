@@ -40,7 +40,9 @@ public class ClientePage extends PageObject {
 	
 	private By rdbNombre = By.cssSelector("filtro1");
 	
-	private By rdbNIF = By.cssSelector("filtro2");
+	private By checkNif = By.cssSelector("#filtro2");
+	
+	private By btnContinuarResultadoBusqueda = By.cssSelector("#capaAjax > table > tbody > tr.odd > td:nth-child(5) > a");
 
 	private By rdbPoliza = By.cssSelector("filtro3");
 
@@ -193,10 +195,13 @@ public class ClientePage extends PageObject {
 	
 	private By linkListaNegra= By.cssSelector("#cabListaNegra");
 	
-	//popup marca negativa
 	
-	private By cmbtipoBlack= By.cssSelector("#motivo");//valida para marca positiva(motivo)
-	private By cmbValorBlack= By.cssSelector("#valblack");
+	
+	//popup marca negativa
+	private By indexTipoMarca =By.cssSelector("#motivo > option:nth-child(3)");
+	private By cmbtipoBlack = By.cssSelector("#motivo");//valida para marca positiva(motivo)
+	private By cmbValorBlack = By.cssSelector("#valblack");
+	private By indexValorMarca = By.cssSelector("#valblack > option:nth-child(2)");
 	private By btnGrabarBlack= By.cssSelector("#botonGrabar");
 	private By cmbAcciones= By.cssSelector("#capaFlecha45");
 	private By btnOffBlack= By.cssSelector("body > div.pdata > div > ul > li:nth-child(2) > a");//se utiliza para marca posiviva tambien
@@ -256,6 +261,8 @@ public class ClientePage extends PageObject {
 	
 	private By cmbAccionRela= By.cssSelector("#capaFlecha75");
 	
+	
+	
 	// la variable modificar es la misma que para marca negativa y positiva
 	
 
@@ -273,6 +280,7 @@ public class ClientePage extends PageObject {
 		
 		this.webDriver.waitForElementToBeClickableInFrame(this.clientesLink, this.topFrame);
 		this.webDriver.clickInFrame(this.clientesLink, this.topFrame);
+		this.webDriver.waitWithDriver(4000);
 		}
 		
 	public void clickNuevoTomadorSecond() {
@@ -384,9 +392,6 @@ public class ClientePage extends PageObject {
 	    }*/
 
 
-		
-	
-	//#mainFrame  div   #dialog-modal > .ifrmodal 
 	
 
 	public void setFiltroBusqueda(String filtro) {
@@ -494,22 +499,55 @@ public class ClientePage extends PageObject {
 		this.webDriver.appendTextInFrame(this.txtNombre, this.cuerpoFrame, this.userS.getTestVar("TomadorNombre"));
 	}
 
-	public void buscarClientePorNIF() {
-		this.buscarClientePorNIF(this.userS.getTestVar("DocumentoInquilino"));
-	}
+/*	public void buscarClientePorNIF() {//aporte jenney
+		
+		
+		this.buscarClientePorNIF(this.userS.getTestVar("ci"));
+	}*/
 
-	public void buscarClientePorNIF(String numNIF) {
+	public void buscarClientePorNIF() {//aporte jenney
 		// Click en el rdb NIF
-		this.webDriver.clickInFrame(this.rdbNIF, this.cuerpoFrame);
+		
+		this.webDriver.clickInFrame(this.checkNif, this.cuerpoFrame);
 
-		// Set NIF
-		// this.webDriver.clearAndSetTextInWebElementInFrame(this.txtNIF,
-		// this.cuerpoFrame, numNIF);
-		this.webDriver.setTextInFrame(this.txtNIF, this.cuerpoFrame, numNIF);
+		this.webDriver.setTextInFrame(this.txtNIF, this.cuerpoFrame, this.getTestVar("ci"));
 
 		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
 	}
-
+	
+	public void clicConniuarResultadoBusqueda() {//aporte jenney
+		
+		this.webDriver.clickInFrame(this.btnContinuarResultadoBusqueda, this.menuFrameTomador);
+		
+		}
+	public void marcaRelacion() {//Aporte jenney
+		
+		this.webDriver.clickInFrame(this.menuMarcasRelaciones, this.topFrame);
+		
+	}
+   /*public void anadirMarcaNegativa() {//Aporte jenney
+	 //  #dialog-modal
+		this.webDriver.clickInFrame(this.linkListaNegra, this.menuFrameTomador);
+		this.webDriver.switchToFrame(this.menuFrameTomador);
+		this.webDriver.waitWithDriver(2000);
+		thi.
+		//this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbtipoBlack,this.capaIframe, "CLIEXCLU");
+		//this.webDriver.clickInFrame(this.cmbtipoBlack, this.capaIframe);
+		//this.webDriver.switchToFrame(this.cuerpoFrame);
+		//this.webDriver.clickInFrame(this.indexTipoMarca, this.fra);
+		
+		
+	
+		
+	}*/
+	
+   public void anadirMarcaPositiva() {//Aporte jenney
+	   
+	   this.webDriver.clickInFrame(this.btnMarcaPos, this.menuFrameTomador);
+ 	   this.webDriver.clickInFrame(this.linkListBlanca, this.menuFrameTomador);
+ 		
+ 	}
+ 	
 	public boolean checkResultadoNIF() {
 		debugBegin();
 		

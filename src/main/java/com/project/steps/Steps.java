@@ -3620,6 +3620,27 @@ public class Steps extends StepObject {
 		
 		new ClientePage(userS).clickNuevoTomador();
 		
+		
+	}
+	
+	public void buscaClientePorNif() {
+		
+		new ClientePage(userS).buscarClientePorNIF();
+		
+	}
+	
+	public void buscadorCliente() {
+		new ClientePage(userS).clicConniuarResultadoBusqueda();
+		
+	}
+	public void marcaRelacion() {
+		new ClientePage(userS).marcaRelacion();
+		
+		
+	}
+	public void marcaNegativa() {
+		new ClientePage(userS).anadirMarcaNegativa();
+		
 	}
 	
 	// ALTA SINIESTRO
