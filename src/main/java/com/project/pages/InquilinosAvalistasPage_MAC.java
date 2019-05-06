@@ -138,7 +138,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// @FindBy(css = "#capaAdjuntarDocumentacion #modalAddDocuInterv
 	// button[data-dismiss='modal']")
 	// private WebElement btnCerrar;
-	private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv button[data-dismiss='modal']");
+	//private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv button[data-dismiss='modal']");
+	
+	private By btnCerrar = By.cssSelector("#modalAddDocuInterv > div > div > div.modal-footer > button");
+	
 	//
 	// @FindBy(xpath = ".//*[@id='formularioEnvio']/div[3]/button[2]")
 	// private WebElement btnEnviarComentarios;
@@ -319,7 +322,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	 public void validacionViabilidadInquilino() throws AWTException, InterruptedException {
 	 	debugBegin();
-	 	    Thread.sleep(2000);
+	 	    //Thread.sleep(2000);
+	 	this.webDriver.waitWithDriver(3000);
 	 		this.webDriver.clickInFrame(this.btnValidacionViabilidad, this.mainFrame);
 	 	debugEnd();
 	 }
@@ -393,8 +397,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 this.webDriver.clickInFrame(this.chkbxDosNominas, this.mainFrame);
 	 this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.mainFrame);
 	 this.adjuntarDocumentos();
+	 this.webDriver.waitWithDriver(6000);
 	 this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.mainFrame);
-	 Thread.sleep(2000);
+	 this.webDriver.waitWithDriver(6000);
+	 this.webDriver.moveToElementInFrame(this.btnCerrar, this.mainFrame);
 	 this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
 	 debugEnd();
 	 }
@@ -461,7 +467,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	 {
 	 debugBegin();
 	 // TODO: mover la ruta de fichero de upload a configuracion
+	 this.webDriver.waitWithDriver(6000);
+	 if(this.webDriver.isPresentInFrame(this.btnCerrar, this.mainFrame))
 	 this.webDriver.clickInFrame(this.btnEnviarACompania, this.mainFrame);
+	 this.webDriver.waitWithDriver(6000);
 	 this.webDriver.clickInFrame(this.btnEnviarComentarios, this.mainFrame);
 	 this.webDriver.waitWithDriver(3000);
 	 debugEnd();

@@ -16,16 +16,16 @@ public class MecTest extends TestObject {
 
 	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MEC);
 
-	// PRUEBA MEC01
+	// PRUEBAS MEC
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec01() {
-		String testCase = ProjectConstants.MEC + "01";
+		String testCase = ProjectConstants.MEC;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "dataProviderMec01")
+	@Test(dataProvider = "dataProviderMec")
 	public void mec01(String testCase, String id, String browser) throws Exception {
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
 		Steps steps = new Steps(userS);
@@ -46,12 +46,192 @@ public class MecTest extends TestObject {
 			 * Entonces el resultado es que el projecto se crea correctamente
 			 **/
 
-			steps.contratar_poliza_MEC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			try 
+				{
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+				} catch(Throwable e) 
+					{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					}
+			
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
 
 			return null;
 		}).run();
 	}
 
+	
+	
+	
+	@Test(dataProvider = "dataProviderMec")
+	public void mec02(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			// Escenario: [Mecxx] - 
+
+			try {
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			} catch(Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+				
+			return null;
+		}).run();
+	}
+	
+	@Test(dataProvider = "dataProviderMec")
+	public void mec03(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			// Escenario: [Mecxx] - 
+
+			try {
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			} catch(Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+				
+			return null;
+		}).run();
+	}
+	
+	@Test(dataProvider = "dataProviderMec")
+	public void mec04(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			// Escenario: [Mecxx] - 
+
+			try {
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			} catch(Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+				
+			return null;
+		}).run();
+	}
+	
+	@Test(dataProvider = "dataProviderMec")
+	public void mec02(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			// Escenario: [Mecxx] - 
+
+			try {
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			} catch(Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+				
+			return null;
+		}).run();
+	}
+	
+	@Test(dataProvider = "dataProviderMec")
+	public void mec02(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			// Escenario: [Mecxx] - 
+
+			try {
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			} catch(Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+				
+			return null;
+		}).run();
+	}
+	
+	@Test(dataProvider = "dataProviderMec")
+	public void mec02(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			// Escenario: [Mecxx] - 
+
+			try {
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			} catch(Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+				
+			return null;
+		}).run();
+	}
+	
+	@Test(dataProvider = "dataProviderMec")
+	public void mec02(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		//userS.addDMData("datosMecThu.csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			// Escenario: [Mecxx] - 
+
+			try {
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			} catch(Throwable e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+				
+			return null;
+		}).run();
+	}
+	
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();

@@ -17,14 +17,14 @@ public class MacTest extends TestObject {
 
 	// PRUEBAS MAC
 	@DataProvider(parallel = true)
-	public String[][] dataProviderMac01() {
+	public String[][] dataProviderMac() {
 		String testCase = ProjectConstants.MAC;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "dataProviderMac01")
+	@Test(dataProvider = "dataProviderMac")
 	public void mac01(String testCase, String id, String browser) throws Exception {
 		
 
@@ -37,7 +37,9 @@ public class MacTest extends TestObject {
 
 		userS.testActions(() -> {
 
-			steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			//steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 			
 			steps.enviar_el_proyecto_a_la_compania();
 			
@@ -55,7 +57,7 @@ public class MacTest extends TestObject {
 			
 		}).run();
 	}
-	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac01a(String testCase, String id, String browser) throws Exception {
 		
 		/*
@@ -97,16 +99,20 @@ public class MacTest extends TestObject {
 		Steps steps = new Steps(userS);
 		
 		userS.setScenario(testCase + "01a");
-
+		
+		System.out.println("Scenario: " + userS.getScenario());
+		
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
-			steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 			
 			steps.enviar_el_proyecto_a_la_compania();
 			
-			steps.cerrar_navegador();
+			steps.completo_el_proceso_de_contratacion_MAC_sin_autorizacion();
+			
+			//steps.cerrar_navegador();
 			
 			steps.se_informa_de_que_la_poliza_no_se_puede_emitir();
 						
@@ -117,6 +123,7 @@ public class MacTest extends TestObject {
 		
 	}
 
+	@Test(dataProvider = "dataProviderMac")
 	public void mac01b(String testCase, String id, String browser) throws Exception {
 		
 		/*
@@ -169,7 +176,9 @@ public class MacTest extends TestObject {
 
 		userS.testActions(() -> {
 
-			steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			//steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 			
 			steps.enviar_el_proyecto_a_la_compania();
 			
@@ -190,6 +199,7 @@ public class MacTest extends TestObject {
 		
 	}
 	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac02(String testCase, String id, String browser) throws Exception {
 		
 		/*
@@ -244,6 +254,7 @@ public class MacTest extends TestObject {
 		
 	}
 	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac03(String testCase, String id, String browser) throws Exception {
 			
 
@@ -271,6 +282,7 @@ public class MacTest extends TestObject {
 		
 	}
 	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac04(String testCase, String id, String browser) throws Exception {
 		
 		
@@ -299,6 +311,7 @@ public class MacTest extends TestObject {
 		
 	}
 	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac05(String testCase, String id, String browser) throws Exception {
 		
 		//Estudio denegado por rentas de inquilino asalariado
@@ -322,6 +335,7 @@ public class MacTest extends TestObject {
 		
 	}
 	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac06(String testCase, String id, String browser) throws Exception {
 		
 		//Estudio denegado por rentas de inquilino autonomo
@@ -345,7 +359,8 @@ public class MacTest extends TestObject {
 		
 		
 	}		
-			
+	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac07(String testCase, String id, String browser) throws Exception {
 
 		//  Estudio denegado por rentas de inquilino artista
@@ -369,6 +384,7 @@ public class MacTest extends TestObject {
 		
 	}
 	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac08(String testCase, String id, String browser) throws Exception {
 		
 		// Estudio denegado por rentas de inquilino becario
@@ -395,6 +411,7 @@ public class MacTest extends TestObject {
 		
 	}
 	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac09(String testCase, String id, String browser) throws Exception {
 		
 		// Reaseguro - Retención por Reaseguro en Alta proyecto/pólizas: Estandar + Renta > 3000€
@@ -423,6 +440,7 @@ public class MacTest extends TestObject {
 		
 	}
 	
+	@Test(dataProvider = "dataProviderMac")
 	public void mac10(String testCase, String id, String browser) throws Exception {
 		
 

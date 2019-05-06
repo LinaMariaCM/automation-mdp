@@ -1,5 +1,6 @@
 package com.project.pages;
 
+import com.automation.configuration.AutomationConstants;
 import com.automation.model.testing.UserStory;
 import com.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
@@ -143,6 +144,10 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	//
 	public void seleccionarImpagoAlquiler() {
 		debugBegin();
+		
+		debugInfo("SCENARIO: " + userS.getScenario() + ", VALUE: " + getScenarioVar("impago_alquiler") 
+		+ ", SCENARIODATA: " + userS.getTestDataManager().getData(AutomationConstants.SCENARIO_DATA));
+		
 		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnImpagoAlquiler, this.mainFrame, String.valueOf(getScenarioVar("impago_alquiler")));
 		debugEnd();
 	}
@@ -174,6 +179,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 
 	 public void clickContinuar() {
 		 debugBegin();
+		 this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.mainFrame);
 		 this.webDriver.clickInFrame(this.btnContinuar, this.mainFrame);
 		 debugEnd();
 	 }

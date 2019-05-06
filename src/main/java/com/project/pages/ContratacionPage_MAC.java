@@ -38,7 +38,7 @@ public class ContratacionPage_MAC extends PageObject {
 
 		// Add documentacion
 		new DocumentacionPage_MAC(userS).addDocumentContratacion();
-        Thread.sleep(10000);
+        
 		// Tick lopd and click contratar
 		this.seleccionarCheckYContratar();
 
@@ -48,11 +48,13 @@ public class ContratacionPage_MAC extends PageObject {
 	 public void seleccionarCheckYContratar() {
 	 	debugBegin();
 	    // Marcar el check
-	 	this.webDriver.clickInFrame(this.checkLopd, this.mainFrame);
+	 	//this.webDriver.waitWithDriver(6000);
+	 	//if (this.webDriver.isPresentInFrame(this.checkLopd, this.mainFrame)) {this.webDriver.clickInFrame(this.checkLopd, this.mainFrame);}
 	 	// Contratar
 	 	this.webDriver.clickInFrame(this.btnContratar, this.mainFrame);
 	 	debugEnd();
 	 }
+	 
 
 	 
 	 public boolean checkPolizaError()
