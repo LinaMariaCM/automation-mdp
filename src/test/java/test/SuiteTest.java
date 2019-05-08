@@ -1,15 +1,14 @@
 package test;
 
-import com.automation.model.utils.*;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.automation.model.testing.SuiteManager;
-import com.automation.model.testing.UserStory;
-import com.automation.model.testing.objects.TestObject;
-import com.project.ProjectConstants;
-import com.project.steps.Steps;
+import com.amaris.automation.model.testing.SuiteManager;
+import com.amaris.automation.model.testing.UserStory;
+import com.amaris.automation.model.testing.objects.TestObject;
+import com.amaris.project.ProjectConstants;
+import com.amaris.project.steps.Steps;
 
 
 public class SuiteTest extends TestObject {
@@ -26,8 +25,8 @@ public class SuiteTest extends TestObject {
 	}
 
 	@Test(dataProvider = "dataProviderMec01")
-	public void mec01(String testCase, String id, String browser) throws Exception {
-		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+	public void mec01(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
 		userS.testActions(() -> {

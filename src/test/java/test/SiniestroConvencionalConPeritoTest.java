@@ -1,25 +1,20 @@
 package test;
 
-
 //Circuito completo siniestros (convencional / especializado con perito)
+
 //--------------------------------------------------------------------------
-
-
-
 
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.automation.model.testing.SuiteManager;
-import com.automation.model.testing.UserStory;
-import com.automation.model.utils.InitUtils;
-import com.project.ProjectConstants;
-import com.project.steps.Steps;
+import com.amaris.automation.model.testing.SuiteManager;
+import com.amaris.automation.model.testing.UserStory;
+import com.amaris.project.ProjectConstants;
+import com.amaris.project.steps.Steps;
 
 public class SiniestroConvencionalConPeritoTest {
 
-	
 	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.SINIESTRO_CONVENCIONAL_CON_PERITO);
 
 	// PRUEBA MEC_SINIESTROS
@@ -32,84 +27,89 @@ public class SiniestroConvencionalConPeritoTest {
 	}
 
 	@Test(dataProvider = "dataProviderSiniestroConvencionalConPerito")
-	public void siniestroConvencionalConPerito01(String testCase, String id, String browser) throws Exception {
-		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
-		
-		
+	public void siniestroConvencionalConPerito01(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		//userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
-		//userS.addDMData("datosMecSin.csv", "fichero_referencias");
+		// userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv",
+		// "fichero_referencias");
+		// userS.addDMData("datosMecSin.csv", "fichero_referencias");
 
 		userS.testActions(() -> {
+			//// 1. Alta siniestro desde GOL 
+			//
+			// steps.login("GOL", "640");
+			// System.out.println("He pasado al siguiente step");
+			// steps.alta_siniestro("900902646","GOL");
+			//
 
-////	1.  Alta siniestro desde GOL 
-//
-//			steps.login("GOL", "640");
-//			System.out.println("He pasado al siguiente step");			
-//			steps.alta_siniestro("900902646","GOL");
-//			
-			
-//	1. Alta siniestro desde  INNOVA
-			
+			// 1. Alta siniestro desde INNOVA
+
 			steps.login("Innova", "Eperez");
-			
+
 			System.out.println("################################");
 			System.out.println("# He pasado al siguiente step. #");
 			System.out.println("################################");
-			
-			steps.alta_siniestro("Innova","900902646");			
-			
-			
-	
-//	2.  Se apertura siniestro en Sisnet (ver que han viajado correctamente todos los datos de la póliza, datos mediador y referencia mediador)
-			
-			
 
-//	3.  La causa viaja con la provisión correcta de apertura
+			steps.alta_siniestro("Innova", "900902646");
 
-//	4.  Asignación de tramitador correcta
+			// 2. Se apertura siniestro en Sisnet (ver que han viajado
+			// correctamente todos los datos de la póliza, datos mediador y
+			// referencia mediador)
 
-//	5.  Se tiene que visualizar la referencia Sisnet y referencia eMutua
+			// 3. La causa viaja con la provisión correcta de apertura
 
-//	6.  solicitamos encargo pericial
+			// 4. Asignación de tramitador correcta
 
-//	7.  solicitamos encargo pericial durante la tramitación
+			// 5. Se tiene que visualizar la referencia Sisnet y referencia
+			// eMutua
 
-//	8.  Por cada implicado generamos una carpeta, la reserva de la carpeta es de 0,01 €
+			// 6. solicitamos encargo pericial
 
-//	9.  Subimos documentación desde el content manager y se generan tareas
+			// 7. solicitamos encargo pericial durante la tramitación
 
-//	10. Se han creado agendas de control de recepción de encargo pericial
+			// 8. Por cada implicado generamos una carpeta, la reserva de la
+			// carpeta es de 0,01 €
 
-//	11. se reciben los avances previos (ver si la reserva se reajusta cuando se recibe previo con modificación de reserva)
+			// 9. Subimos documentación desde el content manager y se generan
+			// tareas
 
-//	12. Se recibe la minuta pericial. Tiene que registrarse en Sisnet todo el pago de la minuta
+			// 10. Se han creado agendas de control de recepción de encargo
+			// pericial
 
-//	13. Se recibe informe pericial
+			// 11. se reciben los avances previos (ver si la reserva se reajusta
+			// cuando se recibe previo con modificación de reserva)
 
-//	14. Los hitos del siniestro definidos se transcriben en el diario del siniestro
+			// 12. Se recibe la minuta pericial. Tiene que registrarse en Sisnet
+			// todo el pago de la minuta
 
-//	15. "Podemos realizar comunicaciones desde el diario del siniestro y las mismas quedan registradas en el diario
-//	     y en el gestor documental"
-	 
-//	16. Realizamos pago de indemnización o una denegación del siniestro
+			// 13. Se recibe informe pericial
 
-//	17. El circuito de pago se realiza correctamente / la carta de rehuse se genera correctamente
+			// 14. Los hitos del siniestro definidos se transcriben en el diario
+			// del siniestro
 
-//	18. Cerramos carpeta
-	
-//	19. Cerramos siniestro 
+			// 15. "Podemos realizar comunicaciones desde el diario del
+			// siniestro y las mismas quedan registradas en el diario
+			// y en el gestor documental"
 
-//	20. Reaperturar siniestro cerrado
-	return null;
-}).run();
-}
+			// 16. Realizamos pago de indemnización o una denegación del
+			// siniestro
 
-@AfterSuite
-public void afterSuite() {
-suiteM.createHtmlReport();
-}
+			// 17. El circuito de pago se realiza correctamente / la carta de
+			// rehuse se genera correctamente
 
+			// 18. Cerramos carpeta
+
+			// 19. Cerramos siniestro 
+
+			// 20. Reaperturar siniestro cerrado
+			return null;
+		}).run();
+	}
+
+	@AfterSuite
+	public void afterSuite() {
+		suiteM.createHtmlReport();
+	}
 
 }
