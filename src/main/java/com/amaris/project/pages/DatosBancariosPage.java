@@ -196,7 +196,7 @@ public class DatosBancariosPage extends PageObject {
 		debugBegin();
 		// Iban iban = Iban.random(CountryCode.ES);
 		String iban = getTestVar("IBAN");
-		Iterable<String> ibanIterator = Splitter.fixedLength(4).split(iban.toString());
+		Iterable<String> ibanIterator = Splitter.fixedLength(4).split(iban);
 		String[] ibanList = Iterables.toArray(ibanIterator, String.class);
 
 		this.webDriver.appendTextInFrame(this.txtIban0, this.cuerpoFrame, ibanList[0]);
@@ -216,7 +216,7 @@ public class DatosBancariosPage extends PageObject {
 	public String fillStaticIban() {
 		debugBegin();
 		String iban = "ES0321001234561234567890";
-		Iterable<String> ibanIterator = Splitter.fixedLength(4).split(iban.toString());
+		Iterable<String> ibanIterator = Splitter.fixedLength(4).split(iban);
 		String[] ibanList = Iterables.toArray(ibanIterator, String.class);
 
 		this.webDriver.appendTextInFrame(this.txtIban0, this.cuerpoFrame, ibanList[0]);

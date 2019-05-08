@@ -34,4 +34,6 @@ public class DniGeneratorHelper {
 			return ("Nif Inválido");
 		}
 	}
+	
+	private DniGeneratorHelper() {}
 }

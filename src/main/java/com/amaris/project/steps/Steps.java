@@ -19,13 +19,10 @@ public class Steps extends InteractionObject {
 
 	public Steps(UserStory userStory) {
 		super(userStory);
-
 	}
 
 	public static String getDayOfWeek() {
-		LocalDate date = LocalDate.now();
-		DayOfWeek dow = date.getDayOfWeek();
-		return dow.getDisplayName(TextStyle.SHORT, Locale.US);
+		return LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US);
 	}
 
 	public void login(String accessType, String user) throws Exception {
@@ -44,10 +41,10 @@ public class Steps extends InteractionObject {
 
 		// com.amaris.project.utils.IApplicationAccessHelper.initialize(AccessType,
 		// webDriver);
-		System.out.println("*** environment: " + (userS.getConfigVar("environment")));
+		System.out.println("*** environment: " + (getConfigVar("environment")));
 		System.out.println("*** access type: " + accessType);
 		System.out.println("*** user: " + user);
-		new LoginPage(userS).logIn(userS.getConfigVar("environment"), accessType, user);
+		new LoginPage(userS).logIn(getConfigVar("environment"), accessType, user);
 		debugEnd();
 	}
 
@@ -70,25 +67,19 @@ public class Steps extends InteractionObject {
 	// automática genérico
 
 	public static void waitForIt(DriverHelper webDriver, By by) {
-
 		if(webDriver.isPresent(by)) webDriver.waitForElementNotToBeClickable(by);
 		else webDriver.waitWithDriver(2500);
-
 	}
 
 	// mismo método con 2 elementos genéricos de entrada
 	public static void waitForIt(DriverHelper webDriver, By by, By cy) {
-
 		waitForIt(webDriver, by);
 		waitForIt(webDriver, cy);
-
 	}
 
 	// cuando se necesita esperar x milisegundos
 	public static void waitForIt(DriverHelper webDriver, int x) {
-
 		webDriver.waitWithDriver(x);
-
 	}
 
 	public void contratar_poliza_MEC(String loginAcess, String user) throws Exception {
@@ -3322,7 +3313,7 @@ public class Steps extends InteractionObject {
 	// // this.CreateSimulation();
 	// }
 
-	public void openSimulationMec() throws Exception {
+	public void openSimulationMec() {
 		new InnovaHomePage(userS).openMutuaEdificioConfort();
 		new InnovaHomePage(userS).openNewSimulationMec();
 	}

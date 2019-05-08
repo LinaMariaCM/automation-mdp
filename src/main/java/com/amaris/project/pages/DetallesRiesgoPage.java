@@ -347,7 +347,7 @@ public class DetallesRiesgoPage extends PageObject {
 
 			Double capitalContenidoModified = Double.parseDouble(this.webDriver.getTextInFrame(this.txtCapitalContenido, this.cuerpoFrame))
 				+ Double.parseDouble(this.getTestVar("CapitalContenido"));
-			this.webDriver.appendTextInFrame(this.txtCapitalContenido, this.cuerpoFrame, this.nf.format(capitalContenidoModified).toString());
+			this.webDriver.appendTextInFrame(this.txtCapitalContenido, this.cuerpoFrame, this.nf.format(capitalContenidoModified));
 			this.webDriver.tabulateElementInFrame(this.txtCapitalContenido, this.cuerpoFrame);
 			// this.testDataM.setCapitalContenido(capitalContenidoModified);
 			this.setTestVar("CapitalContenido", "capitalContenidoModified");
