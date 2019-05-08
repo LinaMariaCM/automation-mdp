@@ -2,3 +2,4 @@ target
 resources/logs/**
 reports/**
 debug.txt
+/.metadata/

@@ -15,4 +15,9 @@ public class TestObject {
 	public synchronized void initializeExecution(ITestContext context) {
 		InitUtils.setThreads(context);
 	}
+
+	public void initializeExecution(String string) {
+		
+		
+	}
 }

@@ -97,7 +97,12 @@ public class GestionOnlineHomePage extends PageObject {
 
 	// @FindBy(css = "table[id*='DataTables_Table'] a[onclick*='javascript:
 	// editarProyecto']")
-	private By modificarProyecto = By.cssSelector("table[id*='DataTables_Table'] a[onclick*='javascript: editarProyecto']");
+
+	//private By modificarProyecto = By.xpath("table[id*='DataTables_Table'] a[onclick*='javascript: editarProyecto']");
+	private By modificarProyecto = By.cssSelector(".dropdown-menu-right > li:nth-child(3) > a:nth-child(1)");
+
+	//private By modificarProyecto = By.cssSelector("table[id*='DataTables_Table'] a[onclick*='javascript: editarProyecto']");
+
 
 	// @FindBy(css = "[id^='eliminar_'] > div > ul > li:nth-child(3) > a")
 	private By modificarProyectoUatPj = By.cssSelector("td[id*='eliminar_'] > div > ul > li:nth-child(3) > a");
@@ -316,8 +321,9 @@ public class GestionOnlineHomePage extends PageObject {
 //			}
 //		}
         this.webDriver.click(this.drpdwnAcciones);
-        this.webDriver.click(this.modificarProyectoUatPj);
+        this.webDriver.click(this.modificarProyecto);
 		this.webDriver.switchToWindow(1);
+		this.webDriver.waitWithDriver(9000);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
 		debugEnd();

@@ -9,7 +9,11 @@ public class GestionAutorizacionesPage extends PageObject {
 	// region webelements
 
 	// @FindBy(id = "PROCESO")
+
+	//private By cmbProceso = By.id("PROCESO");
+
 	private By cmbProceso = By.name("PROCESO");
+
 
 	// @FindBy(id = "ESTADO")
 	private By cmbEstado = By.cssSelector("#ESTADO");

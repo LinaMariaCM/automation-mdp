@@ -67,7 +67,7 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 	// private WebElement btnAnadirDatosTomador;
 	private By btnAnadirDatosTomador = By.cssSelector("#botonGrabar");
 
-	private By btnAnadirDatosTomadorPantallaPrincipal = By.cssSelector("#addTomaAsegurados");
+	private By btnAnadirDatosTomadorPantallaPrincipal = By.id("addTomaAsegurados");
 
 	//
 	// @FindBy(xpath = "//*[@id='botonInmuebleVisual']")
@@ -172,7 +172,7 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 
 	public void AddDatosTomadorAsegurado() {
 		debugBegin();
-		if (this.getScenarioVar("tipo_alta").equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal)) {
+		if (!this.getScenarioVar("tipo_alta").equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal)) {
 			//this.webDriver.moveToElementInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.mainFrame);
 			this.webDriver.clickInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.mainFrame);
 

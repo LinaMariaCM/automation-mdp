@@ -18,7 +18,9 @@ public class MecTest extends TestObject {
 
 	// PRUEBAS MEC
 	@DataProvider(parallel = true)
+
 	public String[][] dataProviderMec() {
+
 		String testCase = ProjectConstants.MEC;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
@@ -44,7 +46,9 @@ public class MecTest extends TestObject {
 			return null;
 		}).run();
 	}
-
+	
+	
+	@Test(dataProvider = "dataProviderMec")
 	public void mec02(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
@@ -53,21 +57,32 @@ public class MecTest extends TestObject {
 		userS.setScenario(testCase + "2");
 		
 		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
-
+		
 		userS.testActions(() -> {
-	
-			steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+
+			try 
+				{
+				steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+				} catch(Throwable e) 
+					{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					}
 			
-			steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+				steps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
+
+
 			
 			return null;
 		}).run();
 	}
 	
+	@Test(dataProvider = "dataProviderMec")
 	public void mec03(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
 		Steps steps = new Steps(userS);
+
 
 		userS.setScenario(testCase + "3");
 		
@@ -83,6 +98,7 @@ public class MecTest extends TestObject {
 		}).run();
 	}
 	
+	@Test(dataProvider = "dataProviderMec")
 	public void mec04(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
@@ -103,7 +119,7 @@ public class MecTest extends TestObject {
 	}
 
 	
-
+	@Test(dataProvider = "dataProviderMec")
 	public void mec05(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
@@ -123,7 +139,7 @@ public class MecTest extends TestObject {
 		}).run();
 	}
 
-	
+	@Test(dataProvider = "dataProviderMec")
 	public void mec06(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
@@ -143,7 +159,7 @@ public class MecTest extends TestObject {
 		}).run();
 	}
 	
-
+	@Test(dataProvider = "dataProviderMec")
 	public void mec07(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
@@ -167,7 +183,7 @@ public class MecTest extends TestObject {
 		}).run();
 	}
 
-
+	@Test(dataProvider = "dataProviderMec")
 	public void mec08(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
@@ -179,14 +195,14 @@ public class MecTest extends TestObject {
 
 		userS.testActions(() -> {
 	
-			steps.
-			
+	
 			
 			
 			return null;
 		}).run();
 	}
 
+	@Test(dataProvider = "dataProviderMec")
 	public void mec09(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
@@ -204,6 +220,7 @@ public class MecTest extends TestObject {
 		}).run();
 	}
 
+	@Test(dataProvider = "dataProviderMec")
 	public void mec10(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
@@ -221,6 +238,7 @@ public class MecTest extends TestObject {
 		}).run();
 	}
 
+	@Test(dataProvider = "dataProviderMec")
 	public void mec11(String testCase, String id, String browser) throws Exception {
 		
 		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);

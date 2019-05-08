@@ -58,8 +58,12 @@ public class InnovaHomePage extends PageObject {
 	private By btnGestionPolizasMenu = By.cssSelector("#jt13");
 
 	// @FindBy (css = "[title*='Gestión de autorizaciones']")
+
+	//private By btnGestionAutorizaciones = By.cssSelector("#jt16");
+	private By btnGestionAutorizaciones = By.cssSelector("[title*='Gestión de autorizaciones']");
+
 	//private By btnGestionAutorizaciones = By.cssSelector("a[href*='GESTION_AUTORIZACION']");
-	private By btnGestionAutorizaciones = By.cssSelector("a[title*='Gestión de autorizaciones']");
+	//private By btnGestionAutorizaciones = By.cssSelector("a[title*='Gestión de autorizaciones']");
 
 	// @FindBy (xpath = ".//*[contains(text(),'Mediadores')]")
 	private By btnMediadores = By.xpath(".//*[contains(text(),'Mediadores')]");
