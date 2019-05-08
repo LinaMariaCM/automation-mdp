@@ -36,6 +36,31 @@ public class SiniestrosConfirmacionPage extends PageObject{
 	
 //REGION METHODS
 	
+	public void confirmarSiniestroOK()
+	{
+		this.debugBegin();
+		System.out.println("###########################\n");
+		System.out.println("# Mensaje de confirmacion #\n");
+		System.out.println("###########################\n");
+		System.out.println("\n");
+		
+		if(this.webDriver.isPresent(correcto))
+		{	
+			
+			System.out.println("- mensaje: " + this.webDriver.getText(this.correcto));
+			System.out.println("\n");
+			System.out.println("- " + this.webDriver.getText(this.nSiniestro));
+			System.out.println("\n");
+			System.out.println("- Expediente generado: " + this.webDriver.getText(this.expediente));
+			
+		}
+		
+		else System.out.println("Se ha producido un error.");
+		
+		System.out.println("\n");		
+		this.debugEnd();
+	}
+	
 	public void check()
 	{
 		this.debugBegin();

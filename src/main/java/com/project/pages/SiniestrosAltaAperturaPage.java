@@ -8,7 +8,7 @@ import com.project.steps.Steps;
 
 public class SiniestrosAltaAperturaPage extends PageObject {
 	
-	SiniestrosAltaAperturaPage(UserStory userS) {
+	public SiniestrosAltaAperturaPage(UserStory userS) {
 		super(userS);
 	}
 	// region webelements
@@ -85,8 +85,10 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 	 {
 		this.debugBegin();
 		
+		this.webDriver.switchToFrame(this.mainFrame);
+		this.webDriver.waitForElementToBeClickable(this.rdbtnNumPoliza);
 		this.webDriver.click(this.rdbtnNumPoliza);
-		this.webDriver.appendText(this.txtNumPoliza, numPoliza);
+		this.webDriver.setText(this.txtNumPoliza, numPoliza);
 		this.webDriver.click(this.btnBuscar);
 		
 	 	this.debugEnd();
@@ -96,10 +98,12 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 	public void buscarNumPoliza(String codigoProducto, String numPoliza)
 	 {
 		this.debugBegin();
-		
+
+		this.webDriver.switchToFrame(this.mainFrame);
+		this.webDriver.waitForElementToBeClickable(this.rdbtnNumPoliza);
 		this.webDriver.click(this.rdbtnNumPoliza);
 		this.webDriver.clickElementFromDropDownByAttribute(this.comboProducto, "value", codigoProducto);
-		this.webDriver.appendText(this.txtNumPoliza, numPoliza);
+		this.webDriver.setText(this.txtNumPoliza, numPoliza);
 		this.webDriver.click(this.btnBuscar);
 		
 	 	this.debugEnd();
@@ -112,7 +116,7 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 		
 		this.webDriver.click(this.rdbtnNombreTomador);
 		this.webDriver.click(this.rdbtnEmpiezaPor);
-		this.webDriver.appendText(this.txtNombre, nombreTomador);
+		this.webDriver.setText(this.txtNombre, nombreTomador);
 		this.webDriver.click(this.btnBuscar);
 		
 	 	this.debugEnd();
@@ -126,7 +130,7 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 		
 		this.webDriver.click(this.rdbtnNombreTomador);
 		this.webDriver.click(this.rdbtnContiene);
-		this.webDriver.appendText(this.txtNombre, nombreTomador);
+		this.webDriver.setText(this.txtNombre, nombreTomador);
 		this.webDriver.click(this.btnBuscar);
 		
 	 	this.debugEnd();
@@ -139,7 +143,7 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 		this.debugBegin();
 		
 		this.webDriver.click(this.rdbtnNIF);
-		this.webDriver.appendText(this.txtNifDocumento, NIF);
+		this.webDriver.setText(this.txtNifDocumento, NIF);
 		this.webDriver.click(this.btnBuscar);
 		
 	 	this.debugEnd();
@@ -152,7 +156,7 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 		this.debugBegin();
 		
 		this.webDriver.click(this.rdbtnPolProcedencia);
-		this.webDriver.appendText(this.txtPolProcedencia, numPoliza);
+		this.webDriver.setText(this.txtPolProcedencia, numPoliza);
 		this.webDriver.click(this.btnBuscar);
 		
 	 	this.debugEnd();
@@ -166,11 +170,11 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 			
 			this.webDriver.click(this.rdbtnOtros);
 
-			this.webDriver.appendText(this.txtFechaDesde, desde);
-			this.webDriver.appendText(this.txtFechaHasta, hasta);
+			this.webDriver.setText(this.txtFechaDesde, desde);
+			this.webDriver.setText(this.txtFechaHasta, hasta);
 			this.webDriver.clickElementFromDropDownByAttribute(this.comboEstado, "value", estado); //estados V = vigor, A = Anulada, F = Vencida
 			this.webDriver.clickElementFromDropDownByAttribute(this.comboLineaNegocio, "value", lineaNegocio);//Lineas Negocio 920, 510, 660, 640, 500
-			this.webDriver.appendText(this.txtCodMediador, mediador);
+			this.webDriver.setText(this.txtCodMediador, mediador);
 			
 			this.webDriver.click(this.btnBuscar);
 			
@@ -183,8 +187,8 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 			this.debugBegin();
 			
 			this.webDriver.click(this.rdbtnOtros);
-			this.webDriver.appendText(this.txtFechaDesde, desde);
-			this.webDriver.appendText(this.txtFechaHasta, hasta);
+			this.webDriver.setText(this.txtFechaDesde, desde);
+			this.webDriver.setText(this.txtFechaHasta, hasta);
 			this.webDriver.clickElementFromDropDownByAttribute(this.comboLineaNegocio, "value", lineaNegocio);//Ramos 920, 510, 660, 640, 500
 					
 			this.webDriver.click(this.btnBuscar);

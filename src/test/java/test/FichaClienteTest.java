@@ -45,18 +45,39 @@ public class FichaClienteTest {
 		userS.testActions(() -> {
 			
 			steps.login("Innova","mcena");
-			
-			System.out.println("################################");
-			System.out.println("# He pasado al siguiente step. #");
-			System.out.println("################################");
-			
-			System.out.println("Inicio Second Step");
-		    steps.acceder_cliente();
+		    steps.accederCliente();
+		    
 			
 
 return null;
 }).run();//error aqui
 }
+	
+	@Test(dataProvider = "dataProviderAltaCliente")
+	public void emitirMarca(String testCase, String id, String browser) throws Exception {
+		UserStory userS = InitUtils.createUserStory(id, testCase, suiteM, browser);
+		Steps steps = new Steps(userS);
+
+
+		userS.testActions(() -> {
+			
+			steps.login("Innova","mcena");
+		    steps.marcaCliente();
+		    steps.buscaClientePorNif();
+		    steps.buscadorCliente();
+		    steps.marcaRelacion();
+		    steps.marcaNegativa();
+		   
+		    
+			
+
+return null;
+}).run();//error aqui
+}
+	
+	
+	
+	
 	
 @AfterSuite
 public void afterSuite() {

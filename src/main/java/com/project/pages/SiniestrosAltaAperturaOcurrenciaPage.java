@@ -34,10 +34,10 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	
 	//	####	LUGAR DE OCURRENCIA	####
 	
-	// @FindBy(id = "cabRechazar")
-	// private By btnRechazarApertura;
 	//
 	private By buttonRechazarApertura = By.id("cabRechazar");
+	//
+	private By buttonVolverAlBuscador = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
 	//
 	private By comboLugarOcurrencia = By.id("listaLugares");
 	//
@@ -87,28 +87,20 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	
 	//	####	DATOS DE LA OCURRENCIA	####
 	
-	// @FindBy(id = "version")
 	private By txtDescripcionSiniestro = By.id("version");
 	//
-	// @FindBy(id = "implicadosSi")
 	private By rdbtnImplicadosSi = By.id("implicadosSi");
 	//
-	// @FindBy(id = "implicadosNo")
 	private By rdbtnImplicadosNo = By.id("implicadosNo");
 	//
-	// @FindBy(id = "encargoSi")
 	private By rdbtnEncargoSi = By.id("encargoSi");
 	//
-	// @FindBy(id = "encargoNo")
 	private By rdbtnEncargoNo = By.id("encargoNo");
 	//
-	// @FindBy(id = "botonGuardar")
 	private By btnGuardarSalir = By.id("botonGuardar");
 	//
-	// @FindBy(id = "botonContinuar")
 	private By btnContinuar = By.id("botonContinuar");
-	
-	
+	//
 	private By descripOcu = By.id("version");
 	
 	// endregion
@@ -152,8 +144,10 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		this.debugBegin();
 
 		this.webDriver.clickElementFromDropDownByAttribute(this.comboGrupoCausas, "value", grupoCausa);
+		this.webDriver.waitWithDriver(500);
 		this.webDriver.clickElementFromDropDownByAttribute(this.comboTiposCausa, "value", tipoCausa);
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboGremio, "value", tipoCausa);
+		this.webDriver.waitWithDriver(500);
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboGremio, "value", gremioCausa);
 						
 		this.debugEnd(); 
 	}
@@ -198,70 +192,6 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	// this.wh.clickOnWebElementInFrame(this.btnVolverABuscador,
 	// this.mainFrame);
 	// logger.debug("END - clickVolverABuscador");
-	// }
-	//
-	// public void selectLugarOcurrencia(
-	// String lugar)
-	// {
-	// logger.debug("BEGIN - selectLugarOcurrencia");
-	// this.wh.sendValueToWebElementInFrame(this.drpdwnLugarOcurrencia,
-	// this.mainFrame, lugar);
-	// logger.debug("END - selectLugarOcurrencia");
-	// }
-	//
-	// public void selectGrupoCausas(
-	// String causa)
-	// {
-	// logger.debug("BEGIN - selectGrupoCausas");
-	// this.wh.sendValueToWebElementInFrame(this.drpdwnGrupoCausas,
-	// this.mainFrame, causa);
-	// logger.debug("END - selectGrupoCausas");
-	// }
-	//
-	// public void selectTipoCausas(
-	// String tipoCausa)
-	// {
-	// logger.debug("BEGIN - selectTipoCausas");
-	// this.wh.sendValueToWebElementInFrame(this.drpdwnTipoCausas,
-	// this.mainFrame, tipoCausa);
-	// logger.debug("END - selectTipoCausas");
-	// }
-	//
-	// public void writeDescripcionSiniestro(
-	// String descripcion)
-	// {
-	// logger.debug("BEGIN - writeDescripcionSiniestro");
-	// this.wh.sendValueToWebElementInFrame(this.txtDescripcionSiniestro,
-	// this.mainFrame, descripcion);
-	// logger.debug("END - writeDescripcionSiniestro");
-	// }
-	//
-	// public void clickImplicadosSi()
-	// {
-	// logger.debug("BEGIN - clickImplicadosSi");
-	// this.wh.clickOnWebElementInFrame(this.rdbtnImplicadosSi, this.mainFrame);
-	// logger.debug("END - clickImplicadosSi");
-	// }
-	//
-	// public void clickImplicadosNo()
-	// {
-	// logger.debug("BEGIN - clickImplicadosNo");
-	// this.wh.clickOnWebElementInFrame(this.rdbtnImplicadosNo, this.mainFrame);
-	// logger.debug("END - clickImplicadosNo");
-	// }
-	//
-	// public void clickEncargoSi()
-	// {
-	// logger.debug("BEGIN - clickEncargoSi");
-	// this.wh.clickOnWebElementInFrame(this.rdbtnEncargoSi, this.mainFrame);
-	// logger.debug("END - clickEncargoSi");
-	// }
-	//
-	// public void clickEncargoNo()
-	// {
-	// logger.debug("BEGIN - clickEncargoNo");
-	// this.wh.clickOnWebElementInFrame(this.rdbtnEncargoNo, this.mainFrame);
-	// logger.debug("END - clickEncargoNo");
 	// }
 	//
 	// public void clickGuardarYSalir()

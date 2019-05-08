@@ -1,0 +1,32 @@
+07.02.2019 15:56:02,408 TRACE DriverHelper:1663 - [BEGIN] - waitForElementToBeClickable
+07.02.2019 15:56:02,424 TRACE DriverHelper:1717 - [BEGIN] - waitForElementToBePresent
+07.02.2019 15:56:02,424 TRACE DriverHelper:1597 - [BEGIN] - waitForLoadToComplete
+07.02.2019 15:56:02,424 TRACE DriverHelper:1617 - [BEGIN] - waitForPageToLoad
+07.02.2019 16:00:16,687 DEBUG ChromeConfiguration:21 - [BEGIN] - Starting BrowserManager setup
+07.02.2019 16:00:17,526 TRACE BrowserManager:287 - Checking if chromedriver exists in cache C:\Users\JBARRIOS/.m2/repository/webdriver
+07.02.2019 16:00:17,561 TRACE BrowserManager:297 - Checking C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+07.02.2019 16:00:17,562 INFO  BrowserManager:300 - Found chromedriver in cache: C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe 
+07.02.2019 16:00:17,563 DEBUG BrowserManager:196 - Driver for [chromedriver] LATEST found in cache C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+07.02.2019 16:00:17,563 INFO  BrowserManager:726 - Exporting webdriver.chrome.driver as C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+07.02.2019 16:00:17,563 DEBUG ChromeConfiguration:29 - [ END ] - BrowserManager setup finished
+11.02.2019 09:25:14,216 DEBUG ChromeConfiguration:21 - [BEGIN] - Starting BrowserManager setup
+11.02.2019 09:25:14,942 TRACE BrowserManager:287 - Checking if chromedriver exists in cache C:\Users\JBARRIOS/.m2/repository/webdriver
+11.02.2019 09:25:14,976 TRACE BrowserManager:297 - Checking C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:25:14,976 INFO  BrowserManager:300 - Found chromedriver in cache: C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe 
+11.02.2019 09:25:14,977 DEBUG BrowserManager:196 - Driver for [chromedriver] LATEST found in cache C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:25:14,977 INFO  BrowserManager:726 - Exporting webdriver.chrome.driver as C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:25:14,977 DEBUG ChromeConfiguration:29 - [ END ] - BrowserManager setup finished
+11.02.2019 09:26:49,742 DEBUG ChromeConfiguration:21 - [BEGIN] - Starting BrowserManager setup
+11.02.2019 09:26:50,374 TRACE BrowserManager:287 - Checking if chromedriver exists in cache C:\Users\JBARRIOS/.m2/repository/webdriver
+11.02.2019 09:26:50,384 TRACE BrowserManager:297 - Checking C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:26:50,384 INFO  BrowserManager:300 - Found chromedriver in cache: C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe 
+11.02.2019 09:26:50,385 DEBUG BrowserManager:196 - Driver for [chromedriver] LATEST found in cache C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:26:50,385 INFO  BrowserManager:726 - Exporting webdriver.chrome.driver as C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:26:50,385 DEBUG ChromeConfiguration:29 - [ END ] - BrowserManager setup finished
+11.02.2019 09:27:36,412 DEBUG ChromeConfiguration:21 - [BEGIN] - Starting BrowserManager setup
+11.02.2019 09:27:36,840 TRACE BrowserManager:287 - Checking if chromedriver exists in cache C:\Users\JBARRIOS/.m2/repository/webdriver
+11.02.2019 09:27:36,849 TRACE BrowserManager:297 - Checking C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:27:36,849 INFO  BrowserManager:300 - Found chromedriver in cache: C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe 
+11.02.2019 09:27:36,849 DEBUG BrowserManager:196 - Driver for [chromedriver] LATEST found in cache C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:27:36,850 INFO  BrowserManager:726 - Exporting webdriver.chrome.driver as C:\Users\JBARRIOS\.m2\repository\webdriver\chromedriver\win32\2.42\chromedriver.exe
+11.02.2019 09:27:36,850 DEBUG ChromeConfiguration:29 - [ END ] - BrowserManager setup finished

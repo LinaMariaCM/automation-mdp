@@ -47,9 +47,12 @@ public class ContratacionPage_MAC extends PageObject {
 
 	 public void seleccionarCheckYContratar() {
 	 	debugBegin();
+	 	
 	    // Marcar el check
 	 	//this.webDriver.waitWithDriver(6000);
 	 	//if (this.webDriver.isPresentInFrame(this.checkLopd, this.mainFrame)) {this.webDriver.clickInFrame(this.checkLopd, this.mainFrame);}
+
+
 	 	// Contratar
 	 	this.webDriver.clickInFrame(this.btnContratar, this.mainFrame);
 	 	debugEnd();
