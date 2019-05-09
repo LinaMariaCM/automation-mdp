@@ -660,6 +660,16 @@ public class SuiteManager {
 		return decviceArgument;
 	}
 
+	private String getPlatformArgument(TestDataManager testDataM) {
+		String platformArgument = System.getProperty(AutomationConstants.PLATFORM);
+
+		if((platformArgument == null || platformArgument.isEmpty()) && mainDriver != null && (mainDriver.equals(AutomationConstants.MOBILE_APP) || mainDriver.equals(AutomationConstants.MOBILE_WEB))) {
+			platformArgument = testDataM.getConfigVar(AutomationConstants.PLATFORM);
+		}
+
+		return platformArgument;
+	}
+
 	private void addBrowserToTestData(TestDataManager testDataM) {
 		String browserArgument = getBrowserArgument(testDataM);
 		String deviceArgument = getDeviceArgument(testDataM);
@@ -674,8 +684,9 @@ public class SuiteManager {
 
 		if((mainDriver.equals(AutomationConstants.MOBILE_APP) || mainDriver.equals(AutomationConstants.MOBILE_WEB))
 			&& testDataM.getTestData() != null && testDataM.getTestData().getRow() != null
-			&& !testDataM.getTestData().getRow().containsKey(AutomationConstants.DEVICE) && deviceArgument != null && !deviceArgument.isEmpty()) {
+			&& !testDataM.getTestData().getRow().containsKey(AutomationConstants.PLATFORM) && deviceArgument != null && !deviceArgument.isEmpty()) {
 			for(int i = 0; i < testDataM.getTestData().size(); i++) {
+				testDataM.getTestData().getRow(Integer.toString(i)).put(AutomationConstants.PLATFORM, deviceArgument);
 				testDataM.getTestData().getRow(Integer.toString(i)).put(AutomationConstants.DEVICE, deviceArgument);
 			}
 		}
@@ -778,9 +789,9 @@ public class SuiteManager {
 		}
 
 		if(mainDriver.equals(AutomationConstants.MOBILE_APP) || mainDriver.equals(AutomationConstants.MOBILE_WEB)) {
-			String platform = InitUtils.getStringConfigVariable(AutomationConstants.PLATFORM, testDataM.getConfigData());
+			String device = InitUtils.getStringConfigVariable(AutomationConstants.DEVICE, testDataM.getConfigData());
 
-			timeStampDriver = timeStampDriver != null && timeStampDriver.isEmpty() ? platform : platform + "." + timeStampDriver;
+			timeStampDriver = timeStampDriver != null && timeStampDriver.isEmpty() ? device : device + "." + timeStampDriver;
 		}
 
 		if(timeStampDriver == null || timeStampDriver.isEmpty()) timeStampDriver = "api";

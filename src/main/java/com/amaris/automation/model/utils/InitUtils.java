@@ -196,10 +196,11 @@ public class InitUtils {
 
 	public static String[][] getResultMatrixFromTestData(DataObject testData, String[] testVariables) {
 		boolean containsBrowser = testData.getRow().containsKey(AutomationConstants.BROWSER);
-		boolean containsDevice = testData.getRow().containsKey(AutomationConstants.DEVICE);
+		boolean containsDevice = testData.getRow().containsKey(AutomationConstants.PLATFORM);
 		testVariables = ArrayUtils.removeElementFromArray(testVariables, AutomationConstants.BROWSER);
 		testVariables = ArrayUtils.removeElementFromArray(testVariables, AutomationConstants.DEVICE);
-		String[][] resultMatrix = new String[testData.size() + 1][testVariables.length + 3 + (containsBrowser ? 1 : 0)];
+		testVariables = ArrayUtils.removeElementFromArray(testVariables, AutomationConstants.PLATFORM);
+		String[][] resultMatrix = new String[testData.size() + 1][testVariables.length + 3 + (containsBrowser || containsDevice ? 1 : 0)];
 
 		for(int j = 0; j < testVariables.length; j++) {
 			resultMatrix[0][j] = testVariables[j];
@@ -211,7 +212,7 @@ public class InitUtils {
 		resultMatrix[0][resultMatrix[0].length - 1] = "exception";
 
 		for(int i = 1; i < resultMatrix.length; i++) {
-			String[] arrayAux = new String[testVariables.length + 3 + (containsBrowser ? 1 : 0)];
+			String[] arrayAux = new String[testVariables.length + 3 + (containsBrowser || containsDevice ? 1 : 0)];
 
 			for(int j = 0; j < testVariables.length; j++) {
 				arrayAux[j] = testData.getValue(Integer.toString(i - 1), testVariables[j]);
@@ -219,7 +220,7 @@ public class InitUtils {
 
 			if(containsBrowser || containsDevice) {
 				String browser = testData.getValue(Integer.toString(i - 1), AutomationConstants.BROWSER);
-				browser = !containsBrowser ? testData.getValue(Integer.toString(i - 1), AutomationConstants.DEVICE) : browser;
+				browser = !containsBrowser ? testData.getValue(Integer.toString(i - 1), AutomationConstants.PLATFORM) : browser;
 
 				arrayAux[arrayAux.length - 4] = browser;
 			}
