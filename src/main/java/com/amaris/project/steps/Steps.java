@@ -41,6 +41,7 @@ public class Steps extends InteractionObject {
 
 		// com.amaris.project.utils.IApplicationAccessHelper.initialize(AccessType,
 		// webDriver);
+
 		System.out.println("*** environment: " + (getConfigVar("environment")));
 		System.out.println("*** access type: " + accessType);
 		System.out.println("*** user: " + user);
@@ -3376,7 +3377,7 @@ public class Steps extends InteractionObject {
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
 		new InquilinosAvalistasPage_MAC(userS).enviarACompania();
-		userS.getWebDriver().quit();
+		//userS.getWebDriver().quit();
 		debugEnd();
 	}
 
@@ -3405,11 +3406,13 @@ public class Steps extends InteractionObject {
 	}
 
 	public void login_y_autorizar_el_proyecto_MAC(String loginAccess, String user) throws Exception {
+		debugBegin();
 		this.login(loginAccess, user);
 		this.searchAuthorisation();
 		new GestionAutorizacionesPage(userS).autorizar();
 
 		userS.getWebDriver().quit();
+		debugEnd();
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC(String accessType, String user) throws Exception {
@@ -3417,10 +3420,8 @@ public class Steps extends InteractionObject {
 		this.login(accessType, user);
 
 		if(accessType.equals(ProjectConstants.LoginAccessGestionLine)) {
-			new GestionOnlineHomePage(userS)
-				// .openMutuaAlquilerConfort()
-				.openMisProyectosWeb()
-				.buscarProyectoWeb(this.getTestVar("NumCotizacion"));
+			
+			new GestionOnlineHomePage(userS).openMisProyectosWeb().buscarProyectoWeb(this.getTestVar("NumCotizacion"));
 			new GestionOnlineHomePage(userS).modificarProyecto();
 
 		} else if(accessType.equals(ProjectConstants.LoginAccessInnova)) {
@@ -3809,26 +3810,18 @@ public class Steps extends InteractionObject {
 
 		this.login(loginAccess, user);
 
-		// // if
-		// (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
-		// LoginAccessGestionLine)) // { // GestionOnlineHomePage
-		// gestionOnlineHomePage = new GestionOnlineHomePage(webDriver,
-		// userS.getTestDataManager()); //
-		// gestionOnlineHomePage.openMutuaAlquilerConfort(); // } if
-		// (this.userS.getTestVar("acceso").equals(ProjectConstants.
-		// LoginAccessInnova)) { AsignarMediadorPage asignarMediadorPage = new
-		// AsignarMediadorPage(userS);
-		// asignarMediadorPage.SelectMediadorMACAndClickOnContinuar(); //
-		// InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
-		// userS.getTestDataManager()); //
-		// innovaHomePage.OpenMutuaAlquilerConfort(); }
+		 if(this.userS.getScenarioVar("acceso").equals(ProjectConstants.LoginAccessGestionLine)) 
+		 { // GestionOnlineHomePage
 
-		new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
+			 new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
+			 
+		 } else if(this.userS.getScenarioVar("acceso").equals(ProjectConstants.LoginAccessInnova))
+		 	{
+				new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar(); 
+				new InnovaHomePage(userS).OpenMutuaAlquilerConfort(); 
+		 	}
 
-		new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
-
-		new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
-
+		 
 		// SCS Precio
 		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
 		precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();

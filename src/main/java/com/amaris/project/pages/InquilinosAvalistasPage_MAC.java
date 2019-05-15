@@ -145,6 +145,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	// private WebElement btnEnviarComentarios;
 	// private By btnEnviarComentarios = By.cssSelector("#formularioEnvio >
 	// div:nth-child(3) > button:nth-child(2)");
+	
+	private By textoComentario = By.id("ENVIO_COM_COMENTARIOS");
 
 	private By btnEnviarComentarios = By.cssSelector("#formularioEnvio > div.modal-footer > button:nth-child(2)");
 
@@ -320,9 +322,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	public void validacionViabilidadInquilino() throws AWTException, InterruptedException {
 		debugBegin();
 
-		this.webDriver.waitWithDriver(4000);
-		// this.webDriver.waitForElementToBeClickableInFrame(btnValidacionViabilidad,
-		// this.mainFrame);
+		//this.webDriver.waitWithDriver(2000);
+		this.webDriver.waitForElementToBeClickableInFrame(btnValidacionViabilidad, this.mainFrame);
 		// this.webDriver.clickInFrame(this.btnValidacionViabilidad,
 		// this.mainFrame);
 		this.webDriver.clickInFrame(this.btnValidacionViabilidad, this.mainFrame);
@@ -396,17 +397,18 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		this.webDriver.clickInFrame(this.chkbxDosNominas, this.mainFrame);
 		this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.mainFrame);
 		this.adjuntarDocumentos();
-		this.webDriver.waitWithDriver(6000);
+		//this.webDriver.waitWithDriver(6000);
 		this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.mainFrame);
 
-		this.webDriver.waitWithDriver(6000);
+		//this.webDriver.waitWithDriver(6000);
 		this.webDriver.moveToElementInFrame(this.btnCerrar, this.mainFrame);
 
 		// this.webDriver.waitWithDriver(3000);
 
 		this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
-		this.webDriver.waitWithDriver(10000);
-		if(webDriver.isPresentInFrame(this.btnCerrar, this.mainFrame)) this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
+		//this.webDriver.waitWithDriver(10000);
+		//if(webDriver.isPresentInFrame(this.btnCerrar, this.mainFrame)) this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
+		
 		debugEnd();
 	}
 
@@ -465,15 +467,17 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		debugBegin();
 		// TODO: mover la ruta de fichero de upload a configuracion
 
-		// this.webDriver.waitWithDriver(6000);
-		// if(this.webDriver.isPresentInFrame(this.btnCerrar, this.mainFrame))
+		 this.webDriver.waitWithDriver(3000);
+		if(this.webDriver.isPresentInFrame(this.btnCerrar, this.mainFrame)) this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
 
-		webDriver.waitWithDriver(2000);
-
+		webDriver.waitWithDriver(3000);
+		this.webDriver.isPresentInFrame(this.btnEnviarACompania, this.mainFrame);
 		this.webDriver.clickInFrame(this.btnEnviarACompania, this.mainFrame);
-		this.webDriver.waitWithDriver(6000);
+		this.webDriver.waitWithDriver(2000);
+		this.webDriver.isPresentInFrame(this.textoComentario, this.mainFrame);
+		this.webDriver.appendTextInFrame(this.textoComentario, this.mainFrame, "IPSUM SUM LOREM LOREM, ESTO ES UNA PRUEBA DEL EQUIPO TaaS");
 		this.webDriver.clickInFrame(this.btnEnviarComentarios, this.mainFrame);
-		this.webDriver.waitWithDriver(3000);
+		//this.webDriver.waitWithDriver(3000);
 		debugEnd();
 	}
 
