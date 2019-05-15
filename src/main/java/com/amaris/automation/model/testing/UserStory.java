@@ -96,9 +96,21 @@ public class UserStory {
 		return result;
 	}
 
+	public void assignBrowser() {
+		if(suiteM.getMainDriver().equals(AutomationConstants.WEB)) {
+			browser = assignIfNull(browser, getTestVar(AutomationConstants.BROWSER));
+			browser = assignIfNull(browser, getConfigVar(AutomationConstants.BROWSER));
+			browser = assignIfNull(browser, BrowserType.CHROME);
+		} else if(suiteM.getMainDriver().equals(AutomationConstants.MOBILE_APP) || suiteM.getMainDriver().equals(AutomationConstants.MOBILE_WEB)) {
+			browser = assignIfNull(browser, System.getProperty(AutomationConstants.DEVICE));
+			browser = assignIfNull(browser, getTestVar(AutomationConstants.DEVICE));
+			browser = assignIfNull(browser, getConfigVar(AutomationConstants.DEVICE));
+		}
+	}
+
 	public String getBrowser() {
 		if(browser == null) {
-			browser = getTestVar(AutomationConstants.BROWSER);
+			assignBrowser();
 		}
 
 		return browser;
@@ -130,15 +142,7 @@ public class UserStory {
 
 	public DriverHelper getWebDriver() {
 		if(webDriver == null) {
-			if(suiteM.getMainDriver().equals(AutomationConstants.WEB)) {
-				browser = assignIfNull(browser, getTestVar(AutomationConstants.BROWSER));
-				browser = assignIfNull(browser, getConfigVar(AutomationConstants.BROWSER));
-				browser = assignIfNull(browser, BrowserType.CHROME);
-			} else if(suiteM.getMainDriver().equals(AutomationConstants.MOBILE_APP) || suiteM.getMainDriver().equals(AutomationConstants.MOBILE_WEB)) {
-				browser = assignIfNull(browser, System.getProperty(AutomationConstants.DEVICE));
-				browser = assignIfNull(browser, getTestVar(AutomationConstants.DEVICE));
-				browser = assignIfNull(browser, getConfigVar(AutomationConstants.DEVICE));
-			}
+			assignBrowser();
 
 			addDriverConfiguration();
 		}
@@ -285,7 +289,7 @@ public class UserStory {
 			String errorString = getTestDataManager().caseVariablesToString(testId);
 			if(!errorString.isEmpty()) errorString += ", ";
 
-			errorString += getBrowser() == null ? "" : AutomationConstants.BROWSER + ": " + browser + ", ";
+			errorString += browser == null ? "" : AutomationConstants.BROWSER + ": " + browser + ", ";
 
 			logger.error(errorString + "lastException: " + lastException);
 
@@ -550,6 +554,7 @@ public class UserStory {
 
 					String infoString = getTestDataManager().caseVariablesToString(testId);
 					if(!infoString.isEmpty()) infoString += ", ";
+					//TODO
 					boolean addBrowserToMatrix = ArrayUtils.contains(getResultMatrix()[0], AutomationConstants.BROWSER);
 
 					logger.info(infoString + (browser != null && addBrowserToMatrix ? "browser: " + browser + ", " : "") + "time: " + duration
