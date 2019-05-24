@@ -34,8 +34,10 @@ public class GestionOnlineHomePage extends PageObject {
 	private By btnContratacionSelector = By.cssSelector("div.nav-collapse:nth-child(2) > div:nth-child(1) > ul:nth-child(1) > li:nth-child(6) > a:nth-child(1)");
             //"#t3-mainnav > div > div > div > div > ul > li:nth-child(6) > a");
 
-	@FindBy(linkText = "Siniestros")
-	private By btnSiniestrosSelector;
+	//@FindBy(linkText = "Siniestros")
+	private By btnSiniestrosSelector = By.cssSelector("#t3-mainnav > div > div > div > div > ul > li.active.dropdown.mega > a");
+	
+	private By btnAltaSiniestro = By.cssSelector("#t3-mainnav > div > div > div > div > ul > li.active.dropdown.mega > div > div > div > div > div > ul > li.current.active > a");
 
 	private By btnContratarOnlineOption = By.cssSelector(".//*[@class='navbar-inner']//*[text()='Contratar online ']");
 
@@ -248,8 +250,8 @@ public class GestionOnlineHomePage extends PageObject {
 		debugBegin();
 		
 		//this.webDriver.click(this.btnAceptar);
-		this.webDriver.click(this.btnContratacionSelector);
-		this.webDriver.click(this.btnMisProyectosWebOption);
+		this.webDriver.click(this.btnSiniestrosSelector);
+		this.webDriver.click(this.btnAltaSiniestro);
 
 		debugEnd();
 

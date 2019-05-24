@@ -35,6 +35,8 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 private By topFrame = By.id("topFrame");
 	//
 	 private By cuerpoFrame = By.id("mainFrame");
+	//
+	 private By modalFrame = By.id("capaIframe");
 	
 	 
 	 // #####	DATOS OCURRENCIA	#####
@@ -124,8 +126,54 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	 private By btnVolver = By.id("botonVolver");
 	 //
 	 
-	 
-	 
+	// #### AÑADIR DATOS PERSONA CONTACTO #### 
+	 private By comboRol = By.id("rol");
+	 //
+	 private By txtNombre = By.id("nombre");
+	 //
+	 private By txt1Apellido = By.id("apellido1");
+	 //
+	 private By txt2Apellido = By.id("apellido2");
+	 //
+	 private By comboTipoDoc = By.id("tipodocu");
+	 //
+	 private By txtDocumento = By.id("numedocu");
+	 //
+	 private By comboPrefijo1 = By.cssSelector("#seccionDatosPersonaContacto > div:nth-child(8) > div.box-field.flexibleField > span > div > span.ui-combobox > input");
+	 //
+	 private By comboPrefijo2 = By.cssSelector("#seccionDatosPersonaContacto > div:nth-child(9) > div.box-field.flexibleField > span > div > span.ui-combobox > input");
+	 //
+	 private By txtTelefono1 = By.id("telefono1");
+	 //
+	 private By txtTelefono2 = By.id("telefono2");
+	 //
+	 private By comboSexo = By.id("sexocon");
+	 //
+	 private By txtEmail2 = By.id("email");
+	 //
+	 private By checkNoEmail = By.id("emailnodisp");
+	 //
+	 private By checkRiesgoAsegurado = By.cssSelector("#seccionDatosPersonaContacto > div.sis-col-80 > div > label > input");
+	 //
+	 private By comboTipoVia = By.id("tipovia");
+	 //
+	 private By txtVia = By.id("calle");
+	 //
+	 private By txtNumero = By.id("numero");
+	 //
+	 private By txtPiso = By.id("label37");
+	 //
+	 private By txtPuerta = By.id("label380");
+	 //
+	 private By txtCodPostal = By.id("cp");
+	 //
+	 private By txtPoblacion = By.id("poblacion");
+	 //
+	 private By comboProvincia = By.id("provincia");
+	 //
+	 private By btnGrabar = By.id("buttonRecord");
+	 //
+	 private By btnCancelar = By.id("buttonCancel");
 
 	 
 	// endregion
@@ -232,6 +280,57 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		 this.debugEnd();
 	 }
 	 
+	 //Añadir datos de persona extra
+	 public void datosPersonaExtra(String rol, String nombre, String apellido1, String apellido2, String tipoDocumento, String documento, String prefijoTlf, String telefono1, String prefijoTlf2, String telefono2, String sexo, boolean noEmail, String email, boolean riesgoAsegurado, String tipoVia, String via, String numero, String piso, String puerta, String cp, String poblacion, String provincia )
+	 {
+		this.debugBegin();
+		
+		
+		this.webDriver.click(buttonPersonaContacto);
+		
+		System.out.println("Pasamos el foco al popup");
+		this.webDriver.switchToFrame(modalFrame);
+		System.out.println("Comenzamos a rellenar campos de persona extra");
+		
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboRol, "value", rol);
+		this.webDriver.setText(this.txtNombre, nombre);
+		if(apellido1!="")this.webDriver.setText(this.txt1Apellido, apellido1);
+		if(apellido2!="")this.webDriver.setText(this.txt2Apellido, apellido2);
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoDoc, "value", tipoDocumento);
+		this.webDriver.setText(this.txtDocumento, documento);
+		if(prefijoTlf!="")this.webDriver.clickElementFromDropDownByAttribute(this.comboPrefijo1, "value", prefijoTlf);
+		else System.out.println("no existe prefijo t1");
+		this.webDriver.setText(this.txtTelefono1, telefono1);
+		if(prefijoTlf2!="")this.webDriver.clickElementFromDropDownByAttribute(this.comboPrefijo2, "value", prefijoTlf2);
+		else System.out.println("no existe prefijo t2");
+		this.webDriver.setText(this.txtTelefono2, telefono2);
+		this.webDriver.clickElementFromDropDownByAttribute(this.comboSexo, "value", sexo);
+		if(noEmail)this.webDriver.click(this.checkNoEmail);
+		else this.webDriver.setText(this.txtEmail2, email);
+		if(riesgoAsegurado)this.webDriver.click(this.checkRiesgoAsegurado);
+		else {
+			this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoVia, "value", tipoVia);
+			this.webDriver.setText(this.txtVia, via);
+			this.webDriver.setText(this.txtNumero, numero);
+			this.webDriver.setText(this.txtPiso, piso);
+			this.webDriver.setText(this.txtPuerta, puerta);
+			this.webDriver.setText(this.txtCodPostal, cp);
+			this.webDriver.setText(this.txtPoblacion, poblacion);
+			this.webDriver.clickElementFromDropDownByAttribute(this.comboProvincia, "value", provincia);
+		}
+		
+		this.webDriver.click(this.btnGrabar);
+		System.out.println("Boton grabar pulsado");
+		
+		this.webDriver.exitFrame();
+		System.out.println("Salir del frame");
+		
+		this.webDriver.switchToFrame(cuerpoFrame);
+		System.out.println("Foco al main frame");
+		
+	 	this.debugEnd();
+	 }	 
+	 
 	 //Continuar
 	 public void clickContinuar()
 	 {
@@ -239,7 +338,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		
 		//this.webDriver.waitWithDriver(7000);
 		//this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
-		this.webDriver.click(btnContinuar);
+		this.webDriver.click(this.btnContinuar);
 		
 		//Steps.waitForIt(webDriver);
 		System.out.println("pam");
