@@ -6,8 +6,8 @@ import java.io.IOException;
 import org.openqa.selenium.By;
 //import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import com.automation.model.testing.UserStory;
-import com.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.testing.UserStory;
+import com.amaris.automation.model.testing.objects.PageObject;
 
 /*
 import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -158,7 +158,7 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 
 	public void altaCausaDescripcion(String causa, String descripcion, String costeAprox){
 		debugBegin();
-
+		
         this.webDriver.clickElementFromDropDownByAttribute(comboCausa, "value", causa);
         this.webDriver.setText(txtDescripcion, descripcion);
         this.webDriver.setText(txtCosteAprox, costeAprox);
