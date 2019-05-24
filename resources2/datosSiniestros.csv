@@ -1,0 +1,2 @@
+test_id;acceso;usuario;poliza;fecha_siniestro;causa_siniestro;descripcion_siniestro;contacto_rol;contacto_nombre;contacto_apellido;contacto_telefono
+TSTSin01;GO;640;510000892;12/07/2017;INCENDIO;Descripcion del siniestro por causa;Causante;Nombre_contacto;Apellido_contacto;666666666

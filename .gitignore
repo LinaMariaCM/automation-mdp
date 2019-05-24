@@ -1,4 +1,10 @@
 target
 resources/logs/**
-reports/**
-debug.txt
+/.metadata/
+reports
+amaris-scripts
+debug.*
+test-output
+.idea
+*.iml
+*.log
