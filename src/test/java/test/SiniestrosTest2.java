@@ -47,6 +47,8 @@ public class SiniestrosTest2 {
 
 			steps.login("Innova", "Eperez");
 
+			steps.alta_siniestroAlt("Innova", "920017879", false, false, false);
+		
 			steps.alta_siniestroAlt("Innova", "920017000", false, false, false);
 
 			return null;
@@ -63,7 +65,10 @@ public class SiniestrosTest2 {
 
 			steps.login("Innova", "Eperez");
 
+			steps.alta_siniestroAlt("Innova", "900931784", false, false, false);
+		
 			steps.alta_siniestroAlt("Innova", "900911779", false, false, false);
+
 
 			return null;
 		}).run();
@@ -164,6 +169,8 @@ public class SiniestrosTest2 {
 			return null;
 		}).run();
 	}
+	
+
 
 	@Test(dataProvider = "dataProviderSiniestrosMec01")
 
@@ -271,6 +278,9 @@ public class SiniestrosTest2 {
 
 			steps.login("Innova", "Eperez");
 
+
+			steps.alta_siniestroAlt("Innova", "510017734", false, true, true);
+		
 			steps.alta_siniestroAlt("Innova", "510004024", false, true, true);
 
 			return null;

@@ -16,6 +16,7 @@ import org.openqa.selenium.By;
 
 import com.amaris.project.ProjectConstants;
 import com.amaris.project.pages.*;
+import com.project.pages.GestionOnlineAltaSiniestro;
 
 public class Steps extends InteractionObject {
 
@@ -3586,6 +3587,7 @@ public class Steps extends InteractionObject {
 	}
 
 	// ALTA SINIESTRO ALTERNATIVA
+
 	public void alta_siniestroAlt(String acceso, String numPoliza, boolean asistencia, boolean otrosImplicados, boolean encargo) throws Exception {
 		debugBegin();
 		String ramo = "";
@@ -3668,7 +3670,7 @@ public class Steps extends InteractionObject {
 				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
 				altaOtrosImplicados.clickNuevoImplicado();
 				SiniestrosOtrosImplicadosDatos otroImplicadoDatos = new SiniestrosOtrosImplicadosDatos(userS);
-				otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "", "", "666885985", "", "", "implicadoextra@mail.com");
+				otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "NIF", "77315592B", "666885985", "", "", "implicadoextra@mail.com");
 				otroImplicadoDatos.introducirDatosDireccion("", "", "", "", "", "", "", "", "ES21", "2100", "0001", "05", "0000000001");
 				otroImplicadoDatos.clickGrabar();
 				altaOtrosImplicados.clickContinuar();
@@ -3684,6 +3686,55 @@ public class Steps extends InteractionObject {
 				encargoDatos.seleccionarDatosEncargo(new Date(), "");
 				encargoDatos.clickGrabar();
 				altaEncargo.clickContinuar();
+				}
+				
+				// Página de confirmación
+				SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+				confirmarAltaSiniestro.confirmarSiniestroOK();
+				}
+			
+			// Accedemos a siniestros desde Gestión On Line
+			
+			else if(acceso.compareTo("GOL") == 0) {
+				
+				//Seleccionamos la opcion alta siniestros
+				GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
+				goHome.openSiniestros();
+				 
+				//Damos de alta el siniestro
+				GestionOnlineAltaSiniestro altaSiniestroGOL = new GestionOnlineAltaSiniestro(userS);
+				altaSiniestroGOL.altaInfoPoliza(numPoliza, "");
+				if(numPoliza.startsWith("510")) ramo = "510";
+				else if(numPoliza.startsWith("920")||numPoliza.startsWith("900")) ramo = "920";
+				else if(numPoliza.startsWith("660")) ramo = "660";
+				else if(numPoliza.startsWith("400")||numPoliza.startsWith("200")||numPoliza.startsWith("150")||(numPoliza.startsWith("500")&&!numPoliza.startsWith("5000"))) ramo = "500";
+				else if(numPoliza.startsWith("5000")||numPoliza.startsWith("600")||numPoliza.startsWith("610")||numPoliza.startsWith("620")||numPoliza.startsWith("630")||numPoliza.startsWith("640")) ramo = "640";
+				//
+				String causa = "";
+				if(ramo=="510" || ramo=="500")
+				{
+					causa="1009";
+				}
+				else if(ramo=="920")
+				{
+					causa="1009";
+				}
+				else if(ramo=="640")
+				{
+					causa="1009";
+				}
+				else if(ramo=="660")
+				{
+					causa="1009";
+				}
+				altaSiniestroGOL.altaCausaDescripcion(causa, "Descripción para la apertura del sinestro de prueba automática", "");
+				altaSiniestroGOL.altaCuentaSiniestro();
+				altaSiniestroGOL.altaPersonaContacto("INQVE__11", "Jose", "Martinez", "Perez", "666502101", "mail@mail.com");
+				altaSiniestroGOL.altaDireccionContacto(true, "", "", "", "", "", "", "", "");
+				altaSiniestroGOL.altaObservaciones("TEST Automatico apertura siniestro");
+				altaSiniestroGOL.clickEnviar();
+				altaSiniestroGOL.comprobarOK();
+								
 			}
 
 			// Página de confirmación
@@ -3692,17 +3743,14 @@ public class Steps extends InteractionObject {
 		}
 
 		// Accedemos a siniestros desde Gestión On Line
-
+/*
 		else if(acceso.compareTo("GOL") == 0) {
 
 			GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
 			goHome.openSiniestros();
 
 		}
-
-		debugEnd();
-	}
-
+*/
 	// TRAMITAR SINIESTRO
 
 	public void tramitar_siniestro(String acceso, String numPoliza) throws Exception {
