@@ -34,13 +34,30 @@ public class DetallesRiesgoPage extends PageObject {
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 
 	// @FindBy(id = "edifConstruccionMadera")
-	private By cmbEdificioMadera = By.cssSelector("#edifConstruccionMadera");
-	private By firstOptionEdifMad = By.cssSelector("#edifConstruccionMadera option");
-	private By edifConstruccionMadera = By.id("edifConstruccionMadera");
+	private By edificioMadera = By.id("edifConstruccionMadera");
+	
+	private By noMadera = By.cssSelector("#edifConstruccionMadera > option[label ~= 'No']");
+	
+	private By deshabitacion = By.id("deshabilitacion");
+	
+	private By deshabitacion75 = By.cssSelector("#deshabilitacion > option:nth-of-type(2)");
+	
+	//private By firstOptionEdifMad = By.cssSelector("#edifConstruccionMadera option");
+	
+	private By firstOptionEdifMad = By.xpath("//*[@id='edifConstruccionMadera']/option[1]");
+	
+	//private By edifConstruccionMadera = By.id("edifConstruccionMadera");
+	
+	//private By edifConstruccionMadera = By.xpath("//*[@id='edifConstruccionMadera']");
 
 	// @FindBy(id = "deshabilitacion")
-	private By cmbDeshabilitacion = By.cssSelector("#deshabilitacion option");
-	private By deshabilitacion = By.id("deshabilitacion");
+	//private By cmbDeshabilitacion = By.cssSelector("#deshabilitacion option");
+	
+	private By cmbDeshabilitacion = By.xpath("//*[@id='deshabilitacion']/option");
+	
+	//private By deshabilitacion = By.id("deshabilitacion");
+	
+	private By deshabilitacion = By.xpath("//*[@id='deshabilitacion']");
 
 	// @FindBy(xpath = ".//*[contains(text(),'Continuar')]")
 	private By btnContinuar = By.xpath(".//*[contains(text(),'Continuar')]");
@@ -179,6 +196,15 @@ public class DetallesRiesgoPage extends PageObject {
 		this.clickOnContinuar();
 		debugEnd();
 	}
+	
+	public void completarDatosEnDetallesRiesgoMinimos() throws Exception {
+		debugBegin();
+		// this.CheckAvisoGarajes();
+		// this.GetCapitales();
+		this.completarDatosRiesgoMinimos();
+		this.clickOnContinuar();
+		debugEnd();
+	}
 
 	public void modificarDatosEnDetallesRiesgo() throws Exception {
 		debugBegin();
@@ -244,8 +270,11 @@ public class DetallesRiesgoPage extends PageObject {
 
 		// this.webDriver.clickElementFromDropDownByText(this.cmbEdificioMadera,
 		// this.getTestVar("edificioMadera"));
-		this.webDriver.clickElementFromDropDownByText(this.edifConstruccionMadera, "No");
-
+		
+		this.webDriver.click(this.edificioMadera);
+		this.webDriver.click(this.noMadera);
+		this.webDriver.waitWithDriver(4000);
+		
 		// String deshabilitacion =
 		// this.webDriver.getText(this.edifConstruccionMadera);
 		// if(!deshabilitacion.equals(this.testDataM.getTestVar(testId,
@@ -258,8 +287,10 @@ public class DetallesRiesgoPage extends PageObject {
 		// && !deshabilitacion.equals("")) { throw new Exception("El valor del
 		// campo deshabilitación no es blanco al entrar en la página"); }
 
-		this.webDriver.clickElementFromDropDownByText(this.deshabilitacion, ProjectConstants.DeshabitacionInferior);
-
+		this.webDriver.click(this.deshabitacion);
+		this.webDriver.waitWithDriver(4000);
+		this.webDriver.click(this.deshabitacion75);
+		this.webDriver.waitWithDriver(4000);
 		// value = this.webDriver.getText(this.txtAnyoConstruccion);
 
 		/* AÑO DE CONSTRUCCION Y REHABILITACIONES */
@@ -277,7 +308,7 @@ public class DetallesRiesgoPage extends PageObject {
 		// this.webDriver.appendText(by, text);
 
 		this.webDriver.exitFrame();
-		this.webDriver.waitWithDriver(1000);
+		this.webDriver.waitWithDriver(3000);
 		this.clickOnContinuar();
 
 		debugEnd();
@@ -304,6 +335,16 @@ public class DetallesRiesgoPage extends PageObject {
 
 	public void completarDatosRiesgo() throws Exception {
 		debugBegin();
+		
+	
+		  //this.webDriver.clickElementFromDropDownByIndexInFrame(this.edifConstruccionMadera, this.cuerpoFrame, 1);
+		this.webDriver.clickInFrame(this.firstOptionEdifMad, this.cuerpoFrame);
+				
+		//this.webDriver.clickElementFromDropDownByIndexInFrame(this.edifConstruccionMadera, this.cuerpoFrame, 1);
+		
+		this.webDriver.clickInFrame(this.cmbDeshabilitacion, this.cuerpoFrame);
+		
+		
 		// this.webDriver.switchToFrame(this.cuerpoFrame);
 
 		// if (this.testDataM.getCapitalContinente() != null)
@@ -366,19 +407,19 @@ public class DetallesRiesgoPage extends PageObject {
 		// página"); }
 		// this.webDriver.waitWithDriver(2000);
 
-		String edificioMaderaWeb = this.webDriver.getTextInFrame(this.firstOptionEdifMad, this.cuerpoFrame);
-		String edificioMaderaDatos = getScenarioVar("edificio_madera") == null ? "" : getScenarioVar("edificio_madera");
-
-		if(!edificioMaderaWeb.equals(edificioMaderaDatos) && !edificioMaderaDatos.equals("")) {
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEdificioMadera, this.cuerpoFrame, edificioMaderaDatos);
-		} else if(edificioMaderaDatos.isEmpty() && !edificioMaderaWeb.isEmpty()) { throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página"); }
-
-		String deshabitacionDatos = this.getTestVar("deshabitacion") == null ? "" : this.getTestVar("deshabitacion");
-		String deshabilitacionWeb = this.webDriver.getTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame);
-
-		if(!deshabilitacionWeb.equals(deshabitacionDatos) && !deshabitacionDatos.equals("")) {
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame, this.getTestVar("deshabilitacion"));
-		} else if(deshabitacionDatos.isEmpty() && !deshabilitacionWeb.isEmpty()) { throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
+//		String edificioMaderaWeb = this.webDriver.getTextInFrame(this.firstOptionEdifMad, this.cuerpoFrame);
+//		String edificioMaderaDatos = getScenarioVar("edificio_madera") == null ? "" : getScenarioVar("edificio_madera");
+//
+//		if(!edificioMaderaWeb.equals(edificioMaderaDatos) && !edificioMaderaDatos.equals("")) {
+//			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEdificioMadera, this.cuerpoFrame, edificioMaderaDatos);
+//		} else if(edificioMaderaDatos.isEmpty() && !edificioMaderaWeb.isEmpty()) { throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página"); }
+//
+//		String deshabitacionDatos = this.getTestVar("deshabitacion") == null ? "" : this.getTestVar("deshabitacion");
+//		String deshabilitacionWeb = this.webDriver.getTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame);
+//
+//		if(!deshabilitacionWeb.equals(deshabitacionDatos) && !deshabitacionDatos.equals("")) {
+//			this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbDeshabilitacion, this.cuerpoFrame, this.getTestVar("deshabilitacion"));
+//		} else if(deshabitacionDatos.isEmpty() && !deshabilitacionWeb.isEmpty()) { throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
 
 		String m2ContruidosTotales = this.webDriver.getTextInFrame(this.txtM2ContruidosTotales, this.cuerpoFrame);
 		if(m2ContruidosTotales.equals(-1)) {
@@ -760,32 +801,45 @@ public class DetallesRiesgoPage extends PageObject {
 		debugBegin();
 		// this.CheckForInfraseguroOrSupraSeguro();
 		// this.cuerpoFrame.click();
+		
 		this.webDriver.scrollToBottom();
 
+		this.webDriver.waitWithDriver(8000);
+		
 		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		
+		this.webDriver.waitWithDriver(8000);
 
 		// TODO - This is supposed to check that the madera and deshabitacion
 		// fields are mandatory, but currently gives a NULL pointer exception.
 		// Perhaps is should be moved out of ClikOnContinuar.
-		/*
-		 * if(this.getTestVar("edificio_madera").equals("") &&
-		 * this.getTestVar("deshabitacion").equals("")) {
-		 * this.webDriver.switchToFrame(this.cuerpoFrame);
-		 * this.webDriver.click(this.btnCamposObligatiosModalWindowAceptar);
-		 * 
-		 * String color1 =
-		 * this.webDriver.getElement(cmbDeshabilitacion).getCssValue(
-		 * "border-color"); String color2 =
-		 * this.webDriver.getElement(cmbEdificioMadera).getCssValue(
-		 * "border-color");
-		 * 
-		 * Assert.assertTrue("El campo deshabilitación no tiene un borde rojo",
-		 * color1.equals("rgb(169, 68, 66)"));
-		 * Assert.assertTrue("El campo edificio madera no tiene un borde rojo",
-		 * color2.equals("rgb(169, 68, 66)")); this.webDriver.exitFrame(); }
-		 */
+		
+		//  if(this.getTestVar("edificio_madera").equals("") &&
+		 // this.getTestVar("deshabitacion").equals("")) {
+		 // this.webDriver.switchToFrame(this.cuerpoFrame);
+		  //this.webDriver.click(this.btnCamposObligatiosModalWindowAceptar);
+		  
+		 // this.webDriver.waitWithDriver(5000);
+		  
+		  //this.webDriver.clickElementFromDropDownByIndex(this.edifConstruccionMadera, 0);
+		  
 
-		this.webDriver.scrollToBottom();
+		  	  
+		 // this.webDriver.clickElementFromDropDownByIndex(this.deshabilitacion, 0);
+		 
+//		  String color1 =
+//		  this.webDriver.getElement(cmbDeshabilitacion).getCssValue(
+//		  "border-color"); String color2 =
+//		  this.webDriver.getElement(cmbEdificioMadera).getCssValue(
+//		  "border-color");
+//		  
+//		  Assert.assertTrue(color1.equals("rgb(169, 68, 66)"), "El campo deshabilitación no tiene un borde rojo");
+//		  Assert.assertTrue(color2.equals("rgb(169, 68, 66)"), "El campo edificio madera no tiene un borde rojo"); 
+		  
+		//  this.webDriver.exitFrame(); //}
+		 
+
+	//	this.webDriver.scrollToBottom();
 		debugEnd();
 	}
 

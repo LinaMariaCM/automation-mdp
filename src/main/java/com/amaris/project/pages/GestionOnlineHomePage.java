@@ -331,7 +331,7 @@ public class GestionOnlineHomePage extends PageObject {
 		this.webDriver.waitWithDriver(3000);
 		this.webDriver.click(this.modificarProyecto);
 		this.webDriver.switchToWindow(1);
-		this.webDriver.waitWithDriver(9000);
+		this.webDriver.waitWithDriver(3000);
 		// this.webDriver.moveToSecondWindow(this.browserContext.getTestCaseData().getMainWindowHandle());
 		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
 		debugEnd();
