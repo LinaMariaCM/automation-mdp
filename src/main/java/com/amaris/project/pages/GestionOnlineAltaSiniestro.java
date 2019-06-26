@@ -1,11 +1,16 @@
-package com.project.pages;
+package com.amaris.project.pages;
 
 import java.awt.AWTException;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.openqa.selenium.By;
 //import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
+
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
@@ -36,6 +41,8 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	private By txtNumPoliza = By.id("numpol");
 	
 	private By txtFechaSiniestro = By.id("fsin");
+	
+	private By txtRefMediador = By.id("sref");
 	
 	private By comboCausa = By.id("selcausa");
 	
@@ -119,25 +126,33 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 
 	private By txtObservaciones = By.id("observaciones");
 
-	private By comboTipoDocumento = By.cssSelector("#seldoc_1");
+	private By comboTipoDocumento = By.id("seldoc_1");
 
-	private By buttonSeleccionArchivo = By.cssSelector("adjdocu1");
+	private By buttonSeleccionArchivo = By.id("adjdocu1");
 
-	private By txtDescripcionDocu = By.cssSelector("descadjdocu_1");
+	private By txtDescripcionDocu = By.id("descadjdocu_1");
 
-	private By buttonBorrarAdjunto = By.cssSelector("deldocsel1");
+	private By buttonBorrarAdjunto = By.id("deldocsel1");
 
-	private By buttonEnviarSin = By.cssSelector("enviar");
+	private By buttonEnviarSin = By.id("enviar");
 
-	private By buttonImprimirSin = By.cssSelector("imprimir");
+	private By buttonImprimirSin = By.id("imprimir");
 
-	private By buttonBorrarSin = By.cssSelector("borrar");
+	private By buttonBorrarSin = By.id("borrar");
 	
 	private By modalOK = By.id("modalWindow");
 	
 	private By textoModalOK = By.cssSelector("#modalWindow > div.modal-body");
 	
+	private By modalSiniestroExiste = By.cssSelector("body > div.bootbox.modal.fade.in > div.modal-body > div");	
 	
+	private By buttonExisteNo = By.cssSelector("body > div.bootbox.modal.fade.in > div.modal-footer > a.btn.null");	
+	
+	private By buttonExisteSi = By.cssSelector("body > div.bootbox.modal.fade.in > div.modal-footer > a.btn.btn-primary");
+	
+	
+	
+	DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
 
 	// endregion
 
@@ -146,11 +161,27 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	// region methods
 	
 	
-	public void altaInfoPoliza(String numpoliza, String Fecha){
+	public void altaInfoPoliza(String numpoliza, String fecha){
 		debugBegin();
 
-        this.webDriver.setText(txtNumPoliza, numpoliza);  
-        this.webDriver.setText(txtFechaSiniestro, Fecha);      
+		this.webDriver.switchToFrame(this.contentFrame);
+		
+		this.webDriver.setText(this.txtNumPoliza, numpoliza);  
+		this.webDriver.removeAttribute(this.txtFechaSiniestro, "readonly");
+		this.webDriver.click(this.txtFechaSiniestro);
+		System.out.println("Click en fecha");
+		this.webDriver.waitWithDriver(1500);
+		if(fecha!="") this.webDriver.setText(this.txtFechaSiniestro, fecha); 
+		else this.webDriver.setText(this.txtFechaSiniestro, fOcurrencia.format(new Date()));
+		
+		this.webDriver.waitWithDriver(1500);
+		System.out.println("Si todo bien, exit frame time");
+		this.webDriver.waitWithDriver(1500);
+
+		this.webDriver.waitWithDriver(3000);
+		this.webDriver.click(this.txtRefMediador);
+		
+        this.webDriver.exitFrame();
 		
 		debugEnd();
 		
@@ -158,10 +189,21 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 
 	public void altaCausaDescripcion(String causa, String descripcion, String costeAprox){
 		debugBegin();
+
+		this.webDriver.switchToFrame(this.contentFrame);
+		String causaTxt="";
 		
-        this.webDriver.clickElementFromDropDownByAttribute(comboCausa, "value", causa);
-        this.webDriver.setText(txtDescripcion, descripcion);
-        this.webDriver.setText(txtCosteAprox, costeAprox);
+		if (causa.equals("1"))causaTxt="AGUA";
+		else if (causa.equals("2"))causaTxt="IMPAGO ALQUILERES";
+		else if (causa.equals("3"))causaTxt="EXPLOSION";
+		else causaTxt="AGUA";
+		
+		
+        this.webDriver.clickElementFromDropDownByText(this.comboCausa, causaTxt);
+        this.webDriver.setText(this.txtDescripcion, descripcion);
+        this.webDriver.setText(this.txtCosteAprox, costeAprox);
+
+        this.webDriver.exitFrame();
         
 		
 		debugEnd();
@@ -172,18 +214,23 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	public void altaCuentaSiniestro(){
 		debugBegin();
 
+		this.webDriver.switchToFrame(this.contentFrame);
+
+		this.webDriver.waitWithDriver(3000);
 		if(this.webDriver.isClickable(checkCuentaIndemnizacion))this.webDriver.click(checkCuentaIndemnizacion);
 		else if(this.webDriver.isClickable(checkCuentaRecibos))this.webDriver.click(checkCuentaRecibos);
 		else {
 			this.webDriver.click(checkNuevaCuenta);      
-			this.webDriver.clickElementFromDropDownByAttribute(comboPaisIban, "value", "ES");
-	        this.webDriver.setText(txtIban1, "ES21");
-	        this.webDriver.setText(txtIban2, "2100");
-	        this.webDriver.setText(txtIban3, "0001");
-	        this.webDriver.setText(txtIban4, "0500");
-	        this.webDriver.setText(txtIban5, "0000");
-	        this.webDriver.setText(txtIban6, "0001");
+			this.webDriver.clickElementFromDropDownByAttribute(this.comboPaisIban, "value", "ES");
+	        this.webDriver.setText(this.txtIban1, "ES21");
+	        this.webDriver.setText(this.txtIban2, "2100");
+	        this.webDriver.setText(this.txtIban3, "0001");
+	        this.webDriver.setText(this.txtIban4, "0500");
+	        this.webDriver.setText(this.txtIban5, "0000");
+	        this.webDriver.setText(this.txtIban6, "0001");	        
 		}
+
+        this.webDriver.exitFrame();
 		
 		debugEnd();
 	}
@@ -191,31 +238,41 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	public void altaPersonaContacto(String rol, String nombre, String apellido1, String apellido2, String telefono, String email){
 		
 		debugBegin();
-
-		this.webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
-        this.webDriver.setText(txtNombre, nombre);
-        this.webDriver.setText(txtApellido1, apellido1);
-        this.webDriver.setText(txtApellido2, apellido2);
-        this.webDriver.setText(txtTelefono, telefono);
-        this.webDriver.setText(txtEmail, email);
 		
+		this.webDriver.switchToFrame(this.contentFrame);
+
+		this.webDriver.waitWithDriver(3000);
+		this.webDriver.clickElementFromDropDownByIndex(this.comboRol, 1);
+        this.webDriver.setText(this.txtNombre, nombre);
+        this.webDriver.setText(this.txtApellido1, apellido1);
+        this.webDriver.setText(this.txtApellido2, apellido2);
+        this.webDriver.setText(this.txtTelefono, telefono);
+        this.webDriver.setText(this.txtEmail, email);
+		
+        this.webDriver.exitFrame();
+        
 		debugEnd();
 	}
 
 	public void altaDireccionContacto(Boolean asegurado, String tipoVia, String nombreVia, String numVia, String piso, String puerta, String localidad, String provincia, String cp){
 		
 		debugBegin();
+		
+		this.webDriver.switchToFrame(this.contentFrame);
 
-		if(asegurado)this.webDriver.click(checkViveEnRiesgoSi); 
+		this.webDriver.waitWithDriver(3000);
+		if(asegurado)this.webDriver.click(this.checkViveEnRiesgoSi); 
 		else  //para este caso falta definir los valores correspondientes a la provincia y localidad. En proceso de estudiar como debe funcionar exactamente!
 		{
-			this.webDriver.click(checkViveEnRiesgoNo);
-			this.webDriver.clickElementFromDropDownByAttribute(comboTipoVia, "value", tipoVia);
-			this.webDriver.setText(comboNombreVia, nombreVia);
-			this.webDriver.setText(txtNumeroVia, numVia);
-			this.webDriver.setText(txtPiso, piso);
-			this.webDriver.setText(txtPuerta, puerta);
+			this.webDriver.click(this.checkViveEnRiesgoNo);
+			this.webDriver.clickElementFromDropDownByIndex(this.comboTipoVia, 1);
+			this.webDriver.setText(this.comboNombreVia, nombreVia);
+			this.webDriver.setText(this.txtNumeroVia, numVia);
+			this.webDriver.setText(this.txtPiso, piso);
+			this.webDriver.setText(this.txtPuerta, puerta);
 		}
+
+        this.webDriver.exitFrame();
 		
 		debugEnd();
 	}
@@ -224,7 +281,11 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	public void altaObservaciones(String observaciones){
 		debugBegin();
 
-        this.webDriver.setText(txtObservaciones, observaciones);        
+		this.webDriver.switchToFrame(this.contentFrame);
+
+        this.webDriver.setText(txtObservaciones, observaciones);     
+
+        this.webDriver.exitFrame();
 		
 		debugEnd();
 		
@@ -244,7 +305,15 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	public void clickEnviar(){
 		debugBegin();
 
-		if(this.webDriver.isClickable(buttonEnviarSin))this.webDriver.click(buttonEnviarSin);
+		this.webDriver.waitWithDriver(3000);
+		this.webDriver.switchToFrame(this.contentFrame);
+		
+		//if(this.webDriver.isClickable(buttonEnviarSin))this.webDriver.click(buttonEnviarSin);
+
+		this.webDriver.waitWithDriver(3000);
+		this.webDriver.click(buttonEnviarSin);
+		
+        this.webDriver.exitFrame();
 		
 		debugEnd();
 		
@@ -271,10 +340,36 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 		
 	}
 	
-	public void comprobarOK() {
-		this.webDriver.waitForElementToBePresent(modalOK);
-		System.out.println(textoModalOK.toString());
+	
+
+	public void checkYaExisteSiniestro() {
+		
+		debugBegin();
+		
+		this.webDriver.waitWithDriver(15000);
+
+		if(this.webDriver.isClickable(buttonExisteSi))this.webDriver.click(buttonExisteSi);
+		
+		debugEnd();
 	}
+	
+	public void comprobarOK() {
+		
+		debugBegin();
+		
+		this.webDriver.waitWithDriver(25000);
+		this.webDriver.waitForElementToBePresent(modalOK);
+		this.webDriver.waitForElementToBeClickable(modalOK);
+		this.webDriver.click(modalOK);
+		System.out.println(this.webDriver.getText(this.textoModalOK));
+		this.webDriver.takeScreenshotWithCondition();
+		
+		debugEnd();
+	}
+	
+	
+	
+	
 	/*
 	public GestionOnlineAltaSiniestro acceptCookies() {
 		debugBegin();

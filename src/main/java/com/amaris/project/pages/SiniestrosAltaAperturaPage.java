@@ -100,7 +100,8 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 		this.webDriver.switchToFrame(this.mainFrame);
 		this.webDriver.waitForElementToBeClickable(this.rdbtnNumPoliza);
 		this.webDriver.click(this.rdbtnNumPoliza);
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboProducto, "value", codigoProducto);
+		//this.webDriver.clickElementFromDropDownByAttribute(this.comboProducto, "value", codigoProducto);
+		this.webDriver.clickElementFromDropDownByIndex(this.comboProducto, 0);
 		this.webDriver.setText(this.txtNumPoliza, numPoliza);
 		this.webDriver.click(this.btnBuscar);
 

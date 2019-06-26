@@ -1,0 +1,17 @@
+test_id;portal_acceso;num_poliza;asistencia;otros_implicados;encargo
+AltaSin01;Innova;510000020;false;false;false
+AltaSin01;Innova;920017000;false;false;false
+AltaSin01;Innova;900911779;false;false;false
+AltaSin01;Innova;500553299;false;false;false
+AltaSin01;Innova;400009108;false;false;false
+AltaSin01;Innova;150401435;false;false;false
+AltaSin01;Innova;200226110;false;false;false
+AltaSin01;Innova;660000097;false;false;false
+AltaSin01;Innova;50002522;false;false;false
+AltaSin01;Innova;600601384;false;false;false
+AltaSin01;Innova;610619142;false;false;false
+AltaSin01;Innova;620664851;false;false;false
+AltaSin01;Innova;630674325;false;false;false
+AltaSin01;Innova;640701098;false;false;false
+AltaSin01;Innova;510000076;true;false;false
+AltaSin01;Innova;510004024;false;true;true
