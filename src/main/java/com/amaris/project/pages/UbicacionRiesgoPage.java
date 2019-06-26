@@ -271,16 +271,16 @@ public class UbicacionRiesgoPage extends PageObject {
 		debugBegin();
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
-		this.webDriver.waitWithDriver(1000);
+		this.webDriver.waitWithDriver(2000);
 		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.waitWithDriver(1500);
+		this.webDriver.waitWithDriver(3000);
 		this.webDriver.moveToElement(this.btnAnadirInmueblePantallaPrincipal);
 		this.webDriver.waitForElementToBeClickable(this.btnAnadirInmueblePantallaPrincipal);
 		this.webDriver.click(this.btnAnadirInmueblePantallaPrincipal);
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
-		this.webDriver.waitWithDriver(1000);
+		this.webDriver.waitWithDriver(2000);
 		this.webDriver.click(this.radioBtnCriterioBusquedaReferenciaCatastral);
 
 		this.webDriver.click(this.txtReferenciaCatastral);
@@ -304,7 +304,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		// this.cuerpoFrame);
 
 		// this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
-		this.webDriver.waitWithDriver(4000);
+		this.webDriver.waitWithDriver(8000);
 		// this.webDriver.waitForElementToBeClickable(this.btnAnadirInmuebleReferenciaCatastral);
 		this.webDriver.click(this.btnAnadirInmueble);
 		// this.webDriver.waitWithDriver(1500);
@@ -319,6 +319,7 @@ public class UbicacionRiesgoPage extends PageObject {
 		debugBegin();
 		// this.webDriver.waitForPageLoadWithAngular();
 		// this.webDriver.waitForAngular();
+		this.webDriver.waitWithDriver(4000);
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		// this.GuardarRefCatastral(this.webDriver.getTextInFrame(this.txtCurrentReferenciaCatastral,
 		// this.cuerpoFrame));

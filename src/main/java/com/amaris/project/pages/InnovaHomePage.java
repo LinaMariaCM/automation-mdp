@@ -21,7 +21,7 @@ public class InnovaHomePage extends PageObject {
 	private By mainFrame = By.cssSelector("#mainFrame");
 
 	// @FindBy (id = "jt2")
-	private By btnMutuaEdificioConfort = By.cssSelector("#jt2");
+	private By btnMutuaEdificioConfort = By.xpath(".//*[normalize-space(text())='Mutua edificio confort']");
 
 	// @FindBy (id = "jt3")
 	private By btnMutuaAlquilerConfort = By.cssSelector("#jt3");
