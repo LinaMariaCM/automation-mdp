@@ -24,6 +24,7 @@ public class GestionOnlineLoginPage extends PageObject {
 
 		// Enter username and password
 		this.webDriver.appendText(this.txtUserId, userId);
+		
 		this.webDriver.appendText(this.txtPassword, password);
 		this.webDriver.click(this.btnEntrar);
 

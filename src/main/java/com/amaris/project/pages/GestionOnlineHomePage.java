@@ -15,6 +15,8 @@ public class GestionOnlineHomePage extends PageObject {
 	// @FindBy(id = "blockrandom")
 	// private By frameAppMainWindow;
 	// private By frameAppMainWindow = By.cssSelector("#blockrandom");
+	
+
 
 	private By topFrame = By.cssSelector("#topFrame");
 

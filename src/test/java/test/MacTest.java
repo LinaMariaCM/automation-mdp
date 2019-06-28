@@ -204,9 +204,11 @@ public class MacTest extends TestObject {
 			// steps.completo_el_proceso_de_contratacion_MAC(userS.getScenarioVar("acceso"),
 			// userS.getScenarioVar("usuario"));
 
-			steps.el_proyecto_MAC_se_acepta();
+			//steps.el_proyecto_MAC_se_acepta();
+			
+			steps.el_proyecto_MAC_se_deniega();
 
-			steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
+			//steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 
 			return null;
 
@@ -243,9 +245,9 @@ public class MacTest extends TestObject {
 
 			steps.anyado_avalista();
 
-			steps.el_proyecto_MAC_se_acepta();
+			steps.el_proyecto_MAC_se_deniega();
 
-			steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
+			//steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 
 			return null;
 

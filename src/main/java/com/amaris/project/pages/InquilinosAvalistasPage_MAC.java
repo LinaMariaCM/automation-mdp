@@ -17,7 +17,13 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	//
 	// @FindBy(id = "altaInt")
 	// private WebElement btnAnadirDatosInquilinoPantallaPrincipal;
-	private By btnAnadirDatosInquilinoPantallaPrincipal = By.cssSelector("#altaInt");
+	
+	private By modalRaro = By.cssSelector("#modalAddDocuInterv");
+	
+	private By modalRaro2 = By.cssSelector(".modal-backdrop.fade.in");
+	
+	private By btnAnadirDatosInquilinoPantallaPrincipal = By.id("altaInt");
+
 	//
 	// @FindBy(xpath = ".//*[@class='modal-footer']/button[text()='Añadir']")
 	// private WebElement btnAnadirDatosInquilino;
@@ -33,7 +39,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	//
 	// @FindBy(id = "INQUIAVAL_TIPOINT_CONF")
 	// private WebElement tipoInterviniente;
-	private By tipoInterviniente = By.cssSelector("#INQUIAVAL_TIPOINT_CONF");
+	private By tipoInterviniente = By.id("#INQUIAVAL_TIPOINT_CONF");
+	
 
 	// @FindBy(id = "INQUIAVAL_NOMBREFIS_CONF")
 	// private WebElement txtNombre;
@@ -140,6 +147,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv > div > div > div.modal-footer > button");
 
+	private By btnCerrarSpesiaru = By.cssSelector("#modalAddDocuInterv .modal-footer button");
+	
 	//
 	// @FindBy(xpath = ".//*[@id='formularioEnvio']/div[3]/button[2]")
 	// private WebElement btnEnviarComentarios;
@@ -288,12 +297,35 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	public void addDatosAval() {
 		this.debugBegin();
-
+		
+		System.out.println("PRUEBA 1");
+		if(this.webDriver.isPresentInFrame(this.modalRaro, this.mainFrame)) {
+			
+			this.webDriver.switchToFrame(mainFrame);
+			this.webDriver.setAttribute(this.modalRaro, "style", "display: none;");
+			this.webDriver.setAttribute(this.modalRaro2, "hidden", "");
+			this.webDriver.exitFrame();
+		}
+	
+		if(this.webDriver.isPresentInFrame(this.btnCerrarSpesiaru,this.mainFrame)) this.webDriver.clickInFrame(this.btnCerrarSpesiaru, this.mainFrame);
+		
+		
+		
+		System.out.println("PRUEBA 2");
+		
+		this.webDriver.waitWithDriver(99999);
+		
 		this.webDriver.clickInFrame(this.btnAnadirDatosInquilinoPantallaPrincipal, this.mainFrame);
-
+		
+		webDriver.waitWithDriver(10000);
+		
+		System.out.println("PRUEBA 3");
 		// Seleccionar que sea aval
+	
 		this.webDriver.clickElementFromDropDownByText(this.tipoInterviniente, "Avalista");
 
+		System.out.println("PRUEBA 4");
+		
 		// Add Nombre
 		this.webDriver.setTextInFrame(this.txtNombre, this.mainFrame, String.valueOf(this.userS.getTestVar("nombre_aval")));
 
