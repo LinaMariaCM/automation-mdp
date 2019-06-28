@@ -16,7 +16,6 @@ import org.openqa.selenium.By;
 
 import com.amaris.project.ProjectConstants;
 import com.amaris.project.pages.*;
-import com.project.pages.GestionOnlineAltaSiniestro;
 
 public class Steps extends InteractionObject {
 
@@ -3618,6 +3617,8 @@ public class Steps extends InteractionObject {
 			// 1.Declaración
 			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
 			datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
+			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", true, "", true, "", "", "", "", "", "", "", "");
+			
 			// Comprobamos si necesita asistencia
 			if(asistencia) {
 				datosDeclaracion.altaConAsistencia(true, false, "", "Daños ubicados en el interior del riesgo asegurado", true, false, "");
@@ -3699,7 +3700,8 @@ public class Steps extends InteractionObject {
 				
 				//Seleccionamos la opcion alta siniestros
 				GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
-				goHome.openSiniestros();
+				goHome.seleccionaIdiomaCast();
+				goHome.altaSiniestros();
 				 
 				//Damos de alta el siniestro
 				GestionOnlineAltaSiniestro altaSiniestroGOL = new GestionOnlineAltaSiniestro(userS);
@@ -3713,19 +3715,19 @@ public class Steps extends InteractionObject {
 				String causa = "";
 				if(ramo=="510" || ramo=="500")
 				{
-					causa="1009";
+					causa="1";
 				}
 				else if(ramo=="920")
 				{
-					causa="1009";
+					causa="2";
 				}
 				else if(ramo=="640")
 				{
-					causa="1009";
+					causa="3";
 				}
 				else if(ramo=="660")
 				{
-					causa="1009";
+					causa="4";
 				}
 				altaSiniestroGOL.altaCausaDescripcion(causa, "Descripción para la apertura del sinestro de prueba automática", "");
 				altaSiniestroGOL.altaCuentaSiniestro();
@@ -3733,13 +3735,16 @@ public class Steps extends InteractionObject {
 				altaSiniestroGOL.altaDireccionContacto(true, "", "", "", "", "", "", "", "");
 				altaSiniestroGOL.altaObservaciones("TEST Automatico apertura siniestro");
 				altaSiniestroGOL.clickEnviar();
+				altaSiniestroGOL.checkYaExisteSiniestro();
 				altaSiniestroGOL.comprobarOK();
 								
 			}
-
-			// Página de confirmación
-			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
-			confirmarAltaSiniestro.confirmarSiniestroOK();
+		
+			if(acceso.compareTo("Innova") == 0) {
+				// Página de confirmación
+				SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+				confirmarAltaSiniestro.confirmarSiniestroOK();
+			}
 		}
 
 		// Accedemos a siniestros desde Gestión On Line

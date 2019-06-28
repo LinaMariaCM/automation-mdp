@@ -25,6 +25,10 @@ public class GestionOnlineHomePage extends PageObject {
 	private By mainFrame = By.cssSelector("#mainFrame");
 
 	private By contentFrame = By.cssSelector("#blockrandom");
+	
+	private By idiomaCatalan = By.cssSelector("#blockrandom");
+	
+	private By idiomaCastellano = By.cssSelector("body > header > div.wrap.t3-footer > div > div > div > ul > li:nth-child(1) > a");
 
 	private By btnNovedadesDialogClose = By.cssSelector(".//*[contains(@class,'modal-header')]/button");
 
@@ -32,10 +36,12 @@ public class GestionOnlineHomePage extends PageObject {
 	// "#t3-mainnav > div > div > div > div > ul > li:nth-child(6) > a");
 
 	//@FindBy(linkText = "Siniestros")
-	private By btnSiniestrosSelector = By.cssSelector("#t3-mainnav > div > div > div > div > ul > li.active.dropdown.mega > a");
-	
-	private By btnAltaSiniestro = By.cssSelector("#t3-mainnav > div > div > div > div > ul > li.active.dropdown.mega > div > div > div > div > div > ul > li.current.active > a");
+	//private By btnSiniestrosSelector = By.cssSelector("#t3-mainnav > div > div > div > div > ul > li.active.dropdown.mega > a");
+	private By btnSiniestrosSelector = By.cssSelector("#t3-mainnav > div > div > div > div > ul > li:nth-child(5) > a");
 
+	//private By btnAltaSiniestro = By.cssSelector("#t3-mainnav > div > div > div > div > ul > li.active.dropdown.mega > div > div > div > div > div > ul > li.current.active > a");
+	private By btnAltaSiniestro = By.cssSelector("#t3-mainnav > div > div > div > div > ul > li:nth-child(5) > div > div > div > div > div > ul > li:nth-child(2) > a");
+	
 	private By btnContratarOnlineOption = By.cssSelector(".//*[@class='navbar-inner']//*[text()='Contratar online ']");
 
 	// @FindBy(xpath = ".//*[contains(text(),'Contratar Online Proyectos')]")
@@ -274,6 +280,19 @@ public class GestionOnlineHomePage extends PageObject {
 		return this;
 	}
 
+	
+	public void altaSiniestros(){
+		debugBegin();
+		
+		//this.webDriver.click(this.btnAceptar);
+		this.webDriver.moveToElement(this.btnSiniestrosSelector);
+		//this.webDriver.click(this.btnSiniestrosSelector);
+		this.webDriver.click(this.btnAltaSiniestro);
+		
+		debugEnd();
+
+	}
+	
 	public GestionOnlineHomePage buscarProyectoWeb(String noCotizacion) throws AWTException, InterruptedException, IOException {
 		debugBegin();
 
@@ -358,6 +377,13 @@ public class GestionOnlineHomePage extends PageObject {
 		debugBegin();
 		this.webDriver.click(this.btnMapaWeb);
 		this.webDriver.doubleClickInFrame(this.btnGestionCotizaciones, this.mainFrame);
+		debugEnd();
+	}
+	
+
+	public void seleccionaIdiomaCast() {
+		debugBegin();
+		this.webDriver.click(this.idiomaCastellano);
 		debugEnd();
 	}
 

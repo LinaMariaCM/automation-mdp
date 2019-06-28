@@ -93,16 +93,20 @@ public class SiniestrosOtrosImplicadosDatos extends PageObject {
 		String telefono2, String sexo, String email) {
 		this.debugBegin();
 
-		this.webDriver.clickElementFromDropDownByAttribute(comboTipologia, "value", tipologia);
-		this.webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
+		//this.webDriver.clickElementFromDropDownByAttribute(comboTipologia, "value", tipologia);
+		this.webDriver.clickElementFromDropDownByIndex(comboTipologia, 2);
+		//this.webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
+		this.webDriver.clickElementFromDropDownByIndex(comboRol, 8);
 		this.webDriver.setText(txtNombre, nombre);
 		this.webDriver.setText(txtApellido1, apellido1);
 		this.webDriver.setText(txtApellido2, apellido2);
-		this.webDriver.clickElementFromDropDownByAttribute(comboTipoDocumento, "value", tipoDocumento);
+		//this.webDriver.clickElementFromDropDownByAttribute(comboTipoDocumento, "value", tipoDocumento);
+		this.webDriver.clickElementFromDropDownByIndex(comboTipoDocumento, 1);
 		this.webDriver.setText(txtNumeroDocumento, numDocumento);
 		this.webDriver.setText(txtTelefono1, telefono1);
 		this.webDriver.setText(txtTelefono2, telefono2);
-		this.webDriver.clickElementFromDropDownByAttribute(comboSexo, "value", sexo);
+		//this.webDriver.clickElementFromDropDownByAttribute(comboSexo, "value", sexo);
+		this.webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 		if(email == "") this.webDriver.click(checkEmailNoDisponble);
 		else this.webDriver.setText(txtEmail, email);
 

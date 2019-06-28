@@ -30,8 +30,10 @@ public class ProjectConstants {
 	
 	/* tipo de prueba: SiniestrosMEC */
 	//25/06/18
-	
+
 	public static final String MEC_SINIESTROS = "MecSin";
+	
+	public static final String ALTA_SINIESTROS = "AltaSin";
 	
 	public static final String SINIESTRO_CONVENCIONAL_CON_PERITO = "SinConvPer";
 	
