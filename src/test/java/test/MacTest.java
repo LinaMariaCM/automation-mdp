@@ -15,19 +15,22 @@ public class MacTest extends TestObject {
 
 	// PRUEBAS MAC
 	@DataProvider(parallel = true)
-	public String[][] dataProviderMac() {
-		String testCase = ProjectConstants.MAC;
+	public String[][] dataProviderMac01() {
+		String testCase = ProjectConstants.MAC + "01";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@Test(dataProvider = "dataProviderMac01")
 	public void mac01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.setScenario(testCase + "01");
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
@@ -53,15 +56,24 @@ public class MacTest extends TestObject {
 
 		}).run();
 	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac01a() {
+		String testCase = ProjectConstants.MAC + "01a";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
-	@Test(dataProvider = "dataProviderMac")
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMac01a")
 	public void mac01a(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "01a");
 
+		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
@@ -83,48 +95,27 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac01b() {
+		String testCase = ProjectConstants.MAC + "01b";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac01b")
 	public void mac01b(String testCase, String id) throws Exception {
 
-		/*
-		 * 
-		 * @Mac01b Escenario: [Mac01b] - Alta de proyecto de alquiler desde GO,
-		 * pasando por la autorizacion, con estudio aceptado y variacion en
-		 * franquicia y suma asegurada Dado la renta de alquiler mensual es
-		 * "renta_mensual_alquiler" Y el nombre del inquilino "nombre_inquilino"
-		 * Y el primer apellido del inquilino "primer_apell_inqulino" Y el
-		 * documento aleatoreo Y con ingresos "ingresos_inquilino" Y suma
-		 * asegurada es "impago_alquiler" Y franquicia es "franquiciaMac" Y
-		 * situacion laboral "situacion_laboral" Y el tomador es "tomador" Y el
-		 * tipo de persona es "tipo_persona" Y el documento de tomador es
-		 * aleatoreo Y el nombre de tomador es "tomador_nombre" Y el primer
-		 * apellido de tomador es "tomador_apellido" Y la provincia de tomador
-		 * es "provincia" Y la poblacion de tomador es "poblacion" Y la
-		 * direccion de tomador es "nombre_via" Y el numero de portal de tomador
-		 * es "numero_via" Y la fecha de nacimiento de tomador es
-		 * "fecha_nacimiento" Y el numero de cuenta es "numero_cuenta" Y la
-		 * provincia del inmueble es "provincia_inm" Y la poblacion del inmueble
-		 * es "poblacion_inm" Y la direccion del inmueble es "via_inm" Y el
-		 * numero de portal del inmueble es "numerovia_inm" Y la fecha de
-		 * contrato del alquiler es "fecha_contr_alq"
-		 * #####################################################################
-		 * #########################################################
-		 * 
-		 * Cuando doy de alta un proyecto MAC que llega hasta la pantalla
-		 * contratación usando el acceso "acceso" y el usuario "usuario"
-		 * 
-		 * Y envio el proyecto a la compañia Y cierro el navegador Y autorizo el
-		 * proyecto MAC usando el acceso "accesoAuth" y usuario "usuarioAuth" Y
-		 * cierro el navegador Y completo el proceso de contratacion usando el
-		 * acceso "acceso" y usuario "usuario" Entonces resultado es que el
-		 * projecto se crea correctamente
-		 * 
-		 */
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "01b");
+
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
@@ -153,7 +144,15 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac02() {
+		String testCase = ProjectConstants.MAC + "02";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac02")
 	public void mac02(String testCase, String id) throws Exception {
 
 		/*
@@ -178,7 +177,12 @@ public class MacTest extends TestObject {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "02");
+
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
@@ -200,9 +204,11 @@ public class MacTest extends TestObject {
 			// steps.completo_el_proceso_de_contratacion_MAC(userS.getScenarioVar("acceso"),
 			// userS.getScenarioVar("usuario"));
 
-			steps.el_proyecto_MAC_se_acepta();
+			//steps.el_proyecto_MAC_se_acepta();
+			
+			steps.el_proyecto_MAC_se_deniega();
 
-			steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario("accessoAuth", "usuario");
+			//steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 
 			return null;
 
@@ -210,50 +216,76 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac03() {
+		String testCase = ProjectConstants.MAC + "03";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac03")
 	public void mac03(String testCase, String id) throws Exception {
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "03");
+	
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
-			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario("acceso", "usuario");
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
 			steps.anyado_avalista();
 
-			steps.el_proyecto_MAC_se_acepta();
+			steps.el_proyecto_MAC_se_deniega();
 
-			steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario("accesoAuth", "usuarioAuth");
+			//steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 
 			return null;
 
 		}).run();
 
 	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac04() {
+		String testCase = ProjectConstants.MAC + "04";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
-	@Test(dataProvider = "dataProviderMac")
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMac04")
 	public void mac04(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "04");
+
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
-			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario("acceso", "usuario");
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
 			steps.enviar_el_proyecto_a_la_compania();
 
-			steps.deniego_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario("accesoAuth", "usuarioAuth");
+			steps.deniego_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 
-			steps.busco_el_proyecto_usando_el_acceso_y_el_usuario("acceso", "usuario");
+			steps.busco_el_proyecto_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
 			steps.el_proyecto_esta_en_estado_denegado();
 
@@ -263,20 +295,33 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac05() {
+		String testCase = ProjectConstants.MAC + "05";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac05")
 	public void mac05(String testCase, String id) throws Exception {
 		// Estudio denegado por rentas de inquilino asalariado
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "05");
+
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
-			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario("acceso", "usuario");
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
 			steps.el_proyecto_MAC_se_deniega();
 
@@ -286,20 +331,33 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac06() {
+		String testCase = ProjectConstants.MAC + "06";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac06")
 	public void mac06(String testCase, String id) throws Exception {
 		// Estudio denegado por rentas de inquilino autonomo
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "06");
+
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
-			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario("acceso", "usuario");
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
 			steps.el_proyecto_MAC_se_deniega();
 
@@ -309,20 +367,33 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac07() {
+		String testCase = ProjectConstants.MAC + "07";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac07")
 	public void mac07(String testCase, String id) throws Exception {
 		// Estudio denegado por rentas de inquilino artista
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "07");
+
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
-			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario("acceso", "usuario");
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
 			steps.el_proyecto_MAC_se_deniega();
 
@@ -332,20 +403,33 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac08() {
+		String testCase = ProjectConstants.MAC + "08";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac08")
 	public void mac08(String testCase, String id) throws Exception {
 		// Estudio denegado por rentas de inquilino becario
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "08");
+
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
-			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario("acceso", "usuario");
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
 			steps.el_proyecto_MAC_se_deniega();
 
@@ -355,16 +439,30 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac09() {
+		String testCase = ProjectConstants.MAC + "09";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac09")
 	public void mac09(String testCase, String id) throws Exception {
 
 		// Reaseguro - Retención por Reaseguro en Alta proyecto/pólizas:
 		// Estandar + Renta > 3000€
+		
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "09");
+
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
@@ -384,12 +482,25 @@ public class MacTest extends TestObject {
 
 	}
 
-	@Test(dataProvider = "dataProviderMac")
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMac10() {
+		String testCase = ProjectConstants.MAC + "10";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMac10")
 	public void mac10(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-		userS.setScenario(testCase + "10");
+	
+		
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 

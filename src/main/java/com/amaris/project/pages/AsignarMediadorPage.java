@@ -22,7 +22,7 @@ public class AsignarMediadorPage extends PageObject {
 	private By txtCodigoMediador = By.id("codigoMediador");
 
 	// @FindBy(id = "codigo")
-	private By txtCodigoMediadorMAC = By.cssSelector("#codigo");
+	private By txtCodigoMediadorMAC = By.id("codigo");
 
 	// @FindBy(id = "numDocumento")
 	private By txtDocumento = By.cssSelector("#numDocumento");
@@ -49,14 +49,15 @@ public class AsignarMediadorPage extends PageObject {
 
 	// region methods
 	public AsignarMediadorPage selectMediadorAndClickOnContinuar() throws InterruptedException {
-		this.seleccionarMediadorPorCodigo(String.valueOf(getScenarioVar("mediador")));
+		this.seleccionarMediadorPorCodigo(String.valueOf(userS.getScenarioVar("mediador")));
 		this.clickOnContinuarButton();
 
 		return this;
 	}
 
 	public AsignarMediadorPage SelectMediadorMACAndClickOnContinuar() throws InterruptedException {
-		this.SeleccionarMediadorMACPorCodigo(String.valueOf(getScenarioVar("mediador")));
+		//this.SeleccionarMediadorMACPorCodigo(String.valueOf(userS.getScenarioVar("mediador")));
+		this.SeleccionarMediadorMACPorCodigo(userS.getScenarioVar("mediador"));
 		this.clickOnContinuarButton();
 
 		return this;
@@ -135,6 +136,7 @@ public class AsignarMediadorPage extends PageObject {
 	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(String codigoMediador) throws InterruptedException {
 		debugBegin();
 
+		this.webDriver.waitWithDriver(2000);
 		this.webDriver.switchToFrame(this.mainFrame);
 		this.webDriver.appendText(this.txtCodigoMediadorMAC, codigoMediador);
 

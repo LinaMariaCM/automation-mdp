@@ -9,6 +9,8 @@ import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
 import java.awt.AWTException;
+import java.io.IOException;
+
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
@@ -41,6 +43,7 @@ public class Steps extends InteractionObject {
 
 		// com.amaris.project.utils.IApplicationAccessHelper.initialize(AccessType,
 		// webDriver);
+
 		System.out.println("*** environment: " + (getConfigVar("environment")));
 		System.out.println("*** access type: " + accessType);
 		System.out.println("*** user: " + user);
@@ -3332,6 +3335,7 @@ public class Steps extends InteractionObject {
 			new AsignarMediadorPage(userS)
 				.SelectMediadorMACAndClickOnContinuar();
 		} else if(loginAccess.equals(ProjectConstants.LoginAccessInnova)) {
+			
 			new AsignarMediadorPage(userS)
 				.SeleccionarMediadorMACPorCodigo(mediador)
 				.clickOnContinuarButton();
@@ -3376,7 +3380,7 @@ public class Steps extends InteractionObject {
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
 		new InquilinosAvalistasPage_MAC(userS).enviarACompania();
-		userS.getWebDriver().quit();
+		//userS.getWebDriver().quit();
 		debugEnd();
 	}
 
@@ -3405,11 +3409,13 @@ public class Steps extends InteractionObject {
 	}
 
 	public void login_y_autorizar_el_proyecto_MAC(String loginAccess, String user) throws Exception {
+		debugBegin();
 		this.login(loginAccess, user);
 		this.searchAuthorisation();
 		new GestionAutorizacionesPage(userS).autorizar();
 
 		userS.getWebDriver().quit();
+		debugEnd();
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC(String accessType, String user) throws Exception {
@@ -3417,10 +3423,8 @@ public class Steps extends InteractionObject {
 		this.login(accessType, user);
 
 		if(accessType.equals(ProjectConstants.LoginAccessGestionLine)) {
-			new GestionOnlineHomePage(userS)
-				// .openMutuaAlquilerConfort()
-				.openMisProyectosWeb()
-				.buscarProyectoWeb(this.getTestVar("NumCotizacion"));
+			
+			new GestionOnlineHomePage(userS).openMisProyectosWeb().buscarProyectoWeb(this.getTestVar("NumCotizacion"));
 			new GestionOnlineHomePage(userS).modificarProyecto();
 
 		} else if(accessType.equals(ProjectConstants.LoginAccessInnova)) {
@@ -3547,7 +3551,7 @@ public class Steps extends InteractionObject {
 			new SiniestrosHomePage(userS).openAperturaAlta();
 
 			// Buscamos una póliza por Nº póliza
-			new GestionPolizasBuscadorPage(userS).BuscarPorNumeroPoliza(numPoliza);
+			new GestionPolizasBuscadorPage(userS).buscarPorNumeroPoliza(numPoliza);
 			new GestionPolizasBuscadorPage(userS).SeleccionarResultado();
 
 			// 1.Declaración
@@ -3582,6 +3586,7 @@ public class Steps extends InteractionObject {
 	}
 
 	// ALTA SINIESTRO ALTERNATIVA
+
 	public void alta_siniestroAlt(String acceso, String numPoliza, boolean asistencia, boolean otrosImplicados, boolean encargo) throws Exception {
 		debugBegin();
 		String ramo = "";
@@ -3612,6 +3617,8 @@ public class Steps extends InteractionObject {
 			// 1.Declaración
 			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
 			datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
+			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", true, "", true, "", "", "", "", "", "", "", "");
+			
 			// Comprobamos si necesita asistencia
 			if(asistencia) {
 				datosDeclaracion.altaConAsistencia(true, false, "", "Daños ubicados en el interior del riesgo asegurado", true, false, "");
@@ -3664,7 +3671,7 @@ public class Steps extends InteractionObject {
 				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
 				altaOtrosImplicados.clickNuevoImplicado();
 				SiniestrosOtrosImplicadosDatos otroImplicadoDatos = new SiniestrosOtrosImplicadosDatos(userS);
-				otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "", "", "666885985", "", "", "implicadoextra@mail.com");
+				otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "NIF", "77315592B", "666885985", "", "", "implicadoextra@mail.com");
 				otroImplicadoDatos.introducirDatosDireccion("", "", "", "", "", "", "", "", "ES21", "2100", "0001", "05", "0000000001");
 				otroImplicadoDatos.clickGrabar();
 				altaOtrosImplicados.clickContinuar();
@@ -3680,25 +3687,75 @@ public class Steps extends InteractionObject {
 				encargoDatos.seleccionarDatosEncargo(new Date(), "");
 				encargoDatos.clickGrabar();
 				altaEncargo.clickContinuar();
+				}
+				
+				// Página de confirmación
+				SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+				confirmarAltaSiniestro.confirmarSiniestroOK();
+				}
+			
+			// Accedemos a siniestros desde Gestión On Line
+			
+			else if(acceso.compareTo("GOL") == 0) {
+				
+				//Seleccionamos la opcion alta siniestros
+				GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
+				goHome.seleccionaIdiomaCast();
+				goHome.altaSiniestros();
+				 
+				//Damos de alta el siniestro
+				GestionOnlineAltaSiniestro altaSiniestroGOL = new GestionOnlineAltaSiniestro(userS);
+				altaSiniestroGOL.altaInfoPoliza(numPoliza, "");
+				if(numPoliza.startsWith("510")) ramo = "510";
+				else if(numPoliza.startsWith("920")||numPoliza.startsWith("900")) ramo = "920";
+				else if(numPoliza.startsWith("660")) ramo = "660";
+				else if(numPoliza.startsWith("400")||numPoliza.startsWith("200")||numPoliza.startsWith("150")||(numPoliza.startsWith("500")&&!numPoliza.startsWith("5000"))) ramo = "500";
+				else if(numPoliza.startsWith("5000")||numPoliza.startsWith("600")||numPoliza.startsWith("610")||numPoliza.startsWith("620")||numPoliza.startsWith("630")||numPoliza.startsWith("640")) ramo = "640";
+				//
+				String causa = "";
+				if(ramo=="510" || ramo=="500")
+				{
+					causa="1";
+				}
+				else if(ramo=="920")
+				{
+					causa="2";
+				}
+				else if(ramo=="640")
+				{
+					causa="3";
+				}
+				else if(ramo=="660")
+				{
+					causa="4";
+				}
+				altaSiniestroGOL.altaCausaDescripcion(causa, "Descripción para la apertura del sinestro de prueba automática", "");
+				altaSiniestroGOL.altaCuentaSiniestro();
+				altaSiniestroGOL.altaPersonaContacto("INQVE__11", "Jose", "Martinez", "Perez", "666502101", "mail@mail.com");
+				altaSiniestroGOL.altaDireccionContacto(true, "", "", "", "", "", "", "", "");
+				altaSiniestroGOL.altaObservaciones("TEST Automatico apertura siniestro");
+				altaSiniestroGOL.clickEnviar();
+				altaSiniestroGOL.checkYaExisteSiniestro();
+				altaSiniestroGOL.comprobarOK();
+								
 			}
-
-			// Página de confirmación
-			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
-			confirmarAltaSiniestro.confirmarSiniestroOK();
+		
+			if(acceso.compareTo("Innova") == 0) {
+				// Página de confirmación
+				SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+				confirmarAltaSiniestro.confirmarSiniestroOK();
+			}
 		}
 
 		// Accedemos a siniestros desde Gestión On Line
-
+/*
 		else if(acceso.compareTo("GOL") == 0) {
 
 			GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
 			goHome.openSiniestros();
 
 		}
-
-		debugEnd();
-	}
-
+*/
 	// TRAMITAR SINIESTRO
 
 	public void tramitar_siniestro(String acceso, String numPoliza) throws Exception {
@@ -3809,26 +3866,18 @@ public class Steps extends InteractionObject {
 
 		this.login(loginAccess, user);
 
-		// // if
-		// (this.userS.getTestVar("acceso").equals(MutuaPropietariosConstants.
-		// LoginAccessGestionLine)) // { // GestionOnlineHomePage
-		// gestionOnlineHomePage = new GestionOnlineHomePage(webDriver,
-		// userS.getTestDataManager()); //
-		// gestionOnlineHomePage.openMutuaAlquilerConfort(); // } if
-		// (this.userS.getTestVar("acceso").equals(ProjectConstants.
-		// LoginAccessInnova)) { AsignarMediadorPage asignarMediadorPage = new
-		// AsignarMediadorPage(userS);
-		// asignarMediadorPage.SelectMediadorMACAndClickOnContinuar(); //
-		// InnovaHomePage innovaHomePage = new InnovaHomePage(webDriver,
-		// userS.getTestDataManager()); //
-		// innovaHomePage.OpenMutuaAlquilerConfort(); }
+		 if(this.userS.getScenarioVar("acceso").equals(ProjectConstants.LoginAccessGestionLine)) 
+		 { // GestionOnlineHomePage
 
-		new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
+			 new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
+			 
+		 } else if(this.userS.getScenarioVar("acceso").equals(ProjectConstants.LoginAccessInnova))
+		 	{
+				new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar(); 
+				new InnovaHomePage(userS).OpenMutuaAlquilerConfort(); 
+		 	}
 
-		new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
-
-		new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
-
+		 
 		// SCS Precio
 		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
 		precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
@@ -3955,7 +4004,7 @@ public class Steps extends InteractionObject {
 		new PrecioPorModalidadPage_MAC(userS).seleccionarImpagoAlquiler();
 	}
 
-	public void doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(
+	public void doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(
 		String loginAcess, String user) throws Exception
 
 	{
@@ -3970,16 +4019,14 @@ public class Steps extends InteractionObject {
 
 		} else if(loginAcess.equals(ProjectConstants.LoginAccessInnova)) {
 			this.openSimulationMec();
-			new AsignarMediadorPage(userS)
-				.seleccionarMediadorPorCodigo(mediador)
-				.clickOnContinuarButton();
+			new AsignarMediadorPage(userS).seleccionarMediadorPorCodigo(mediador).clickOnContinuarButton();
 		}
 
 		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue(userS.getScenario());
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
 
-		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgo();
+		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgoMinimos();
 
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).ClickOnContinuarAndValidate();
 
@@ -4159,77 +4206,183 @@ public class Steps extends InteractionObject {
 		debugEnd();
 	}
 
-	// public void
-	// el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar( String
-	// loginAcess, String user)
-	// {
-	// debugBegin();
-	//
-	// loginAcess = this.userS.getTestVar("acceso");
-	//
-	// this.browserContext.initializeVariables(loginAcess);
-	//
-	// this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
-	// .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
-	//
-	// String mediador = this.tCData.getMediador();
-	//
-	// if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine)
-	// && this.tCData != null && !mediador.equals("640")) {
-	// AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
-	// asignarMediadorPage.selectMediadorAndClickOnContinuar();
-	//
-	// } else
-	// if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova))
-	// {
-	// AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
-	// asignarMediadorPage.SeleccionarMediadorPorCodigo(userS.getScenarioVar("mediador").toString());
-	// asignarMediadorPage.clickOnContinuarButton();
-	// }
-	//
-	// new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue("userS");
-	// ValidacionesExcepcionesReglasUbicacionRiesgoPage
-	// validacionesExcepcionesReglasUbicacionRiesgo = new
-	// ValidacionesExcepcionesReglasUbicacionRiesgoPage(this.browserContext);
-	// validacionesExcepcionesReglasUbicacionRiesgo.isUbicacionRiesgoUtilizada();
-	// this.detallesRiesgoPage = new DetallesRiesgoPage(webDriver,
-	// userS.getTestDataManager());
-	// this.detallesRiesgoPage.completarDatosEnDetallesRiesgo();
-	// ValidacionExcepcionesReglasDetallesRiesgoPage
-	// validacionExcepcionesReglasDetallesRiesgoPage = new
-	// ValidacionExcepcionesReglasDetallesRiesgoPage(this.browserContext);
-	// validacionExcepcionesReglasDetallesRiesgoPage.clickOnContinuar();
-	// PrecioPage precioPage = new PrecioPage(webDriver,
-	// userS.getTestDataManager());
-	// precioPage.ClickOnConvertirAProjecto();
-	// DatosBasicosTomadorPage datosBasicosTomadorPage = new
-	// DatosBasicosTomadorPage(userS);
-	// datosBasicosTomadorPage.FillTomadorData(this.tCData.getTomador());
-	// datosBasicosTomadorPage.clickOnContinuar();
-	// PrecioPorModalidadPage precioPorModalidadPage = new
-	// PrecioPorModalidadPage(webDriver,
-	// userS.getTestDataManager());
-	// precioPorModalidadPage.ExecuteActionsInPrecioPorModalidadPage();
-	// ValidacionExcepcionesReglasPage validacionExcepcionesReglasPage = new
-	// ValidacionExcepcionesReglasPage(userS);
-	// validacionExcepcionesReglasPage.clickOnContinuarButton();
-	// ClausulasPage clausulasPage = new ClausulasPage(userS);
-	// clausulasPage.ActivateclausesAndClickOnContinue();
-	// TomadorYAseguradoPage tomadorYAseguradoPage = new
-	// TomadorYAseguradoPage(webDriver,
-	// userS.getTestDataManager());
-	// tomadorYAseguradoPage.AddDatosTomador();
-	// tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
-	// tomadorYAseguradoPage.clickOnContinuar();
-	// DatosBancariosPage datosBancariosPage = new DatosBancariosPage(webDriver,
-	// userS.getTestDataManager());
-	// datosBancariosPage.introducirFormaPagoYPulsarGuardar();
-	// this.browserContext.writeTestCaseData();
-	//
-	// debugEnd();
-	//
-	// }
-	//
+	 public void el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar(String loginAcess, String user) throws InterruptedException, IOException, Exception
+	 {
+		 debugBegin();
+		
+//		 loginAcess = this.userS.getTestVar("acceso");
+		
+//		 this.browserContext.initializeVariables(loginAcess);
+//		
+//		 this.browserContext.applicationAccessHelper.LoginAndCreateSimulation(this
+//		 .tCData.getUsuario(), this.browserContext.getProperties().passwordComun);
+//		
+//		 String mediador = this.tCData.getMediador();
+//		
+//		 if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine)
+//		 && this.tCData != null && !mediador.equals("640")) {
+//		 AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
+//		 asignarMediadorPage.selectMediadorAndClickOnContinuar();
+//		
+//		 } else
+//		 if(this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova))
+//		 {
+//		 AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
+//		 asignarMediadorPage.SeleccionarMediadorPorCodigo(userS.getScenarioVar("mediador").toString());
+//		 asignarMediadorPage.clickOnContinuarButton();
+//	 }
+		
+		 this.login(loginAcess, user);
+		 
+		 new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue(userS.getScenario());
+		 
+		 new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
+		 
+		 new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgo();
+		 
+		 new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).clickOnContinuar();
+		 
+		 new PrecioPage(userS).clickOnConvertirAProjecto();
+		 
+		 DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(userS);
+		 datosBasicosTomadorPage.fillTomadorData(userS.getTestVar("Tomador"));
+		 datosBasicosTomadorPage.clickOnContinuar();
+		 
+		 new PrecioPorModalidadPage(userS).executeActionsInPrecioPorModalidadPage();
+		 
+		 new ValidacionExcepcionesReglasPage(userS).clickOnContinuarButton();
+		 
+		 new ClausulasPage(userS).activateclausesAndClickOnContinue();
+		 
+		 TomadorYAseguradoPage tomadorYAseguradoPage = new TomadorYAseguradoPage(userS);
+		 tomadorYAseguradoPage.addDatosTomador();
+		 
+		 tomadorYAseguradoPage.addDatosTomadorDiferenteAsegurado();
+		 tomadorYAseguradoPage.clickOnContinuar();
+		 
+		 DatosBancariosPage datosBancariosPage = new DatosBancariosPage(userS);
+		 datosBancariosPage.introducirFormaPagoYPulsarGuardar();
+		 
+		 //this.browserContext.writeTestCaseData(); ---------> revisar
+		
+		 debugEnd();
+		
+	 }
+	
 
+	  public void se_modifica_el_proyecto_en_Innova_y_lo_guarda_de_nuevo(String loginAccess, String user) throws Exception 
+	  {
+		//loginAcess = this.tCData.getCambioAcceso();
+
+		debugBegin();
+				
+		//userS.initializeVariables(loginAcess);
+		//userS.applicationAccessHelper.loginAndSearchCotizacion(this.tCData.getCambioUsuario(), userS.getProperties().passwordComun, this.tCData.getNoCotizacion());
+		
+		this.login(loginAccess, user);
+		
+		new GestionCotizacionesBuscadorPage(userS).modificarProjecto();
+		
+		new AsignarMediadorPage(userS).clickOnContinuarButton();
+		
+		UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
+		ubicacionRiesgoPage.closeAvisoSistemaPopup();
+		ubicacionRiesgoPage.modifyReferenciaCatastral();
+		ubicacionRiesgoPage.clickOnContinuar();
+		
+		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
+		
+		new DetallesRiesgoPage(userS).modificarDatosEnDetallesRiesgo();
+		
+		new ValidacionExcepcionesReglasPage(userS).clickOnContinuarButton();
+		
+		new DatosBasicosTomadorPage(userS).clickOnContinuar();
+		
+		PrecioPorModalidadPage precioPorModalidadPage = new PrecioPorModalidadPage(userS);
+		precioPorModalidadPage.seleccionarModalidad();
+		precioPorModalidadPage.clickOnContinuar();
+		
+		//validacionExcepcionesReglasPage.clickOnContinuarButton();
+		
+		new ClausulasPage(userS).clickOnContinuar();
+		
+		new TomadorYAseguradoPage(userS).clickOnContinuar();
+		
+		new DatosBancariosPage(userS).ClickOnGuardar();
+		
+		//userS.writeTestCaseData();
+		userS.getWebDriver().quit();
+
+		  debugEnd();
+		 
+	  }
+	 
+	  
+	public void el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente() throws Exception 
+	{
+			  debugBegin();
+			 
+			  this.login(this.userS.getTestVar("acceso"), this.userS.getTestVar("usuario"));
+			  
+			  if (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessInnova))
+			  { 
+			 
+	//			  userS.initializeVariables(this.tCData.getCambioAcceso());
+	//			  userS.applicationAccessHelper.
+	//			  LoginAndSearchPolizaByPolizaNumber(this.tCData.getCambioUsuario(),
+	//			  userS.getProperties().passwordComun,
+	//			  String.valueOf(this.tCData.getNumPoliza()));
+			  
+			 
+				  GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(userS);
+				  gestionPolizasBuscadorPage.buscarPorNumeroPoliza(getTestVar("NumPoliza"));
+				  gestionPolizasBuscadorPage.ConsultarPoliza();
+				  
+				  new GestionPolizasConsultarPage(userS).CheckPolizaNumber();
+				 
+			  }
+			 
+			  if (this.userS.getTestVar("acceso").equals(ProjectConstants.LoginAccessGestionLine)) 
+			  { 
+		
+//				  userS.initializeVariables(this.tCData.getCambioAcceso());
+//				  userS.applicationAccessHelper.
+//				  LoginAndSearchPolizaByPolizaNumber(this.tCData.getCambioUsuario(),userS.getProperties().passwordComun,String.valueOf(this.tCData.getNumPoliza()));
+				 
+				  GestionPolizasBuscadorPage gestionPolizasBuscadorPage = new GestionPolizasBuscadorPage(userS);
+				  gestionPolizasBuscadorPage.buscarPorNumeroPoliza(getTestVar("NumPoliza"));
+				  gestionPolizasBuscadorPage.ConsultarPoliza();
+				  
+				  new GestionPolizasConsultarPage(userS).CheckPolizaNumber();
+				 
+			  }
+			 
+			  debugEnd(); 
+			  
+	}
+	  
+	public void LoginAndSearchPolizaByPolizaNumber(String userId, String password, String poliza) throws Exception {
+		this.login(userId, password);
+		this.OpenGestionPolizas();
+		this.SearchPolizaByPolizaNumber(poliza);
+	}
+
+	public void OpenGestionPolizas() { //
+		new GestionOnlineHomePage(userS).openGestionCotizaciones();
+	}
+	
+	public void SearchPolizaByPolizaNumber(String poliza) {
+		new GestionPolizasBuscadorPage(userS).buscarPorNumeroPoliza(poliza);
+	}
+
+	
+	
+
+	
+	
+	
+	
+	
+	
 	// FIN
 }

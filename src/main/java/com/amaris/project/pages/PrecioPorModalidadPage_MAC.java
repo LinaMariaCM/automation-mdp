@@ -26,11 +26,11 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 
 	// @FindBy(id = "selCobertura")
 	// private WebElement drpdnImpagoAlquiler;
-	private By drpdnImpagoAlquiler = By.cssSelector("#selCobertura");
+	private By drpdnImpagoAlquiler = By.id("selCobertura");
 
 	// @FindBy(id = "selFranquicia")
 	// private WebElement drpdnFranquicia;
-	private By drpdnFranquicia = By.cssSelector("#selFranquicia");
+	private By drpdnFranquicia = By.id("selFranquicia");
 
 	// @FindBy(id = "botonContinuar")
 	// private WebElement btnContinuar;
@@ -125,11 +125,11 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		String ImpagoAlquiler = getScenarioVar("impago_alquiler");
 		String Franquicia = getScenarioVar("franquiciaMAC");
 
-		if(ImpagoAlquiler != null) {
+		if(ImpagoAlquiler != null && !ImpagoAlquiler.isEmpty()) {
 			this.seleccionarImpagoAlquiler();
 		}
 
-		if(Franquicia != null) {
+		if(Franquicia != null && !Franquicia.isEmpty()) {
 			this.seleccionarFranquicia();
 		}
 		debugEnd();
@@ -160,7 +160,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		debugInfo("SCENARIO: " + userS.getScenario() + ", VALUE: " + getScenarioVar("impago_alquiler")
 			+ ", SCENARIODATA: " + userS.getTestDataManager().getData(AutomationConstants.SCENARIO_DATA));
 
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnImpagoAlquiler, this.mainFrame, String.valueOf(getScenarioVar("impago_alquiler")));
+		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnImpagoAlquiler, this.mainFrame, getScenarioVar("impago_alquiler"));
 		debugEnd();
 	}
 

@@ -48,11 +48,14 @@ public class SiniestrosEncargoDatos extends PageObject {
 	public void seleccionarTipoEncargo(String colaborador, String tipoEncargo, String subtipoEncargo) {
 		this.debugBegin();
 
-		this.webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, "value", colaborador);
+		//this.webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, "value", colaborador);
+		this.webDriver.clickElementFromDropDownByIndex(comboTipoColaborador, 2);
 		this.webDriver.waitWithDriver(500);
-		this.webDriver.clickElementFromDropDownByAttribute(comboTipoEncargo, "value", tipoEncargo);
+		//this.webDriver.clickElementFromDropDownByAttribute(comboTipoEncargo, "value", tipoEncargo);
+		this.webDriver.clickElementFromDropDownByIndex(comboTipoEncargo, 1);
 		this.webDriver.waitWithDriver(500);
-		this.webDriver.clickElementFromDropDownByAttribute(comboSubtipoEncargo, "value", subtipoEncargo);
+		//this.webDriver.clickElementFromDropDownByAttribute(comboSubtipoEncargo, "value", subtipoEncargo);
+		this.webDriver.clickElementFromDropDownByIndex(comboSubtipoEncargo, 2);
 
 		this.debugEnd();
 	}

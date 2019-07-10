@@ -105,8 +105,9 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	public void altaRiesgoAsegurado() {
 		this.debugBegin();
 
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboLugarOcurrencia, "value", "RIES");
-
+		//this.webDriver.clickElementFromDropDownByAttribute(this.comboLugarOcurrencia, "value", "RIES");
+		//this.webDriver.clickElementFromDropDownByIndex(this.comboLugarOcurrencia, 2);
+		//
 		this.debugEnd();
 	}
 
@@ -114,8 +115,12 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	public void altaOtroLugarOcurrencia(String tipoVia, String calle, String numero, String portal, String escalera, String piso, String puerta, String cp, String poblacion, String provincia) {
 		this.debugBegin();
 
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboLugarOcurrencia, "value", "OTRO");
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoVia, "value", tipoVia);
+		//this.webDriver.clickElementFromDropDownByAttribute(this.comboLugarOcurrencia, "value", "OTRO");
+		this.webDriver.clickElementFromDropDownByIndex(this.comboLugarOcurrencia, 1);
+		//
+		//this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoVia, "value", tipoVia);
+		this.webDriver.clickElementFromDropDownByIndex(this.comboTipoVia, 2);
+		//
 		this.webDriver.appendText(this.txtCalleOcurrencia, calle);
 		this.webDriver.appendText(this.txtNumeroOcurrencia, numero);
 		this.webDriver.appendText(this.txtPortalOcurrencia, portal);
@@ -124,7 +129,9 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		this.webDriver.appendText(this.txtPuertaOcurrencia, puerta);
 		this.webDriver.appendText(this.txtCPOcurrencia, cp);
 		this.webDriver.appendText(this.txtPoblacionOcurrencia, poblacion);
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboProvincia, "value", provincia);
+		//this.webDriver.clickElementFromDropDownByAttribute(this.comboProvincia, "value", provincia);
+		this.webDriver.clickElementFromDropDownByIndex(this.comboProvincia, 2);
+		//
 
 		this.debugEnd();
 	}
@@ -133,12 +140,18 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	public void altaSeleccionarCausas(String grupoCausa, String tipoCausa, String gremioCausa) {
 		this.debugBegin();
 
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboGrupoCausas, "value", grupoCausa);
+		//this.webDriver.clickElementFromDropDownByAttribute(this.comboGrupoCausas, "value", grupoCausa);
+		this.webDriver.clickElementFromDropDownByIndex(this.comboGrupoCausas,2);
+		//
 		this.webDriver.waitWithDriver(500);
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboTiposCausa, "value", tipoCausa);
+		//this.webDriver.clickElementFromDropDownByAttribute(this.comboTiposCausa, "value", tipoCausa);
+		this.webDriver.clickElementFromDropDownByIndex(this.comboTiposCausa, 1);
+		//
 		this.webDriver.waitWithDriver(500);
-		this.webDriver.clickElementFromDropDownByAttribute(this.comboGremio, "value", gremioCausa);
-
+		//if(this.webDriver.isOnScreen(this.comboGremio))this.webDriver.clickElementFromDropDownByAttribute(this.comboGremio, "value", gremioCausa);
+		if(this.webDriver.isOnScreen(this.comboGremio))this.webDriver.clickElementFromDropDownByIndex(this.comboGremio, 3);
+		//
+						
 		this.debugEnd();
 	}
 
