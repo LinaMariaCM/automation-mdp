@@ -221,15 +221,6 @@ public class ImageUtils {
 	}
 
 
-	public BufferedImage scaleByWidth(BufferedImage image, int targetWidth) {
-		return scale(image, targetWidth, targetWidth / image.getWidth() * image.getHeight());
-		
-	}
-
-
-	public BufferedImage scaleByHeight(BufferedImage image, int targetHeight) {
-		return scale(image, targetHeight / image.getHeight() * image.getWidth(), targetHeight);
-	}
 	/**
 	 * Method to rezise an image to a target width and height
 	 *

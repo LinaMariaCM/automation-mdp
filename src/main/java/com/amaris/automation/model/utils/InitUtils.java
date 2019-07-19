@@ -150,7 +150,7 @@ public class InitUtils {
 	public static String[][] getResultMatrixFromCsvFile(String filePath) {
 		filePath = filePath.endsWith(".csv") ? filePath : filePath + ".csv";
 
-		return FileUtils.csvFileToMatrix(filePath, true);
+		return FileUtils.csvFileToMatrix(filePath);
 	}
 
 	public static String[][] getResultMatrixFromCsvString(String csvString) {

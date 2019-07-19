@@ -1,7 +1,6 @@
 package com.amaris.automation.model.webdriver.configuration;
 
-import io.github.bonigarcia.wdm.BrowserManager;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
@@ -24,7 +23,7 @@ public class ChromeConfiguration extends BrowserConfiguration {
 	}
 
 	public static void downloadDriver(boolean forceCache) {
-		BrowserManager manager = ChromeDriverManager.getInstance();
+		WebDriverManager manager = WebDriverManager.chromedriver();
 
 		if(manager != null) {
 			if(forceCache) manager.forceCache();

@@ -344,7 +344,7 @@ public class CsvToHtml {
 				.addChild(new HtmlElement("th")
 					.addChild(caseVariables))), 0);
 
-		String imagePath = "images/[ERROR] - " + timeStamp + ".i" + (index - 1) + ".jpg";
+		String imagePath = "images/[ERROR] - " + timeStamp + ".i" + (index - 1) + ".png";
 		String exception = dataMatrix[index][dataMatrix[0].length - 1];
 		exception = exception == null ? "" : exception;
 
@@ -535,7 +535,7 @@ public class CsvToHtml {
 			wrapper = new HtmlElement("div")
 				.addAttribute("id", testCase);
 
-			dataMatrix = FileUtils.csvFileToMatrix(finalPath, true);
+			dataMatrix = FileUtils.csvFileToMatrix(finalPath);
 			dataMatrix = ArrayUtils.removeRowsContaining(dataMatrix, AutomationConstants.TEST_UNDONE, dataMatrix[0].length - 3);
 
 			if(dataMatrix.length > 1) {

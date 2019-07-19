@@ -1,7 +1,6 @@
 package com.amaris.automation.model.webdriver.configuration;
 
-import io.github.bonigarcia.wdm.BrowserManager;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -22,7 +21,7 @@ public class FirefoxConfiguration extends BrowserConfiguration {
 	}
 
 	public static void downloadDriver(boolean forceCache) {
-		BrowserManager manager = FirefoxDriverManager.getInstance();
+		WebDriverManager manager = WebDriverManager.firefoxdriver();
 
 		if(manager != null) {
 			if(forceCache) manager.forceCache();

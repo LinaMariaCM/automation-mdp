@@ -6,15 +6,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.safari.SafariOptions;
-
-import io.github.bonigarcia.wdm.BrowserManager;
-import io.github.bonigarcia.wdm.ChromeDriverManager;
-import io.github.bonigarcia.wdm.FirefoxDriverManager;
 
 public class MobileConfiguration extends BrowserConfiguration {
 
@@ -41,12 +38,12 @@ public class MobileConfiguration extends BrowserConfiguration {
 	}
 
 	public static void downloadDriver(String emulationBrowser, boolean forceCache) {
-		BrowserManager manager = null;
+		WebDriverManager manager = null;
 
 		if(emulationBrowser.equals(BrowserType.CHROME)) {
-			manager = ChromeDriverManager.getInstance();
+			manager = WebDriverManager.chromedriver();
 		} else if(emulationBrowser.equals(BrowserType.FIREFOX)) {
-			manager = FirefoxDriverManager.getInstance();
+			manager = WebDriverManager.firefoxdriver();
 		}
 
 		if(manager != null) {

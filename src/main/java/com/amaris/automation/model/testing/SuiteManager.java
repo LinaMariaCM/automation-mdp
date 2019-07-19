@@ -17,12 +17,15 @@ import com.amaris.automation.model.utils.CsvToHtml;
 import com.amaris.automation.model.utils.CsvToPdf;
 import com.amaris.automation.model.utils.FileUtils;
 import com.amaris.automation.model.utils.InitUtils;
+import com.amaris.automation.model.utils.JiraMessager;
+import com.amaris.automation.model.utils.JiraTicket;
 import com.amaris.automation.model.utils.StringUtils;
 import com.amaris.automation.model.utils.objects.DebugLogger;
 import com.amaris.automation.model.utils.objects.Pair;
 
 /**
- * The SuiteManager class is used to manage test objects like the TestDataManager and the result matrix.
+ * The SuiteManager class is used to manage test objects like the
+ * TestDataManager and the result matrix.
  *
  * @author Alfredo Moises Boullosa Ramones
  */
@@ -48,7 +51,8 @@ public class SuiteManager {
 	private static final String FILE_SENT_SUCCESS_MESSAGE = "File sent correctly: ";
 	private static final String FILE_SENT_FAILURE_MESSAGE = "Error sending file: ";
 	private Map<String, Map<String, List<String>>> consoleLogs = new HashMap<>();
-	// Pair<testCase name, int[]{tests to finish, tests finished, relevant columns}>
+	// Pair<testCase name, int[]{tests to finish, tests finished, relevant
+	// columns}>
 	private ArrayList<Pair<String, int[]>> testCases = new ArrayList<>();
 	// Pair<TestDataManager, resultMatrix>
 	private Map<String, Pair<TestDataManager, String[][]>> testSuiteObject = new HashMap<>();
@@ -172,11 +176,7 @@ public class SuiteManager {
 	}
 
 	public void addSuiteData(DataObject dataObject, String dataKey) {
-		if(suiteData.containsKey(dataKey)) {
-			suiteData.replaceData(dataKey, dataObject);
-		} else {
-			suiteData.addData(dataKey, dataObject);
-		}
+		suiteData.addData(dataKey, dataObject);
 	}
 
 	public void addSuiteData(String filePath, String dataKey) {
@@ -301,6 +301,36 @@ public class SuiteManager {
 		}
 
 		return testDataM;
+	}
+
+	public synchronized DataObject getConfigData(String testCase) {
+		DataObject configData = null;
+
+		if(testSuiteObject.get(testCase) != null) {
+			configData = testSuiteObject.get(testCase).getKey().getConfigData();
+		}
+
+		return configData;
+	}
+
+	public synchronized String getConfigVar(String key) {
+		String configVar = null;
+
+		if(testCases.size() > 0 && testCases.get(0) != null && testCases.get(0).getKey() != null) {
+			configVar = getConfigVar(testCases.get(0).getKey(), key);
+		}
+
+		return configVar;
+	}
+
+	public synchronized String getConfigVar(String testCase, String key) {
+		String configVar = null;
+
+		if(testSuiteObject.get(testCase) != null) {
+			configVar = testSuiteObject.get(testCase).getKey().getConfigVar(key);
+		}
+
+		return configVar;
 	}
 
 	public String[][] getResultMatrix(String testCase) {
@@ -429,9 +459,7 @@ public class SuiteManager {
 
 		if(image != null && sendImg != null && !sendImg.isEmpty() && Boolean.parseBoolean(sendImg)) {
 			try {
-				String buildId = projectId + suiteName + (mainDriver.isEmpty() ? "" : "." + mainDriver) + initialTimeStamp;
-
-				RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/images/upload/" + buildId + "/" + fileName + ".png")
+				RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/images")
 					.addHeader("Encoding", "base64")
 					.setSendFile("imagefile", fileName + ".png", "image/png", Base64.getEncoder().encodeToString(image));
 
@@ -448,40 +476,112 @@ public class SuiteManager {
 	}
 
 	public void sendHtmlToDatabase(String fileName, String text) {
-		RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/html/" + fileName)
-			.setSendFile(fileName, "text/html; charset=utf-8", text);
+		sendHtmlToDatabase(fileName, text, false);
+	}
 
-		if(request.post().getStatusCode() == 201) {
-			logger.info(FILE_SENT_SUCCESS_MESSAGE + fileName);
-		} else {
-			logger.info(FILE_SENT_FAILURE_MESSAGE + fileName +
-				(request.getResponseMessage() != null ? " (" + request.getStatusCode() + " - " + request.getResponseMessage() + ")" : ""));
-			if(request.getResponseAsString() != null) logger.info(request.getResponseAsString());
+	public void sendHtmlToDatabase(String fileName, String text, boolean force) {
+		if(InitUtils.getBoolConfigVariable(AutomationConstants.SEND_CSV) || force) {
+			try {
+				RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/html/" + fileName)
+					.setSendFile(fileName, "text/html; charset=utf-8", text);
+	
+				if(request.post().getStatusCode() == 201) {
+					logger.info(FILE_SENT_SUCCESS_MESSAGE + fileName);
+				} else {
+					logger.info(FILE_SENT_FAILURE_MESSAGE + fileName +
+						(request.getResponseMessage() != null ? " (" + request.getStatusCode() + " - " + request.getResponseMessage() + ")" : ""));
+					if(request.getResponseAsString() != null) logger.info(request.getResponseAsString());
+				}
+			} catch(Exception e) {
+				logger.error("Error sending html: " + fileName);
+				logger.printStackTrace(e);
+			}
 		}
 	}
 
 	public String[][] getCsvFile(String fileName) {
-		String[][] result = null;
-		fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
-		RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/csvfile/" + fileName);
+		return getCsvFile(fileName, false);
+	}
 
-		if(request.get().getStatusCode() == 200) {
-			logger.info("File was received correctly: " + fileName);
-			result = InitUtils.getResultMatrixFromCsvString(request.getResponseAsString().replaceAll("\r\n", "\n"));
-		} else {
-			logger.error("File wasn't received: " + fileName);
+	public String[][] getCsvFile(String fileName, boolean force) {
+		String[][] result = null;
+
+		if(InitUtils.getBoolConfigVariable(AutomationConstants.GET_CSV) || force) {
+			try {
+				fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
+				RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/csvfile/" + fileName);
+	
+				if(request.get().getStatusCode() == 200) {
+					logger.info("File was received correctly: " + fileName);
+					result = InitUtils.getResultMatrixFromCsvString(request.getResponseAsString().replaceAll("\r\n", "\n"));
+				} else {
+					logger.error("File wasn't received: " + fileName);
+				}
+			} catch(Exception e) {
+				logger.error("Error getting CSV file: " + fileName);
+				logger.printStackTrace(e);
+			}
 		}
 
 		return result;
 	}
 
 	public void sendCsvFile(String fileName, String text) {
+		sendCsvFile(fileName, text, false);
+	}
+
+	public void sendCsvFile(String fileName, String text, boolean force) {
+		if(InitUtils.getBoolConfigVariable(AutomationConstants.SEND_CSV) || force) {
+			try {
+				fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
+				RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/csvfile/" + fileName)
+					.setSendFile(fileName, "text/csv", text);
+
+				if(request.post().getStatusCode() == 201) {
+					logger.info(FILE_SENT_SUCCESS_MESSAGE + fileName);
+				} else {
+					logger.info(FILE_SENT_FAILURE_MESSAGE + fileName +
+						(request.getResponseMessage() != null ? " (" + request.getStatusCode() + " - " + request.getResponseMessage() + ")" : ""));
+					if(request.getResponseAsString() != null) logger.info(request.getResponseAsString());
+				}
+			} catch(Exception e) {
+				logger.error("Error sending the CSV file: " + fileName);
+				logger.printStackTrace(e);
+			}
+		}
+	}
+
+	public String[][] getCsvReport(String timeStamp) {
+		String[][] result = null;
+		
+		try {
+			RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/csv/" + timeStamp + ".csv");
+	
+			if(request.get().getStatusCode() == 200) {
+				logger.info("File was received correctly: " + timeStamp + ".csv");
+				result = InitUtils.getResultMatrixFromCsvString(request.getResponseAsString().replaceAll("\r\n", "\n"));
+			} else {
+				logger.error("File wasn't received: " + timeStamp + ".csv");
+			}
+		} catch(Exception e) {
+			logger.error("Error geting the CSV report: " + timeStamp);
+			logger.printStackTrace(e);
+		}
+
+		return result;
+	}
+
+	public void sendCsvReport(String fileName, String text, String driver) {
 		try {
 			fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
-			RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/csvfile/" + fileName)
-				.setSendFile(fileName, "text/csv", text);
-
-			if(request.post().getStatusCode() == 201) {
+			String buildId = projectId + suiteName + (driver.isEmpty() ? "" : "." + driver) + initialTimeStamp;
+	
+			RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/post/" + suiteName + "/" + buildId);
+	
+			request.setSendFile(fileName, "text/csv", text)
+				.post();
+	
+			if(request.getStatusCode() == 201) {
 				logger.info(FILE_SENT_SUCCESS_MESSAGE + fileName);
 			} else {
 				logger.info(FILE_SENT_FAILURE_MESSAGE + fileName +
@@ -489,39 +589,8 @@ public class SuiteManager {
 				if(request.getResponseAsString() != null) logger.info(request.getResponseAsString());
 			}
 		} catch(Exception e) {
+			logger.error("Error sending the CSV report: " + fileName);
 			logger.printStackTrace(e);
-		}
-	}
-
-	public String[][] getCsvReport(String timeStamp) {
-		String[][] result = null;
-		RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/csv/" + timeStamp + ".csv");
-
-		if(request.get().getStatusCode() == 200) {
-			logger.info("File was received correctly: " + timeStamp + ".csv");
-			result = InitUtils.getResultMatrixFromCsvString(request.getResponseAsString().replaceAll("\r\n", "\n"));
-		} else {
-			logger.error("File wasn't received: " + timeStamp + ".csv");
-		}
-
-		return result;
-	}
-
-	public void sendCsvReport(String fileName, String text, String driver) {
-		fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
-		String buildId = projectId + suiteName + (driver.isEmpty() ? "" : "." + driver) + initialTimeStamp;
-
-		RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/post/" + suiteName + "/" + buildId);
-
-		request.setSendFile(fileName, "text/csv", text)
-			.post();
-
-		if(request.getStatusCode() == 201) {
-			logger.info(FILE_SENT_SUCCESS_MESSAGE + fileName);
-		} else {
-			logger.info(FILE_SENT_FAILURE_MESSAGE + fileName +
-				(request.getResponseMessage() != null ? " (" + request.getStatusCode() + " - " + request.getResponseMessage() + ")" : ""));
-			if(request.getResponseAsString() != null) logger.info(request.getResponseAsString());
 		}
 	}
 
@@ -557,15 +626,72 @@ public class SuiteManager {
 		}
 	}
 
+	protected void updateZephyrTicket(String jiraTicketId, String result) {
+		DataObject configData = getTestDataManager(testCases.get(0).getKey()).getConfigData();
+
+		String url = InitUtils.getStringConfigVariable("jira_url", configData);
+		String user = InitUtils.getStringConfigVariable("jira_user", configData);
+		String pass = InitUtils.getStringConfigVariable("jira_pass", configData);
+		String project = InitUtils.getStringConfigVariable("jira_project", configData);
+
+		if(url != null && !url.isEmpty() && user != null && !user.isEmpty()
+			&& pass != null && !pass.isEmpty() && project != null && !project.isEmpty()) {
+			new JiraMessager(url, user, pass).updateZephyrTicket(jiraTicketId, result);
+		}
+	}
+
+	protected void createJiraTicket(UserStory userS, Throwable throwable) {
+		DataObject configData = getTestDataManager(testCases.get(0).getKey()).getConfigData();
+
+		String url = InitUtils.getStringConfigVariable("jira_url", configData);
+		String user = InitUtils.getStringConfigVariable("jira_user", configData);
+		String pass = InitUtils.getStringConfigVariable("jira_pass", configData);
+		String project = InitUtils.getStringConfigVariable("jira_project", configData);
+
+		if(url != null && !url.isEmpty() && user != null && !user.isEmpty()
+			&& pass != null && !pass.isEmpty() && project != null && !project.isEmpty()) {
+			JiraTicket ticket = new JiraTicket();
+
+			String stackTrace = "";
+			String failingLine = "";
+
+			for(int i = 0; i < throwable.getStackTrace().length; i++) {
+				if(i != 0) stackTrace += "\n";
+				stackTrace += throwable.getStackTrace()[i].toString();
+
+				if(failingLine.isEmpty() && throwable.getStackTrace()[i].toString().contains("com.amaris.project")) {
+					failingLine = throwable.getStackTrace()[i].toString();
+				}
+			}
+
+			if(failingLine.isEmpty()) {
+				failingLine = "Bug";
+			}
+
+			ticket.setProject(project);
+			ticket.setSummary("Bug - " + StringUtils.snakeCaseToNatural(suiteName + ": " + userS.getTestCase())
+				+ " (" + failingLine.substring(failingLine.indexOf('(') + 1, failingLine.indexOf(')')) + ")");
+			ticket.setIssueType("10008");
+			ticket.setPriority("3");
+			ticket.setDescription(throwable.toString() + "\n" + stackTrace);
+
+			if(userS.getTestVar(AutomationConstants.JIRA_TEST_ID) != null) {
+				ticket.setLink("relates to", userS.getTestVar(AutomationConstants.JIRA_TEST_ID));
+			}
+
+			new JiraMessager(url, user, pass).sendTicket(ticket);
+		}
+	}
+
 	public synchronized String[][] removeDeviceEmulationCases(String testCase, String[][] casesMatrix) {
 		String[][] result = null;
 		String[][] resultMatrix = getResultMatrix(testCase);
-		
+
 		if(casesMatrix != null) {
 			resultMatrix = ArrayUtils.removeRowsContaining(resultMatrix, InitUtils.getDeviceEmulationBrowsers(), 2);
 			result = InitUtils.getCasesMatrixFromResultMatrix(resultMatrix, testCase);
 			result = applyExecutionFilter(resultMatrix, result);
-	
+
 			if(casesMatrix.length == 0) {
 				for(int i = 0; i < testCases.size(); i++) {
 					if(testCases.get(i).getKey().equals(testCase)) {
@@ -573,7 +699,7 @@ public class SuiteManager {
 						break;
 					}
 				}
-	
+
 				testSuiteObject.remove(testCase);
 			} else {
 				testSuiteObject.replace(testCase, new Pair<TestDataManager, String[][]>(testSuiteObject.get(testCase).getKey(), resultMatrix));
@@ -591,7 +717,7 @@ public class SuiteManager {
 			resultMatrix = ArrayUtils.removeRowsContaining(resultMatrix, InitUtils.getMobileEmulationBrowsers(), 2);
 			result = InitUtils.getCasesMatrixFromResultMatrix(resultMatrix, testCase);
 			result = applyExecutionFilter(resultMatrix, result);
-	
+
 			if(casesMatrix.length == 0) {
 				for(int i = 0; i < testCases.size(); i++) {
 					if(testCases.get(i).getKey().equals(testCase)) {
@@ -616,7 +742,7 @@ public class SuiteManager {
 			resultMatrix = ArrayUtils.removeRowsContaining(resultMatrix, InitUtils.getTabletEmulationBrowsers(), 2);
 			result = InitUtils.getCasesMatrixFromResultMatrix(resultMatrix, testCase);
 			result = applyExecutionFilter(resultMatrix, result);
-	
+
 			if(casesMatrix.length == 0) {
 				for(int i = 0; i < testCases.size(); i++) {
 					if(testCases.get(i).getKey().equals(testCase)) {
@@ -624,7 +750,7 @@ public class SuiteManager {
 						break;
 					}
 				}
-	
+
 				testSuiteObject.remove(testCase);
 			} else {
 				testSuiteObject.replace(testCase, new Pair<TestDataManager, String[][]>(testSuiteObject.get(testCase).getKey(), resultMatrix));
@@ -676,7 +802,7 @@ public class SuiteManager {
 
 		if((mainDriver.equals(AutomationConstants.WEB) || mainDriver.equals(AutomationConstants.MOBILE_WEB))
 			&& testDataM.getTestData() != null && testDataM.getTestData().getRow() != null
-				&& !testDataM.getTestData().getRow().containsKey(AutomationConstants.BROWSER) && browserArgument != null && !browserArgument.isEmpty()) {
+			&& !testDataM.getTestData().getRow().containsKey(AutomationConstants.BROWSER) && browserArgument != null && !browserArgument.isEmpty()) {
 			for(int i = 0; i < testDataM.getTestData().size(); i++) {
 				testDataM.getTestData().getRow(Integer.toString(i)).put(AutomationConstants.BROWSER, browserArgument);
 			}
@@ -709,7 +835,7 @@ public class SuiteManager {
 
 	private void setCaseVariables(String testDataPath, TestDataManager testDataM) {
 		if(testDataPath != null) {
-			testDataM.setCaseVariables(FileUtils.csvFileToMatrix(testDataPath, true)[0]);
+			testDataM.setCaseVariables(FileUtils.csvFileToMatrix(testDataPath)[0]);
 		} else {
 			testDataM.setCaseVariables(new String[]{ "id"});
 		}
@@ -754,7 +880,8 @@ public class SuiteManager {
 	}
 
 	private String[][] applyExecutionFilter(String[][] resultMatrix, String[][] casesMatrix) {
-		// Filters the cases to execute depending on "execution_filter" leaving the resultMatrix without modification
+		// Filters the cases to execute depending on "execution_filter" leaving
+		// the resultMatrix without modification
 		String executionFilter = System.getProperty(AutomationConstants.EXECUTION_FILTER);
 
 		if(executionFilter != null && !executionFilter.isEmpty()) {
@@ -845,9 +972,10 @@ public class SuiteManager {
 
 			if(resultMatrix != null) fileFromApi = true;
 
-			// If resultMatrix was not filled by a request, try to fill it with an existent file
+			// If resultMatrix was not filled by a request, try to fill it with
+			// an existent file
 			if(resultMatrix == null && new File(testDataM.getReportPath() + testDataM.getTimeStamp() + ".csv").exists()) {
-				logger.info("Getting test data from report file '" + testDataM.getTimeStamp() + ".csv'" );
+				logger.info("Getting test data from report file '" + testDataM.getTimeStamp() + ".csv'");
 				resultMatrix = InitUtils.getResultMatrixFromCsvFile(testDataM.getReportPath() + testDataM.getTimeStamp() + ".csv");
 			}
 
@@ -858,7 +986,8 @@ public class SuiteManager {
 		}
 
 		// If neither casesMatrix nor resultMatrix are filled at this point
-		// (the request didn't return a file, the file doesn't exist or the case is not continue)
+		// (the request didn't return a file, the file doesn't exist or the case
+		// is not continue)
 		if(casesMatrix == null) {
 			logger.info("Creating " + (testDataPath == null ? "base test data" : "test data from file '" + testDataPath + "'"));
 			casesMatrix = InitUtils.getCasesMatrixFromTestData(testCase, testDataM.getTestData().size());
@@ -870,7 +999,7 @@ public class SuiteManager {
 		addTestObjects(testCase, testDataM, resultMatrix, casesMatrix.length);
 		consoleLogs.put(testCase, new HashMap<String, List<String>>());
 
-		logger.info("Cases to run on this execution: " + casesMatrix.length 
+		logger.info("Cases to run on this execution: " + casesMatrix.length
 			+ (casesMatrix.length != resultMatrix.length - 1 ? " from " + (resultMatrix.length - 1) : ""));
 
 		handleNoCasesToRunWithApi(fileFromApi, testDataM, resultMatrix, casesMatrix);

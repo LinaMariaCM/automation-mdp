@@ -1,17 +1,15 @@
 package com.amaris.automation.model.webdriver.configuration;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
-
-import io.github.bonigarcia.wdm.BrowserManager;
-import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class IEConfiguration extends BrowserConfiguration {
 
 	public static void downloadDriver(boolean forceCache) {
-		BrowserManager manager = InternetExplorerDriverManager.getInstance();
+		WebDriverManager manager = WebDriverManager.iedriver();
 
 		if(manager != null) {
 			if(forceCache) manager.forceCache();

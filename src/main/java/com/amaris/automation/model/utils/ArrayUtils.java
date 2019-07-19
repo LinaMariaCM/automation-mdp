@@ -47,7 +47,7 @@ public class ArrayUtils {
 		return indexes;
 	}
 
-	public static List<Integer> getFilterIndex(List<String[]> filters, String[][] matrix) {
+	private static List<Integer> getFilterIndex(List<String[]> filters, String[][] matrix) {
 		List<Integer> indexes = new ArrayList<>();
 
 		for(int i = 1; i < matrix.length; i++) {
@@ -67,7 +67,7 @@ public class ArrayUtils {
 		return indexes;
 	}
 
-	public static List<Integer> checkFilter(List<Integer> indexes, String[][] matrix, String unparsedFilter, String div) {
+	private static List<Integer> checkFilter(List<Integer> indexes, String[][] matrix, String unparsedFilter, String div) {
 		if(unparsedFilter != null && !unparsedFilter.isEmpty()
 			&& unparsedFilter.split("=").length > 1 && unparsedFilter.split("=")[1].split(div).length > 0) {
 			String unparsedKey = unparsedFilter.split("=")[0];

@@ -1,7 +1,6 @@
 package com.amaris.automation.model.webdriver.configuration;
 
-import io.github.bonigarcia.wdm.BrowserManager;
-import io.github.bonigarcia.wdm.EdgeDriverManager;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -9,7 +8,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class EdgeConfiguration extends BrowserConfiguration {
 
 	public static void downloadDriver(boolean forceCache) {
-		BrowserManager manager = EdgeDriverManager.getInstance();
+		WebDriverManager manager = WebDriverManager.edgedriver();
 
 		if(manager != null) {
 			if(forceCache) manager.forceCache();

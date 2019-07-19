@@ -45,10 +45,6 @@ public class DataManagerObject {
 	public boolean containsKey(String dataKey) {
 		return mappedData.containsKey(dataKey);
 	}
-
-	public boolean containsValue(String dataValue) {
-		return mappedData.containsKey(dataValue);
-	}
 	// endregion
 
 	// region Setters
@@ -58,7 +54,12 @@ public class DataManagerObject {
 
 	public void addData(String key, DataObject dataObject) {
 		synchronized(mappedData) {
-			size++;
+			if(!mappedData.containsKey(key)) {
+				size++;
+			} else {
+				mappedData.remove(key);
+			}
+			
 			mappedData.put(key, dataObject);
 		}
 	}
@@ -67,13 +68,6 @@ public class DataManagerObject {
 		synchronized(mappedData) {
 			if(mappedData.containsKey(key)) size--;
 			mappedData.remove(key);
-		}
-	}
-
-	public void replaceData(String dataKey, DataObject dataObject) {
-		synchronized(mappedData) {
-			removeData(dataKey);
-			addData(dataKey, dataObject);
 		}
 	}
 

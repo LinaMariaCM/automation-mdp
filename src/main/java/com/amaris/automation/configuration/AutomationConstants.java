@@ -59,6 +59,12 @@ public class AutomationConstants {
 	public static final String GET_CSV = "get_csv";
 	public static final String SEND_CSV = "send_csv";
 	public static final String SEND_IMG = "send_img";
+	public static final String CREATE_JIRA_TICKETS = "create_jira_tickets";
+	public static final String JIRA_TEST_ID = "jira_test_id";
+	
+	public static final String SUCCESS_ZEPHYR = "SUCCESS";
+	public static final String FAILURE_ZEPHYR = "FAILURE";
+	public static final String NOT_EXECUTED_ZEPHYR = "NOT_EXECUTED";
 
 	public static final String EXECUTION_FILTER = "execution_filter";
 	public static final String TEST_FILTER = "test_filter";

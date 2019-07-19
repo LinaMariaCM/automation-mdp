@@ -12,6 +12,7 @@ import com.amaris.automation.configuration.AutomationConstants;
 import com.amaris.automation.data.DataObject;
 import com.amaris.automation.model.httprequest.RequestHelper;
 import com.amaris.automation.model.utils.FileUtils;
+import com.amaris.automation.model.utils.InitUtils;
 import com.amaris.automation.model.utils.objects.DebugLogger;
 import com.amaris.automation.model.webdriver.DriverHelper;
 import com.amaris.automation.model.webdriver.configuration.BrowserType;
@@ -373,6 +374,13 @@ public class UserStory {
 
 			logger.info("Test execution ended with failure" + (!failure.isEmpty() ? ": " + failure : ""));
 
+			if(InitUtils.getBoolConfigVariable(AutomationConstants.CREATE_JIRA_TICKETS, getConfigData())) {
+				Throwable throwable = exception == null ? error : exception;
+
+				suiteM.createJiraTicket(this, throwable);
+				suiteM.updateZephyrTicket(getTestVar(AutomationConstants.JIRA_TEST_ID), AutomationConstants.FAILURE_ZEPHYR);
+			}
+
 			updateResultMatrix();
 
 			if(exception != null) {
@@ -386,6 +394,10 @@ public class UserStory {
 			runSuccessActions();
 			runEndActions();
 			logger.end();
+
+			if(InitUtils.getBoolConfigVariable(AutomationConstants.CREATE_JIRA_TICKETS, getConfigData())) {
+				suiteM.updateZephyrTicket(getTestVar(AutomationConstants.JIRA_TEST_ID), AutomationConstants.SUCCESS_ZEPHYR);
+			}
 
 			updateResultMatrix();
 		}
@@ -479,7 +491,7 @@ public class UserStory {
 				logger.begin();
 				String fileName = "[ERROR] - " + getTimeStamp() + ".i" + testId;
 
-				logger.info("Taking screenshot: " + fileName + ".jpg'");
+				logger.info("Taking screenshot: " + fileName + ".png'");
 				new File(getReportPath() + '/' + AutomationConstants.IMAGES_FOLDER).mkdirs();
 
 				suiteM.sendImgToDatabase(suiteM.getTimeStampDriver(getTestDataManager()), getTimeStamp() + ".i" + testId, webDriver
@@ -554,7 +566,7 @@ public class UserStory {
 
 					String infoString = getTestDataManager().caseVariablesToString(testId);
 					if(!infoString.isEmpty()) infoString += ", ";
-					//TODO
+					// TODO
 					boolean addBrowserToMatrix = ArrayUtils.contains(getResultMatrix()[0], AutomationConstants.BROWSER);
 
 					logger.info(infoString + (browser != null && addBrowserToMatrix ? "browser: " + browser + ", " : "") + "time: " + duration

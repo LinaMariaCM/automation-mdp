@@ -212,7 +212,9 @@ public class DriverHelper {
 	}
 
 	private void setMobileVariables() {
-		if(BrowserType.IPHONE.equals(getBrowserType())) {
+		if(BrowserType.IPHONE.equals(getBrowserType()) && configData.getValue(AutomationConstants.DEVICE_NAME) != null) {
+			setDeviceName(configData.getValue(AutomationConstants.DEVICE_NAME));
+		} else if(BrowserType.IPHONE.equals(getBrowserType())) {
 			setDeviceName(System.getProperty(AutomationConstants.DEVICE_NAME));
 		}
 
@@ -749,11 +751,25 @@ public class DriverHelper {
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_VERSION, platformVersion);
 			capabilities.setCapability(MobileCapabilityType.UDID, udid);
 			capabilities.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-			capabilities.setCapability(MobileCapabilityType.APP, appPackage);
-			setCapabilityWithConfigData(MobileCapabilityType.LANGUAGE, AutomationConstants.MOBILE_LANGUAGE);
+			capabilities.setCapability("bundleId", appPackage);
 
-			setCapabilityWithConfigData("xcodeOrgId", "xCodeSignId");
+			// Speed up build time using existing WDA
+			setCapabilityWithConfigData("usePrebuiltWDA", "usePrebuiltWDA");
+			setCapabilityWithConfigData("appium:derivedDataPath", deviceName + "_path");
+
+			setCapabilityWithConfigData("appium:skipLogCapture", "skipLogCapture");
+			setCapabilityWithConfigData("wdaLaunchTimeout", "wdaLaunchTimeout");
+			setCapabilityWithConfigData("wdaConnectionTimeout", "wdaConnectionTimeout");
+			setCapabilityWithConfigData("wdaStartupRetries", "wdaStartupRetries");
+
+			setCapabilityWithConfigData("wdaLocalPort", deviceName + "_port");
+
+			setCapabilityWithConfigData("xcodeSigningId", "xcodeSigningId");
+			setCapabilityWithConfigData("xcodeOrgId", "xcodeOrgId");
+
 			setCapabilityWithConfigData(MobileCapabilityType.FULL_RESET, "ios_full_reset");
+			setCapabilityWithConfigData(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "newCommandTimeout");
+			setCapabilityWithConfigData(MobileCapabilityType.LANGUAGE, AutomationConstants.MOBILE_LANGUAGE);
 
 			logger.info("Initializing iOs driver on hub: " + hubUrl);
 			logger.info("Capabilities: " + capabilities.toString());
@@ -957,6 +973,15 @@ public class DriverHelper {
 		defaultWindowWidth = width;
 	}
 
+	@SuppressWarnings("rawtypes")
+	public void resetApp() {
+		if(devicePlatform.equalsIgnoreCase(Platform.ANDROID.toString())) {
+			((AndroidDriver) driver).resetApp();
+		} else {
+			((IOSDriver) driver).resetApp();
+		}
+	}
+
 	public void setEmulationBrowser(String browser) {
 		if(browser != null) emulationBrowser = browser;
 	}
@@ -978,15 +1003,15 @@ public class DriverHelper {
 				driver.manage().window().maximize();
 			} else if(capabilities.getCapability(AutomationConstants.PLATFORM_NAME) != null && capabilities.getCapability(AutomationConstants.PLATFORM_NAME).equals("iOS")
 				&& driver != null) {
-				java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+					java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-				// TODO: Selenium bug transforms 0 and 1 to boolean, change to 0, 0 when fixed
-				Point position = new Point(2, 2);
-				driver.manage().window().setPosition(position);
+					// TODO: Selenium bug transforms 0 and 1 to boolean, change to 0, 0 when fixed
+					Point position = new Point(2, 2);
+					driver.manage().window().setPosition(position);
 
-				Dimension maximizedScreenSize = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
-				driver.manage().window().setSize(maximizedScreenSize);
-			}
+					Dimension maximizedScreenSize = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
+					driver.manage().window().setSize(maximizedScreenSize);
+				}
 		} catch(Exception e) {
 			logger.error("Exception maximizing window" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
 		}
@@ -1007,7 +1032,7 @@ public class DriverHelper {
 	public int getImplicitWait() {
 		return implicitTimeout;
 	}
-	
+
 	public void setImplicitWait(int timeOut) {
 		implicitTimeout = timeOut;
 
@@ -1019,7 +1044,7 @@ public class DriverHelper {
 			}
 		}
 	}
-	
+
 	public int getScriptWait() {
 		return scriptTimeout;
 	}
@@ -1033,7 +1058,7 @@ public class DriverHelper {
 			logger.error("Exception setting script timeout" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
 		}
 	}
-	
+
 	public int getPageLoadWait() {
 		return pageLoadTimeout;
 	}
@@ -1055,6 +1080,10 @@ public class DriverHelper {
 
 			return activityArray[activityArray.length - 1];
 		} else return driver.getCurrentUrl();
+	}
+
+	public String getTitle() {
+		return driver.getTitle();
 	}
 
 	public List<WebElement> getElements(By by) {
@@ -1146,6 +1175,10 @@ public class DriverHelper {
 
 	public String getAttribute(By by, String attribute) {
 		return driver.findElement(by).getAttribute(attribute);
+	}
+
+	public String getAttribute(WebElement el, String attribute) {
+		return el.getAttribute(attribute);
 	}
 
 	public String getCssValue(By by, String cssValue) {
@@ -1334,12 +1367,12 @@ public class DriverHelper {
 		logger.end();
 	}
 
-	public void clickRelativePosition(By by, double xPer, double yPer) {
-		clickRelativePosition(driver.findElement(by), xPer, yPer);
+	public void clickRelativePosition(By by, double widthPer, double heightPer) {
+		clickRelativePosition(driver.findElement(by), widthPer, heightPer);
 	}
 
 	@SuppressWarnings("rawtypes")
-	public void clickRelativePosition(WebElement el, double xPer, double yPer) {
+	public void clickRelativePosition(WebElement el, double widthPer, double heightPer) {
 		logger.begin();
 		waitForElementToBeClickable(el);
 
@@ -1348,16 +1381,17 @@ public class DriverHelper {
 			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
 			Rectangle rect = el.getRect();
 
-			new TouchAction(appDriver).press(PointOption.point((int) (rect.width * xPer) + rect.x, (int) (rect.height * yPer) + rect.y)).release().perform();
+			new TouchAction(appDriver).press(PointOption.point((int) (rect.width * widthPer) + rect.x, (int) (rect.height * heightPer) + rect.y)).release().perform();
 		} else if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
 			Dimension size = el.getSize();
 
-			new Actions(driver).moveToElement(el).moveByOffset((int) (((double) -size.width / 2) + size.width * yPer), (int) (((double) -size.height / 2) + size.height * yPer)).click().perform();
+			new Actions(driver).moveToElement(el).moveByOffset((int) (((double) -size.width / 2) + size.width * heightPer), (int) (((double) -size.height / 2) + size.height * heightPer)).click()
+				.perform();
 		} else {
 			try {
 				((JavascriptExecutor) driver).executeScript("document.elementFromPoint("
-					+ "arguments[0].getBoundingClientRect().x + (arguments[0].getBoundingClientRect().width * " + xPer + "), "
-					+ "arguments[0].getBoundingClientRect().y + (arguments[0].getBoundingClientRect().height * " + yPer + ")).click();", el);
+					+ "arguments[0].getBoundingClientRect().x + (arguments[0].getBoundingClientRect().width * " + widthPer + "), "
+					+ "arguments[0].getBoundingClientRect().y + (arguments[0].getBoundingClientRect().height * " + heightPer + ")).click();", el);
 			} catch(WebDriverException e) {
 				try {
 					new Actions(driver).moveToElement(el).click().perform();
@@ -1716,10 +1750,10 @@ public class DriverHelper {
 
 	public void clickElementFromDropDownByIndexInFrame(By elementToClick, By frame, int index) {
 		switchToFrame(frame);
-		
+
 		click(elementToClick);
 		clickElementChildByIndex(elementToClick, index);
-		
+
 		exitFrame();
 
 		waitForLoadToComplete();
@@ -2060,14 +2094,19 @@ public class DriverHelper {
 		logger.begin();
 
 		if(!driverType.equals(AutomationConstants.MOBILE_APP)) {
-			if(browserType != null && browserType.equals(BrowserType.FIREFOX)) {
+			if(browserType != null && (browserType.equals(BrowserType.FIREFOX) || browserType.startsWith(BrowserType.SAFARI))) {
 				scrollToElement(element);
 			}
 
-			new Actions(driver).moveToElement(element).perform();
+			if(browserType != null && browserType.startsWith(BrowserType.SAFARI)) {
+				dispatchEvent(element, "mouseover");
+			} else {
+				new Actions(driver).moveToElement(element).perform();
+			}
 		}
 
 		waitForLoadToComplete();
+
 		logger.end();
 	}
 	// endregion
@@ -2505,11 +2544,11 @@ public class DriverHelper {
 
 	public WebElement waitForElementToBeClickableInFrame(By waitElement, By frame) {
 		switchToFrame(frame);
-		
+
 		WebElement element = waitForElementToBeClickable(waitElement);
-		
+
 		exitFrame();
-		
+
 		return element;
 	}
 
@@ -2537,17 +2576,6 @@ public class DriverHelper {
 		exitFrame();
 
 		return result;
-	}
-
-	public boolean waitForAPIResponse(long milliseconds) {
-		boolean modHeader = System.getProperty("use_modheader") != null && !System.getProperty("use_modheader").equals("false");
-
-		if(!modHeader && !useProxy) {
-			waitWithDriver(milliseconds);
-			return true;
-		}
-
-		return false;
 	}
 
 	// endregion
@@ -2970,7 +2998,7 @@ public class DriverHelper {
 
 		try {
 			screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-			File file = new File(directory + '/' + fileName + ".jpg");
+			File file = new File(directory + '/' + fileName + ".png");
 			new File(directory).mkdirs();
 
 			try(OutputStream stream = new FileOutputStream(file)) {

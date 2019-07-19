@@ -91,7 +91,7 @@ public class InteractionObject {
 	}
 
 	// FileUtils methods
-	private static String getPathWithResources(String filePath) {
+	public static String getPathWithResources(String filePath) {
 		if(!new File(filePath).exists() && !new File(System.getProperty("user.dir") + '/' + filePath).exists()
 			&& new File(System.getProperty("user.dir") + '/' + AutomationConstants.RESOURCES_FOLDER + filePath).exists()) {
 			filePath = System.getProperty("user.dir") + '/' + AutomationConstants.RESOURCES_FOLDER + filePath;

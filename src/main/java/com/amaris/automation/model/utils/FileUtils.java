@@ -94,196 +94,6 @@ public class FileUtils {
 		return result;
 	}
 
-	public static JsonObject getJsonObjectFromFile(String filePath) {
-		return new JsonParser().parse(readFile(getFilePathFromRelative(filePath, ".json"))).getAsJsonObject();
-	}
-
-	private static Map<String, String> dMRowFromJsonObject(JsonElement jsonElement) {
-		Map<String, String> resultMap = new HashMap<>();
-
-		for(JsonElement element : jsonElement.getAsJsonArray()) {
-			resultMap.put(element.getAsJsonObject().get("key").getAsString(), element.getAsJsonObject().get("value").getAsString());
-		}
-
-		return resultMap;
-	}
-
-	public static Map<String, Map<String, String>> jsonObjectToData(JsonObject json, boolean ownId) {
-		int id = 0;
-		Map<String, Map<String, String>> result = new HashMap<>();
-
-		if(json != null) {
-			if(json.get("rows") == null) {
-				result.put(json.get("name").getAsString(), dMRowFromJsonObject(json.get("values")));
-			} else {
-				for(JsonElement element : json.get("rows").getAsJsonArray()) {
-					String key;
-
-					if(ownId) {
-						key = element.getAsJsonObject().get("name").getAsString();
-					} else {
-						key = id + "";
-						id++;
-					}
-
-					result.put(key, dMRowFromJsonObject(element.getAsJsonObject().get("values")));
-				}
-			}
-		}
-
-		return result;
-	}
-
-	public static Map<String, Map<String, String>> jsonFileToMData(String filePath) {
-		return jsonObjectToData(getJsonObjectFromFile(filePath), false);
-	}
-
-	public static Map<String, Map<String, String>> jsonFileToDMData(String filePath) {
-		return jsonObjectToData(getJsonObjectFromFile(filePath), true);
-	}
-
-	public static String[][] csvFileToMatrix(String filePath) {
-		return csvFileToMatrix(filePath, true);
-	}
-
-	/**
-	 * Method to return a Array of a section of a CSV file "ownId" indicates if the file has a column on the left
-	 * indicating the row ID - If true, then the Array have the row ID as the key - Otherwise the key is the number of
-	 * line
-	 *
-	 * @param fileName
-	 * @param ownId
-	 * @return hashMap
-	 */
-	public static String[][] csvFileToMatrix(String filePath, boolean ownId) {
-		return csvStringToMatrix(readFile(getFilePathFromRelative(filePath, ".csv")), ownId);
-	}
-
-	/**
-	 * Method to return a Array of a section of a CSV string "ownId" indicates if the file has a column on the left
-	 * indicating the row ID - If true, then the Array have the row ID as the key - Otherwise the key is the number of
-	 * line
-	 *
-	 * @param csvString
-	 * @param ownId
-	 * @return hashMap
-	 */
-	public static String[][] csvStringToMatrix(String csvString, boolean ownId) {
-		String[][] result = null;
-
-		int nLines = csvString != null && csvString.isEmpty() ? 0 : StringUtils.countOcurrencesInString(csvString, "\n") + 1;
-
-		result = csvSectionToMatrix(csvString, 0, nLines, ownId);
-
-		return result;
-	}
-
-	/**
-	 * Method to return a Array of a section of a file, from line "initialLine" to "finalLine" "ownId" indicates if the
-	 * file has a column on the left indicating the row ID - If true, then the HashMap have the row ID as the key -
-	 * Otherwise the key is the number of line
-	 *
-	 * @param fileName
-	 * @param initialLine
-	 * @param finalLine
-	 * @param ownId
-	 * @return hashMap
-	 */
-	public static String[][] csvSectionToMatrix(String text, int initialLine, int finalLine, boolean ownId) {
-		int nId = 0;
-		String[] textArray = StringUtils.stringToArray(text, "\n");
-
-		if(textArray.length > 0) {
-			String[][] matrix = new String[finalLine - initialLine][StringUtils.countOcurrencesInString(textArray[0], ";") + 1 + (ownId ? 0 : 1)];
-
-			for(int i = 0; i < finalLine; i++) {
-				if(i >= initialLine) {
-					matrix[nId++] = StringUtils.stringToArray((ownId ? "" : i - initialLine + ";") + textArray[i], ";");
-				}
-			}
-
-			return matrix;
-		}
-
-		return new String[][]{ {}};
-	}
-
-	public static void appendMatrixToCsvFile(String filePath, String[][] matrix) {
-		String separator = "";
-
-		if(new File(filePath).exists()) {
-			String text = readFile(filePath);
-
-			if(text != null && !text.isEmpty()) {
-				separator = "\n";
-			}
-		}
-
-		appendToFile(filePath, separator + ArrayUtils.matrixToCsvString(matrix));
-	}
-
-	public static void appendToFile(String filePath, String text) {
-		try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath, true), StandardCharsets.UTF_8.name()))) {
-			writer.append(text);
-		} catch(IOException e) {
-			System.out.println("Error appending to file " + e.toString());
-		}
-	}
-
-	public static void writeMatrixToCsvFile(String filePath, String[][] matrix) {
-		writeFile(filePath, ArrayUtils.matrixToCsvString(matrix));
-	}
-
-	public static void writeFile(String filePath, String text) {
-		try(PrintWriter writer = new PrintWriter(filePath, StandardCharsets.UTF_8.name())) {
-			writer.print(text);
-		} catch(IOException e) {
-			System.out.println("Error writing file " + e.toString());
-		}
-	}
-
-	public static String readFile(String filePath) {
-		return readFile(filePath, StandardCharsets.UTF_8);
-	}
-
-	public static String readFile(String filePath, Charset charset) {
-		String line;
-		String text = null;
-
-		if(filePath != null && !filePath.isEmpty()) {
-			BufferedReader bufferedReader = null;
-			InputStreamReader inputStreamReader = null;
-			filePath = getFilePathFromRelative(filePath);
-
-			try(FileInputStream inputStream = new FileInputStream(new File(filePath))) {
-				StringBuilder stringBuilder = new StringBuilder();
-				inputStreamReader = new InputStreamReader(inputStream, charset);
-				bufferedReader = new BufferedReader(inputStreamReader);
-
-				line = bufferedReader.readLine();
-
-				if(line != null) stringBuilder.append(line);
-
-				while((line = bufferedReader.readLine()) != null) {
-					stringBuilder.append("\n" + line);
-				}
-
-				text = stringBuilder.toString();
-			} catch(IOException e) {
-				System.out.println("Error accesing file " + e.toString());
-			} finally {
-				IOUtils.closeQuietly(inputStreamReader);
-				IOUtils.closeQuietly(bufferedReader);
-			}
-		}
-
-		return text;
-	}
-
-	public static boolean deleteFile(String filePath) {
-		return new File(filePath).delete();
-	}
-
 	public static Map<String, Map<String, String>> csvFileToMData(String filePath) {
 		Map<String, Map<String, String>> result = null;
 
@@ -341,6 +151,50 @@ public class FileUtils {
 		return result;
 	}
 
+	private static Map<String, String> dMRowFromJsonObject(JsonElement jsonElement) {
+		Map<String, String> resultMap = new HashMap<>();
+
+		for(JsonElement element : jsonElement.getAsJsonArray()) {
+			resultMap.put(element.getAsJsonObject().get("key").getAsString(), element.getAsJsonObject().get("value").getAsString());
+		}
+
+		return resultMap;
+	}
+
+	public static Map<String, Map<String, String>> jsonFileToMData(String filePath) {
+		return jsonObjectToData(getJsonObjectFromFile(filePath), false);
+	}
+
+	public static Map<String, Map<String, String>> jsonFileToDMData(String filePath) {
+		return jsonObjectToData(getJsonObjectFromFile(filePath), true);
+	}
+
+	public static Map<String, Map<String, String>> jsonObjectToData(JsonObject json, boolean ownId) {
+		int id = 0;
+		Map<String, Map<String, String>> result = new HashMap<>();
+
+		if(json != null) {
+			if(json.get("rows") == null) {
+				result.put(json.get("name").getAsString(), dMRowFromJsonObject(json.get("values")));
+			} else {
+				for(JsonElement element : json.get("rows").getAsJsonArray()) {
+					String key;
+
+					if(ownId) {
+						key = element.getAsJsonObject().get("name").getAsString();
+					} else {
+						key = id + "";
+						id++;
+					}
+
+					result.put(key, dMRowFromJsonObject(element.getAsJsonObject().get("values")));
+				}
+			}
+		}
+
+		return result;
+	}
+
 	public static Map<String, Map<String, String>> variablesFileToArray(String filePath) {
 		String line;
 		InputStreamReader inputStreamReader = null;
@@ -378,6 +232,159 @@ public class FileUtils {
 		}
 
 		return result;
+	}
+
+	public static JsonObject getJsonObjectFromFile(String filePath) {
+		return new JsonParser().parse(readFile(getFilePathFromRelative(filePath, ".json"))).getAsJsonObject();
+	}
+
+	public static String[][] csvFileToMatrix(String filePath) {
+		return csvFileToMatrix(filePath, true);
+	}
+
+	/**
+	 * Method to return a Array of a section of a CSV file "ownId" indicates if
+	 * the file has a column on the left indicating the row ID - If true, then
+	 * the Array have the row ID as the key - Otherwise the key is the number of
+	 * line
+	 *
+	 * @param fileName
+	 * @param ownId
+	 * @return hashMap
+	 */
+	public static String[][] csvFileToMatrix(String filePath, boolean ownId) {
+		return csvStringToMatrix(readFile(getFilePathFromRelative(filePath, ".csv")), ownId);
+	}
+
+	/**
+	 * Method to return a Array of a section of a CSV string "ownId" indicates
+	 * if the file has a column on the left indicating the row ID - If true,
+	 * then the Array have the row ID as the key - Otherwise the key is the
+	 * number of line
+	 *
+	 * @param csvString
+	 * @param ownId
+	 * @return hashMap
+	 */
+	public static String[][] csvStringToMatrix(String csvString, boolean ownId) {
+		String[][] result = null;
+
+		int nLines = csvString != null && csvString.isEmpty() ? 0 : StringUtils.countOcurrencesInString(csvString, "\n") + 1;
+
+		result = csvSectionToMatrix(csvString, 0, nLines, ownId);
+
+		return result;
+	}
+
+	/**
+	 * Method to return a Array of a section of a file, from line "initialLine"
+	 * to "finalLine" "ownId" indicates if the file has a column on the left
+	 * indicating the row ID - If true, then the HashMap have the row ID as the
+	 * key - Otherwise the key is the number of line
+	 *
+	 * @param fileName
+	 * @param initialLine
+	 * @param finalLine
+	 * @param ownId
+	 * @return hashMap
+	 */
+	public static String[][] csvSectionToMatrix(String text, int initialLine, int finalLine, boolean ownId) {
+		int nId = 0;
+		String[] textArray = StringUtils.stringToArray(text, "\n");
+
+		if(textArray.length > 0) {
+			String[][] matrix = new String[finalLine - initialLine][StringUtils.countOcurrencesInString(textArray[0], ";") + 1 + (ownId ? 0 : 1)];
+
+			for(int i = 0; i < finalLine; i++) {
+				if(i >= initialLine) {
+					matrix[nId++] = StringUtils.stringToArray((ownId ? "" : i - initialLine + ";") + textArray[i], ";");
+				}
+			}
+
+			return matrix;
+		}
+
+		return new String[][]{ {}};
+	}
+
+	public static void appendMatrixToCsvFile(String filePath, String[][] matrix) {
+		String separator = "";
+
+		if(new File(filePath).exists()) {
+			String text = readFile(filePath);
+
+			if(text != null && !text.isEmpty()) {
+				separator = "\n";
+			}
+		}
+
+		appendToFile(filePath, separator + ArrayUtils.matrixToCsvString(matrix));
+	}
+
+	public static void appendToFile(String filePath, String text) {
+		new File(new File(filePath).getParent()).mkdirs();
+
+		try(Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filePath, true), StandardCharsets.UTF_8.name()))) {
+			writer.append(text);
+		} catch(IOException e) {
+			System.out.println("Error appending to file " + e.toString());
+		}
+	}
+
+	public static void writeMatrixToCsvFile(String filePath, String[][] matrix) {
+		writeFile(filePath, ArrayUtils.matrixToCsvString(matrix));
+	}
+
+	public static void writeFile(String filePath, String text) {
+		new File(new File(filePath).getParent()).mkdirs();
+
+		try(PrintWriter writer = new PrintWriter(filePath, StandardCharsets.UTF_8.name())) {
+			writer.print(text);
+		} catch(IOException e) {
+			System.out.println("Error writing file " + e.toString());
+		}
+	}
+
+	public static String readFile(String filePath) {
+		return readFile(filePath, StandardCharsets.UTF_8);
+	}
+
+	public static String readFile(String filePath, Charset charset) {
+		String line;
+		String text = null;
+
+		if(filePath != null && !filePath.isEmpty()) {
+			BufferedReader bufferedReader = null;
+			InputStreamReader inputStreamReader = null;
+			filePath = getFilePathFromRelative(filePath);
+
+			try(FileInputStream inputStream = new FileInputStream(new File(filePath))) {
+				StringBuilder stringBuilder = new StringBuilder();
+				inputStreamReader = new InputStreamReader(inputStream, charset);
+				bufferedReader = new BufferedReader(inputStreamReader);
+
+				line = bufferedReader.readLine();
+
+				if(line != null) stringBuilder.append(line);
+
+				while((line = bufferedReader.readLine()) != null) {
+					stringBuilder.append("\n" + line);
+				}
+
+				text = stringBuilder.toString();
+			} catch(IOException e) {
+				System.out.println("Error accesing file " + e.toString());
+			} finally {
+				IOUtils.closeQuietly(inputStreamReader);
+				IOUtils.closeQuietly(bufferedReader);
+			}
+		}
+
+		return text;
+	}
+
+	public static boolean deleteFile(String filePath) {
+		return new File(filePath).delete();
 	}
 
 	private FileUtils() {}

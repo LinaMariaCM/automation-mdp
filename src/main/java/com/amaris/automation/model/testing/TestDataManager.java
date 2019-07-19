@@ -130,7 +130,7 @@ public class TestDataManager {
 
 	// region Setters
 	public void setTestData(DataObject testData) {
-		this.data.replaceData(AutomationConstants.TEST_DATA, testData);
+		this.data.addData(AutomationConstants.TEST_DATA, testData);
 	}
 
 	public synchronized void setReportPath(String path) {
@@ -166,12 +166,15 @@ public class TestDataManager {
 	public String getVar(String key) {
 		String result = null;
 
-		if(data.getData(AutomationConstants.GLOBAL_DATA).getValue(key) != null) {
+		if(data.getData(AutomationConstants.GLOBAL_DATA) != null
+			&& data.getData(AutomationConstants.GLOBAL_DATA).getValue(key) != null) {
 			result = data.getData(AutomationConstants.GLOBAL_DATA).getValue(key);
-		} else if(data.getData(AutomationConstants.SCENARIO_DATA).getRow() != null
+		} else if(data.getData(AutomationConstants.SCENARIO_DATA) != null
+			&& data.getData(AutomationConstants.SCENARIO_DATA).getRow() != null
 			&& data.getData(AutomationConstants.SCENARIO_DATA).getValue(key) != null) {
 			result = data.getData(AutomationConstants.SCENARIO_DATA).getValue(key);
-		} else if(data.getData(AutomationConstants.TEST_DATA).getRow() != null
+		} else if(data.getData(AutomationConstants.TEST_DATA) != null
+			&& data.getData(AutomationConstants.TEST_DATA).getRow() != null
 			&& data.getData(AutomationConstants.TEST_DATA).getValue(key) != null) {
 			result = data.getData(AutomationConstants.TEST_DATA).getValue(key);
 		} else {
@@ -237,11 +240,7 @@ public class TestDataManager {
 	}
 
 	public void addGlobalData(DataObject testData) {
-		if(data.containsKey(AutomationConstants.GLOBAL_DATA)) {
-			data.replaceData(AutomationConstants.GLOBAL_DATA, testData);
-		} else {
-			data.addData(AutomationConstants.GLOBAL_DATA, testData);
-		}
+		data.addData(AutomationConstants.GLOBAL_DATA, testData);
 	}
 
 	public void addGlobalData(String filePath) {
@@ -256,9 +255,7 @@ public class TestDataManager {
 			}
 		}
 
-		if(globalData != null && data.containsKey(AutomationConstants.GLOBAL_DATA)) {
-			data.replaceData(AutomationConstants.GLOBAL_DATA, globalData);
-		} else if(globalData != null) {
+		if(globalData != null) {
 			data.addData(AutomationConstants.GLOBAL_DATA, globalData);
 		} else {
 			data.addData(AutomationConstants.GLOBAL_DATA, new DataObject().addRow("row"));
@@ -266,11 +263,7 @@ public class TestDataManager {
 	}
 
 	public void addScenarioData(DataObject testData) {
-		if(data.containsKey(AutomationConstants.SCENARIO_DATA)) {
-			data.replaceData(AutomationConstants.SCENARIO_DATA, testData);
-		} else {
-			data.addData(AutomationConstants.SCENARIO_DATA, testData);
-		}
+		data.addData(AutomationConstants.SCENARIO_DATA, testData);
 	}
 
 	public void addScenarioData(String filePath) {
@@ -285,9 +278,7 @@ public class TestDataManager {
 			}
 		}
 
-		if(scenarioData != null && data.containsKey(AutomationConstants.SCENARIO_DATA)) {
-			data.replaceData(AutomationConstants.SCENARIO_DATA, scenarioData);
-		} else if(scenarioData != null) {
+		if(scenarioData != null) {
 			data.addData(AutomationConstants.SCENARIO_DATA, scenarioData);
 		}
 	}
@@ -301,9 +292,7 @@ public class TestDataManager {
 			printDataAccessError("configuration", filePath, e);
 		}
 
-		if(conf != null && data.containsKey(AutomationConstants.CONFIGURATION_DATA)) {
-			data.replaceData(AutomationConstants.CONFIGURATION_DATA, conf);
-		} else if(conf != null) {
+		if(conf != null) {
 			data.addData(AutomationConstants.CONFIGURATION_DATA, conf);
 		} else {
 			data.addData(AutomationConstants.CONFIGURATION_DATA, new DataObject().addRow("row"));
@@ -336,49 +325,31 @@ public class TestDataManager {
 			testData.setValue("id", "0");
 		}
 
-		if(testData != null && data.containsKey(AutomationConstants.TEST_DATA)) {
-			data.replaceData(AutomationConstants.TEST_DATA, testData);
-		} else if(testData != null) {
+		if(testData != null) {
 			data.addData(AutomationConstants.TEST_DATA, testData);
 		}
 	}
 
 	public void addTestData(DataObject testData) {
-		if(data.containsKey(AutomationConstants.TEST_DATA)) {
-			data.replaceData(AutomationConstants.TEST_DATA, testData);
-		} else {
-			data.addData(AutomationConstants.TEST_DATA, testData);
-		}
+		data.addData(AutomationConstants.TEST_DATA, testData);
 	}
 
 	public void addData(DataObject dataObject, String dataKey) {
-		if(data.containsKey(dataKey)) {
-			data.replaceData(dataKey, dataObject);
-		} else {
-			data.addData(dataKey, dataObject);
-		}
+		data.addData(dataKey, dataObject);
 	}
 
 	public void addDMData(String filePath, String dataKey) {
 		if(!new File(filePath).isAbsolute()) filePath = AutomationConstants.RESOURCES_FOLDER + filePath;
 		DataObject dataObject = new DataObject(FileUtils.fileToDMData(filePath));
 
-		if(data.containsKey(dataKey)) {
-			data.replaceData(dataKey, dataObject);
-		} else {
-			data.addData(dataKey, dataObject);
-		}
+		data.addData(dataKey, dataObject);
 	}
 
 	public void addMData(String fileName, String dataKey) {
 		if(!new File(fileName).isAbsolute()) fileName = AutomationConstants.RESOURCES_FOLDER + fileName;
 		DataObject dataObject = new DataObject(FileUtils.fileToMData(fileName));
 
-		if(data.containsKey(dataKey)) {
-			data.replaceData(dataKey, dataObject);
-		} else {
-			data.addData(dataKey, dataObject);
-		}
+		data.addData(dataKey, dataObject);
 	}
 	// endregion
 }
