@@ -2,6 +2,9 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+
+import java.awt.AWTException;
+
 import org.openqa.selenium.By;
 
 public class ContratacionPage_MAC extends PageObject {
@@ -29,7 +32,7 @@ public class ContratacionPage_MAC extends PageObject {
 
 	private By messageRecibo = By.xpath("./html/body/table[1]/tbody/tr/td");
 
-	public void ExecuteActionsInContratacionPage() throws InterruptedException {
+	public void ExecuteActionsInContratacionPage() throws InterruptedException, AWTException {
 		debugBegin();
 		// Add datos tomador
 		new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();

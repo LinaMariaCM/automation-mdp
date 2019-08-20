@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.io.IOException;
 
 import com.amaris.project.ProjectConstants;
+import com.amaris.project.utils.FileHelper;
 import com.amaris.automation.configuration.AutomationConstants;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
@@ -144,7 +145,9 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	// private By btnCerrar = By.cssSelector("#modalAddDocuInterv > div > div >
 	// div.modal-footer > button");
-
+	private By btnAnadirDoc = By.cssSelector("#drop-area label");
+	private By btnEliminarDoc = By.cssSelector("#orderTableDocu button:nth-child(2)");
+	
 	private By btnCerrar = By.cssSelector("#capaAdjuntarDocumentacion #modalAddDocuInterv > div > div > div.modal-footer > button");
 
 	private By btnCerrarSpesiaru = By.cssSelector("#modalAddDocuInterv .modal-footer button");
@@ -426,12 +429,19 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	public void anadirDocumentacion() throws AWTException, InterruptedException {
 		debugBegin();
 		this.webDriver.clickInFrame(this.btnAnadirDocumentacionPrincipal, this.mainFrame);
-		this.webDriver.clickInFrame(this.chkbxDosNominas, this.mainFrame);
-		this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.mainFrame);
-		this.adjuntarDocumentos();
-		//this.webDriver.waitWithDriver(6000);
-		this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.mainFrame);
+		debugInfo("1");
+		this.webDriver.clickInFrame(btnAnadirDoc, mainFrame);
+		debugInfo("boton añadir");
+		
+	//	this.webDriver.clickInFrame(this.chkbxDosNominas, this.mainFrame);
 
+		//this.webDriver.clickInFrame(this.chkbxAutorizacionConsulta, this.mainFrame);
+		this.adjuntarDocumentos();
+		webDriver.scrollToElementInFrame(btnEliminarDoc, mainFrame);
+		debugInfo("doc añadido");
+		//this.webDriver.waitWithDriver(6000);
+		//this.webDriver.clickInFrame(this.btnAnadirDocumentoSubido, this.mainFrame);
+		
 		//this.webDriver.waitWithDriver(6000);
 		this.webDriver.moveToElementInFrame(this.btnCerrar, this.mainFrame);
 
@@ -477,8 +487,10 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 	public void adjuntarDocumentos() throws AWTException {
 		debugBegin();
 		// TODO: mover la ruta de fichero de upload a configuracion
-		webDriver.waitWithDriver(10000);
-		this.webDriver.appendTextInFrame(this.elmntFichero, this.mainFrame, System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf");
+		webDriver.waitWithDriver(5000);
+		FileHelper.uploadFIle("C:\\Users\\MALI\\Desktop\\fichero_Mutua.txt");
+		debugInfo("fichero subido");
+//		this.webDriver.appendTextInFrame(this.elmntFichero, this.mainFrame, System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf");
 		// this.webDriver.sendKeysFrame(this.elmntFichero, this.mainFrame,
 		// "C:/Users/chris/Desktop/New Text Document.txt");
 		debugEnd();
@@ -499,8 +511,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		debugBegin();
 		// TODO: mover la ruta de fichero de upload a configuracion
 
-		 this.webDriver.waitWithDriver(3000);
-		if(this.webDriver.isPresentInFrame(this.btnCerrar, this.mainFrame)) this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
+	//	 this.webDriver.waitWithDriver(3000);
+//		if(this.webDriver.isPresentInFrame(this.btnCerrar, this.mainFrame)) this.webDriver.clickInFrame(this.btnCerrar, this.mainFrame);
 
 		webDriver.waitWithDriver(3000);
 		this.webDriver.isPresentInFrame(this.btnEnviarACompania, this.mainFrame);

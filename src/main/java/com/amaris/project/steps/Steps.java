@@ -3917,7 +3917,7 @@ public class Steps extends InteractionObject {
 		Assert.assertTrue(new ContratacionPage_MAC(userS).checkPolizaCreada());
 	}
 
-	public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() throws InterruptedException {
+	public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() throws InterruptedException, AWTException {
 		debugBegin();
 
 		new InquilinosAvalistasPage_MAC(userS).clickContinuar(); // Rellenar

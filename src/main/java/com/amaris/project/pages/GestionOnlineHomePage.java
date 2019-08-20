@@ -354,6 +354,7 @@ public class GestionOnlineHomePage extends PageObject {
 		// this.webDriver.click(this.modificarProyecto);
 		// }
 		// }
+		this.webDriver.waitWithDriver(3000);
 		this.webDriver.click(this.drpdwnAcciones);
 		this.webDriver.waitWithDriver(3000);
 		this.webDriver.click(this.modificarProyecto);
