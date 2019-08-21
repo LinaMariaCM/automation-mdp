@@ -85,8 +85,6 @@ public class MacTest extends TestObject {
 
 			steps.completo_el_proceso_de_contratacion_MAC_sin_autorizacion();
 
-			// steps.cerrar_navegador();
-
 			steps.se_informa_de_que_la_poliza_no_se_puede_emitir();
 
 			return null;
@@ -187,6 +185,15 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
+			
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.modificar_ingresos("ingresos_inquilino_nuevos");
+			
+			steps.el_proyecto_MAC_se_acepta();
+			
+			steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
+			/*
 
 			steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
@@ -209,7 +216,7 @@ public class MacTest extends TestObject {
 			steps.el_proyecto_MAC_se_deniega();
 
 			//steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
-
+			*/
 			return null;
 
 		}).run();
@@ -245,9 +252,9 @@ public class MacTest extends TestObject {
 
 			steps.anyado_avalista();
 
-			steps.el_proyecto_MAC_se_deniega();
-
-			//steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
+			steps.el_proyecto_MAC_se_acepta();
+			
+			steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 
 			return null;
 
@@ -381,22 +388,18 @@ public class MacTest extends TestObject {
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
-
-
 		
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
-
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
-
 			steps.el_proyecto_MAC_se_deniega();
-
+			
 			return null;
 
 		}).run();
@@ -418,12 +421,9 @@ public class MacTest extends TestObject {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-
-		
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
-
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 

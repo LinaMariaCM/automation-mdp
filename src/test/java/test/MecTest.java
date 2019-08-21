@@ -54,7 +54,7 @@ public class MecTest extends TestObject {
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec02")
 	public void mec02(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -89,7 +89,7 @@ public class MecTest extends TestObject {
 	}
 	
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec03")
 	public void mec03(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -119,7 +119,7 @@ public class MecTest extends TestObject {
 	}
 	
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec04")
 	public void mec04(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -149,7 +149,7 @@ public class MecTest extends TestObject {
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec05")
 	public void mec05(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -179,7 +179,7 @@ public class MecTest extends TestObject {
 	}
 	
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec06")
 	public void mec06(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -209,7 +209,7 @@ public class MecTest extends TestObject {
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec07")
 	public void mec07(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -243,7 +243,7 @@ public class MecTest extends TestObject {
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec08")
 	public void mec08(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -275,7 +275,7 @@ public class MecTest extends TestObject {
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec09a")
 	public void mec09a(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -306,7 +306,7 @@ public class MecTest extends TestObject {
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderMec")
+	@Test(dataProvider = "dataProviderMec10a")
 	public void mec10a(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
@@ -338,8 +338,8 @@ public class MecTest extends TestObject {
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderMec")
-	public void mec12a(String testCase, String id, String browser) throws Exception {
+	@Test(dataProvider = "dataProviderMec12a")
+	public void mec12a(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
@@ -351,11 +351,44 @@ public class MecTest extends TestObject {
 
 		userS.testActions(() -> {
 
-			// steps.
-
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 			
+			steps.cerrar_navegador();
+			
 			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec13a() {
+		String testCase = ProjectConstants.MEC + "13a";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec13a")
+	public void mec13a(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		Steps steps = new Steps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			
+			//steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			//steps.intento_dar_alta_simulacion_hasta_datos_riesgo(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			// continuo en detalles de riesgo
+			
+			steps.aparece_aviso("Dado que el número de plantas en alto (plantas) > 20, el proyecto debe ser revisado por compañía.");
 			
 			return null;
 		}).run();
