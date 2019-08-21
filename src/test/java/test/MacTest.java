@@ -3,7 +3,7 @@ package test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
@@ -11,12 +11,12 @@ import org.testng.annotations.Test;
 
 public class MacTest extends TestObject {
 
-	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MAC);
+	protected SuiteManager suiteM = new SuiteManager(Constants.MAC);
 
 	// PRUEBAS MAC
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac01() {
-		String testCase = ProjectConstants.MAC + "01";
+		String testCase = Constants.MAC + "01";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -59,7 +59,7 @@ public class MacTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac01a() {
-		String testCase = ProjectConstants.MAC + "01a";
+		String testCase = Constants.MAC + "01a";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -85,8 +85,6 @@ public class MacTest extends TestObject {
 
 			steps.completo_el_proceso_de_contratacion_MAC_sin_autorizacion();
 
-			// steps.cerrar_navegador();
-
 			steps.se_informa_de_que_la_poliza_no_se_puede_emitir();
 
 			return null;
@@ -97,7 +95,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac01b() {
-		String testCase = ProjectConstants.MAC + "01b";
+		String testCase = Constants.MAC + "01b";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -146,7 +144,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac02() {
-		String testCase = ProjectConstants.MAC + "02";
+		String testCase = Constants.MAC + "02";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -187,6 +185,15 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
+			
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.modificar_ingresos("ingresos_inquilino_nuevos");
+			
+			steps.el_proyecto_MAC_se_acepta();
+			
+			steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
+			/*
 
 			steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 
@@ -209,7 +216,7 @@ public class MacTest extends TestObject {
 			steps.el_proyecto_MAC_se_deniega();
 
 			//steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
-
+			*/
 			return null;
 
 		}).run();
@@ -218,7 +225,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac03() {
-		String testCase = ProjectConstants.MAC + "03";
+		String testCase = Constants.MAC + "03";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -245,9 +252,9 @@ public class MacTest extends TestObject {
 
 			steps.anyado_avalista();
 
-			steps.el_proyecto_MAC_se_deniega();
-
-			//steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
+			steps.el_proyecto_MAC_se_acepta();
+			
+			steps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 
 			return null;
 
@@ -257,7 +264,7 @@ public class MacTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac04() {
-		String testCase = ProjectConstants.MAC + "04";
+		String testCase = Constants.MAC + "04";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -297,7 +304,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac05() {
-		String testCase = ProjectConstants.MAC + "05";
+		String testCase = Constants.MAC + "05";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -333,7 +340,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac06() {
-		String testCase = ProjectConstants.MAC + "06";
+		String testCase = Constants.MAC + "06";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -369,7 +376,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac07() {
-		String testCase = ProjectConstants.MAC + "07";
+		String testCase = Constants.MAC + "07";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -381,22 +388,18 @@ public class MacTest extends TestObject {
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
-
-
 		
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
-
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
-
 			steps.el_proyecto_MAC_se_deniega();
-
+			
 			return null;
 
 		}).run();
@@ -405,7 +408,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac08() {
-		String testCase = ProjectConstants.MAC + "08";
+		String testCase = Constants.MAC + "08";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -418,12 +421,9 @@ public class MacTest extends TestObject {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
-
-		
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
-
 
 		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
@@ -441,7 +441,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac09() {
-		String testCase = ProjectConstants.MAC + "09";
+		String testCase = Constants.MAC + "09";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -484,7 +484,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac10() {
-		String testCase = ProjectConstants.MAC + "10";
+		String testCase = Constants.MAC + "10";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;

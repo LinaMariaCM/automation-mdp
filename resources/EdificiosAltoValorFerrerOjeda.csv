@@ -1,4 +1,4 @@
-provincia;poblacion;direccion;numero;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
+provincia;poblacion;nombre_via;num_via;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
 BARCELONA;BARCELONA;AGUSTINA SARAGOSSA;25;;8017;;;
 BARCELONA;BARCELONA;AGUSTINA SARAGOSSA;11;;8017;;;
 BARCELONA;BARCELONA;AGUSTINA SARAGOSSA;15;;8017;;;

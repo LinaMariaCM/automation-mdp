@@ -1,4 +1,4 @@
-provincia;poblacion;direccion;numero;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
+provincia;poblacion;nombre_via;num_via;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
 BARCELONA;BARCELONA; ARENYS ;82;;8035;;;
 BARCELONA;BARCELONA; ARENYS ;88;;8035;;;
 BARCELONA;BARCELONA; ARIOSTO ;15;;8035;;;

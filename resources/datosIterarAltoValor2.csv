@@ -1,4 +1,4 @@
-provincia;poblacion;direccion;numero;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
+provincia;poblacion;nombre_via;num_via;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
 BARCELONA;BARCELONA; CARDEDEU ;55;;8023;;;
 BARCELONA;BARCELONA; CARDEDEU ;37;;8023;;;
 BARCELONA;BARCELONA; CARDEDEU ;39;;8023;;;

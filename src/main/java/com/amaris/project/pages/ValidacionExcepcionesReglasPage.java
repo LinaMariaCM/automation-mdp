@@ -7,67 +7,45 @@ import com.amaris.automation.model.testing.objects.PageObject;
 public class ValidacionExcepcionesReglasPage extends PageObject {
 
 	// region webelements
-	// @FindBy(name = "cuerpo")
 	private By cuerpoFrame = By.name("cuerpo");
 
-	// @FindBy(name = "botonContinuar")
-	// private By btnContinuar = By.name("botonContinuar");
-
 	private By btnContinuar = By.cssSelector("#botonContinuar");
-
 	private By labelTitulo = By.cssSelector("#formDatos > div.sis-font-l");
-
-	// private By btnContinuarAltaSiniestro = By.cssSelector("#botonContinuar");
-
 	// endregion
-
-	// CONSTRUCTOR
 
 	public ValidacionExcepcionesReglasPage(UserStory userS) {
 		super(userS);
 	}
 
-	// REGION METHODS
-
+	// region Methods
 	public ValidacionExcepcionesReglasPage clickOnContinuarButton() {
 		debugBegin();
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		// this.webDriver.scrollToElement(this.btnContinuar);
-		// this.webDriver.waitForElementToBeClickable(this.btnContinuar);
-
-		System.out.println("ELEMENTO WEB btnContinuar: " + this.btnContinuar);
-		// this.webDriver.waitWithDriver(2500);
-		// this.webDriver.scrollToElement(this.btnContinuar);
-		// this.webDriver.waitWithDriver(2500);
-		this.webDriver.click(this.btnContinuar);
-
-		this.webDriver.exitFrame();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		debugEnd();
 
 		return this;
 	}
 
 	public String comprobarNombrePagina() {
-		String titulo;
-		titulo = "";
-		System.out.println("El 1er valor del título de la página es:" + titulo);
-		this.debugBegin();
-		if(this.webDriver.isPresent(labelTitulo)) titulo = this.webDriver.getText(labelTitulo);
-		this.debugEnd();
-		System.out.println("El valor final del título de la página es:" + titulo);
+		debugBegin();
+		
+		String titulo = "";
+
+		debugInfo("El 1er valor del título de la página es:" + titulo);
+		if(webDriver.isPresent(labelTitulo)) titulo = webDriver.getText(labelTitulo);
+		debugInfo("El valor final del título de la página es:" + titulo);
+		
+		debugEnd();
+
 		return titulo;
 	}
 
-	public void ContinuarAltaSiniestro() {
-		this.debugBegin();
-		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
-		this.debugEnd();
-	}
+	public ValidacionExcepcionesReglasPage ContinuarAltaSiniestro() {
+		debugBegin();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		debugEnd();
 
-	public void clickContinuar() {
-		this.debugBegin();
-		this.webDriver.click(btnContinuar);
-		this.debugEnd();
+		return this;
 	}
 
 	// endregion

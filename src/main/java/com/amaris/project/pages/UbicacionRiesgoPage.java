@@ -11,437 +11,275 @@ import org.openqa.selenium.UnhandledAlertException;
 import com.amaris.automation.data.DataObject;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.FileUtils;
+import com.amaris.project.Constants;
 
 public class UbicacionRiesgoPage extends PageObject {
 
-	// region webelements
-	// @FindBy(name = "cuerpo")
+	// region WebElements
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 
-	// @FindBy(xpath = ".//*[text()='Añadir inmueble' and
-	// @ng-click='ur.addInmueble()' and
-	// @ng-disabled='ur.disableAddInmuebleButton']")
 	private By btnAnadirInmueblePantallaPrincipal = By.xpath(".//*[text()='Añadir inmueble' and @ng-click='ur.addInmueble()' and @ng-disabled='ur.disableAddInmuebleButton']");
-
-	// @FindBy(xpath = ".//*[@id='inmuebleModal']/div/div/div[3]/button[1]")
 	private By btnCancelar = By.xpath(".//*[@id='inmuebleModal']/div/div/div[3]/button[1]");
-
-	// @FindBy(id = "critCatastro")
 	private By radioBtnCriterioBusquedaReferenciaCatastral = By.id("critCatastro");
 
-	// @FindBy(name = "refCatastral")
 	private By txtReferenciaCatastral = By.name("refCatastral");
-
-	// @FindBy(xpath = ".//*[text()='Buscar']")
 	private By btnBuscar = By.xpath(".//*[text()='Buscar']");
-
-	// @FindBy(xpath = ".//*[@ng-click='ur.modalBuscador.updateInmueble()' and
-	// text()='Añadir inmueble']")
-	// private By btnAnadirInmuebleReferenciaCatastral =
-	// By.xpath(".//*[@ng-click='ur.modalBuscador.updateInmueble()' and
-	// text()='Añadir inmueble']");
 	private By btnAnadirInmueble = By.cssSelector(".modal-lg > div:nth-child(1) > div:nth-child(3) > button:nth-child(2)");
-
-	// @FindBy(xpath = ".//*[@ng-model='ur.inmueble.data.asegurarGarajes']")
 	private By chkAsegurarUnicamenteGarajes = By.xpath(".//*[@ng-model='ur.inmueble.data.asegurarGarajes']");
-
-	// @FindBy(xpath = ".//*[@ng-model='ur.inmueble.data.excluirGarajes']")
 	private By chkExcluirGarajes = By.xpath(".//*[@ng-model='ur.inmueble.data.excluirGarajes']");
-
-	// @FindBy(xpath = ".//*[@ng-model='ur.inmueble.data.excluirLocales']")
 	private By chkExcluirLocales = By.xpath(".//*[@ng-model='ur.inmueble.data.excluirLocales']");
 
-	// @FindBy(xpath = ".//*[text()='Continuar']")
 	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
-
-	// @FindBy(xpath = ".//*[@ng-click='ur.save(ubicacionRiesgoForm.$valid)']")
 	private By btnGuardar = By.xpath(".//*[@ng-click='ur.save(ubicacionRiesgoForm.$valid)']");
 
-	// @FindBy(name = "provincia")
 	private By txtProvincia = By.name("provincia");
-
-	// @FindBy(name = "poblacion")
 	private By txtPoblacion = By.name("poblacion");
-
-	// @FindBy(name = "nombreVia")
 	private By txtNombreVia = By.name("nombreVia");
-
-	// @FindBy(name = "numVia")
 	private By txtNumeroVia = By.name("numVia");
-
-	// @FindBy(name = "codigoPostal")
 	private By txtCodigoPostal = By.name("codigoPostal");
 
-	// @FindBy(xpath = ".//*[@tabindex='-1' and
-	// contains(@ng-bind-html,'match.label')]")
 	private By lblMatchFoundElement = By.xpath(".//*[@tabindex='-1' and contains(@ng-bind-html,'match.label')]");
-
-	// @FindBy(xpath = ".//*[contains(@ng-bind-html,'match.model.street') and
-	// contains(@ng-bind-html,'|')]")
 	private By lblMatchFoundElementVia = By.xpath(".//*[contains(@ng-bind-html,'match.model.street') and contains(@ng-bind-html,'|')]");
 
-	// @FindBy(xpath = ".//*[text()='Al acceder en modo modificación las
-	// retenciones que su perfil lo permitan quedarán aceptadas de manera
-	// automática en cada paso.']")
 	private By txtAvisoSistema = By.xpath(".//*[text()='Al acceder en modo modificación las retenciones que su perfil lo permitan quedarán aceptadas de manera automática en cada paso.']");
-
-	// @FindBy(xpath = ".//*[text()='Aceptar']")
 	private By btnAceptar = By.xpath(".//*[text()='Aceptar']");
-
-	// @FindBy(xpath = ".//*[contains(@class,'glyphicon-pencil')]")
 	private By btnModificarReferenciaCatastral = By.xpath(".//*[contains(@class,'glyphicon-pencil')]");
-
-	// @FindBy(xpath = ".//*[text()='Modificar inmueble' and
-	// @ng-click='ur.modalBuscador.updateInmueble()']")
 	private By btnModificarInmueble = By.xpath(".//*[text()='Modificar inmueble' and @ng-click='ur.modalBuscador.updateInmueble()']");
 
-	// @FindBy(xpath =
-	// ".//*[contains(@ng-bind-html,'inmuebleSeleccionado.data.refCatastral')]")
 	private By txtCurrentReferenciaCatastral = By.xpath(".//*[contains(@ng-bind-html,'inmuebleSeleccionado.data.refCatastral')]");
-
-	// @FindBy(name = "calidadConstruccion")
 	private By cbkCalidadConstruccion = By.name("calidadConstruccion");
-
-	// @FindBy(xpath = ".//*[@ng-click='ur.editInmueble()']")
 	private By btnLapiz = By.xpath(".//*[@ng-click='ur.editInmueble()']");
 
-	// @FindBy(xpath =
-	// ".//*[@id='inmuebleModal']/div/div/div[2]/div/div[2]/div/div/table/tbody/tr[1]/td[3]")
 	private By resultadoBusqueda = By.xpath(".//*[@id='inmuebleModal']/div/div/div[2]/div/div[2]/div/div/table/tbody/tr[1]/td[3]");
 
-	// @FindBy(xpath = "//*[@id='modalErrores']/div/div/div[2]/div/div/p")
 	private By mensajeModalError = By.xpath("//*[@id='modalErrores']/div/div/div[2]/div/div/p");
-
-	// @FindBy(xpath = "//*[@id='modalErrores']/div/div/div[3]/button")
 	private By btnModalError = By.xpath("//*[@id='modalErrores']/div/div/div[3]/button");
-
-	// @FindBy(css = "p[ng-bind-html='modalErrores.text | encode']")
 	private By txtMensajeError = By.xpath("p[ng-bind-html='modalErrores.text | encode']");
 
 	private By loaderModal = By.cssSelector("#modalLoader");
-
 	// endregion
-	/*
-	 * public UbicacionRiesgoPage(BrowserContext browserContext) {
-	 * this.browserContext = browserContext; this.wh =
-	 * browserContext.webElementHelper; this.tData =
-	 * browserContext.getTestCaseData();
-	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
-	 */
 
 	public UbicacionRiesgoPage(UserStory userS) {
 		super(userS);
 	}
 
-	public boolean fillInmuebleAndGetAvailability(String scenario) throws InterruptedException {
-
-		// return
-		// this.addInmueble(this.browserContext.getTestCaseData().getInmueble());
-		return this.addInmueble(getScenarioVar("inmueble"));
+	// region Methods
+	public boolean fillInmuebleAndGetAvailability(String scenario) {
+		return addInmueble(getScenarioVar(Constants.INMUEBLE));
 	}
 
-	public void fillInmuebleAndClickOnContinue(String scenario) throws InterruptedException {
-		// this.addInmueble(this.browserContext.getTestCaseData().getInmueble());
+	public UbicacionRiesgoPage fillInmuebleAndClickOnContinue(String scenario) {
+		addInmueble(getScenarioVar(Constants.INMUEBLE));
+		clickOnContinuar();
 
-		this.fillInmuebleAndGetAvailability(scenario);
-		this.clickOnContinuar();
+		return this;
 	}
 
-	//////////////////////////////////////////////////////////////////////////////////////////
-	///// region methods
-	/////////////////////////////////////////////////////////////////////////////////////////
-
-	public boolean addInmueble(String inmueble) throws InterruptedException {
+	public boolean addInmueble(String inmueble) {
 		debugBegin();
 
 		boolean value = false;
 
 		if(inmueble != null && !inmueble.isEmpty()) {
-			value = this.addInmuebleByAddress();
-		} else {// value =
-				// this.addInmuebleByReferenciaCatastral(this.browserContext.getTestCaseData().getReferenciaCatastral());
-			value = this.addInmuebleByReferenciaCatastral(getData("fichero_referencias").getValue(userS.getScenario(), "ref_catastral"));
+			value = addInmuebleByAddress();
+		} else {
+			value = addInmuebleByReferenciaCatastral(getData(Constants.FICHERO_REFERENCIAS).getValue(userS.getScenario(), Constants.REFERENCIA_CATASTRAL));
 		}
-		/*
-		 * switch (inmueble) { case
-		 * MutuaPropietariosConstants.ReferenciaCatastralPorDefecto:
-		 * System.out.println("Primer case"); value =
-		 * this.addInmuebleByReferenciaCatastral(this.browserContext.
-		 * getTestCaseData().getReferenciaCatastral()); break; case
-		 * MutuaPropietariosConstants.DireccionPorDefecto:
-		 * System.out.println("Segundo case"); value =
-		 * this.addInmuebleByAddress(); break; }
-		 */
 
 		debugEnd();
 
 		return value;
 	}
 
-	public boolean addInmuebleByAddress() throws InterruptedException {
+	public boolean addInmuebleByAddress() {
 		debugBegin();
-		this.webDriver.waitForPageToLoad();
-		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirInmueblePantallaPrincipal,
-		// this.cuerpoFrame);
 
-		this.webDriver.clickInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
+		webDriver.clickInFrame(btnAnadirInmueblePantallaPrincipal, cuerpoFrame);
 
-		/*
-		 * this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame,
-		 * String.valueOf(this.browserContext.getTestCaseData().
-		 * getDireccionProvincia()));
-		 */
-		this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_provinvia")));
+		webDriver.appendTextInFrame(txtProvincia, cuerpoFrame, getTestVar(Constants.PROVINCIA));
+		webDriver.clickInFrame(lblMatchFoundElement, cuerpoFrame);
 
-		this.webDriver.clickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
+		webDriver.appendTextInFrame(txtPoblacion, cuerpoFrame, getTestVar(Constants.POBLACION));
+		webDriver.clickInFrame(lblMatchFoundElement, cuerpoFrame);
 
-		/*
-		 * this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame,
-		 * String.valueOf(this.browserContext.getTestCaseData().
-		 * getDireccionPoblacion()));
-		 */
-		this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, String.valueOf(getTestVar("direccion_poblacion")));
+		webDriver.appendTextInFrame(txtNombreVia, cuerpoFrame, getTestVar(Constants.NOMBRE_VIA));
+		webDriver.clickInFrame(lblMatchFoundElementVia, cuerpoFrame);
 
-		this.webDriver.clickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
+		webDriver.appendTextInFrame(txtNumeroVia, cuerpoFrame, getTestVar(Constants.NUM_VIA));
+		webDriver.appendTextInFrame(txtCodigoPostal, cuerpoFrame, getTestVar(Constants.CODIGO_POSTAL));
 
-		/*
-		 * this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame,
-		 * String.valueOf(this.browserContext.getTestCaseData().
-		 * getDireccionNombreVia()));
-		 */
-		this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_nombre_via")));
+		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
-		this.webDriver.clickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
-
-		/*
-		 * this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame,
-		 * String.valueOf(this.browserContext.getTestCaseData().
-		 * getDireccionNumeroVia()));
-		 */
-		this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, String.valueOf(getTestVar("direccion_numero_via")));
-
-		/*
-		 * this.webDriver.appendTextInFrame(this.txtCodigoPostal,
-		 * this.cuerpoFrame,
-		 * String.valueOf(this.browserContext.getTestCaseData().
-		 * getDireccionCodigoPostal()));
-		 */
-		this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, String.valueOf(getTestVar("direccion_codigo_postal")));
-
-		this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
-
-		// if (isExcluirGarajes())
-		if(Boolean.parseBoolean(getTestVar("ExcluirGarajes"))) {
-
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes)) {
-				this.webDriver.click(this.chkExcluirGarajes);
-			}
-			this.webDriver.exitFrame();
+		if(Boolean.parseBoolean(getTestVar(Constants.EXCLUIR_GARAJES)) && !webDriver.isSelectedInFrame(chkExcluirGarajes, cuerpoFrame)) {
+			webDriver.clickInFrame(chkExcluirGarajes, cuerpoFrame);
 		}
 
-		// if (isExcluirLocales())
-		if(Boolean.parseBoolean(getTestVar("ExlcuirLocales"))) {
-			this.webDriver.clickInFrame(this.chkExcluirLocales, this.cuerpoFrame);
+		if(Boolean.parseBoolean(getTestVar(Constants.EXCLUIR_LOCALES))) {
+			webDriver.clickInFrame(chkExcluirLocales, cuerpoFrame);
 		}
 
-		this.editCalidadConstruccion();
+		editCalidadConstruccion();
 
-		this.asegurarUnicamenteGarajes();
-		// this.webDriver.waitForPageLoadWithAngular();
-		this.webDriver.waitForLoadToComplete();
+		asegurarUnicamenteGarajes();
+		// webDriver.waitForPageLoadWithAngular();
 
-		// boolean value =
-		// this.webDriver.isPresentInFrameAndClick(this.btnAnadirInmuebleReferenciaCatastral,
-		// this.cuerpoFrame);
-		boolean value = this.webDriver.isPresentAndClickInFrame(this.btnAnadirInmueble, this.cuerpoFrame);
-		// this.webDriver.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
-		// this.cuerpoFrame);
+		boolean value = webDriver.isPresentAndClickInFrame(btnAnadirInmueble, cuerpoFrame);
+
+		if(value) {
+			webDriver.clickInFrame(btnAnadirInmueble, cuerpoFrame);
+		}
+
 		debugEnd();
+
 		return value;
 	}
 
-	public void addInmuebleByDefaultAddress() throws InterruptedException {
+	public boolean addInmuebleByDefaultAddress() {
 		debugBegin();
-		this.addInmuebleByAddress();
+		boolean result = addInmuebleByAddress();
 		debugEnd();
+
+		return result;
 	}
 
 	public boolean addInmuebleByReferenciaCatastral(String referenciaCatastral) {
 		debugBegin();
-		// this.webDriver.waitForPageLoadWithAngular();
-		// this.webDriver.waitForAngular();
-		this.webDriver.waitWithDriver(2000);
-		this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.waitWithDriver(3000);
-		this.webDriver.moveToElement(this.btnAnadirInmueblePantallaPrincipal);
-		this.webDriver.waitForElementToBeClickable(this.btnAnadirInmueblePantallaPrincipal);
-		this.webDriver.click(this.btnAnadirInmueblePantallaPrincipal);
-		// this.webDriver.waitForPageLoadWithAngular();
-		// this.webDriver.waitForAngular();
-		this.webDriver.waitWithDriver(2000);
-		this.webDriver.click(this.radioBtnCriterioBusquedaReferenciaCatastral);
+		// webDriver.waitForAngular();
+		webDriver.waitWithDriver(2000);
+		webDriver.waitForElementNotToBeClickable(loaderModal);
 
-		this.webDriver.click(this.txtReferenciaCatastral);
-		this.webDriver.waitForElementToBeClickable(this.radioBtnCriterioBusquedaReferenciaCatastral);
-		// this.webDriver.appendText(this.txtReferenciaCatastral,
-		// referenciaCatastral);
-		// System.out.println("Valor referenciaCatastral: " +
-		// referenciaCatastral);
-		this.webDriver.appendText(txtReferenciaCatastral, referenciaCatastral);
-		this.webDriver.click(this.btnBuscar);
-		// this.webDriver.waitForAngular();
+		webDriver.waitWithDriver(3000);
+		webDriver.clickInFrame(btnAnadirInmueblePantallaPrincipal, cuerpoFrame);
+		// webDriver.waitForAngular();
+		webDriver.waitWithDriver(2000);
+		webDriver.clickInFrame(radioBtnCriterioBusquedaReferenciaCatastral, cuerpoFrame);
+		webDriver.appendTextInFrame(txtReferenciaCatastral, cuerpoFrame, referenciaCatastral);
+		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		// webDriver.waitForAngular();
 
-		/*
-		 * Descomentar si se necesita marcar la opción: "asegurar únicamente
-		 * garajes
-		 */
+		// asegurarUnicamenteGarajes();
 
-		// this.asegurarUnicamenteGarajes();
-
-		// this.browserContext.webElementHelper.clickInFrame(this.btnAnadirInmuebleReferenciaCatastral,
-		// this.cuerpoFrame);
-
-		// this.webDriver.waitForElementNotToBeClickable(this.loaderModal);
-		this.webDriver.waitWithDriver(8000);
-		// this.webDriver.waitForElementToBeClickable(this.btnAnadirInmuebleReferenciaCatastral);
-		this.webDriver.click(this.btnAnadirInmueble);
-		// this.webDriver.waitWithDriver(1500);
-		this.webDriver.exitFrame();
+		webDriver.waitWithDriver(8000);
+		webDriver.clickInFrame(btnAnadirInmueble, cuerpoFrame);
 
 		debugEnd();
 
 		return true;
 	}
 
-	public void clickOnContinuar() {
+	public UbicacionRiesgoPage clickOnContinuar() {
 		debugBegin();
-		// this.webDriver.waitForPageLoadWithAngular();
-		// this.webDriver.waitForAngular();
-		this.webDriver.waitWithDriver(4000);
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		// this.GuardarRefCatastral(this.webDriver.getTextInFrame(this.txtCurrentReferenciaCatastral,
-		// this.cuerpoFrame));
-		this.GuardarRefCatastral(this.webDriver.getText(this.txtCurrentReferenciaCatastral));
-		this.webDriver.waitForElementToBeClickableAndClick(this.btnContinuar);
-		// this.webDriver.waitForAngular();
-		// this.webDriver.click(this.btnContinuar);
-		this.webDriver.exitFrame();
+
+		webDriver.waitWithDriver(4000);
+		GuardarRefCatastral(webDriver.getTextInFrame(txtCurrentReferenciaCatastral, cuerpoFrame));
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
 		debugEnd();
+
+		return this;
 	}
 
-	public void clickOnGuardar() {
+	public UbicacionRiesgoPage clickOnGuardar() {
 		debugBegin();
-		// this.webDriver.waitForPageLoadWithAngular();
-		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
+		webDriver.clickInFrame(btnGuardar, cuerpoFrame);
 		debugEnd();
+
+		return this;
 	}
 
-	public void closeAvisoSistemaPopup() throws IOException {
+	public UbicacionRiesgoPage closeAvisoSistemaPopup() {
 		debugBegin();
-		// this.browserContextwebDriverConfiguration.SetWebDriverTimeouts(5);
-		this.webDriver.switchToFrame(this.cuerpoFrame);
 
-		if(this.webDriver.getElements(txtAvisoSistema).size() > 0) {
-			this.webDriver.click(this.btnAceptar);
+		if(!webDriver.getElementsInFrame(txtAvisoSistema, cuerpoFrame).isEmpty()) {
+			webDriver.clickInFrame(btnAceptar, cuerpoFrame);
 		}
-		this.webDriver.exitFrame();
-		// this.browserContext.webDriverConfiguration.SetWebDriverTimeouts();
+
 		debugEnd();
+
+		return this;
 	}
 
-	public void modifyReferenciaCatastral() {
+	public UbicacionRiesgoPage modifyReferenciaCatastral() {
 		debugBegin();
 
-		String referenciaCatastral = this.webDriver.getTextInFrame(this.txtCurrentReferenciaCatastral, this.cuerpoFrame);
-		// String expectedReferenciaCatastral =
-		// this.browserContext.getTestCaseData().getReferenciaCatastral();
-		String expectedReferenciaCatastral = getConfigVar("ReferenciaCatastral");
+		String referenciaCatastral = webDriver.getTextInFrame(txtCurrentReferenciaCatastral, cuerpoFrame);
+		String expectedReferenciaCatastral = getScenarioVar(Constants.REFERENCIA_CATASTRAL);
 
 		if(!referenciaCatastral.trim().equals(expectedReferenciaCatastral.substring(0, expectedReferenciaCatastral.length() - 6))) {
-			this.webDriver.clickInFrame(this.btnModificarReferenciaCatastral, this.cuerpoFrame);
-			this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
-			this.webDriver.appendTextInFrame(this.txtReferenciaCatastral, this.cuerpoFrame, expectedReferenciaCatastral);
-			this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
-			this.webDriver.clickInFrame(this.btnModificarInmueble, this.cuerpoFrame);
+			webDriver.clickInFrame(btnModificarReferenciaCatastral, cuerpoFrame);
+			webDriver.clickInFrame(radioBtnCriterioBusquedaReferenciaCatastral, cuerpoFrame);
+			webDriver.appendTextInFrame(txtReferenciaCatastral, cuerpoFrame, expectedReferenciaCatastral);
+			webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+			webDriver.clickInFrame(btnModificarInmueble, cuerpoFrame);
 		}
 
 		debugEnd();
+
+		return this;
 	}
 
-	public void editInmuebleAndExcluirGarajesYLocales() {
-		// if (isExcluirGarajes() || isExcluirLocales())
-		if(Boolean.parseBoolean(getTestVar("ExcluirGarajes")) || Boolean.parseBoolean(getTestVar("ExcluirLocales"))) {
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.click(this.btnLapiz);
-			// if (!this.chkExcluirGarajes.isSelected() &&
-			// isExcluirGarajes())
+	public UbicacionRiesgoPage editInmuebleAndExcluirGarajesYLocales() {
+		if(Boolean.parseBoolean(getTestVar(Constants.EXCLUIR_GARAJES))
+			|| Boolean.parseBoolean(getTestVar(Constants.EXCLUIR_LOCALES))) {
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.click(btnLapiz);
 
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(getTestVar("ExcluirGarajes"))) {
-				this.webDriver.click(this.chkExcluirGarajes);
+			if(!webDriver.isSelected(chkExcluirGarajes) && Boolean.parseBoolean(getTestVar(Constants.EXCLUIR_GARAJES))) {
+				webDriver.click(chkExcluirGarajes);
 			}
 
-			// if (!this.chkExcluirLocales.isSelected() &&
-			// isExcluirLocales())
-			if(!this.webDriver.isSelected(this.chkExcluirGarajes) && Boolean.parseBoolean(getTestVar("excluir_locales"))) {
-				this.webDriver.click(this.chkExcluirLocales);
+			if(!webDriver.isSelected(chkExcluirGarajes) && Boolean.parseBoolean(getTestVar(Constants.EXCLUIR_LOCALES))) {
+				webDriver.click(chkExcluirLocales);
 			}
 
-			this.webDriver.click(this.btnModificarInmueble);
-			this.webDriver.exitFrame();
+			webDriver.click(btnModificarInmueble);
+			webDriver.exitFrame();
 		}
+
+		return this;
 	}
 
-	public void editCalidadConstruccion() {
-		// if (getCalidadConstruccion() != null)
-		if(getTestVar("calidad_construccion") != null) {
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-			// this.webDriver.selectValueInDropDown(this.cbkCalidadConstruccion,
-			// getCalidadConstruccion());
-			this.webDriver.clickElementFromDropDownByAttribute(this.cbkCalidadConstruccion, "value", getTestVar("calidad_construccion"));
-			this.webDriver.tabulateElement(this.cbkCalidadConstruccion);
-			this.webDriver.exitFrame();
+	public UbicacionRiesgoPage editCalidadConstruccion() {
+		debugBegin();
+
+		if(getTestVar(Constants.CALIDAD_CONSTRUCCION) != null) {
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.clickElementFromDropDownByAttribute(cbkCalidadConstruccion, "value", getTestVar("calidad_construccion"));
+			webDriver.tabulateElement(cbkCalidadConstruccion);
+			webDriver.exitFrame();
 		}
+
+		debugEnd();
+
+		return this;
 	}
 
-	// public void asegurarUnicamenteGarajes() {
-	// // if (isAsegurarUnicamenteGarajes())
-	// if(Boolean.parseBoolean(getTestVar(testId,
-	// "asegurar_unicamente_garajes"))) {
-	// this.webDriver.switchToFrame(this.cuerpoFrame);
-	// this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
-	// this.webDriver.tabulateElement(this.chkAsegurarUnicamenteGarajes);
-	// this.webDriver.exitFrame();
-	// }
-	// }
+	public UbicacionRiesgoPage asegurarUnicamenteGarajes() {
+		debugBegin();
 
-	public void asegurarUnicamenteGarajes() {
-		// if (isAsegurarUnicamenteGarajes())
-		// if(Boolean.parseBoolean(getScenarioVar(testId,
-		// "asegurar_unicamente_garajes"))) {
-		// this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.waitWithDriver(2000);
-		this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
+		if(getScenarioVar(Constants.ASEGURAR_UNICAMENTE_GARAJES).equals("true")) {
+			webDriver.clickInFrame(chkAsegurarUnicamenteGarajes, cuerpoFrame);
+			webDriver.tabulateElementInFrame(chkAsegurarUnicamenteGarajes, cuerpoFrame);
+		}
 
-		this.webDriver.tabulateElement(this.chkAsegurarUnicamenteGarajes);
-		// this.webDriver.click(this.chkAsegurarUnicamenteGarajes);
-		// this.webDriver.exitFrame();
-		// }
+		debugEnd();
+
+		return this;
 	}
 
-	public void printLogProcessPercentage(String message, int current, int total) {
+	public UbicacionRiesgoPage printLogProcessPercentage(String message, int current, int total) {
 		if((int) ((double) current / (double) total * 100) > (int) ((double) current - 1 / (double) total * 100)) {
 			debugInfo(message + (int) ((double) current / (double) total * 100) + "%");
 		}
+
+		return this;
 	}
 
-	public void iterarEdificiosPorDirecciones(String nombreFichero) throws InterruptedException {
+	public UbicacionRiesgoPage iterarEdificiosPorDirecciones(String nombreFichero) {
 		debugBegin();
 
-		// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirInmueblePantallaPrincipal,
-		// this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
+		webDriver.clickInFrame(btnAnadirInmueblePantallaPrincipal, cuerpoFrame);
 
 		// Read file and fill HashMap
 		DataObject dataObject = new DataObject(csvFileToMData(nombreFichero));
@@ -449,190 +287,179 @@ public class UbicacionRiesgoPage extends PageObject {
 		// Iterate by number of lines
 		for(int i = 0; i < dataObject.size(); i++) {
 			boolean dropDownPresent = true;
-			String provincia = dataObject.getValue(i + "", "provincia");
-			String poblacion = dataObject.getValue(i + "", "poblacion");
-			String direccion = dataObject.getValue(i + "", "direccion");
-			String numero = dataObject.getValue(i + "", "numero");
+			String provincia = dataObject.getValue(i + "", Constants.PROVINCIA);
+			String poblacion = dataObject.getValue(i + "", Constants.POBLACION);
+			String direccion = dataObject.getValue(i + "", Constants.NOMBRE_VIA);
+			String numero = dataObject.getValue(i + "", Constants.NUM_VIA);
 			String direccionTotal = provincia + " " + poblacion + " " + direccion + " " + numero;
+
 			// Print iteration process percentage
-			this.printLogProcessPercentage("Iterations - ", i, dataObject.size());
+			printLogProcessPercentage("Iterations - ", i, dataObject.size());
 
-			// If text in field "provincia" is not equals to the
-			// provincia(i) value
-			if(!this.webDriver.getTextInFrame(this.txtProvincia, this.cuerpoFrame).contains(provincia)) {
+			// If text in field "provincia" is not equals to the provincia(i) value
+			if(!webDriver.getTextInFrame(txtProvincia, cuerpoFrame).contains(provincia)) {
 				// Fill provincia
-				// this.webDriver.waitForPageLoadToFinish();
-				this.webDriver.appendTextInFrame(this.txtProvincia, this.cuerpoFrame, provincia);
-				// this.webDriver.clickInFrame(this.lblMatchFoundElement,
-				// this.cuerpoFrame);
-				// this.webDriver.waitForPageLoadWithAngular();
-				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
-				if(!dropDownPresent)
-					System.out.println("Nombre de provincia no encontrado en el dropdown\n" + direccionTotal);
+				webDriver.appendTextInFrame(txtProvincia, cuerpoFrame, provincia);
+
+				// webDriver.waitForAngular();
+				dropDownPresent = webDriver.isPresentAndClickInFrame(lblMatchFoundElement, cuerpoFrame);
+				if(!dropDownPresent) {
+					debugInfo("Nombre de provincia no encontrado en el dropdown\n" + direccionTotal);
+				}
 			}
 
-			// If text in field "poblacion" is not equals to the
-			// poblacion(i) value
-			if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtPoblacion, this.cuerpoFrame).contains(poblacion)) {
+			// If text in field "poblacion" is not equals to the poblacion(i) value
+			if(dropDownPresent && !webDriver.getTextInFrame(txtPoblacion, cuerpoFrame).contains(poblacion)) {
 				// Fill poblacion
-				// this.webDriver.waitForAngular();
-				this.webDriver.appendTextInFrame(this.txtPoblacion, this.cuerpoFrame, poblacion);
-				// this.webDriver.waitForPageLoadWithAngular();
-				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElement, this.cuerpoFrame);
-				if(!dropDownPresent)
-					System.out.println("Nombre de población no encontrado en el dropdown\n" + direccionTotal);
+				// webDriver.waitForAngular();
+				webDriver.appendTextInFrame(txtPoblacion, cuerpoFrame, poblacion);
+				// webDriver.waitForAngular();
+				dropDownPresent = webDriver.isPresentAndClickInFrame(lblMatchFoundElement, cuerpoFrame);
+				if(!dropDownPresent) {
+					debugInfo("Nombre de población no encontrado en el dropdown\n" + direccionTotal);
+				}
 			}
 
-			// If text in field "direccion" is not equals to the
-			// direccion(i) value
-			if(dropDownPresent && !this.webDriver.getTextInFrame(this.txtNombreVia, this.cuerpoFrame).contains(direccion)) {
+			// If text in field "direccion" is not equals to the direccion(i) value
+			if(dropDownPresent && !webDriver.getTextInFrame(txtNombreVia, cuerpoFrame).contains(direccion)) {
 				// Fill direccion
-				// this.webDriver.waitForAngular();
-				this.webDriver.appendTextInFrame(this.txtNombreVia, this.cuerpoFrame, direccion);
-				// this.webDriver.waitForPageLoadWithAngular();
-				dropDownPresent = this.webDriver.isPresentAndClickInFrame(this.lblMatchFoundElementVia, this.cuerpoFrame);
-				if(!dropDownPresent)
-					System.out.println("Nombre de via no encontrado en el dropdown\n" + direccionTotal);
+				// webDriver.waitForAngular();
+				webDriver.appendTextInFrame(txtNombreVia, cuerpoFrame, direccion);
+				// webDriver.waitForAngular();
+				dropDownPresent = webDriver.isPresentAndClickInFrame(lblMatchFoundElementVia, cuerpoFrame);
+				if(!dropDownPresent) {
+					debugInfo("Nombre de via no encontrado en el dropdown\n" + direccionTotal);
+				}
 			}
 
 			// Fill numero
-			if(this.webDriver.isPresentInFrame(this.txtNumeroVia, this.cuerpoFrame))
-				this.webDriver.appendTextInFrame(this.txtNumeroVia, this.cuerpoFrame, numero);
+			if(webDriver.isPresentInFrame(txtNumeroVia, cuerpoFrame)) {
+				webDriver.appendTextInFrame(txtNumeroVia, cuerpoFrame, numero);
+			}
+
 			// Fill codigo postal
-			if(this.webDriver.isPresentInFrame(this.txtCodigoPostal, this.cuerpoFrame)) {
-				String codigoPostal = dataObject.getValue(i + "", "codigo_postal");
-				this.webDriver.appendTextInFrame(this.txtCodigoPostal, this.cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
+			if(webDriver.isPresentInFrame(txtCodigoPostal, cuerpoFrame)) {
+				String codigoPostal = dataObject.getValue(i + "", Constants.CODIGO_POSTAL);
+				webDriver.appendTextInFrame(txtCodigoPostal, cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
 			}
 
 			if(dropDownPresent) {
 				try {
 					// Search
-					this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
+					webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
 					// Wait result
-					System.out.println(this.webDriver.isPresentInFrame(this.resultadoBusqueda, this.cuerpoFrame) ? "Dirección normalizada"
+					debugInfo(webDriver.isPresentInFrame(resultadoBusqueda, cuerpoFrame) ? "Dirección normalizada"
 						: "Direccion no encontrada\n" + direccionTotal);
-					// this.webDriver.waitForWebElementInFrame(this.resultadoBusqueda,
-					// this.cuerpoFrame);
-
 				} catch(UnhandledAlertException e) {
-					// WebElement Alert = null;
-
-					// Manage alert Pop-up
-					// this.webDriver.getAlertTextAndAccept(Alert);
-					this.webDriver.acceptAlert();
-					// System.out.println(this.webDriver.getAlertText());
-					// this.webDriver.exitFrame();
+					debugError(webDriver.getAlertText());
+					webDriver.acceptAlert();
 				}
 			}
 		}
 
-		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
-		this.webDriver.quit();
+		webDriver.clickInFrame(btnCancelar, cuerpoFrame);
+		webDriver.quit();
 		debugEnd();
+
+		return this;
 	}
 
-	public void iterarEdificiosPorReferencias(String nombreFichero) throws Exception {
+	public UbicacionRiesgoPage iterarEdificiosPorReferencias(String nombreFichero) throws Exception {
 		debugBegin();
 
-		// this.webDriver.moveToElementAndClickInFrame(this.btnAnadirInmueblePantallaPrincipal,
-		// this.cuerpoFrame);
-		this.webDriver.isPresentAndClickInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
-		// this.webDriver.waitForPageLoadWithAngular();
-		this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
+		webDriver.isPresentAndClickInFrame(btnAnadirInmueblePantallaPrincipal, cuerpoFrame);
+		// webDriver.waitForAngular();
+		webDriver.clickInFrame(radioBtnCriterioBusquedaReferenciaCatastral, cuerpoFrame);
 
 		// Read file and fill HashMap
 		DataObject dataObject = new DataObject(csvFileToMData(nombreFichero));
 
 		// Iterate by number of lines
 		for(int i = 0; i < dataObject.size(); i++) {
-			System.out.println("***En en bucle iterar");
-			String refCat = dataObject.getValue(i + "", "ref_catastral");
+			debugInfo("***En en bucle iterar");
+			String refCat = dataObject.getValue(i + "", Constants.REFERENCIA_CATASTRAL);
+
 			// Print iteration process percentage
-			this.printLogProcessPercentage("Iterations - ", i, dataObject.size());
+			printLogProcessPercentage("Iterations - ", i, dataObject.size());
 
 			// Search
 			try {
 				// Fill referencia_catastral
-				this.webDriver.appendTextInFrame(this.txtReferenciaCatastral, this.cuerpoFrame, refCat);
+				webDriver.appendTextInFrame(txtReferenciaCatastral, cuerpoFrame, refCat);
 
-				this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
+				webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
 				// Wait result
-				if(this.webDriver.isPresentInFrame(this.mensajeModalError, this.cuerpoFrame)) {
-					System.out.println("Referencia catastral no encontrada\n" + refCat);
-					this.webDriver.clickInFrame(this.btnModalError, this.cuerpoFrame);
+				if(webDriver.isPresentInFrame(mensajeModalError, cuerpoFrame)) {
+					debugInfo("Referencia catastral no encontrada\n" + refCat);
+					webDriver.clickInFrame(btnModalError, cuerpoFrame);
 				} else {
-					// this.webDriver.waitForWebElementInFrame(this.resultadoBusqueda,
-					// this.cuerpoFrame);
-					this.webDriver.waitForElementToBePresentInFrame(this.resultadoBusqueda, this.cuerpoFrame);
-					System.out.println("Referencia catastral encontrada");
+					webDriver.waitForElementToBePresentInFrame(resultadoBusqueda, cuerpoFrame);
+					debugInfo("Referencia catastral encontrada");
 				}
 			} catch(UnhandledAlertException e) {
-				// WebElement Alert = null;
-
 				// Manage alert Pop-up
-				this.webDriver.acceptAlert();
-				System.out.println("Error con referencia catastral\n" + refCat);
-				// this.webDriver.exitFrame();
+				webDriver.acceptAlert();
+				debugInfo("Error con referencia catastral\n" + refCat);
 			} catch(Exception e) {
-				this.webDriver.quit();
+				webDriver.quit();
 
 				new LoginPage(userS)
-					.logIn(getConfigVar("environment"), getTestVar("acceso"), getTestVar("usuario"));
+					.logIn(getConfigVar(Constants.ENTORNO), getTestVar(Constants.ACCESO), getTestVar(Constants.USUARIO));
 
 				// FichaEdificioPage
-				InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
-				innovaHomePage.openMutuaEdificioConfort();
-				innovaHomePage.openNewProjectMec();
+				new InnovaHomePage(userS)
+					.openMutuaEdificioConfort()
+					.openNewProjectMec();
 
-				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
-				//
-				// REVISAR PARAMETROS DE ENTRADA DE: AsignarMediadorPage
-				//
-				// asignarMediadorPage.selectMediadorAndClickOnContinuar(getConfigVar("mediador"));
-				asignarMediadorPage.selectMediadorAndClickOnContinuar();
+				new AsignarMediadorPage(userS)
+					.selectMediadorAndClickOnContinuar();
 
-				this.webDriver.moveToElementInFrame(this.btnAnadirInmueblePantallaPrincipal, this.cuerpoFrame);
-				this.webDriver.clickInFrame(this.radioBtnCriterioBusquedaReferenciaCatastral, this.cuerpoFrame);
+				webDriver.moveToElementInFrame(btnAnadirInmueblePantallaPrincipal, cuerpoFrame);
+				webDriver.clickInFrame(radioBtnCriterioBusquedaReferenciaCatastral, cuerpoFrame);
 			}
 		}
-		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
-		this.webDriver.quit();
+
+		webDriver.clickInFrame(btnCancelar, cuerpoFrame);
+		webDriver.quit();
+
 		debugEnd();
+
+		return this;
 	}
 
 	public boolean checkNotification() {
-		return this.webDriver.isPresentInFrame(this.txtMensajeError, this.cuerpoFrame);
+		return webDriver.isPresentInFrame(txtMensajeError, cuerpoFrame);
 	}
 
 	public boolean closeNotification() {
 		debugBegin();
+
 		boolean value = false;
 
-		if(this.checkNotification()) {
-			this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
+		if(checkNotification()) {
+			webDriver.clickInFrame(btnAceptar, cuerpoFrame);
 			value = true;
 		}
 
 		debugEnd();
+
 		return value;
 	}
 
-	public void GuardarRefCatastral(String cadenaTexto) {
-		try {
-			// String ruta = fileDownloadTempPath + "\\Polizas.txt";
-			// String ruta =
-			// this.browserContext.getTestCaseData().getFileDownloadTempPath() +
-			// "\\Polizas.txt";
-			String ruta = getConfigVar("fileDownloadTempPath") + "\\Polizas.txt";
-			// File archivo = new File("C:\\MutuaPropietarios\\Polizas.txt");
-			BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(ruta, true), StandardCharsets.UTF_8));
-			bw.write(cadenaTexto + "_");
-			bw.close();
-		} catch(Exception e) {
+	public UbicacionRiesgoPage GuardarRefCatastral(String cadenaTexto) {
+		debugBegin();
 
-		}
+		try {
+			String ruta = userS.getReportPath() + "/Polizas.txt";
+
+			FileUtils.appendToFile(ruta, cadenaTexto + "_");
+		} catch(Exception e) {}
+
+		debugEnd();
+
+		return this;
 	}
 	// endregion
 }

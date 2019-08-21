@@ -1,12 +1,22 @@
 package com.amaris.project.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.openqa.selenium.WebElement;
 
+import com.amaris.automation.model.testing.UserStory;
+import com.amaris.project.Constants;
+
 public class MotivosSuplementoHelper {
+	
 	private Boolean selected;
 	private String Description;
 	private WebElement checkbox;
 	private Integer pageNumber;
+	private static Map<String, Map<String, Boolean>> motivosSuplementos = new HashMap<>();
 
 	public MotivosSuplementoHelper(Boolean selected, String Description, WebElement checkbox, Integer pageNumber) {
 		this.selected = selected;
@@ -46,6 +56,18 @@ public class MotivosSuplementoHelper {
 
 	public void setPageNumber(Integer pageNumber) {
 		this.pageNumber = pageNumber;
+	}
+
+	public static Map<String, Boolean> getMotivosSuplementos(UserStory userS) {
+		if(motivosSuplementos.get(userS.getTestId()) == null) {
+			motivosSuplementos.put(userS.getTestId(), new HashMap<String, Boolean>());
+		}
+		
+		return motivosSuplementos.get(userS.getTestId());
+	}
+
+	public static void addMotivoSuplemento(String key, boolean value, UserStory userS) {
+		getMotivosSuplementos(userS).put(key, value);
 	}
 	// endregion
 }

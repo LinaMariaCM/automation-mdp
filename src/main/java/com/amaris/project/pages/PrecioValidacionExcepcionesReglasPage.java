@@ -1,42 +1,28 @@
 package com.amaris.project.pages;
 
+import org.openqa.selenium.By;
+
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
 public class PrecioValidacionExcepcionesReglasPage extends PageObject {
 
+	// region webelements
+	private By cuerpoFrame = By.name("cuerpo");
+	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
+	// endregion
+
 	PrecioValidacionExcepcionesReglasPage(UserStory userS) {
 		super(userS);
 	}
 
-	// // region webelements
-	// @FindBy(name = "cuerpo")
-	// private WebElement cuerpoFrame;
-	//
-	// @FindBy(xpath = ".//*[text()='Continuar']")
-	// private WebElement btnContinuar;
-	// // endregion
-	//
-	// public PrecioValidacionExcepcionesReglasPage(
-	// BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
-	// public void ClickOnContinuar()
-	// {
-	// logger.debug("BEGIN - ClickOnContinuar");
-	// this.browserContext.webElementHelper.switchToFrame(this.cuerpoFrame);
-	// // this.browserContext.webElementHelper.ScrollToEndOfPage();
-	//
-	// this.btnContinuar.click();
-	//
-	// this.browserContext.webElementHelper.exitFromFrame();
-	// logger.debug("END - ClickOnContinuar");
-	// }
-	// // endregion
+	// region methods
+	public PrecioValidacionExcepcionesReglasPage ClickOnContinuar() {
+		debugBegin();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		debugEnd();
+		
+		return this;
+	}
+	// endregion
 }

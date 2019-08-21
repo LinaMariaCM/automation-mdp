@@ -7,56 +7,25 @@ import com.amaris.automation.model.testing.objects.PageObject;
 public class GestionAutorizacionesPage extends PageObject {
 
 	// region webelements
-
-	// @FindBy(id = "PROCESO")
-
-	//private By cmbProceso = By.id("PROCESO");
-
+	private By cuerpoFrame = By.name("cuerpo");
+	private By topFrame = By.cssSelector("#topFrame");
+	private By mainFrame = By.cssSelector("#mainFrame");
+	
 	private By cmbProceso = By.name("PROCESO");
-
-
-	// @FindBy(id = "ESTADO")
 	private By cmbEstado = By.cssSelector("#ESTADO");
-
-	// @FindBy(name = "botonBuscar")
 	private By btnBuscar = By.name("botonBuscar");
 
-	// @FindBy(id = "topFrame")
-	private By topFrame = By.cssSelector("#topFrame");
-
-	// @FindBy(id = "mainFrame")
-	private By mainFrame = By.cssSelector("#mainFrame");
-
-	// @FindBy(id = "NUMOBJETO")
 	private By numCotizacion = By.cssSelector("#NUMOBJETO");
 
-	// @FindBy(name = "cuerpo")
-	private By cuerpoFrame = By.name("cuerpo");
-
-	// @FindBy(xpath = ".//*[@value='COTIZACION']")
 	private By ddCotizacion = By.xpath(".//*[@value='COTIZACION']");
-
-	// @FindBy(xpath = ".//*[@value='PENDIENTE']")
 	private By ddPendiente = By.xpath(".//*[@value='PENDIENTE']");
 
-	// @FindBy(xpath = "//*[contains(@id, 'capaPuntos')]")
 	private By btnFlecha = By.xpath("//*[contains(@id, 'capaPuntos')]");
-
-	// @FindBy(linkText = "Autorizar")
 	private By btnAutorizar = By.linkText("Autorizar");
-
-	// @FindBy(linkText = "Anular")
 	private By btnAnular = By.linkText("Anular");
-
-	// @FindBy(id = "botonAutorizar")
 	private By btnAutorizar2 = By.cssSelector("#botonAutorizar");
-
-	// @FindBy(id = "botonAnular js-href")
 	private By btnAnular2 = By.cssSelector("botonAnular");
-
-	// @FindBy(css = "tbody tbody span")
 	private By mjsResultadoAut = By.cssSelector("tbody tbody span");
-
 	// endregion
 
 	public GestionAutorizacionesPage(UserStory userS) {
@@ -64,45 +33,55 @@ public class GestionAutorizacionesPage extends PageObject {
 	}
 
 	// region methods
-
-	public void buscarAutorizaciones(
-		String seleccionProceso, String seleccionEstado, String noCotizacion) {
+	public GestionAutorizacionesPage buscarAutorizaciones(String seleccionProceso, String seleccionEstado, String noCotizacion) {
 		debugBegin();
 		
-		this.webDriver.clickInFrame(this.cmbProceso, this.mainFrame);
+		webDriver.clickInFrame(cmbProceso, mainFrame);
 		
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbProceso, this.mainFrame, seleccionProceso);
-		this.webDriver.clickInFrame(this.cmbEstado, this.mainFrame);
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbEstado, this.mainFrame, seleccionEstado);
-		this.webDriver.clickInFrame(this.numCotizacion, this.mainFrame);
-		this.webDriver.setTextInFrame(this.numCotizacion, this.mainFrame, noCotizacion);
-		this.webDriver.clickInFrame(this.btnBuscar, this.mainFrame);
+		webDriver.clickElementFromDropDownByTextInFrame(cmbProceso, mainFrame, seleccionProceso);
+		webDriver.clickInFrame(cmbEstado, mainFrame);
+		webDriver.clickElementFromDropDownByTextInFrame(cmbEstado, mainFrame, seleccionEstado);
+		webDriver.clickInFrame(numCotizacion, mainFrame);
+		webDriver.setTextInFrame(numCotizacion, mainFrame, noCotizacion);
+		webDriver.clickInFrame(btnBuscar, mainFrame);
 		
 		debugEnd();
+		
+		return this;
 	}
 
-	public void autorizar() {
+	public GestionAutorizacionesPage autorizar() {
 		debugBegin();
-		this.webDriver.clickInFrame(this.btnFlecha, this.mainFrame);
-		this.webDriver.clickInFrame(this.btnAutorizar, this.mainFrame);
-		this.webDriver.clickInFrame(this.btnAutorizar2, this.mainFrame);
+		
+		webDriver.clickInFrame(btnFlecha, mainFrame);
+		webDriver.clickInFrame(btnAutorizar, mainFrame);
+		webDriver.clickInFrame(btnAutorizar2, mainFrame);
+		
 		debugEnd();
+		
+		return this;
 	}
 
-	public void denegar() {
+	public GestionAutorizacionesPage denegar() {
 		debugBegin();
-		this.webDriver.clickInFrame(this.btnFlecha, this.mainFrame);
-		this.webDriver.clickInFrame(this.btnAnular, this.mainFrame);
-		this.webDriver.clickInFrame(this.btnAnular2, this.mainFrame);
+		
+		webDriver.clickInFrame(btnFlecha, mainFrame);
+		webDriver.clickInFrame(btnAnular, mainFrame);
+		webDriver.clickInFrame(btnAnular2, mainFrame);
+		
 		debugEnd();
+		
+		return this;
 	}
 
 	public String recuperarResultadoAutorizacion() {
 		debugBegin();
-		String result = this.webDriver.getTextInFrame(this.mjsResultadoAut, this.mainFrame);
+		
+		String result = webDriver.getTextInFrame(mjsResultadoAut, mainFrame);
+		
 		debugEnd();
+		
 		return result;
 	}
-
 	// endregion
 }

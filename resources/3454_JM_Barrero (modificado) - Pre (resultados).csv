@@ -1,4 +1,4 @@
-provincia;poblacion;direccion;numero;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto;capital_continente;total_asegurado;capital_contenido;precios_antes_proyecto;precios_despues_proyecto;precio_basic;precio_plus
+provincia;poblacion;nombre_via;num_via;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto;capital_continente;total_asegurado;capital_contenido;precios_antes_proyecto;precios_despues_proyecto;precio_basic;precio_plus
 BARCELONA;BARCELONA; ARENYS ;82;;8035;1.827,42 €;1964;82594;1.717.010,00;1.717.010,00;17.170,10;;;1.530,84 €;2.153,21 €
 BARCELONA;BARCELONA; ARENYS ;88;;8035;2.296,71 €;1967;82595;2.388.689,00;2.388.689,00;23.886,89;;;1.948,06 €;2.671,49 €
 BARCELONA;BARCELONA; ARIOSTO ;15;;8035;1.085,06 €;1999;82597;1.179.400,00;1.179.400,00;11.794,00;;;940,22 €;1.298,91 €

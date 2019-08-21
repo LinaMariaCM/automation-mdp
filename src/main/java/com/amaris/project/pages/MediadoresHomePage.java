@@ -1,95 +1,78 @@
 package com.amaris.project.pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
 public class MediadoresHomePage extends PageObject {
 
+	// region webelements
+	private By menuFrame = By.cssSelector("#leftFrame");
+	private By topFrame = By.cssSelector("#topFrame");
+	private By mainFrame = By.cssSelector("#mainFrame");
+
+	private By btnAltaProspect = By.xpath(".//*[contains(@title,'Prospect')]");
+	private By btnAltaMediador = By.xpath(".//*[contains(@title,'Mediador  ')]");
+	private By btnMatrices = By.xpath(".//*[contains(@title,'Matrices')]");
+	private By btnArboles = By.xpath(".//*[contains(@title,'Árboles')]");
+	private By btnEnvio = By.xpath(".//*[contains(@title,'Envío')]");
+	private By btnRecepcion = By.xpath(".//*[contains(@title,'Recepción')");
+	// endregion
+
 	MediadoresHomePage(UserStory userS) {
 		super(userS);
 	}
 
-	// // region webelements
-	// @FindBy(id = "leftFrame")
-	// private WebElement menuFrame;
-	//
-	// @FindBy(id = "topFrame")
-	// private WebElement topFrame;
-	//
-	// @FindBy(id = "mainFrame")
-	// private WebElement mainFrame;
-	//
-	// @FindBy(xpath = ".//*[contains(@title,'Prospect')]")
-	// private WebElement btnAltaProspect;
-	//
-	// @FindBy(xpath = ".//*[contains(@title,'Mediador')]")
-	// private WebElement btnAltaMediador;
-	//
-	// @FindBy(xpath = ".//*[contains(@title,'Matrices')]")
-	// private WebElement btnMatrices;
-	//
-	// @FindBy(xpath = ".//*[contains(@title,'Árboles')]")
-	// private WebElement btnArboles;
-	//
-	// @FindBy(xpath = ".//*[contains(@title,'Envío')]")
-	// private WebElement btnEnvio;
-	//
-	// @FindBy(xpath = ".//*[contains(@title,'Recepción')]")
-	// private WebElement btnRecepcion;
-	// // endregion
-	//
-	// public MediadoresHomePage(BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
-	// public void openAltaProspect()
-	// {
-	// logger.debug("BEGIN - openAltaProspect");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnAltaProspect,
-	// this.menuFrame);
-	// logger.debug("END - openAltaProspect");
-	// }
-	//
-	// public void openAltaMediador()
-	// {
-	// logger.debug("BEGIN - openAltaMediador");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnAltaMediador,
-	// this.menuFrame);
-	// logger.debug("END - openAltaMediador");
-	// }
-	//
-	// public void openMatrices()
-	// {
-	// logger.debug("BEGIN - openMatrices");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnMatrices, this.menuFrame);
-	// logger.debug("END - openMatrices");
-	// }
-	//
-	// public void openArboles()
-	// {
-	// logger.debug("BEGIN - openArboles");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnArboles, this.menuFrame);
-	// logger.debug("END - openArboles");
-	// }
-	//
-	// public void openEnvio()
-	// {
-	// logger.debug("BEGIN - openEnvio");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnEnvio, this.menuFrame);
-	// logger.debug("END - openEnvio");
-	// }
-	//
-	// public void openRecepcion()
-	// {
-	// logger.debug("BEGIN - openRecepcion");
-	// this.wh.doubleClickOnWebElementInFrame(this.btnRecepcion,
-	// this.menuFrame);
-	// logger.debug("END - openRecepcion");
-	// }
-	// // endregion
+	// region methods
+	public MediadoresHomePage openAltaProspect() {
+		debugBegin();
+		webDriver.doubleClickInFrame(btnAltaProspect, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openAltaMediador() {
+		debugBegin();
+		webDriver.doubleClickInFrame(btnAltaMediador, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openMatrices() {
+		debugBegin();
+		webDriver.doubleClickInFrame(btnMatrices, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openArboles() {
+		debugBegin();
+		webDriver.doubleClickInFrame(btnArboles, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openEnvio() {
+		debugBegin();
+		webDriver.doubleClickInFrame(btnEnvio, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openRecepcion() {
+		debugBegin();
+		webDriver.doubleClickInFrame(btnRecepcion, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+	// endregion
 }

@@ -1,521 +1,424 @@
 package com.amaris.project.pages;
 
+import java.io.IOException;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.FindBy;
+
+import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 
 public class MediadoresAltaMediadorPage extends PageObject {
+
+	// region webelements
+	private By menuFrame = By.cssSelector("#leftFrame");
+	private By topFrame = By.cssSelector("#topFrame");
+	private By mainFrame = By.cssSelector("#mainFrame");
+	private By modalFrame = By.cssSelector("#capaIframe");
+
+	private By drpdwnNivelEstructura = By.cssSelector("#MEDI_NIVEESTR");
+	private By drpdwnActividadPrincipal = By.cssSelector("#MEDI_ACTIPRIN");
+	private By txtContactoResponsable = By.cssSelector("#MEDI_PERSCONT");
+	private By drpdwnIdioma = By.cssSelector("#MEDI_IDIOMA");
+	private By txtTlf1 = By.cssSelector("#MEDI_TELEFONO1");
+	private By drpdwnEjecutivoComercial = By.cssSelector("#MEDI_EJECCOME");
+
+	private By txtProvincia = By.cssSelector("#ALTACLIE_PROVINCIA_ARVATO");
+	private By txtPoblacion = By.cssSelector("#ALTACLIE_POBLACION_ARVATO");
+	private By txtVia = By.cssSelector("#ALTACLIE_NOMVIA_ARVATO");
+
+	private By btnComprobarDireccion = By.cssSelector("#BOTON_NORMADOM");
+	private By btnAceptarDireccion = By.cssSelector("#BOTON_ACEPTAR");
+	private By btnAceptarDireccionPostal = By.cssSelector("#BOTON_ACEPDOMI");
+	private By btnAsignarDomicilio = By.cssSelector("#BOTON_DOMIMEDI");
+
+	private By drpdwnTipoMediador = By.cssSelector("#ALTAMEDI_TIPOMEDIALTA");
+	private By drpdwnTipoDocumento = By.cssSelector("#ALTAMEDI_TIPODOCMED");
+	private By txtNumeroDocumento = By.cssSelector("#ALTAMEDI_NUMDOC");
+	private By txtNumRegistroDGS = By.cssSelector("#ALTAMEDI_NREGDGS");
+	private By txtCargoResponsable = By.cssSelector("#ALTAMEDI_CARGRESP");
+	private By txtNombreFiscal = By.cssSelector("#ALTAMEDI_NOMFISCMED");
+	private By txtPrimerApellido = By.cssSelector("#ALTAMEDI_APE1FISC");
+	private By txtSegundoApellido = By.cssSelector("#ALTAMEDI_APE2FISC");
+	private By txtEmailPrincipal = By.cssSelector("#ALTAMEDI_EMAILPRI");
+	private By drpdwnTipoDomicilio = By.cssSelector("#ALTAMEDI_TIPDOMME");
+	private By radioNombreComercialIgualFiscal = By.cssSelector("#ALTAMEDI_NOMCOIGU");
+	private By radioNombreComercialDiferenteFiscal = By.cssSelector("#ALTAMEDI_NOMCODIF");
+	private By radioDireccionIgualFiscal = By.cssSelector("#ALTAMEDI_IGUFISC");
+	private By txtNombreComercial = By.cssSelector("#ALTAMEDI_OTRONOMB");
+	private By tieneOficinasNo = By.cssSelector("#ALTAMEDI_OFINO");
+	private By colaboradresExternosNo = By.cssSelector("#ALTAMEDI_TRABAJANO");
+	private By softwareGestionNo = By.cssSelector("#ALTAMEDI_SOFTNO");
+	private By companiasPrincipales = By.cssSelector("#ALTAMEDI_COMPPRIN");
+
+	private By btnContinuar = By.cssSelector("#botonContinuar1");
+	private By btnGrabar = By.cssSelector("#botonGrabar1");
+	private By drpdwnProvincia = By.cssSelector("body > ul:nth-child(4)");
+	private By drpdwnPoblacion = By.cssSelector("body > ul:nth-child(5)");
+	private By drpdwnVia = By.cssSelector("body > ul:nth-child(6)");
+	private By anyadirNuevaDireccion = By.cssSelector("#capaDireccionesPaso2 > div > div.floatright.peq > a");
+
+	// Datos transaccionales page elements.
+	private By txtCodigoIban = By.cssSelector("#COMODIN_CADENA");
+	private By txtBanco = By.cssSelector("#COMODIN_CADENA_1");
+	private By txtSucursal = By.cssSelector("#COMODIN_CADENA_2");
+	private By txtDc = By.cssSelector("#COMODIN_CADENA_3");
+	private By txtCta1 = By.cssSelector("#COMODIN_CADENA_4");
+	private By txtCta2 = By.cssSelector("#COMODIN_CADENA_5");
+	// endregion
 
 	MediadoresAltaMediadorPage(UserStory userS) {
 		super(userS);
 	}
 
-	// // region webelements
-	// @FindBy(id = "leftFrame")
-	// private WebElement menuFrame;
-	//
-	// @FindBy(id = "topFrame")
-	// private WebElement topFrame;
-	//
-	// @FindBy(id = "mainFrame")
-	// private WebElement mainFrame;
-	//
-	// @FindBy(id = "capaIframe")
-	// private WebElement modalFrame;
-	//
-	// @FindBy(id = "MEDI_NIVEESTR")
-	// private WebElement drpdwnNivelEstructura;
-	//
-	// @FindBy(id = "ALTAMEDI_TIPOMEDIALTA")
-	// private WebElement drpdwnTipoMediador;
-	//
-	// @FindBy(id = "ALTAMEDI_TIPODOCMED")
-	// private WebElement drpdwnTipoDocumento;
-	//
-	// @FindBy(id = "ALTAMEDI_NUMDOC")
-	// private WebElement txtNumeroDocumento;
-	//
-	// @FindBy(id = "ALTAMEDI_NREGDGS")
-	// private WebElement txtNumRegistroDGS;
-	//
-	// @FindBy(id = "MEDI_ACTIPRIN")
-	// private WebElement drpdwnActividadPrincipal;
-	//
-	// @FindBy(id = "MEDI_PERSCONT")
-	// private WebElement txtContactoResponsable;
-	//
-	// @FindBy(id = "ALTAMEDI_CARGRESP")
-	// private WebElement txtCargoResponsable;
-	//
-	// @FindBy(id = "MEDI_IDIOMA")
-	// private WebElement drpdwnIdioma;
-	//
-	// @FindBy(id = "MEDI_TELEFONO1")
-	// private WebElement txtTlf1;
-	//
-	// @FindBy(id = "MEDI_EJECCOME")
-	// private WebElement drpdwnEjecutivoComercial;
-	//
-	// @FindBy(id = "botonGrabar1")
-	// private WebElement btnGrabar;
-	//
-	// @FindBy(id = "BOTON_DOMIMEDI")
-	// private WebElement btnAsignarDomicilio;
-	//
-	// @FindBy(id = "ALTACLIE_PROVINCIA_ARVATO")
-	// private WebElement txtProvincia;
-	//
-	// // @FindBy(xpath = "./html/body/ul[1]/li/a")
-	// @FindBy(css = "body > ul:nth-child(4)")
-	// private WebElement drpdwnProvincia;
-	//
-	// @FindBy(id = "ALTACLIE_POBLACION_ARVATO")
-	// private WebElement txtPoblacion;
-	//
-	// // @FindBy(xpath = "./html/body/ul[2]/li/a")
-	// @FindBy(css = "body > ul:nth-child(5)")
-	// private WebElement drpdwnPoblacion;
-	//
-	// @FindBy(id = "ALTACLIE_NOMVIA_ARVATO")
-	// private WebElement txtVia;
-	//
-	// // @FindBy(xpath = "./html/body/ul[3]/li/a")
-	// @FindBy(css = "body > ul:nth-child(6)")
-	// private WebElement drpdwnVia;
-	//
-	// @FindBy(id = "BOTON_NORMADOM")
-	// private WebElement btnComprobarDireccion;
-	//
-	// @FindBy(id = "BOTON_ACEPTAR")
-	// private WebElement btnAceptarDireccion;
-	//
-	// @FindBy(id = "BOTON_ACEPDOMI")
-	// private WebElement btnAceptarDireccionPostal;
-	//
-	// @FindBy(id = "ALTAMEDI_NOMFISCMED")
-	// private WebElement txtNombreFiscal;
-	//
-	// @FindBy(id = "ALTAMEDI_APE1FISC")
-	// private WebElement txtPrimerApellido;
-	//
-	// @FindBy(id = "ALTAMEDI_APE2FISC")
-	// private WebElement txtSegundoApellido;
-	//
-	// @FindBy(id = "botonContinuar1")
-	// private WebElement btnContinuar;
-	//
-	// @FindBy(id = "ALTAMEDI_EMAILPRI")
-	// private WebElement txtEmailPrincipal;
-	//
-	// @FindBy(css = "#capaDireccionesPaso2 > div > div.floatright.peq > a")
-	// private WebElement anyadirNuevaDireccion;
-	//
-	// @FindBy(id = "ALTAMEDI_TIPDOMME")
-	// private WebElement drpdwnTipoDomicilio;
-	//
-	// @FindBy(id = "ALTAMEDI_NOMCOIGU")
-	// private WebElement radioNombreComercialIgualFiscal;
-	//
-	// @FindBy(id = "ALTAMEDI_NOMCODIF")
-	// private WebElement radioNombreComercialDiferenteFiscal;
-	//
-	// @FindBy(id = "ALTAMEDI_IGUFISC")
-	// private WebElement radioDireccionIgualFiscal;
-	//
-	// @FindBy(id = "ALTAMEDI_OTRONOMB")
-	// private WebElement txtNombreComercial;
-	//
-	// // Datos transaccionales page elements.
-	// @FindBy(id = "COMODIN_CADENA")
-	// private WebElement txtCodigoIban;
-	//
-	// @FindBy(id = "COMODIN_CADENA_1")
-	// private WebElement txtBanco;
-	//
-	// @FindBy(id = "COMODIN_CADENA_2")
-	// private WebElement txtSucursal;
-	//
-	// @FindBy(id = "COMODIN_CADENA_3")
-	// private WebElement txtDc;
-	//
-	// @FindBy(id = "COMODIN_CADENA_4")
-	// private WebElement txtCta1;
-	//
-	// @FindBy(id = "COMODIN_CADENA_5")
-	// private WebElement txtCta2;
-	//
-	// @FindBy(id = "ALTAMEDI_OFINO")
-	// private WebElement tieneOficinasNo;
-	//
-	// @FindBy(id = "ALTAMEDI_TRABAJANO")
-	// private WebElement colaboradresExternosNo;
-	//
-	// @FindBy(id = "ALTAMEDI_SOFTNO")
-	// private WebElement softwareGestionNo;
-	//
-	// @FindBy(id = "ALTAMEDI_COMPPRIN")
-	// private WebElement companiasPrincipales;
-	// // endregion
-	//
-	// public MediadoresAltaMediadorPage(BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
-	// public void executeActionsAltaMediadorPage() throws InterruptedException,
-	// IOException
-	// {
-	//
-	// // "Datos descriptivos" page.
-	// this.selectNivelEstructura();
-	// this.selectTipoMediador();
-	// this.selectEjecutivoComercial();
-	// this.selectTipoDocumento();
-	// this.writeNumeroDocumento();
-	// this.writeNombreFiscalYApellidosMediador();
-	// this.writeNombreComercialMediador();
-	// this.selectActividadPrincipal();
-	// this.selectIdioma();
-	// this.selectTieneOficinas();
-	// this.selectColaboradoresExternos();
-	// this.selectSoftwareGestion();
-	// this.clickContinuar();
-	//
-	// // "Datos de contacto" page.
-	// this.writeContactoResponsable();
-	// this.writeCargoResponsable();
-	// this.writeTelefonoUno();
-	// this.writeEmailPrincipal();
-	// this.addDireccionComercial();
-	// this.addDireccionFiscal();
-	// this.addDireccionPostalProduccion();
-	// this.addDireccionPostalRecibos();
-	// this.addDireccionPostalSiniestros();
-	// this.clickContinuar();
-	//
-	// // "Datos relacionales" page.
-	// this.addCompaniasPrincipales();
-	// this.clickContinuar();
-	//
-	// // Datos transaccionales" page.
-	// this.writeCuentaBancaria();
-	// this.wh.clickOnWebElementInFrame(this.btnGrabar, this.mainFrame);
-	// }
-	//
-	// public void selectNivelEstructura() throws IOException
-	// {
-	// logger.debug("BEGIN - selectNivelEstructura");
-	// this.wh.selectValueInDropDownInFrame(this.drpdwnNivelEstructura,
-	// this.mainFrame, String.valueOf(this.tData.getNivelEstructura()));
-	// logger.debug("END - selectNivelEstructura");
-	// }
-	//
-	// public void selectEjecutivoComercial() throws IOException
-	// {
-	// logger.debug("BEGIN - selectEjecutivoComercial");
-	// this.wh.selectValueInDropDownInFrame(this.drpdwnEjecutivoComercial,
-	// this.mainFrame, String.valueOf(this.tData.getEjecutivoComercial()));
-	// logger.debug("END - selectEjecutivoComercial");
-	// }
-	//
-	// public void selectTipoMediador() throws IOException
-	// {
-	// logger.debug("BEGIN - selectTipoProspect");
-	// this.wh.selectValueInDropDownInFrame(this.drpdwnTipoMediador,
-	// this.mainFrame, String.valueOf(this.tData.getTipoMediador()));
-	// logger.debug("END - selectTipoProspect");
-	// }
-	//
-	// public void selectTipoDocumento() throws IOException
-	// {
-	// logger.debug("BEGIN - selectTipoDocumento");
-	// this.wh.selectValueInDropDownInFrame(this.drpdwnTipoDocumento,
-	// this.mainFrame, String.valueOf(this.tData.getTipoDocumento()));
-	// logger.debug("END - selectTipoDocumento");
-	// }
-	//
-	// public void writeNumeroDocumento() throws IOException
-	// {
-	// logger.debug("BEGIN - writeNumeroDocumento");
-	// if (this.tData.getTipoDocumento() != null &&
-	// this.tData.getTipoDocumento().equals("NIF"))
-	// {
-	// this.tData.setNumeroDocumentoMediador(DniGeneratorHelper.generaNif(null));
-	// this.wh.sendValueToWebElementInFrame(this.txtNumeroDocumento,
-	// this.mainFrame, String.valueOf(this.tData.getNumeroDocumentoMediador()));
-	// }
-	// logger.debug("END - writeNumeroDocumento");
-	// }
-	//
-	// public void writeNombreFiscalYApellidosMediador() throws IOException
-	// {
-	// logger.debug("BEGIN - writeNombreFiscalYApellidosMediador");
-	// // When CIF, only the Nombre Fiscal field appears.
-	// if (this.tData.getTipoDocumento() != null &&
-	// this.tData.getTipoDocumento().equals("CIF"))
-	// {
-	// this.wh.sendValueToWebElementInFrame(this.txtNombreFiscal,
-	// this.mainFrame, String.valueOf(this.tData.getNombreFiscalMediador()));
-	// }
-	// // When NIF or NIE, also shows surname fields. Second surname only
-	// mandatory for NIF.
-	// else
-	// {
-	// this.wh.sendValueToWebElementInFrame(this.txtNombreFiscal,
-	// this.mainFrame, String.valueOf(this.tData.getNombreFiscalMediador()));
-	// this.wh.sendValueToWebElementInFrame(this.txtPrimerApellido,
-	// this.mainFrame, String.valueOf(this.tData.getPrimerApellidoMediador()));
-	// this.wh.sendValueToWebElementInFrame(this.txtSegundoApellido,
-	// this.mainFrame, String.valueOf(this.tData.getSegundoApellidoMediador()));
-	// }
-	// logger.debug("END - writeNombreFiscalYApellidosMediador");
-	// }
-	//
-	// public void writeNombreComercialMediador() throws IOException
-	// {
-	// logger.debug("BEGIN - writeNombreComercialMediador");
-	//
-	// if (this.tData.getTipoNombreComercialMediador().equals("Igual que el
-	// fiscal"))
-	// {
-	// // Cuando nombre comercial es igual al fiscal, solo hay que marcar el
-	// radio button.
-	// this.wh.clickOnWebElementInFrame(this.radioNombreComercialIgualFiscal,
-	// this.mainFrame);
-	// }
-	//
-	// if (this.tData.getTipoNombreComercialMediador().equals("Diferente que el
-	// fiscal"))
-	// {
-	// // Cuando nombre comercial es diferente que el fiscal, hay que marcar el
-	// radio button y completar el nombre comercial (by default it is
-	// // the same as the nombre fiscal).
-	// this.wh.clickOnWebElementInFrame(this.radioNombreComercialDiferenteFiscal,
-	// this.mainFrame);
-	// this.wh.sendValueToWebElementInFrame(this.txtNombreComercial,
-	// this.mainFrame, String.valueOf(this.tData.getNombreComercialMediador()));
-	// }
-	// logger.debug("END - writeNombreComercialMediador");
-	// }
-	//
-	// public void selectActividadPrincipal() throws IOException
-	// {
-	// logger.debug("BEGIN - selectActividadPrincipal");
-	// this.wh.selectValueInDropDownInFrame(this.drpdwnActividadPrincipal,
-	// this.mainFrame, String.valueOf(this.tData.getActividadPrincipal()));
-	// logger.debug("END - selectActividadPrincipal");
-	// }
-	//
-	// public void selectIdioma() throws IOException
-	// {
-	// logger.debug("BEGIN - selectIdioma");
-	// this.wh.selectValueInDropDownInFrame(this.drpdwnIdioma, this.mainFrame,
-	// String.valueOf(this.tData.getIdioma()));
-	// logger.debug("END - selectIdioma");
-	// }
-	//
-	// public void writeNumeroRegistroDGS() throws IOException
-	// {
-	// logger.debug("BEGIN - writeNumeroRegistroDGS");
-	// // Solo requiere Nº registo DGSFP cuando el tipo mediador es "Agente
-	// vinculado", "BS Exclusivo", "BS Vinculado", o "Corredor".
-	// if (this.tData.getTipoMediador() != null &&
-	// this.tData.getTipoMediador().equals("Agente vinculado")
-	// | this.tData.getTipoMediador().equals("BS Exclusivo") |
-	// this.tData.getTipoMediador().equals("Corredor"))
-	// {
-	// this.wh.sendValueToWebElementInFrame(this.txtNumRegistroDGS,
-	// this.mainFrame, String.valueOf(this.tData.getDgs()));
-	// }
-	// logger.debug("END - writeNumeroRegistroDGS");
-	// }
-	//
-	// public void selectTieneOficinas() throws IOException
-	// {
-	// logger.debug("BEGIN - selectTieneOficinas");
-	// this.wh.clickOnWebElementInFrame(this.tieneOficinasNo, this.mainFrame);
-	// logger.debug("END - selectTieneOficinas");
-	// }
-	//
-	// public void selectColaboradoresExternos() throws IOException
-	// {
-	// logger.debug("BEGIN - selectColaboradoresExternos");
-	// this.wh.clickOnWebElementInFrame(this.colaboradresExternosNo,
-	// this.mainFrame);
-	// logger.debug("END - selectColaboradoresExternos");
-	// }
-	//
-	// public void selectSoftwareGestion() throws IOException
-	// {
-	// logger.debug("BEGIN - selectSoftwareGestion");
-	// this.wh.clickOnWebElementInFrame(this.softwareGestionNo, this.mainFrame);
-	// logger.debug("END - selectSoftwareGestion");
-	// }
-	//
-	// public void clickContinuar() throws IOException
-	// {
-	// logger.debug("BEGIN - clickContinuar");
-	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.mainFrame);
-	// logger.debug("END - clickContinuar");
-	// }
-	//
-	// public void writeContactoResponsable() throws IOException
-	// {
-	// logger.debug("BEGIN - writeContactoResponsable");
-	// this.wh.sendValueToWebElementInFrame(this.txtContactoResponsable,
-	// this.mainFrame, String.valueOf(this.tData.getContactoResponsable()));
-	// logger.debug("END - writeContactoResponsable");
-	// }
-	//
-	// public void writeCargoResponsable() throws IOException
-	// {
-	// logger.debug("BEGIN - writeCargoResponsable");
-	// this.wh.sendValueToWebElementInFrame(this.txtCargoResponsable,
-	// this.mainFrame, String.valueOf(this.tData.getCargoResponsable()));
-	// logger.debug("END - writeCargoResponsable");
-	// }
-	//
-	// public void writeTelefonoUno() throws IOException
-	// {
-	// logger.debug("BEGIN - writeTelefonoUno");
-	// this.wh.sendValueToWebElementInFrame(this.txtTlf1, this.mainFrame,
-	// String.valueOf(this.tData.getTlfPrincipal()));
-	// logger.debug("END - writeTelefonoUno");
-	// }
-	//
-	// public void writeEmailPrincipal() throws IOException
-	// {
-	// logger.debug("BEGIN - writeEmailPrincipal");
-	// this.wh.sendValueToWebElementInFrame(this.txtEmailPrincipal,
-	// this.mainFrame, String.valueOf(this.tData.getEmailPrincipal()));
-	// logger.debug("END - writeEmailPrincipal");
-	// }
-	//
-	// public void addDireccionComercial() throws IOException
-	// {
-	// logger.debug("BEGIN - addDireccionComercial");
-	// this.wh.clickOnWebElementInFrame(this.anyadirNuevaDireccion,
-	// this.mainFrame);
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.switchToFrame(this.modalFrame);
-	// this.wh.selectValueInDropDown(this.drpdwnTipoDomicilio, "Comercial");
-	// this.wh.sendValueToWebElement(this.txtProvincia,
-	// this.tData.getProvincia());
-	// this.wh.waitForWebElement(this.drpdwnProvincia);
-	// this.wh.changeFocusOfWebElement(this.txtProvincia);
-	// this.wh.sendValueToWebElement(this.txtPoblacion,
-	// this.tData.getPoblacion());
-	// this.wh.waitForWebElement(this.drpdwnPoblacion);
-	// this.wh.changeFocusOfWebElement(this.txtPoblacion);
-	// this.wh.sendValueToWebElement(this.txtVia, this.tData.getNombreVia());
-	// this.wh.waitForWebElement(this.drpdwnVia);
-	// this.wh.changeFocusOfWebElement(this.txtVia);
-	// this.wh.clickOnWebElement(this.btnComprobarDireccion);
-	// this.wh.clickOnWebElement(this.btnAceptarDireccion);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - addDireccionComercial");
-	// }
-	//
-	// public void addDireccionFiscal() throws IOException
-	// {
-	// logger.debug("BEGIN - addDireccionFiscal");
-	// this.wh.clickOnWebElementInFrame(this.anyadirNuevaDireccion,
-	// this.mainFrame);
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.switchToFrame(this.modalFrame);
-	// this.wh.selectValueInDropDown(this.drpdwnTipoDomicilio, "Fiscal");
-	// this.wh.sendValueToWebElement(this.txtProvincia,
-	// this.tData.getProvincia());
-	// this.wh.waitForWebElement(this.drpdwnProvincia);
-	// this.wh.changeFocusOfWebElement(this.txtProvincia);
-	// this.wh.sendValueToWebElement(this.txtPoblacion,
-	// this.tData.getPoblacion());
-	// this.wh.waitForWebElement(this.drpdwnPoblacion);
-	// this.wh.changeFocusOfWebElement(this.txtPoblacion);
-	// this.wh.sendValueToWebElement(this.txtVia, this.tData.getNombreVia());
-	// this.wh.waitForWebElement(this.drpdwnVia);
-	// this.wh.changeFocusOfWebElement(this.txtVia);
-	// this.wh.clickOnWebElement(this.btnComprobarDireccion);
-	// this.wh.clickOnWebElement(this.btnAceptarDireccion);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - addDireccionFiscal");
-	// }
-	//
-	// public void addDireccionPostalProduccion() throws IOException
-	// {
-	// logger.debug("BEGIN - addDireccionPostalProduccion");
-	// this.wh.clickOnWebElementInFrame(this.anyadirNuevaDireccion,
-	// this.mainFrame);
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.switchToFrame(this.modalFrame);
-	// this.wh.selectValueInDropDown(this.drpdwnTipoDomicilio, "Postal
-	// producción");
-	// this.wh.clickOnWebElement(this.radioDireccionIgualFiscal); // Click radio
-	// button "Igual a la fiscal".
-	// this.wh.clickOnWebElement(this.btnAceptarDireccionPostal);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - addDireccionPostalProduccion");
-	// }
-	//
-	// public void addDireccionPostalRecibos() throws IOException
-	// {
-	// logger.debug("BEGIN - addDireccionPostalRecibos");
-	// this.wh.clickOnWebElementInFrame(this.anyadirNuevaDireccion,
-	// this.mainFrame);
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.switchToFrame(this.modalFrame);
-	// this.wh.selectValueInDropDown(this.drpdwnTipoDomicilio, "Postal
-	// recibos");
-	// this.wh.clickOnWebElement(this.radioDireccionIgualFiscal); // Click radio
-	// button "Igual a la fiscal".
-	// this.wh.clickOnWebElement(this.btnAceptarDireccionPostal);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - addDireccionPostalRecibos");
-	// }
-	//
-	// public void addDireccionPostalSiniestros() throws IOException
-	// {
-	// logger.debug("BEGIN - addDireccionPostalSiniestros");
-	// this.wh.clickOnWebElementInFrame(this.anyadirNuevaDireccion,
-	// this.mainFrame);
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.switchToFrame(this.modalFrame);
-	// this.wh.selectValueInDropDown(this.drpdwnTipoDomicilio, "Postal
-	// siniestros");
-	// this.wh.clickOnWebElement(this.radioDireccionIgualFiscal); // Click radio
-	// button "Igual a la fiscal".
-	// this.wh.clickOnWebElement(this.btnAceptarDireccionPostal);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - addDireccionPostalSiniestros");
-	// }
-	//
-	// public void addCompaniasPrincipales() throws IOException
-	// {
-	// logger.debug("BEGIN - addCompaniasPrincipales");
-	// this.wh.sendValueToWebElementInFrame(this.companiasPrincipales,
-	// this.mainFrame, "Texto de las compañías principales");
-	// logger.debug("END - addCompaniasPrincipales");
-	// }
-	//
-	// public void writeCuentaBancaria() throws IOException
-	// {
-	// logger.debug("BEGIN - writeCuentaBancaria");
-	// this.wh.sendValueToWebElementInFrame(this.txtCodigoIban, this.mainFrame,
-	// "ES03");
-	// this.wh.sendValueToWebElementInFrame(this.txtBanco, this.mainFrame,
-	// "2100");
-	// this.wh.sendValueToWebElementInFrame(this.txtSucursal, this.mainFrame,
-	// "1234");
-	// this.wh.sendValueToWebElementInFrame(this.txtDc, this.mainFrame, "5612");
-	// this.wh.sendValueToWebElementInFrame(this.txtCta1, this.mainFrame,
-	// "3456");
-	// this.wh.sendValueToWebElementInFrame(this.txtCta2, this.mainFrame,
-	// "7890");
-	// logger.debug("BEGIN - writeCuentaBancaria");
-	// }
+	// region methods
+	public MediadoresAltaMediadorPage executeActionsAltaMediadorPage() {
+		debugBegin();
 
+		// "Datos descriptivos" page.
+		selectNivelEstructura();
+		selectTipoMediador();
+		selectEjecutivoComercial();
+		selectTipoDocumento();
+		writeNumeroDocumento();
+		writeNombreFiscalYApellidosMediador();
+		writeNombreComercialMediador();
+		selectActividadPrincipal();
+		selectIdioma();
+		selectTieneOficinas();
+		selectColaboradoresExternos();
+		selectSoftwareGestion();
+		clickContinuar();
+
+		// "Datos de contacto" page.
+		writeContactoResponsable();
+		writeCargoResponsable();
+		writeTelefonoUno();
+		writeEmailPrincipal();
+		addDireccionComercial();
+		addDireccionFiscal();
+		addDireccionPostalProduccion();
+		addDireccionPostalRecibos();
+		addDireccionPostalSiniestros();
+		clickContinuar();
+
+		// "Datos relacionales" page.
+		addCompaniasPrincipales();
+		clickContinuar();
+
+		// Datos transaccionales" page.
+		writeCuentaBancaria();
+		webDriver.clickInFrame(btnGrabar, mainFrame);
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectNivelEstructura() {
+		debugBegin();
+		webDriver.clickElementFromDropDownByTextInFrame(drpdwnNivelEstructura, mainFrame, getTestVar(Constants.NIVEL_ESTRUCTURA));
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectEjecutivoComercial() {
+		debugBegin();
+		webDriver.clickElementFromDropDownByTextInFrame(drpdwnEjecutivoComercial, mainFrame, getTestVar(Constants.EJECUTIVO_COMERCIAL));
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectTipoMediador() {
+		debugBegin();
+		webDriver.clickElementFromDropDownByTextInFrame(drpdwnTipoMediador, mainFrame, getTestVar(Constants.TIPO_MEDIADOR));
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectTipoDocumento() {
+		debugBegin();
+		webDriver.clickElementFromDropDownByTextInFrame(drpdwnTipoDocumento, mainFrame, getTestVar(Constants.TIPO_DOCUMENTO));
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeNumeroDocumento() {
+		debugBegin();
+
+		if(getTestVar(Constants.TIPO_DOCUMENTO) != null
+			&& getTestVar(Constants.TIPO_DOCUMENTO).equals(Constants.NIF)) {
+			setTestVar(Constants.DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
+			webDriver.appendTextInFrame(txtNumeroDocumento, mainFrame, getTestVar(Constants.DOCUMENTO_MEDIADOR));
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeNombreFiscalYApellidosMediador() {
+		debugBegin();
+		// When CIF, only the Nombre Fiscal field appears.
+		if(getTestVar(Constants.TIPO_DOCUMENTO) != null
+			&& getTestVar(Constants.TIPO_DOCUMENTO).equals(Constants.NIF)) {
+			webDriver.appendTextInFrame(txtNombreFiscal, mainFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
+		}
+		// When NIF or NIE, also shows surname fields. Second surname only mandatory for NIF.
+		else {
+			webDriver.appendTextInFrame(txtNombreFiscal, mainFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
+			webDriver.appendTextInFrame(txtPrimerApellido, mainFrame, getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR));
+			webDriver.appendTextInFrame(txtSegundoApellido, mainFrame, getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeNombreComercialMediador() {
+		debugBegin();
+
+		if(getTestVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Igual que el fiscal")) {
+			// Cuando nombre comercial es igual al fiscal, solo hay que marcar el radio button.
+			webDriver.clickInFrame(radioNombreComercialIgualFiscal, mainFrame);
+		}
+
+		if(getTestVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Diferente que el fiscal")) {
+			// Cuando nombre comercial es diferente que el fiscal, hay que marcar el radio button y completar el nombre
+			// comercial (by default it is
+			// the same as the nombre fiscal).
+			webDriver.clickInFrame(radioNombreComercialDiferenteFiscal, mainFrame);
+			webDriver.appendTextInFrame(txtNombreComercial, mainFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectActividadPrincipal() {
+		debugBegin();
+		webDriver.clickElementFromDropDownByTextInFrame(drpdwnActividadPrincipal, mainFrame, getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectIdioma() {
+		debugBegin();
+		webDriver.clickElementFromDropDownByTextInFrame(drpdwnIdioma, mainFrame, getTestVar(Constants.IDIOMA));
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeNumeroRegistroDGS() {
+		debugBegin();
+		// Solo requiere Nº registo DGSFP cuando el tipo mediador es "Agente vinculado", "BS Exclusivo", "BS Vinculado",
+		// o "Corredor".
+		if(getTestVar(Constants.TIPO_MEDIADOR) != null && getTestVar(Constants.TIPO_MEDIADOR).equals("Agente vinculado")
+			|| getTestVar(Constants.TIPO_MEDIADOR).equals("BS Exclusivo") || getTestVar(Constants.TIPO_MEDIADOR).equals("Corredor")) {
+			webDriver.appendTextInFrame(txtNumRegistroDGS, mainFrame, getTestVar(Constants.DGS));
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectTieneOficinas() {
+		debugBegin();
+		webDriver.clickInFrame(tieneOficinasNo, mainFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectColaboradoresExternos() {
+		debugBegin();
+		webDriver.clickInFrame(colaboradresExternosNo, mainFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage selectSoftwareGestion() {
+		debugBegin();
+		webDriver.clickInFrame(softwareGestionNo, mainFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage clickContinuar() {
+		debugBegin();
+		webDriver.clickInFrame(btnContinuar, mainFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeContactoResponsable() {
+		debugBegin();
+		webDriver.appendTextInFrame(txtContactoResponsable, mainFrame, getTestVar(Constants.CONTACTO_RESPONSABLE));
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeCargoResponsable() {
+		debugBegin();
+		webDriver.appendTextInFrame(txtCargoResponsable, mainFrame, getTestVar(Constants.CARGO_RESPONSABLE));
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeTelefonoUno() {
+		debugBegin();
+		webDriver.appendTextInFrame(txtTlf1, mainFrame, getTestVar(Constants.TLF_PRINCIPAL));
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeEmailPrincipal() {
+		debugBegin();
+		webDriver.appendTextInFrame(txtEmailPrincipal, mainFrame, getTestVar(Constants.EMAIL_PRINCIPAL));
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage addDireccionComercial() {
+		debugBegin();
+
+		webDriver.clickInFrame(anyadirNuevaDireccion, mainFrame);
+		webDriver.switchToFrame(mainFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByText(drpdwnTipoDomicilio, "Comercial");
+		webDriver.appendText(txtProvincia, getTestVar(Constants.PROVINCIA));
+		webDriver.waitForElementToBeClickable(drpdwnProvincia);
+		webDriver.tabulateElement(txtProvincia);
+		webDriver.appendText(txtPoblacion, getTestVar(Constants.POBLACION));
+		webDriver.waitForElementToBeClickable(drpdwnPoblacion);
+		webDriver.tabulateElement(txtPoblacion);
+		webDriver.appendText(txtVia, getTestVar(Constants.NOMBRE_VIA));
+		webDriver.waitForElementToBeClickable(drpdwnVia);
+		webDriver.tabulateElement(txtVia);
+		webDriver.click(btnComprobarDireccion);
+		webDriver.click(btnAceptarDireccion);
+		webDriver.exitFrame();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage addDireccionFiscal() {
+		debugBegin();
+
+		webDriver.clickInFrame(anyadirNuevaDireccion, mainFrame);
+		webDriver.switchToFrame(mainFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByText(drpdwnTipoDomicilio, "Fiscal");
+		webDriver.appendText(txtProvincia, getTestVar(Constants.PROVINCIA));
+		webDriver.waitForElementToBeClickable(drpdwnProvincia);
+		webDriver.tabulateElement(txtProvincia);
+		webDriver.appendText(txtPoblacion, getTestVar(Constants.POBLACION));
+		webDriver.waitForElementToBeClickable(drpdwnPoblacion);
+		webDriver.tabulateElement(txtPoblacion);
+		webDriver.appendText(txtVia, getTestVar(Constants.NOMBRE_VIA));
+		webDriver.waitForElementToBeClickable(drpdwnVia);
+		webDriver.tabulateElement(txtVia);
+		webDriver.click(btnComprobarDireccion);
+		webDriver.click(btnAceptarDireccion);
+		webDriver.exitFrame();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage addDireccionPostalProduccion() {
+		debugBegin();
+
+		webDriver.clickInFrame(anyadirNuevaDireccion, mainFrame);
+		webDriver.switchToFrame(mainFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByText(drpdwnTipoDomicilio, "Postal producción");
+		webDriver.click(radioDireccionIgualFiscal); // Click radio button "Igual a la fiscal".
+		webDriver.click(btnAceptarDireccionPostal);
+		webDriver.exitFrame();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage addDireccionPostalRecibos() {
+		debugBegin();
+
+		webDriver.clickInFrame(anyadirNuevaDireccion, mainFrame);
+		webDriver.switchToFrame(mainFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByText(drpdwnTipoDomicilio, "Postal recibos");
+		webDriver.click(radioDireccionIgualFiscal); // Click radio button "Igual a la fiscal".
+		webDriver.click(btnAceptarDireccionPostal);
+		webDriver.exitFrame();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage addDireccionPostalSiniestros() {
+		debugBegin();
+
+		webDriver.clickInFrame(anyadirNuevaDireccion, mainFrame);
+		webDriver.switchToFrame(mainFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByText(drpdwnTipoDomicilio, "Postal siniestros");
+		webDriver.click(radioDireccionIgualFiscal); // Click radio button "Igual a la fiscal".
+		webDriver.click(btnAceptarDireccionPostal);
+		webDriver.exitFrame();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage addCompaniasPrincipales() {
+		debugBegin();
+		webDriver.appendTextInFrame(companiasPrincipales, mainFrame, "Texto de las compañías principales");
+
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaMediadorPage writeCuentaBancaria() {
+		debugBegin();
+
+		webDriver.appendTextInFrame(txtCodigoIban, mainFrame, "ES03");
+		webDriver.appendTextInFrame(txtBanco, mainFrame, "2100");
+		webDriver.appendTextInFrame(txtSucursal, mainFrame, "1234");
+		webDriver.appendTextInFrame(txtDc, mainFrame, "5612");
+		webDriver.appendTextInFrame(txtCta1, mainFrame, "3456");
+		webDriver.appendTextInFrame(txtCta2, mainFrame, "7890");
+
+		debugEnd();
+
+		return this;
+	}
 	// endregion
 }

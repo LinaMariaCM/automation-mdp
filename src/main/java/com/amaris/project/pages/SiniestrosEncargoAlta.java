@@ -8,60 +8,62 @@ import org.openqa.selenium.By;
 
 public class SiniestrosEncargoAlta extends PageObject {
 
-	// THE CONSTRUCTOR
+	// region WebElement
+	private By cuerpoFrame = By.id("mainFrame");
+
+	// #### DATOS DEL ASEGURADO ####
+	private By anotacionesBtn = By.cssSelector("#enlaceDialogo > span");
+	private By anadirNuevoEncargoBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(4) > a > span");
+	private By volverAlBuscadorBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
+	private By guardarSalirBtn = By.id("botonGuardar");
+	private By continuarBtn = By.id("botonContinuar");
+	private By modificarBtn = By.cssSelector("#listaImplicados > table.grid.narrowBox > tbody > tr.odd > td:nth-child(5) > a > span");
+	private By borrarBtn = By.cssSelector("##listaImplicados > table.grid.narrowBox > tbody > tr.odd > td:nth-child(6) > a > span");
+	// end region
+
 	public SiniestrosEncargoAlta(UserStory userS) {
 		super(userS);
 	}
 
-	// REGION WEBELEMENT
-
-	// #### FRAMES ####
-
-	private By cuerpoFrame = By.id("mainFrame");
-
-	// #### DATOS DEL ASEGURADO ####
-	//
-	private By btnAnotaciones = By.cssSelector("#enlaceDialogo > span");
-	//
-	private By btnAnadirNuevoEncargo = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(4) > a > span");
-	//
-	private By btnVolverAlBuscador = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
-	//
-	private By btnGuardarSalir = By.id("botonGuardar");
-	//
-	private By btnContinuar = By.id("botonContinuar");
-	//
-	private By btnModificar = By.cssSelector("#listaImplicados > table.grid.narrowBox > tbody > tr.odd > td:nth-child(5) > a > span");
-	//
-	private By btnBorrar = By.cssSelector("##listaImplicados > table.grid.narrowBox > tbody > tr.odd > td:nth-child(6) > a > span");
-
-	// end region
-
-	// REGION METHODS
-
+	// region Methods
 	public boolean checkEncargoAdded() {
-		if(this.webDriver.isClickable(btnModificar) && (this.webDriver.isClickable(btnBorrar))) return true;
-		else return false;
+		debugBegin();
+		
+		boolean result = false;
+		
+		if(webDriver.isClickable(modificarBtn) && (webDriver.isClickable(borrarBtn))) {
+			result = true;
+		}
+		
+		debugEnd();
+		
+		return result;
 	}
 
-	public void clickNuevoEncargo() {
-		this.debugBegin();
-		this.webDriver.click(this.btnAnadirNuevoEncargo);
+	public SiniestrosEncargoAlta clickNuevoEncargo() {
+		debugBegin();
+		webDriver.click(anadirNuevoEncargoBtn);
 		Steps.waitForIt(webDriver);
-		this.debugEnd();
+		debugEnd();
+		
+		return this;
 	}
 
-	public void clickContinuar() {
-		this.debugBegin();
-		this.webDriver.click(this.btnContinuar);
+	public SiniestrosEncargoAlta clickContinuar() {
+		debugBegin();
+		webDriver.click(continuarBtn);
 		Steps.waitForIt(webDriver);
-		this.debugEnd();
+		debugEnd();
+		
+		return this;
 	}
 
-	public void clickGuardarSalir() {
-		this.debugBegin();
-		this.webDriver.click(btnGuardarSalir);
-		this.debugEnd();
+	public SiniestrosEncargoAlta clickGuardarSalir() {
+		debugBegin();
+		webDriver.click(guardarSalirBtn);
+		debugEnd();
+		
+		return this;
 	}
-
+	// endregion
 }

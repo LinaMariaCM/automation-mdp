@@ -5,90 +5,50 @@ import org.openqa.selenium.By;
 import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 
 public class DatosBasicosTomadorPage extends PageObject {
 
 	// region webelements
-	// @FindBy(name = "cuerpo")
 	private By cuerpoFrame = By.name("cuerpo");
 
-	// @FindBy(id = "tipoDocumento")
 	private By cmbTipoDocumento = By.cssSelector("#tipoDocumento");
-
-	// @FindBy(id = "numeroDocumento")
 	private By txtNumeroDocumento = By.id("numeroDocumento");
-
-	// @FindBy(xpath = ".//*[text()='Validar cliente']")
 	private By btnValidarCliente = By.xpath(".//*[text()='Validar cliente']");
-	//private By btnValidarCliente = By.name("Validar cliente");
-
-	// @FindBy(xpath = ".//*[@name='nombreTomador']")
 	private By txtNombreTomador = By.xpath(".//*[@name='nombreTomador']");
-
-	// @FindBy(xpath = ".//*[@name='apellido1Tomador']")
 	private By txtPrimerApellidoTomador = By.xpath(".//*[@name='apellido1Tomador']");
-
-	// @FindBy(xpath = ".//*[@name='apellido2Tomador']")
 	private By txtSegundoApellidoTomador = By.xpath(".//*[@name='apellido2Tomador']");
-
-	
-	///html/body/div/div[1]/div/div[3]/footer/div/button[2]
-	
-	// @FindBy(xpath = ".//*[text()='Continuar']")
-	//private By btnContinuar = By.cssSelector("footer [ng-click*='continuar']");
+	// private By btnContinuar = By.cssSelector("footer [ng-click*='continuar']");
 	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
-
-
-	// @FindBy(xpath = ".//*[text()='Aceptar']")
 	private By btnAceptar = By.xpath(".//*[text()='Aceptar']");
-
-	// @FindBy(xpath = ".//*[@ng-model='tomador.cifTramite']")
 	private By chkCIFEnTramite = By.xpath(".//*[@ng-model='tomador.cifTramite']");
 
-	// @FindBy(name = "razonSocial")
 	private By txtRazonSocial = By.name("razonSocial");
-
-	// @FindBy(name = "duplicadoSelect")
 	private By rdnClienteExistente = By.name("duplicadoSelect");
-
-	// @FindBy(xpath = ".//*[text()='Seleccionar cliente']")
 	private By btnSeleccionarCliente = By.xpath(".//*[text()='Seleccionar cliente']");
 
 	private By procesandoWindow = By.cssSelector(".smallbox");
+	private By loaderModal = By.cssSelector("#modalLoader");
 
 	private By btnVolver = By.id("botonVolver");
-
-	//private By btnAceptarVolver = By.cssSelector("button[ng-click*='com_aceptar']");
-	
-	private By loaderModal = By.cssSelector("#modalLoader");
-	
 	private By btnAceptarVolver = By.cssSelector("#com_aceptar");
-	// private By btnAceptarVolver = By.id("Aceptar");
-	// private By btnAceptarVolver = By.xpath(".//*[text()='Aceptar']");
-	// endregion
-	
+
 	private By btnAnyadir = By.cssSelector("[data-target='#tomadorAseguradoPopUp']");
-	
+	private By btnAceptarAnyadir = By.cssSelector("#tomadorAseguradoPopUp .modal-footer [type='submit']"); // div.modal-footer
+																											// > button
+
 	private By cumple = By.name("fechaNacimiento");
-	
-	
 	private By checkMismaDirec = By.cssSelector("[ng-model='mismaDireccionRiesgo']");
-	
-	
-	private By btnAceptarAnyadir = By.cssSelector("#tomadorAseguradoPopUp .modal-footer [type='submit']"); //div.modal-footer > button
-	
-	
-	//private By btnAceptarAnyadir = By.xpath(".//div[@class='modal-footer']/button[text()='Añadir datos asegurado principal']");
+	// endregion
 
 	public DatosBasicosTomadorPage(UserStory userS) {
 		super(userS);
 	}
 
 	public DatosBasicosTomadorPage ExecuteActionsInPageTomadorYAseguradoPage(String tomadorType) throws Exception {
-		this.fillTomadorData(tomadorType);
-		this.clickOnContinuar();
+		fillTomadorData(tomadorType);
+		clickOnContinuar();
 
 		return this;
 	}
@@ -96,203 +56,153 @@ public class DatosBasicosTomadorPage extends PageObject {
 	// region methods
 	public DatosBasicosTomadorPage clickOnContinuar() {
 		debugBegin();
-		this.webDriver.waitWithDriver(4000);
+		webDriver.waitWithDriver(4000);
+		webDriver.waitForElementToBeClickableInFrame(loaderModal, cuerpoFrame);
+		// webDriver.waitForElementToBeClickableInFrame(procesandoWindow, cuerpoFrame);
 
-		this.webDriver.waitForElementToBeClickableInFrame(this.loaderModal, this.cuerpoFrame);
+		// TODO Comprobar si todos los pasos son necesarios
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.scrollToElement(btnContinuar);
 
-		//this.webDriver.waitForElementToBeClickableInFrame(this.procesandoWindow, this.cuerpoFrame);
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.scrollToElement(this.btnContinuar);
-		
-		this.webDriver.scrollToElement(this.btnContinuar);
-		this.webDriver.waitWithDriver(4000);
-		this.webDriver.click(this.btnContinuar);
-		this.webDriver.exitFrame();
+		webDriver.scrollToElement(btnContinuar);
+		webDriver.waitWithDriver(4000);
+		webDriver.click(btnContinuar);
+		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
 	}
 
-	//dentro de la page "7.Tomador y asegurado" añade el mínimo de datos para poder continuar
-	public DatosBasicosTomadorPage anyadirDatosMin(){
+	// dentro de la page "7.Tomador y asegurado" añade el mínimo de datos para poder continuar
+	public DatosBasicosTomadorPage anyadirDatosMin() {
 		debugBegin();
-		
-		this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
-		this.webDriver.waitWithDriver(4000);
 
-		this.webDriver.clickInFrame(this.btnAnyadir, this.cuerpoFrame);
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.scrollToElement(this.cumple);
-		this.webDriver.waitWithDriver(2000);
-		this.webDriver.appendText(this.cumple, "25/05/1989");
-		this.webDriver.waitWithDriver(2000);
-		//this.webDriver.scrollToBottom();
-		//this.webDriver.waitForElementToBeClickable(this.checkMismaDirec);
-		this.webDriver.click(this.checkMismaDirec);
-		this.webDriver.waitWithDriver(4000);
-		this.webDriver.click(this.btnAceptarAnyadir);
-		this.webDriver.waitWithDriver(2000);
-		this.webDriver.click(this.btnContinuar);
-		this.webDriver.exitFrame();
-		//this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		webDriver.clickInFrame(btnAceptar, cuerpoFrame);
+		webDriver.waitWithDriver(4000);
 
-		//this.webDriver.exitFrame();
-		
-	return this;
+		webDriver.clickInFrame(btnAnyadir, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.scrollToElement(cumple);
+		webDriver.waitWithDriver(2000);
+		webDriver.appendText(cumple, "25/05/1989");
+		webDriver.waitWithDriver(2000);
+		// webDriver.scrollToBottom();
+		// webDriver.waitForElementToBeClickable(checkMismaDirec);
+		webDriver.click(checkMismaDirec);
+		webDriver.waitWithDriver(4000);
+		webDriver.click(btnAceptarAnyadir);
+		webDriver.waitWithDriver(2000);
+		webDriver.click(btnContinuar);
+		webDriver.exitFrame();
+		// webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
+		// webDriver.exitFrame();
+
+		return this;
 	}
-	
-	
+
 	public DatosBasicosTomadorPage fillStaticTomadorData() {
 		debugBegin();
 
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
-		// this.browserContext.getTestCaseData().setTomadorDNI(DniGeneratorHelper.generaNif(null));
-		setTestVar("tomadorDNI", DniGeneratorHelper.generateNif());
-		this.webDriver.clickInFrame(this.txtNumeroDocumento, this.cuerpoFrame);
-		// this.webDriver.sendValueToWebElementInFrame(this.txtNumeroDocumento,
-		// this.cuerpoFrame, String.valueOf(getTomadorDNI()));
-		this.webDriver.appendTextInFrame(this.txtNumeroDocumento, this.cuerpoFrame, String.valueOf(getScenarioVar("TomadorDNI")));
+		webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDocumento, cuerpoFrame, Constants.NIF);
 
-		// Select nombre tomador
-		this.webDriver.appendTextInFrame(this.txtNombreTomador, this.cuerpoFrame, "Tomnombre");
-		// Select primer apellido
-		this.webDriver.appendTextInFrame(this.txtPrimerApellidoTomador, this.cuerpoFrame, "Tompripellido");
-		// Select segundo apellido
-		this.webDriver.appendTextInFrame(this.txtSegundoApellidoTomador, this.cuerpoFrame, "Tomsegapellido");
+		setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
 
-		// this.wh.switchToFrame(this.cuerpoFrame);
-		// this.wh.changeFocusOfWebElement(this.txtSegundoApellidoTomador);
-		// this.wh.exitFromFrame();
-		this.webDriver.clickInFrame(this.btnValidarCliente, this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
+		// TODO Quitar clickInFrame(txtNumeroDocumento... si no es necesario
+		webDriver.clickInFrame(txtNumeroDocumento, cuerpoFrame);
+		webDriver.appendTextInFrame(txtNumeroDocumento, cuerpoFrame, String.valueOf(getTestVar(Constants.DNI_TOMADOR)));
+
+		webDriver.appendTextInFrame(txtNombreTomador, cuerpoFrame, Constants.NOMBRE_TOMADOR);
+		webDriver.appendTextInFrame(txtPrimerApellidoTomador, cuerpoFrame, Constants.PRIMER_APELLIDO_TOMADOR);
+		webDriver.appendTextInFrame(txtSegundoApellidoTomador, cuerpoFrame, Constants.SEGUNDO_APELLIDO_TOMADOR);
+
+		// wh.switchToFrame(cuerpoFrame);
+		// wh.changeFocusOfWebElement(txtSegundoApellidoTomador);
+		// wh.exitFromFrame();
+		webDriver.clickInFrame(btnValidarCliente, cuerpoFrame);
+		webDriver.clickInFrame(btnAceptar, cuerpoFrame);
 
 		debugEnd();
 
 		return this;
 	}
 
-	public DatosBasicosTomadorPage fillTomadorData(String tomadorType) {
+	public DatosBasicosTomadorPage fillTomadorData(String tomadorType) throws Exception {
 		debugBegin();
 
 		switch(tomadorType) {
-			case ProjectConstants.NuevoTomadorYAseguradoPrincipal:
-				// this.wh.sendValueToWebElementInFrame(this.txtNumeroDocumento,
-				// this.cuerpoFrame,
-				// this.browserContext.getTestCaseData().getTomadorDNI());
-				// this.wh.sendValueToWebElementInFrame(this.txtNombreTomador,
-				// this.cuerpoFrame,
-				// this.browserContext.getTestCaseData().getTomadorNombre());
-				// this.wh.sendValueToWebElementInFrame(this.txtPrimerApellidoTomador,
-				// this.cuerpoFrame,
-				// this.browserContext.getTestCaseData().getTomadorPrimerApellido());
-				// this.wh.sendValueToWebElementInFrame(this.txtSegundoApellidoTomador,
-				// this.cuerpoFrame,
-				// this.browserContext.getTestCaseData().getTomadorSegundoApellido());
-
+			case Constants.NuevoTomadorYAseguradoPrincipal:
 				// Select documento tomador
-				this.webDriver.waitWithDriver(1500);
-				this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
-				this.webDriver.waitWithDriver(1500);
+				webDriver.waitWithDriver(1500);
+				webDriver.waitForElementNotToBeClickable(procesandoWindow);
+				webDriver.waitWithDriver(1500);
 
-				if(this.webDriver.isPresentInFrame(this.btnVolver, this.cuerpoFrame)) {
-					this.webDriver.waitForElementToBeClickableInFrame(this.btnVolver, this.cuerpoFrame);
-					this.webDriver.clickInFrame(this.btnVolver, this.cuerpoFrame);
-					this.webDriver.clickInFrame(this.btnAceptarVolver, this.cuerpoFrame);
+				if(webDriver.isPresentInFrame(btnVolver, cuerpoFrame)) {
+					webDriver.waitForElementToBeClickableInFrame(btnVolver, cuerpoFrame);
+					webDriver.clickInFrame(btnVolver, cuerpoFrame);
+					webDriver.clickInFrame(btnAceptarVolver, cuerpoFrame);
 				}
-				//this.webDriver.waitWithDriver(2000);
-				this.webDriver.waitForElementNotToBeClickableInFrame(this.loaderModal, this.cuerpoFrame);
-				this.webDriver.waitWithDriver(4000);
+
+				// webDriver.waitWithDriver(2000);
+				webDriver.waitForElementNotToBeClickableInFrame(loaderModal, cuerpoFrame);
+				webDriver.waitWithDriver(4000);
 				System.out.println("~$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				System.out.println("\n");
-				System.out.println("VARIABLE tipoDocumento: " + this.cmbTipoDocumento);
-				System.out.println("VARIABLE this.cuerpoFrame: " + this.cuerpoFrame);
-				System.out.println("VARIABLE ProjectConstants.NIF: "+ ProjectConstants.NIF);
+				System.out.println("VARIABLE tipoDocumento: " + cmbTipoDocumento);
+				System.out.println("VARIABLE cuerpoFrame: " + cuerpoFrame);
+				System.out.println("VARIABLE ProjectConstants.NIF: " + Constants.NIF);
 				System.out.println("\n");
 				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-				
-				
-				//this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
-				//this.webDriver.waitWithDriver(3500);
-				//this.webDriver.waitForAngular();
-				
+
 				Steps.waitForIt(webDriver);
-				//Steps.waitForIt(webDriver, this.cmbTipoDocumento);
-				//Steps.waitForIt(webDriver, 1000);
 
-				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
-				setTestVar("tomador_dni", DniGeneratorHelper.generateNif());
-				this.webDriver.clickInFrame(this.txtNumeroDocumento, this.cuerpoFrame);
-				this.webDriver.appendTextInFrame(this.txtNumeroDocumento, this.cuerpoFrame, getTestVar("tomador_dni"));
+				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDocumento, cuerpoFrame, Constants.NIF);
+				setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
+				webDriver.clickInFrame(txtNumeroDocumento, cuerpoFrame);
+				webDriver.appendTextInFrame(txtNumeroDocumento, cuerpoFrame, getTestVar(Constants.DNI_TOMADOR));
 
-				// Select nombre tomador
-				// this.wh.sendValueToWebElementInFrame(this.txtNombreTomador,
-				// this.cuerpoFrame,
-				// String.valueOf(this.tData.getTomadorNombre()));
-				this.webDriver.appendTextInFrame(this.txtNombreTomador, this.cuerpoFrame, getScenarioVar("nombre_tomador"));
+				webDriver.appendTextInFrame(txtNombreTomador, cuerpoFrame, getScenarioVar(Constants.NOMBRE_TOMADOR));
+				webDriver.appendTextInFrame(txtPrimerApellidoTomador, cuerpoFrame, getScenarioVar(Constants.PRIMER_APELLIDO_TOMADOR));
+				webDriver.appendTextInFrame(txtSegundoApellidoTomador, cuerpoFrame, getScenarioVar(Constants.SEGUNDO_APELLIDO_TOMADOR));
 
-				// Select primer apellido
-				// this.wh.sendValueToWebElementInFrame(this.txtPrimerApellidoTomador,
-				// this.cuerpoFrame,
-				// String.valueOf(this.tData.getTomadorPrimerApellido()));
-				this.webDriver.appendTextInFrame(this.txtPrimerApellidoTomador, this.cuerpoFrame, getScenarioVar("primer_apellido_tomador"));
+				webDriver.clickInFrame(btnValidarCliente, cuerpoFrame);
 
-				// Select segundo apellido
-				// this.wh.sendValueToWebElementInFrame(this.txtSegundoApellidoTomador,
-				// this.cuerpoFrame,
-				// String.valueOf(this.tData.getTomadorSegundoApellido()));
-				this.webDriver.appendTextInFrame(this.txtSegundoApellidoTomador, this.cuerpoFrame, getScenarioVar("segundo_apellido_tomador"));
-
-				// this.wh.switchToFrame(this.cuerpoFrame);
-				// this.wh.changeFocusOfWebElement(this.txtSegundoApellidoTomador);
-				// this.wh.exitFromFrame();
-
+				webDriver.waitWithDriver(2000);
+				webDriver.waitForElementNotToBeClickableInFrame(btnAceptar, cuerpoFrame);
+				webDriver.clickInFrame(btnAceptar, cuerpoFrame);
+				webDriver.waitWithDriver(5000);
+				webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 				
-				this.webDriver.clickInFrame(this.btnValidarCliente, this.cuerpoFrame);
-				
-				this.webDriver.waitWithDriver(2000);
-				this.webDriver.switchToFrame(this.cuerpoFrame);
-				this.webDriver.waitForElementNotToBeClickable(this.btnAceptar);
-				this.webDriver.click(this.btnAceptar);
-				this.webDriver.exitFrame();
-				this.webDriver.waitWithDriver(5000);
-				this.webDriver.switchToFrame(this.cuerpoFrame);
-				this.webDriver.click(this.btnContinuar);
-				this.webDriver.exitFrame();
 				break;
+			case Constants.ClienteExistente:
+				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDocumento, cuerpoFrame, Constants.NIF);
+				setTestVar(Constants.DNI_TOMADOR, getScenarioVar(Constants.DNI_TOMADOR));
 
+				webDriver.appendTextInFrame(txtNumeroDocumento, cuerpoFrame, getScenarioVar(Constants.DNI_TOMADOR));
+				webDriver.clickInFrame(txtNombreTomador, cuerpoFrame);
+				webDriver.clickInFrame(btnValidarCliente, cuerpoFrame);
 
-			case ProjectConstants.ClienteExistente:
-				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
-				// this.browserContext.getTestCaseData().setTomadorDNI(this.browserContext.getTestCaseData().getTomadorDNI());
-				setTestVar("TomadorDNI", getScenarioVar("TomadorDNI"));
+				webDriver.clickInFrame(rdnClienteExistente, cuerpoFrame);
+				webDriver.clickInFrame(btnSeleccionarCliente, cuerpoFrame);
 
-				this.webDriver.appendTextInFrame(this.txtNumeroDocumento, this.cuerpoFrame, getScenarioVar("TomadorDNI"));
-				this.webDriver.clickInFrame(this.txtNombreTomador, this.cuerpoFrame);
-				this.webDriver.clickInFrame(this.btnValidarCliente, this.cuerpoFrame);
-
-				this.webDriver.clickInFrame(this.rdnClienteExistente, this.cuerpoFrame);
-				this.webDriver.clickInFrame(this.btnSeleccionarCliente, this.cuerpoFrame);
-
-				this.webDriver.switchToFrame(this.cuerpoFrame);
-				Assert.assertEquals(this.webDriver.getText(this.txtNombreTomador), getScenarioVar("NombreCliente"));
-				Assert.assertEquals(this.webDriver.getText(this.txtPrimerApellidoTomador), getScenarioVar("tomadorPrimerApellido"));
-				Assert.assertEquals(this.webDriver.getText(this.txtSegundoApellidoTomador), getScenarioVar("TomadorSegundoApellido"));
-				this.webDriver.exitFrame();
+				Assert.assertEquals(webDriver.getTextInFrame(txtNombreTomador, cuerpoFrame), 
+					getScenarioVar(Constants.NOMBRE_CLIENTE));
+				Assert.assertEquals(webDriver.getTextInFrame(txtPrimerApellidoTomador, cuerpoFrame), 
+					getScenarioVar(Constants.PRIMER_APELLIDO_CLIENTE));
+				Assert.assertEquals(webDriver.getTextInFrame(txtSegundoApellidoTomador, cuerpoFrame), 
+					getScenarioVar(Constants.SEGUNDO_APELLIDO_CLIENTE));
 
 				break;
-
-
-			case ProjectConstants.TomadorCifEnTramite:
-				this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDocumento, this.cuerpoFrame, ProjectConstants.CIF);
-				this.webDriver.clickInFrame(this.chkCIFEnTramite, this.cuerpoFrame);
-				this.webDriver.appendTextInFrame(this.txtRazonSocial, this.cuerpoFrame, "Test");
+			case Constants.TomadorCifEnTramite:
+				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDocumento, cuerpoFrame, Constants.CIF);
+				webDriver.clickInFrame(chkCIFEnTramite, cuerpoFrame);
+				webDriver.appendTextInFrame(txtRazonSocial, cuerpoFrame, "Test");
 
 				break;
 			default:
-				// throw new Exception(String.format("El tipo de tomador \"%s\"
-				// seleccionado no está implementado", tomadorType));
+				throw new Exception(String.format("El tipo de tomador \"%s\" seleccionado no está implementado", tomadorType));
 		}
-		// this.browserContext.webElementHelper.waitForAngular();
+		// browserContext.webElementHelper.waitForAngular();
 		debugEnd();
 
 		return this;
@@ -301,22 +211,22 @@ public class DatosBasicosTomadorPage extends PageObject {
 	// public void NewTomadorWithNewNIF() throws InterruptedException
 	// {
 	// logger.debug("BEGIN - NewTomadorWithNewNIF");
-	// this.wh.SelectValueInDropDownInFrame(this.cmbTipoDocumento,
-	// this.cuerpoFrame, MutuaPropietariosConstants.NIF);
-	// this.wh.SendValueToWebElementInFrame(this.txtNumeroDocumento,
-	// this.cuerpoFrame, DniGeneratorHelper.generaNif(null));
-	// this.wh.SendValueToWebElementInFrame(this.txtNombreTomador,
-	// this.cuerpoFrame,
-	// this.browserContext.getTestCaseData().getTomadorNombre());
-	// this.wh.SendValueToWebElementInFrame(this.txtSegundoApellidoTomador,
-	// this.cuerpoFrame,
-	// this.browserContext.getTestCaseData().getTomadorPrimerApellido());
-	// this.wh.SendValueToWebElementInFrame(this.txtSegundoApellidoTomador,
-	// this.cuerpoFrame,
-	// this.browserContext.getTestCaseData().getTomadorSegundoApellido());
-	// this.wh.ClickOnWebElementInFrame(this.btnValidarCliente,
-	// this.cuerpoFrame);
-	// this.wh.ClickOnWebElementInFrame(this.btnAceptar, this.cuerpoFrame);
+	// wh.SelectValueInDropDownInFrame(cmbTipoDocumento,
+	// cuerpoFrame, MutuaPropietariosConstants.NIF);
+	// wh.SendValueToWebElementInFrame(txtNumeroDocumento,
+	// cuerpoFrame, DniGeneratorHelper.generaNif(null));
+	// wh.SendValueToWebElementInFrame(txtNombreTomador,
+	// cuerpoFrame,
+	// browserContext.getTestCaseData().getTomadorNombre());
+	// wh.SendValueToWebElementInFrame(txtSegundoApellidoTomador,
+	// cuerpoFrame,
+	// browserContext.getTestCaseData().getTomadorPrimerApellido());
+	// wh.SendValueToWebElementInFrame(txtSegundoApellidoTomador,
+	// cuerpoFrame,
+	// browserContext.getTestCaseData().getTomadorSegundoApellido());
+	// wh.ClickOnWebElementInFrame(btnValidarCliente,
+	// cuerpoFrame);
+	// wh.ClickOnWebElementInFrame(btnAceptar, cuerpoFrame);
 	// logger.debug("END - NewTomadorWithNewNIF");
 	// }
 	// endregion

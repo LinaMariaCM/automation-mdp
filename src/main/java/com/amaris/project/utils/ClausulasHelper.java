@@ -1,14 +1,23 @@
 package com.amaris.project.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.openqa.selenium.WebElement;
+
+import com.amaris.automation.model.testing.UserStory;
+import com.amaris.project.Constants;
 
 public class ClausulasHelper {
 
-	Boolean selected;
-	String Number;
-	String Description;
-	WebElement checkbox;
-	Integer pageNumber;
+	private String Number;
+	private boolean selected;
+	private String Description;
+	private Integer pageNumber;
+	private WebElement checkbox;
+	private static Map<String, List<String>> clausulas = new HashMap<>();
 
 	public ClausulasHelper(Integer pageNumber, boolean selected, String Number, String description, WebElement checkbox) {
 		this.pageNumber = pageNumber;
@@ -19,16 +28,16 @@ public class ClausulasHelper {
 	}
 
 	// BeginGettersAndSetters
-	public Boolean getSelected() {
-		return this.selected;
+	public boolean getSelected() {
+		return selected;
 	}
 
-	public void setSelected(Boolean selected) {
+	public void setSelected(boolean selected) {
 		this.selected = selected;
 	}
 
 	public String getNumber() {
-		return this.Number;
+		return Number;
 	}
 
 	public void setNumber(String number) {
@@ -36,7 +45,7 @@ public class ClausulasHelper {
 	}
 
 	public String getDescription() {
-		return this.Description;
+		return Description;
 	}
 
 	public void setDescription(String description) {
@@ -44,7 +53,7 @@ public class ClausulasHelper {
 	}
 
 	public WebElement getCheckbox() {
-		return this.checkbox;
+		return checkbox;
 	}
 
 	public void setCheckbox(WebElement checkbox) {
@@ -52,11 +61,25 @@ public class ClausulasHelper {
 	}
 
 	public Integer getPageNumber() {
-		return this.pageNumber;
+		return pageNumber;
 	}
 
 	public void setPageNumber(Integer pageNumber) {
 		this.pageNumber = pageNumber;
+	}
+
+	public static List<String> getClausulas(UserStory userS) {
+		if(clausulas.get(userS.getTestId()) == null) {
+			clausulas.put(userS.getTestId(), new ArrayList<String>());
+		}
+		
+		return clausulas.get(userS.getTestId());
+	}
+
+	public static void addClausula(String clausula, UserStory userS) {
+		userS.setTestVar(Constants.MODIFICAR_CLAUSULAS, Constants.ModificarClausulas);
+		
+		getClausulas(userS).add(clausula);
 	}
 	// EndGettersAndSetters
 }

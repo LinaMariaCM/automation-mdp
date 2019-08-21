@@ -6,80 +6,69 @@ import org.openqa.selenium.By;
 
 public class SiniestrosConfirmacionPage extends PageObject {
 
-	// REGION CONSTRUCTOR
+	// region WebElements
+	private By cuerpoFrame = By.id("mainFrame");
+
+	private By correcto = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > span > strong");
+	private By nSiniestro = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(1) > td");
+	private By expediente = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(4) > td > div");
+	private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a > strong");
+	// endregion
 
 	public SiniestrosConfirmacionPage(UserStory userS) {
 		super(userS);
 	}
-
-	// REGION WEBELEMENTS
-
-	private By cuerpoFrame = By.id("mainFrame");
-
-	private By correcto = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > span > strong");
-
-	private By nSiniestro = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(1) > td");
-
-	private By expediente = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(4) > td > div");
-
-	// FOR: TRAMITACION SINIESTRO
-
-	private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a > strong");
-
-	// REGION METHODS
-
-	public void confirmarSiniestroOK() {
-		this.debugBegin();
+	
+	// region Methods
+	public SiniestrosConfirmacionPage confirmarSiniestroOK() {
+		debugBegin();
+		
 		System.out.println("###########################\n");
 		System.out.println("# Mensaje de confirmacion #\n");
-		System.out.println("###########################\n");
-		System.out.println("\n");
+		System.out.println("###########################\n\n");
 
-		if(this.webDriver.isPresent(correcto)) {
-
-			System.out.println("- mensaje: " + this.webDriver.getText(this.correcto));
-			System.out.println("\n");
-			System.out.println("- " + this.webDriver.getText(this.nSiniestro));
-			System.out.println("\n");
-			System.out.println("- Expediente generado: " + this.webDriver.getText(this.expediente));
-
+		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
+			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto, cuerpoFrame) + "\n");
+			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");
+			System.out.println("- Expediente generado: " + webDriver.getTextInFrame(expediente, cuerpoFrame));
+		} else {
+			System.out.println("Se ha producido un error.");
 		}
 
-		else System.out.println("Se ha producido un error.");
-
-		System.out.println("\n");
-		this.debugEnd();
+		System.out.println();
+		
+		debugEnd();
+		
+		return this;
 	}
 
-	public void check() {
-		this.debugBegin();
+	public SiniestrosConfirmacionPage check() {
+		debugBegin();
+		
 		System.out.println("###########################\n");
 		System.out.println("# Mensaje de confirmacion #\n");
-		System.out.println("###########################\n");
-		System.out.println("\n");
+		System.out.println("###########################\n\n");
 
-		if(this.webDriver.isPresentInFrame(this.correcto, this.cuerpoFrame)) {
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-
-			System.out.println("- mensaje: " + this.webDriver.getText(this.correcto));
-			System.out.println("\n");
-			System.out.println("- " + this.webDriver.getText(this.nSiniestro));
-			System.out.println("\n");
-			System.out.println("- Expediente generado: " + this.webDriver.getText(this.expediente));
-
-			this.webDriver.exitFrame();
+		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
+			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto, cuerpoFrame) + "\n");
+			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");
+			System.out.println("- Expediente generado: " + webDriver.getTextInFrame(expediente, cuerpoFrame));
+		} else {
+			System.out.println("Se ha producido un error.");
 		}
 
-		else System.out.println("Se ha producido un error.");
-
-		System.out.println("\n");
-		this.debugEnd();
+		System.out.println();
+		
+		debugEnd();
+		
+		return this;
 	}
 
-	public void tramitarSiniestro() {
-		this.debugBegin();
-		this.webDriver.clickInFrame(this.tramitarSiniestro, this.cuerpoFrame);
-		this.debugEnd();
+	public SiniestrosConfirmacionPage tramitarSiniestro() {
+		debugBegin();
+		webDriver.clickInFrame(tramitarSiniestro, cuerpoFrame);
+		debugEnd();
+		
+		return this;
 	}
-
 }

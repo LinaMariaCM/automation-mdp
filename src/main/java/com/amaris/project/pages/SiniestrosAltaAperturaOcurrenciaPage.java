@@ -10,242 +10,179 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 
 	String pulp = "Ezequiel, 25-17: El camino del hombre recto está por todos lados rodeado por la avaricia de los egoístas y la tiranía de los hombres malos.";
 
+	// region webelements
+	// ##### FRAMES ####
+	private By cuerpoFrame = By.id("mainFrame");
+
+	// #### LUGAR DE OCURRENCIA ####
+	private By buttonRechazarApertura = By.id("cabRechazar");
+	private By buttonVolverAlBuscador = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
+	private By comboLugarOcurrencia = By.id("listaLugares");
+	private By comboTipoVia = By.id("tdviaocu");
+	private By txtCalleOcurrencia = By.id("calleocu");
+	private By txtNumeroOcurrencia = By.id("numcaocu");
+	private By txtPortalOcurrencia = By.id("portalocu");
+	private By txtEscaleraOcurrencia = By.id("escalocu");
+	private By txtPisoOcurrencia = By.id("pisoocu");
+	private By txtPuertaOcurrencia = By.id("puertaocu");
+	private By txtCPOcurrencia = By.id("cpocu");
+	private By txtPoblacionOcurrencia = By.id("poblocu");
+	private By comboProvincia = By.id("provocu");
+	private By buttonGoogleMaps = By.id("dirMaps");
+
+	// #### CAUSAS ####
+	private By grupoCausasAccidentes = By.cssSelector("#GRUCAUSA > option:nth-child(2)");
+	private By tipoCausasAccidentes = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
+	private By comboGrupoCausas = By.id("GRUCAUSA");
+	private By comboTiposCausa = By.id("TIPOCAUS");
+	private By comboGremio = By.id("CODGREMIO");
+
+	// #### DATOS DE LA OCURRENCIA ####
+	private By txtDescripcionSiniestro = By.id("version");
+	private By rdbtnImplicadosSi = By.id("implicadosSi");
+	private By rdbtnImplicadosNo = By.id("implicadosNo");
+	private By rdbtnEncargoSi = By.id("encargoSi");
+	private By rdbtnEncargoNo = By.id("encargoNo");
+	private By btnGuardarSalir = By.id("botonGuardar");
+	private By btnContinuar = By.id("botonContinuar");
+	private By descripOcu = By.id("version");
+	// endregion
+
 	public SiniestrosAltaAperturaOcurrenciaPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region webelements
-
-	// ##### FRAMES ####
-
-	// @FindBy(id = "leftFrame")
-	// private By menuFrame;
-	//
-	// @FindBy(id = "topFrame")
-	// private By topFrame;
-	//
-	// @FindBy(id = "mainFrame")
-	private By cuerpoFrame = By.id("mainFrame");
-
-	// #### LUGAR DE OCURRENCIA ####
-
-	//
-	private By buttonRechazarApertura = By.id("cabRechazar");
-	//
-	private By buttonVolverAlBuscador = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
-	//
-	private By comboLugarOcurrencia = By.id("listaLugares");
-	//
-	private By comboTipoVia = By.id("tdviaocu");
-	//
-	private By txtCalleOcurrencia = By.id("calleocu");
-	//
-	private By txtNumeroOcurrencia = By.id("numcaocu");
-	//
-	private By txtPortalOcurrencia = By.id("portalocu");
-	//
-	private By txtEscaleraOcurrencia = By.id("escalocu");
-	//
-	private By txtPisoOcurrencia = By.id("pisoocu");
-	//
-	private By txtPuertaOcurrencia = By.id("puertaocu");
-	//
-	private By txtCPOcurrencia = By.id("cpocu");
-	//
-	private By txtPoblacionOcurrencia = By.id("poblocu");
-	//
-	private By comboProvincia = By.id("provocu");
-	//
-	private By buttonGoogleMaps = By.id("dirMaps");
-	//
-	// @FindBy(xpath = "./html/body/div[3]/div/ul/li[1]/a/span")
-	// private By btnVolverABuscador;
-	//
-	// @FindBy(id = "listaLugares")
-	// private By drpdwnLugarOcurrencia;
-
-	// #### CAUSAS ####
-
-	// @FindBy(id = "GRUCAUSA")
-	private By grupoCausasAccidentes = By.cssSelector("#GRUCAUSA > option:nth-child(2)");
-	//
-	// @FindBy(id = "TIPOCAUS")
-	private By tipoCausasAccidentes = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
-	//
-	private By comboGrupoCausas = By.id("GRUCAUSA");
-	//
-	private By comboTiposCausa = By.id("TIPOCAUS");
-	//
-	private By comboGremio = By.id("CODGREMIO");
-	//
-
-	// #### DATOS DE LA OCURRENCIA ####
-
-	private By txtDescripcionSiniestro = By.id("version");
-	//
-	private By rdbtnImplicadosSi = By.id("implicadosSi");
-	//
-	private By rdbtnImplicadosNo = By.id("implicadosNo");
-	//
-	private By rdbtnEncargoSi = By.id("encargoSi");
-	//
-	private By rdbtnEncargoNo = By.id("encargoNo");
-	//
-	private By btnGuardarSalir = By.id("botonGuardar");
-	//
-	private By btnContinuar = By.id("botonContinuar");
-	//
-	private By descripOcu = By.id("version");
-
-	// endregion
-
 	// region methods
+	public SiniestrosAltaAperturaOcurrenciaPage altaRiesgoAsegurado() {
+		debugBegin();
 
-	// Lugar es el riesgo asegurado
-	public void altaRiesgoAsegurado() {
-		this.debugBegin();
+		// TODO rellenar metodo
+		// webDriver.clickElementFromDropDownByAttribute(comboLugarOcurrencia, "value", "RIES");
+		// webDriver.clickElementFromDropDownByIndex(comboLugarOcurrencia, 2);
 
-		//this.webDriver.clickElementFromDropDownByAttribute(this.comboLugarOcurrencia, "value", "RIES");
-		//this.webDriver.clickElementFromDropDownByIndex(this.comboLugarOcurrencia, 2);
-		//
-		this.debugEnd();
+		debugEnd();
+		
+		return this;
 	}
 
-	// Otro lugar de ocurrencia
-	public void altaOtroLugarOcurrencia(String tipoVia, String calle, String numero, String portal, String escalera, String piso, String puerta, String cp, String poblacion, String provincia) {
-		this.debugBegin();
+	public SiniestrosAltaAperturaOcurrenciaPage altaOtroLugarOcurrencia(String tipoVia, String calle, String numero, String portal, String escalera, String piso, String puerta, String cp, String poblacion, String provincia) {
+		debugBegin();
 
-		//this.webDriver.clickElementFromDropDownByAttribute(this.comboLugarOcurrencia, "value", "OTRO");
-		this.webDriver.clickElementFromDropDownByIndex(this.comboLugarOcurrencia, 1);
-		//
-		//this.webDriver.clickElementFromDropDownByAttribute(this.comboTipoVia, "value", tipoVia);
-		this.webDriver.clickElementFromDropDownByIndex(this.comboTipoVia, 2);
-		//
-		this.webDriver.appendText(this.txtCalleOcurrencia, calle);
-		this.webDriver.appendText(this.txtNumeroOcurrencia, numero);
-		this.webDriver.appendText(this.txtPortalOcurrencia, portal);
-		this.webDriver.appendText(this.txtEscaleraOcurrencia, escalera);
-		this.webDriver.appendText(this.txtPisoOcurrencia, piso);
-		this.webDriver.appendText(this.txtPuertaOcurrencia, puerta);
-		this.webDriver.appendText(this.txtCPOcurrencia, cp);
-		this.webDriver.appendText(this.txtPoblacionOcurrencia, poblacion);
-		//this.webDriver.clickElementFromDropDownByAttribute(this.comboProvincia, "value", provincia);
-		this.webDriver.clickElementFromDropDownByIndex(this.comboProvincia, 2);
-		//
+		webDriver.clickElementFromDropDownByIndexInFrame(comboLugarOcurrencia, cuerpoFrame, 1);
+		webDriver.clickElementFromDropDownByIndexInFrame(comboTipoVia, cuerpoFrame, 2);
 
-		this.debugEnd();
+		webDriver.appendTextInFrame(txtCalleOcurrencia, cuerpoFrame, calle);
+		webDriver.appendTextInFrame(txtNumeroOcurrencia, cuerpoFrame, numero);
+		webDriver.appendTextInFrame(txtPortalOcurrencia, cuerpoFrame, portal);
+		webDriver.appendTextInFrame(txtEscaleraOcurrencia, cuerpoFrame, escalera);
+		webDriver.appendTextInFrame(txtPisoOcurrencia, cuerpoFrame, piso);
+		webDriver.appendTextInFrame(txtPuertaOcurrencia, cuerpoFrame, puerta);
+		webDriver.appendTextInFrame(txtCPOcurrencia, cuerpoFrame, cp);
+		webDriver.appendTextInFrame(txtPoblacionOcurrencia, cuerpoFrame, poblacion);
+
+		webDriver.clickElementFromDropDownByIndexInFrame(comboProvincia, cuerpoFrame, 2);
+
+		debugEnd();
+		
+		return this;
 	}
 
-	// Seleccionar Causas
-	public void altaSeleccionarCausas(String grupoCausa, String tipoCausa, String gremioCausa) {
-		this.debugBegin();
+	public SiniestrosAltaAperturaOcurrenciaPage altaSeleccionarCausas(String grupoCausa, String tipoCausa, String gremioCausa) {
+		debugBegin();
 
-		//this.webDriver.clickElementFromDropDownByAttribute(this.comboGrupoCausas, "value", grupoCausa);
-		this.webDriver.clickElementFromDropDownByIndex(this.comboGrupoCausas,2);
-		//
-		this.webDriver.waitWithDriver(500);
-		//this.webDriver.clickElementFromDropDownByAttribute(this.comboTiposCausa, "value", tipoCausa);
-		this.webDriver.clickElementFromDropDownByIndex(this.comboTiposCausa, 1);
-		//
-		this.webDriver.waitWithDriver(500);
-		//if(this.webDriver.isOnScreen(this.comboGremio))this.webDriver.clickElementFromDropDownByAttribute(this.comboGremio, "value", gremioCausa);
-		if(this.webDriver.isOnScreen(this.comboGremio))this.webDriver.clickElementFromDropDownByIndex(this.comboGremio, 3);
-		//
-						
-		this.debugEnd();
+		webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 2);
+
+		webDriver.waitWithDriver(500);
+
+		webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausa, cuerpoFrame, 1);
+
+		webDriver.waitWithDriver(500);
+
+		if(webDriver.isOnScreen(comboGremio)) {
+			webDriver.clickElementFromDropDownByIndexInFrame(comboGremio, cuerpoFrame, 3);
+		}
+
+		debugEnd();
+		
+		return this;
 	}
 
-	// Rellenar Datos
-	public void altaRellenarDatos(String descripcion, boolean implicadosExisten, boolean encargo) {
-		this.debugBegin();
+	public SiniestrosAltaAperturaOcurrenciaPage altaRellenarDatos(String descripcion, boolean implicadosExisten, boolean encargo) {
+		debugBegin();
 
-		this.webDriver.appendText(this.txtDescripcionSiniestro, descripcion);
-		if(implicadosExisten) this.webDriver.click(this.rdbtnImplicadosSi);
-		else this.webDriver.click(this.rdbtnImplicadosNo);
-		if(encargo) this.webDriver.click(this.rdbtnEncargoSi);
-		else this.webDriver.click(this.rdbtnEncargoNo);
+		webDriver.appendTextInFrame(txtDescripcionSiniestro, cuerpoFrame, descripcion);
 
-		this.debugEnd();
+		if(implicadosExisten) {
+			webDriver.clickInFrame(rdbtnImplicadosSi, cuerpoFrame);
+		} else {
+			webDriver.clickInFrame(rdbtnImplicadosNo, cuerpoFrame);
+		}
+
+		if(encargo) {
+			webDriver.clickInFrame(rdbtnEncargoSi, cuerpoFrame);
+		} else {
+			webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
+		}
+
+		debugEnd();
+		
+		return this;
 	}
 
-	// Click en continuar
-	public void clickContinuar() {
-		this.debugBegin();
-
-		this.webDriver.click(this.btnContinuar);
-
-		this.debugEnd();
+	public SiniestrosAltaAperturaOcurrenciaPage clickContinuar() {
+		debugBegin();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		debugEnd();
+		
+		return this;
 	}
 
-	// public void clickRechazarApertura()
+	// public SiniestrosAltaAperturaOcurrenciaPage clickRechazarApertura()
 	// {
 	// logger.debug("BEGIN - clickRechazarApertura");
-	// this.wh.clickOnWebElementInFrame(this.btnRechazarApertura,
-	// this.mainFrame);
+	// wh.clickOnWebElementInFrame(btnRechazarApertura,
+	// mainFrame);
 	// logger.debug("END - clickRechazarApertura");
 	// }
 	//
-	// public void clickVolverABuscador()
+	// public SiniestrosAltaAperturaOcurrenciaPage clickVolverABuscador()
 	// {
 	// logger.debug("BEGIN - clickVolverABuscador");
-	// this.wh.clickOnWebElementInFrame(this.btnVolverABuscador,
-	// this.mainFrame);
+	// wh.clickOnWebElementInFrame(btnVolverABuscador,
+	// mainFrame);
 	// logger.debug("END - clickVolverABuscador");
 	// }
 	//
-	// public void clickGuardarYSalir()
+	// public SiniestrosAltaAperturaOcurrenciaPage clickGuardarYSalir()
 	// {
 	// logger.debug("BEGIN - clickGuardarYSalir");
-	// this.wh.clickOnWebElementInFrame(this.btnGuardarSalir, this.mainFrame);
+	// wh.clickOnWebElementInFrame(btnGuardarSalir, mainFrame);
 	// logger.debug("END - clickGuardarYSalir");
 	// }
-	//
-	// public void clickContinuar()
-	// {
-	// logger.debug("BEGIN - clickContinuar");
-	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.mainFrame);
-	// logger.debug("END - clickContinuar");
-	// }
 
-	public void datosMinOcurrencia(String numPoliza) // rellena los datos
-														// mínimos de una
-														// ocurrencia para que
-														// pase la prueba
-	{
-		this.debugBegin();
+	public SiniestrosAltaAperturaOcurrenciaPage datosMinOcurrencia(String numPoliza) {
+		debugBegin();
 
-		System.out.println("########################################################################");
-		System.out.println("# Rellena los datos mínimos de una ocurrencia para que pase la prueba. #");
-		System.out.println("########################################################################");
+		debugInfo("########################################################################");
+		debugInfo("# Rellena los datos mínimos de una ocurrencia para que pase la prueba. #");
+		debugInfo("########################################################################");
 
-		// String descripcion = "Un héroe es todo aquel que hace lo que puede";
-
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-
-		this.webDriver.click(this.grupoCausasAccidentes);
-		this.webDriver.click(this.tipoCausasAccidentes);
+		webDriver.clickInFrame(grupoCausasAccidentes, cuerpoFrame);
+		webDriver.clickInFrame(tipoCausasAccidentes, cuerpoFrame);
 
 		Steps.waitForIt(webDriver, txtDescripcionSiniestro);
-		this.webDriver.waitWithDriver(3000);
-		this.webDriver.appendText(this.txtDescripcionSiniestro, pulp);
-		this.webDriver.waitWithDriver(3000);
+		webDriver.waitWithDriver(3000);
+		webDriver.appendTextInFrame(txtDescripcionSiniestro, cuerpoFrame, pulp);
+		webDriver.waitWithDriver(3000);
 
-		System.out.println("####################");
-		System.out.println("# escribo algo 2 . #");
-		System.out.println("####################");
-
-		this.webDriver.click(this.rdbtnImplicadosNo);
-		this.webDriver.click(this.rdbtnEncargoNo);
-
-		// if(numPoliza.substring(0, 2).equals("510") || numPoliza.substring(0,
-		// 2).equals("500")) this.webDriver.app;
-
-		this.webDriver.click(this.btnContinuar);
+		webDriver.clickInFrame(rdbtnImplicadosNo, cuerpoFrame);
+		webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		Steps.waitForIt(webDriver);
 
-		this.webDriver.exitFrame();
-
-		this.debugEnd();
+		debugEnd();
+		
+		return this;
 	}
 	// endregion
 }
