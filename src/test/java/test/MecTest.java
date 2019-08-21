@@ -363,7 +363,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec13a() {
-		String testCase = ProjectConstants.MEC + "13a";
+		String testCase = Constants.MEC + "13a";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
