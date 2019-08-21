@@ -3451,5 +3451,62 @@ public class Steps extends InteractionObject {
 		setTestVar(Constants.ASEGURAR_UNICAMENTE_GARAJES, "true");
 	}
 
+	public void doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(String loginAccess, String user) throws Exception {
+	
+		debugBegin();
+		
+		//loginAcess = this.userS.getTestVar("acceso");
+		
+		if (loginAccess.equals(Constants.LoginAccessGestionLine)
+			&& getConfigVar("GestionOnlineDisponible").equals(Constants.GestionOnlineDisponible) 
+			|| loginAccess.equals(Constants.LoginAccessInnova)) {
+			
+			System.out.println("¡¡¡HOLA MUNDO!!!");
+			
+			this.login(loginAccess, user);
+			
+			this.openSimulationMec();
+			
+			AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
+			asignarMediadorPage.selectMediadorAndClickOnContinuar();
+			
+			UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
+			System.out.println("TOKEN 1");
+			ubicacionRiesgoPage.addInmuebleByAddress();
+			System.out.println("TOKEN 2");
+			ubicacionRiesgoPage.clickOnContinuar();
+			
+			System.out.println("TOKEN!");
+			
+			/**
+			this.login(loginAccess, user);
+			//userS.initializeVariables(loginAcess);
+			//userS.applicationAccessHelper.LoginAndCreateSimulation(this.tCData.getUsuario(), userS.getProperties().passwordComun);
+			
+			
+			
+			AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
+			asignarMediadorPage.selectMediadorAndClickOnContinuar();
+			
+			UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
+			ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
+			
+			ValidacionesExcepcionesReglasUbicacionRiesgoPage
+			validacionesExcepcionesReglasUbicacionRiesgo = new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS);
+			validacionesExcepcionesReglasUbicacionRiesgo.isUbicacionRiesgoUtilizada();
+			
+			this.detallesRiesgoPage = new DetallesRiesgoPage(webDriver, userS.getTestDataManager()); // this.detallesRiesgoPage.
+			ExecuteActionsInPageDetallesRiesgoPageWithoutClickinOnContinue();
+			this.detallesRiesgoPage.completarDatosEnDetallesRiesgoSinContinuar();
+			
+			*/
+			
+			 
+			}
+		
+		System.out.println("S'ACABAO");
+	
+		debugEnd();
+	}
 	// FIN
 }
