@@ -2,8 +2,11 @@ package com.amaris.project.pages;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
+
+import com.amaris.automation.configuration.AutomationConstants;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
@@ -13,26 +16,13 @@ import com.google.common.collect.Iterables;
 public class DatosBancariosPage extends PageObject {
 
 	// region webelements
-	// @FindBy(name = "cuerpo")
-	// @FindBy(id = "mainFrame")
 	private By cuerpoFrame = By.cssSelector("cuerpo");
 
-	// @FindBy(name = "iban_0")
 	private By txtIban0 = By.name("iban_0");
-
-	// @FindBy(name = "iban_1")
 	private By txtIban1 = By.name("iban_1");
-
-	// @FindBy(name = "iban_2")
 	private By txtIban2 = By.name("iban_2");
-
-	// @FindBy(name = "iban_3")
 	private By txtIban3 = By.name("iban_3");
-
-	// @FindBy(name = "iban_4")
 	private By txtIban4 = By.name("iban_4");
-
-	// @FindBy(name = "iban_5")
 	private By txtIban5 = By.name("iban_5");
 
 	// @FindBy(xpath = ".//*[text()='MUTUA DE PROPIETARIOS integrará los datos
@@ -40,92 +30,41 @@ public class DatosBancariosPage extends PageObject {
 	// responsabilidad de acuerdo a las ']/../../label/input")
 	// private WebElement chkMutuaPropietariosIntegrara;
 
-	// @FindBy(id = "lopd")
-	private By chkMutuaPropietariosIntegrara = By.cssSelector("lopd");
+	private By chkMutuaPropietariosIntegrara = By.cssSelector("#lopd");
 
-	// @FindBy(xpath = ".//*[contains(text(),'Guardar')]")
 	private By btnGuardar = By.xpath(".//*[contains(text(),'Guardar')]");
-
-	// @FindBy(css = "#modalPeritacion > div > div > div.modal-footer > div >
-	// button.btn.btn-primary.ng-binding")
 	private By btnGuardarPeritaje = By.cssSelector("#modalPeritacion > div > div > div.modal-footer > div > button.btn.btn-primary.ng-binding");
-
-	// @FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and
-	// contains(text(),'se ha guardado.')]")
-	private By txtProjectNumber = By.xpath(".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]");
-
-	// @FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and
-	// contains(text(),'se ha guardado.')]")
 	private By txtCodigoProjecto = By.xpath(".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]");
-
-	// @FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and
-	// contains(text(),'se ha
-	// guardado.')]/../../../../div[@class='modal-footer']/button")
 	private By btnAceptarInDialog = By.xpath(".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]/../../../../div[@class='modal-footer']/button");
 
-	// @FindBy(name = "medioPago")
 	private By cmbMedioPago = By.name("medioPago");
 
-	// @FindBy(xpath = ".//*[text()='Contratar']")
-	// "and @ng-click='db.nextStep(formDatosBancarios)']")
+	// @FindBy(xpath = ".//*[text()='Contratar']") and @ng-click='db.nextStep(formDatosBancarios)']")
 	private By btnContratar = By.xpath(".//*[text()='Contratar']");
 
 	// @FindBy(xpath = ".//*[text()='Solicitar peritación']")
-	// @FindBy(css = "body > div > div:nth-child(1) > div.container.ng-scope >
-	// div:nth-child(6) > footer > div > button:nth-child(6)")
 	private By btnSolicitarPeritacion = By.cssSelector("body > div > div:nth-child(1) > div.container.ng-scope > div:nth-child(6) > footer > div > button:nth-child(6)");
 
-	// @FindBy(xpath = ".//*[contains(text(),'La póliza') and
-	// contains(text(),'ha sido dada de alta correctamente.')]")
 	private By lblPolizaNumber = By.xpath(".//*[contains(text(),'La póliza') and contains(text(),'ha sido dada de alta correctamente.')]");
-
-	// @FindBy(xpath = ".//*[text()='Emitir suplemento' and
-	// @ng-click='db.contratar(formDatosBancarios)']")
 	private By btnEmitirSuplemento = By.xpath(".//*[text()='Emitir suplemento' and @ng-click='db.contratar(formDatosBancarios)']");
-
-	// @FindBy(css = "#modalPeritacion > div > div")
 	private By frmSolicitudServicioTecnico = By.cssSelector("#modalPeritacion > div > div");
 
-	// @FindBy(id = "tipoServicio")
-	private By drpdwnTipoServicio = By.cssSelector("tipoServicio");
+	private By drpdwnTipoServicio = By.cssSelector("#tipoServicio");
+	private By txtPersona = By.cssSelector("#persona");
+	private By txtRol = By.cssSelector("#rol");
+	private By txtTelefono = By.cssSelector("#telefono");
+	private By txtEmail = By.cssSelector("#email");
+	private By drpdwnDireccion = By.cssSelector("#direccion");
+	private By txtEscalera = By.cssSelector("#escalera");
+	private By txtBloque = By.cssSelector("#bloque");
+	private By txtPiso = By.cssSelector("#piso");
+	private By txtPuerta = By.cssSelector("#puerta");
+	private By txtObservaciones = By.cssSelector("#observaciones");
 
-	// @FindBy(id = "persona")
-	private By txtPersona = By.cssSelector("persona");
-
-	// @FindBy(id = "rol")
-	private By txtRol = By.cssSelector("rol");
-
-	// @FindBy(id = "telefono")
-	private By txtTelefono = By.cssSelector("telefono");
-
-	// @FindBy(id = "email")
-	private By txtEmail = By.cssSelector("email");
-
-	// @FindBy(id = "direccion")
-	private By drpdwnDireccion = By.cssSelector("direccion");
-
-	// @FindBy(id = "escalera")
-	private By txtEscalera = By.cssSelector("escalera");
-
-	// @FindBy(id = "bloque")
-	private By txtBloque = By.cssSelector("bloque");
-
-	// @FindBy(id = "piso")
-	private By txtPiso = By.cssSelector("piso");
-
-	// @FindBy(id = "puerta")
-	private By txtPuerta = By.cssSelector("puerta");
-
-	// @FindBy(id = "observaciones")
-	private By txtObservaciones = By.cssSelector("observaciones");
-
-	// @FindBy(xpath =
-	// "[@id='form1']/table/tbody/tr/td/span/font/strong/text()")
-	// @FindBy(css = "#form1 > table > tbody > tr > td > span > font > strong")
+	// @FindBy(xpath = "[@id='form1']/table/tbody/tr/td/span/font/strong/text()")
 	private By msgPeritacion = By.cssSelector("#form1 > table > tbody > tr > td > span > font > strong");
 
-	// @FindBy(css="#modalPeritacion > div > div > div.modal-footer > div >
-	// button.btn.btn-primary.ng-binding")
+	// @FindBy(css="#modalPeritacion > div > div > div.modal-footer > div > button.btn.btn-primary.ng-binding")
 	// private WebElement btnGuardar;
 	// endregion
 	String nombreProyecto = "";
@@ -136,57 +75,58 @@ public class DatosBancariosPage extends PageObject {
 
 	// region methods
 	public DatosBancariosPage introducirFormaPagoYPulsarGuardar() {
-		this.FillPaymentMethod(getTestVar("MedioPago"));
-		this.ClickOnGuardar();
-		this.GetProjectCodeNumberAndClickOnAceptarButton();
+		FillPaymentMethod(getTestVar(Constants.MEDIO_PAGO));
+		ClickOnGuardar();
+		GetProjectCodeNumberAndClickOnAceptarButton();
 
 		return this;
 	}
 
 	public DatosBancariosPage introducirFormaPagoYPulsarContratar() {
-		this.FillPaymentMethod(getTestVar("MedioPago"));
-		this.ClickOnGuardar();
-		this.GetProjectCodeNumberAndClickOnAceptarButton();
-		this.AceptarCondicionesLegales();
-		this.ClickOnContratarAndGetPolizaNumber();
+		FillPaymentMethod(getTestVar(Constants.MEDIO_PAGO));
+		ClickOnGuardar();
+		GetProjectCodeNumberAndClickOnAceptarButton();
+		AceptarCondicionesLegales();
+		ClickOnContratarAndGetPolizaNumber();
 
 		return this;
 	}
 
 	public DatosBancariosPage introducirFormaPagoYPulsarSolicitarPeritacion() {
-		this.fillStaticIban();
-		this.ClickOnGuardar();
-		this.GetProjectCodeNumberAndClickOnAceptarButton();
-		this.AceptarCondicionesLegales();
-		this.ClickOnSolicitarPeritacion();
-		this.enterDataSolicitudServicioTecnico();
-		// this.ClickOnContratarAndGetPolizaNumber();
+		fillStaticIban();
+		ClickOnGuardar();
+		GetProjectCodeNumberAndClickOnAceptarButton();
+		AceptarCondicionesLegales();
+		ClickOnSolicitarPeritacion();
+		enterDataSolicitudServicioTecnico();
+		// ClickOnContratarAndGetPolizaNumber();
 
 		return this;
 	}
 
 	public DatosBancariosPage modificarFormaPagoYPulsarGuardar() {
-		this.FillPaymentMethod(getTestVar("CambioMedioPago"));
-		this.ClickOnGuardar();
-		this.GetProjectCodeNumberAndClickOnAceptarButton();
+		FillPaymentMethod(getTestVar(Constants.CAMBIO_MEDIO_PAGO));
+		ClickOnGuardar();
+		GetProjectCodeNumberAndClickOnAceptarButton();
 
 		return this;
 	}
 
 	public DatosBancariosPage modificarFormaPagoYPulsarContratar() {
-		this.FillPaymentMethod(getTestVar("CambioMedioPago"));
-		this.ClickOnGuardar();
-		this.GetProjectCodeNumberAndClickOnAceptarButton();
-		this.AceptarCondicionesLegales();
-		this.ClickOnContratarAndGetPolizaNumber();
+		FillPaymentMethod(getTestVar(Constants.CAMBIO_MEDIO_PAGO));
+		ClickOnGuardar();
+		GetProjectCodeNumberAndClickOnAceptarButton();
+		AceptarCondicionesLegales();
+		ClickOnContratarAndGetPolizaNumber();
 
 		return this;
 	}
 
 	public DatosBancariosPage ClickOnGuardar() {
 		debugBegin();
-		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
-		// this.webDriver.waitForPageLoadWithAngular();
+		
+		webDriver.clickInFrame(btnGuardar, cuerpoFrame);
+		// webDriver.waitForPageLoadWithAngular();
 		debugEnd();
 
 		return this;
@@ -195,18 +135,18 @@ public class DatosBancariosPage extends PageObject {
 	public String FillCuentaBancariaWIthValidRandomNumber() {
 		debugBegin();
 		// Iban iban = Iban.random(CountryCode.ES);
-		String iban = getTestVar("IBAN");
+		String iban = getTestVar(Constants.IBAN);
 		Iterable<String> ibanIterator = Splitter.fixedLength(4).split(iban);
 		String[] ibanList = Iterables.toArray(ibanIterator, String.class);
 
-		this.webDriver.appendTextInFrame(this.txtIban0, this.cuerpoFrame, ibanList[0]);
-		this.webDriver.appendTextInFrame(this.txtIban1, this.cuerpoFrame, ibanList[1]);
-		this.webDriver.appendTextInFrame(this.txtIban2, this.cuerpoFrame, ibanList[2]);
-		this.webDriver.appendTextInFrame(this.txtIban3, this.cuerpoFrame, ibanList[3]);
-		this.webDriver.appendTextInFrame(this.txtIban4, this.cuerpoFrame, ibanList[4]);
-		this.webDriver.appendTextInFrame(this.txtIban5, this.cuerpoFrame, ibanList[5]);
-		// this.wh.ClickOnWebElementInFrame(this.chkMutuaPropietariosIntegrara,
-		// this.cuerpoFrame);
+		webDriver.appendTextInFrame(txtIban0, cuerpoFrame, ibanList[0]);
+		webDriver.appendTextInFrame(txtIban1, cuerpoFrame, ibanList[1]);
+		webDriver.appendTextInFrame(txtIban2, cuerpoFrame, ibanList[2]);
+		webDriver.appendTextInFrame(txtIban3, cuerpoFrame, ibanList[3]);
+		webDriver.appendTextInFrame(txtIban4, cuerpoFrame, ibanList[4]);
+		webDriver.appendTextInFrame(txtIban5, cuerpoFrame, ibanList[5]);
+		// wh.ClickOnWebElementInFrame(chkMutuaPropietariosIntegrara,
+		// cuerpoFrame);
 
 		debugEnd();
 
@@ -215,18 +155,19 @@ public class DatosBancariosPage extends PageObject {
 
 	public String fillStaticIban() {
 		debugBegin();
+		
 		String iban = "ES0321001234561234567890";
 		Iterable<String> ibanIterator = Splitter.fixedLength(4).split(iban);
 		String[] ibanList = Iterables.toArray(ibanIterator, String.class);
 
-		this.webDriver.appendTextInFrame(this.txtIban0, this.cuerpoFrame, ibanList[0]);
-		this.webDriver.appendTextInFrame(this.txtIban1, this.cuerpoFrame, ibanList[1]);
-		this.webDriver.appendTextInFrame(this.txtIban2, this.cuerpoFrame, ibanList[2]);
-		this.webDriver.appendTextInFrame(this.txtIban3, this.cuerpoFrame, ibanList[3]);
-		this.webDriver.appendTextInFrame(this.txtIban4, this.cuerpoFrame, ibanList[4]);
-		this.webDriver.appendTextInFrame(this.txtIban5, this.cuerpoFrame, ibanList[5]);
-		// this.wh.ClickOnWebElementInFrame(this.chkMutuaPropietariosIntegrara,
-		// this.cuerpoFrame);
+		webDriver.appendTextInFrame(txtIban0, cuerpoFrame, ibanList[0]);
+		webDriver.appendTextInFrame(txtIban1, cuerpoFrame, ibanList[1]);
+		webDriver.appendTextInFrame(txtIban2, cuerpoFrame, ibanList[2]);
+		webDriver.appendTextInFrame(txtIban3, cuerpoFrame, ibanList[3]);
+		webDriver.appendTextInFrame(txtIban4, cuerpoFrame, ibanList[4]);
+		webDriver.appendTextInFrame(txtIban5, cuerpoFrame, ibanList[5]);
+		// wh.ClickOnWebElementInFrame(chkMutuaPropietariosIntegrara,
+		// cuerpoFrame);
 
 		debugEnd();
 
@@ -236,23 +177,23 @@ public class DatosBancariosPage extends PageObject {
 	public DatosBancariosPage FillPaymentMethod(String paymentMethod) {
 		debugBegin();
 		// String medioPago =
-		// this.appendTextInFrame.getTextFromSelectInFrame(this.cmbMedioPago,
-		// this.cuerpoFrame);
+		// appendTextInFrame.getTextFromSelectInFrame(cmbMedioPago,
+		// cuerpoFrame);
 		// if (!medioPago.equals(paymentMethod))
 		// {
-		// medioPago = this.SelectMediadorAsPaymentMethod();
+		// medioPago = SelectMediadorAsPaymentMethod();
 		// }
 		// else
 		// {
-		// medioPago = this.FillCuentaBancariaWIthValidRandomNumber();
+		// medioPago = FillCuentaBancariaWIthValidRandomNumber();
 		// }
 
 		switch(paymentMethod) {
 			case "el mediador":
-				this.SelectMediadorAsPaymentMethod();
+				SelectMediadorAsPaymentMethod();
 				break;
 			case "el cobro bancario":
-				this.FillCuentaBancariaWIthValidRandomNumber();
+				FillCuentaBancariaWIthValidRandomNumber();
 				break;
 		}
 
@@ -263,15 +204,16 @@ public class DatosBancariosPage extends PageObject {
 
 	public DatosBancariosPage GetProjectCodeNumberAndClickOnAceptarButton() {
 		debugBegin();
-		String projectNumberText = this.webDriver.getTextInFrame(this.txtCodigoProjecto, this.cuerpoFrame);
+		
+		String projectNumberText = webDriver.getTextInFrame(txtCodigoProjecto, cuerpoFrame);
 		String ProjectCode = StringUtils.substringBetween(projectNumberText, "El proyecto", "se ha guardado.").trim();
-		this.nombreProyecto = ProjectCode;
-		this.webDriver.clickInFrame(this.btnAceptarInDialog, this.cuerpoFrame);
-		// this.browserContext.getTestCaseData().setNoCotizacion(ProjectCode);
-		setTestVar("CotizacionNum", ProjectCode);
+		nombreProyecto = ProjectCode;
+		webDriver.clickInFrame(btnAceptarInDialog, cuerpoFrame);
+		// browserContext.getTestCaseData().setNoCotizacion(ProjectCode);
+		setTestVar(Constants.NUM_COTIZACION, ProjectCode);
 
 		// DocumentacionPage documentacionPage = new
-		// DocumentacionPage(this.browserContext);
+		// DocumentacionPage(browserContext);
 		// documentacionPage.SubirFichero();
 
 		debugEnd();
@@ -280,12 +222,12 @@ public class DatosBancariosPage extends PageObject {
 	}
 
 	public String getProjectNumber() {
-		return this.nombreProyecto;
+		return nombreProyecto;
 	}
 
 	public DatosBancariosPage SelectMediadorAsPaymentMethod() {
 		debugBegin();
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbMedioPago, this.cuerpoFrame, "Mediador");
+		webDriver.clickElementFromDropDownByTextInFrame(cmbMedioPago, cuerpoFrame, "Mediador");
 		debugEnd();
 
 		return this;
@@ -293,7 +235,7 @@ public class DatosBancariosPage extends PageObject {
 
 	public DatosBancariosPage AceptarCondicionesLegales() {
 		debugBegin();
-		this.webDriver.clickInFrame(this.chkMutuaPropietariosIntegrara, this.cuerpoFrame);
+		webDriver.clickInFrame(chkMutuaPropietariosIntegrara, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -301,7 +243,7 @@ public class DatosBancariosPage extends PageObject {
 
 	public DatosBancariosPage ClickOnSolicitarPeritacion() {
 		debugBegin();
-		this.webDriver.clickInFrame(this.btnSolicitarPeritacion, this.cuerpoFrame);
+		webDriver.clickInFrame(btnSolicitarPeritacion, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -309,21 +251,21 @@ public class DatosBancariosPage extends PageObject {
 
 	public DatosBancariosPage enterDataSolicitudServicioTecnico() {
 		debugBegin();
-		// this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdwnTipoServicio, this.cuerpoFrame, "Verificación de riesgo");
-		this.webDriver.appendTextInFrame(this.txtPersona, this.cuerpoFrame, "Nombre Persona Contacto");
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.txtRol, this.cuerpoFrame, "Otros");
-		this.webDriver.appendTextInFrame(this.txtTelefono, this.cuerpoFrame, "961111111");
-		this.webDriver.appendTextInFrame(this.txtEmail, this.cuerpoFrame, "personacontacto@email.com");
-		this.webDriver.clickElementFromDropDownByIndexInFrame(this.drpdwnDireccion, this.cuerpoFrame, 0);
-		this.webDriver.appendTextInFrame(this.txtEscalera, this.cuerpoFrame, "1");
-		this.webDriver.appendTextInFrame(this.txtBloque, this.cuerpoFrame, "2");
-		this.webDriver.appendTextInFrame(this.txtPiso, this.cuerpoFrame, "3");
-		this.webDriver.appendTextInFrame(this.txtPuerta, this.cuerpoFrame, "4");
-		this.webDriver.appendTextInFrame(this.txtObservaciones, this.cuerpoFrame, "Unas observaciones para la persona de contacto del peritaje.");
-		this.webDriver.clickInFrame(this.btnGuardarPeritaje, this.cuerpoFrame);
-		// this.wh.exitFromFrame();
-		String mensajePeritaje = this.webDriver.getTextInFrame(this.msgPeritacion, this.cuerpoFrame);
+		// webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByTextInFrame(drpdwnTipoServicio, cuerpoFrame, "Verificación de riesgo");
+		webDriver.appendTextInFrame(txtPersona, cuerpoFrame, "Nombre Persona Contacto");
+		webDriver.clickElementFromDropDownByTextInFrame(txtRol, cuerpoFrame, "Otros");
+		webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, "961111111");
+		webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "personacontacto@email.com");
+		webDriver.clickElementFromDropDownByIndexInFrame(drpdwnDireccion, cuerpoFrame, 0);
+		webDriver.appendTextInFrame(txtEscalera, cuerpoFrame, "1");
+		webDriver.appendTextInFrame(txtBloque, cuerpoFrame, "2");
+		webDriver.appendTextInFrame(txtPiso, cuerpoFrame, "3");
+		webDriver.appendTextInFrame(txtPuerta, cuerpoFrame, "4");
+		webDriver.appendTextInFrame(txtObservaciones, cuerpoFrame, "Unas observaciones para la persona de contacto del peritaje.");
+		webDriver.clickInFrame(btnGuardarPeritaje, cuerpoFrame);
+		// wh.exitFromFrame();
+		String mensajePeritaje = webDriver.getTextInFrame(msgPeritacion, cuerpoFrame);
 		debugInfo("Message peritacion: " + mensajePeritaje + ".\n");
 
 		debugEnd();
@@ -332,16 +274,17 @@ public class DatosBancariosPage extends PageObject {
 	}
 
 	public String getMensajePeritaje() {
-		String mensajePeritaje = this.webDriver.getTextInFrame(this.msgPeritacion, this.cuerpoFrame);
+		String mensajePeritaje = webDriver.getTextInFrame(msgPeritacion, cuerpoFrame);
 
 		return mensajePeritaje;
 	}
 
 	public DatosBancariosPage ClickOnContratarAndGetPolizaNumber() {
 		debugBegin();
-		this.webDriver.clickInFrame(this.btnContratar, this.cuerpoFrame);
-		// this.browserContext.getTestCaseData().setNumPoliza(this.GetPolizaNumber());
-		setTestVar("PolizaNumber", this.GetPolizaNumber());
+		
+		webDriver.clickInFrame(btnContratar, cuerpoFrame);
+		setTestVar(Constants.NUM_POLIZA, GetPolizaNumber());
+		
 		debugEnd();
 
 		return this;
@@ -349,24 +292,25 @@ public class DatosBancariosPage extends PageObject {
 
 	public String GetPolizaNumber() {
 		debugBegin();
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		String polizaNumber = this.webDriver.getText(this.lblPolizaNumber);
-		Integer firstCharacter = polizaNumber.indexOf("/") + 1;
+		
+		String polizaNumber = webDriver.getTextInFrame(lblPolizaNumber, cuerpoFrame);
+		Integer firstCharacter = polizaNumber.indexOf('/') + 1;
 		Integer lastCharacter = polizaNumber.indexOf("ha") - 1;
 		String trimmedPolizaNumber = polizaNumber.substring(firstCharacter, lastCharacter);
 		String numPoliza = trimmedPolizaNumber;
-		this.GuardarPolizaTxt(numPoliza);
-
-		this.webDriver.exitFrame();
+		
+		GuardarPolizaTxt(numPoliza);
+		
 		debugEnd();
+		
 		return trimmedPolizaNumber;
 	}
 
 	public DatosBancariosPage ClickOnEmitirSuplemento() {
 		debugBegin();
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.click(this.btnEmitirSuplemento);
-		this.webDriver.exitFrame();
+		
+		webDriver.clickInFrame(btnEmitirSuplemento, cuerpoFrame);
+		
 		debugEnd();
 
 		return this;
@@ -376,7 +320,7 @@ public class DatosBancariosPage extends PageObject {
 		try {
 			// String ruta = fileDownloadTempPath + "\\Polizas.txt";
 			// String ruta =
-			// this.browserContext.getTestCaseData().getFileDownloadTempPath() +
+			// browserContext.getTestCaseData().getFileDownloadTempPath() +
 			// "\\Polizas.txt";
 			//String ruta = getTestVar("fileDownloadTempPath");
 			// File archivo = new File("C:\\MutuaPropietarios\\Polizas.txt");
@@ -384,7 +328,7 @@ public class DatosBancariosPage extends PageObject {
 			//bw.write(cadenaTexto + ";");
 			//bw.close();
 			
-			writeFile(getTestVar("fileDownloadTempPath"), cadenaTexto + ";");
+			writeFile(AutomationConstants.RESOURCES_FOLDER + "Polizas.txt", cadenaTexto + ";");
 		} catch(Exception e) {}
 
 		return this;

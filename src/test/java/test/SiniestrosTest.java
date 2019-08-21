@@ -6,17 +6,17 @@ import org.testng.annotations.Test;
 
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 
 public class SiniestrosTest {
 
-	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MEC_SINIESTROS);
+	protected SuiteManager suiteM = new SuiteManager(Constants.MEC_SINIESTROS);
 
 	// PRUEBA MEC_SINIESTROS
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec01() {
-		String testCase = ProjectConstants.MEC_SINIESTROS + "01";
+		String testCase = Constants.MEC_SINIESTROS + "01";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 		return casesMatrix;

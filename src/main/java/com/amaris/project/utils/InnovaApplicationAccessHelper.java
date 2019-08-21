@@ -8,7 +8,7 @@ import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.pages.GestionCotizacionesBuscadorPage;
 import com.amaris.project.pages.InnovaHomePage;
 import com.amaris.project.pages.InnovaLoginPage;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 
 public class InnovaApplicationAccessHelper extends PageObject implements IApplicationAccessHelper {
 
@@ -31,47 +31,47 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 	@Override
 	public void login(String userId, String password) throws Exception {
 		switch(this.getTestVar("enviroment")) {
-			case ProjectConstants.PreEnvironment:
+			case Constants.PreEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomePre);
 				this.webDriver.go(getTestVar("InnovaHome-Pre"));
 				break;
-			case ProjectConstants.UatEnvironment:
+			case Constants.UatEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUAT);
 				this.webDriver.go(getTestVar("InnovaHome-UAT"));
 				break;
-			case ProjectConstants.V7Environment:
+			case Constants.V7Environment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeV7);
 				this.webDriver.go(getTestVar("InnovaHome-V7"));
 				break;
-			case ProjectConstants.QAEnvironment:
+			case Constants.QAEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeQA);
 				this.webDriver.go(getTestVar("InnovaHome-QA"));
 				break;
-			case ProjectConstants.ATMIRAEnvironment:
+			case Constants.ATMIRAEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeATMIRA);
 				this.webDriver.go(getTestVar("InnovaHome-ATMIRA"));
 				break;
-			case ProjectConstants.UpgradeEnvironment:
+			case Constants.UpgradeEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUpgrade);
 				this.webDriver.go(getTestVar("InnovaHome-Upgrade"));
 				break;
-			case ProjectConstants.SiniestrosEnvironment:
+			case Constants.SiniestrosEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeSiniestros);
 				this.webDriver.go(getTestVar("InnovaHome-Siniestros"));
 				break;
-			case ProjectConstants.MigracionEnvironment:
+			case Constants.MigracionEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeMigracion);
 				this.webDriver.go(getTestVar("InnovaHome-Migracion"));
 				break;
-			case ProjectConstants.UatPjEnvironment:
+			case Constants.UatPjEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeUatPj);
 				this.webDriver.go(getTestVar("InnovaHome-UatPj"));
 				break;
-			case ProjectConstants.HogarMigEnvironment:
+			case Constants.HogarMigEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeHogarMig);
 				this.webDriver.go(getTestVar("InnovaHome-HogarMig"));
 				break;
-			case ProjectConstants.RecibosCheckEnvironment:
+			case Constants.RecibosCheckEnvironment:
 				// this.browserContext.getWebDriver().get(this.browserContext.getProperties().mutuaInnovaHomeHogarMig);
 				this.webDriver.go(getTestVar("InnovaHome-RecibosCheck"));
 				break;

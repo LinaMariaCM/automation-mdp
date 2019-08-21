@@ -3,7 +3,7 @@ package test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
@@ -11,12 +11,12 @@ import org.testng.annotations.Test;
 
 public class MacTest extends TestObject {
 
-	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MAC);
+	protected SuiteManager suiteM = new SuiteManager(Constants.MAC);
 
 	// PRUEBAS MAC
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac01() {
-		String testCase = ProjectConstants.MAC + "01";
+		String testCase = Constants.MAC + "01";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -59,7 +59,7 @@ public class MacTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac01a() {
-		String testCase = ProjectConstants.MAC + "01a";
+		String testCase = Constants.MAC + "01a";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -97,7 +97,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac01b() {
-		String testCase = ProjectConstants.MAC + "01b";
+		String testCase = Constants.MAC + "01b";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -146,7 +146,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac02() {
-		String testCase = ProjectConstants.MAC + "02";
+		String testCase = Constants.MAC + "02";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -218,7 +218,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac03() {
-		String testCase = ProjectConstants.MAC + "03";
+		String testCase = Constants.MAC + "03";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -257,7 +257,7 @@ public class MacTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac04() {
-		String testCase = ProjectConstants.MAC + "04";
+		String testCase = Constants.MAC + "04";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -297,7 +297,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac05() {
-		String testCase = ProjectConstants.MAC + "05";
+		String testCase = Constants.MAC + "05";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -333,7 +333,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac06() {
-		String testCase = ProjectConstants.MAC + "06";
+		String testCase = Constants.MAC + "06";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -369,7 +369,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac07() {
-		String testCase = ProjectConstants.MAC + "07";
+		String testCase = Constants.MAC + "07";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -405,7 +405,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac08() {
-		String testCase = ProjectConstants.MAC + "08";
+		String testCase = Constants.MAC + "08";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -441,7 +441,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac09() {
-		String testCase = ProjectConstants.MAC + "09";
+		String testCase = Constants.MAC + "09";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;
@@ -484,7 +484,7 @@ public class MacTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMac10() {
-		String testCase = ProjectConstants.MAC + "10";
+		String testCase = Constants.MAC + "10";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMac.csv");
 
 		return casesMatrix;

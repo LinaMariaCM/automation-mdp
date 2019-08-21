@@ -10,27 +10,16 @@ public class AvisoSistemaPage extends PageObject {
 
 	// region webelements
 	private By cuerpoFrame = By.name("cuerpo");
-
 	private By btnContinuar = By.xpath(".//*[text()='Volver']");
-
 	private By msgAvisoPlantasAlto = By.xpath("./html/body/table");
 	// endregion
-
-	/*
-	 * public AvisoSistemaPage(BrowserContext browserContext) {
-	 * this.browserContext = browserContext; this.wh =
-	 * browserContext.webElementHelper; this.tData =
-	 * browserContext.getTestCaseData();
-	 * PageFactory.initElements(browserContext.getWebDriver(), this); }
-	 * 
-	 */
 
 	public AvisoSistemaPage(UserStory userS) {
 		super(userS);
 	}
 
 	// region methods
-	public void CheckmsgAvisoPlantasAlto() {
+	public AvisoSistemaPage CheckmsgAvisoPlantasAlto() {
 		debugBegin();
 		
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -39,9 +28,11 @@ public class AvisoSistemaPage extends PageObject {
 		this.webDriver.exitFrame();
 		
 		debugEnd();
+		
+		return this;
 	}
 
-	public void ClikOnVolver() {
+	public AvisoSistemaPage ClikOnVolver() {
 		debugBegin();
 		
 		this.webDriver.switchToFrame(this.cuerpoFrame);
@@ -49,6 +40,8 @@ public class AvisoSistemaPage extends PageObject {
 		this.webDriver.exitFrame();
 		
 		debugEnd();
+		
+		return this;
 	}
 	// endregion
 }

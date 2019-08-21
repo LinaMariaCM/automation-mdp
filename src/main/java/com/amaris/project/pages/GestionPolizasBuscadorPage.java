@@ -8,172 +8,113 @@ import com.amaris.project.steps.Steps;
 
 public class GestionPolizasBuscadorPage extends PageObject {
 
+	// region webelements
+	private By cuerpoFrame = By.id("mainFrame");
+
+	private By btnBuscar = By.name("botonBuscar");
+
+	private By btnMostrarAcciones = By.xpath(".//*[@alt='Acciones']");
+
+	private By btnSuplementoGeneral = By.xpath(".//*[text()='Suplemento general']");
+	private By btnSuplementoCambioTomador = By.xpath(".//*[text()='Suplemento cambio de tomador']");
+	private By btnSuplementoMedioPago = By.xpath(".//*[text()='Suplemento medio de pago']");
+
+	private By rdnNoPoliza = By.id("filtro1");
+	private By btnConsulta = By.xpath(".//*[text()='Consulta']");
+
+	private By rdnNIFfiltro = By.cssSelector("#filtro3");
+	private By txtNifCif = By.cssSelector("#numedocu");
+
+	private By lineaNegocioDefault = By.cssSelector("#producto_poliza > option:nth-child(1)");
+	private By lineaNegocioMec = By.cssSelector("#producto_poliza > option:nth-child(3)");
+	private By inputNumeroPoliza = By.id("polizsec");
+	private By continuar = By.xpath("//*[@id='capaAjax']/table/tbody/tr[2]/td[12]/a");
+
+	// // endregion
+
 	public GestionPolizasBuscadorPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region webelements
-
-	// @FindBy(xpath = ".//*[@value='POLIZA']")
-	// @FindBy(id = "filtro1")
-	private By rdnNoPoliza = By.id("filtro1");
-	//
-	// @FindBy(name = "toc")
-	// private WebElement menuFrame;
-	//
-	// @FindBy(id = "topFrame")
-	// private WebElement topFrame;
-	//
-	// @FindBy(id = "mainFrame")
-	private By cuerpoFrame = By.id("mainFrame");
-
-	// @FindBy(name = "botonBuscar")
-	private By btnBuscar = By.name("botonBuscar");
-
-	// @FindBy(name = "producto_poliza")
-	// private WebElement cmbProductoCotizacion;
-	//
-	// @FindBy(name = "polizsec")
-	// private WebElement txtNumeroPoliza;
-	
-	 //@FindBy(xpath = ".//*[@alt='Acciones']")
-	 private By btnMostrarAcciones = By.xpath(".//*[@alt='Acciones']");
-	
-	// @FindBy(xpath = ".//*[text()='Suplemento general']")
-	// private WebElement btnSuplementoGeneral;
-	//
-	// @FindBy(xpath = ".//*[text()='Suplemento cambio de tomador']")
-	// private WebElement btnSuplementoCambioTomador;
-	//
-	// @FindBy(xpath = ".//*[text()='Suplemento medio de pago']")
-	// private WebElement btnSuplementoMedioPago;
-	
-	 //@FindBy(xpath = ".//*[text()='Consulta']")
-	 private By btnConsulta = By.xpath(".//*[text()='Consulta']");
-	
-	// @FindBy(id = "filtro3")
-	// private WebElement rdnNIFfiltro;
-	//
-	// @FindBy(id = "numedocu")
-	// private WebElement txtNifCif;
-	//
-
-	// private By lineaNegocioDefault = By.id("producto_poliza");
-
-	private By lineaNegocioDefault = By.cssSelector("#producto_poliza > option:nth-child(1)");
-
-	private By lineaNegocioMec = By.cssSelector("#producto_poliza > option:nth-child(3)");
-
-	private By inputNumeroPoliza = By.id("polizsec");
-
-	private By continuar = By.xpath("//*[@id='capaAjax']/table/tbody/tr[2]/td[12]/a");
-
-	// // endregion
-	//
-	// public GestionPolizasBuscadorPage(BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
 	// // region methods
-	//
-	// public void SearchPolizaByPolizaNumber(String poliza)
-	// {
-	// logger.debug("BEGIN - SearchPoliza");
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.clickOnWebElement(this.rdnNoPoliza);
-	// this.wh.selectValueInDropDown(this.cmbProductoCotizacion,
-	// ProjectConstants.MutuaEdificioConfort);
-	// this.wh.sendValueToWebElement(this.txtNumeroPoliza, poliza);
-	// this.wh.clickOnWebElement(this.btnBuscar);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - SearchPoliza");
-	// }
-
-	public void buscarPorNumeroPoliza(String numPoliza) {
-		this.debugBegin();
-
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.click(this.rdnNoPoliza);
-
-		this.webDriver.click(this.lineaNegocioDefault);
-
-		this.webDriver.setText(inputNumeroPoliza, numPoliza);
-		this.webDriver.click(this.btnBuscar);
-		Steps.waitForIt(webDriver);
-		this.webDriver.exitFrame();
-
-		this.debugEnd();
-	}
-
-	public void SeleccionarResultado() {
-		this.debugBegin();
-
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-
-		if(webDriver.isPresent(this.continuar)) this.webDriver.click(this.continuar);
-		else System.out.println("No se han encontrado resultados para la búsqueda realizada");
-
-		this.webDriver.exitFrame();
-		this.debugEnd();
-	}
-
-	// public void SearchPolizaByNifNumber(String NifNumber)
-	// {
-	// logger.debug("BEGIN - SearchPoliza");
-	// this.wh.switchToFrame(this.mainFrame);
-	// // this.wh.SelectValueInDropDown(this.cmbProductoCotizacion,
-	// MutuaPropietariosConstants.MutuaEdificioConfort);
-	// this.wh.clickOnWebElement(this.rdnNIFfiltro);
-	// this.wh.sendValueToWebElement(this.txtNifCif, NifNumber);
-	// this.wh.clickOnWebElement(this.btnBuscar);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - SearchPoliza");
-	// }
-	//
-	// public void AddSuplementoGeneral()
-	// {
-	// logger.debug("BEGIN - AddSuplementoGeneral");
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.moveToElementWithJavaScript(this.btnMostrarAcciones);
-	// this.wh.clickOnWebElement(this.btnMostrarAcciones);
-	// this.wh.moveToElementAndClickWithJavaScript(this.btnSuplementoGeneral);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - AddSuplementoGeneral");
-	// }
-	//
-	// public void AddSuplementoCambioMedioPago()
-	// {
-	// logger.debug("BEGIN - AddSuplementoCambioMedioPago");
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.moveToElementWithJavaScript(this.btnMostrarAcciones);
-	// this.wh.clickOnWebElement(this.btnMostrarAcciones);
-	// this.wh.moveToElementAndClickWithJavaScript(this.btnSuplementoMedioPago);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - AddSuplementoCambioMedioPago");
-	// }
-	//
-	// public void AddSuplementoCambioTomador()
-	// {
-	// logger.debug("BEGIN - AddSuplementoCambioTomador");
-	// this.wh.switchToFrame(this.mainFrame);
-	// this.wh.moveToElementWithJavaScript(this.btnMostrarAcciones);
-	// this.wh.clickOnWebElement(this.btnMostrarAcciones);
-	// this.wh.moveToElementAndClickWithJavaScript(this.btnSuplementoCambioTomador);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - AddSuplementoCambioTomador");
-	// }
-	//
-	public void ConsultarPoliza() {
+	public GestionPolizasBuscadorPage buscarPorNumeroPoliza(String numPoliza) {
 		debugBegin();
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.click(this.btnMostrarAcciones);
-		this.webDriver.click(this.btnConsulta);
-		this.webDriver.exitFrame();
+
+		webDriver.clickInFrame(rdnNoPoliza, cuerpoFrame);
+
+		webDriver.clickInFrame(lineaNegocioDefault, cuerpoFrame);
+
+		webDriver.setTextInFrame(inputNumeroPoliza, cuerpoFrame, numPoliza);
+		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+
+		Steps.waitForIt(webDriver);
+
 		debugEnd();
+
+		return this;
+	}
+
+	public GestionPolizasBuscadorPage buscarPolizaPorNumeroNif(String NifNumber) {
+		debugBegin();
+
+		webDriver.clickInFrame(rdnNIFfiltro, cuerpoFrame);
+		webDriver.appendTextInFrame(txtNifCif, cuerpoFrame, NifNumber);
+		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+
+		debugEnd();
+
+		return this;
+	}
+
+	public GestionPolizasBuscadorPage SeleccionarResultado() {
+		debugBegin();
+
+		if(!webDriver.isPresentAndClickInFrame(continuar, cuerpoFrame)) {
+			debugInfo("No se han encontrado resultados para la búsqueda realizada");
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public GestionPolizasBuscadorPage AddSuplementoGeneral() {
+		debugBegin();
+
+		webDriver.clickInFrame(btnMostrarAcciones, cuerpoFrame);
+		webDriver.clickInFrame(btnSuplementoGeneral, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public GestionPolizasBuscadorPage AddSuplementoCambioMedioPago() {
+		debugBegin();
+
+		webDriver.clickInFrame(btnMostrarAcciones, cuerpoFrame);
+		webDriver.clickInFrame(btnSuplementoMedioPago, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public GestionPolizasBuscadorPage AddSuplementoCambioTomador() {
+		debugBegin();
+
+		webDriver.clickInFrame(btnMostrarAcciones, cuerpoFrame);
+		webDriver.clickInFrame(btnSuplementoCambioTomador, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public GestionPolizasBuscadorPage ConsultarPoliza() {
+		debugBegin();
+		webDriver.clickInFrame(btnMostrarAcciones, cuerpoFrame);
+		webDriver.clickInFrame(btnConsulta, cuerpoFrame);
+		debugEnd();
+
+		return this;
 	}
 
 	// endreagion

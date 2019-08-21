@@ -7,17 +7,17 @@ import org.testng.annotations.Test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 
 public class MecTest extends TestObject {
 
-	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MEC);
+	protected SuiteManager suiteM = new SuiteManager(Constants.MEC);
 
 	// PRUEBAS MEC
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec01() {
-		String testCase = ProjectConstants.MEC + "01";
+		String testCase = Constants.MEC + "01";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -48,7 +48,7 @@ public class MecTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec02() {
-		String testCase = ProjectConstants.MEC + "02";
+		String testCase = Constants.MEC + "02";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -82,7 +82,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec03() {
-		String testCase = ProjectConstants.MEC + "03";
+		String testCase = Constants.MEC + "03";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -112,7 +112,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec04() {
-		String testCase = ProjectConstants.MEC + "04";
+		String testCase = Constants.MEC + "04";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -143,7 +143,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec05() {
-		String testCase = ProjectConstants.MEC + "05";
+		String testCase = Constants.MEC + "05";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -172,7 +172,7 @@ public class MecTest extends TestObject {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec06() {
-		String testCase = ProjectConstants.MEC + "06";
+		String testCase = Constants.MEC + "06";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -203,7 +203,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec07() {
-		String testCase = ProjectConstants.MEC + "07";
+		String testCase = Constants.MEC + "07";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -237,7 +237,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec08() {
-		String testCase = ProjectConstants.MEC + "08";
+		String testCase = Constants.MEC + "08";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -269,7 +269,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec09a() {
-		String testCase = ProjectConstants.MEC + "09a";
+		String testCase = Constants.MEC + "09a";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -300,7 +300,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec10a() {
-		String testCase = ProjectConstants.MEC + "10a";
+		String testCase = Constants.MEC + "10a";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;
@@ -332,7 +332,7 @@ public class MecTest extends TestObject {
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMec12a() {
-		String testCase = ProjectConstants.MEC + "12a";
+		String testCase = Constants.MEC + "12a";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
 
 		return casesMatrix;

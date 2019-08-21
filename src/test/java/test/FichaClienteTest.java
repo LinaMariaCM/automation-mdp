@@ -9,16 +9,16 @@ import org.testng.annotations.Test;
 
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 
 public class FichaClienteTest {
 
-	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.FICHA_CLIENT);
+	protected SuiteManager suiteM = new SuiteManager(Constants.FICHA_CLIENT);
 
 	@DataProvider(parallel = false)
 	public String[][] dataProviderAltaCliente() {
-		String testCase = ProjectConstants.FICHA_CLIENT + "01";
+		String testCase = Constants.FICHA_CLIENT + "01";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestClientes.csv");
 
 		return casesMatrix;

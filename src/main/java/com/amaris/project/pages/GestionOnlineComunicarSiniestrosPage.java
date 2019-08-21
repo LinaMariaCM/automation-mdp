@@ -1,139 +1,98 @@
 package com.amaris.project.pages;
 
+import org.openqa.selenium.By;
+
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
 public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 
+	// region webelements
+	private By frameAppMainWindow = By.cssSelector("#blockrandom");
+
+	private By topFrame = By.cssSelector("#topFrame");
+	private By frameLeftFrame = By.cssSelector("#leftFrame");
+	private By mainFrame = By.cssSelector("#mainFrame");
+	private By contenidoFrame = By.cssSelector("[name='iframe']");
+
+	private By txtPoliza = By.cssSelector("#numpol");
+	private By txtFechaSiniestro = By.cssSelector("#fsin");
+	private By drpdwnCausa = By.cssSelector("#selcausa");
+	private By txtDescripcionSiniestro = By.cssSelector("#causa");
+	private By txtCosteAprox = By.cssSelector("#coste");
+	private By drpdwnRol = By.cssSelector("#selrol_1");
+	private By txtContactoNombre = By.cssSelector("#contnombre_1");
+	private By txtContactoApellido1 = By.cssSelector("#contapellido_1");
+	private By txtContactoTelefono1 = By.cssSelector("#conttel_1");
+	// endregion
+
 	GestionOnlineComunicarSiniestrosPage(UserStory userS) {
 		super(userS);
 	}
 
-	// // region webelements
-	// @FindBy(id = "blockrandom")
-	// private WebElement frameAppMainWindow;
-	//
-	// @FindBy(id = "topFrame")
-	// private WebElement topFrame;
-	//
-	// @FindBy(id = "leftFrame")
-	// private WebElement frameLeftFrame;
-	//
-	// @FindBy(id = "mainFrame")
-	// private WebElement mainFrame;
-	//
-	// @FindBy(name = "iframe")
-	// private WebElement contenidoFrame;
-	//
-	// @FindBy(id = "numpol")
-	// private WebElement txtPoliza;
-	//
-	// @FindBy(id = "fsin")
-	// private WebElement txtFechaSiniestro;
-	//
-	// @FindBy(id = "selcausa")
-	// private WebElement drpdwnCausa;
-	//
-	// @FindBy(id = "causa")
-	// private WebElement txtDescripcionSiniestro;
-	//
-	// @FindBy(id = "coste")
-	// private WebElement txtCosteAprox;
-	//
-	// @FindBy(id = "selrol_1")
-	// private WebElement drpdwnRol;
-	//
-	// @FindBy(id = "contnombre_1")
-	// private WebElement txtContactoNombre;
-	//
-	// @FindBy(id = "contapellido_1")
-	// private WebElement txtContactoApellido1;
-	//
-	// @FindBy(id = "conttel_1")
-	// private WebElement txtContactoTelefono1;
-	//
-	// // endregion
-	//
-	// public GestionOnlineComunicarSiniestrosPage(BrowserContext
-	// browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
-	// public void writeNumeroPoliza(
-	// String numPoliza)
-	// {
-	// logger.debug("BEGIN - writeNumeroPoliza");
-	// this.wh.sendValueToWebElementInFrame(this.txtPoliza, this.contenidoFrame,
-	// numPoliza);
-	// logger.debug("END - writeNumeroPoliza");
-	// }
-	//
-	// public void selectFechaSiniestro(
-	// String fechaSiniestro)
-	// {
-	// logger.debug("BEGIN - selectFechaSiniestro");
-	// this.wh.sendValueToWebElementInFrame(this.txtFechaSiniestro,
-	// this.contenidoFrame, fechaSiniestro);
-	// logger.debug("END - selectFechaSiniestro");
-	// }
-	//
-	// public void selectCausa(
-	// String causa)
-	// {
-	// logger.debug("BEGIN - selectCausa");
-	// this.wh.sendValueToWebElementInFrame(this.drpdwnCausa,
-	// this.contenidoFrame, causa);
-	// logger.debug("END - selectCausa");
-	// }
-	//
-	// public void writeDescripcionSiniestro(
-	// String descripcion)
-	// {
-	// logger.debug("BEGIN - writeDescripcionSiniestro");
-	// this.wh.sendValueToWebElementInFrame(this.txtDescripcionSiniestro,
-	// this.contenidoFrame, descripcion);
-	// logger.debug("END - writeDescripcionSiniestro");
-	// }
-	//
-	// public void selectRolPersonaContacto(
-	// String rolPersonaContacto)
-	// {
-	// logger.debug("BEGIN - selectRolPersonaContacto");
-	// this.wh.sendValueToWebElementInFrame(this.drpdwnRol, this.contenidoFrame,
-	// rolPersonaContacto);
-	// logger.debug("END - selectRolPersonaContacto");
-	// }
-	//
-	// public void writeNombrePersonaContacto(
-	// String nombrePersonaContacto)
-	// {
-	// logger.debug("BEGIN - writeNombrePersonaContacto");
-	// this.wh.sendValueToWebElementInFrame(this.txtContactoNombre,
-	// this.contenidoFrame, nombrePersonaContacto);
-	// logger.debug("END - writeNombrePersonaContacto");
-	// }
-	//
-	// public void writePrimerApellidoPersonaContacto(
-	// String apellido1PersonaContacto)
-	// {
-	// logger.debug("BEGIN - writePrimerApellidoPersonaContacto");
-	// this.wh.sendValueToWebElementInFrame(this.txtContactoApellido1,
-	// this.contenidoFrame, apellido1PersonaContacto);
-	// logger.debug("END - writePrimerApellidoPersonaContacto");
-	// }
-	//
-	// public void writeTelefonoPersonaContacto(
-	// String tlf1PersonaContacto)
-	// {
-	// logger.debug("BEGIN - writeTelefonoPersonaContacto");
-	// this.wh.sendValueToWebElementInFrame(this.txtContactoTelefono1,
-	// this.contenidoFrame, tlf1PersonaContacto);
-	// logger.debug("END - writeTelefonoPersonaContacto");
-	// }
+	// region methods
+	public GestionOnlineComunicarSiniestrosPage writeNumeroPoliza(String numPoliza) {
+		debugBegin();
+		webDriver.appendTextInFrame(txtPoliza, contenidoFrame, numPoliza);
+		debugEnd();
+		
+		return this;
+	}
+
+	public GestionOnlineComunicarSiniestrosPage selectFechaSiniestro(String fechaSiniestro) {
+		debugBegin();
+		webDriver.appendTextInFrame(txtFechaSiniestro, contenidoFrame, fechaSiniestro);
+		debugEnd();
+		
+		return this;
+	}
+
+	public GestionOnlineComunicarSiniestrosPage selectCausa(String causa) {
+		debugBegin();
+		webDriver.appendTextInFrame(drpdwnCausa, contenidoFrame, causa);
+		debugEnd();
+		
+		return this;
+	}
+
+	public GestionOnlineComunicarSiniestrosPage writeDescripcionSiniestro(String descripcion) {
+		debugBegin();
+		webDriver.appendTextInFrame(txtDescripcionSiniestro, contenidoFrame, descripcion);
+		debugEnd();
+		
+		return this;
+	}
+
+	public GestionOnlineComunicarSiniestrosPage selectRolPersonaContacto(String rolPersonaContacto) {
+		debugBegin();
+		webDriver.appendTextInFrame(drpdwnRol, contenidoFrame, rolPersonaContacto);
+		debugEnd();
+		
+		return this;
+	}
+
+	public GestionOnlineComunicarSiniestrosPage writeNombrePersonaContacto(String nombrePersonaContacto) {
+		debugBegin();
+		webDriver.appendTextInFrame(txtContactoNombre, contenidoFrame, nombrePersonaContacto);
+		debugEnd();
+		
+		return this;
+	}
+
+	public GestionOnlineComunicarSiniestrosPage writePrimerApellidoPersonaContacto(String apellido1PersonaContacto) {
+		debugBegin();
+		webDriver.appendTextInFrame(txtContactoApellido1, contenidoFrame, apellido1PersonaContacto);
+		debugEnd();
+		
+		return this;
+	}
+
+	public GestionOnlineComunicarSiniestrosPage writeTelefonoPersonaContacto(String tlf1PersonaContacto) {
+		debugBegin();
+		webDriver.appendTextInFrame(txtContactoTelefono1, contenidoFrame, tlf1PersonaContacto);
+		debugEnd();
+		
+		return this;
+	}
 	// endregion
 }

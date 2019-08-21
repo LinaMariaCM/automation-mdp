@@ -1,4 +1,4 @@
-provincia;poblacion;direccion;numero;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
+provincia;poblacion;nombre_via;num_via;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
 BARCELONA;BARCELONA; ARENYS ;82;;8035;1.824,36 €;1964;82594
 BARCELONA;BARCELONA; ARENYS ;88;;8035;1.771,55 €;1967;82595
 BARCELONA;BARCELONA; ARIOSTO ;15;;8035;877,87 €;1999;82597

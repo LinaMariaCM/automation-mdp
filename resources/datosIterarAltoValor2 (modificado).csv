@@ -1,4 +1,4 @@
-provincia;poblacion;direccion;numero;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
+provincia;poblacion;nombre_via;num_via;bis;codigo_postal;prima_total;anio_antiguedad;numero_proyecto
 BARCELONA;BARCELONA; CARDEDEU ;55;;8023;550,40 €;1968;76684
 BARCELONA;BARCELONA; CARDEDEU ;37;;8023;525,43 €;1980;76685
 BARCELONA;BARCELONA; CARDEDEU ;39;;8023;579,43 €;1970;76687

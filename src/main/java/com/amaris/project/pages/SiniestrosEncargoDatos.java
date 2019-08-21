@@ -10,69 +10,60 @@ import org.openqa.selenium.By;
 
 public class SiniestrosEncargoDatos extends PageObject {
 
-	// THE CONSTRUCTOR
+	DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
+
+	// region WebElement
+	private By cuerpoFrame = By.id("mainFrame");
+
+	// #### DATOS DEL ASEGURADO ####
+	private By btnAnotaciones = By.cssSelector("#enlaceDialogo > span");
+	private By btnVolver = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
+	private By btnGrabar = By.id("botonGrabar");
+	private By comboTipoColaborador = By.id("tipoEspe");
+	private By comboTipoEncargo = By.id("selectEncargo");
+	private By comboSubtipoEncargo = By.id("selectAgrupacion");
+	private By txtFechaEncargo = By.id("fechenca");
+	private By txtDetalles = By.id("comentario");
+	// end region
+
 	public SiniestrosEncargoDatos(UserStory userS) {
 		super(userS);
 	}
 
-	// REGION WEBELEMENT
+	// region Methods
+	public SiniestrosEncargoDatos seleccionarTipoEncargo(String colaborador, String tipoEncargo, String subtipoEncargo) {
+		debugBegin();
 
-	// #### FRAMES ####
+		//webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, "value", colaborador);
+		webDriver.clickElementFromDropDownByIndex(comboTipoColaborador, 2);
+		webDriver.waitWithDriver(500);
+		//webDriver.clickElementFromDropDownByAttribute(comboTipoEncargo, "value", tipoEncargo);
+		webDriver.clickElementFromDropDownByIndex(comboTipoEncargo, 1);
+		webDriver.waitWithDriver(500);
+		//webDriver.clickElementFromDropDownByAttribute(comboSubtipoEncargo, "value", subtipoEncargo);
+		webDriver.clickElementFromDropDownByIndex(comboSubtipoEncargo, 2);
 
-	private By cuerpoFrame = By.id("mainFrame");
-
-	// #### DATOS DEL ASEGURADO ####
-
-	DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
-	//
-	private By btnAnotaciones = By.cssSelector("#enlaceDialogo > span");
-	//
-	private By btnVolver = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
-	//
-	private By btnGrabar = By.id("botonGrabar");
-	//
-	private By comboTipoColaborador = By.id("tipoEspe");
-	//
-	private By comboTipoEncargo = By.id("selectEncargo");
-	//
-	private By comboSubtipoEncargo = By.id("selectAgrupacion");
-	//
-	private By txtFechaEncargo = By.id("fechenca");
-	//
-	private By txtDetalles = By.id("comentario");
-
-	// end region
-
-	// REGION METHODS
-
-	public void seleccionarTipoEncargo(String colaborador, String tipoEncargo, String subtipoEncargo) {
-		this.debugBegin();
-
-		//this.webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, "value", colaborador);
-		this.webDriver.clickElementFromDropDownByIndex(comboTipoColaborador, 2);
-		this.webDriver.waitWithDriver(500);
-		//this.webDriver.clickElementFromDropDownByAttribute(comboTipoEncargo, "value", tipoEncargo);
-		this.webDriver.clickElementFromDropDownByIndex(comboTipoEncargo, 1);
-		this.webDriver.waitWithDriver(500);
-		//this.webDriver.clickElementFromDropDownByAttribute(comboSubtipoEncargo, "value", subtipoEncargo);
-		this.webDriver.clickElementFromDropDownByIndex(comboSubtipoEncargo, 2);
-
-		this.debugEnd();
+		debugEnd();
+		
+		return this;
 	}
 
-	public void seleccionarDatosEncargo(Date fechaEncargo, String detalles) {
-		this.debugBegin();
+	public SiniestrosEncargoDatos seleccionarDatosEncargo(Date fechaEncargo, String detalles) {
+		debugBegin();
 
-		this.webDriver.setText(txtFechaEncargo, fOcurrencia.format(fechaEncargo));
-		this.webDriver.setText(txtDetalles, detalles);
+		webDriver.setText(txtFechaEncargo, fOcurrencia.format(fechaEncargo));
+		webDriver.setText(txtDetalles, detalles);
 
-		this.debugEnd();
+		debugEnd();
+		
+		return this;
 	}
 
-	public void clickGrabar() {
-		this.debugBegin();
-		this.webDriver.click(btnGrabar);
-		this.debugEnd();
+	public SiniestrosEncargoDatos clickGrabar() {
+		debugBegin();
+		webDriver.click(btnGrabar);
+		debugEnd();
+		
+		return this;
 	}
-
 }
