@@ -65,11 +65,11 @@ public class UbicacionRiesgoPage extends PageObject {
 	}
 
 	// region Methods
-	public boolean fillInmuebleAndGetAvailability(String scenario) {
+	public boolean fillInmuebleAndGetAvailability() {
 		return addInmueble(getScenarioVar(Constants.INMUEBLE));
 	}
 
-	public UbicacionRiesgoPage fillInmuebleAndClickOnContinue(String scenario) {
+	public UbicacionRiesgoPage fillInmuebleAndClickOnContinue() {
 		addInmueble(getScenarioVar(Constants.INMUEBLE));
 		clickOnContinuar();
 

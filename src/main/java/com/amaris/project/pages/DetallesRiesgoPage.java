@@ -329,20 +329,21 @@ public class DetallesRiesgoPage extends PageObject {
 
 		String edificioMadera = webDriver.getTextInFrame(edificioMaderaCmb, cuerpoFrame);
 
-		if(!edificioMadera.equals(getTestVar(Constants.CONSTRUIDO_MADERA))
-			&& !getTestVar(Constants.CONSTRUIDO_MADERA).isEmpty()) {
+		if(getTestVar(Constants.CONSTRUIDO_MADERA) != null && !getTestVar(Constants.CONSTRUIDO_MADERA).isEmpty()
+			&& !edificioMadera.equals(getTestVar(Constants.CONSTRUIDO_MADERA))) {
 			webDriver.clickElementFromDropDownByTextInFrame(edificioMaderaCmb, cuerpoFrame, getTestVar(Constants.CONSTRUIDO_MADERA));
-		} else if(getTestVar(Constants.CONSTRUIDO_MADERA).isEmpty() && !edificioMadera.isEmpty()) {
+		} else if((getTestVar(Constants.CONSTRUIDO_MADERA) == null || getTestVar(Constants.CONSTRUIDO_MADERA).isEmpty())
+			&& !edificioMadera.isEmpty()) {
 			throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página");
 		}
 		webDriver.waitWithDriver(2000);
 
-		String deshabitacionDatos = getTestVar(Constants.DESHABITACION) == null ? "" : getTestVar(Constants.DESHABITACION);
+		String deshabitacionDatos = getTestVar(Constants.DESHABITACION);
 		String deshabilitacionWeb = webDriver.getTextInFrame(cmbDeshabilitacion, cuerpoFrame);
 
-		if(!deshabilitacionWeb.equals(deshabitacionDatos) && !deshabitacionDatos.equals("")) {
+		if(deshabitacionDatos != null && !deshabitacionDatos.isEmpty() && !deshabilitacionWeb.equals(deshabitacionDatos)) {
 			webDriver.clickElementFromDropDownByTextInFrame(cmbDeshabilitacion, cuerpoFrame, getTestVar(Constants.DESHABITACION));
-		} else if(deshabitacionDatos.isEmpty() && !deshabilitacionWeb.isEmpty()) {
+		} else if((deshabitacionDatos == null || deshabitacionDatos.isEmpty()) && !deshabilitacionWeb.isEmpty()) {
 			throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página");
 		}
 

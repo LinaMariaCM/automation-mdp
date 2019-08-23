@@ -1,17 +1,14 @@
 package com.amaris.project.utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.WebElement;
 
 import com.amaris.automation.model.testing.UserStory;
-import com.amaris.project.Constants;
 
 public class MotivosSuplementoHelper {
-	
+
 	private Boolean selected;
 	private String Description;
 	private WebElement checkbox;
@@ -62,7 +59,7 @@ public class MotivosSuplementoHelper {
 		if(motivosSuplementos.get(userS.getTestId()) == null) {
 			motivosSuplementos.put(userS.getTestId(), new HashMap<String, Boolean>());
 		}
-		
+
 		return motivosSuplementos.get(userS.getTestId());
 	}
 

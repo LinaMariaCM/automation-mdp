@@ -32,7 +32,7 @@ public class MacTest extends TestObject {
 		System.out.println("++++++++++++++++++++++++++++++++");
 
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			// steps.crear_un_proyecto_MAC(userS.getScenarioVar("acceso"),
@@ -75,7 +75,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 
@@ -115,7 +115,7 @@ public class MacTest extends TestObject {
 		System.out.println("++++++++++++++++++++++++++++++++");
 
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 
@@ -182,13 +182,13 @@ public class MacTest extends TestObject {
 		System.out.println("++++++++++++++++++++++++++++++++");
 
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 			
-			steps.modificar_ingresos("ingresos_inquilino_nuevos");
+			steps.modificar_ingresos(Constants.INGRESOS_INQUILINO_NUEVOS);
 			
 			steps.el_proyecto_MAC_se_acepta();
 			
@@ -244,7 +244,7 @@ public class MacTest extends TestObject {
 		System.out.println("++++++++++++++++++++++++++++++++");
 
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 
@@ -282,7 +282,7 @@ public class MacTest extends TestObject {
 		System.out.println("++++++++++++++++++++++++++++++++");
 
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 

@@ -13,37 +13,37 @@ public class LoginPage extends PageObject {
 	public LoginPage logIn(String environment, String accessType, String user) throws Exception {
 		switch(environment) {
 			case Constants.PreEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-Pre"));
+				webDriver.go(getConfigVar(accessType + "Home-Pre"));
 				break;
 			case Constants.UatEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-UAT"));
+				webDriver.go(getConfigVar(accessType + "Home-UAT"));
 				break;
 			case Constants.V7Environment:
-				this.webDriver.go(getConfigVar(accessType + "Home-V7"));
+				webDriver.go(getConfigVar(accessType + "Home-V7"));
 				break;
 			case Constants.QAEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-QA"));
+				webDriver.go(getConfigVar(accessType + "Home-QA"));
 				break;
 			case Constants.ATMIRAEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-ATMIRA"));
+				webDriver.go(getConfigVar(accessType + "Home-ATMIRA"));
 				break;
 			case Constants.UpgradeEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-Upgrade"));
+				webDriver.go(getConfigVar(accessType + "Home-Upgrade"));
 				break;
 			case Constants.SiniestrosEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-Siniestros"));
+				webDriver.go(getConfigVar(accessType + "Home-Siniestros"));
 				break;
 			case Constants.MigracionEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-Migracion"));
+				webDriver.go(getConfigVar(accessType + "Home-Migracion"));
 				break;
 			case Constants.UatPjEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-UatPj"));
+				webDriver.go(getConfigVar(accessType + "Home-UatPj"));
 				break;
 			case Constants.HogarMigEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-HogarMig"));
+				webDriver.go(getConfigVar(accessType + "Home-HogarMig"));
 				break;
 			case Constants.RecibosCheckEnvironment:
-				this.webDriver.go(getConfigVar(accessType + "Home-RecibosCheck"));
+				webDriver.go(getConfigVar(accessType + "Home-RecibosCheck"));
 				break;
 			default:
 				throw new Exception("Environment not available");

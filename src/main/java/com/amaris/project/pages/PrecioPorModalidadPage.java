@@ -244,7 +244,7 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage completarCoberturasEnergiaSolar() {
 		debugBegin();
-		String coberturasolar = getConfigVar(Constants.COBERTURA_FOTOVOLTAICAS_INCLUIDA);
+		String coberturasolar = getConfigVar(Constants.COBERTURA_ENERGIA_SOLAR_INCLUIDA);
 
 		debugInfo("Cobertura Fotovoltaicas Incluida: " + coberturasolar);
 
@@ -260,8 +260,8 @@ public class PrecioPorModalidadPage extends PageObject {
 				webDriver.clickInFrame(btnAnadirPlacaSolar, cuerpoFrame);
 				webDriver.clickInFrame(btnAnadirPlacaSolarModalWindow, cuerpoFrame);
 
-				webDriver.appendTextInFrame(txtInstalacionFotovoltaicaDescripcion, cuerpoFrame, getScenarioVar(Constants.DESCRIPCION_COBERTURA_FOTOVOLTAICAS));
-				webDriver.appendTextInFrame(txtInstalcionFotovoltaicaValor, cuerpoFrame, getScenarioVar(Constants.VALOR_COBERTURA_FOTOVOLTAICAS));
+				webDriver.appendTextInFrame(txtInstalacionFotovoltaicaDescripcion, cuerpoFrame, getScenarioVar(Constants.COBERTURA_ENERGIA_SOLAR_TIPO));
+				webDriver.appendTextInFrame(txtInstalcionFotovoltaicaValor, cuerpoFrame, getScenarioVar(Constants.COBERTURA_ENERGIA_SOLAR_VALOR));
 				webDriver.clickInFrame(btnGuardarInstalacionSolarModalWindow, cuerpoFrame);
 
 				getPreciosAfter();
@@ -310,7 +310,7 @@ public class PrecioPorModalidadPage extends PageObject {
 		webDriver.clickInFrame(lnkMostrarDescuento, cuerpoFrame);
 		String descuentoValue = webDriver.getTextInFrame(lblPorcentajeDescuentoPantallaPrincipal, cuerpoFrame);
 
-		if(Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO))
+		if(Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO_HABILITADO))
 			|| Boolean.parseBoolean(getScenarioVar(Constants.RECARGO))
 			|| !descuentoValue.equals(Constants.CantidadDescuentoNoEspecificado)) {
 			getPreciosBefore();
@@ -318,7 +318,7 @@ public class PrecioPorModalidadPage extends PageObject {
 
 			webDriver.clickInFrame(btnAddTipoDescuento, cuerpoFrame);
 
-			if(Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO))) {
+			if(Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO_HABILITADO))) {
 				webDriver.appendTextInFrame(txtPorcentajeDescuento, cuerpoFrame, Constants.PorcentajeDescuentoRecargo);
 				webDriver.clickInFrame(rdnDescuento, cuerpoFrame);
 				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDescuento, cuerpoFrame, Constants.TipoDescuento);
@@ -328,7 +328,7 @@ public class PrecioPorModalidadPage extends PageObject {
 				webDriver.appendTextInFrame(txtPorcentajeDescuento, cuerpoFrame, Constants.PorcentajeDescuentoRecargo);
 				errorMessage = Constants.AfterAddingAdditionalCharge;
 			} else if(!descuentoValue.equals(Constants.CantidadDescuentoNoEspecificado)
-				&& !Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO))
+				&& !Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO_HABILITADO))
 				&& !Boolean.parseBoolean(getScenarioVar(Constants.RECARGO))) {
 				// webDriver.click(btnAddTipoDescuento);
 				webDriver.appendTextInFrame(txtPorcentajeDescuento, cuerpoFrame, "");

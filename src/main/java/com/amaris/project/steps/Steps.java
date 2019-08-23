@@ -134,7 +134,7 @@ public class Steps extends InteractionObject {
 		String testId = userS.getWebDriver().getId() == null ? "" : userS.getWebDriver().getId();
 
 		new UbicacionRiesgoPage(userS)
-			.fillInmuebleAndClickOnContinue(userS.getScenario());
+			.fillInmuebleAndClickOnContinue();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
@@ -3101,7 +3101,7 @@ public class Steps extends InteractionObject {
 			new AsignarMediadorPage(userS).seleccionarMediadorPorCodigo(mediador).clickOnContinuarButton();
 		}
 
-		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue(userS.getScenario());
+		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
 
@@ -3312,7 +3312,7 @@ public class Steps extends InteractionObject {
 
 		this.login(loginAcess, user);
 
-		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue(userS.getScenario());
+		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
 

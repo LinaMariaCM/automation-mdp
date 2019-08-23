@@ -2,6 +2,8 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
+
 import org.openqa.selenium.By;
 
 public class InmueblePage_MAC extends PageObject {
@@ -44,7 +46,7 @@ public class InmueblePage_MAC extends PageObject {
 		webDriver.appendTextInFrame(txtNombreVia, mainFrame, getScenarioVar("nombre_via_inm"));
 		webDriver.clickInFrame(itemNomVia, mainFrame);
 		webDriver.appendTextInFrame(txtNumeroVia, mainFrame, 
-			getData("fichero_numero_via").getValue(userS.getScenario(), "numero_via_inm"));
+			getData(Constants.FICHERO_NUM_VIA).getValue(userS.getScenario(), Constants.NUM_VIA_INMUEBLE));
 		webDriver.clickInFrame(txtNombreVia, mainFrame);
 		webDriver.clickInFrame(btnAnadirInmuebleModal, mainFrame);
 		
