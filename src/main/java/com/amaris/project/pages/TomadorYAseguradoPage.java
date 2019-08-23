@@ -4,110 +4,48 @@ import org.openqa.selenium.By;
 import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 
 public class TomadorYAseguradoPage extends PageObject {
 
-	// region webelements
-	// @FindBy(name = "cuerpo")
+	// region WebElements
 	private By cuerpoFrame = By.name("cuerpo");
 
-	// @FindBy(xpath = ".//*[text()='Continuar']")
-	// @FindBy(css = "button[ng-click*='continuar(tomador']")
 	private By btnContinuar = By.cssSelector("button[ng-click*='continuar(tomador']");
-
-	// @FindBy(xpath = ".//*[text()='Añadir datos tomador']")
 	private By btnAnadirDatosTomadorPantallaPrincipal = By.xpath(".//*[text()='Añadir datos tomador']");
 
-	// @FindBy(name = "fechaNacimiento")
 	private By txtFechaNacimiento = By.name("fechaNacimiento");
 
-	// @FindBy(xpath = ".//*[text() = 'Utilizar la misma dirección del riesgo
-	// asegurado']/../input")
 	private By rdnUtilizarMismaDireccionAsegurado = By.xpath(".//*[text() = 'Utilizar la misma dirección del riesgo asegurado']/../input");
-
-	// @FindBy(xpath = ".//*[@class='modal-footer']/button[text()='Añadir datos
-	// tomador']")
 	private By btnAnadirDatosTomador = By.xpath(".//*[@class='modal-footer']/button[text()='Añadir datos tomador']");
-
-	// @FindBy(xpath = ".//*[text()='Aceptar']")
 	private By btnAceptar = By.xpath(".//*[text()='Aceptar']");
-
-	// @FindBy(id = "prefijoTlfFijo")
-	private By txtPrefijoTelefonoFijo = By.cssSelector("prefijoTlfFijo");
-
-	// @FindBy(xpath = ".//*[contains(@ng-bind-html,'ypeaheadHighlight')]")
+	
+	private By txtPrefijoTelefonoFijo = By.cssSelector("#prefijoTlfFijo");
 	private By lblPrefijo = By.xpath(".//*[contains(@ng-bind-html,'ypeaheadHighlight')]");
-
-	// @FindBy(id = "tlfFijo")
-	private By txtTelefonoFijo = By.cssSelector("tlfFijo");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfFijo' and @value='1']")
+	private By txtTelefonoFijo = By.cssSelector("#tlfFijo");
 	private By chbTelefonoFijoHorarioAtencionManana = By.xpath(".//*[@name = 'horarioAtenTlfFijo' and @value='1']");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfFijo' and @value='4']")
 	private By chbTelefonoFijoHorarioAtencionDeLunesAViernes = By.xpath(".//*[@name = 'horarioAtenTlfFijo' and @value='4']");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfFijo' and @value='2']")
 	private By chbTelefonoFijoHorarioAtencionTarde = By.xpath(".//*[@name = 'horarioAtenTlfFijo' and @value='2']");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfFijo' and @value='5']")
 	private By chbTelefonoFijoHorarioAtencionFinDeSemana = By.xpath(".//*[@name = 'horarioAtenTlfFijo' and @value='5']");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfFijo' and @value='3']")
 	private By chbTelefonoFijoHorarioAtencionNoche = By.xpath(".//*[@name = 'horarioAtenTlfFijo' and @value='3']");
-
-	// @FindBy(id = "prefijoTlfMovil")
-	private By txtTelefonoMovilPrefijo = By.cssSelector("prefijoTlfMovil");
-
-	// @FindBy(id = "tlfMovil")
-	private By txtTelefonoMovil = By.cssSelector("tlfMovil");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfMovil' and @value='1']")
+	private By txtTelefonoMovilPrefijo = By.cssSelector("#prefijoTlfMovil");
+	private By txtTelefonoMovil = By.cssSelector("#tlfMovil");
 	private By chbTelefonoMovilHorarioAtencionManana = By.xpath(".//*[@name = 'horarioAtenTlfMovil' and @value='1']");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfMovil' and @value='4']")
 	private By chbTelefonoMovilHorarioAtencionDeLunesAViernes = By.xpath(".//*[@name = 'horarioAtenTlfMovil' and @value='4']");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfMovil' and @value='2']")
 	private By chbTelefonoMovilHorarioAtencionTarde = By.xpath(".//*[@name = 'horarioAtenTlfMovil' and @value='2']");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfMovil' and @value='5']")
 	private By chbTelefonoMovilHorarioAtencionFinDeSemana = By.xpath(".//*[@name = 'horarioAtenTlfMovil' and @value='5']");
-
-	// @FindBy(xpath = ".//*[@name = 'horarioAtenTlfMovil' and @value='3']")
 	private By chbTelefonoMovilHorarioAtencionNoche = By.xpath(".//*[@name = 'horarioAtenTlfMovil' and @value='3']");
 
-	// @FindBy(id = "asegPpalEsTomadorNo")
-	private By cbkAseguradoDiferenteToamdor = By.cssSelector("asegPpalEsTomadorNo");
-
-	// @FindBy(xpath = ".//*[text()='Añadir datos asegurado principal']")
+	private By cbkAseguradoDiferenteToamdor = By.cssSelector("#asegPpalEsTomadorNo");
 	private By btnAddDataOfTheAseguradoPrincipal = By.xpath(".//*[text()='Añadir datos asegurado principal']");
+	private By cbkAeguradoTipoDocumento = By.cssSelector("#tipoDocumento");
+	private By txtAseguradoNumeroDocumento = By.cssSelector("#numeroDocumento");
+	private By txtAseguradoNombre = By.cssSelector("#nombreAsegurado");
+	private By txtAseguradoApellido1 = By.cssSelector("#apellido1Asegurado");
+	private By txtAseguradoApellido2 = By.cssSelector("#apellido2Asegurado");
 
-	// @FindBy(id = "tipoDocumento")
-	private By cbkAeguradoTipoDocumento = By.cssSelector("tipoDocumento");
-
-	// @FindBy(id = "numeroDocumento")
-	private By txtAseguradoNumeroDocumento = By.cssSelector("numeroDocumento");
-
-	// @FindBy(id = "nombreAsegurado")
-	private By txtAseguradoNombre = By.cssSelector("nombreAsegurado");
-
-	// @FindBy(id = "apellido1Asegurado")
-	private By txtAseguradoApellido1 = By.cssSelector("apellido1Asegurado");
-
-	// @FindBy(id = "apellido2Asegurado")
-	private By txtAseguradoApellido2 = By.cssSelector("apellido2Asegurado");
-
-	// @FindBy(xpath = ".//*[@ng-model='mismaDireccionRiesgo']")
 	private By chkAseguradoMismaDireccionDelRiesgo = By.xpath(".//*[@ng-model='mismaDireccionRiesgo']");
-
-	// @FindBy(xpath = ".//div[@class='modal-footer']/button[text()='Añadir
-	// datos asegurado principal']")
 	private By btnAddAseguradoPrincipalModalWindow = By.xpath(".//div[@class='modal-footer']/button[text()='Añadir datos asegurado principal']");
-
-	// @FindBy(xpath = ".//*[@name='tomadorAseguradoForm']//*[text()='Modificar
-	// datos tomador']")
 	private By btnModificarDatosTomador = By.xpath(".//*[@name='tomadorAseguradoForm']//*[text()='Modificar datos tomador']");
 	// endregion
 
@@ -115,32 +53,25 @@ public class TomadorYAseguradoPage extends PageObject {
 		super(userS);
 	}
 
-	// region methods
+	// region Methods
 	public TomadorYAseguradoPage addDatosTomador() {
 		debugBegin();
 
-		// if
-		// (this.tData.getTomador().equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal))
-		if(this.getTestVar("Tomador").equals(ProjectConstants.NuevoTomadorYAseguradoPrincipal)) {
-			// this.webDriver.moveToElementInFrameWithJavaScript(this.btnAnadirDatosTomadorPantallaPrincipal,
-			// this.cuerpoFrame);
-			this.webDriver.moveToElementInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.cuerpoFrame);
-			this.webDriver.clickInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.cuerpoFrame);
+		if(getTestVar(Constants.TOMADOR).equals(Constants.NuevoTomadorYAseguradoPrincipal)) {
+			webDriver.moveToElementInFrame(btnAnadirDatosTomadorPantallaPrincipal, cuerpoFrame);
+			webDriver.clickInFrame(btnAnadirDatosTomadorPantallaPrincipal, cuerpoFrame);
 
-			// if
-			// (this.browserContext.getTestCaseData().getIncluirTelefonosYHorarioAtencionTomador()
-			if(this.getTestVar("incluirTelefonosYHorarioAtencionTomador")
-				.equals(ProjectConstants.TelefonosTomadorIncluidos)) {
-				this.AddTelefonosYHorariosAtencionTomador();
+			if(getTestVar(Constants.INCLUIR_TELEFONOS_TOMADOR).equals(Constants.TelefonosTomadorIncluidos)) {
+				AddTelefonosYHorariosAtencionTomador();
 			}
 
-			this.webDriver.clickInFrame(this.txtFechaNacimiento, this.cuerpoFrame);
-			this.webDriver.appendTextInFrame(this.txtFechaNacimiento, this.cuerpoFrame, this.getTestVar("TomadorFechaNacimiento"));
+			webDriver.clickInFrame(txtFechaNacimiento, cuerpoFrame);
+			webDriver.appendTextInFrame(txtFechaNacimiento, cuerpoFrame, getTestVar(Constants.FECHA_NACIMIENTO_TOMADOR));
 
-			this.webDriver.clickInFrame(this.rdnUtilizarMismaDireccionAsegurado, this.cuerpoFrame);
+			webDriver.clickInFrame(rdnUtilizarMismaDireccionAsegurado, cuerpoFrame);
 
-			this.webDriver.clickInFrame(this.btnAnadirDatosTomador, this.cuerpoFrame);
-			this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
+			webDriver.clickInFrame(btnAnadirDatosTomador, cuerpoFrame);
+			webDriver.clickInFrame(btnAceptar, cuerpoFrame);
 		}
 
 		debugEnd();
@@ -151,16 +82,16 @@ public class TomadorYAseguradoPage extends PageObject {
 	public TomadorYAseguradoPage addStaticDatosTomador() {
 		debugBegin();
 
-		this.webDriver.moveToElementInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnAnadirDatosTomadorPantallaPrincipal, this.cuerpoFrame);
+		webDriver.moveToElementInFrame(btnAnadirDatosTomadorPantallaPrincipal, cuerpoFrame);
+		webDriver.clickInFrame(btnAnadirDatosTomadorPantallaPrincipal, cuerpoFrame);
 
-		this.webDriver.clickInFrame(this.txtFechaNacimiento, this.cuerpoFrame);
-		this.webDriver.appendTextInFrame(this.txtFechaNacimiento, this.cuerpoFrame, "08/01/1979");
+		webDriver.clickInFrame(txtFechaNacimiento, cuerpoFrame);
+		webDriver.appendTextInFrame(txtFechaNacimiento, cuerpoFrame, "08/01/1979");
 
-		this.webDriver.clickInFrame(this.rdnUtilizarMismaDireccionAsegurado, this.cuerpoFrame);
+		webDriver.clickInFrame(rdnUtilizarMismaDireccionAsegurado, cuerpoFrame);
 
-		this.webDriver.clickInFrame(this.btnAnadirDatosTomador, this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
+		webDriver.clickInFrame(btnAnadirDatosTomador, cuerpoFrame);
+		webDriver.clickInFrame(btnAceptar, cuerpoFrame);
 
 		debugEnd();
 
@@ -168,54 +99,53 @@ public class TomadorYAseguradoPage extends PageObject {
 	}
 
 	public TomadorYAseguradoPage AddTelefonosYHorariosAtencionTomador() {
-		this.webDriver.clickInFrame(this.txtTelefonoFijo, this.cuerpoFrame);
-		this.webDriver.appendTextInFrame(this.txtTelefonoFijo, this.cuerpoFrame, this.getTestVar("TomadorTelefonoFijo"));
+		webDriver.clickInFrame(txtTelefonoFijo, cuerpoFrame);
+		webDriver.appendTextInFrame(txtTelefonoFijo, cuerpoFrame, getTestVar(Constants.TELEFONO_FIJO_TOMADOR));
 
-		this.webDriver.appendTextInFrame(this.txtPrefijoTelefonoFijo, this.cuerpoFrame, this.getTestVar("TomadorTelefonoFijoPrefijo"));
-		// this.webDriver.waitForPageLoadToFinish();
-		this.webDriver.clickInFrame(this.lblPrefijo, this.cuerpoFrame);
+		webDriver.appendTextInFrame(txtPrefijoTelefonoFijo, cuerpoFrame, getTestVar(Constants.PREFIJO_TELEFONO_FIJO_TOMADOR));
+		webDriver.clickInFrame(lblPrefijo, cuerpoFrame);
 
 		// List<String> TelefonoFijoHorarioAtencion =
-		// this.testDataM.getTestListVar(testId, "TelefonoFijoHorarioAtencion");
+		// testDataM.getTestListVar(testId, "TelefonoFijoHorarioAtencion");
 		//
 		// TelefonoFijoHorarioAtencion.forEach(option ->
 		// {
 		// switch (option)
 		// {
 		// case ProjectConstants.Manana:
-		// this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionManana,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoFijoHorarioAtencionManana,
+		// cuerpoFrame);
 		// break;
 		//
 		// case ProjectConstants.Tarde:
-		// this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionTarde,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoFijoHorarioAtencionTarde,
+		// cuerpoFrame);
 		// break;
 		//
 		// case ProjectConstants.Noche:
-		// this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionNoche,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoFijoHorarioAtencionNoche,
+		// cuerpoFrame);
 		// break;
 		//
 		// case ProjectConstants.FinDeSemana:
-		// this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionFinDeSemana,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoFijoHorarioAtencionFinDeSemana,
+		// cuerpoFrame);
 		// break;
 		//
 		// case ProjectConstants.DeLunesAViernes:
-		// this.webDriver.clickInFrame(this.chbTelefonoFijoHorarioAtencionDeLunesAViernes,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoFijoHorarioAtencionDeLunesAViernes,
+		// cuerpoFrame);
 		// break;
 		// }
 		// });
 
-		this.webDriver.appendTextInFrame(this.txtTelefonoMovil, this.cuerpoFrame, this.getTestVar("TomadorTelefonoMovil"));
+		webDriver.appendTextInFrame(txtTelefonoMovil, cuerpoFrame, getTestVar(Constants.TELEFONO_MOVIL_TOMADOR));
 
-		this.webDriver.appendTextInFrame(this.txtTelefonoMovilPrefijo, this.cuerpoFrame, this.getTestVar("TomadorTelefonoMovilPrefijo"));
-		this.webDriver.clickInFrame(this.lblPrefijo, this.cuerpoFrame);
+		webDriver.appendTextInFrame(txtTelefonoMovilPrefijo, cuerpoFrame, getTestVar(Constants.PREFIJO_TELEFONO_MOVIL_TOMADOR));
+		webDriver.clickInFrame(lblPrefijo, cuerpoFrame);
 		//
 		// List<String> TelefonoMovilHorarioAtencion =
-		// this.testDataM.getTestListVar(testId,
+		// testDataM.getTestListVar(testId,
 		// "TelefonoMovilHorarioAtencion");
 		//
 		// TelefonoMovilHorarioAtencion.forEach(option ->
@@ -223,28 +153,28 @@ public class TomadorYAseguradoPage extends PageObject {
 		// switch (option)
 		// {
 		// case ProjectConstants.Manana:
-		// this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionManana,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoMovilHorarioAtencionManana,
+		// cuerpoFrame);
 		// break;
 		//
 		// case ProjectConstants.Tarde:
-		// this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionTarde,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoMovilHorarioAtencionTarde,
+		// cuerpoFrame);
 		// break;
 		//
 		// case ProjectConstants.Noche:
-		// this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionNoche,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoMovilHorarioAtencionNoche,
+		// cuerpoFrame);
 		// break;
 		//
 		// case ProjectConstants.FinDeSemana:
-		// this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionFinDeSemana,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoMovilHorarioAtencionFinDeSemana,
+		// cuerpoFrame);
 		// break;
 		//
 		// case ProjectConstants.DeLunesAViernes:
-		// this.webDriver.clickInFrame(this.chbTelefonoMovilHorarioAtencionDeLunesAViernes,
-		// this.cuerpoFrame);
+		// webDriver.clickInFrame(chbTelefonoMovilHorarioAtencionDeLunesAViernes,
+		// cuerpoFrame);
 		// break;
 		// }
 		// });
@@ -254,8 +184,8 @@ public class TomadorYAseguradoPage extends PageObject {
 
 	public TomadorYAseguradoPage clickOnContinuar() {
 		debugBegin();
-		this.webDriver.scrollToBottom();
-		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+		webDriver.scrollToBottom();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -263,22 +193,22 @@ public class TomadorYAseguradoPage extends PageObject {
 
 	public TomadorYAseguradoPage addDatosTomadorDiferenteAsegurado() {
 		debugBegin();
-		if(this.getTestVar("AseguradoPrincipalDiferenteDelTomador")
-			.equals(ProjectConstants.AseguradoPrincipalDiferenteTomador)) {
-			this.webDriver.clickInFrame(this.cbkAseguradoDiferenteToamdor, this.cuerpoFrame);
-			this.webDriver.moveToElementInFrame(this.btnAddDataOfTheAseguradoPrincipal, this.cuerpoFrame);
-			this.webDriver.clickInFrame(this.btnAddDataOfTheAseguradoPrincipal, this.cuerpoFrame);
-			// this.wh.ClickOnWebElement(this.btnAddDataOfTheAseguradoPrincipal);
-			this.webDriver.clickElementFromDropDownByTextInFrame(this.cbkAeguradoTipoDocumento, this.cuerpoFrame, ProjectConstants.NIF);
-			// this.browserContext.getTestCaseData().setAseguradoDni(DniGeneratorHelper.generaNif(null));
-			this.setTestVar("TomadorDNI", DniGeneratorHelper.generateNif(null));
-			this.webDriver.appendTextInFrame(this.txtAseguradoNumeroDocumento, this.cuerpoFrame, this.getTestVar("AseguradoDNI"));
-			this.webDriver.appendTextInFrame(this.txtAseguradoNombre, this.cuerpoFrame, this.getTestVar("AseguradoNombre"));
-			this.webDriver.appendTextInFrame(this.txtAseguradoApellido1, this.cuerpoFrame, this.getTestVar("AseguradoPrimerApellido"));
-			this.webDriver.appendTextInFrame(this.txtAseguradoApellido2, this.cuerpoFrame, this.getTestVar("AseguradoSegundoApellido"));
-			this.webDriver.clickInFrame(this.rdnUtilizarMismaDireccionAsegurado, this.cuerpoFrame);
-			this.webDriver.clickInFrame(this.btnAddAseguradoPrincipalModalWindow, this.cuerpoFrame);
-			this.webDriver.clickInFrame(this.btnAceptar, this.cuerpoFrame);
+		
+		if(getTestVar(Constants.ASEGURADO_DIFERENTE_TOMADOR)
+			.equals(Constants.AseguradoPrincipalDiferenteTomador)) {
+			webDriver.clickInFrame(cbkAseguradoDiferenteToamdor, cuerpoFrame);
+			webDriver.moveToElementInFrame(btnAddDataOfTheAseguradoPrincipal, cuerpoFrame);
+			webDriver.clickInFrame(btnAddDataOfTheAseguradoPrincipal, cuerpoFrame);
+			webDriver.clickElementFromDropDownByTextInFrame(cbkAeguradoTipoDocumento, cuerpoFrame, Constants.NIF);
+
+			setTestVar(Constants.DOCUMENTO_ASEGURADO, DniGeneratorHelper.generateNif());
+			webDriver.appendTextInFrame(txtAseguradoNumeroDocumento, cuerpoFrame, getTestVar(Constants.DOCUMENTO_ASEGURADO));
+			webDriver.appendTextInFrame(txtAseguradoNombre, cuerpoFrame, getTestVar(Constants.NOMBRE_ASEGURADO));
+			webDriver.appendTextInFrame(txtAseguradoApellido1, cuerpoFrame, getTestVar(Constants.PRIMER_APELLIDO_ASEGURADO));
+			webDriver.appendTextInFrame(txtAseguradoApellido2, cuerpoFrame, getTestVar(Constants.SEGUNDO_APELLIDO_ASEGURADO));
+			webDriver.clickInFrame(rdnUtilizarMismaDireccionAsegurado, cuerpoFrame);
+			webDriver.clickInFrame(btnAddAseguradoPrincipalModalWindow, cuerpoFrame);
+			webDriver.clickInFrame(btnAceptar, cuerpoFrame);
 		}
 
 		debugEnd();

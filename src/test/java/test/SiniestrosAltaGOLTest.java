@@ -6,17 +6,17 @@ import org.testng.annotations.Test;
 
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 
 public class SiniestrosAltaGOLTest {
 
-	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.MEC_SINIESTROS);
+	protected SuiteManager suiteM = new SuiteManager(Constants.MEC_SINIESTROS);
 
 	// PRUEBA MEC_SINIESTROS
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec01() {
-		String testCase = ProjectConstants.MEC_SINIESTROS + "01";
+		String testCase = Constants.MEC_SINIESTROS + "01";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 		return casesMatrix;
@@ -40,7 +40,7 @@ public class SiniestrosAltaGOLTest {
 	//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec02() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "02";
+			String testCase = Constants.MEC_SINIESTROS + "02";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -64,7 +64,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec03() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "03";
+			String testCase = Constants.MEC_SINIESTROS + "03";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -88,7 +88,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec04() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "04";
+			String testCase = Constants.MEC_SINIESTROS + "04";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -113,7 +113,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec05() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "05";
+			String testCase = Constants.MEC_SINIESTROS + "05";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -137,7 +137,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec06() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "06";
+			String testCase = Constants.MEC_SINIESTROS + "06";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -161,7 +161,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec07() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "07";
+			String testCase = Constants.MEC_SINIESTROS + "07";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -185,7 +185,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec08() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "08";
+			String testCase = Constants.MEC_SINIESTROS + "08";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -209,7 +209,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec09() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "09";
+			String testCase = Constants.MEC_SINIESTROS + "09";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -234,7 +234,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec10() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "10";
+			String testCase = Constants.MEC_SINIESTROS + "10";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;
@@ -259,7 +259,7 @@ public class SiniestrosAltaGOLTest {
 		//
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec11() {
-			String testCase = ProjectConstants.MEC_SINIESTROS + "11";
+			String testCase = Constants.MEC_SINIESTROS + "11";
 			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
 
 			return casesMatrix;

@@ -2,7 +2,7 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 
 public class LoginPage extends PageObject {
 
@@ -12,37 +12,37 @@ public class LoginPage extends PageObject {
 
 	public LoginPage logIn(String environment, String accessType, String user) throws Exception {
 		switch(environment) {
-			case ProjectConstants.PreEnvironment:
+			case Constants.PreEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-Pre"));
 				break;
-			case ProjectConstants.UatEnvironment:
+			case Constants.UatEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-UAT"));
 				break;
-			case ProjectConstants.V7Environment:
+			case Constants.V7Environment:
 				this.webDriver.go(getConfigVar(accessType + "Home-V7"));
 				break;
-			case ProjectConstants.QAEnvironment:
+			case Constants.QAEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-QA"));
 				break;
-			case ProjectConstants.ATMIRAEnvironment:
+			case Constants.ATMIRAEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-ATMIRA"));
 				break;
-			case ProjectConstants.UpgradeEnvironment:
+			case Constants.UpgradeEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-Upgrade"));
 				break;
-			case ProjectConstants.SiniestrosEnvironment:
+			case Constants.SiniestrosEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-Siniestros"));
 				break;
-			case ProjectConstants.MigracionEnvironment:
+			case Constants.MigracionEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-Migracion"));
 				break;
-			case ProjectConstants.UatPjEnvironment:
+			case Constants.UatPjEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-UatPj"));
 				break;
-			case ProjectConstants.HogarMigEnvironment:
+			case Constants.HogarMigEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-HogarMig"));
 				break;
-			case ProjectConstants.RecibosCheckEnvironment:
+			case Constants.RecibosCheckEnvironment:
 				this.webDriver.go(getConfigVar(accessType + "Home-RecibosCheck"));
 				break;
 			default:
@@ -50,11 +50,11 @@ public class LoginPage extends PageObject {
 		}
 
 		switch(accessType) {
-			case ProjectConstants.LoginAccessInnova:
+			case Constants.LoginAccessInnova:
 				new InnovaLoginPage(userS)
 					.login(user, getGlobalVar("password"));
 				break;
-			case ProjectConstants.LoginAccessGestionLine:
+			case Constants.LoginAccessGestionLine:
 				new GestionOnlineLoginPage(userS)
 					.login(user, getGlobalVar("password"));
 				webDriver.waitWithDriver(2000);

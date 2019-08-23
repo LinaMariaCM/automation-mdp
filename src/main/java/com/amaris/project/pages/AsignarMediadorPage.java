@@ -3,40 +3,21 @@ package com.amaris.project.pages;
 import org.openqa.selenium.By;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-
-//import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
-//import com.mutuaPropietarios.testCasesData.context.TestCaseData;
-
+import com.amaris.project.Constants;
 
 public class AsignarMediadorPage extends PageObject {
 
 	// region webelements
-	// @FindBy(name = "cuerpo")
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	// @FindBy(id = "nombreRazonSocial")
 	private By razonSocial = By.cssSelector("#nombreRazonSocial");
-
-	// @FindBy(id = "codigoMediador")
-	//private By txtCodigoMediador = By.name("codigoMediador");
 	private By txtCodigoMediador = By.id("codigoMediador");
-
-	// @FindBy(id = "codigo")
 	private By txtCodigoMediadorMAC = By.id("codigo");
-
-	// @FindBy(id = "numDocumento")
 	private By txtDocumento = By.cssSelector("#numDocumento");
 
-	// @FindBy(xpath = ".//*[text()='Buscar']")
 	private By btnBuscar = By.xpath(".//*[text()='Buscar']");
-
-	// @FindBy(id = "botonBuscar")
 	private By btnBuscarMAC = By.cssSelector("#botonBuscar");
-
-	// @FindBy(xpath = ".//*[@type='radio']")
 	private By radioBtnResultadoBusqueda = By.xpath(".//*[@type='radio']");
-
-	// @FindBy(xpath = ".//*[contains(text(),'Continuar')]")
 	private By btnContinuar = By.xpath(".//*[contains(text(),'Continuar')]");
 	
 	private By procesandoWindow = By.cssSelector(".smallbox");
@@ -56,17 +37,22 @@ public class AsignarMediadorPage extends PageObject {
 	}
 
 	// region methods
-	public AsignarMediadorPage selectMediadorAndClickOnContinuar() throws InterruptedException {
-		this.seleccionarMediadorPorCodigo(String.valueOf(userS.getScenarioVar("mediador")));
+	public AsignarMediadorPage selectMediadorAndClickOnContinuar() {
+		selectMediadorAndClickOnContinuar(getScenarioVar(Constants.MEDIADOR));
+
+		return this;
+	}
+	
+	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String codigoMed) {
+		this.seleccionarMediadorPorCodigo(codigoMed);
 		this.clickOnContinuarButton();
 
 		return this;
 	}
 
-	public AsignarMediadorPage SelectMediadorMACAndClickOnContinuar() throws InterruptedException {
-		//this.SeleccionarMediadorMACPorCodigo(String.valueOf(userS.getScenarioVar("mediador")));
-		this.SeleccionarMediadorMACPorCodigo(userS.getScenarioVar("mediador"));
-		this.clickOnContinuarButton();
+	public AsignarMediadorPage SelectMediadorMACAndClickOnContinuar() {
+		SeleccionarMediadorMACPorCodigo(getScenarioVar(Constants.MEDIADOR));
+		clickOnContinuarButton();
 
 		return this;
 	}
@@ -74,46 +60,34 @@ public class AsignarMediadorPage extends PageObject {
 	public AsignarMediadorPage clickOnContinuarButton() {
 		debugBegin();
 		
-		this.webDriver.waitWithDriver(3000);
-		//this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnContinuar, this.mainFrame);
+		webDriver.waitWithDriver(3000);
+		//webDriver.waitForElementToBeClickableInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(btnContinuar, mainFrame);
 		
 		debugEnd();
 
 		return this;
 	}
 
-	public AsignarMediadorPage seleccionarMediadorPorCodigo(String codigoMediador) throws InterruptedException {
+	public AsignarMediadorPage seleccionarMediadorPorCodigo(String codigoMediador) {
 		debugBegin();
 		
-		if(userS.getScenario().contains("MAC")) {
-			this.webDriver.switchToFrame(this.mainFrame);
-			this.webDriver.appendText(this.txtCodigoMediadorMAC, codigoMediador);
-	
-			this.webDriver.click(this.btnBuscarMAC);
-	
-			this.webDriver.exitFrame();
+		if(userS.getScenario().contains(Constants.MAC)) {
+			webDriver.appendTextInFrame(txtCodigoMediadorMAC, mainFrame, codigoMediador);
+			webDriver.click(btnBuscarMAC);
 		} else {		
-			//webDriver.waitWithDriver(2000);
-			this.webDriver.waitForElementNotToBeClickable(procesandoWindow);
+			webDriver.waitForElementNotToBeClickable(procesandoWindow);
 	
-			this.webDriver.switchToFrame(this.mainFrame);
+			webDriver.appendTextInFrame(txtCodigoMediador, mainFrame, codigoMediador);
 	
-			//this.webDriver.click(this.txtCodigoMediador);
-			//webDriver.waitWithDriver(2000);
-			this.webDriver.appendText(this.txtCodigoMediador, codigoMediador);
-	
-			this.webDriver.click(this.txtDocumento);
-			this.webDriver.click(this.btnBuscar);
+			webDriver.clickInFrame(txtDocumento, mainFrame);
+			webDriver.clickInFrame(btnBuscar, mainFrame);
 			
-			this.webDriver.waitForElementNotToBeClickable(loaderModal);
-			//this.webDriver.waitForElementToBeClickableAndClick(this.radioBtnResultadoBusqueda);
-			//this.webDriver.waitForAngular();
-			//webDriver.waitWithDriver(2500);
-			this.webDriver.click(this.radioBtnResultadoBusqueda);
-			//this.webDriver.waitForLoadToComplete();
-			this.webDriver.exitFrame();
-			this.webDriver.waitForElementNotToBeClickable(loaderModal);
+			webDriver.waitForElementNotToBeClickableInFrame(loaderModal, mainFrame);
+			
+			webDriver.clickInFrame(radioBtnResultadoBusqueda, mainFrame);
+			
+			webDriver.waitForElementNotToBeClickable(loaderModal);
 		}
 
 		debugEnd();
@@ -121,39 +95,15 @@ public class AsignarMediadorPage extends PageObject {
 		return this;
 	}
 
-	// public AsignarMediadorPage seleccionarMediadorPorCodigo(
-	// String codigoMediador) throws InterruptedException
-	// {
-	// logger.debug("BEGIN - SeleccionarMediadorPorCodigo");
-	// //this.webDriver.switchToFrame( this.cuerpoFrame);
-	// this.webDriver.clickInFrame(this.txtCodigoMediador, this.cuerpoFrame);
-	// this.webDriver.appendTextInFrame(this.txtCodigoMediador,this.cuerpoFrame,
-	// codigoMediador);
-	//
-	// this.webDriver.clickInFrame(this.txtDocumento, this.cuerpoFrame);
-	// this.webDriver.clickInFrame(this.btnBuscar, this.cuerpoFrame);
-	// this.webDriver.clickInFrame(this.radioBtnResultadoBusqueda,
-	// this.cuerpoFrame);
-	// //this.webDriver.exitFrame();
-	//
-	// logger.debug("END - SeleccionarMediadorPorCodigo");
-	//
-	// return this;
-	// }
-
-	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(String codigoMediador) throws InterruptedException {
+	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(String codigoMediador) {
 		debugBegin();
 
-		this.webDriver.waitWithDriver(2000);
-		this.webDriver.switchToFrame(this.mainFrame);
-		this.webDriver.appendText(this.txtCodigoMediadorMAC, codigoMediador);
+		webDriver.waitWithDriver(2000);
+		webDriver.appendTextInFrame(txtCodigoMediadorMAC, mainFrame, codigoMediador);
 
-		this.webDriver.click(this.btnBuscarMAC);
+		webDriver.clickInFrame(btnBuscarMAC, mainFrame);
 
-		this.webDriver.exitFrame();
-
-		// this.wh.ClickOnWebElementInFrame(this.radioBtnResultadoBusqueda,
-		// this.cuerpoFrame);
+		// wh.clickInFrame(radioBtnResultadoBusqueda, cuerpoFrame);
 		debugEnd();
 
 		return this;

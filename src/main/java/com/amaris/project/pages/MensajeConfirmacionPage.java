@@ -1,170 +1,143 @@
 package com.amaris.project.pages;
 
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.SizeFileFilter;
+import org.apache.commons.io.filefilter.TrueFileFilter;
+import org.openqa.selenium.By;
+import org.testng.Assert;
+
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
+import com.amaris.project.utils.DownloadLinkHelper;
+import com.google.common.io.Files;
 
 public class MensajeConfirmacionPage extends PageObject {
+
+	// region webelements
+	private By cuerpoFrame = By.name("cuerpo");
+	private By imprimirCopiaTomador = By.cssSelector("#form1 > table.grid.narrowBox > tbody > tr:nth-child(3) > td:nth-child(3) > a > img");
+
+	private By rowWithDocument = By.xpath(".//tr[td//*[@alt='Imprimir']]");
+
+	String xpathRowLinkDownloadFilter = ".//td[3]/a";
+	String xpathRowLinkDescriptionFilter = ".//td[2]";
+	// endregion
 
 	MensajeConfirmacionPage(UserStory userS) {
 		super(userS);
 	}
 
-	// // region webelements
-	//
-	// @FindBy(name = "cuerpo")
-	// private WebElement cuerpoFrame;
-	//
-	// @FindBy(xpath = ".//tr[td//*[@alt='Imprimir']]")
-	// private List<WebElement> rowWithDocument;
-	//
-	// String xpathRowLinkDownloadFilter = ".//td[3]/a";
-	// String xpathRowLinkDescriptionFilter = ".//td[2]";
-	//
-	// @FindBy(css = "#form1 > table.grid.narrowBox > tbody > tr:nth-child(3) >
-	// td:nth-child(3) > a > img")
-	// private WebElement imprimirCopiaTomador;
-	//
-	// // endregion
-	//
-	// public MensajeConfirmacionPage(BrowserContext browserContext)
-	// {
-	//
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	// // region methods
-	// public void DownlodadDocumentsToFolder(
-	// String Path) throws IOException
-	// {
-	// logger.trace("BEGIN - DownlodadDocumentsToFolder");
-	//
-	// List<DownloadLinkHelper> downloads = this.getDownloadLinksAndNames();
-	//
-	// File tempFolder = new
-	// File(this.browserContext.getProperties().fileDownloadTempPath);
-	// FileUtils.cleanDirectory(tempFolder);
-	//
-	// DateTimeFormatter formatter =
-	// DateTimeFormatter.ofPattern("yyyy-mm-dd___hh-mm-ss");
-	// String dateTime = LocalDateTime.now().format(formatter).toString();
-	//
-	// String folderName = "\\polizaNumero_" + this.tData.getNumPoliza() +
-	// "_Documentos_Suplemento" + dateTime;
-	//
-	// FileUtils.forceMkdir(new File(Path + "\\" + folderName));
-	// File destinationFolder = new File(Path + "\\" + folderName);
-	//
-	// downloads.stream().forEach(p ->
-	// {
-	// this.wh.switchToFrame(this.cuerpoFrame);
-	// // p.getDownloadLink().click();
-	// this.wh.doubleClickOnWebElement(p.getDownloadLink());
-	// this.wh.exitFromFrame();
-	// if (this.CheckIfFilesInFolderHaveBeenDownloaded(tempFolder))
-	// {
-	// try
-	// {
-	// String[] extensions =
-	// { "pdf" };
-	// Collection<File> files = FileUtils.listFiles(tempFolder, extensions,
-	// true);
-	//
-	// Files.move(files.iterator().next(), new
-	// File(destinationFolder.getAbsolutePath() + "\\" + p.getDescription() +
-	// ".pdf"));
-	// this.wh.closeSecondWindow(this.tData.getMainWindowHandle());
-	// }
-	// catch (IOException e)
-	// {
-	// logger.trace("Ha habido un error al mover el archivo descargado a la
-	// carpeta de destino", e);
-	// }
-	// }
-	// });
-	// logger.trace("END - DownlodadDocumentsToFolder");
-	// }
-	//
-	// public List<DownloadLinkHelper> getDownloadLinksAndNames()
-	// {
-	// logger.trace("BEGIN - getDownloadLinksAndNames");
-	// List<DownloadLinkHelper> downloads = new ArrayList<>();
-	//
-	// this.wh.switchToFrame(this.cuerpoFrame);
-	//
-	// this.rowWithDocument.stream()
-	// .forEach(p -> downloads.add(new
-	// DownloadLinkHelper(p.findElement(By.xpath(this.xpathRowLinkDescriptionFilter)).getText(),
-	// p.findElement(By.xpath(this.xpathRowLinkDownloadFilter)))));
-	// this.wh.exitFromFrame();
-	// logger.trace("END - getDownloadLinksAndNames");
-	// return downloads;
-	// }
-	//
-	// public boolean CheckIfFilesInFolderHaveBeenDownloaded(
-	// File tempFolder)
-	// {
-	// logger.trace("BEGIN - CheckIfFilesInFolderHaveBeenDownloaded");
-	// LocalDateTime currentDateTimeDownload = LocalDateTime.now();
-	// Collection<File> finishedFiles = null;
-	//
-	// do
-	// {
-	// try
-	// {
-	// Thread.sleep(500L);
-	// }
-	// catch (InterruptedException e)
-	// {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	//
-	// // String[] extensionsFilter =
-	// // { ".pdf" };
-	// // String[] tempFilesFilter =
-	// // { "crdownload", "part" };
-	// // File dir = new File(".");
-	// // String[] fileSizeFilter = dir.list(new SizeFileFilter(1, true));
-	//
-	// finishedFiles = FileUtils.listFiles(tempFolder, new SizeFileFilter(1,
-	// true), TrueFileFilter.TRUE);
-	// }
-	//
-	// while (finishedFiles.isEmpty()
-	// &&
-	// currentDateTimeDownload.plusSeconds(this.browserContext.getProperties().pageLoadTimeout).isAfter(LocalDateTime.now())
-	// && finishedFiles.size() == 0);
-	// logger.trace("END - CheckIfFilesInFolderHaveBeenDownloaded");
-	//
-	// if (FileUtils.listFiles(tempFolder, new String[]
-	// { "crdownload" }, false).isEmpty())
-	// {
-	// return true;
-	// }
-	// return false;
-	// }
-	//
-	// public void CheckIfPageHasLoadedCorrectly()
-	// {
-	// logger.debug("BEGIN - CheckIfPageHasLoadedCorrectly");
-	// this.wh.switchToFrame(this.cuerpoFrame);
-	// Assert.assertTrue("La pagina con el listado de documentos no ha cargado
-	// correctamente", this.rowWithDocument.size() > 2);
-	// this.wh.exitFromFrame();
-	// logger.debug("END - CheckIfPageHasLoadedCorrectly");
-	// }
-	//
-	// public void searchTextInCopiaTomadorPDF() // Copy contents of Copia
-	// Tomador PDF to Notepad and search for the text of the motivos suplemento.
-	// {
-	// this.wh.switchToFrame(this.cuerpoFrame);
-	// this.wh.clickOnWebElement(this.imprimirCopiaTomador);
-	// // Pending code that searches for text.
-	// this.wh.exitFromFrame();
-	// }
+	// region methods
+	public MensajeConfirmacionPage DownlodadDocumentsToFolder(String path) {
+		debugBegin();
 
+		List<DownloadLinkHelper> downloads = getDownloadLinksAndNames();
+
+		File reportFolder = new File(userS.getReportPath());
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd_hh-mm-ss");
+		String dateTime = LocalDateTime.now().format(formatter);
+
+		String folderName = "/Poliza_" + getTestVar(Constants.NUM_POLIZA) + "_Documentos_Suplemento" + dateTime;
+
+		new File(path + '/' + folderName).mkdirs();
+		File destinationFolder = new File(path + '/' + folderName);
+
+		downloads.stream().forEach(p -> {
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.doubleClick(p.getDownloadLink());
+			webDriver.exitFrame();
+			
+			if(CheckIfFilesInFolderHaveBeenDownloaded(reportFolder)) {
+				try {
+					String[] extensions = { "pdf"};
+					Collection<File> files = FileUtils.listFiles(reportFolder, extensions, true);
+
+					Files.move(files.iterator().next(), new File(destinationFolder.getAbsolutePath() + '/' + p.getDescription() + ".pdf"));
+					webDriver.closeWindow(webDriver.getMainWindowHandle());
+				} catch(IOException e) {
+					debugError("Ha habido un error al mover el archivo descargado a la carpeta de destino: " + e);
+				}
+			}
+		});
+
+		debugEnd();
+		
+		return this;
+	}
+
+	public List<DownloadLinkHelper> getDownloadLinksAndNames() {
+		debugBegin();
+		
+		List<DownloadLinkHelper> downloads = new ArrayList<>();
+
+		webDriver.switchToFrame(cuerpoFrame);
+
+		webDriver.getElements(rowWithDocument).stream()
+			.forEach(p -> downloads.add(new DownloadLinkHelper(p.findElement(By.xpath(xpathRowLinkDescriptionFilter)).getText(),
+				p.findElement(By.xpath(xpathRowLinkDownloadFilter)))));
+		
+		webDriver.exitFrame();
+
+		debugEnd();
+
+		return downloads;
+	}
+
+	public boolean CheckIfFilesInFolderHaveBeenDownloaded(File tempFolder) {
+		debugBegin();
+
+		boolean result = false;
+		Collection<File> finishedFiles = null;
+		LocalDateTime currentDateTimeDownload = LocalDateTime.now();
+
+		do {
+			webDriver.waitWithDriver(500L);
+
+			finishedFiles = FileUtils.listFiles(tempFolder, new SizeFileFilter(1, true), TrueFileFilter.TRUE);
+		} while(finishedFiles.isEmpty()
+			&& currentDateTimeDownload.plusSeconds(webDriver.getImplicitWait()).isAfter(LocalDateTime.now()));
+
+		if(FileUtils.listFiles(tempFolder, new String[]{ "crdownload"}, false).isEmpty()) {
+			result = true;
+		}
+
+		debugEnd();
+
+		return result;
+	}
+
+	public MensajeConfirmacionPage CheckIfPageHasLoadedCorrectly() {
+		debugBegin();
+		
+		webDriver.switchToFrame(cuerpoFrame);
+		Assert.assertTrue(webDriver.getElements(rowWithDocument).size() > 2, "La pagina con el listado de documentos no ha cargado correctamente");
+		webDriver.exitFrame();
+		
+		debugEnd();
+		
+		return this;
+	}
+
+	// Copy contents of Copia Tomador PDF to Notepad and search for the text of the motivos suplemento.
+	public MensajeConfirmacionPage searchTextInCopiaTomadorPDF() {
+		debugBegin();
+		
+		webDriver.clickInFrame(imprimirCopiaTomador, cuerpoFrame);
+		// Pending code that searches for text.
+		
+		debugEnd();
+		
+		return this;
+	}
 	// endregion
 }

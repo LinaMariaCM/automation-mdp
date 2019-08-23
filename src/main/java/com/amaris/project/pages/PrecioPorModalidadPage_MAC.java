@@ -3,235 +3,138 @@ package com.amaris.project.pages;
 import com.amaris.automation.configuration.AutomationConstants;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
+
 import org.openqa.selenium.By;
 
 public class PrecioPorModalidadPage_MAC extends PageObject {
 
 	// region webelements
-	// @FindBy(name = "cuerpo")
-	// private WebElement cuerpoFrame;
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	// @FindBy(id = "nombdato_MODALIDAD_1")
-	// private WebElement drpdwnModalidad;
 	private By drpdwnModalidad = By.cssSelector("#nombdato_MODALIDAD_1");
-
-	// @FindBy(id = "DTRIESALQCONF_RENTA")
-	// private WebElement txtRenta;
 	private By txtRenta = By.cssSelector("#DTRIESALQCONF_RENTA");
-
-	// @FindBy(id = "botonContinuar")
-	// private WebElement btnConvertirProyecto;
 	private By btnConvertirProyecto = By.cssSelector("#botonContinuar");
-
-	// @FindBy(id = "selCobertura")
-	// private WebElement drpdnImpagoAlquiler;
-	private By drpdnImpagoAlquiler = By.id("selCobertura");
-
-	// @FindBy(id = "selFranquicia")
-	// private WebElement drpdnFranquicia;
-	private By drpdnFranquicia = By.id("selFranquicia");
-
-	// @FindBy(id = "botonContinuar")
-	// private WebElement btnContinuar;
+	private By drpdnImpagoAlquiler = By.cssSelector("#selCobertura");
+	private By drpdnFranquicia = By.cssSelector("#selFranquicia");
 	private By btnContinuar = By.cssSelector("#botonContinuar");
-
-	// @FindBy(css = "div[class *= 'alert alert-danger alert-dismissable'")
-	// private WebElement msjError;
 	private By msjError = By.cssSelector("div[class *= 'alert alert-danger alert-dismissable'");
 
-	// // @FindBy(id = "RAUTCAPMAXCONF")
-	// // private WebElement msjErrorRebasada;
 	private By msjErrorRebasada = By.cssSelector("#RAUTCAPMAXCONF");
-
-	// /@FindBy(id = "REASRENTAALQ")
-	// private WebElement msjErrorReaseguro;
-	private By msjErrorReaseguro = By.cssSelector("REASRENTAALQ");
-
-	// BrowserContext browserContext;
-	// private WebElementHelper wh;
-	//
-	// final static Logger logger =
-	// LoggerFactory.getLogger(PrecioPorModalidadPage_MAC.class);
+	private By msjErrorReaseguro = By.cssSelector("#REASRENTAALQ");
+	// endregion
 
 	public PrecioPorModalidadPage_MAC(UserStory userS) {
 		super(userS);
 	}
 
-	// public PrecioPorModalidadPage_MAC(BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// }
-	//
-	public void executeActionsInPrecioPorModalidadPage() throws InterruptedException {
+	public PrecioPorModalidadPage_MAC executeActionsInPrecioPorModalidadPage() {
 		debugBegin();
-		this.webDriver.waitWithDriver(4000);
-		this.completarRentaMensualAlquiler();
-		this.completarGarantiasBasicas();
-
-		this.clickOnConvertirAProyecto();
+		
+		webDriver.waitWithDriver(4000);
+		completarRentaMensualAlquiler();
+		completarGarantiasBasicas();
+		clickOnConvertirAProyecto();
+		
 		debugEnd();
+		
+		return this;
 	}
 
-	public void completarRentaMensualAlquiler() {
+	public PrecioPorModalidadPage_MAC completarRentaMensualAlquiler() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);
 
-		this.webDriver.setTextInFrame(this.txtRenta, this.mainFrame, String.valueOf(getScenarioVar("renta_mensual_alquiler")));
-		this.webDriver.tabulateElementInFrame(this.txtRenta, this.mainFrame);
+		webDriver.setTextInFrame(txtRenta, mainFrame, getScenarioVar(Constants.RENTA_MENSUAL_ALQUILER));
+		webDriver.tabulateElementInFrame(txtRenta, mainFrame);
+		
 		debugEnd();
+		
+		return this;
 	}
 
-	// public void CompletarRentaMensualAlquiler()
-	// {
-	// debugBegin();
-	// this.webDriver.setTextInFrame(this.txtRenta, this.mainFrame,
-	// String.valueOf(userS.getTestVar("renta_mensual_alquiler")));
-	// this.webDriver.tabulateElementInFrame(this.txtRenta, this.mainFrame);
-	// debugEnd();
-	// }
-
-	public void clickOnConvertirAProyecto() {
+	public PrecioPorModalidadPage_MAC clickOnConvertirAProyecto() {
 		debugBegin();
 
-		// this.wh.scrollToEndOfPage();
-		// this.wh.scrollToWebElementWithJavaScriptInFrame(this.btnConvertirProyecto,
-		// this.cuerpoFrame);
-		// this.webDriver.waitForElementToBeClickableInFrame(this.btnConvertirProyecto,
-		// this.mainFrame);
-		this.webDriver.waitWithDriver(8000);
-		this.webDriver.clickInFrame(this.btnConvertirProyecto, this.mainFrame);
+		webDriver.waitWithDriver(8000);
+		webDriver.clickInFrame(btnConvertirProyecto, mainFrame);
 		debugEnd();
+		
+		return this;
 	}
 
-	// // region methods
-	// public void ClickOnConvertirAProyecto() throws InterruptedException
-	// {
-	// logger.debug("BEGIN - ClickOnConvertirAProyecto");
-	// // this.wh.scrollToEndOfPage();
-	// //
-	// this.wh.scrollToWebElementWithJavaScriptInFrame(this.btnConvertirProyecto,
-	// this.cuerpoFrame);
-	// this.wh.clickOnWebElementInFrame(this.btnConvertirProyecto,
-	// this.cuerpoFrame);
-	// logger.debug("END - ClickOnConvertirAProyecto");
-	// }
-	//
-	public void completarGarantiasBasicas() {
+	public PrecioPorModalidadPage_MAC completarGarantiasBasicas() {
 		debugBegin();
-		String ImpagoAlquiler = getScenarioVar("impago_alquiler");
-		String Franquicia = getScenarioVar("franquiciaMAC");
+		
+		String impagoAlquiler = getScenarioVar(Constants.IMPAGO_ALQUILER);
+		String franquicia = getScenarioVar(Constants.FRANQUICIA_MAC);
 
-		if(ImpagoAlquiler != null && !ImpagoAlquiler.isEmpty()) {
-			this.seleccionarImpagoAlquiler();
+		if(impagoAlquiler != null && !impagoAlquiler.isEmpty()) {
+			seleccionarImpagoAlquiler();
 		}
 
-		if(Franquicia != null && !Franquicia.isEmpty()) {
-			this.seleccionarFranquicia();
+		if(franquicia != null && !franquicia.isEmpty()) {
+			seleccionarFranquicia();
 		}
+		
 		debugEnd();
+		
+		return this;
 	}
 
-	// public void completarGarantiasBasicas() throws IOException
-	// {
-	// logger.debug("BEGIN - completarGarantiasBasicas");
-	// String ImpagoAlquiler =
-	// this.browserContext.getTestCaseData().getImpagoAlquiler();
-	// String Franquicia =
-	// this.browserContext.getTestCaseData().getFranquiciaMAC();
-	//
-	// if (ImpagoAlquiler != null)
-	// {
-	// this.seleccionarImpagoAlquiler();
-	// }
-	// if (Franquicia != null)
-	// {
-	// this.seleccionarFranquicia();
-	// }
-	// logger.debug("END - completarGarantiasBasicas");
-	// }
-	//
-	public void seleccionarImpagoAlquiler() {
+	public PrecioPorModalidadPage_MAC seleccionarImpagoAlquiler() {
 		debugBegin();
 
-		debugInfo("SCENARIO: " + userS.getScenario() + ", VALUE: " + getScenarioVar("impago_alquiler")
-			+ ", SCENARIODATA: " + userS.getTestDataManager().getData(AutomationConstants.SCENARIO_DATA));
+		debugInfo("SCENARIO: " + userS.getScenario() + ", VALUE: " + getScenarioVar(Constants.IMPAGO_ALQUILER)
+			+ ", SCENARIODATA: " + (userS.getTestDataManager().getData(AutomationConstants.SCENARIO_DATA) != null));
 
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnImpagoAlquiler, this.mainFrame, getScenarioVar("impago_alquiler"));
+		webDriver.clickElementFromDropDownByTextInFrame(drpdnImpagoAlquiler, mainFrame, Constants.IMPAGO_ALQUILER);
+		
 		debugEnd();
+		
+		return this;
 	}
 
-	// public void seleccionarImpagoAlquiler() throws IOException
-	// {
-	// logger.debug("BEGIN - seleccionarImpagoAlquiler");
-	// this.wh.selectValueInDropDownInFrame(this.drpdnImpagoAlquiler,
-	// this.cuerpoFrame,
-	// String.valueOf(this.browserContext.getTestCaseData().getImpagoAlquiler()));
-	// logger.debug("END - seleccionarImpagoAlquiler");
-	// }
-
-	public void seleccionarFranquicia() {
+	public PrecioPorModalidadPage_MAC seleccionarFranquicia() {
 		debugBegin();
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdnFranquicia, this.mainFrame, String.valueOf(getScenarioVar("franquiciaMAC")));
+		webDriver.clickElementFromDropDownByTextInFrame(drpdnFranquicia, mainFrame, getScenarioVar(Constants.FRANQUICIA_MAC));
 		debugEnd();
+		
+		return this;
 	}
 
-	// public void seleccionarFranquicia() throws IOException
-	// {
-	// logger.debug("BEGIN - seleccionarFranquicia");
-	// this.wh.selectValueInDropDownInFrame(this.drpdnFranquicia,
-	// this.cuerpoFrame,
-	// String.valueOf(this.browserContext.getTestCaseData().getFranquiciaMAC()));
-	// logger.debug("END - seleccionarFranquicia");
-	// }
-	//
-
-	public void clickContinuar() {
+	public PrecioPorModalidadPage_MAC clickContinuar() {
 		debugBegin();
-
-		// this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar,
-		// this.mainFrame);
-		this.webDriver.waitWithDriver(6000);
-
-		this.webDriver.clickInFrame(this.btnContinuar, this.mainFrame);
+		webDriver.waitWithDriver(6000);
+		webDriver.clickInFrame(btnContinuar, mainFrame);
 		debugEnd();
+		
+		return this;
 	}
 
-	// public void continuar()
-	// {
-	// logger.debug("BEGIN - Continuar");
-	//
-	// this.wh.clickOnWebElementInFrame(this.btnContinuar, this.cuerpoFrame);
-	// logger.debug("END - Continuar");
-	// }
-
-	public void selectModalidad() {
+	public PrecioPorModalidadPage_MAC selectModalidad() {
 		debugBegin();
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpdwnModalidad, this.mainFrame, userS.getTestVar("modalidad"));
+		webDriver.clickElementFromDropDownByTextInFrame(drpdwnModalidad, mainFrame, getTestVar(Constants.MODALIDAD));
 		debugEnd();
+		
+		return this;
 	}
 
 	public String recuperarTextoMensajeError() {
 		debugBegin();
-		this.webDriver.getTextInFrame(this.msjError, this.mainFrame).substring(2);
-		// Se pone substring para quitar el aspa del boton cerrar que
-		// aparece al principio del mensaje devuelto.
-		debugError("ERROR RECUPERADO - ");
-		this.webDriver.getTextInFrame(this.msjError, this.mainFrame).substring(2);
+		String mensajeError = webDriver.getTextInFrame(msjError, mainFrame).substring(2);
+		debugError("ERROR RECUPERADO - " + mensajeError);
 		debugEnd();
-		return this.webDriver.getTextInFrame(this.msjError, this.mainFrame);
+		
+		return mensajeError;
 	}
 
 	public boolean checkConvertirAProyectoIsPresent() {
 		debugBegin();
-		boolean checker = this.webDriver.isPresentInFrame(this.btnConvertirProyecto, this.mainFrame);
+		boolean checker = webDriver.isPresentInFrame(btnConvertirProyecto, mainFrame);
 		debugEnd();
 		return checker;
-
 	}
-
 	// endregion
 }

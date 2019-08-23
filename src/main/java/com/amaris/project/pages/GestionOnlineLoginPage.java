@@ -23,13 +23,13 @@ public class GestionOnlineLoginPage extends PageObject {
 		debugBegin();
 
 		// Enter username and password
-		this.webDriver.appendText(this.txtUserId, userId);
+		webDriver.appendText(txtUserId, userId);
 		
-		this.webDriver.appendText(this.txtPassword, password);
-		this.webDriver.click(this.btnEntrar);
+		webDriver.appendText(txtPassword, password);
+		webDriver.click(btnEntrar);
 
 		// Accept cookies popup
-		this.webDriver.click(this.btnAceptar);
+		webDriver.click(btnAceptar);
 		debugEnd();
 
 		return this;

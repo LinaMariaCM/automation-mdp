@@ -10,17 +10,17 @@ import org.testng.annotations.Test;
 
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 
 public class SiniestroConvencionalConPeritoTest {
 
-	protected SuiteManager suiteM = new SuiteManager(ProjectConstants.SINIESTRO_CONVENCIONAL_CON_PERITO);
+	protected SuiteManager suiteM = new SuiteManager(Constants.SINIESTRO_CONVENCIONAL_CON_PERITO);
 
 	// PRUEBA MEC_SINIESTROS
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestroConvencionalConPerito() {
-		String testCase = ProjectConstants.SINIESTRO_CONVENCIONAL_CON_PERITO + "01";
+		String testCase = Constants.SINIESTRO_CONVENCIONAL_CON_PERITO + "01";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestroConvencionalConPerito.csv");
 
 		return casesMatrix;

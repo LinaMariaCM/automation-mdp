@@ -1090,6 +1090,14 @@ public class DriverHelper {
 		return driver.findElements(by);
 	}
 
+	public List<WebElement> getElementsInFrame(By by, By frame) {
+		switchToFrame(frame);
+		List<WebElement> result = getElements(by);
+		exitFrame();
+		
+		return result;
+	}
+
 	public List<WebElement> getElementChildren(By element) {
 		logger.begin();
 		waitForElementToBePresent(element);
@@ -1189,6 +1197,12 @@ public class DriverHelper {
 		((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", driver.findElement(by), attribute, value);
 	}
 
+	public void setAttributeInFrame(By by, By frame, String attribute, String value) {
+		switchToFrame(frame);
+		setAttribute(by, attribute, value);
+		exitFrame();
+	}
+
 	public void addStyleAttribute(By by, String key, String value) {
 		String attribute = getAttribute(by, "style");
 
@@ -1209,6 +1223,12 @@ public class DriverHelper {
 		} else {
 			setAttribute(by, "style", key + ": " + value + ";");
 		}
+	}
+
+	public void removeAttributeInFrame(By by, By frame, String attribute) {
+		switchToFrame(frame);
+		removeAttribute(by, attribute);
+		exitFrame();
 	}
 
 	public void removeAttribute(By by, String attribute) {
@@ -1317,6 +1337,18 @@ public class DriverHelper {
 		logger.end();
 	}
 
+	public void clickInFrame(By by, By frame) {
+		switchToFrame(frame);
+		click(by);
+		exitFrame();
+	}
+
+	public void clickInFrame(WebElement element, By frame) {
+		switchToFrame(frame);
+		click(element);
+		exitFrame();
+	}
+
 	public void dispatchEvent(By by, String event) {
 		dispatchEvent(waitForElementToBePresent(by), event);
 	}
@@ -1343,12 +1375,6 @@ public class DriverHelper {
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
 		logger.end();
-	}
-
-	public void clickInFrame(By by, By frame) {
-		switchToFrame(frame);
-		click(by);
-		exitFrame();
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -1732,6 +1758,12 @@ public class DriverHelper {
 		logger.end();
 	}
 
+	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By frame, String attribute, String value) {
+		switchToFrame(frame);
+		clickElementFromDropDownByAttribute(containingElement, containingElement, attribute, value);
+		exitFrame();
+	}
+
 	public void clickElementFromDropDownByAttribute(By containingElement, String attribute, String value) {
 		clickElementFromDropDownByAttribute(containingElement, containingElement, attribute, value);
 	}
@@ -1948,6 +1980,16 @@ public class DriverHelper {
 
 		switchToFrame(frame);
 		result = getText(by);
+		exitFrame();
+
+		return result;
+	}
+
+	public String getTextInFrame(WebElement webElement, By frame) {
+		String result = "";
+
+		switchToFrame(frame);
+		result = getText(webElement);
 		exitFrame();
 
 		return result;
@@ -2687,6 +2729,16 @@ public class DriverHelper {
 		}
 	}
 
+	public boolean isSelectedInFrame(By webElement, By frame) {
+		boolean result = false;
+		
+		switchToFrame(frame);
+		result = isSelected(webElement);
+		exitFrame();
+		
+		return result;
+	}
+
 	public boolean isSelected(By webElement) {
 		return driver.findElement(webElement).isSelected();
 	}
@@ -2759,6 +2811,16 @@ public class DriverHelper {
 				+ (e.getMessage() != null && !e.getMessage().isEmpty() ? ": " + e.getMessage() : ""));
 		}
 
+		return result;
+	}
+
+	public boolean isClickableInFrame(By by, By frame) {
+		boolean result = false;
+		
+		switchToFrame(frame);
+		result = isClickable(by);
+		exitFrame();
+		
 		return result;
 	}
 
@@ -2867,6 +2929,14 @@ public class DriverHelper {
 
 		return value;
 	}
+
+	public boolean isClickableAndClickInFrame(By by, By frame) {
+		switchToFrame(frame);
+		boolean value = isClickableAndClick(by);
+		exitFrame();
+
+		return value;
+	}
 	// endregion
 
 	// region Window Handles
@@ -2932,16 +3002,16 @@ public class DriverHelper {
 		logger.end();
 	}
 
-	public void closeSecondWindow(String mainFrameWindowHandle) {
+	public void closeWindow(String windowHandle) {
 		logger.begin();
 		Set<String> handles = driver.getWindowHandles();
 
 		if(handles.size() > 1) {
 			handles.forEach(p -> {
-				if(!p.equals(mainFrameWindowHandle) && !mainFrameWindowHandle.equals("")) {
+				if(!p.equals(windowHandle) && !windowHandle.isEmpty()) {
 					driver.switchTo().window(p);
 					driver.close();
-					driver.switchTo().window(mainFrameWindowHandle);
+					driver.switchTo().window(windowHandle);
 				}
 			});
 		}

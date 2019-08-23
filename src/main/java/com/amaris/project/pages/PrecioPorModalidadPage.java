@@ -8,10 +8,11 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
 import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.ProjectConstants;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.DniGeneratorHelper;
@@ -23,270 +24,122 @@ import com.amaris.project.utils.CoberturasAdicionalesHelper;
 
 public class PrecioPorModalidadPage extends PageObject {
 
-	// private String cssFilterSelectedCheckboxes =
-	// "input:checked[type=checkbox]";
+	private String precioPlusAfter;
+	private String precioPlusBefore;
+	private String precioBasicAfter;
+	private String precioBasicBefore;
+	private String precioCompletoAfter;
+	private String precioCompletoBefore;
 	private String xPathFilterClausulaText = ".//td[3]";
 	private String xPathFilterClausulaCheckbox = ".//td[input[@type='checkbox']]/input";
-
 	private List<CoberturasAdicionalesHelper> coberturasAdicionales;
-	private String PrecioCompletoBefore;
-	private String PrecioCompletoAfter;
-	private String PrecioBasicBefore;
-	private String PrecioBasicAfter;
-	private String PrecioPlusBefore;
-	private String PrecioPlusAfter;
 
 	// region webelements
-	// @FindBy(name = "cuerpo")
 	private By cuerpoFrame = By.name("cuerpo");
-
-	// @FindBy(id = "topFrame")
 	private By topFrame = By.cssSelector("#topFrame");
-
-	// @FindBy(id = "hideFrame")
 	private By hiddenFrame = By.cssSelector("#hideFrame");
 
-	// @FindBy(xpath = ".//*[text()='Continuar']")
-	// private By btnContinuar = By.xpath(".//*[text()='Continuar']");
-	private By btnContinuar = By.id("botonContinuar");
-
-	// //@FindBy(xpath = ".//*[text()='Guardar']")
-	// @FindBy(css = "button[ng-click='save(formPrecioModalidad)']")
+	private By btnContinuar = By.cssSelector("#botonContinuar");
 	private By btnGuardar = By.xpath(".//*[text()='Guardar']");
-
-	// @FindBy(xpath = ".//*[contains(text(),'Cancelar')]")
 	private By btnCancelar = By.xpath(".//*[contains(text(),'Cancelar')]");
-
-	// @FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and
-	// contains(text(),'se ha
-	// guardado.')]/../../../../div[@class='modal-footer']/button")
 	private By btnAceptarInDialog = By.xpath(".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]/../../../../div[@class='modal-footer']/button");
-
-	// @FindBy(xpath = ".//*[starts-with(text(),'El proyecto') and
-	// contains(text(),'se ha guardado.')]")
 	private By txtCodigoProjecto = By.xpath(".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]");
-
-	// @FindBy(xpath = ".//tr[td[input[@type='checkbox']]]")
-	// //@FindBy(xpath = ".//*[input]/input")
 	private By btnWithCoberturaAdicional = By.xpath(".//tr[td[input[@type='checkbox']]]");
 
-	private List<WebElement> rowWithCoberturaAdicional;
+	private By rowWithCoberturaAdicional = By.xpath(".//*[input]/input");
+	private By selectedCheckboxes = By.cssSelector("input:checked[type=checkbox]");
 
-	// @FindBy(css = "input:checked[type=checkbox]")
-	private List<WebElement> selectedCheckboxes;
-
-	// @FindBy(xpath = ".//*[@class='pagination' and
-	// ancestor::*[contains(@ng-if,'control.totalPages')]]")
 	private By clausulaPageSelector = By.xpath(".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]");
-
-	/*
-	 * //@FindBy(xpath = ".//*[text() ='Añadir maquinaria']") private By
-	 * btnAnadirMaquinaria;
-	 */
-
-	// @FindBy(css = "[ng-click*='#modalMaquinaria']")
 	private By btnAnadirMaquinaria = By.cssSelector("[ng-click*='#modalMaquinaria']");
-
-	// @FindBy(xpath = ".//*[text() ='Añadir' and @ng-click='newMaquinaria()']")
 	private By btnAnadirMaquinariaModalWindow = By.xpath(".//*[text() ='Añadir' and @ng-click='newMaquinaria()']");
-
-	// //@FindBy(xpath = ".//*[text() ='Añadir' and
-	// @ng-click='newInstalacion()']")
-	// @FindBy(css = "#modalInstalaciones > div > div > div.modal-body > div >
-	// div:nth-child(3) > div > button")
 	private By btnAnadirPlacaSolarModalWindow = By.cssSelector("#modalInstalaciones > div > div > div.modal-body > div > div:nth-child(3) > div > button");
-
-	// @FindBy(xpath = ".//*[@ng-model='item.data.descripcion.data.codigo']")
 	private By cmbTipoMaquinaria = By.xpath(".//*[@ng-model='item.data.descripcion.data.codigo']");
 
-	// @FindBy(name = "valor")
-	private By txtValor = By.className("valor");
-
-	// @FindBy(xpath = ".//*[text()='Guardar' and
-	// @ng-click='saveMaquinarias()']")
+	private By txtValor = By.name("valor");
 	private By btnGuardarMaquinariaModalWindow = By.xpath(".//*[text()='Guardar' and @ng-click='saveMaquinarias()']");
-
-	// @FindBy(xpath = ".//*[contains(@ng-click,'#modalAsegurarAccidentes') and
-	// text()='Asegurar accidentes']")
 	private By btnAsegurarAccidentesPantallaPrincipal = By.xpath(".//*[contains(@ng-click,'#modalAsegurarAccidentes') and text()='Asegurar accidentes']");
-
-	// @FindBy(xpath = ".//*[@ng-click='saveAsegurados()' and text()='Asegurar
-	// accidentes']")
 	private By btnAsegurarAccidentesModalWindow = By.xpath(".//*[@ng-click='saveAsegurados()' and text()='Asegurar accidentes']");
-
-	// @FindBy(xpath = ".//*[text() = 'Añadir asegurado']")
 	private By btnAnadirAsegurado = By.xpath(".//*[text() = 'Añadir asegurado']");
 
-	// @FindBy(name = "tipoDocumento")
 	private By cmbTipoDocumento = By.name("tipoDocumento");
-
-	// @FindBy(id = "numeroDocumento_0")
 	private By txtNumeroDocumento = By.cssSelector("#numeroDocumento_0");
-
-	// @FindBy(id = "nombre_0")
 	private By txtEmpleadoNombre = By.cssSelector("#nombre_0");
-
-	// @FindBy(id = "apellido1_0")
 	private By txtEmpleadoApellido1 = By.cssSelector("#apellido1_0");
-
-	// @FindBy(id = "apellido2_0")
 	private By txtEmpleadoApellido2 = By.cssSelector("#apellido2_0");
-
-	// @FindBy(id = "fechaNacimiento_0")
 	private By txtEmpleadoFechaNacimiento = By.cssSelector("#fechaNacimiento_0");
-
-	// @FindBy(id = "profesion_0")
 	private By cmbEmpleadoProfesion = By.cssSelector("#profesion_0");
-
-	// @FindBy(id = "profesionRelacion_0")
-	private By txtEmpleadoProfesionDescripcion = By.cssSelector("profesionRelacion_0");
-
-	// @FindBy(id = "capital_0")
+	private By txtEmpleadoProfesionDescripcion = By.cssSelector("#profesionRelacion_0");
 	private By txtEmpleadoCapital = By.cssSelector("#capital_0");
-
-	// @FindBy(id = "beneficiario_0")
 	private By txtEmpleadoBeneficiario = By.cssSelector("#beneficiario_0");
-
-	// @FindBy(id = "beneficiarioRelacion_0")
 	private By txtEmpleadoBeneficiarioDescripcion = By.cssSelector("#beneficiarioRelacion_0");
 
-	// @FindBy(xpath = ".//*[text()='Añadir placa solar']")
 	private By btnAnadirPlacaSolar = By.xpath(".//*[text()='Añadir placa solar']");
 
-	// @FindBy(name = "descripcion")
 	private By txtInstalacionFotovoltaicaDescripcion = By.name("descripcion");
-
-	// @FindBy(name = "valor")
 	private By txtInstalcionFotovoltaicaValor = By.name("valor");
 
-	// @FindBy(xpath = ".//*[text()='Guardar' and
-	// @ng-click='saveInstalaciones()']")
 	private By btnGuardarInstalacionSolarModalWindow = By.xpath(".//*[text()='Guardar' and @ng-click='saveInstalaciones()']");
-
-	// @FindBy(xpath = ".//*[text()='Basic']")
 	private By btnModalidadBasic = By.xpath(".//*[text()='Basic']");
-
-	// @FindBy(xpath = ".//*[text()='Plus']")
 	private By btnModalidadPlus = By.xpath(".//*[text()='Plus']");
-
-	// @FindBy(css = "select[name='capital']")
 	private By drpDwnRespCivil = By.cssSelector("select[name='capital']");
 
-	// //@FindBy(xpath =
-	// ".//*[text()='Basic']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
-	// @FindBy(css =
-	// "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html']
-	// tr[class='med-table-tr ng-scope']:nth-child(1)
-	// span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
 	private By lblPrecioBasic = By
 		.cssSelector("div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']");
-
-	// //@FindBy(xpath =
-	// ".//*[text()='Complet']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
-	// @FindBy(css =
-	// "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html']
-	// tr[class='med-table-tr ng-scope']:nth-child(1)
-	// span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
-
 	private By lblPrecioComplet = By
 		.cssSelector("div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']");
-
-	// //@FindBy(xpath =
-	// ".//*[text()='Plus']/..//div[contains(@ng-bind-html,'pm.getImporteModalidad(item))')]")
-	// @FindBy(css =
-	// "div[ng-include*='views/comunidades/precioModalidad/precioTotal.html']
-	// tr[class='med-table-tr ng-scope']:nth-child(1)
-	// span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']")
 	private By lblPrecioPlus = By
 		.cssSelector("div[ng-include*='views/comunidades/precioModalidad/precioTotal.html'] tr[class='med-table-tr ng-scope']:nth-child(1) span[ng-bind-html='numberToView(item.data.reciboTotal) | encode']");
 
-	// @FindBy(xpath = ".//*[text()='Franquicia voluntaria']/../select")
 	private By cmbFranquiciaVoluntaria = By.xpath(".//*[text()='Franquicia voluntaria']/../select");
-
-	// @FindBy(xpath = ".//*[text()='Añadir tipo de descuento']")
 	private By btnAddTipoDescuento = By.xpath(".//*[text()='Añadir tipo de descuento']");
-
-	// @FindBy(name = "porcentaje")
 	private By txtPorcentajeDescuento = By.name("porcentaje");
-
-	// @FindBy(xpath = ".//*[text()='Descuento']/../input")
 	private By rdnDescuento = By.xpath(".//*[text()='Descuento']/../input");
-
-	// @FindBy(id = "tipoDescuento")
 	private By cmbTipoDescuento = By.cssSelector("#tipoDescuento");
-
-	// @FindBy(xpath = ".//*[text()='Guardar' and
-	// @ng-click='saveDescuento(formRecargoDescuento)']")
 	private By btnGuadarDescuentoModalWindow = By.xpath(".//*[text()='Guardar' and @ng-click='saveDescuento(formRecargoDescuento)']");
-
-	// @FindBy(xpath = ".//*[text()='Tipo de descuento']")
 	private By lnkMostrarDescuento = By.xpath(".//*[text()='Tipo de descuento']");
-
-	// @FindBy(xpath =
-	// ".//*[@ng-bind-html='descuento.data.getTextDescuentoRecargo() | encode'
-	// and contains(@class,'ng-binding')]")
 	private By lblPorcentajeDescuentoPantallaPrincipal = By.xpath(".//*[@ng-bind-html='descuento.data.getTextDescuentoRecargo() | encode' and contains(@class,'ng-binding')]");
-
-	// @FindBy(css = "#modalErrores > div > div > div.modal-body > div > div >
-	// p")
 	private By msgAutorizarDescuento = By.cssSelector("#modalErrores > div > div > div.modal-body > div > div > p");
-
-	// @FindBy(css = "#modalErrores > div > div > div.modal-footer > button")
 	private By btnAceptarAutorizarDescuento = By.cssSelector("#modalErrores > div > div > div.modal-footer > button");
-
-	// @FindBy(xpath = ".//*[text()='Recargo']/../input")
 	private By rdnRecargo = By.xpath(".//*[text()='Recargo']/../input");
-
-	// @FindBy(css = "tbody.ng-scope:nth-child(14)
-	// [ng-if='pm.isEspecialGroup(item)']")
 	private By roturaMquinariaChckBx = By.cssSelector("tbody.ng-scope:nth-child(14) [ng-if='pm.isEspecialGroup(item)']");
-
 	// endregion
-
-	// public PrecioPorModalidadPage(BrowserContext browserContext)
-	// {
-	// this.browserContext = browserContext;
-	// this.wh = browserContext.webElementHelper;
-	// this.tData = browserContext.getTestCaseData();
-	// PageFactory.initElements(browserContext.getWebDriver(), this);
-	// this.coberturasAdicionales = null;
-	// }
 
 	public PrecioPorModalidadPage(UserStory userS) {
 		super(userS);
 	}
 
 	// region methods
-	public PrecioPorModalidadPage executeActionsInPrecioPorModalidadPage() throws InterruptedException, IOException {
-		Steps.waitForIt(webDriver);
-		this.seleccionarModalidad();
-		this.completarCoberturaPorMaquinaria();
-		this.completarCoberturasEmpleados();
-		this.completarCoberturasEnergiaSolar();
-		this.completarFranquiciaVoluntaria();
-		Steps.waitForIt(webDriver);
-		this.completarOQuitarDescuentoRecargo();
-		this.clickOnContinuar();
-
-		return this;
-	}
-
-	public PrecioPorModalidadPage clickOnContinuar() throws InterruptedException {
+	public PrecioPorModalidadPage executeActionsInPrecioPorModalidadPage() {
 		debugBegin();
-		// this.cuerpoFrame.click();
-		// this.webDriver.scrollToBottom();
-		this.webDriver.waitForElementToBeClickableInFrame(this.btnContinuar, this.cuerpoFrame);
-		this.webDriver.clickInFrame(this.btnContinuar, this.cuerpoFrame);
+
+		Steps.waitForIt(webDriver);
+		seleccionarModalidad();
+		completarCoberturaPorMaquinaria();
+		completarCoberturasEmpleados();
+		completarCoberturasEnergiaSolar();
+		completarFranquiciaVoluntaria();
+		Steps.waitForIt(webDriver);
+		completarOQuitarDescuentoRecargo();
+		clickOnContinuar();
+
 		debugEnd();
 
 		return this;
 	}
 
-	public PrecioPorModalidadPage clickOnCancelar() throws InterruptedException {
+	public PrecioPorModalidadPage clickOnContinuar() {
 		debugBegin();
-		this.webDriver.click(this.cuerpoFrame);
-		this.webDriver.scrollToBottom();
-		this.webDriver.clickInFrame(this.btnCancelar, this.cuerpoFrame);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public PrecioPorModalidadPage clickOnCancelar() {
+		debugBegin();
+		webDriver.click(cuerpoFrame);
+		webDriver.scrollToBottom();
+		webDriver.clickInFrame(btnCancelar, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -294,95 +147,53 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public List<CoberturasAdicionalesHelper> getCoberturasOpcionales() {
 		debugBegin();
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		// this.webDriver.waitForPageLoadWithAngular();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		// webDriver.waitForPageLoadWithAngular();
 
 		List<CoberturasAdicionalesHelper> coberturasAdicionalesTemp = new ArrayList<>();
-		this.rowWithCoberturaAdicional.forEach(p -> {
-			WebElement element = p.findElement(By.xpath(this.xPathFilterClausulaCheckbox));
-			if(element.isSelected()) {
-				coberturasAdicionalesTemp.add(new CoberturasAdicionalesHelper(true, p.findElement(By.xpath(this.xPathFilterClausulaText)).getText(),
-					p.findElement(By.xpath(this.xPathFilterClausulaCheckbox))));
-			} else {
-				coberturasAdicionalesTemp.add(new CoberturasAdicionalesHelper(false, p.findElement(By.xpath(this.xPathFilterClausulaText)).getText(),
-					p.findElement(By.xpath(this.xPathFilterClausulaCheckbox))));
-			}
+		webDriver.getElements(rowWithCoberturaAdicional).forEach(p -> {
+			WebElement element = p.findElement(By.xpath(xPathFilterClausulaCheckbox));
 
+			if(element.isSelected()) {
+				coberturasAdicionalesTemp.add(new CoberturasAdicionalesHelper(true, p.findElement(By.xpath(xPathFilterClausulaText)).getText(),
+					p.findElement(By.xpath(xPathFilterClausulaCheckbox))));
+			} else {
+				coberturasAdicionalesTemp.add(new CoberturasAdicionalesHelper(false, p.findElement(By.xpath(xPathFilterClausulaText)).getText(),
+					p.findElement(By.xpath(xPathFilterClausulaCheckbox))));
+			}
 		});
 
-		this.webDriver.exitFrame();
+		webDriver.exitFrame();
+
 		debugEnd();
+
 		return coberturasAdicionalesTemp;
 	}
 
-	public PrecioPorModalidadPage completarCoberturaPorMaquinaria() throws IOException, InterruptedException {
+	public PrecioPorModalidadPage completarCoberturaPorMaquinaria() {
 		debugBegin();
 
-		System.out.println("VARIABLE CoberturaOpcionalMaquinaHerramientaIncluida: " + getConfigVar("CoberturaOpcionalMaquinaHerramientaIncluida"));
-		String completarCoberturaMaquinaria = getConfigVar("CoberturaOpcionalMaquinaHerramientaIncluida");
-		if(completarCoberturaMaquinaria.equals(ProjectConstants.CoberturaOpcionalncluida)) {
-			this.getPreciosBefore();
-			this.coberturasAdicionales = this.getCoberturasOpcionales();
-			WebElement checkbox = this.coberturasAdicionales.stream()
-				.filter(p -> p.getDescription().equals(ProjectConstants.CoberturaRoturaMaquinariaDescripcion)).collect(Collectors.toList()).get(0)
+		debugInfo("Cobertura Maquina Incluida: " + getConfigVar(Constants.COBERTURA_MAQUINA_INCLUIDA));
+		String completarCoberturaMaquinaria = getConfigVar(Constants.COBERTURA_MAQUINA_INCLUIDA);
+
+		if(completarCoberturaMaquinaria.equals(Constants.CoberturaOpcionalncluida)) {
+			getPreciosBefore();
+			coberturasAdicionales = getCoberturasOpcionales();
+			WebElement checkbox = coberturasAdicionales.stream()
+				.filter(p -> p.getDescription().equals(Constants.CoberturaRoturaMaquinariaDescripcion)).collect(Collectors.toList()).get(0)
 				.getCheckbox();
-			this.webDriver.switchToFrame(this.cuerpoFrame);
+
 			if(!checkbox.isSelected()) {
-
-				// this.webDriver.ScrollPageDown(2, this.cuerpoFrame);
-				// this.webDriver.exitFrame();
-				// Coordinates coordinate = ((Locatable)
-				// checkbox).getCoordinates();
-				//
-				// coordinate.onPage();
-				// coordinate.inViewPort();
-
-				// this.webDriver.SwitchToFrame(this.cuerpoFrame);
-				// coordinate.inViewPort();
-				// this.webDriver.exitFrame();
-				// int location = this.cuerpoFrame.getLocation().getY();
-
-				// if (this.browserContext.getProperties().Browser.equals("IE"))
-				if(this.getConfigVar("Browser").equals("IE")) {
-					// this.webDriver.moveToElementWithJavaScriptStepByStep(checkbox,
-					// this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-
-					this.webDriver.switchToFrame(this.cuerpoFrame);
-					this.webDriver.waitForLoadToComplete();
-				}
-
-				checkbox.click();
-				/*
-				 * Thread.sleep(4000); this.webDriver.exitFrame(); //
-				 * this.webDriver.click(checkbox);
-				 * this.webDriver.moveToElementInFrameWithJavaScript(this.
-				 * roturaMquinariaChckBx, this.cuerpoFrame); Thread.sleep(4000);
-				 * // this.webDriver.click(this.roturaMquinariaChckBx);
-				 * this.webDriver.clickInFrame(this.roturaMquinariaChckBx,
-				 * this.cuerpoFrame); Thread.sleep(4000);
-				 */
-				if(this.getConfigVar("Browser").equals("IE")) {
-					// this.webDriver.moveToElementWithJavaScriptStepByStep(this.btnAnadirMaquinaria,
-					// this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.webDriver.switchToFrame(this.cuerpoFrame);
-				}
-				// this.webDriver.scrollToWebElementWithJavaScript(this.btnAnadirMaquinaria);
-				// Thread.sleep(4000);
-				// this.webDriver.moveToElementWithJavaScript(this.btnAnadirMaquinaria);
-				// this.webDriver.moveToElementWithJavaScriptStepByStep(this.btnAnadirMaquinaria,
-				// this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-				// Thread.sleep(4000);
-				this.webDriver.switchToFrame(this.cuerpoFrame);
-				this.webDriver.click(this.btnAnadirMaquinaria);
-				this.webDriver.click(this.btnAnadirMaquinariaModalWindow);
-				this.webDriver.clickElementFromDropDownByText(this.cmbTipoMaquinaria, getScenarioVar("cob_opc_tipo_maquinaria"));
-				this.webDriver.appendText(this.txtValor, String.valueOf(getScenarioVar("cob_opc_valor_maquinaria")));
-				this.webDriver.click(this.btnGuardarMaquinariaModalWindow);
-				this.getPreciosAfter();
-				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterMaquinaria);
+				webDriver.clickInFrame(checkbox, cuerpoFrame);
+				webDriver.clickInFrame(btnAnadirMaquinaria, cuerpoFrame);
+				webDriver.clickInFrame(btnAnadirMaquinariaModalWindow, cuerpoFrame);
+				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoMaquinaria, cuerpoFrame, getScenarioVar(Constants.COBERTURA_MAQUINA_VALOR));
+				webDriver.appendTextInFrame(txtValor, cuerpoFrame, getScenarioVar(Constants.COBERTURA_MAQUINA_VALOR));
+				webDriver.clickInFrame(btnGuardarMaquinariaModalWindow, cuerpoFrame);
+				getPreciosAfter();
+				compareValues(Constants.NotEqual, Constants.AfterMaquinaria);
 			}
-
-			this.webDriver.exitFrame();
 		}
 
 		debugEnd();
@@ -390,62 +201,40 @@ public class PrecioPorModalidadPage extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage completarCoberturasEmpleados() throws IOException {
+	public PrecioPorModalidadPage completarCoberturasEmpleados() {
 		debugBegin();
 
-		String coberturaEmpleados = getConfigVar("CoberturaOpcionalAccidentesPersonalesEmpleadosIncluida");
-		System.out.println("VARIABLE CoberturaOpcionalAccidentesPersonalesEmpleadosIncluida: " + getConfigVar("CoberturaOpcionalAccidentesPersonalesEmpleadosIncluida"));
+		String coberturaEmpleados = getConfigVar(Constants.COBERTURA_ACCIDENTES_EMPLEADOS_INCLUIDA);
+		debugInfo("Cobertura Accidentes Personales Empleados Incluida: " + Constants.COBERTURA_ACCIDENTES_EMPLEADOS_INCLUIDA);
 
-		if(coberturaEmpleados.equals(ProjectConstants.CoberturaOpcionalncluida)) {
-			this.getPreciosBefore();
-			this.coberturasAdicionales = this.getCoberturasOpcionales();
+		if(coberturaEmpleados.equals(Constants.CoberturaOpcionalncluida)) {
+			getPreciosBefore();
+			coberturasAdicionales = getCoberturasOpcionales();
 
-			WebElement checkbox = this.coberturasAdicionales.stream()
-				.filter(p -> p.getDescription().equals(ProjectConstants.CoberturaAccidentesPersonalesEmpleados)).collect(Collectors.toList())
+			WebElement checkbox = coberturasAdicionales.stream()
+				.filter(p -> p.getDescription().equals(Constants.CoberturaAccidentesPersonalesEmpleados)).collect(Collectors.toList())
 				.get(0).getCheckbox();
 
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-
 			if(!checkbox.isSelected()) {
-				if(this.getConfigVar("Browser").equals("IE")) {
-					// this.webDriver.moveToElementWithJavaScriptStepByStep(checkbox,
-					// this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.webDriver.switchToFrame(this.cuerpoFrame);
-				}
+				webDriver.clickInFrame(btnAsegurarAccidentesPantallaPrincipal, cuerpoFrame);
+				webDriver.clickInFrame(btnAnadirAsegurado, cuerpoFrame);
 
-				// this.webDriver.moveToElementAndClick(checkbox);
-				// this.webDriver.click(checkbox);
+				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDocumento, cuerpoFrame, Constants.NIF);
+				webDriver.appendTextInFrame(txtNumeroDocumento, cuerpoFrame, DniGeneratorHelper.generateNif());
+				webDriver.appendTextInFrame(txtEmpleadoNombre, cuerpoFrame, getScenarioVar(Constants.NOMBRE_EMPLEADO));
+				webDriver.appendTextInFrame(txtEmpleadoApellido1, cuerpoFrame, getScenarioVar(Constants.PRIMER_APELLIDO_EMPLEADO));
+				webDriver.appendTextInFrame(txtEmpleadoApellido2, cuerpoFrame, getScenarioVar(Constants.SEGUNDO_APELLIDO_EMPLEADO));
+				webDriver.clickElementFromDropDownByTextInFrame(cmbEmpleadoProfesion, cuerpoFrame, getScenarioVar(Constants.PROFESION_EMPLEADO));
+				webDriver.appendTextInFrame(txtEmpleadoProfesionDescripcion, cuerpoFrame, getScenarioVar(Constants.DESCRIPCION_PROFESION_EMPLEADO));
 
-				if(this.getConfigVar("Browser").equals("IE")) {
-					// this.webDriver.moveToElementWithJavaScriptStepByStep(this.btnAsegurarAccidentesPantallaPrincipal,
-					// this.cuerpoFrame, this.hiddenFrame,
-					// this.topFrame);
-					this.webDriver.switchToFrame(this.cuerpoFrame);
-				}
-				this.webDriver.exitFrame();
-				this.webDriver.switchToFrame(this.cuerpoFrame);
-				this.webDriver.click(this.btnAsegurarAccidentesPantallaPrincipal);
-				this.webDriver.click(this.btnAnadirAsegurado);
-
-				this.webDriver.clickElementFromDropDownByText(this.cmbTipoDocumento, ProjectConstants.NIF);
-				this.webDriver.appendText(this.txtNumeroDocumento, DniGeneratorHelper.generateNif(null));
-				this.webDriver.appendText(this.txtEmpleadoNombre, getScenarioVar("EmpleadoNombre"));
-				this.webDriver.appendText(this.txtEmpleadoApellido1, getScenarioVar("EmpleadoPrimerApellido"));
-				this.webDriver.appendText(this.txtEmpleadoApellido2, getScenarioVar("EmpleadoSegundoApellido"));
-				this.webDriver.clickElementFromDropDownByText(this.cmbEmpleadoProfesion, getScenarioVar("EmpleadoProfesion"));
-				this.webDriver.appendText(this.txtEmpleadoProfesionDescripcion, getScenarioVar("EmpleadoPofesionDescripcion"));
-
-				this.webDriver.appendText(this.txtEmpleadoCapital, getScenarioVar("EmpleadoCapital"));
-				this.webDriver.appendText(this.txtEmpleadoFechaNacimiento, getScenarioVar("EmpleadoFechaNacimiento"));
-				this.webDriver.clickElementFromDropDownByText(this.txtEmpleadoBeneficiario, getScenarioVar("EmpleadoBeneficiario"));
-				this.webDriver.appendText(this.txtEmpleadoBeneficiarioDescripcion, getScenarioVar("EmpleadoBeneficiarioDescripcion"));
-				this.webDriver.click(this.btnAsegurarAccidentesModalWindow);
-				this.webDriver.exitFrame();
-				this.getPreciosAfter();
-				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterEmpleados);
+				webDriver.appendTextInFrame(txtEmpleadoCapital, cuerpoFrame, getScenarioVar(Constants.CAPITAL_EMPLEADO));
+				webDriver.appendTextInFrame(txtEmpleadoFechaNacimiento, cuerpoFrame, getScenarioVar(Constants.FECHA_NACIMIENTO_EMPLEADO));
+				webDriver.clickElementFromDropDownByTextInFrame(txtEmpleadoBeneficiario, cuerpoFrame, getScenarioVar(Constants.BENEFICIARIO_EMPLEADO));
+				webDriver.appendTextInFrame(txtEmpleadoBeneficiarioDescripcion, cuerpoFrame, getScenarioVar(Constants.DESCRIPCION_BENEFICIARIO_EMPLEADO));
+				webDriver.clickInFrame(btnAsegurarAccidentesModalWindow, cuerpoFrame);
+				getPreciosAfter();
+				compareValues(Constants.NotEqual, Constants.AfterEmpleados);
 			}
-
-			this.webDriver.exitFrame();
 		}
 
 		debugEnd();
@@ -453,51 +242,31 @@ public class PrecioPorModalidadPage extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage completarCoberturasEnergiaSolar() throws IOException {
+	public PrecioPorModalidadPage completarCoberturasEnergiaSolar() {
 		debugBegin();
-		String coberturasolar = getConfigVar("CoberturaOpcionalInstalacionesFotovoltaicasIncluida");
+		String coberturasolar = getConfigVar(Constants.COBERTURA_FOTOVOLTAICAS_INCLUIDA);
 
-		System.out.println("\n");
-		System.out.println("$$$$ VARIABLE CoberturaOpcionalInstalacionesFotovoltaicasIncluida: " + getConfigVar("CoberturaOpcionalInstalacionesFotovoltaicasIncluida"));
-		System.out.println("\n");
+		debugInfo("Cobertura Fotovoltaicas Incluida: " + coberturasolar);
 
-		if(coberturasolar.equals(ProjectConstants.CoberturaOpcionalncluida)) {
-			this.getPreciosBefore();
-			this.coberturasAdicionales = this.getCoberturasOpcionales();
+		if(coberturasolar.equals(Constants.CoberturaOpcionalncluida)) {
+			getPreciosBefore();
+			coberturasAdicionales = getCoberturasOpcionales();
 
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-			WebElement checkbox = this.coberturasAdicionales.stream()
-				.filter(p -> p.getDescription().equals(ProjectConstants.CoberturaEnergiaSolarDescripcion)).collect(Collectors.toList()).get(0)
+			WebElement checkbox = coberturasAdicionales.stream()
+				.filter(p -> p.getDescription().equals(Constants.CoberturaEnergiaSolarDescripcion)).collect(Collectors.toList()).get(0)
 				.getCheckbox();
 
 			if(!checkbox.isSelected()) {
-				if(this.getConfigVar("Browser").equals("IE")) {
-					// this.webDriver.moveToElementWithJavaScriptStepByStep(checkbox,
-					// this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.webDriver.switchToFrame(this.cuerpoFrame);
-				}
+				webDriver.clickInFrame(btnAnadirPlacaSolar, cuerpoFrame);
+				webDriver.clickInFrame(btnAnadirPlacaSolarModalWindow, cuerpoFrame);
 
-				// this.webDriver.moveToElementAndClick(checkbox);
-				// this.webDriver.click(checkbox);
+				webDriver.appendTextInFrame(txtInstalacionFotovoltaicaDescripcion, cuerpoFrame, getScenarioVar(Constants.DESCRIPCION_COBERTURA_FOTOVOLTAICAS));
+				webDriver.appendTextInFrame(txtInstalcionFotovoltaicaValor, cuerpoFrame, getScenarioVar(Constants.VALOR_COBERTURA_FOTOVOLTAICAS));
+				webDriver.clickInFrame(btnGuardarInstalacionSolarModalWindow, cuerpoFrame);
 
-				if(this.getConfigVar("Browser").equals("IE")) {
-					// this.webDriver.moveToElementWithJavaScriptStepByStep(this.btnAnadirPlacaSolar,
-					// this.cuerpoFrame, this.hiddenFrame, this.topFrame);
-					this.webDriver.switchToFrame(this.cuerpoFrame);
-				}
-
-				this.webDriver.click(this.btnAnadirPlacaSolar);
-				this.webDriver.click(this.btnAnadirPlacaSolarModalWindow);
-
-				this.webDriver.appendText(this.txtInstalacionFotovoltaicaDescripcion, getScenarioVar("InstalacionesFotovoltaicasDescripcion"));
-				this.webDriver.appendText(this.txtInstalcionFotovoltaicaValor, String.valueOf(getScenarioVar("InstalacionesFotovoltaicasValor")));
-				this.webDriver.click(this.btnGuardarInstalacionSolarModalWindow);
-				this.webDriver.exitFrame();
-				this.getPreciosAfter();
-				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterEnergiaSolar);
+				getPreciosAfter();
+				compareValues(Constants.NotEqual, Constants.AfterEnergiaSolar);
 			}
-
-			this.webDriver.exitFrame();
 		}
 
 		debugEnd();
@@ -508,28 +277,25 @@ public class PrecioPorModalidadPage extends PageObject {
 	public PrecioPorModalidadPage seleccionarModalidad() {
 		debugBegin();
 
-		System.out.println("VARIABLE modalidad: " + getScenarioVar("modalidad"));
-		String modalidad = getScenarioVar("modalidad");
+		String modalidad = getScenarioVar(Constants.MODALIDAD);
+		debugInfo("Modalidad: " + modalidad);
 
 		switch(modalidad) {
-			case ProjectConstants.ModalidadBasic:
-				this.getPreciosBefore();
-				this.webDriver.switchToFrame(this.cuerpoFrame);
-				// this.webDriver.moveToElementWithJavaScript(this.btnModalidadBasic);
-				this.webDriver.click(this.btnModalidadBasic);
-				this.getPreciosAfter();
-				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterModalidadChangeToBasic);
+			case Constants.ModalidadBasic:
+				getPreciosBefore();
+				webDriver.clickInFrame(btnModalidadBasic, cuerpoFrame);
+				getPreciosAfter();
+				compareValues(Constants.NotEqual, Constants.AfterModalidadChangeToBasic);
 				break;
-			case ProjectConstants.ModalidadPlus:
-				this.getPreciosBefore();
-				this.webDriver.switchToFrame(this.cuerpoFrame);
-				this.webDriver.click(this.btnModalidadPlus);
-				this.getPreciosAfter();
-				this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterModalidadChangeToPlus);
+			case Constants.ModalidadPlus:
+				getPreciosBefore();
+				webDriver.clickInFrame(btnModalidadPlus, cuerpoFrame);
+				getPreciosAfter();
+				compareValues(Constants.NotEqual, Constants.AfterModalidadChangeToPlus);
 				break;
+			default:
 		}
 
-		this.webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -537,43 +303,43 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage completarOQuitarDescuentoRecargo() {
 		debugBegin();
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		// this.webDriver.click(this.lnkMostrarDescuento);
-		// this.webDriver.moveToElementAndClick(this.lnkMostrarDescuento);
+
 		Steps.waitForIt(webDriver);
-		Steps.waitForIt(webDriver, this.lblPorcentajeDescuentoPantallaPrincipal);
-		String DescuentoValue = this.webDriver.getText(this.lblPorcentajeDescuentoPantallaPrincipal);
-		this.webDriver.exitFrame();
+		Steps.waitForIt(webDriver, lblPorcentajeDescuentoPantallaPrincipal);
 
-		if(Boolean.parseBoolean(getScenarioVar("descuentoEnabled")) || Boolean.parseBoolean(getScenarioVar("recargo"))
-			|| !DescuentoValue.equals(ProjectConstants.CantidadDescuentoNoEspecificado)) {
-			this.getPreciosBefore();
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-			// this.webDriver.moveToElementAndClick(this.btnAddTipoDescuento);
-			String ErrorMessage = null;
+		webDriver.clickInFrame(lnkMostrarDescuento, cuerpoFrame);
+		String descuentoValue = webDriver.getTextInFrame(lblPorcentajeDescuentoPantallaPrincipal, cuerpoFrame);
 
-			if(Boolean.parseBoolean(getScenarioVar("descuentoEnabled"))) {
-				this.webDriver.appendText(this.txtPorcentajeDescuento, ProjectConstants.PorcentajeDescuentoRecargo);
-				this.webDriver.click(this.rdnDescuento);
-				this.webDriver.clickElementFromDropDownByText(this.cmbTipoDescuento, ProjectConstants.TipoDescuento);
-				ErrorMessage = ProjectConstants.AfterAddingDiscount;
-			} else if(Boolean.parseBoolean(getScenarioVar("recargo"))) {
-				this.webDriver.click(this.rdnRecargo);
-				this.webDriver.appendText(this.txtPorcentajeDescuento, ProjectConstants.PorcentajeDescuentoRecargo);
-				ErrorMessage = ProjectConstants.AfterAddingAdditionalCharge;
-			} else if(!DescuentoValue.equals(ProjectConstants.CantidadDescuentoNoEspecificado) && !Boolean.parseBoolean(getScenarioVar("descuentoEnabled"))
-				&& !Boolean.parseBoolean(getScenarioVar("recargo"))) {
-				// this.webDriver.click(this.btnAddTipoDescuento);
-				this.webDriver.appendText(this.txtPorcentajeDescuento, "");
-				this.webDriver.tabulateElement(this.txtPorcentajeDescuento);
+		if(Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO))
+			|| Boolean.parseBoolean(getScenarioVar(Constants.RECARGO))
+			|| !descuentoValue.equals(Constants.CantidadDescuentoNoEspecificado)) {
+			getPreciosBefore();
+			String errorMessage = null;
+
+			webDriver.clickInFrame(btnAddTipoDescuento, cuerpoFrame);
+
+			if(Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO))) {
+				webDriver.appendTextInFrame(txtPorcentajeDescuento, cuerpoFrame, Constants.PorcentajeDescuentoRecargo);
+				webDriver.clickInFrame(rdnDescuento, cuerpoFrame);
+				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDescuento, cuerpoFrame, Constants.TipoDescuento);
+				errorMessage = Constants.AfterAddingDiscount;
+			} else if(Boolean.parseBoolean(getScenarioVar(Constants.RECARGO))) {
+				webDriver.clickInFrame(rdnRecargo, cuerpoFrame);
+				webDriver.appendTextInFrame(txtPorcentajeDescuento, cuerpoFrame, Constants.PorcentajeDescuentoRecargo);
+				errorMessage = Constants.AfterAddingAdditionalCharge;
+			} else if(!descuentoValue.equals(Constants.CantidadDescuentoNoEspecificado)
+				&& !Boolean.parseBoolean(getScenarioVar(Constants.DESCUENTO))
+				&& !Boolean.parseBoolean(getScenarioVar(Constants.RECARGO))) {
+				// webDriver.click(btnAddTipoDescuento);
+				webDriver.appendTextInFrame(txtPorcentajeDescuento, cuerpoFrame, "");
+				webDriver.tabulateElementInFrame(txtPorcentajeDescuento, cuerpoFrame);
 			}
 
-			this.webDriver.click(this.btnGuadarDescuentoModalWindow);
-			this.getPreciosAfter();
-			this.compareValues(ProjectConstants.NotEqual, ErrorMessage);
+			webDriver.clickInFrame(btnGuadarDescuentoModalWindow, cuerpoFrame);
+			getPreciosAfter();
+			compareValues(Constants.NotEqual, errorMessage);
 		}
 
-		this.webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -581,16 +347,14 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage completarFranquiciaVoluntaria() {
 		debugBegin();
-		System.out.println("VARIABLE franquicia_voluntaria: " + getConfigVar("franquicia_voluntaria"));
 		String franquiciaVoluntaria = getConfigVar("franquicia_voluntaria");
+		debugInfo("Franquicia voluntaria: " + franquiciaVoluntaria);
 
 		if(franquiciaVoluntaria != null) {
-			this.getPreciosBefore();
-			this.webDriver.switchToFrame(this.cuerpoFrame);
-			this.webDriver.clickElementFromDropDownByText(this.cmbFranquiciaVoluntaria, franquiciaVoluntaria);
-			this.getPreciosAfter();
-			this.compareValues(ProjectConstants.NotEqual, ProjectConstants.AfterAddingFranquiciaVoluntaria);
-
+			getPreciosBefore();
+			webDriver.clickElementFromDropDownByTextInFrame(cmbFranquiciaVoluntaria, cuerpoFrame, franquiciaVoluntaria);
+			getPreciosAfter();
+			compareValues(Constants.NotEqual, Constants.AfterAddingFranquiciaVoluntaria);
 		}
 
 		debugEnd();
@@ -600,15 +364,13 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage getPreciosBefore() {
 		debugBegin();
-		this.webDriver.exitFrame();
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.PrecioBasicBefore = this.webDriver.getText(this.lblPrecioBasic);
-		this.PrecioCompletoBefore = this.webDriver.getText(this.lblPrecioComplet);
-		this.PrecioPlusBefore = this.webDriver.getText(this.lblPrecioPlus);
-		debugInfo("Precio basic before: " + this.webDriver.getText(this.lblPrecioBasic));
-		debugInfo("Precio complet before: " + this.webDriver.getText(this.lblPrecioComplet));
-		debugInfo("Precio plus before: " + this.webDriver.getText(this.lblPrecioPlus));
-		this.webDriver.exitFrame();
+
+		precioBasicBefore = webDriver.getTextInFrame(lblPrecioBasic, cuerpoFrame);
+		precioCompletoBefore = webDriver.getTextInFrame(lblPrecioComplet, cuerpoFrame);
+		precioPlusBefore = webDriver.getTextInFrame(lblPrecioPlus, cuerpoFrame);
+		debugInfo("Precio basic before: " + precioBasicBefore);
+		debugInfo("Precio complet before: " + precioCompletoBefore);
+		debugInfo("Precio plus before: " + precioPlusBefore);
 
 		debugEnd();
 
@@ -617,92 +379,58 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage getPreciosAfter() {
 		debugBegin();
-		this.webDriver.exitFrame();
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.PrecioBasicAfter = this.webDriver.getText(this.lblPrecioBasic);
-		this.PrecioCompletoAfter = this.webDriver.getText(this.lblPrecioComplet);
-		this.PrecioPlusAfter = this.webDriver.getText(this.lblPrecioPlus);
-		debugInfo("Precio basic after: " + this.webDriver.getText(this.lblPrecioBasic));
-		debugInfo("Precio complet after: " + this.webDriver.getText(this.lblPrecioComplet));
-		debugInfo("Precio plus after: " + this.webDriver.getText(this.lblPrecioPlus));
-		this.webDriver.exitFrame();
+
+		precioBasicAfter = webDriver.getTextInFrame(lblPrecioBasic, cuerpoFrame);
+		precioCompletoAfter = webDriver.getTextInFrame(lblPrecioComplet, cuerpoFrame);
+		precioPlusAfter = webDriver.getTextInFrame(lblPrecioPlus, cuerpoFrame);
+		debugInfo("Precio basic after: " + precioBasicAfter);
+		debugInfo("Precio complet after: " + precioCompletoAfter);
+		debugInfo("Precio plus after: " + precioPlusAfter);
 
 		debugEnd();
 
 		return this;
 	}
 
-	public PrecioPorModalidadPage compareValues(String ComparisonType, String Modification) {
+	public PrecioPorModalidadPage compareValues(String comparisonType, String modification) {
 		debugBegin();
-		debugInfo("ComparisonType: " + ComparisonType + ", Modalidad: " + getScenarioVar("modalidad"));
-		switch(ComparisonType) {
+		debugInfo("ComparisonType: " + comparisonType + ", Modalidad: " + getScenarioVar(Constants.MODALIDAD));
 
-			case ProjectConstants.NotEqual:
-				switch(getScenarioVar("modalidad")) {
-					case ProjectConstants.ModalidadPlus:
-						if(this.PrecioPlusBefore.equals(this.PrecioPlusAfter)) {
-							this.setTestVar("capitalesModifiedError", "true");
-							// this.testDataM.setTestVar(testId,
-							// "capitalesModifiedErrorMessage", Modification);
-							this.setTestVar("capitalesModifiedErrorMessage", "El valor de la prima total anual no ha variado en la pantalla de precio %s");
-							// String.format("El valor de la prima total anual
-							// no ha variado en la pantalla de precio %s",
-							// Modification));
+		switch(comparisonType) {
+			case Constants.NotEqual:
+				switch(getScenarioVar(Constants.MODALIDAD)) {
+					case Constants.ModalidadPlus:
+						if(precioPlusBefore.equals(precioPlusAfter)) {
+							setTestVar(Constants.CAPITALES_MODIFIED_ERROR, "true");
+							setTestVar(Constants.CAPITALES_MODIFIED_MESSAGE, String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", modification));
 						}
 						break;
-					case ProjectConstants.ModalidadBasic:
-						if(this.PrecioBasicBefore.equals(this.PrecioBasicAfter)) {
-							// this.testDataM.setCapitalesModifiedError(true);
-							// this.testDataM.setCapitalesModifiedErrorMessage(
-							// String.format("El valor de la prima total anual
-							// no ha variado en la pantalla de precio %s",
-							// Modification));
-
-							this.setTestVar("capitalesModifiedError", "true");
-							// this.testDataM.setTestVar(testId,
-							// "capitalesModifiedErrorMessage", Modification);
-							this.setTestVar("capitalesModifiedErrorMessage", "El valor de la prima total anual no ha variado en la pantalla de precio %s");
-							// String.format("El valor de la prima total anual
-							// no ha variado en la pantalla de precio %s",
-							// Modification));
-
+					case Constants.ModalidadBasic:
+						if(precioBasicBefore.equals(precioBasicAfter)) {
+							setTestVar(Constants.CAPITALES_MODIFIED_ERROR, "true");
+							setTestVar(Constants.CAPITALES_MODIFIED_MESSAGE, String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", modification));
 						}
 						break;
 
-					case ProjectConstants.ModalidadCompleta:
-						if(this.PrecioCompletoBefore.equals(this.PrecioCompletoAfter)) {
-							// this.testDataM.setCapitalesModifiedError(true);
-							// this.testDataM.setCapitalesModifiedErrorMessage(
-							// String.format("El valor de la prima total anual
-							// no ha variado en la pantalla de precio %s",
-							// Modification));
-
-							this.setTestVar("capitalesModifiedError", "true");
-							// this.testDataM.setTestVar(testId,
-							// "capitalesModifiedErrorMessage", Modification);
-							this.setTestVar("capitalesModifiedErrorMessage", "El valor de la prima total anual no ha variado en la pantalla de precio %s");
-							// String.format("El valor de la prima total anual
-							// no ha variado en la pantalla de precio %s",
-							// Modification));
-
+					case Constants.ModalidadCompleta:
+						if(precioCompletoBefore.equals(precioCompletoAfter)) {
+							setTestVar(Constants.CAPITALES_MODIFIED_ERROR, "true");
+							setTestVar(Constants.CAPITALES_MODIFIED_MESSAGE, String.format("El valor de la prima total anual no ha variado en la pantalla de precio %s", modification));
 						}
 						break;
+					default:
 				}
 				break;
+			case Constants.Equal:
+				if(!precioBasicBefore.equals(precioBasicAfter) ||
+					!precioCompletoBefore.equals(precioBasicAfter)
+					|| !precioPlusBefore.equals(precioPlusAfter)) {
+					setTestVar(Constants.CAPITALES_MODIFIED_ERROR, "true");
+					setTestVar(Constants.CAPITALES_MODIFIED_MESSAGE, String.format("El valor de los capitales ha variado en la pantalla de precio %s", modification));
+				}
 
-			// Chris 06/09/2017 - Creo que este codigo no se usa. Lo comento.
-			// case MutuaPropietariosConstants.Equal:
-			// if (!this.PrecioBasicBefore.equals(this.PrecioBasicAfter) ||
-			// !this.PrecioCompletoBefore.equals(this.PrecioBasicAfter)
-			// || !this.PrecioPlusBefore.equals(this.PrecioPlusAfter))
-			// {
-			// this.testDataM.setCapitalesModifiedError(true);
-			// this.testDataM.setCapitalesModifiedErrorMessage(
-			// String.format("El valor de los capitales ha variado en la
-			// pantalla de precio %s", Modification));
-			// }
-
-			// break;
+				break;
+			default:
 		}
 
 		debugEnd();
@@ -711,7 +439,7 @@ public class PrecioPorModalidadPage extends PageObject {
 	}
 
 	public PrecioPorModalidadPage modificarRC(String value) {
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.drpDwnRespCivil, this.cuerpoFrame, value);
+		webDriver.clickElementFromDropDownByTextInFrame(drpDwnRespCivil, cuerpoFrame, value);
 
 		return this;
 	}
@@ -719,33 +447,19 @@ public class PrecioPorModalidadPage extends PageObject {
 	public PrecioPorModalidadPage agregarDescuento(String descuento) {
 		debugBegin();
 
-		// this.GetPreciosBefore();
-		// this.webDriver.switchToFrame(this.cuerpoFrame);
-		// this.webDriver.moveToElementAndClickWithJavaScript(this.btnAddTipoDescuento);
-		this.webDriver.clickInFrame(this.btnAddTipoDescuento, this.cuerpoFrame);
-		String ErrorMessage = null;
-		// this.webDriver.appendText(this.txtPorcentajeDescuento, descuento);
-		// this.webDriver.click(this.rdnDescuento);
-		// this.webDriver.clickElementFromDropDownByText(this.cmbTipoDescuento,
-		// MutuaPropietariosConstants.TipoDescuento);
-		this.webDriver.appendTextInFrame(this.txtPorcentajeDescuento, this.cuerpoFrame, descuento);
-		this.webDriver.clickInFrame(this.rdnDescuento, this.cuerpoFrame);
-		this.webDriver.clickElementFromDropDownByTextInFrame(this.cmbTipoDescuento, this.cuerpoFrame, ProjectConstants.TipoDescuento);
-		// ErrorMessage = MutuaPropietariosConstants.AfterAddingDiscount;
+		webDriver.clickInFrame(btnAddTipoDescuento, cuerpoFrame);
 
-		// this.webDriver.click(this.btnGuadarDescuentoModalWindow);
-		// this.GetPreciosAfter();
-		// this.CompareValues(MutuaPropietariosConstants.NotEqual,
-		// ErrorMessage);
-		this.webDriver.clickInFrame(this.btnGuadarDescuentoModalWindow, this.cuerpoFrame);
+		webDriver.appendTextInFrame(txtPorcentajeDescuento, cuerpoFrame, descuento);
+		webDriver.clickInFrame(rdnDescuento, cuerpoFrame);
+		webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDescuento, cuerpoFrame, Constants.TipoDescuento);
 
-		// Pulsar Aceptar en el aviso sobre la autorizacion de descuento que
-		// sale para ciertos mediadores
-		if(this.webDriver.isPresentInFrame(this.msgAutorizarDescuento, this.cuerpoFrame)) {
-			this.webDriver.clickInFrame(this.btnAceptarAutorizarDescuento, this.cuerpoFrame);
+		webDriver.clickInFrame(btnGuadarDescuentoModalWindow, cuerpoFrame);
+
+		// Pulsar Aceptar en el aviso sobre la autorizacion de descuento que sale para ciertos mediadores
+		if(webDriver.isPresentInFrame(msgAutorizarDescuento, cuerpoFrame)) {
+			webDriver.clickInFrame(btnAceptarAutorizarDescuento, cuerpoFrame);
 		}
 
-		// this.webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -754,8 +468,10 @@ public class PrecioPorModalidadPage extends PageObject {
 	public String getPrecioTotal() {
 		debugBegin();
 		String value = "";
-		if(this.webDriver.isPresentInFrame(this.lblPrecioComplet, this.cuerpoFrame))
-			value = this.webDriver.getTextInFrame(this.lblPrecioComplet, this.cuerpoFrame);
+
+		if(webDriver.isPresentInFrame(lblPrecioComplet, cuerpoFrame)) {
+			value = webDriver.getTextInFrame(lblPrecioComplet, cuerpoFrame);
+		}
 
 		debugEnd();
 		return value;
@@ -764,8 +480,10 @@ public class PrecioPorModalidadPage extends PageObject {
 	public String getPrecioBasic() {
 		debugBegin();
 		String value = "";
-		if(this.webDriver.isPresentInFrame(this.lblPrecioBasic, this.cuerpoFrame))
-			value = this.webDriver.getTextInFrame(this.lblPrecioBasic, this.cuerpoFrame);
+
+		if(webDriver.isPresentInFrame(lblPrecioBasic, cuerpoFrame)) {
+			value = webDriver.getTextInFrame(lblPrecioBasic, cuerpoFrame);
+		}
 
 		debugEnd();
 		return value;
@@ -775,8 +493,9 @@ public class PrecioPorModalidadPage extends PageObject {
 		debugBegin();
 		String value = "";
 
-		if(this.webDriver.isPresentInFrame(this.lblPrecioPlus, this.cuerpoFrame))
-			value = this.webDriver.getTextInFrame(this.lblPrecioPlus, this.cuerpoFrame);
+		if(webDriver.isPresentInFrame(lblPrecioPlus, cuerpoFrame)) {
+			value = webDriver.getTextInFrame(lblPrecioPlus, cuerpoFrame);
+		}
 
 		debugEnd();
 
@@ -785,25 +504,27 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public String getNumSimulacion() {
 		debugBegin();
-		String projectNumberText = this.webDriver.getTextInFrame(this.txtCodigoProjecto, this.cuerpoFrame);
-		String ProjectCode = StringUtils.substringBetween(projectNumberText, "El proyecto", "se ha guardado.").trim();
-		this.webDriver.clickInFrame(this.btnAceptarInDialog, this.cuerpoFrame);
+
+		String projectNumberText = webDriver.getTextInFrame(txtCodigoProjecto, cuerpoFrame);
+		String projectCode = StringUtils.substringBetween(projectNumberText, "El proyecto", "se ha guardado.").trim();
+
+		webDriver.clickInFrame(btnAceptarInDialog, cuerpoFrame);
+
 		debugEnd();
 
-		return ProjectCode;
+		return projectCode;
 	}
 
 	public PrecioPorModalidadPage clickOnGuardar() {
 		debugBegin();
 
-		// this.cuerpoFrame.click();
-		this.webDriver.scrollToBottom();
-		this.webDriver.clickInFrame(this.btnGuardar, this.cuerpoFrame);
+		webDriver.scrollToBottom();
+		webDriver.clickInFrame(btnGuardar, cuerpoFrame);
+
 		debugEnd();
 
 		return this;
 	}
-
 	// endregion
 
 }

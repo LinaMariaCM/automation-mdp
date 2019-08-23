@@ -58,17 +58,21 @@ public class FileHelper {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
 
-	public static void uploadFIle(String fileNameAndPath) throws AWTException {
+	public static void uploadFIle(String fileNameAndPath) {
 		setClipboardData(fileNameAndPath);
 		// native key strokes for CTRL, V and ENTER keys
 
-		Robot robot = new Robot();
-		robot.delay(2000);
-		robot.keyPress(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_V);
-		robot.keyRelease(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_ENTER);
-		robot.keyRelease(KeyEvent.VK_ENTER);
+		try {
+			Robot robot = new Robot();
+			robot.delay(2000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+		} catch(AWTException e) {
+			System.out.println("Error usando el objeto Robot");
+		}
 	}
 }
