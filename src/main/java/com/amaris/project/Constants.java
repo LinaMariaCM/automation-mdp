@@ -11,7 +11,11 @@ public class Constants {
 
 	public static final String ENTORNO = "environment";
 	public static final String ACCESO = "acceso";
+	public static final String ACCESO_AUTORIZADO = "accesoAuth";
+	public static final String CAMBIO_ACCESO = "cambio_acceso";
 	public static final String USUARIO = "usuario";
+	public static final String CAMBIO_USUARIO = "cambio_usuario";
+	public static final String USUARIO_AUTORIZADO = "usuarioAuth";
 
 	public static final String MAC = "Mac";
 	public static final String MEC = "Mec";
@@ -26,7 +30,6 @@ public class Constants {
 	public static final String DeshabitacionInferior = "Inferior al 75%";
 
 	public static final String NuevoTomadorYAseguradoPrincipal = "nuevo_tomador_y_asegurado_principal";
-	public static final String NuevoInquilinoPrincipal = "nuevo_inquilino";
 	public static final String ClienteExistente = "cliente existente";
 	public static final String LoginAccessInnova = "Innova";
 	public static final String LoginAccessGestionLine = "GOL";
@@ -204,7 +207,9 @@ public class Constants {
 	public static final String FILTRO_BUSCADOR_CLIENTE = "filtro_buscador_cliente";
 	public static final String FILTRO_BUSCADOR_EDIFICIO = "filtro_buscador_edificio";
 
+	public static final String CLAUSULA = "clausula";
 	public static final String MODIFICAR_CLAUSULAS = "modificar_clausulas";
+	public static final String CLAUSULA_HIPOTECARIA = "clausula_hipotecaria";
 
 	public static final String MODALIDAD = "modalidad";
 	public static final String MEDIO_PAGO = "medio_pago";
@@ -218,13 +223,15 @@ public class Constants {
 	public static final String CONTACTO_CLIENTE = "contacto_cliente";
 	public static final String RECIBO_CLIENTE = "recibo_cliente";
 	public static final String COLECTIVO_CLIENTE = "colectivo_cliente";
-	public static final String NUM_COTIZACION = "numero_cotizacion";
+	public static final String NUM_COTIZACION = "num_cotizacion";
 	public static final String NUM_POLIZA = "numero_poliza";
 
 	public static final String TIPO_DOCUMENTO = "tipo_documento";
 
 	public static final String TIPO_PROSPECT = "tipo_prospect";
 	public static final String NOMBRE_PROSPECT = "nombre_prospect";
+
+	public static final String TIPO_PERSONA = "tipo_persona";
 
 	public static final String TIPO_MEDIADOR = "tipo_mediador";
 	public static final String DOCUMENTO_MEDIADOR = "documento_mediador";
@@ -261,16 +268,16 @@ public class Constants {
 
 	public static final String DOCUMENTO_INQUILINO = "documento_inquilino";
 	public static final String NOMBRE_INQUILINO = "nombre_inquilino";
-	public static final String PRIMER_APELLIDO_INQUILINO = "primer_apellido_inquilino";
+	public static final String PRIMER_APELLIDO_INQUILINO = "primer_apell_inquilino";
 	public static final String INGRESOS_INQUILINO = "ingresos_inquilino";
-	public static final String NUEVOS_INGRESOS_INQUILINO = "nuevos_ingresos_inquilino";
+	public static final String NUEVOS_INGRESOS_INQUILINO = "ingresos_inquilino_nuevos";
 
-	public static final String DOCUMENTO_AVALISTA = "documento_avalista";
-	public static final String NOMBRE_AVALISTA = "nombre_avalista";
-	public static final String PRIMER_APELLIDO_AVALISTA = "primer_apellido_avalista";
-	public static final String INGRESOS_AVALISTA = "ingresos_avalista";
-	public static final String NUEVOS_INGRESOS_AVALISTA = "nuevos_ingresos_avalista";
-	public static final String PARENTESCO_AVALISTA = "parentesco_avalista";
+	public static final String DOCUMENTO_AVALISTA = "documento_aval";
+	public static final String NOMBRE_AVALISTA = "nombre_aval";
+	public static final String PRIMER_APELLIDO_AVALISTA = "primer_apell_aval";
+	public static final String INGRESOS_AVALISTA = "ingresos_aval";
+	public static final String NUEVOS_INGRESOS_AVALISTA = "ingresos_aval_nuevos";
+	public static final String PARENTESCO_AVALISTA = "parentesco_aval";
 
 	public static final String DOCUMENTO_ASEGURADO = "documento_asegurado";
 	public static final String NOMBRE_ASEGURADO = "nombre_asegurado";
@@ -284,7 +291,7 @@ public class Constants {
 	public static final String CONSTRUIDO_MADERA = "construido_madera";
 	public static final String DESHABITACION = "deshabitacion";
 	public static final String M2_CONSTRUIDOS = "m2_construidos";
-	public static final String ANYO_CONSTRUIDO = "anyo_construido";
+	public static final String ANYO_CONSTRUIDO = "construccion_edificio";
 	public static final String ANYO_CONSTRUIDO_MSG = "anyo_construido_msg";
 	public static final String ANYO_REHAB_INTEGRAL = "anyo_rehabilitacion_integral";
 	public static final String ANYO_REHAB_CONSTRUCCIONES = "anyo_rehabilitacion_construcciones";
@@ -293,15 +300,16 @@ public class Constants {
 	public static final String NIVEL_REHAB_AGUAS = "nivel_rehabilitacion_aguas";
 	public static final String ESTADO_EDIFICIO = "estado_edificio";
 
-	public static final String M2_VIVIENDAS = "m2_viviendas";
+	public static final String M2_VIVIENDAS = "m2_vivienda";
 	public static final String M2_GARAJES = "m2_garajes";
 	public static final String M2_OFICINAS = "m2_oficinas";
-	public static final String M2_ZONAS_AJARDINADAS = "m2_zonas_ajardinadas";
+	public static final String M2_ZONAS_AJARDINADAS = "m2_ajardinadas";
 	public static final String CAMBIO_M2_VIVIENDAS = "cambio_m2_viviendas";
 	public static final String CAMBIO_M2_GARAJES = "cambio_m2_garajes";
 	public static final String CAMBIO_M2_OFICINAS = "cambio_m2_oficinas";
 	public static final String CAMBIO_M2_ZONAS_AJARDINADAS = "cambio_m2_zonas_ajardinadas";
 
+	public static final String NUM_LOCALES = "num_locales";
 	public static final String NUM_VIVIENDAS = "num_viviendas";
 	public static final String NUM_EDIFICIOS = "num_edificios";
 	public static final String NUM_PLANTAS_ALTO = "num_plantas_alto";
@@ -337,6 +345,8 @@ public class Constants {
 	public static final String INGRESOS_INQUILINO_NUEVOS = "ingresos_inquilino_nuevos";
 
 	public static final String NIVEL_ESTRUCTURA = "nivel_estructura";
+	public static final String NOMBRE_COMERCIAL = "nombre_comercial";
+	public static final String NOMBRE_COMERCIAL_PROSPECT = "nombre_comercial_prospect";
 	public static final String EJECUTIVO_COMERCIAL = "ejecutivo_comercial";
 	public static final String ACTIVIDAD_PRINCIPAL = "actividad_principal";
 	public static final String IDIOMA = "idioma";
@@ -347,16 +357,16 @@ public class Constants {
 	public static final String CARGO_RESPONSABLE = "cargo_responsable";
 	public static final String RENTA_MENSUAL_ALQUILER = "renta_mensual_alquiler";
 	public static final String IMPAGO_ALQUILER = "impago_alquiler";
-	public static final String FRANQUICIA_MAC = "franquicia_mac";
+	public static final String FRANQUICIA_MAC = "franquiciaMac";
 	public static final String FRANQUICIA_VOLUNTARIA = "franquicia_voluntaria";
 
 	public static final String COBERTURA_MAQUINA_INCLUIDA = "cobertura_maquina_incluida";
-	public static final String COBERTURA_MAQUINA_TIPO = "cobertura_maquina_tipo";
-	public static final String COBERTURA_MAQUINA_VALOR = "cobertura_maquina_valor";
+	public static final String COBERTURA_MAQUINA_TIPO = "cob_opc_tipo_maquinaria";
+	public static final String COBERTURA_MAQUINA_VALOR = "cob_opc_valor_maquinaria";
 	public static final String COBERTURA_ACCIDENTES_EMPLEADOS_INCLUIDA = "cobertura_accidentes_empleados_incluida";
-	public static final String COBERTURA_FOTOVOLTAICAS_INCLUIDA = "cobertura_fotovoltaicas_incluida";
-	public static final String DESCRIPCION_COBERTURA_FOTOVOLTAICAS = "descripcion_cobertura_fotovoltaicas";
-	public static final String VALOR_COBERTURA_FOTOVOLTAICAS = "valor_cobertura_fotovoltaicas";
+	public static final String COBERTURA_ENERGIA_SOLAR_INCLUIDA = "cobertura_fotovoltaicas_incluida";
+	public static final String COBERTURA_ENERGIA_SOLAR_TIPO = "cob_inst_energia_solar";
+	public static final String COBERTURA_ENERGIA_SOLAR_VALOR = "cob_inst_energia_solar_valor";
 
 	public static final String DESCUENTO = "descuento";
 	public static final String RECARGO = "recargo";
@@ -367,12 +377,30 @@ public class Constants {
 	public static final String TIPO_ALTA = "tipo_alta";
 	public static final String DOMICILIACION_BANCARIA = "domiciliacion_bancaria";
 	public static final String INCLUIR_TELEFONOS_TOMADOR = "incluir_telefonos_tomador";
-	public static final String INMUEBLE = "inmueble";
 	public static final String EXCLUIR_GARAJES = "excluir_garajes";
 	public static final String EXCLUIR_LOCALES = "excluir_locales";
 	public static final String CALIDAD_CONSTRUCCION = "calidad_construccion";
-	
+
+	public static final String INMUEBLE = "direccion_defecto";
+	public static final String PROVINCIA_INMUEBLE = "provincia_inm";
+	public static final String POBLACION_INMUEBLE = "poblacion_inm";
+	public static final String NOMBRE_VIA_INMUEBLE = "via_inm";
+	public static final String NUM_VIA_INMUEBLE = "numero_via_inm";
+
+	public static final String FICHERO = "fichero";
+	public static final String FICHERO_NUM_VIA = "fichero_numero_via";
 	public static final String FICHERO_REFERENCIAS = "fichero_referencias";
+	public static final String SUBIR_FICHERO = "subir_fichero";
+	public static final String FECHA_ALQUILER = "fecha_contr_alq";
+	
+	public static final String FECHA_SINIESTRO = "fecha_siniestro";
+	public static final String CAUSA_SINIESTRO = "causa_siniestro";	
+	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro";	
+	
+	public static final String ROL_CONTACTO = "contacto_rol";	
+	public static final String NOMBRE_CONTACTO = "contacto_nombre";	
+	public static final String APELLIDO_CONTACTO = "contacto_apellido";	
+	public static final String TELEFONO_CONTACTO = "contacto_telefono";	
 
 	public static final String PERSONA_FISICA = "Física";
 

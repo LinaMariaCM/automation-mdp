@@ -110,7 +110,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		// Situacion laboral
 		seleccionarSituacion();
 
-		if(webDriver.isPresentInFrame(drpDwnDetalle, mainFrame)) {
+		if(webDriver.isClickableInFrame(drpDwnDetalle, mainFrame)) {
+			debugInfo("entra condicion");
 			webDriver.clickElementFromDropDownByIndex(drpDwnDetalle, mainFrame, 1);
 		}
 
@@ -275,8 +276,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(btnEnviarACompania, mainFrame);
-		webDriver.clickInFrame(btnEnviarComentarios, mainFrame);
-
+		//webDriver.clickInFrame(btnEnviarComentarios, mainFrame);
+		
 		// TODO: mover la ruta de fichero de upload a configuracion
 		// webDriver.waitWithDriver(3000);
 		// if(webDriver.isPresentInFrame(btnCerrar, mainFrame)) webDriver.clickInFrame(btnCerrar, mainFrame);
@@ -292,9 +293,9 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		// webDriver.clickInFrame(btnCerrar, mainFrame);
 
 		webDriver.waitWithDriver(3000);
-		webDriver.isPresentInFrame(btnEnviarACompania, mainFrame);
-		webDriver.clickInFrame(btnEnviarACompania, mainFrame);
-		webDriver.waitWithDriver(2000);
+		//webDriver.isPresentInFrame(btnEnviarACompania, mainFrame);
+		//webDriver.clickInFrame(btnEnviarACompania, mainFrame);
+		//webDriver.waitWithDriver(2000);
 		webDriver.isPresentInFrame(textoComentario, mainFrame);
 		webDriver.appendTextInFrame(textoComentario, mainFrame, "IPSUM SUM LOREM LOREM, ESTO ES UNA PRUEBA DEL EQUIPO TaaS");
 		webDriver.clickInFrame(btnEnviarComentarios, mainFrame);

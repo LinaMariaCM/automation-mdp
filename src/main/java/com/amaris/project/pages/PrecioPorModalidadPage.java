@@ -244,7 +244,7 @@ public class PrecioPorModalidadPage extends PageObject {
 
 	public PrecioPorModalidadPage completarCoberturasEnergiaSolar() {
 		debugBegin();
-		String coberturasolar = getConfigVar(Constants.COBERTURA_FOTOVOLTAICAS_INCLUIDA);
+		String coberturasolar = getConfigVar(Constants.COBERTURA_ENERGIA_SOLAR_INCLUIDA);
 
 		debugInfo("Cobertura Fotovoltaicas Incluida: " + coberturasolar);
 
@@ -260,8 +260,8 @@ public class PrecioPorModalidadPage extends PageObject {
 				webDriver.clickInFrame(btnAnadirPlacaSolar, cuerpoFrame);
 				webDriver.clickInFrame(btnAnadirPlacaSolarModalWindow, cuerpoFrame);
 
-				webDriver.appendTextInFrame(txtInstalacionFotovoltaicaDescripcion, cuerpoFrame, getScenarioVar(Constants.DESCRIPCION_COBERTURA_FOTOVOLTAICAS));
-				webDriver.appendTextInFrame(txtInstalcionFotovoltaicaValor, cuerpoFrame, getScenarioVar(Constants.VALOR_COBERTURA_FOTOVOLTAICAS));
+				webDriver.appendTextInFrame(txtInstalacionFotovoltaicaDescripcion, cuerpoFrame, getScenarioVar(Constants.COBERTURA_ENERGIA_SOLAR_TIPO));
+				webDriver.appendTextInFrame(txtInstalcionFotovoltaicaValor, cuerpoFrame, getScenarioVar(Constants.COBERTURA_ENERGIA_SOLAR_VALOR));
 				webDriver.clickInFrame(btnGuardarInstalacionSolarModalWindow, cuerpoFrame);
 
 				getPreciosAfter();

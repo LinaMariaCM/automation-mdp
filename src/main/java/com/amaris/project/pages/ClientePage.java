@@ -18,7 +18,7 @@ public class ClientePage extends PageObject {
 
 	// #topFrame
 	private By administracion = By.cssSelector("#jt13");
-	private By clientesLink = By.cssSelector("#jt13");
+	private By clientesLink = By.cssSelector("#jt13"); 
 	private By rdbNombre = By.cssSelector("filtro1");
 	private By checkNif = By.cssSelector("#filtro2");
 	private By btnContinuarResultadoBusqueda = By.cssSelector("#capaAjax > table > tbody > tr.odd > td:nth-child(5) > a");
@@ -42,7 +42,7 @@ public class ClientePage extends PageObject {
 	private By btnNuevoTomador = By.xpath("/html/body/div[3]/div/ul/li[2]/a/span");
 	private By btnNuevoInterveniente = By.xpath("/html/body/div[3]/div/ul/li[4]/a/span");
 
-	private By btnNuevoTomadorMant = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(2) > a");
+	private By btnNuevoTomadorMant = By.cssSelector("div.menuNav.menuNavPosAbsolute li:nth-child(2) > a");
 
 	private By drpdwnTipoDocumento = By.cssSelector("#ALTACLIE_TIPODOC");
 
@@ -207,7 +207,7 @@ public class ClientePage extends PageObject {
 		webDriver.waitForElementToBeClickableInFrame(txtNumeroDocumento, menuFrameTomador);
 		webDriver.clickInFrame(txtNumeroDocumento, menuFrameTomador);
 
-		webDriver.appendTextInFrame(txtNumeroDocumento, menuFrameTomador, getConfigVar(Constants.DNI_TOMADOR)); // NIE
+		webDriver.appendTextInFrame(txtNumeroDocumento, menuFrameTomador, getScenarioVar(Constants.DNI_TOMADOR)); // NIE
 		webDriver.appendTextInFrame(txtNombreCliente, menuFrameTomador, getConfigVar(Constants.NOMBRE_TOMADOR)); // Nombre
 		webDriver.appendTextInFrame(txtApellido1Cliente, menuFrameTomador, getConfigVar(Constants.PRIMER_APELLIDO_TOMADOR)); // Apellido1
 		webDriver.appendTextInFrame(txtApellido1Cliente2, menuFrameTomador, getConfigVar(Constants.SEGUNDO_APELLIDO_TOMADOR)); // Apellido2
@@ -451,7 +451,7 @@ public class ClientePage extends PageObject {
 		debugBegin();
 		
 		webDriver.clickInFrame(checkNif, cuerpoFrame);
-		webDriver.setTextInFrame(txtNIF, cuerpoFrame, getTestVar(Constants.DOCUMENTO_INQUILINO));
+		webDriver.setTextInFrame(txtNIF, cuerpoFrame, getScenarioVar(Constants.DOCUMENTO_INQUILINO));
 		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 		
 		debugEnd();

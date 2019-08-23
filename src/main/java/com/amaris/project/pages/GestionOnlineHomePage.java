@@ -232,9 +232,9 @@ public class GestionOnlineHomePage extends PageObject {
 		// }
 		// }
 		this.webDriver.waitWithDriver(3000);
-		this.webDriver.click(this.drpdwnAcciones);
+		this.webDriver.clickInFrame(this.drpdwnAcciones, contentFrame);
 		this.webDriver.waitWithDriver(3000);
-		this.webDriver.click(this.modificarProyecto);
+		this.webDriver.clickInFrame(this.modificarProyecto, contentFrame);
 		this.webDriver.switchToWindow(1);
 		this.webDriver.waitWithDriver(3000);
 
