@@ -65,6 +65,8 @@ public class LoginPage extends PageObject {
 			default:
 				throw new Exception("Not implemented login access type selected");
 		}
+		
+		// webDriver.setWaitForAngular(true);
 
 		return this;
 	}

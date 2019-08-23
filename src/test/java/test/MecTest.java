@@ -371,6 +371,9 @@ public class MecTest extends TestObject {
 	
 	@Test(dataProvider = "dataProviderMec13a")
 	public void mec13a(String testCase, String id) throws Exception {
+		
+		// POR TERMINAR
+		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		Steps steps = new Steps(userS);
 
@@ -385,17 +388,111 @@ public class MecTest extends TestObject {
 			//steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
 			
 			steps.doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
-			//steps.intento_dar_alta_simulacion_hasta_datos_riesgo(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
-			// continuo en detalles de riesgo
 			
 			steps.aparece_aviso("Dado que el número de plantas en alto (plantas) > 20, el proyecto debe ser revisado por compañía.");
 			
 			return null;
 		}).run();
 	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec14a() {
+		String testCase = ProjectConstants.MEC + "14a";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	
+	@Test(dataProvider = "dataProviderMec14a")
+	public void mec14a(String testCase, String id) throws Exception {
+		
+		// FALLA EN EL PRIMER PASO
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		Steps steps = new Steps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			steps.cerrar_navegador();
+			
+			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
+			
+			return null;
+		}).run();
+	}
+	
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec15() {
+		String testCase = ProjectConstants.MEC + "15";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec15")
+	public void mec15(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		Steps steps = new Steps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.lo_consulto_en_el_buscador_de_cotizaciones(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			steps.el_campo_cotización_contiene_el_valor_del_codigo_de_cotizacion();
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec16() {
+		String testCase = ProjectConstants.MEC + "16";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec16")
+	public void mec16(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		Steps steps = new Steps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_y_guardo_sin_contratar_usando(userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			
+			return null;
+		}).run();
+	}
+	
 
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
 	}
+	
 }

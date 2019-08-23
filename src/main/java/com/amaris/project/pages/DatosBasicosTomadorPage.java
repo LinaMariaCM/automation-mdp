@@ -79,6 +79,8 @@ public class DatosBasicosTomadorPage extends PageObject {
 	
 	private By btnAceptarAnyadir = By.cssSelector("#tomadorAseguradoPopUp .modal-footer [type='submit']"); //div.modal-footer > button
 	
+	private By btnGuardar = By.cssSelector("[ng-bind*='com_guardar']");
+	
 	
 	//private By btnAceptarAnyadir = By.xpath(".//div[@class='modal-footer']/button[text()='Añadir datos asegurado principal']");
 

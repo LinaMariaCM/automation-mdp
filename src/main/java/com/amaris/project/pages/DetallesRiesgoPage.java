@@ -163,6 +163,8 @@ public class DetallesRiesgoPage extends PageObject {
 	// @FindBy(id = "numPlazasGarajes")
 	private By txtNumPlazasGaraje = By.cssSelector("#numPlazasGarajes");
 
+	private By btnConvertir = By.cssSelector("[ng-bind-html*='com_convertirProyecto']");
+	
 	// endregion
 
 	/*
@@ -197,12 +199,30 @@ public class DetallesRiesgoPage extends PageObject {
 		debugEnd();
 	}
 	
+	public void clickOnConvertirProyecto() throws Exception {
+		debugBegin();
+		System.out.println("TOKEN A");
+		this.webDriver.scrollToBottom();
+		System.out.println("TOKEN B");
+		this.webDriver.waitWithDriver(16000);
+		System.out.println("TOKEN C");
+		this.webDriver.clickInFrame(this.btnConvertir, this.cuerpoFrame);
+		//this.webDriver.waitForElementToBeClickableAndClick(this.btnConvertir);
+		System.out.println("TOKEN D");
+		this.webDriver.waitWithDriver(8000);
+		System.out.println("TOKEN E");
+		debugEnd();
+	}
+	
 	public void completarDatosEnDetallesRiesgoMinimos() throws Exception {
 		debugBegin();
 		// this.CheckAvisoGarajes();
 		// this.GetCapitales();
+		
 		this.completarDatosRiesgoMinimos();
-		this.clickOnContinuar();
+		//this.clickOnContinuar();
+		this.clickOnConvertirProyecto();
+		
 		debugEnd();
 	}
 
