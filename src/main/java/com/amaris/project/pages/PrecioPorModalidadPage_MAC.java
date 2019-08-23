@@ -89,7 +89,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		debugInfo("SCENARIO: " + userS.getScenario() + ", VALUE: " + getScenarioVar(Constants.IMPAGO_ALQUILER)
 			+ ", SCENARIODATA: " + (userS.getTestDataManager().getData(AutomationConstants.SCENARIO_DATA) != null));
 
-		webDriver.clickElementFromDropDownByTextInFrame(drpdnImpagoAlquiler, mainFrame, Constants.IMPAGO_ALQUILER);
+		webDriver.clickElementFromDropDownByTextInFrame(drpdnImpagoAlquiler, mainFrame, getScenarioVar(Constants.IMPAGO_ALQUILER));
 		
 		debugEnd();
 		

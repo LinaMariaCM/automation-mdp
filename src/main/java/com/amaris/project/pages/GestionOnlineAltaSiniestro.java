@@ -27,7 +27,7 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	private By mainFrame = By.cssSelector("#mainFrame");
 	private By contentFrame = By.cssSelector("#blockrandom");
 
-	private By txtNumPoliza = By.id("numpol");
+	private By txtNumPoliza = By.cssSelector("#numpol");
 	private By txtFechaSiniestro = By.id("fsin");
 	private By txtRefMediador = By.id("sref");
 
@@ -64,7 +64,7 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	private By txtTelefono = By.id("conttel_1");
 	private By txtEmail = By.id("contmail_1");
 
-	private By checkViveEnRiesgoSi = By.id("PersonasContactoSi");
+	private By checkViveEnRiesgoSi = By.cssSelector("#PersonasContactoSi");
 	private By checkViveEnRiesgoNo = By.id("PersonasContactoNo");
 	private By checkViveEnRiesgoNsNc = By.id("PersonasContactoNS");
 
@@ -110,7 +110,7 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	public GestionOnlineAltaSiniestro altaInfoPoliza(String numpoliza, String fecha) {
 		debugBegin();
 
-		webDriver.switchToFrame(contentFrame);
+		//webDriver.switchToFrame(contentFrame);
 
 		webDriver.setTextInFrame(txtNumPoliza, contentFrame, numpoliza);
 
@@ -118,6 +118,7 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 		webDriver.removeAttributeInFrame(txtFechaSiniestro, contentFrame, "readonly");
 		webDriver.clickInFrame(txtFechaSiniestro, contentFrame);
 		webDriver.waitWithDriver(1500);
+		
 
 		if(fecha != "") {
 			webDriver.setTextInFrame(txtFechaSiniestro, contentFrame, fecha);
@@ -196,9 +197,10 @@ public class GestionOnlineAltaSiniestro extends PageObject {
 	public GestionOnlineAltaSiniestro altaDireccionContacto(Boolean asegurado, String tipoVia, String nombreVia, String numVia, String piso, String puerta, String localidad, String provincia,
 		String cp) {
 		debugBegin();
-
 		webDriver.waitWithDriver(3000);
-		if(asegurado) webDriver.click(checkViveEnRiesgoSi);
+		if(asegurado) {
+			webDriver.clickInFrame(checkViveEnRiesgoSi, contentFrame);
+		}
 		else {
 			// para este caso falta definir los valores correspondientes a la provincia y localidad. En proceso de
 			// estudiar como debe funcionar exactamente!

@@ -81,7 +81,7 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 			webDriver.clickInFrame(poblacionItem, mainFrame);
 			webDriver.appendTextInFrame(nomViaTxt, mainFrame, getScenarioVar(Constants.NOMBRE_VIA));
 			webDriver.clickInFrame(nomViaItem, mainFrame);
-			webDriver.appendTextInFrame(numViaTxt, mainFrame, getData("fichero_numero_via").getValue(userS.getScenario(), Constants.NUM_VIA));
+			webDriver.appendTextInFrame(numViaTxt, mainFrame, getData("fichero_numero_via").getValue(userS.getScenario(), Constants.NUM_VIA_INMUEBLE));
 			webDriver.clickInFrame(anadirDireccionBtn, mainFrame);
 			webDriver.appendTextInFrame(fechaNacimientoTxt, mainFrame, getScenarioVar(Constants.FECHA_NACIMIENTO));
 			seleccionarMedioPago();

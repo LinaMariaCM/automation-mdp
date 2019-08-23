@@ -3,9 +3,8 @@ package com.amaris.project;
 public class Constants {
 
 	private Constants() {}
+	
 	// Web page
-
-	// public static final String WEBPAGE = "https://www.bershka.com/";
 	public static final String CLIENT = "Mutua de Propietarios";
 	public static final String USER_TYPE = "user_type";
 

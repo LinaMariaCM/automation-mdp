@@ -2462,7 +2462,7 @@ public class Steps extends InteractionObject {
 
 	public void searchAuthorisation() throws Exception {
 		new InnovaHomePage(userS).OpenGestionAutorizaciones();
-		new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", this.getTestVar("NumCotizacion"));
+		new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getTestVar(Constants.NUM_COTIZACION));
 
 	}
 
@@ -2513,12 +2513,12 @@ public class Steps extends InteractionObject {
 
 		if(accessType.equals(Constants.LoginAccessGestionLine)) {
 
-			new GestionOnlineHomePage(userS).openMisProyectosWeb().buscarProyectoWeb(this.getTestVar("NumCotizacion"));
+			new GestionOnlineHomePage(userS).openMisProyectosWeb().buscarProyectoWeb(getTestVar(Constants.NUM_COTIZACION));
 			new GestionOnlineHomePage(userS).modificarProyecto();
 
 		} else if(accessType.equals(Constants.LoginAccessInnova)) {
 			new InnovaHomePage(userS).openGestionCotizaciones();
-			new GestionCotizacionesBuscadorPage(userS).searchCotizacion(this.getTestVar("NumCotizacion"));
+			new GestionCotizacionesBuscadorPage(userS).searchCotizacion(getTestVar(Constants.NUM_COTIZACION));
 			new GestionCotizacionesBuscadorPage(userS).modificarProjecto();
 			new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
 		}

@@ -30,6 +30,7 @@ public class GestionOnlineLoginPage extends PageObject {
 
 		// Accept cookies popup
 		webDriver.click(btnAceptar);
+		//webDriver.setWaitForAngular(true);
 		debugEnd();
 
 		return this;

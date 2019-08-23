@@ -58,7 +58,7 @@ public class DocumentacionPage_MAC extends PageObject {
 			webDriver.clickInFrame(chbxAceptacionMediador, mainFrame);
 		}
 
-		webDriver.clickInFrame(chbxTitularidadContratacion, mainFrame);
+		//webDriver.clickInFrame(chbxTitularidadContratacion, mainFrame);
 
 		webDriver.waitWithDriver(30000);
 		webDriver.clickInFrame(btnCerrar, mainFrame);
