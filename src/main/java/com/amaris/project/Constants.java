@@ -206,6 +206,8 @@ public class Constants {
 	public static final String FILTRO_BUSCADOR_CLIENTE = "filtro_buscador_cliente";
 	public static final String FILTRO_BUSCADOR_EDIFICIO = "filtro_buscador_edificio";
 
+	public static final String GESTION_ONLINE_DISPONIBLE = "gestion_online_disponible";
+	
 	public static final String CLAUSULA = "clausula";
 	public static final String MODIFICAR_CLAUSULAS = "modificar_clausulas";
 	public static final String CLAUSULA_HIPOTECARIA = "clausula_hipotecaria";
@@ -242,7 +244,7 @@ public class Constants {
 	public static final String TOMADOR = "tomador";
 	public static final String DNI_TOMADOR = "dni_tomador";
 	public static final String NOMBRE_TOMADOR = "nombre_tomador";
-	public static final String PRIMER_APELLIDO_TOMADOR = "tomador_apellido";
+	public static final String PRIMER_APELLIDO_TOMADOR = "primer_apellido_tomador";
 	public static final String SEGUNDO_APELLIDO_TOMADOR = "segundo_apellido_tomador";
 	public static final String TELEFONO_FIJO_TOMADOR = "telefono_fijo_tomador";
 	public static final String PREFIJO_TELEFONO_FIJO_TOMADOR = "prefijo_telefono_fijo_tomador";
