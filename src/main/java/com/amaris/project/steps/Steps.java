@@ -740,32 +740,15 @@ public class Steps extends InteractionObject {
 		GestionOnlineHomePage gestionOnlineHomePage = new GestionOnlineHomePage(userS);
 		gestionOnlineHomePage.openMisProyectosWeb();
 		gestionOnlineHomePage.buscarProyectoWeb(userS.getTestVar(Constants.NUM_COTIZACION));
-
-		//
-		// userS.applicationAccessHelper.loginAndSearchCotizacion(tCData.getUsuario(),
-		// userS.getProperties().passwordComun,
-		// tCData.getNoCotizacion()); }
-		// if
-		// (userS.getTestVar(Constants.ACCESO).equals(Constants.LoginAccessInnova))
-		// // {
-		// userS.applicationAccessHelper.loginAndSearchCotizacion(tCData.getUsuario(),
-		// userS.getProperties().passwordComun, tCData.getNoCotizacion());
-		// // }
-
 	}
 
 	public void doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(String loginAccess, String user) throws Exception {
 		// Login
-		// userS.initializeVariables(userS.getTestVar(Constants.ACCESO));
-		// userS.applicationAccessHelper.LoginAndCreateProjectMAC(this
-		// .tCData.getUsuario(), userS.getProperties().passwordComun);
-
 		login(loginAccess, user);
 
-		if(userS.getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) { // GestionOnlineHomePage
-
+		// GestionOnlineHomePage
+		if(userS.getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) {
 			new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
-
 		} else if(userS.getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
 			new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
@@ -783,13 +766,13 @@ public class Steps extends InteractionObject {
 	public void el_proyecto_MAC_se_deniega() {
 		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
 
-		Assert.assertTrue(inquilinosAvalistasPage_MAC.recuperarTextoMensajeError().contains(String.format("¡Error! Se ha denegado la emisión del proyecto")));
+		Assert.assertTrue(inquilinosAvalistasPage_MAC.recuperarTextoMensajeError().contains("¡Error! Se ha denegado la emisión del proyecto"));
 	}
 
 	public void el_proyecto_MAC_se_acepta() {
 		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
+		
 		Assert.assertTrue(inquilinosAvalistasPage_MAC.recuperarTextoMensajeValidacionOK()
-
 			.contains("El proyecto deberá ser revisado por compañía, debe adjuntar los documentos obligatorios del estudio de viabilidad, por favor cuando termine todas las gestiones no olvide pulsar el botón Enviar a Compañía. Puede continuar al siguiente paso, para seguir rellenando el resto de campos de la cotización, pero no podrá emitirla."));
 	}
 
@@ -844,18 +827,18 @@ public class Steps extends InteractionObject {
 		Assert.assertTrue(gestionAutorizacionesPage.recuperarResultadoAutorizacion().contains("ha sido autorizada correctamente."));
 	}
 
-	public void la_renta_mensual_es(String rentaMensualAlquiler) {
+	public void la_renta_mensual_es() {
 		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
 		precioPorModalidadPage_MAC.completarRentaMensualAlquiler();
 	}
 
-	public void se_inicia_un_proyecto_con_modalidad(String Modalidad) throws Exception {
+	public void se_inicia_un_proyecto_con_modalidad() throws Exception {
 		// Login
-		login(userS.getConfigVar("Acceso"), userS.getConfigVar("Usuario"));
+		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
 
-		if(userS.getTestVar(Constants.ACCESO).equals("GestionOnline")) {
-			new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();;
-		} else if(userS.getTestVar(Constants.ACCESO).equals("Innova")) {
+		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) {
+			new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
+		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
 		}
 
@@ -865,7 +848,7 @@ public class Steps extends InteractionObject {
 
 	public void deberia_aparecer_error_rebasada_la_renta_máxima_permitida() {
 		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
-		Assert.assertTrue(precioPorModalidadPage_MAC.recuperarTextoMensajeError().contains(String.format("¡Error! Rebasada la renta máxima permitida de 3.000,00 €")));
+		Assert.assertTrue(precioPorModalidadPage_MAC.recuperarTextoMensajeError().contains("¡Error! Rebasada la renta máxima permitida de 3.000,00 €"));
 	}
 
 	public void no_deberia_estar_habilitado_convertir_a_proyecto() {
@@ -877,10 +860,10 @@ public class Steps extends InteractionObject {
 	public void deberia_aparecer_error_situacion_reasegurado() {
 		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
 
-		Assert.assertTrue(precioPorModalidadPage_MAC.recuperarTextoMensajeError().contains(String.format("¡Error! Situación de reaseguro no es posible la contratación")));
+		Assert.assertTrue(precioPorModalidadPage_MAC.recuperarTextoMensajeError().contains("¡Error! Situación de reaseguro no es posible la contratación"));
 	}
 
-	public void la_suma_asegurada_de_impago_alquiler_es(String sumaAseguradaImpagoAlquiler) {
+	public void la_suma_asegurada_de_impago_alquiler_es() {
 		new PrecioPorModalidadPage_MAC(userS).seleccionarImpagoAlquiler();
 	}
 
@@ -2250,7 +2233,7 @@ public class Steps extends InteractionObject {
 	public void se_dan_de_alta_masivamente_proyectos_MEC_donde_la_antiguedad_del_edificio_es_mayor_que_50_anyos() throws Exception{
 		debugBegin();
 
-		String logText = "", address = "";
+		String logText = "";
 		
 		String fileName = getScenarioVar(Constants.FICHERO);
 		debugInfo("Filename: " + fileName);
@@ -2445,16 +2428,13 @@ public class Steps extends InteractionObject {
 		debugBegin();
 
 		debugInfo("Cargando referencias...\n");
-		String logText = "", address = "";
-		// tCData.setInmueble("direccion por defecto");
+		String logText = "";
 		String fileName = getScenarioVar(Constants.FICHERO);
 		debugInfo("Filename: " + fileName);
 		fileName = fileName.substring(0, fileName.length() - 4);
 		debugInfo("Filename: " + fileName);
 
 		debugInfo("Cargando mediadores...\n");
-		String logTextMed = "", addressMed = "";
-		// tCData.setInmueble("direccion por defecto");
 		String fileNameB = getScenarioVar("ficheroMedCoa");
 		debugInfo("Filename: " + fileNameB);
 		fileNameB = fileNameB.substring(0, fileNameB.length() - 4);
