@@ -37,7 +37,7 @@ public class InnovaHomePage extends PageObject {
 	}
 
 	// region methods
-	public InnovaHomePage openNewProjectMec() {
+	public InnovaHomePage createNewProject() {
 		debugBegin();
 		webDriver.doubleClickInFrame(btnNuevoProjecto, leftFrame);
 		debugEnd();

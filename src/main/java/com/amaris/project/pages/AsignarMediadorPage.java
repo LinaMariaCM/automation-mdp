@@ -44,7 +44,7 @@ public class AsignarMediadorPage extends PageObject {
 	}
 
 	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String codigoMed) {
-		this.seleccionarMediadorPorCodigo(codigoMed);
+		this.SeleccionarMediadorPorCodigo(codigoMed);
 		this.clickOnContinuarButton();
 
 		return this;
@@ -69,7 +69,7 @@ public class AsignarMediadorPage extends PageObject {
 		return this;
 	}
 
-	public AsignarMediadorPage seleccionarMediadorPorCodigo(String codigoMediador) {
+	public AsignarMediadorPage SeleccionarMediadorPorCodigo(String codigoMediador) {
 		debugBegin();
 
 		if(userS.getScenario().contains(Constants.MAC)) {

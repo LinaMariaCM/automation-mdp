@@ -173,7 +173,7 @@ public class ClientePage extends PageObject {
 	}
 
 	// region methods
-	public ClientePage clickNuevoTomador() {
+	public ClientePage accederAlBuscadorClientes() {
 		debugBegin();
 		
 		webDriver.waitForElementToBeClickableInFrame(clientesLink, topFrame);

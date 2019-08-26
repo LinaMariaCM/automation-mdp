@@ -406,7 +406,7 @@ public class UbicacionRiesgoPage extends PageObject {
 				// FichaEdificioPage
 				new InnovaHomePage(userS)
 					.openMutuaEdificioConfort()
-					.openNewProjectMec();
+					.createNewProject();
 
 				new AsignarMediadorPage(userS)
 					.selectMediadorAndClickOnContinuar();

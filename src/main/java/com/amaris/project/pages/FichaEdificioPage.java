@@ -256,7 +256,7 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage buscarConFiltroBusqueda() {
 		debugBegin();
 
-		switch(Constants.FILTRO_BUSCADOR_EDIFICIO) {
+		switch(getTestVar(Constants.FILTRO_BUSCADOR_EDIFICIO)) {
 			case Constants.FILTRO_BUSCADOR_DIRECCION:
 				buscarEdificioDireccion();
 				break;

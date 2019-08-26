@@ -25,7 +25,7 @@ public class PrecioPage extends PageObject {
 	}
 
 	// region methods
-	public PrecioPage clickOnConvertirAProjecto() {
+	public PrecioPage ClickOnConvertirAProjecto() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);
