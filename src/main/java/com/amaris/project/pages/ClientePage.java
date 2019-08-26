@@ -207,7 +207,7 @@ public class ClientePage extends PageObject {
 		webDriver.waitForElementToBeClickableInFrame(txtNumeroDocumento, menuFrameTomador);
 		webDriver.clickInFrame(txtNumeroDocumento, menuFrameTomador);
 
-		webDriver.appendTextInFrame(txtNumeroDocumento, menuFrameTomador, getScenarioVar(Constants.DNI_TOMADOR)); // NIE
+		webDriver.appendTextInFrame(txtNumeroDocumento, menuFrameTomador, getConfigVar(Constants.DNI_TOMADOR)); // NIE
 		webDriver.appendTextInFrame(txtNombreCliente, menuFrameTomador, getConfigVar(Constants.NOMBRE_TOMADOR)); // Nombre
 		webDriver.appendTextInFrame(txtApellido1Cliente, menuFrameTomador, getConfigVar(Constants.PRIMER_APELLIDO_TOMADOR)); // Apellido1
 		webDriver.appendTextInFrame(txtApellido1Cliente2, menuFrameTomador, getConfigVar(Constants.SEGUNDO_APELLIDO_TOMADOR)); // Apellido2

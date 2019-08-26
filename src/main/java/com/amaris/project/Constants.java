@@ -225,7 +225,7 @@ public class Constants {
 	public static final String NUM_COTIZACION = "num_cotizacion";
 	public static final String NUM_POLIZA = "numero_poliza";
 
-	public static final String TIPO_DOCUMENTO = "tipoDocumento";
+	public static final String TIPO_DOCUMENTO = "tipo_documento";
 
 	public static final String TIPO_PROSPECT = "tipo_prospect";
 	public static final String NOMBRE_PROSPECT = "nombre_prospect";
