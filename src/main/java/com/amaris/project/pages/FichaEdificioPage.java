@@ -62,7 +62,7 @@ public class FichaEdificioPage extends PageObject {
 	private By tabPolizas = By.cssSelector("#pes1");
 	// endregion
 
-	FichaEdificioPage(UserStory userS) {
+	public FichaEdificioPage(UserStory userS) {
 		super(userS);
 	}
 

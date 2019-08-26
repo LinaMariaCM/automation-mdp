@@ -40,7 +40,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 	private By drpdwnVia = By.cssSelector("html > body > ul:nth-of-type(3) > li > a");
 	// endregion
 
-	MediadoresAltaProspectPage(UserStory userS) {
+	public MediadoresAltaProspectPage(UserStory userS) {
 		super(userS);
 	}
 

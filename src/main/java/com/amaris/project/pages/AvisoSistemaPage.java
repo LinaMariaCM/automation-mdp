@@ -21,26 +21,26 @@ public class AvisoSistemaPage extends PageObject {
 	// region methods
 	public AvisoSistemaPage CheckmsgAvisoPlantasAlto() {
 		debugBegin();
-		
+
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		String mensaje = this.webDriver.getText(this.msgAvisoPlantasAlto);
 		Assert.assertTrue(mensaje.contains("Dado que el número de plantas en alto (plantas) > 20, el proyecto debe ser revisado por compañía."));
 		this.webDriver.exitFrame();
-		
+
 		debugEnd();
-		
+
 		return this;
 	}
 
 	public AvisoSistemaPage ClikOnVolver() {
 		debugBegin();
-		
+
 		this.webDriver.switchToFrame(this.cuerpoFrame);
 		this.webDriver.click(this.btnContinuar);
 		this.webDriver.exitFrame();
-		
+
 		debugEnd();
-		
+
 		return this;
 	}
 	// endregion

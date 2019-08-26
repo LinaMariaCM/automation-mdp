@@ -19,20 +19,20 @@ public class AsignarMediadorPage extends PageObject {
 	private By btnBuscarMAC = By.cssSelector("#botonBuscar");
 	private By radioBtnResultadoBusqueda = By.xpath(".//*[@type='radio']");
 	private By btnContinuar = By.xpath(".//*[contains(text(),'Continuar')]");
-	
+
 	private By procesandoWindow = By.cssSelector(".smallbox");
 	private By loaderModal = By.cssSelector("#modalLoader");
-	
+
 	private By procesando = By.cssSelector(".procesando");
 	// endregion
 
-	public  AsignarMediadorPage(UserStory userS) {
+	public AsignarMediadorPage(UserStory userS) {
 		super(userS);
 	}
-	
+
 	public AsignarMediadorPage TerminaProcesando() {
 		this.webDriver.waitForElementNotToBePresent(procesando);
-		
+
 		return this;
 	}
 
@@ -42,7 +42,7 @@ public class AsignarMediadorPage extends PageObject {
 
 		return this;
 	}
-	
+
 	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String codigoMed) {
 		this.seleccionarMediadorPorCodigo(codigoMed);
 		this.clickOnContinuarButton();
@@ -59,11 +59,11 @@ public class AsignarMediadorPage extends PageObject {
 
 	public AsignarMediadorPage clickOnContinuarButton() {
 		debugBegin();
-		
+
 		webDriver.waitWithDriver(3000);
-		//webDriver.waitForElementToBeClickableInFrame(btnContinuar, cuerpoFrame);
+		// webDriver.waitForElementToBeClickableInFrame(btnContinuar, cuerpoFrame);
 		webDriver.clickInFrame(btnContinuar, mainFrame);
-		
+
 		debugEnd();
 
 		return this;
@@ -71,22 +71,22 @@ public class AsignarMediadorPage extends PageObject {
 
 	public AsignarMediadorPage seleccionarMediadorPorCodigo(String codigoMediador) {
 		debugBegin();
-		
+
 		if(userS.getScenario().contains(Constants.MAC)) {
 			webDriver.appendTextInFrame(txtCodigoMediadorMAC, mainFrame, codigoMediador);
 			webDriver.click(btnBuscarMAC);
-		} else {		
+		} else {
 			webDriver.waitForElementNotToBeClickable(procesandoWindow);
-	
+
 			webDriver.appendTextInFrame(txtCodigoMediador, mainFrame, codigoMediador);
-	
+
 			webDriver.clickInFrame(txtDocumento, mainFrame);
 			webDriver.clickInFrame(btnBuscar, mainFrame);
-			
+
 			webDriver.waitForElementNotToBeClickableInFrame(loaderModal, mainFrame);
-			
+
 			webDriver.clickInFrame(radioBtnResultadoBusqueda, mainFrame);
-			
+
 			webDriver.waitForElementNotToBeClickable(loaderModal);
 		}
 

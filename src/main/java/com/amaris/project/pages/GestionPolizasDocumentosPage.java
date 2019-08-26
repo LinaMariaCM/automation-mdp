@@ -13,7 +13,7 @@ public class GestionPolizasDocumentosPage extends PageObject {
 	private By lblSuplementoCreationConfirmationMessage = By.xpath(".//*[contains(text(),'Suplemento de póliza') and contains(text(),'ha sido emitido correctamente.')]");
 	// endregion
 
-	GestionPolizasDocumentosPage(UserStory userS) {
+	public GestionPolizasDocumentosPage(UserStory userS) {
 		super(userS);
 	}
 

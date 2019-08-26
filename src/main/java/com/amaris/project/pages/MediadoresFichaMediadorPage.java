@@ -15,7 +15,7 @@ public class MediadoresFichaMediadorPage extends PageObject {
 	private By tituloPagina = By.cssSelector("h1.titulopagina");
 	// endregion
 
-	MediadoresFichaMediadorPage(UserStory userS) {
+	public MediadoresFichaMediadorPage(UserStory userS) {
 		super(userS);
 	}
 
