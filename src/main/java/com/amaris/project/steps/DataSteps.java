@@ -21,9 +21,9 @@ import com.amaris.project.pages.ValidacionesExcepcionesReglasUbicacionRiesgoPage
 import com.amaris.project.utils.ClausulasHelper;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 
-public class DataEntrySteps extends InteractionObject {
+public class DataSteps extends InteractionObject {
 
-	public DataEntrySteps(UserStory userStory) {
+	public DataSteps(UserStory userStory) {
 		super(userStory);
 	}
 
