@@ -4,8 +4,6 @@ import com.amaris.automation.configuration.AutomationConstants;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
-import java.awt.AWTException;
-
 import org.openqa.selenium.By;
 
 import com.amaris.project.Constants;

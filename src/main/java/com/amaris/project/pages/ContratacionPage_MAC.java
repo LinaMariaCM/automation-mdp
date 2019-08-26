@@ -3,8 +3,6 @@ package com.amaris.project.pages;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
-import java.awt.AWTException;
-
 import org.openqa.selenium.By;
 
 public class ContratacionPage_MAC extends PageObject {

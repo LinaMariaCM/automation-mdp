@@ -2587,8 +2587,9 @@ public class Steps extends InteractionObject {
 	 * 
 	 */
 
-	public void accederCliente() {// aporte Jenney
+	public void accederCliente() {
 		debugBegin();
+		
 		new ClientePage(userS).clickNuevoTomador();
 		new ClientePage(userS).clickNuevoTomadorSecond();
 		new ClientePage(userS).datosTomador();
@@ -3090,6 +3091,7 @@ public class Steps extends InteractionObject {
 		debugBegin();
 
 		this.login(loginAcess, user);
+		
 
 		String mediador = this.userS.getScenarioVar("mediador");
 
@@ -3098,41 +3100,77 @@ public class Steps extends InteractionObject {
 
 		} else if(loginAcess.equals(Constants.LoginAccessInnova)) {
 			this.openSimulationMec();
-			new AsignarMediadorPage(userS).seleccionarMediadorPorCodigo(mediador).clickOnContinuarButton();
+			new AsignarMediadorPage(userS).TerminaProcesando().seleccionarMediadorPorCodigo(mediador).clickOnContinuarButton();
 		}
 
 		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue();
-
+		
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
-
+		
 		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgoMinimos();
-
+		
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).ClickOnContinuarAndValidate();
-
+		
 		new PrecioPage(userS).clickOnConvertirAProjecto();
-
+		
 		DatosBasicosTomadorPage datosBasicosTomadorPage = new DatosBasicosTomadorPage(userS);
 		datosBasicosTomadorPage.fillTomadorData(this.getTestVar("Tomador"));
 		datosBasicosTomadorPage.clickOnContinuar();
-
+		
+		
 		new PrecioPorModalidadPage(userS).executeActionsInPrecioPorModalidadPage();
-
+		
 		new ValidacionExcepcionesReglasPage(userS).clickOnContinuarButton();
-
+		
 		new ClausulasPage(userS).activateclausesAndClickOnContinue();
-
+		
 		TomadorYAseguradoPage tomadorYAseguradoPage = new TomadorYAseguradoPage(userS);
 		tomadorYAseguradoPage.addDatosTomador();
 		tomadorYAseguradoPage.addDatosTomadorDiferenteAsegurado();
 		tomadorYAseguradoPage.clickOnContinuar();
-
+		
 		new DocumentacionPage(userS).SubirFichero();
-
+		
 		new DatosBancariosPage(userS).introducirFormaPagoYPulsarContratar();
-
+		
 		// this.browserContext.writeTestCaseData();
 
 		userS.getWebDriver().quit();
+
+		debugEnd();
+	}
+	
+	public void doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_y_guardo_sin_contratar_usando(
+		String loginAcess, String user) throws Exception
+
+	{
+		debugBegin();
+
+		this.login(loginAcess, user);
+		System.out.println("TOKEN 1");
+		
+
+		String mediador = this.userS.getScenarioVar("mediador");
+
+		if(loginAcess.equals(Constants.LoginAccessGestionLine)) {
+			new GestionOnlineHomePage(userS).openContratarMutuaEdificioConfort();
+
+		} else if(loginAcess.equals(Constants.LoginAccessInnova)) {
+			this.openSimulationMec();
+			new AsignarMediadorPage(userS).TerminaProcesando().seleccionarMediadorPorCodigo(mediador).clickOnContinuarButton();
+		}
+		System.out.println("TOKEN 2");
+
+		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue();
+		
+		System.out.println("TOKEN 3");
+		
+		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
+		System.out.println("TOKEN 4");
+		
+		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgoMinimos();
+		System.out.println("TOKEN 5");
+		
 
 		debugEnd();
 	}
@@ -3260,10 +3298,10 @@ public class Steps extends InteractionObject {
 		// }
 	}
 
-	public void lo_consulto_en_el_buscador_de_cotizaciones(String loginAcess, String user) throws Exception {
+	public void lo_consulto_en_el_buscador_de_cotizaciones(String loginAccess, String user) throws Exception {
 		debugBegin();
 
-		this.login("acceso", "usuario");
+		this.login(loginAccess, user);
 
 		// this.browserContext.applicationAccessHelper.loginAndSearchCotizacion(this
 		// .tCData.getCambioUsuario(), //
@@ -3474,9 +3512,7 @@ public class Steps extends InteractionObject {
 			System.out.println("TOKEN 1");
 			ubicacionRiesgoPage.addInmuebleByAddress();
 			System.out.println("TOKEN 2");
-			ubicacionRiesgoPage.clickOnContinuar();
-			
-			System.out.println("TOKEN!");
+			ubicacionRiesgoPage.clickOnContinuar();	
 			
 			/**
 			this.login(loginAccess, user);

@@ -10,9 +10,6 @@ import java.util.Locale;
 import org.testng.Assert;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
@@ -88,8 +85,9 @@ public class DetallesRiesgoPage extends PageObject {
 	private By txtM2Trasteros = By.cssSelector("#m2Trasteros");
 	private By txtNumPlantasBajoRasante = By.cssSelector("#numPlantasSotano");
 	private By txtNumPlazasGaraje = By.cssSelector("#numPlazasGarajes");
-	
 	private By avisoNoTieneRefCatastral = By.xpath(".//*[text()='El edificio no tiene referencia catastral, intente ubicar el riesgo de nuevo o introduzca los datos de superficies y año de construcción.']/../../../..//button[text()='Aceptar']");
+
+	private By btnConvertir = By.cssSelector("[ng-bind-html*='com_convertirProyecto']");	
 	// endregion
 
 	public DetallesRiesgoPage(UserStory userS) {
@@ -123,6 +121,22 @@ public class DetallesRiesgoPage extends PageObject {
 		
 		return this;
 	}
+	
+	public void clickOnConvertirProyecto() throws Exception {
+		debugBegin();
+		System.out.println("TOKEN A");
+		this.webDriver.scrollToBottom();
+		System.out.println("TOKEN B");
+		this.webDriver.waitWithDriver(16000);
+		System.out.println("TOKEN C");
+		this.webDriver.clickInFrame(this.btnConvertir, this.cuerpoFrame);
+		//this.webDriver.waitForElementToBeClickableAndClick(this.btnConvertir);
+		System.out.println("TOKEN D");
+		this.webDriver.waitWithDriver(8000);
+		System.out.println("TOKEN E");
+		debugEnd();
+	}
+		
 
 	public DetallesRiesgoPage completarDatosEnDetallesRiesgoMinimos() {
 		debugBegin();

@@ -1,3 +1,4 @@
+
 package com.amaris.project.pages;
 
 import org.testng.Assert;
@@ -40,6 +41,11 @@ public class DatosBasicosTomadorPage extends PageObject {
 
 	private By cumple = By.name("fechaNacimiento");
 	private By checkMismaDirec = By.cssSelector("[ng-model='mismaDireccionRiesgo']");
+	
+	private By btnGuardar = By.cssSelector("[ng-bind*='com_guardar']");
+	
+	
+	//private By btnAceptarAnyadir = By.xpath(".//div[@class='modal-footer']/button[text()='Añadir datos asegurado principal']");
 	// endregion
 
 	public DatosBasicosTomadorPage(UserStory userS) {

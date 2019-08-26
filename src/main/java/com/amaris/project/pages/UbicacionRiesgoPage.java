@@ -1,10 +1,5 @@
 package com.amaris.project.pages;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.nio.charset.StandardCharsets;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.UnhandledAlertException;

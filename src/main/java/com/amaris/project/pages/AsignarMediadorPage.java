@@ -22,10 +22,18 @@ public class AsignarMediadorPage extends PageObject {
 	
 	private By procesandoWindow = By.cssSelector(".smallbox");
 	private By loaderModal = By.cssSelector("#modalLoader");
+	
+	private By procesando = By.cssSelector(".procesando");
 	// endregion
 
 	public  AsignarMediadorPage(UserStory userS) {
 		super(userS);
+	}
+	
+	public AsignarMediadorPage TerminaProcesando() {
+		this.webDriver.waitForElementNotToBePresent(procesando);
+		
+		return this;
 	}
 
 	// region methods
