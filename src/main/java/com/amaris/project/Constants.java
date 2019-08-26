@@ -405,6 +405,7 @@ public class Constants {
 	public static final String NOMBRE_CONTACTO = "contacto_nombre";	
 	public static final String APELLIDO_CONTACTO = "contacto_apellido";	
 	public static final String TELEFONO_CONTACTO = "contacto_telefono";	
+	public static final String ENVIRONMENT = "environment";
 
 	public static final String PERSONA_FISICA = "Física";
 
