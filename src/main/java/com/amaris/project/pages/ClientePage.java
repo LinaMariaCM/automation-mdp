@@ -185,7 +185,8 @@ public class ClientePage extends PageObject {
 		return this;
 	}
 
-	public ClientePage clickNuevoTomadorSecond() {
+	
+		public ClientePage clickNuevoTomadorSecond() {
 		debugBegin();
 		
 		webDriver.waitForElementToBeClickableInFrame(btnNuevoTomadorMant, menuFrameTomador);
@@ -207,7 +208,7 @@ public class ClientePage extends PageObject {
 		webDriver.waitForElementToBeClickableInFrame(txtNumeroDocumento, menuFrameTomador);
 		webDriver.clickInFrame(txtNumeroDocumento, menuFrameTomador);
 
-		webDriver.appendTextInFrame(txtNumeroDocumento, menuFrameTomador, getConfigVar(Constants.DNI_TOMADOR)); // NIE
+		webDriver.appendTextInFrame(txtNumeroDocumento, menuFrameTomador, getTestVar(Constants.DNI_TOMADOR)); // NIE
 		webDriver.appendTextInFrame(txtNombreCliente, menuFrameTomador, getConfigVar(Constants.NOMBRE_TOMADOR)); // Nombre
 		webDriver.appendTextInFrame(txtApellido1Cliente, menuFrameTomador, getConfigVar(Constants.PRIMER_APELLIDO_TOMADOR)); // Apellido1
 		webDriver.appendTextInFrame(txtApellido1Cliente2, menuFrameTomador, getConfigVar(Constants.SEGUNDO_APELLIDO_TOMADOR)); // Apellido2
@@ -241,36 +242,36 @@ public class ClientePage extends PageObject {
 
 	public ClientePage localizacionDomicilioTomador() {
 		debugBegin();
+		webDriver.switchToFrame(menuFrameTomador);
+        webDriver.switchToFrame(capaIframe);
 		
-		webDriver.switchToFrame(menuFrameTomador);
-		webDriver.appendTextInFrame(txtProvincia, capaIframe, getTestVar(Constants.PROVINCIA));
-		webDriver.switchToFrame(menuFrameTomador);
-		webDriver.clickInFrame(labelProvincia, capaIframe);
+		//webDriver.switchToFrame(menuFrameTomador);
+		webDriver.appendText(txtProvincia, getTestVar(Constants.PROVINCIA));
+		//webDriver.switchToFrame(menuFrameTomador);
+		webDriver.click(labelProvincia);
 
-		webDriver.switchToFrame(menuFrameTomador);
-		webDriver.appendTextInFrame(txtPoblacion, capaIframe, getTestVar(Constants.POBLACION));
-		webDriver.switchToFrame(menuFrameTomador);
-		webDriver.clickInFrame(labelPoblacion, capaIframe);
+		//webDriver.switchToFrame(menuFrameTomador);
+		webDriver.appendText(txtPoblacion, getTestVar(Constants.POBLACION));
+		//webDriver.switchToFrame(menuFrameTomador);
+		webDriver.click(labelPoblacion);
 
-		webDriver.switchToFrame(menuFrameTomador);
-		webDriver.appendTextInFrame(txtVia, capaIframe, getTestVar(Constants.NOMBRE_VIA));
-		webDriver.switchToFrame(menuFrameTomador);
-		webDriver.clickInFrame(labelNombreVia, capaIframe);
+		//webDriver.switchToFrame(menuFrameTomador);
+		webDriver.appendText(txtVia, getTestVar(Constants.NOMBRE_VIA));
+		//webDriver.switchToFrame(menuFrameTomador);
+		webDriver.click(labelNombreVia);
 
-		webDriver.switchToFrame(menuFrameTomador);
-		webDriver.appendTextInFrame(txtCodPost, capaIframe, getTestVar(Constants.CODIGO_POSTAL));
+		//webDriver.switchToFrame(menuFrameTomador);
+		webDriver.appendText(txtCodPost, getTestVar(Constants.CODIGO_POSTAL));
 		webDriver.waitWithDriver(3000);
-
-		if(webDriver.isPresentAndClickInFrame(btnComprobarDireccion, menuFrameTomador)) {
-			webDriver.clickInFrame(btnComprobarDireccion, menuFrameTomador);
-		} else {
-			webDriver.switchToFrame(menuFrameTomador);
-			webDriver.waitWithDriver(2000);
-			webDriver.clickInFrame(btnAceptar, capaIframe);
-			webDriver.waitWithDriver(5000);
-			webDriver.clickInFrame(btnGrabar, menuFrameTomador);
-			webDriver.waitWithDriver(5000);
-		}
+		//webDriver.switchToFrame(menuFrameTomador);
+		
+		webDriver.isPresentAndClick(btnComprobarDireccion);
+		webDriver.waitWithDriver(2000);
+		webDriver.click(btnAceptar);
+		webDriver.waitWithDriver(5000);
+		webDriver.exitFrame();
+		webDriver.clickInFrame(btnGrabar, menuFrameTomador);
+		webDriver.waitWithDriver(5000);
 		
 		if(webDriver.isPresentInFrame(popUpClientSelect, menuFrameTomador)) {
 			webDriver.switchToFrame(menuFrameTomador);

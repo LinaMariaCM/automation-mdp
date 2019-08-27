@@ -242,7 +242,7 @@ public class Constants {
 	public static final String TOMADOR = "tomador";
 	public static final String DNI_TOMADOR = "dni_tomador";
 	public static final String NOMBRE_TOMADOR = "nombre_tomador";
-	public static final String PRIMER_APELLIDO_TOMADOR = "tomador_apellido";
+	public static final String PRIMER_APELLIDO_TOMADOR = "primer_apellido_tomador";
 	public static final String SEGUNDO_APELLIDO_TOMADOR = "segundo_apellido_tomador";
 	public static final String TELEFONO_FIJO_TOMADOR = "telefono_fijo_tomador";
 	public static final String PREFIJO_TELEFONO_FIJO_TOMADOR = "prefijo_telefono_fijo_tomador";
@@ -267,7 +267,7 @@ public class Constants {
 
 	public static final String DOCUMENTO_INQUILINO = "documento_inquilino";
 	public static final String NOMBRE_INQUILINO = "nombre_inquilino";
-	public static final String PRIMER_APELLIDO_INQUILINO = "primer_apell_inqulino";
+	public static final String PRIMER_APELLIDO_INQUILINO = "primer_apell_inquilino";
 	public static final String INGRESOS_INQUILINO = "ingresos_inquilino";
 	public static final String NUEVOS_INGRESOS_INQUILINO = "ingresos_inquilino_nuevos";
 

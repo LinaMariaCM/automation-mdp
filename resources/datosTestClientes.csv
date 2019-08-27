@@ -1,4 +1,4 @@
-tipo_documento;ci;nombre;apellido1;apellido2;phone_fijo;phone_movil;email;fecha_nacimiento;sexo;provincia;poblacion;via;codigo_postal
+tipo_documento;ci;nombre;apellido1;apellido2;phone_fijo;phone_movil;email;fecha_nacimiento;sexo;provincia;poblacion;nombre_via;codigo_postal
 NIF;94913173Q;Anabel;Perez;Diaz;932222222;666666666;anabel@yahoo.com;03/03/1998;Mujer;BARCELONA;BARCELONA;ANTIC DE SANT JOAN;08316
 NIF;80706961F;Pedro;Silva;Q;932222222;666666666;pedro@yahoo.com;05/03/1984;Hombre;BARCELONA;Mataro;Gatassa;08303
 NIE;Y7463962Q;Ernesto;LLerena;Grobas;932222222;666666666;erneto@yahoo.com;05/09/1984;Hombre;BARCELONA;Mataro;Gatassa;08303

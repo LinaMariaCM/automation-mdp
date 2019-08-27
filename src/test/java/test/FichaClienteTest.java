@@ -11,6 +11,7 @@ import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.DataSteps;
 
 public class FichaClienteTest {
 
@@ -29,6 +30,8 @@ public class FichaClienteTest {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 
 		Steps steps = new Steps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
+
 
 		// userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv",
 		// "fichero_referencias");
@@ -36,6 +39,7 @@ public class FichaClienteTest {
 
 		userS.testActions(() -> {
 			steps.login("Innova", "mcena");
+			dataSteps.el_documento_tomador_es_aleatoreo();
 			steps.accederCliente();
 
 			return null;

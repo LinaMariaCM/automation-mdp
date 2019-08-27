@@ -95,11 +95,11 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 		webDriver.clickInFrame(btnAnadirDatosInquilinoPantallaPrincipal, mainFrame);
 
-		debugInfo("Nombre inquilino: " + getScenarioVar(Constants.NOMBRE_INQUILINO));
-		webDriver.setTextInFrame(txtNombre, mainFrame, getScenarioVar(Constants.NOMBRE_INQUILINO));
+		//debugInfo("Nombre inquilino: " + getScenarioVar(Constants.NOMBRE_INQUILINO));
+		//webDriver.setTextInFrame(txtNombre, mainFrame, getScenarioVar(Constants.NOMBRE_INQUILINO));
 
-		debugInfo("Aprellido inquilino: " + getScenarioVar(Constants.PRIMER_APELLIDO_INQUILINO));
-		webDriver.setTextInFrame(txtPrimerApellido, mainFrame, getScenarioVar(Constants.PRIMER_APELLIDO_INQUILINO));
+		debugInfo("Aprellido inquilino: " + getTestVar(Constants.PRIMER_APELLIDO_INQUILINO));
+		webDriver.setTextInFrame(txtPrimerApellido, mainFrame, getTestVar(Constants.PRIMER_APELLIDO_INQUILINO));
 
 		debugInfo("Documento inquilino: " + getScenarioVar(Constants.DOCUMENTO_INQUILINO));
 		webDriver.setTextInFrame(txtDocumento, mainFrame, getScenarioVar(Constants.DOCUMENTO_INQUILINO));
