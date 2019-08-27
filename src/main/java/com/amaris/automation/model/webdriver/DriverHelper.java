@@ -1463,6 +1463,42 @@ public class DriverHelper {
 		logger.end();
 	}
 
+	@SuppressWarnings("rawtypes")
+	public void clickRelativePosition(double widthPer, double heightPer) {
+		logger.begin();
+
+		waitForLoadToComplete();
+
+		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+
+			new TouchAction(appDriver).press(PointOption.point((int) (getWindowSize().getWidth() * heightPer), (int) (getWindowSize().getHeight() * heightPer))).release().perform();
+		} else if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
+			new Actions(driver).moveByOffset((int) (getWindowSize().getWidth() * heightPer), (int) (getWindowSize().getHeight() * heightPer)).click().perform();
+		} else {
+			try {
+				((JavascriptExecutor) driver).executeScript("document.elementFromPoint("
+					+ getWindowSize().getWidth() + " * " + widthPer + "), "
+					+ getWindowSize().getHeight() + " * " + heightPer + ")).click();");
+			} catch(WebDriverException e) {
+				try {
+					new Actions(driver).moveByOffset((int) (getWindowSize().getWidth() * heightPer), (int) (getWindowSize().getHeight() * heightPer)).click();
+				} catch(Exception e1) {
+					logger.error("Element not found");
+					logger.printStackTrace(e);
+
+					throw e;
+				}
+
+			}
+		}
+
+		waitForLoadToComplete();
+		takeScreenshotWithCondition();
+		logger.end();
+	}
+
 	public void clickOver(By by) {
 		clickOver(waitForElementToBeClickable(by));
 	}
