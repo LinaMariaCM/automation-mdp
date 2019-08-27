@@ -65,7 +65,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	private By txtCta2 = By.cssSelector("#COMODIN_CADENA_5");
 	// endregion
 
-	MediadoresAltaMediadorPage(UserStory userS) {
+	public MediadoresAltaMediadorPage(UserStory userS) {
 		super(userS);
 	}
 

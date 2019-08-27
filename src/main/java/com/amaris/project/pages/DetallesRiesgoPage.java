@@ -17,17 +17,6 @@ import com.amaris.project.Constants;
 public class DetallesRiesgoPage extends PageObject {
 
 	private Locale locale = new Locale("es", "ES");
-	private NumberFormat nf = NumberFormat.getInstance(locale);
-	private Double CapitalTotalAsegurado = null;
-	private Double CapitalContenido = null;
-	private Double CapitalContinente = null;
-
-	private Double CapitalContenidoBefore = null;
-	private Double CapitalContenidoAfter = null;
-	private Double CapitalTotalAseguradoBefore = null;
-	private Double CapitalTotalAseguradoAfter = null;
-	private Double CapitalContinenteBefore = null;
-	private Double CapitalContienteAfter = null;
 
 	// region webelements
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
@@ -151,7 +140,7 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage modificarDatosEnDetallesRiesgo() throws ParseException {
+	public DetallesRiesgoPage modificarDatosEnDetallesRiesgo() {
 		debugBegin();
 
 		CheckAvisoGarajes();
@@ -189,7 +178,7 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage modificarDatosEnDetallesRiesgoSinContinuar() throws ParseException {
+	public DetallesRiesgoPage modificarDatosEnDetallesRiesgoSinContinuar() {
 		debugBegin();
 
 		CheckAvisoGarajes();
@@ -483,7 +472,7 @@ public class DetallesRiesgoPage extends PageObject {
 	// This function modifies the values of the fields located in the page. All the values are
 	// modified if they are different than the ones present
 	// in the object TestCasse Data inside the values whose variables start with Modified.
-	public DetallesRiesgoPage ModificarDatosRiesgo() throws ParseException {
+	public DetallesRiesgoPage ModificarDatosRiesgo() {
 		debugBegin();
 
 		// Modify Año rehabilitación de aguas comunitarias
@@ -590,16 +579,16 @@ public class DetallesRiesgoPage extends PageObject {
 	// logger.debug("END - ModificarDatosActividadComercial");
 	// }
 
-	private DetallesRiesgoPage GetCapitales() throws ParseException {
+	private DetallesRiesgoPage GetCapitales() {
 		debugBegin();
 
 		webDriver.waitWithDriver(2000);
 		
 		if(!webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame).isEmpty()) {
 			webDriver.scrollToBottom();
-			CapitalTotalAsegurado = nf.parse(webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame)).doubleValue();
-			CapitalContenido = nf.parse(webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame)).doubleValue();
-			CapitalContinente = nf.parse(webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame)).doubleValue();
+			setTestVar(Constants.CAPITAL_TOTAL, webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame));
+			setTestVar(Constants.CAPITAL_CONTENIDO, webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame));
+			setTestVar(Constants.CAPITAL_CONTINENTE, webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame));
 		}
 
 		debugEnd();
@@ -607,7 +596,7 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	// private boolean IsCapitalesVaried() throws ParseException
+	// private boolean IsCapitalesVaried()
 	// {
 	// logger.debug("BEGIN - IsCapitalesVaried");
 	// Double CapitalTotalAseguradoSavedValue = CapitalTotalAsegurado;
@@ -633,7 +622,7 @@ public class DetallesRiesgoPage extends PageObject {
 	// return false;
 	// }
 
-	private DetallesRiesgoPage CheckForInfraseguroOrSupraSeguro() throws ParseException {
+	private DetallesRiesgoPage CheckForInfraseguroOrSupraSeguro() {
 		debugBegin();
 
 		// Double CapitalTotalAsegurado = nf
@@ -642,13 +631,11 @@ public class DetallesRiesgoPage extends PageObject {
 		// Double CapitalContenido =
 		// nf.parse(webDriver.getText(txtCapitalContenido))
 		// .doubleValue();
-		Double capitalContiente = nf.parse(webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame)).doubleValue();
+		Double capitalContiente = Double.parseDouble(webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame));
 
-		if(capitalContiente > CapitalContinente) {
+		if(capitalContiente > Double.parseDouble(getTestVar(Constants.CAPITAL_CONTINENTE))) {
 			setTestVar(Constants.INFRA_SEGURO, "true");
-		}
-
-		if(capitalContiente < CapitalContinente) {
+		}else if(capitalContiente < Double.parseDouble(getTestVar(Constants.CAPITAL_CONTINENTE))) {
 			setTestVar(Constants.SUPRA_SEGURO, "true");
 		}
 
@@ -702,29 +689,39 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage GetValuesBefore() throws ParseException {
+	public DetallesRiesgoPage GetValuesBefore() {
 		if(!webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame).isEmpty()) {
-			CapitalContenidoBefore = nf.parse(webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame)).doubleValue();
-			CapitalContinenteBefore = nf.parse(webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame)).doubleValue();
-			CapitalTotalAseguradoBefore = nf.parse(webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame)).doubleValue();
+			setTestVar(Constants.CAPITAL_CONTENIDO_ANTES, webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame));
+			setTestVar(Constants.CAPITAL_CONTINENTE_ANTES, webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame));
+			setTestVar(Constants.CAPITAL_TOTAL_ANTES, webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame));
 		}
 		
 		return this;
 	}
 
-	public DetallesRiesgoPage GetValuesAfter() throws ParseException {
-		CapitalContenidoAfter = nf.parse(webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame)).doubleValue();
-		CapitalContienteAfter = nf.parse(webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame)).doubleValue();
-		CapitalTotalAseguradoAfter = nf.parse(webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame)).doubleValue();
+	public DetallesRiesgoPage GetValuesAfter() {
+		setTestVar(Constants.CAPITAL_CONTENIDO_DESPUES, webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame));
+		setTestVar(Constants.CAPITAL_CONTINENTE_DESPUES, webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame));
+		setTestVar(Constants.CAPITAL_TOTAL_DESPUES, webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame));
 		
 		return this;
 	}
 
 	public DetallesRiesgoPage CompareValues(String comparisonType, String modification) {
+		Double capitalContenidoBefore = Double.parseDouble(getTestVar(Constants.CAPITAL_CONTENIDO_ANTES));
+		Double capitalContenidoAfter = Double.parseDouble(getTestVar(Constants.CAPITAL_CONTENIDO_DESPUES));
+		Double capitalContinenteBefore = Double.parseDouble(getTestVar(Constants.CAPITAL_CONTINENTE_ANTES));
+		Double capitalContinenteAfter = Double.parseDouble(getTestVar(Constants.CAPITAL_CONTINENTE_DESPUES));
+		Double capitalTotalBefore = Double.parseDouble(getTestVar(Constants.CAPITAL_TOTAL_ANTES));
+		Double capitalTotalAfter = Double.parseDouble(getTestVar(Constants.CAPITAL_TOTAL_DESPUES));
+		
 		switch(comparisonType) {
 			case Constants.NotEqual:
-				if(CapitalContenidoBefore == CapitalContenidoAfter || CapitalContinenteBefore == CapitalContienteAfter
-					|| CapitalTotalAseguradoBefore == CapitalTotalAseguradoAfter) {
+				
+				
+				if(capitalContenidoBefore == capitalContenidoAfter 
+				|| capitalContinenteBefore == capitalContinenteAfter
+					|| capitalTotalBefore == capitalTotalAfter) {
 					setTestVar(Constants.ERROR_CAMBIO_CANTIDADES, "true");
 					setTestVar(Constants.MENSAJE_ERROR_CAMBIO_CANTIDADES, "El valor de las cantiadaes no ha variado en la pantalla "
 						+ "de detalles de riesgo despues de ," + modification);
@@ -732,8 +729,9 @@ public class DetallesRiesgoPage extends PageObject {
 
 				break;
 			case Constants.Equal:
-				if(CapitalContenidoBefore != CapitalContenidoAfter || CapitalContinenteBefore != CapitalContienteAfter
-					|| CapitalTotalAseguradoBefore != CapitalTotalAseguradoAfter) {
+				if(capitalContenidoBefore != capitalContenidoAfter 
+				|| capitalContinenteBefore != capitalContinenteAfter
+					|| capitalTotalBefore != capitalTotalAfter) {
 					setTestVar(Constants.ERROR_CAMBIO_CANTIDADES, "true");
 					setTestVar(Constants.MENSAJE_ERROR_CAMBIO_CANTIDADES, "El valor de las cantiadaes ha variado en la pantalla "
 						+ "de detalles de riesgo despues de ," + modification);

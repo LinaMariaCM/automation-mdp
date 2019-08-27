@@ -62,7 +62,7 @@ public class FichaEdificioPage extends PageObject {
 	private By tabPolizas = By.cssSelector("#pes1");
 	// endregion
 
-	FichaEdificioPage(UserStory userS) {
+	public FichaEdificioPage(UserStory userS) {
 		super(userS);
 	}
 
@@ -256,7 +256,7 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage buscarConFiltroBusqueda() {
 		debugBegin();
 
-		switch(Constants.FILTRO_BUSCADOR_EDIFICIO) {
+		switch(getTestVar(Constants.FILTRO_BUSCADOR_EDIFICIO)) {
 			case Constants.FILTRO_BUSCADOR_DIRECCION:
 				buscarEdificioDireccion();
 				break;

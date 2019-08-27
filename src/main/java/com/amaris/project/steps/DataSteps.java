@@ -172,7 +172,7 @@ public class DataSteps extends InteractionObject {
 				.selectMediadorAndClickOnContinuar();
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.seleccionarMediadorPorCodigo(getScenarioVar(Constants.ACCESO))
+				.SeleccionarMediadorPorCodigo(getScenarioVar(Constants.ACCESO))
 				.clickOnContinuarButton();
 		}
 
@@ -189,38 +189,30 @@ public class DataSteps extends InteractionObject {
 			.clickOnContinuar();
 
 		new PrecioPage(userS)
-			.clickOnConvertirAProjecto();
+			.ClickOnConvertirAProjecto();
 
 		new DatosBasicosTomadorPage(userS)
-			.fillTomadorData(getScenarioVar(Constants.TOMADOR))
+			.FillTomadorData(getScenarioVar(Constants.TOMADOR))
 			.clickOnContinuar();
 
 		new PrecioPorModalidadPage(userS)
-			.executeActionsInPrecioPorModalidadPage();
+			.ExecuteActionsInPrecioPorModalidadPage();
 
 		new ValidacionExcepcionesReglasPage(userS)
 			.clickOnContinuarButton();
 
 		new ClausulasPage(userS)
-			.activateclausesAndClickOnContinue();
+			.ActivateclausesAndClickOnContinue();
 
 		new TomadorYAseguradoPage(userS)
-			.addDatosTomador()
-			.addDatosTomadorDiferenteAsegurado()
+			.AddDatosTomador()
+			.AddDatosTomadorDiferenteAsegurado()
 			.clickOnContinuar();
 
 		new DatosBancariosPage(userS)
 			.introducirFormaPagoYPulsarGuardar();
 
-		debugInfo("El projecto con el codigo " + getScenarioVar(Constants.NUM_COTIZACION) + " se ha creado");
-		debugInfo("El nombre del tomador es: " + getScenarioVar(Constants.NOMBRE_TOMADOR));
-		debugInfo("El primer apellido del tomador es: " + getScenarioVar(Constants.PRIMER_APELLIDO_TOMADOR));
-		debugInfo("El segundo apellido del tomador es: " + getScenarioVar(Constants.SEGUNDO_APELLIDO_TOMADOR));
-		debugInfo("El dni del tomador es: " + getScenarioVar(Constants.DNI_TOMADOR));
-
-		if(getScenarioVar(Constants.NUM_POLIZA) != null) {
-			debugInfo("El numero de poliza es: %s" + getScenarioVar(Constants.NUM_POLIZA));
-		}
+		imprimir_informacion_del_proyecto();
 
 		debugEnd();
 	}
@@ -241,4 +233,15 @@ public class DataSteps extends InteractionObject {
 			.selectModalidad();
 	}
 
+	public void imprimir_informacion_del_proyecto() {
+		debugInfo("El projecto con el codigo " + getScenarioVar(Constants.NUM_COTIZACION) + " se ha creado");
+		debugInfo("El nombre del tomador es: " + getScenarioVar(Constants.NOMBRE_TOMADOR));
+		debugInfo("El primer apellido del tomador es: " + getScenarioVar(Constants.PRIMER_APELLIDO_TOMADOR));
+		debugInfo("El segundo apellido del tomador es: " + getScenarioVar(Constants.SEGUNDO_APELLIDO_TOMADOR));
+		debugInfo("El dni del tomador es: " + getScenarioVar(Constants.DNI_TOMADOR));
+
+		if(getScenarioVar(Constants.NUM_POLIZA) != null) {
+			debugInfo("El numero de poliza es: %s" + getScenarioVar(Constants.NUM_POLIZA));
+		}
+	}
 }

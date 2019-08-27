@@ -54,7 +54,7 @@ public class TomadorYAseguradoPage extends PageObject {
 	}
 
 	// region Methods
-	public TomadorYAseguradoPage addDatosTomador() {
+	public TomadorYAseguradoPage AddDatosTomador() {
 		debugBegin();
 
 		if(getTestVar(Constants.TOMADOR).equals(Constants.NuevoTomadorYAseguradoPrincipal)) {
@@ -191,7 +191,7 @@ public class TomadorYAseguradoPage extends PageObject {
 		return this;
 	}
 
-	public TomadorYAseguradoPage addDatosTomadorDiferenteAsegurado() {
+	public TomadorYAseguradoPage AddDatosTomadorDiferenteAsegurado() {
 		debugBegin();
 		
 		if(getTestVar(Constants.ASEGURADO_DIFERENTE_TOMADOR)

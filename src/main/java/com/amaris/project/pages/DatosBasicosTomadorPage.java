@@ -53,7 +53,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 	}
 
 	public DatosBasicosTomadorPage ExecuteActionsInPageTomadorYAseguradoPage(String tomadorType) throws Exception {
-		fillTomadorData(tomadorType);
+		FillTomadorData(tomadorType);
 		clickOnContinuar();
 
 		return this;
@@ -133,7 +133,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 		return this;
 	}
 
-	public DatosBasicosTomadorPage fillTomadorData(String tomadorType) throws Exception {
+	public DatosBasicosTomadorPage FillTomadorData(String tomadorType) throws Exception {
 		debugBegin();
 
 		switch(tomadorType) {

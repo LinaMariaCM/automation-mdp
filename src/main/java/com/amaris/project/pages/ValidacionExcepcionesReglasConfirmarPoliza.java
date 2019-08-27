@@ -13,12 +13,12 @@ public class ValidacionExcepcionesReglasConfirmarPoliza extends PageObject {
 	private By btnEmitirSuplemento = By.xpath(".//*[text()='Emitir suplemento' and @ng-click='db.contratar(formDatosBancarios)']");
 	// endregion
 
-	ValidacionExcepcionesReglasConfirmarPoliza(UserStory userS) {
+	public ValidacionExcepcionesReglasConfirmarPoliza(UserStory userS) {
 		super(userS);
 	}
 
 	// region methods
-	public void ClickOnContinuarButton() {
+	public ValidacionExcepcionesReglasConfirmarPoliza ClickOnContinuarButton() {
 		debugBegin();
 		// if
 		// (this.tData.getMotivosSuplemento().containsKey(MutuaPropietariosConstants.MotivoSuplementoInclusionExclusionDescuento)
@@ -33,7 +33,10 @@ public class ValidacionExcepcionesReglasConfirmarPoliza extends PageObject {
 		if(arePresent) {
 			webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		}
+
 		debugEnd();
+
+		return this;
 	}
 	// endregion
 }

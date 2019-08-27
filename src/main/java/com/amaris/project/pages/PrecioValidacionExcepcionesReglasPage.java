@@ -12,7 +12,7 @@ public class PrecioValidacionExcepcionesReglasPage extends PageObject {
 	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
 	// endregion
 
-	PrecioValidacionExcepcionesReglasPage(UserStory userS) {
+	public PrecioValidacionExcepcionesReglasPage(UserStory userS) {
 		super(userS);
 	}
 

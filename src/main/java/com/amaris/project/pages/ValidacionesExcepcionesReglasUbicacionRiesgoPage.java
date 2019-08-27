@@ -28,7 +28,7 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject
 	}
 
 	// region methods
-	public void ClickOnContinuarButton() {
+	public ValidacionesExcepcionesReglasUbicacionRiesgoPage ClickOnContinuarButton() {
 		debugBegin();
 
 		if(webDriver.isPresentInFrame(lblExistenProjectosSuplementoActivo, cuerpoFrame)) {
@@ -36,9 +36,11 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject
 		}
 
 		debugEnd();
+		
+		return this;
 	}
 
-	public void isUbicacionRiesgoUtilizada() {
+	public ValidacionesExcepcionesReglasUbicacionRiesgoPage isUbicacionRiesgoUtilizada() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);
@@ -53,6 +55,8 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject
 		Assert.assertNotEquals(Constants.UbicacionRiesgoYaUtilizadaError, identifyText, Constants.UbicacionRiesgoYaUtilizadaMsg);
 
 		debugEnd();
+		
+		return this;
 	}
 	// endregion
 }

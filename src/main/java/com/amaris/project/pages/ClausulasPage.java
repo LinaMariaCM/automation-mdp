@@ -55,7 +55,7 @@ public class ClausulasPage extends PageObject {
 	}
 
 	// region methods
-	public ClausulasPage activateclausesAndClickOnContinue() throws Exception {
+	public ClausulasPage ActivateclausesAndClickOnContinue() throws Exception {
 		activateClauses();
 		completarClausulaHipotecaria();
 		clickOnContinuar();

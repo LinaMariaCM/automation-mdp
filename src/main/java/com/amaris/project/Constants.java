@@ -206,6 +206,8 @@ public class Constants {
 	public static final String FILTRO_BUSCADOR_CLIENTE = "filtro_buscador_cliente";
 	public static final String FILTRO_BUSCADOR_EDIFICIO = "filtro_buscador_edificio";
 
+	public static final String GESTION_ONLINE_DISPONIBLE = "gestion_online_disponible";
+	
 	public static final String CLAUSULA = "clausula";
 	public static final String MODIFICAR_CLAUSULAS = "modificar_clausulas";
 	public static final String CLAUSULA_HIPOTECARIA = "clausula_hipotecaria";
@@ -244,8 +246,10 @@ public class Constants {
 	public static final String NOMBRE_TOMADOR = "nombre_tomador";
 	public static final String PRIMER_APELLIDO_TOMADOR = "primer_apellido_tomador";
 	public static final String SEGUNDO_APELLIDO_TOMADOR = "segundo_apellido_tomador";
+	public static final String HORARIO_ATENCION_FIJO_TOMADOR = "horario_atencion_fijo_tomador";
 	public static final String TELEFONO_FIJO_TOMADOR = "telefono_fijo_tomador";
 	public static final String PREFIJO_TELEFONO_FIJO_TOMADOR = "prefijo_telefono_fijo_tomador";
+	public static final String HORARIO_ATENCION_MOVIL_TOMADOR = "horario_atencion_movil_tomador";
 	public static final String TELEFONO_MOVIL_TOMADOR = "telefono_movil_tomador";
 	public static final String PREFIJO_TELEFONO_MOVIL_TOMADOR = "prefijo_telefono_movil_tomador";
 	public static final String EMAIL_TOMADOR = "email_tomador";
@@ -255,6 +259,7 @@ public class Constants {
 	public static final String PRIMER_APELLIDO_CLIENTE = "primer_apellido_cliente";
 	public static final String SEGUNDO_APELLIDO_CLIENTE = "segundo_apellido_cliente";
 
+	public static final String DOCUMENTO_EMPLEADO = "documento_empleado";
 	public static final String NOMBRE_EMPLEADO = "nombre_empleado";
 	public static final String PRIMER_APELLIDO_EMPLEADO = "primer_apellido_empleado";
 	public static final String SEGUNDO_APELLIDO_EMPLEADO = "segundo_apellido_empleado";
@@ -286,8 +291,15 @@ public class Constants {
 
 	public static final String CODIGO_POSTAL = "codigo_postal";
 	public static final String CAPITAL_CONTINENTE = "capital_continente";
+	public static final String CAPITAL_CONTINENTE_ANTES = "capital_continente_antes";
+	public static final String CAPITAL_CONTINENTE_DESPUES = "capital_continente_despues";
 	public static final String CAPITAL_CONTINENTE_VARIACION = "capital_continente_variacion";
 	public static final String CAPITAL_CONTENIDO = "capital_contenido";
+	public static final String CAPITAL_CONTENIDO_ANTES = "capital_contenido_antes";
+	public static final String CAPITAL_CONTENIDO_DESPUES = "capital_contenido_despues";
+	public static final String CAPITAL_TOTAL = "capital_total";
+	public static final String CAPITAL_TOTAL_ANTES = "capital_total_antes";
+	public static final String CAPITAL_TOTAL_DESPUES = "capital_total_despues";
 
 	public static final String CONSTRUIDO_MADERA = "construido_madera";
 	public static final String DESHABITACION = "deshabitacion";
@@ -365,7 +377,7 @@ public class Constants {
 	public static final String COBERTURA_MAQUINA_TIPO = "cob_opc_tipo_maquinaria";
 	public static final String COBERTURA_MAQUINA_VALOR = "cob_opc_valor_maquinaria";
 	public static final String COBERTURA_ACCIDENTES_EMPLEADOS_INCLUIDA = "cobertura_accidentes_empleados_incluida";
-	public static final String COBERTURA_ENERGIA_SOLAR_INCLUIDA = "cobertura_fotovoltaicas_incluida";
+	public static final String COBERTURA_ENERGIA_SOLAR_INCLUIDA = "cobertura_energia_solar_incluida";
 	public static final String COBERTURA_ENERGIA_SOLAR_TIPO = "cob_inst_energia_solar";
 	public static final String COBERTURA_ENERGIA_SOLAR_VALOR = "cob_inst_energia_solar_valor";
 
@@ -402,7 +414,7 @@ public class Constants {
 	public static final String ROL_CONTACTO = "contacto_rol";	
 	public static final String NOMBRE_CONTACTO = "contacto_nombre";	
 	public static final String APELLIDO_CONTACTO = "contacto_apellido";	
-	public static final String TELEFONO_CONTACTO = "contacto_telefono";	
+	public static final String TELEFONO_CONTACTO = "contacto_telefono";
 
 	public static final String PERSONA_FISICA = "Física";
 

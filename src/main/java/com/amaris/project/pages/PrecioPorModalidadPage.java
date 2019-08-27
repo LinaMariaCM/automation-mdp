@@ -108,7 +108,7 @@ public class PrecioPorModalidadPage extends PageObject {
 	}
 
 	// region methods
-	public PrecioPorModalidadPage executeActionsInPrecioPorModalidadPage() {
+	public PrecioPorModalidadPage ExecuteActionsInPrecioPorModalidadPage() {
 		debugBegin();
 
 		Steps.waitForIt(webDriver);

@@ -32,7 +32,7 @@ public class MensajeConfirmacionPage extends PageObject {
 	String xpathRowLinkDescriptionFilter = ".//td[2]";
 	// endregion
 
-	MensajeConfirmacionPage(UserStory userS) {
+	public MensajeConfirmacionPage(UserStory userS) {
 		super(userS);
 	}
 

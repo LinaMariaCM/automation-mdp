@@ -19,7 +19,7 @@ public class MediadoresHomePage extends PageObject {
 	private By btnRecepcion = By.xpath(".//*[contains(@title,'Recepción')");
 	// endregion
 
-	MediadoresHomePage(UserStory userS) {
+	public MediadoresHomePage(UserStory userS) {
 		super(userS);
 	}
 
