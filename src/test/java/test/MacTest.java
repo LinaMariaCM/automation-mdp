@@ -126,7 +126,7 @@ public class MacTest extends TestObject {
 
 			steps.cierro_navegador();
 
-			steps.completo_el_proceso_de_contratacion_MAC(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.completo_el_proceso_de_contratacion_usando_el_acceso_y_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 
 			checkSteps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
 
