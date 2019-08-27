@@ -101,6 +101,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		debugInfo("Aprellido inquilino: " + getScenarioVar(Constants.PRIMER_APELLIDO_INQUILINO));
 		webDriver.setText(txtPrimerApellido, getScenarioVar(Constants.PRIMER_APELLIDO_INQUILINO));
 
+
 		debugInfo("Documento inquilino: " + getScenarioVar(Constants.DOCUMENTO_INQUILINO));
 		webDriver.setText(txtDocumento, getScenarioVar(Constants.DOCUMENTO_INQUILINO));
 

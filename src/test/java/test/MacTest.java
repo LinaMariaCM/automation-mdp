@@ -44,14 +44,14 @@ public class MacTest extends TestObject {
 
 			steps.enviar_el_proyecto_a_la_compania();
 
-			steps.cerrar_navegador();
+			steps.cierro_navegador();
 
 			steps.login_y_autorizar_el_proyecto_MAC(userS.getScenarioVar(Constants.ACCESO_AUTORIZADO), userS.getScenarioVar(Constants.USUARIO_AUTORIZADO));
 
-			steps.cerrar_navegador();
+			steps.cierro_navegador();
 
-			steps.completo_el_proceso_de_contratacion_MAC(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
-
+			steps.completo_el_proceso_de_contratacion_usando_el_acceso_y_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			
 			checkSteps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
 
 			return null;
@@ -120,13 +120,13 @@ public class MacTest extends TestObject {
 
 			steps.enviar_el_proyecto_a_la_compania();
 
-			steps.cerrar_navegador();
+			steps.cierro_navegador();
 
 			steps.login_y_autorizar_el_proyecto_MAC(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 
-			steps.cerrar_navegador();
+			steps.cierro_navegador();
 
-			steps.completo_el_proceso_de_contratacion_MAC(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.completo_el_proceso_de_contratacion_usando_el_acceso_y_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 
 			checkSteps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
 
