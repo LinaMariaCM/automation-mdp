@@ -67,7 +67,7 @@ public class UbicacionRiesgoPage extends PageObject {
 	public UbicacionRiesgoPage fillInmuebleAndClickOnContinue() {
 		addInmueble(getScenarioVar(Constants.INMUEBLE));
 		clickOnContinuar();
-
+		
 		return this;
 	}
 

@@ -1393,7 +1393,7 @@ public class ActionSteps extends InteractionObject {
 			|| loginAcess.equals(Constants.LoginAccessInnova)) {
 			login(loginAcess, user);
 			crear_simulacion();
-
+			
 			String mediador = getScenarioVar(Constants.MEDIADOR);
 			if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
 				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
@@ -1403,6 +1403,7 @@ public class ActionSteps extends InteractionObject {
 				asignarMediadorPage.SeleccionarMediadorPorCodigo(getScenarioVar(Constants.MEDIADOR));
 				asignarMediadorPage.clickOnContinuarButton();
 			}
+			
 
 			UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
 			ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
@@ -1412,6 +1413,7 @@ public class ActionSteps extends InteractionObject {
 			new DetallesRiesgoPage(userS)
 				// .executeActionsInPageDetallesRiesgoPage();
 				.completarDatosEnDetallesRiesgo();
+			
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).clickOnContinuar();
 

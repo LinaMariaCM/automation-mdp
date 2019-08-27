@@ -451,6 +451,7 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
@@ -461,12 +462,685 @@ public class MecTest extends TestObject {
 
 		userS.testActions(() -> {
 			
-			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_y_guardo_sin_contratar_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.doy_de_alta_una_simulacion_y_la_convierto_a_un_proyecto_y_la_guardo_sin_contratar_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			// TODO: cambio el medio de pago a "cambio_medio_pago"
+			steps.modifico_la_cotización(userS.getScenarioVar(Constants.CAMBIO_ACCESO), userS.getScenarioVar(Constants.CAMBIO_USUARIO));
+			checkSteps.la_cotizacion_se_actualiza_correctamente();
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec19() {
+		String testCase = Constants.MEC + "19";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec19")
+	public void mec19(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			steps.agrego_un_suplemento();
+			// TODO: cambio el número de edificios a "cambio_num_edificios"
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNEdificios);
+			steps.emito_un_suplemento_general_con_motivo(Constants.MotivoSuplementoModificacionNEdificios);
+			checkSteps.la_cotizacion_se_actualiza_correctamente();
+			checkSteps.la_copia_tomador_deberia_tener_los_nuevos_datos();
 			
 			return null;
 		}).run();
 	}
 	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec20() {
+		String testCase = Constants.MEC + "20";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	
+	@Test(dataProvider = "dataProviderMec20")
+	public void mec20(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			steps.agrego_un_suplemento();
+			// TODO: cambio el número de viviendas a "cambio_num_viviendas"
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNViviendas);
+			steps.emito_un_suplemento_general_con_motivo(Constants.MotivoSuplementoModificacionNViviendas);
+			checkSteps.la_copia_tomador_deberia_tener_los_nuevos_datos();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec21() {
+		String testCase = Constants.MEC + "21";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec21")
+	public void mec21(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			steps.agrego_un_suplemento();
+			// TODO: cambio el número de viviendas a "cambio_num_locales"
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNLocales);
+			steps.emito_un_suplemento_general_con_motivo(Constants.MotivoSuplementoModificacionNLocales);
+			checkSteps.la_copia_tomador_deberia_tener_los_nuevos_datos();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec23() {
+		String testCase = Constants.MEC + "23";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec23")
+	public void mec23(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			steps.agrego_un_suplemento();
+			// TODO: cambio el número de edificios a "cambio_num_edificios"
+			// TODO: cambio el número de viviendas a "cambio_num_viviendas"
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNEdificios);
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNViviendas);
+			steps.emito_un_suplemento_general_con_motivo(Constants.MotivoSuplementoModificacionNEdificios);
+			checkSteps.la_copia_tomador_deberia_tener_los_nuevos_datos();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec24() {
+		String testCase = Constants.MEC + "24";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec24")
+	public void mec24(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			steps.agrego_un_suplemento();
+			// TODO: cambio el número de edificios a "cambio_num_edificios"
+			// TODO: cambio el número de locales a "cambio_num_locales"
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNEdificios);
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNLocales);
+			steps.emito_un_suplemento_general_con_motivo(Constants.MotivoSuplementoModificacionNEdificios);
+			checkSteps.la_copia_tomador_deberia_tener_los_nuevos_datos();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec25() {
+		String testCase = Constants.MEC + "25";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec25")
+	public void mec25(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			steps.agrego_un_suplemento();
+			// TODO: cambio el número de edificios a "cambio_num_edificios"
+			// TODO: cambio el número de viviendas a "cambio_num_locales"
+			// TODO: cambio el número de viviendas a "cambio_num_viviendas"
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNEdificios);
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNLocales);
+			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNViviendas);
+			steps.emito_un_suplemento_general_con_motivo(Constants.MotivoSuplementoModificacionNEdificios);
+			checkSteps.la_copia_tomador_deberia_tener_los_nuevos_datos();
+			
+			return null;
+		}).run();
+	}
+	
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec35() {
+		String testCase = Constants.MEC + "35";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec35")
+	public void mec35(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec36() {
+		String testCase = Constants.MEC + "36";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	
+	@Test(dataProvider = "dataProviderMec36")
+	public void mec36(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec38() {
+		String testCase = Constants.MEC + "38";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec38")
+	public void mec38(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMecConPer01() {
+		String testCase = Constants.MEC_CON_PER + "01";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMecConPer01")
+	public void mecconper01(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.continuo_en_detalles_riesgo();
+			checkSteps.aparece_aviso(Constants.AvisoPeritajePlantasSotano);
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMecConPer02() {
+		String testCase = Constants.MEC_CON_PER + "02";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMecConPer02")
+	public void mecconper02(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			// TODO: cambio el año construcción a "construccion_edificio"
+			steps.continuo_en_detalles_riesgo();
+			checkSteps.aparece_aviso(Constants.AvisoPeritajeAntiguead);
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMecConPer04() {
+		String testCase = Constants.MEC_CON_PER + "04";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMecConPer04")
+	public void mecconper04(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.modifico_el_capital_continente_a(Constants.CAPITAL_16M);
+			steps.continuo_en_detalles_riesgo();
+			checkSteps.aparece_aviso(Constants.AvisoPeritajeCapitalContinente);
+			
+			return null;
+		}).run();
+	}
+	
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMecMotSupGen20() {
+		String testCase = Constants.MEC_MOT_SUP_GEN + "20";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMecMotSupGen20")
+	public void mecmotsupgen20(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+		userS.testActions(() -> {
+			
+			steps.emito_un_suplemento_general_con_motivo(Constants.AvisoModificacionAnyoRehabilitacion);
+			checkSteps.la_poliza_muestra_en_la_pestanya(Constants.PolizaDetailYearAndRehabilitationLevel, Constants.DATOS_RIESGO);
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMecParRetSim23() {
+		String testCase = Constants.MEC_PAR_RET_SIM + "23";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMecParRetSim23")
+	public void mecparretsim23(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			// TODO: Y selecciono como número de plantas de sotano "num_plantas_sotano"
+			steps.continuo_en_detalles_riesgo();
+			checkSteps.aparece_aviso(Constants.AvisoPlantasSotanoGreaterThan10);
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMecParRetPro23() {
+		String testCase = Constants.MEC_PAR_RET_PRO + "23";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMecParRetPro23")
+	public void mecparretpro23(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			// TODO: Y selecciono como número de plantas de sotano "num_plantas_sotano"
+			steps.continuo_en_detalles_riesgo();
+			checkSteps.aparece_aviso(Constants.AvisoPlantasSotanoGreaterThan10);
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec94() {
+		String testCase = Constants.MEC + "94";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec94")
+	public void mec94(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_un_projecto_que_llega_hasta_la_pantalla_de_datos_básicos_del_tomador_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO)); // TODO: version MEC
+			// TODO: selecciono como tomador "tomador"
+			// TODO: continuo en datos básicos del tomador
+			checkSteps.aparece_aviso(Constants.AvisoComunidadesEnTramite);
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec95() {
+		String testCase = Constants.MEC + "95";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec95")
+	public void mec95(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_un_projecto_que_llega_hasta_la_pantalla_de_datos_básicos_del_tomador_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO)); // TODO: version MEC
+			// TODO: selecciono como tomador "tomador"
+			// TODO: continuo en datos básicos del tomador
+			checkSteps.aparece_aviso(Constants.AvisoComunidadesEnTramite);
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec101() {
+		String testCase = Constants.MEC + "101";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec101")
+	public void mec101(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			checkSteps.el_valor_de_los_capitales_varia();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec102() {
+		String testCase = Constants.MEC + "102";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec102")
+	public void mec102(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			// TODO: aparece un mensaje de error y los campos deshabilitación y edificio madera aparecen resaltados en rojo
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec103() {
+		String testCase = Constants.MEC + "103";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec103")
+	public void mec103(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			// TODO: aparece un mensaje indicando que se va a crear un infraseguro
+			// TODO: aparece una clausula adicional
+			
+			return null;
+		}).run();
+	}
 
 	@AfterSuite
 	public void afterSuite() {
