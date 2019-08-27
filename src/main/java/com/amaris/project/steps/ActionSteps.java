@@ -350,12 +350,6 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void cerrar_navegador() {
-		debugBegin();
-		userS.getWebDriver().quit();
-		debugEnd();
-	}
-
 	public void login_y_autorizar_el_proyecto_MAC(String loginAccess, String user) throws Exception {
 		debugBegin();
 		login(loginAccess, user);
@@ -371,15 +365,24 @@ public class ActionSteps extends InteractionObject {
 		login(accessType, user);
 
 		if(accessType.equals(Constants.LoginAccessGestionLine)) {
-
-			new GestionOnlineHomePage(userS).openMisProyectosWeb().buscarProyectoWeb(getTestVar(Constants.NUM_COTIZACION));
-			new GestionOnlineHomePage(userS).modificarProyecto();
-
+			new GestionOnlineHomePage(userS)
+				.openMisProyectosWeb()
+				.buscarProyectoWeb(getTestVar(Constants.NUM_COTIZACION));
+			
+			new GestionOnlineHomePage(userS)
+				.modificarProyecto();
 		} else if(accessType.equals(Constants.LoginAccessInnova)) {
-			new InnovaHomePage(userS).openGestionCotizaciones();
-			new GestionCotizacionesBuscadorPage(userS).searchCotizacion(getTestVar(Constants.NUM_COTIZACION));
-			new GestionCotizacionesBuscadorPage(userS).modificarProjecto();
-			new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
+			new InnovaHomePage(userS)
+				.openGestionCotizaciones();
+			
+			new GestionCotizacionesBuscadorPage(userS)
+				.searchCotizacion(getTestVar(Constants.NUM_COTIZACION));
+			
+			new GestionCotizacionesBuscadorPage(userS)
+				.modificarProjecto();
+			
+			new AsignarMediadorPage(userS)
+				.SelectMediadorMACAndClickOnContinuar();
 		}
 
 		new PrecioPorModalidadPage_MAC(userS).clickContinuar();

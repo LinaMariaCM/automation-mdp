@@ -49,6 +49,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -524,11 +525,13 @@ public class DriverHelper {
 			switch(browserType) {
 				case BrowserType.FIREFOX:
 					driverFolders = new File(mavenWindowsPath + "geckodriver/win64").list();
+					Arrays.sort(driverFolders);
 					System.setProperty("webdriver.gecko.driver", mavenWindowsPath + "geckodriver/win64/" + driverFolders[driverFolders.length - 1] + "/geckodriver.exe");
 					break;
 				case BrowserType.CHROME:
 				default:
 					driverFolders = new File(mavenWindowsPath + "chromedriver/win32").list();
+					Arrays.sort(driverFolders);
 					System.setProperty("webdriver.chrome.driver", mavenWindowsPath + "chromedriver/win32/" + driverFolders[driverFolders.length - 1] + "/chromedriver.exe");
 					break;
 			}
@@ -548,11 +551,13 @@ public class DriverHelper {
 			switch(browserType) {
 				case BrowserType.FIREFOX:
 					driverFolders = new File(mavenLinuxPath + "geckodriver/linux64").list();
+					Arrays.sort(driverFolders);
 					System.setProperty("webdriver.gecko.driver", mavenLinuxPath + "geckodriver/linux64/" + driverFolders[driverFolders.length - 1] + "/geckodriver");
 					break;
 				case BrowserType.CHROME:
 				default:
 					driverFolders = new File(mavenLinuxPath + "chromedriver/linux64").list();
+					Arrays.sort(driverFolders);
 					System.setProperty("webdriver.chrome.driver", mavenLinuxPath + "chromedriver/linux64/" + driverFolders[driverFolders.length - 1] + "/chromedriver");
 					break;
 			}
@@ -716,6 +721,20 @@ public class DriverHelper {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
+	private void setDriverSettingWithConfigData(AndroidDriver driver, Setting settingType, String variable) {
+		if(configData.getValue(variable) != null) {
+			String value = configData.getValue(variable);
+
+			if(value.matches("-?(0|[1-9]\\d*)")) {
+				driver.setSetting(settingType, Integer.parseInt(value));
+			} else {
+				driver.setSetting(settingType, configData.getValue(value));
+			}
+		}
+	}
+
+	@SuppressWarnings("rawtypes")
 	private WebDriver createAppDriver(URL hubUrl) {
 		WebDriver appDriver = null;
 
@@ -731,8 +750,14 @@ public class DriverHelper {
 			setCapabilityWithConfigData(MobileCapabilityType.LANGUAGE, AutomationConstants.MOBILE_LANGUAGE);
 			capabilities.setCapability(AndroidMobileCapabilityType.AUTO_GRANT_PERMISSIONS, true);
 
+			setCapabilityWithConfigData("unicodeKeyboard", "unicodeKeyboard");
+			setCapabilityWithConfigData("resetKeyboard", "resetKeyboard");
+
+			setCapabilityWithConfigData("appium:disableWindowAnimation", "disableWindowAnimation");
+
 			setCapabilityWithConfigData(MobileCapabilityType.LOCALE, "app_locale");
 			setCapabilityWithConfigData(MobileCapabilityType.FULL_RESET, "android_full_reset");
+			setCapabilityWithConfigData(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "newCommandTimeout");
 
 			if(androidEmulator) {
 				logger.info("Android Emulator detected.");
@@ -745,6 +770,8 @@ public class DriverHelper {
 
 			logger.info("Initializing Android driver on hub: " + hubUrl);
 			appDriver = new AndroidDriver<WebElement>(hubUrl, capabilities);
+
+			setDriverSettingWithConfigData((AndroidDriver) appDriver, Setting.WAIT_FOR_IDLE_TIMEOUT, "waitForIdleTimeout");
 		} else { // iOS
 			capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
 			capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME, Platform.IOS);
@@ -1003,15 +1030,15 @@ public class DriverHelper {
 				driver.manage().window().maximize();
 			} else if(capabilities.getCapability(AutomationConstants.PLATFORM_NAME) != null && capabilities.getCapability(AutomationConstants.PLATFORM_NAME).equals("iOS")
 				&& driver != null) {
-					java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+				java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-					// TODO: Selenium bug transforms 0 and 1 to boolean, change to 0, 0 when fixed
-					Point position = new Point(2, 2);
-					driver.manage().window().setPosition(position);
+				// TODO: Selenium bug transforms 0 and 1 to boolean, change to 0, 0 when fixed
+				Point position = new Point(2, 2);
+				driver.manage().window().setPosition(position);
 
-					Dimension maximizedScreenSize = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
-					driver.manage().window().setSize(maximizedScreenSize);
-				}
+				Dimension maximizedScreenSize = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
+				driver.manage().window().setSize(maximizedScreenSize);
+			}
 		} catch(Exception e) {
 			logger.error("Exception maximizing window" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
 		}
@@ -1094,7 +1121,7 @@ public class DriverHelper {
 		switchToFrame(frame);
 		List<WebElement> result = getElements(by);
 		exitFrame();
-		
+
 		return result;
 	}
 
@@ -1421,6 +1448,42 @@ public class DriverHelper {
 			} catch(WebDriverException e) {
 				try {
 					new Actions(driver).moveToElement(el).click().perform();
+				} catch(Exception e1) {
+					logger.error("Element not found");
+					logger.printStackTrace(e);
+
+					throw e;
+				}
+
+			}
+		}
+
+		waitForLoadToComplete();
+		takeScreenshotWithCondition();
+		logger.end();
+	}
+
+	@SuppressWarnings("rawtypes")
+	public void clickRelativePosition(double widthPer, double heightPer) {
+		logger.begin();
+
+		waitForLoadToComplete();
+
+		if(driverType.equals(AutomationConstants.MOBILE_APP)) {
+			@SuppressWarnings("unchecked")
+			AppiumDriver<WebElement> appDriver = (AppiumDriver<WebElement>) driver;
+
+			new TouchAction(appDriver).press(PointOption.point((int) (getWindowSize().getWidth() * heightPer), (int) (getWindowSize().getHeight() * heightPer))).release().perform();
+		} else if(browserType != null && browserType.equals(BrowserType.INTERNET_EXPLORER)) {
+			new Actions(driver).moveByOffset((int) (getWindowSize().getWidth() * heightPer), (int) (getWindowSize().getHeight() * heightPer)).click().perform();
+		} else {
+			try {
+				((JavascriptExecutor) driver).executeScript("document.elementFromPoint("
+					+ getWindowSize().getWidth() + " * " + widthPer + "), "
+					+ getWindowSize().getHeight() + " * " + heightPer + ")).click();");
+			} catch(WebDriverException e) {
+				try {
+					new Actions(driver).moveByOffset((int) (getWindowSize().getWidth() * heightPer), (int) (getWindowSize().getHeight() * heightPer)).click();
 				} catch(Exception e1) {
 					logger.error("Element not found");
 					logger.printStackTrace(e);
@@ -2731,11 +2794,11 @@ public class DriverHelper {
 
 	public boolean isSelectedInFrame(By webElement, By frame) {
 		boolean result = false;
-		
+
 		switchToFrame(frame);
 		result = isSelected(webElement);
 		exitFrame();
-		
+
 		return result;
 	}
 
@@ -2816,11 +2879,11 @@ public class DriverHelper {
 
 	public boolean isClickableInFrame(By by, By frame) {
 		boolean result = false;
-		
+
 		switchToFrame(frame);
 		result = isClickable(by);
 		exitFrame();
-		
+
 		return result;
 	}
 

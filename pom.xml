@@ -59,7 +59,7 @@
 		<dependency>
 			<groupId>io.github.bonigarcia</groupId>
 			<artifactId>webdrivermanager</artifactId>
-			<version>3.6.0</version>
+			<version>3.6.2</version>
 		</dependency>
 		<dependency>
 			<groupId>net.lightbody.bmp</groupId>
@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>3.3.0</version>
+			<version>4.0.0</version>
 		</dependency>
 		<dependency>
 		    <groupId>com.google.code.gson</groupId>
@@ -94,21 +94,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20</version>
+				<version>3.0.0-M3</version>
 				<configuration>
+					<argLine>-Dfile.encoding=UTF-8 -Xmx2g</argLine>
 					<suiteXmlFiles>
 						<suiteXmlFile>src/test/java/testng.xml</suiteXmlFile>
 					</suiteXmlFiles>
-					<useSystemClassLoader>false</useSystemClassLoader>
 					<skip>false</skip>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
+				<version>3.8.1</version>
 				<configuration>
-					<argLine>-Xmx1500m</argLine>
 					<source>1.${java.version}</source>
 					<target>1.${java.version}</target>
 					<compilerArguments>
