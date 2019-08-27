@@ -21,9 +21,9 @@ import com.amaris.project.pages.MensajeConfirmacionPage;
 import com.amaris.project.pages.PrecioPorModalidadPage_MAC;
 import com.amaris.project.pages.ValidacionExcepcionesReglasDetallesRiesgoPage;
 
-public class ChecksSteps extends InteractionObject {
+public class CheckSteps extends InteractionObject {
 
-	public ChecksSteps(UserStory userS) {
+	public CheckSteps(UserStory userS) {
 		super(userS);
 	}
 
@@ -101,9 +101,8 @@ public class ChecksSteps extends InteractionObject {
 	}
 
 	public void aparece_aviso(String aviso) throws Exception {
-		ValidacionExcepcionesReglasDetallesRiesgoPage validacionDetallesRiesgoPage = new ValidacionExcepcionesReglasDetallesRiesgoPage(userS);
-
 		boolean check = false;
+		ValidacionExcepcionesReglasDetallesRiesgoPage validacionDetallesRiesgoPage = new ValidacionExcepcionesReglasDetallesRiesgoPage(userS);
 
 		switch(aviso) {
 			case Constants.AvisoPeritajeAntiguead:
