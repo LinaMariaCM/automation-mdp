@@ -211,7 +211,7 @@ public class MecTest extends TestObject {
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
-			steps.cerrar_navegador();
+			steps.cierro_navegador();
 			steps.lo_consulto_en_el_buscador_de_cotizaciones(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.el_campo_cotización_contiene_el_valor_del_codigo_de_cotizacion();
 
@@ -334,7 +334,7 @@ public class MecTest extends TestObject {
 
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			
-			steps.cerrar_navegador();
+			steps.cierro_navegador();
 			
 			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
 			
@@ -400,7 +400,7 @@ public class MecTest extends TestObject {
 			
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			
-			steps.cerrar_navegador();
+			steps.cierro_navegador();
 			
 			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
 			
