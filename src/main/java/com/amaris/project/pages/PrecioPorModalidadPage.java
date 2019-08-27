@@ -12,7 +12,7 @@ import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 //import com.mutuaPropietarios.WebdriverContext.BrowserContext;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.DniGeneratorHelper;
 //import com.mutuaPropietarios.WebdriverContext.Helpers.WebElementHelper;
@@ -111,13 +111,13 @@ public class PrecioPorModalidadPage extends PageObject {
 	public PrecioPorModalidadPage ExecuteActionsInPrecioPorModalidadPage() {
 		debugBegin();
 
-		Steps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver);
 		seleccionarModalidad();
 		completarCoberturaPorMaquinaria();
 		completarCoberturasEmpleados();
 		completarCoberturasEnergiaSolar();
 		completarFranquiciaVoluntaria();
-		Steps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver);
 		completarOQuitarDescuentoRecargo();
 		clickOnContinuar();
 
@@ -303,8 +303,8 @@ public class PrecioPorModalidadPage extends PageObject {
 	public PrecioPorModalidadPage completarOQuitarDescuentoRecargo() {
 		debugBegin();
 
-		Steps.waitForIt(webDriver);
-		Steps.waitForIt(webDriver, lblPorcentajeDescuentoPantallaPrincipal);
+		ActionSteps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver, lblPorcentajeDescuentoPantallaPrincipal);
 
 		webDriver.clickInFrame(lnkMostrarDescuento, cuerpoFrame);
 		String descuentoValue = webDriver.getTextInFrame(lblPorcentajeDescuentoPantallaPrincipal, cuerpoFrame);

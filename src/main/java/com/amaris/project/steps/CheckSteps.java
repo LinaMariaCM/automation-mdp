@@ -62,11 +62,11 @@ public class CheckSteps extends InteractionObject {
 		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			// For the time being we check that the policy appears correctly in Innov@, but this should be changed to
 			// check the policy in GO.
-			new Steps(userS).login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
+			new ActionSteps(userS).login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) {
 			// Here we check if the policy created in GO appears correctly in Innov@
 			// Login
-			new Steps(userS).login(getScenarioVar(Constants.CAMBIO_ACCESO), getScenarioVar(Constants.USUARIO));
+			new ActionSteps(userS).login(getScenarioVar(Constants.CAMBIO_ACCESO), getScenarioVar(Constants.USUARIO));
 		}
 
 		new InnovaHomePage(userS).OpenGestionPolizas();
@@ -278,7 +278,7 @@ public class CheckSteps extends InteractionObject {
 
 		debugInfo("Valor accesoAuth: " + getScenarioVar(Constants.ACCESO_AUTORIZADO));
 
-		new Steps(userS).login(getScenarioVar(Constants.ACCESO_AUTORIZADO), getScenarioVar(Constants.USUARIO_AUTORIZADO));
+		new ActionSteps(userS).login(getScenarioVar(Constants.ACCESO_AUTORIZADO), getScenarioVar(Constants.USUARIO_AUTORIZADO));
 
 		// Abrir la busqueda de autorizaciones
 		new InnovaHomePage(userS).OpenGestionAutorizaciones();

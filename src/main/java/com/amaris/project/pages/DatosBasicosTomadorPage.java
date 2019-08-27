@@ -7,7 +7,7 @@ import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 public class DatosBasicosTomadorPage extends PageObject {
 
@@ -160,7 +160,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 				System.out.println("\n");
 				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
-				Steps.waitForIt(webDriver);
+				ActionSteps.waitForIt(webDriver);
 
 				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDocumento, cuerpoFrame, Constants.NIF);
 				setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());

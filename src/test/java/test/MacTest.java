@@ -6,7 +6,7 @@ import com.amaris.automation.model.testing.objects.TestObject;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.CheckSteps;
 import com.amaris.project.steps.DataSteps;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -27,14 +27,14 @@ public class MacTest extends TestObject {
 	@Test(dataProvider = "dataProviderMac01")
 	public void mac01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			// steps.crear_un_proyecto_MAC(userS.getScenarioVar(Constants.ACCESO),
@@ -70,13 +70,13 @@ public class MacTest extends TestObject {
 	@Test(dataProvider = "dataProviderMac01a")
 	public void mac01a(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -102,14 +102,14 @@ public class MacTest extends TestObject {
 	public void mac01b(String testCase, String id) throws Exception {
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 
@@ -162,14 +162,14 @@ public class MacTest extends TestObject {
 		 */
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 
@@ -198,14 +198,14 @@ public class MacTest extends TestObject {
 	public void mac03(String testCase, String id) throws Exception {
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -229,14 +229,14 @@ public class MacTest extends TestObject {
 	@Test(dataProvider = "dataProviderMac04")
 	public void mac04(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -263,14 +263,14 @@ public class MacTest extends TestObject {
 		// Estudio denegado por rentas de inquilino asalariado
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -294,14 +294,14 @@ public class MacTest extends TestObject {
 		// Estudio denegado por rentas de inquilino autonomo
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -326,14 +326,14 @@ public class MacTest extends TestObject {
 		// Estudio denegado por rentas de inquilino artista
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -356,14 +356,14 @@ public class MacTest extends TestObject {
 		// Estudio denegado por rentas de inquilino becario
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 
@@ -389,7 +389,7 @@ public class MacTest extends TestObject {
 		// Estandar + Renta > 3000€
 
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		DataSteps dataSteps = new DataSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
@@ -397,7 +397,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			dataSteps.se_inicia_un_proyecto_con_modalidad();
@@ -423,7 +423,7 @@ public class MacTest extends TestObject {
 	@Test(dataProvider = "dataProviderMac10")
 	public void mac10(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		DataSteps dataSteps = new DataSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
@@ -431,7 +431,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + Steps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			dataSteps.se_inicia_un_proyecto_con_modalidad();

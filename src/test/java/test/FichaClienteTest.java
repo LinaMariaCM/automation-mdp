@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.project.Constants;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 import com.amaris.project.steps.DataSteps;
 
 public class FichaClienteTest {
@@ -29,7 +29,7 @@ public class FichaClienteTest {
 	public void altaCliente(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 		DataSteps dataSteps = new DataSteps(userS);
 
 
@@ -49,7 +49,7 @@ public class FichaClienteTest {
 	@Test(dataProvider = "dataProviderAltaCliente")
 	public void emitirMarca(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 			steps.login("Innova", "mcena");

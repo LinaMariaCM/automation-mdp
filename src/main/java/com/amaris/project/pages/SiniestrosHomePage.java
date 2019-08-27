@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 public class SiniestrosHomePage extends PageObject {
 
@@ -29,7 +29,7 @@ public class SiniestrosHomePage extends PageObject {
 	public SiniestrosHomePage openAperturaAlta() {
 		debugBegin();
 		webDriver.clickInFrame(btnAperturaAlta, menuFrame);
-		Steps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 		
 		return this;

@@ -2,7 +2,7 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
 
@@ -170,7 +170,7 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		webDriver.clickInFrame(grupoCausasAccidentes, cuerpoFrame);
 		webDriver.clickInFrame(tipoCausasAccidentes, cuerpoFrame);
 
-		Steps.waitForIt(webDriver, txtDescripcionSiniestro);
+		ActionSteps.waitForIt(webDriver, txtDescripcionSiniestro);
 		webDriver.waitWithDriver(3000);
 		webDriver.appendTextInFrame(txtDescripcionSiniestro, cuerpoFrame, pulp);
 		webDriver.waitWithDriver(3000);
@@ -178,7 +178,7 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		webDriver.clickInFrame(rdbtnImplicadosNo, cuerpoFrame);
 		webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-		Steps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver);
 
 		debugEnd();
 		

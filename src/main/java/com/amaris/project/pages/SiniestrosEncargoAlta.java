@@ -2,7 +2,7 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
 
@@ -43,7 +43,7 @@ public class SiniestrosEncargoAlta extends PageObject {
 	public SiniestrosEncargoAlta clickNuevoEncargo() {
 		debugBegin();
 		webDriver.click(anadirNuevoEncargoBtn);
-		Steps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 		
 		return this;
@@ -52,7 +52,7 @@ public class SiniestrosEncargoAlta extends PageObject {
 	public SiniestrosEncargoAlta clickContinuar() {
 		debugBegin();
 		webDriver.click(continuarBtn);
-		Steps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 		
 		return this;

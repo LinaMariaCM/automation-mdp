@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.project.Constants;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 public class SiniestrosTest {
 
@@ -25,7 +25,7 @@ public class SiniestrosTest {
 	@Test(dataProvider = "dataProviderSiniestrosMec01")
 	public void siniestrosMec01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		// userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv",
 		// "fichero_referencias");

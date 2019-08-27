@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.project.Constants;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 public class SiniestrosAltaGOLTest {
 
@@ -26,7 +26,7 @@ public class SiniestrosAltaGOLTest {
 
 	public void siniestrosAlta510(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 			steps.login("GOL", "640");
@@ -50,7 +50,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta500(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -74,7 +74,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta400(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -98,7 +98,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta200(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -123,7 +123,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta920(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -147,7 +147,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta900(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -171,7 +171,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta660(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -195,7 +195,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta600(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -219,7 +219,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta610(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -244,7 +244,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta630(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
@@ -269,7 +269,7 @@ public class SiniestrosAltaGOLTest {
 
 		public void siniestrosAlta640(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
+			ActionSteps steps = new ActionSteps(userS);
 
 			userS.testActions(() -> {
 				steps.login("GOL", "640");

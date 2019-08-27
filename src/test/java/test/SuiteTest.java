@@ -8,7 +8,7 @@ import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
 import com.amaris.project.Constants;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 
 public class SuiteTest extends TestObject {
@@ -27,7 +27,7 @@ public class SuiteTest extends TestObject {
 	@Test(dataProvider = "dataProviderMec01")
 	public void mec01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 			

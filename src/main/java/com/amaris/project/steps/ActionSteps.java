@@ -25,9 +25,9 @@ import com.amaris.project.utils.MotivosSuplementoHelper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
 
-public class Steps extends InteractionObject {
+public class ActionSteps extends InteractionObject {
 
-	public Steps(UserStory userStory) {
+	public ActionSteps(UserStory userStory) {
 		super(userStory);
 	}
 

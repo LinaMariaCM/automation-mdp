@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 public class GestionPolizasBuscadorPage extends PageObject {
 
@@ -47,7 +47,7 @@ public class GestionPolizasBuscadorPage extends PageObject {
 		webDriver.setTextInFrame(inputNumeroPoliza, cuerpoFrame, numPoliza);
 		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
-		Steps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver);
 
 		debugEnd();
 

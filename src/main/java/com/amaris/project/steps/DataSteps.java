@@ -164,7 +164,7 @@ public class DataSteps extends InteractionObject {
 	public void el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar(String loginAcess, String user) throws Exception {
 		debugBegin();
 
-		new Steps(userS).login(loginAcess, user);
+		new ActionSteps(userS).login(loginAcess, user);
 
 		String mediador = getScenarioVar(Constants.MEDIADOR);
 		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
@@ -218,7 +218,7 @@ public class DataSteps extends InteractionObject {
 	}
 
 	public void se_inicia_un_proyecto_con_modalidad() throws Exception {
-		new Steps(userS).login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
+		new ActionSteps(userS).login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
 
 		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) {
 			new GestionOnlineHomePage(userS)

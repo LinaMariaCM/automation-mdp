@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.project.Constants;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 public class SiniestrosTest2 {
 
@@ -93,7 +93,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta510(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 			steps.login("Innova", "Eperez");
@@ -108,7 +108,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta920(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -126,7 +126,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta900(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -145,7 +145,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta500(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -161,7 +161,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta400(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -177,7 +177,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta150(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -193,7 +193,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta200(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -209,7 +209,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta660(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -225,7 +225,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta5000(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -243,7 +243,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta600(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -259,7 +259,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta610(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -275,7 +275,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta620(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -291,7 +291,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta630(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -307,7 +307,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAlta640(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -323,7 +323,7 @@ public class SiniestrosTest2 {
 
 	public void siniestrosAltaAsistencia510(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 
@@ -339,7 +339,7 @@ public class SiniestrosTest2 {
 
 	public void siniestroEncargoImplicadoAdicional510(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		Steps steps = new Steps(userS);
+		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
 

@@ -2,7 +2,7 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.steps.Steps;
+import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
 
@@ -50,7 +50,7 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 	public SiniestrosImplicadoAseguradoPage aperturaSinietro() {
 		debugBegin();
 		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
-		Steps.waitForIt(webDriver);
+		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 		
 		return this;
