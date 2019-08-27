@@ -77,13 +77,14 @@ public class ActionSteps extends InteractionObject {
 		gestionPolizasBuscadorPage.buscarPolizaPorNumeroNif(numDocumento);
 	}
 
-	public void buscar_cotizacion_por_numero_cotizacion(String noCotizacion) {
-		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
-			new InnovaHomePage(userS).openGestionCotizaciones();
+	public void buscar_cotizacion_por_numero_cotizacion(String acceso, String noCotizacion) {
+		if(acceso.equals(Constants.LoginAccessInnova)) {
+			new InnovaHomePage(userS)
+				.openGestionCotizaciones();
 
-			GestionCotizacionesBuscadorPage gestionCotizacionesBuscacorPage = new GestionCotizacionesBuscadorPage(userS);
-			gestionCotizacionesBuscacorPage.searchCotizacion(noCotizacion);
-		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) {
+			new GestionCotizacionesBuscadorPage(userS)
+				.searchCotizacion(noCotizacion);
+		} else if(acceso.equals(Constants.LoginAccessGestionLine)) {
 			new GestionOnlineHomePage(userS)
 				.openMisProyectosWeb()
 				.buscarProyectoWeb(noCotizacion);
@@ -307,7 +308,7 @@ public class ActionSteps extends InteractionObject {
 		}
 
 		// Precio
-		new PrecioPorModalidadPage_MAC(userS)
+		new PrecioPorModalidadPageMAC(userS)
 			.executeActionsInPrecioPorModalidadPage();
 
 		// SCS Precio
@@ -316,7 +317,7 @@ public class ActionSteps extends InteractionObject {
 		// precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
 
 		// Inquilinos
-		new InquilinosAvalistasPage_MAC(userS).executeActionsInInquilinosAvalistasPage();
+		new InquilinosAvalistasPageMAC(userS).executeActionsInInquilinosAvalistasPage();
 
 		// SCS Inquilinos
 		// InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
@@ -345,8 +346,7 @@ public class ActionSteps extends InteractionObject {
 
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
-		new InquilinosAvalistasPage_MAC(userS).enviarACompania();
-		// userS.getWebDriver().quit();
+		new InquilinosAvalistasPageMAC(userS).enviarACompania();
 		debugEnd();
 	}
 
@@ -368,25 +368,25 @@ public class ActionSteps extends InteractionObject {
 			new GestionOnlineHomePage(userS)
 				.openMisProyectosWeb()
 				.buscarProyectoWeb(getTestVar(Constants.NUM_COTIZACION));
-			
+
 			new GestionOnlineHomePage(userS)
 				.modificarProyecto();
 		} else if(accessType.equals(Constants.LoginAccessInnova)) {
 			new InnovaHomePage(userS)
 				.openGestionCotizaciones();
-			
+
 			new GestionCotizacionesBuscadorPage(userS)
 				.searchCotizacion(getTestVar(Constants.NUM_COTIZACION));
-			
+
 			new GestionCotizacionesBuscadorPage(userS)
 				.modificarProjecto();
-			
+
 			new AsignarMediadorPage(userS)
 				.SelectMediadorMACAndClickOnContinuar();
 		}
 
-		new PrecioPorModalidadPage_MAC(userS).clickContinuar();
-		new InquilinosAvalistasPage_MAC(userS).clickContinuar();
+		new PrecioPorModalidadPageMAC(userS).clickContinuar();
+		new InquilinosAvalistasPageMAC(userS).clickContinuar();
 		// Completar paso Contratación
 		new ContratacionPage_MAC(userS).ExecuteActionsInContratacionPage();
 
@@ -712,7 +712,7 @@ public class ActionSteps extends InteractionObject {
 
 	// MAC AÑADIR AVALISTA
 	public void anyado_avalista() {
-		InquilinosAvalistasPage_MAC avalista = new InquilinosAvalistasPage_MAC(userS);
+		InquilinosAvalistasPageMAC avalista = new InquilinosAvalistasPageMAC(userS);
 		avalista.addDatosAval();
 
 		avalista.anadirDocumentacionAval();
@@ -750,29 +750,27 @@ public class ActionSteps extends InteractionObject {
 	public void doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(String loginAccess, String user) throws Exception {
 		// Login
 		login(loginAccess, user);
+		
+		crear_proyecto_MAC();
 
-		// GestionOnlineHomePage
-		if(userS.getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) {
-			new GestionOnlineHomePage(userS).openContratarMutuaAlquilerConfort();
-		} else if(userS.getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
+		if(loginAccess.equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS).SelectMediadorMACAndClickOnContinuar();
-			new InnovaHomePage(userS).OpenMutuaAlquilerConfort();
 		}
 
 		// SCS Precio
-		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
-		precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
+		PrecioPorModalidadPageMAC precioPorModalidadPageMAC = new PrecioPorModalidadPageMAC(userS);
+		precioPorModalidadPageMAC.executeActionsInPrecioPorModalidadPage();
 
 		// SCS Inquilinos
-		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
-		inquilinosAvalistasPage_MAC.executeActionsInInquilinosAvalistasPage();
+		InquilinosAvalistasPageMAC inquilinosAvalistasPageMAC = new InquilinosAvalistasPageMAC(userS);
+		inquilinosAvalistasPageMAC.executeActionsInInquilinosAvalistasPage();
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() {
 		debugBegin();
 
 		// Rellenar datos de contratacion, pagina 3
-		new InquilinosAvalistasPage_MAC(userS).clickContinuar();
+		new InquilinosAvalistasPageMAC(userS).clickContinuar();
 
 		new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();
 
@@ -786,12 +784,12 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void la_renta_mensual_es() {
-		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
+		PrecioPorModalidadPageMAC precioPorModalidadPage_MAC = new PrecioPorModalidadPageMAC(userS);
 		precioPorModalidadPage_MAC.completarRentaMensualAlquiler();
 	}
 
 	public void la_suma_asegurada_de_impago_alquiler_es() {
-		new PrecioPorModalidadPage_MAC(userS).seleccionarImpagoAlquiler();
+		new PrecioPorModalidadPageMAC(userS).seleccionarImpagoAlquiler();
 	}
 
 	public void doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(String loginAcess, String user) throws Exception {
@@ -1286,7 +1284,7 @@ public class ActionSteps extends InteractionObject {
 			&& getConfigVar(Constants.GESTION_ONLINE_DISPONIBLE).equals(Constants.GestionOnlineDisponible)
 			|| loginAcess.equals(Constants.LoginAccessInnova)) {
 			login(loginAcess, user);
-			buscar_cotizacion_por_numero_cotizacion(getScenarioVar(Constants.NUM_COTIZACION));
+			buscar_cotizacion_por_numero_cotizacion(loginAcess, getScenarioVar(Constants.NUM_COTIZACION));
 
 			GestionCotizacionesBuscadorPage gestionCotizacionesBuscacorPage = new GestionCotizacionesBuscadorPage(userS);
 			gestionCotizacionesBuscacorPage.modificarProjecto();
@@ -1594,18 +1592,16 @@ public class ActionSteps extends InteractionObject {
 		login(loginAcess, user);
 
 		// Abrir la busqueda de autorizaciones
-		InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
-		innovaHomePage.OpenGestionAutorizaciones();
-		GestionAutorizacionesPage gestionAutorizacionesPage = new GestionAutorizacionesPage(userS);
-		gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getScenarioVar(Constants.NUM_COTIZACION));
-
-		// Autorizar el proyecto
-		gestionAutorizacionesPage.autorizar();
+		new InnovaHomePage(userS).OpenGestionAutorizaciones();
+		
+		new GestionAutorizacionesPage(userS)
+			.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getScenarioVar(Constants.NUM_COTIZACION))
+			.autorizar();
 	}
 
 	public void envio_el_proyecto_a__la_compania() {
 		debugBegin();
-		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
+		InquilinosAvalistasPageMAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPageMAC(userS);
 		inquilinosAvalistasPage_MAC.enviarACompania();
 		// userS.getWebDriver().quit();
 		debugEnd();
@@ -1615,48 +1611,33 @@ public class ActionSteps extends InteractionObject {
 		loginAcess = getScenarioVar(Constants.ACCESO);
 		user = getScenarioVar(Constants.USUARIO);
 
-		if(loginAcess.equals(Constants.LoginAccessGestionLine)) {
-			// Login a GestionLine
-			login(loginAcess, user);
-			buscar_cotizacion_por_numero_cotizacion(getScenarioVar(Constants.NUM_COTIZACION));
+		login(loginAcess, user);
+		buscar_cotizacion_por_numero_cotizacion(loginAcess, getTestVar(Constants.NUM_COTIZACION));
 
-			// Abrir el buscador de proyectos
-			GestionOnlineHomePage gestionOnlineHomePage = new GestionOnlineHomePage(userS);
-			// gestionOnlineHomePage.openMisProyectosWeb();
-			// gestionOnlineHomePage.buscarProyectoWeb(tCData.getNoCotizacionMAC());
+		// Abrir el buscador de proyectos
+		new GestionOnlineHomePage(userS)
+			.modificarProyecto();
 
-			// Click en modificar
-			gestionOnlineHomePage.modificarProyecto();
-		} else if(loginAcess.equals(Constants.LoginAccessInnova)) {
-			// Login to Innov@
-			login(loginAcess, user);
-			buscar_cotizacion_por_numero_cotizacion(getScenarioVar(Constants.NUM_COTIZACION));
-
-			GestionCotizacionesBuscadorPage gestionCotizacionesBuscadorPage = new GestionCotizacionesBuscadorPage(userS);
-			gestionCotizacionesBuscadorPage.modificarProjecto();
-			AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
-			asignarMediadorPage.SelectMediadorMACAndClickOnContinuar();
+		if(loginAcess.equals(Constants.LoginAccessInnova)) {
+			new AsignarMediadorPage(userS)
+				.SelectMediadorMACAndClickOnContinuar();
 		}
 
-		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
-		precioPorModalidadPage_MAC.clickContinuar();
-
-		// Continuar
-		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
-		inquilinosAvalistasPage_MAC.clickContinuar();
+		new PrecioPorModalidadPageMAC(userS).clickContinuar();
+		new InquilinosAvalistasPageMAC(userS).clickContinuar();
 
 		// Rellenar datos de contratacion, pagina 3
-		TomadorYAseguradoPage_MAC tomadorYAseguradoPage_MAC = new TomadorYAseguradoPage_MAC(userS);
-		tomadorYAseguradoPage_MAC.executeActionsInTomadorYAseguradoPage();
+		new TomadorYAseguradoPage_MAC(userS)
+			.executeActionsInTomadorYAseguradoPage();
 
-		InmueblePage_MAC inmueblePage_MAC = new InmueblePage_MAC(userS);
-		inmueblePage_MAC.executeActionsInInmueblePage();
+		new InmueblePage_MAC(userS)
+			.executeActionsInInmueblePage();
 
-		DocumentacionPage_MAC documentacionPage_MAC = new DocumentacionPage_MAC(userS);
-		documentacionPage_MAC.addDocumentContratacion();
+		new DocumentacionPage_MAC(userS)
+			.addDocumentContratacion();
 
-		ContratacionPage_MAC contratacionPage_MAC = new ContratacionPage_MAC(userS);
-		contratacionPage_MAC.seleccionarCheckYContratar();
+		new ContratacionPage_MAC(userS)
+			.seleccionarCheckYContratar();
 	}
 
 	public void valido_un_proyecto_usando_el_acceso_y_el_usuario(String loginAcess, String user) throws Exception {
@@ -1672,17 +1653,17 @@ public class ActionSteps extends InteractionObject {
 		asignarMediadorPage.SelectMediadorMACAndClickOnContinuar();
 
 		// SCS Precio
-		PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new PrecioPorModalidadPage_MAC(userS);
+		PrecioPorModalidadPageMAC precioPorModalidadPage_MAC = new PrecioPorModalidadPageMAC(userS);
 		precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
 
 		// SCS Inquilinos
-		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
+		InquilinosAvalistasPageMAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPageMAC(userS);
 		inquilinosAvalistasPage_MAC.executeActionsInInquilinosAvalistasPageSinDocumentacion();
 		// inquilinosAvalistasPage_MAC.ValidacionViabilidadInquilino();
 	}
 
 	public void valido_el_proyecto() {
-		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
+		InquilinosAvalistasPageMAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPageMAC(userS);
 		inquilinosAvalistasPage_MAC.validacionViabilidadInquilino();
 	}
 
@@ -1760,7 +1741,7 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void anado_avalista() {
-		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
+		InquilinosAvalistasPageMAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPageMAC(userS);
 		inquilinosAvalistasPage_MAC.addDatosAval();
 
 		inquilinosAvalistasPage_MAC.anadirDocumentacionAval();

@@ -12,7 +12,7 @@ import com.amaris.project.pages.DetallesRiesgoPage;
 import com.amaris.project.pages.GestionOnlineHomePage;
 import com.amaris.project.pages.PrecioPage;
 import com.amaris.project.pages.PrecioPorModalidadPage;
-import com.amaris.project.pages.PrecioPorModalidadPage_MAC;
+import com.amaris.project.pages.PrecioPorModalidadPageMAC;
 import com.amaris.project.pages.TomadorYAseguradoPage;
 import com.amaris.project.pages.UbicacionRiesgoPage;
 import com.amaris.project.pages.ValidacionExcepcionesReglasDetallesRiesgoPage;
@@ -229,7 +229,7 @@ public class DataSteps extends InteractionObject {
 		}
 
 		// Seleccionar modalidad en Precio page
-		new PrecioPorModalidadPage_MAC(userS)
+		new PrecioPorModalidadPageMAC(userS)
 			.selectModalidad();
 	}
 

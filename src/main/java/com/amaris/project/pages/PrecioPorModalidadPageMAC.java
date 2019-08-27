@@ -7,7 +7,7 @@ import com.amaris.project.Constants;
 
 import org.openqa.selenium.By;
 
-public class PrecioPorModalidadPage_MAC extends PageObject {
+public class PrecioPorModalidadPageMAC extends PageObject {
 
 	// region webelements
 	private By mainFrame = By.cssSelector("#mainFrame");
@@ -24,11 +24,11 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 	private By msjErrorReaseguro = By.cssSelector("#REASRENTAALQ");
 	// endregion
 
-	public PrecioPorModalidadPage_MAC(UserStory userS) {
+	public PrecioPorModalidadPageMAC(UserStory userS) {
 		super(userS);
 	}
 
-	public PrecioPorModalidadPage_MAC executeActionsInPrecioPorModalidadPage() {
+	public PrecioPorModalidadPageMAC executeActionsInPrecioPorModalidadPage() {
 		debugBegin();
 		
 		webDriver.waitWithDriver(4000);
@@ -41,7 +41,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage_MAC completarRentaMensualAlquiler() {
+	public PrecioPorModalidadPageMAC completarRentaMensualAlquiler() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);
@@ -54,7 +54,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage_MAC clickOnConvertirAProyecto() {
+	public PrecioPorModalidadPageMAC clickOnConvertirAProyecto() {
 		debugBegin();
 
 		webDriver.waitWithDriver(8000);
@@ -64,7 +64,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage_MAC completarGarantiasBasicas() {
+	public PrecioPorModalidadPageMAC completarGarantiasBasicas() {
 		debugBegin();
 		
 		String impagoAlquiler = getScenarioVar(Constants.IMPAGO_ALQUILER);
@@ -83,7 +83,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage_MAC seleccionarImpagoAlquiler() {
+	public PrecioPorModalidadPageMAC seleccionarImpagoAlquiler() {
 		debugBegin();
 
 		debugInfo("SCENARIO: " + userS.getScenario() + ", VALUE: " + getScenarioVar(Constants.IMPAGO_ALQUILER)
@@ -96,7 +96,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage_MAC seleccionarFranquicia() {
+	public PrecioPorModalidadPageMAC seleccionarFranquicia() {
 		debugBegin();
 		webDriver.clickElementFromDropDownByTextInFrame(drpdnFranquicia, mainFrame, getScenarioVar(Constants.FRANQUICIA_MAC));
 		debugEnd();
@@ -104,7 +104,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage_MAC clickContinuar() {
+	public PrecioPorModalidadPageMAC clickContinuar() {
 		debugBegin();
 		webDriver.waitWithDriver(6000);
 		webDriver.clickInFrame(btnContinuar, mainFrame);
@@ -113,7 +113,7 @@ public class PrecioPorModalidadPage_MAC extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage_MAC selectModalidad() {
+	public PrecioPorModalidadPageMAC selectModalidad() {
 		debugBegin();
 		webDriver.clickElementFromDropDownByTextInFrame(drpdwnModalidad, mainFrame, getTestVar(Constants.MODALIDAD));
 		debugEnd();

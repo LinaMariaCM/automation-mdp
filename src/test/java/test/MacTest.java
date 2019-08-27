@@ -37,21 +37,13 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
-			// steps.crear_un_proyecto_MAC(userS.getScenarioVar(Constants.ACCESO),
-			// userS.getScenarioVar(Constants.USUARIO));
-
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
-
 			steps.enviar_el_proyecto_a_la_compania();
-
 			steps.cierro_navegador();
-
-			steps.login_y_autorizar_el_proyecto_MAC(userS.getScenarioVar(Constants.ACCESO_AUTORIZADO), userS.getScenarioVar(Constants.USUARIO_AUTORIZADO));
-
+			steps.autorizo_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar(Constants.ACCESO_AUTORIZADO), userS.getScenarioVar(Constants.USUARIO_AUTORIZADO));
 			steps.cierro_navegador();
-
 			steps.completo_el_proceso_de_contratacion_usando_el_acceso_y_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
-			
+
 			checkSteps.el_resultado_es_que_el_proyecto_se_crea_correctamente();
 
 			return null;
