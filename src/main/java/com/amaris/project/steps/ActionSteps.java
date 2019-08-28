@@ -1585,10 +1585,6 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void autorizo_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario(String loginAcess, String user) throws Exception {
-		// Login
-		loginAcess = getScenarioVar(Constants.ACCESO_AUTORIZADO);
-		user = getScenarioVar(Constants.USUARIO_AUTORIZADO);
-
 		login(loginAcess, user);
 
 		// Abrir la busqueda de autorizaciones

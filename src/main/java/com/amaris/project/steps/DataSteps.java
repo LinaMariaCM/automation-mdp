@@ -60,7 +60,7 @@ public class DataSteps extends InteractionObject {
 	}
 
 	public void el_documento_tomador_es_aleatoreo() {
-		setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
+		setScenarioVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
 	}
 
 	public void añado_los_teléfonos_del_tomador_y_los_horarios_de_atención() {
@@ -158,7 +158,7 @@ public class DataSteps extends InteractionObject {
 	}
 
 	public void el_documento_aleatoreo() {
-		setTestVar(Constants.DOCUMENTO_INQUILINO, DniGeneratorHelper.generateNif());
+		setScenarioVar(Constants.DOCUMENTO_INQUILINO, DniGeneratorHelper.generateNif());
 	}
 
 	public void el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar(String loginAcess, String user) throws Exception {
