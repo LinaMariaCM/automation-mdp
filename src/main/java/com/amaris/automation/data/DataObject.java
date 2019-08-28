@@ -149,13 +149,13 @@ public class DataObject {
 	public void setValue(String rowKey, String valueKey, String value) {
 		try {
 			synchronized(data) {
-				if(rowKey != null && getRow(rowKey).containsKey(valueKey)) {
-					getRow(rowKey).replace(valueKey, value);
-				} else if(rowKey != null && getRow(rowKey) != null) {
+				if(rowKey != null && getRow(rowKey) != null) {
 					getRow(rowKey).put(valueKey, value);
 				} else if(rowKey != null && getRow(rowKey) == null) {
 					data.put(rowKey, new HashMap<String, String>());
 					getRow(rowKey).put(valueKey, value);
+				} else if(rowKey != null && getRow(rowKey).containsKey(valueKey)) {
+					getRow(rowKey).replace(valueKey, value);
 				}
 			}
 		} catch(NullPointerException e) {
