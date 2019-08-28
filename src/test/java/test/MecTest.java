@@ -1122,8 +1122,6 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
-		CheckSteps checkSteps = new CheckSteps(userS);
-		DataSteps dataSteps = new DataSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
@@ -1137,6 +1135,293 @@ public class MecTest extends TestObject {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			// TODO: aparece un mensaje indicando que se va a crear un infraseguro
 			// TODO: aparece una clausula adicional
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec104() {
+		String testCase = Constants.MEC + "104";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec104")
+	public void mec104(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			// TODO: aparece un mensaje indicando que se va a crear un supraseguro
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec105() {
+		String testCase = Constants.MEC + "105";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec105")
+	public void mec105(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			// TODO: añade una franquicia obligatoria
+			checkSteps.el_valor_de_los_capitales_varia();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec106a() {
+		String testCase = Constants.MEC + "106a";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec106a")
+	public void mec106a(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_que_llega_hasta_la_pantalla_de_precio_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO)); // TODO: version MEC
+			checkSteps.sale_un_aviso_si_el_precio_no_cambia();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec106b() {
+		String testCase = Constants.MEC + "106b";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec106b")
+	public void mec106b(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_que_llega_hasta_la_pantalla_de_precio_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO)); // TODO: version MEC
+			checkSteps.sale_un_aviso_si_el_precio_no_cambia();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec107() {
+		String testCase = Constants.MEC + "107";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec107")
+	public void mec107(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			checkSteps.el_valor_de_los_capitales_varia();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec108() {
+		String testCase = Constants.MEC + "108";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec108")
+	public void mec108(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			checkSteps.el_valor_de_los_capitales_varia();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec110() {
+		String testCase = Constants.MEC + "110";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec110")
+	public void mec110(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			checkSteps.el_valor_de_los_capitales_varia_una_vez_se_añade_la_cobertura_opcional();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec111() {
+		String testCase = Constants.MEC + "111";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec111")
+	public void mec111(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			checkSteps.el_valor_de_los_capitales_varia_una_vez_se_añade_la_cobertura_opcional();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec112() {
+		String testCase = Constants.MEC + "112";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec112")
+	public void mec112(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+
+		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		
+
+		userS.testActions(() -> {
+			
+			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.cierro_navegador();
+			checkSteps.el_valor_de_los_capitales_varia_una_vez_se_añade_la_cobertura_opcional();
 			
 			return null;
 		}).run();
