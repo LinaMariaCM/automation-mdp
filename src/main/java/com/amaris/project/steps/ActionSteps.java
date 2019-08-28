@@ -1595,7 +1595,8 @@ public class ActionSteps extends InteractionObject {
 		new InnovaHomePage(userS).OpenGestionAutorizaciones();
 		
 		new GestionAutorizacionesPage(userS)
-			.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getScenarioVar(Constants.NUM_COTIZACION))
+		//debugInfo("cotizacio:" + noCotizacion);
+			.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getTestVar(Constants.NUM_COTIZACION))
 			.autorizar();
 	}
 
