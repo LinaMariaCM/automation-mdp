@@ -157,7 +157,7 @@ public class DataSteps extends InteractionObject {
 		setTestVar(Constants.CAPITAL_CONTENIDO, Integer.toString(-capitalContenido));
 	}
 
-	public void el_documento_aleatoreo() {
+	public void el_documento_aleatoreo_inquilino() {
 		setScenarioVar(Constants.DOCUMENTO_INQUILINO, DniGeneratorHelper.generateNif());
 	}
 

@@ -38,7 +38,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			dataSteps.el_documento_tomador_es_aleatoreo();
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.enviar_el_proyecto_a_la_compania();
@@ -75,7 +75,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			dataSteps.el_documento_tomador_es_aleatoreo();
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.enviar_el_proyecto_a_la_compania();
@@ -110,7 +110,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			dataSteps.el_documento_tomador_es_aleatoreo();
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.enviar_el_proyecto_a_la_compania();
@@ -147,7 +147,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.modificar_ingresos(userS.getScenarioVar(Constants.INGRESOS_INQUILINO_NUEVOS));
 			checkSteps.el_proyecto_MAC_se_acepta();
@@ -181,7 +181,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.anyado_avalista();
@@ -215,7 +215,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.enviar_el_proyecto_a_la_compania();
@@ -252,7 +252,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 
@@ -286,7 +286,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 
@@ -321,7 +321,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			checkSteps.el_proyecto_MAC_se_deniega();
@@ -354,7 +354,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 
@@ -389,7 +389,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			dataSteps.se_inicia_un_proyecto_con_modalidad();
 
 			steps.la_renta_mensual_es();
@@ -424,7 +424,7 @@ public class MacTest extends TestObject {
 		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
-			dataSteps.el_documento_aleatoreo();
+			dataSteps.el_documento_aleatoreo_inquilino();
 			dataSteps.se_inicia_un_proyecto_con_modalidad();
 
 			steps.la_suma_asegurada_de_impago_alquiler_es();

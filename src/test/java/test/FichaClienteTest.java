@@ -46,10 +46,19 @@ public class FichaClienteTest {
 		}).run();// error aqui
 	}
 
-	@Test(dataProvider = "dataProviderAltaCliente")
+	@DataProvider(parallel = false)
+	public String[][] dataProviderEmitir() {
+		String testCase = Constants.FICHA_CLIENT + "02";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestClientes.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderEmitir")
 	public void emitirMarca(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
 
 		userS.testActions(() -> {
 			steps.login("Innova", "mcena");
