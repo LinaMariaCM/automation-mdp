@@ -19,7 +19,7 @@ public class FichaClienteTest {
 
 	@DataProvider(parallel = false)
 	public String[][] dataProviderAltaCliente() {
-		String testCase = Constants.FICHA_CLIENT + "01";
+		String testCase = Constants.FICHA_CLIENT + "09";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestClientes.csv");
 
 		return casesMatrix;
@@ -46,16 +46,45 @@ public class FichaClienteTest {
 		}).run();// error aqui
 	}
 
-	@DataProvider(parallel = false)
-	public String[][] dataProviderEmitir() {
-		String testCase = Constants.FICHA_CLIENT + "02";
+
+/*	@DataProvider(parallel = false)
+	public String[][] dataBuscaNombre() {
+		String testCase = Constants.FICHA_CLIENT + "03";
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestClientes.csv");
 
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "dataProviderEmitir")
-	public void emitirMarca(String testCase, String id) throws Exception {
+	@Test(dataProvider = "dataBuscaNombre")
+	public void buscaNombre(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
+
+		userS.testActions(() -> {
+			steps.login("Innova", "mcena");
+			steps.marcaCliente();
+			steps.buscanom
+			steps.buscadorCliente();
+			steps.marcaRelacion();
+			steps.marcaNegativa();
+
+			return null;
+		}).run();// error aqui
+	}*/
+
+
+
+	@DataProvider(parallel = false)
+	public String[][] dataBuscaNif() {
+		String testCase = Constants.FICHA_CLIENT + "04";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestClientes.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataBuscaNif")
+	public void buscaNif(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 		DataSteps dataSteps = new DataSteps(userS);
@@ -71,6 +100,8 @@ public class FichaClienteTest {
 			return null;
 		}).run();// error aqui
 	}
+
+
 
 	@AfterSuite
 	public void afterSuite() {
