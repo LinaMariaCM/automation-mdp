@@ -642,8 +642,11 @@ public class ActionSteps extends InteractionObject {
 			// Página de confirmación
 			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
 			confirmarAltaSiniestro.confirmarSiniestroOK();
-		} else if(acceso.equals(Constants.LoginAccessGestionLine)) {
+			
+			
 			// Accedemos a siniestros desde Gestión On Line
+		} else if(acceso.equals(Constants.LoginAccessGestionLine)) {
+			
 
 			// Seleccionamos la opcion alta siniestros
 			GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
