@@ -418,4 +418,8 @@ public class Constants {
 
 	public static final String PERSONA_FISICA = "Física";
 
+	public static final String ASISTENCIA = "asistencia"; 
+	public static final String OTROS_IMPLICADOS = "otros_implicados";
+	public static final String ENCARGO = "encargo";
+	
 }
