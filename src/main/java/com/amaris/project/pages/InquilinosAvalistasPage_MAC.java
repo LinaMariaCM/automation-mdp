@@ -95,8 +95,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 		webDriver.clickInFrame(btnAnadirDatosInquilinoPantallaPrincipal, mainFrame);
 
-		//debugInfo("Nombre inquilino: " + getScenarioVar(Constants.NOMBRE_INQUILINO));
-		//webDriver.setTextInFrame(txtNombre, mainFrame, getScenarioVar(Constants.NOMBRE_INQUILINO));
+		debugInfo("Nombre inquilino: " + getScenarioVar(Constants.NOMBRE_INQUILINO));
+		webDriver.setTextInFrame(txtNombre, mainFrame, getScenarioVar(Constants.NOMBRE_INQUILINO));
 
 		debugInfo("Aprellido inquilino: " + getScenarioVar(Constants.PRIMER_APELLIDO_INQUILINO));
 		webDriver.setTextInFrame(txtPrimerApellido, mainFrame, getScenarioVar(Constants.PRIMER_APELLIDO_INQUILINO));
@@ -104,16 +104,16 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		debugInfo("Documento inquilino: " + getScenarioVar(Constants.DOCUMENTO_INQUILINO));
 		webDriver.setTextInFrame(txtDocumento, mainFrame, getScenarioVar(Constants.DOCUMENTO_INQUILINO));
 
-		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_INQUILINO));
-		webDriver.setTextInFrame(txtIngresos, mainFrame, getScenarioVar(Constants.INGRESOS_INQUILINO));
-
 		// Situacion laboral
 		seleccionarSituacion();
-
+		
 		if(webDriver.isClickableInFrame(drpDwnDetalle, mainFrame)) {
 			debugInfo("entra condicion");
 			webDriver.clickElementFromDropDownByIndex(drpDwnDetalle, mainFrame, 1);
 		}
+		
+		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_INQUILINO));
+		webDriver.setTextInFrame(txtIngresos, mainFrame, getScenarioVar(Constants.INGRESOS_INQUILINO));
 
 		webDriver.clickInFrame(btnAnadirDatosInquilino, mainFrame);
 
@@ -154,18 +154,18 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 		debugInfo("Aprellido inquilino: " + getScenarioVar(Constants.PRIMER_APELLIDO_AVALISTA));
 		webDriver.setTextInFrame(txtPrimerApellido, mainFrame, userS.getTestVar(Constants.PRIMER_APELLIDO_AVALISTA));
+		
+		// Seleccionar parentesco
+		seleccionarParentesco();
+		
+		// Situacion laboral
+		seleccionarSituacion();
 
 		debugInfo("Documento inquilino: " + getScenarioVar(Constants.DOCUMENTO_AVALISTA));
 		webDriver.setTextInFrame(txtDocumento, mainFrame, userS.getTestVar(Constants.DOCUMENTO_AVALISTA));
 
 		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_AVALISTA));
 		webDriver.setTextInFrame(txtIngresos, mainFrame, userS.getTestVar(Constants.INGRESOS_AVALISTA));
-
-		// Seleccionar parentesco
-		seleccionarParentesco();
-
-		// Situacion laboral
-		seleccionarSituacion();
 
 		webDriver.clickInFrame(btnAnadirDatosInquilino, mainFrame);
 
@@ -264,7 +264,7 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 		debugBegin();
 		// TODO: mover la ruta de fichero de upload a configuracion
 		webDriver.waitWithDriver(5000);
-		FileHelper.uploadFIle(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf");
+		FileHelper.uploadFIle((System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf").replaceAll("/", "\\\\"));
 		debugInfo("Fichero subido");
 
 		debugEnd();
