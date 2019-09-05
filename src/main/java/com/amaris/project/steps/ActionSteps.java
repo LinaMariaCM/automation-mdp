@@ -558,7 +558,7 @@ public class ActionSteps extends InteractionObject {
 			// 1.Declaración
 			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
 			datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
-			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", true, "", true, "", "", "", "", "", "", "", "");
+			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
 
 			// Comprobamos si necesita asistencia
 			if(asistencia) {

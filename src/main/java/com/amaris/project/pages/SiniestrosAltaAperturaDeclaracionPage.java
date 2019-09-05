@@ -17,6 +17,8 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 	private By modalFrame = By.id("capaIframe");
 
+
+
 	// Consulta póliza
 	private By buttonConsultaPoliza = By.id("enlacePoliza");
 	private By buttonPersonaContacto = By.id("enlaceDatContacPer");
@@ -238,53 +240,62 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.clickInFrame(buttonPersonaContacto, cuerpoFrame);
 
 		debugInfo("Comenzamos a rellenar campos de persona extra");
-		webDriver.clickElementFromDropDownByIndexInFrame(comboRol, modalFrame, 8);
-		webDriver.setTextInFrame(txtNombre, modalFrame, nombre);
 
-		if(apellido1 != "") webDriver.setTextInFrame(txt1Apellido, modalFrame, apellido1);
-		if(apellido2 != "") webDriver.setTextInFrame(txt2Apellido, modalFrame, apellido2);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
+		webDriver.setText(txtNombre, nombre);
 
-		webDriver.clickElementFromDropDownByIndexInFrame(comboTipoDoc, modalFrame, 1);
-		webDriver.setTextInFrame(txtDocumento, modalFrame, documento);
+		if(!apellido1.isEmpty()) {
+			webDriver.setText(txt1Apellido, apellido1);
+		}
 
-		if(prefijoTlf != "") {
-			webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo1, modalFrame, "value", prefijoTlf);
+		if(!apellido2.isEmpty()) {
+			webDriver.setText(txt2Apellido, apellido2);
+		}
+
+		webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
+		webDriver.setText(txtDocumento, documento);
+
+		if(!prefijoTlf.isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(comboPrefijo1, "value", prefijoTlf);
 		} else {
 			debugInfo("no existe prefijo t1");
 		}
 
-		webDriver.setTextInFrame(txtTelefono1, modalFrame, telefono1);
+		webDriver.setText(txtTelefono1, telefono1);
 
-		if(prefijoTlf2 != "") {
-			webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo2, modalFrame, "value", prefijoTlf2);
+		if(!prefijoTlf2.isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(comboPrefijo2, "value", prefijoTlf2);
 		} else {
 			debugInfo("no existe prefijo t2");
 		}
 
-		webDriver.setTextInFrame(txtTelefono2, modalFrame, telefono2);
-		webDriver.clickElementFromDropDownByIndexInFrame(comboSexo, modalFrame, 1);
+		webDriver.setText(txtTelefono2, telefono2);
+		webDriver.clickElementFromDropDownByIndex(comboSexo,  1);
 
 		if(noEmail) {
-			webDriver.clickInFrame(checkNoEmail, modalFrame);
+			webDriver.setText(txtEmail2, email);
+			//webDriver.clickInFrame(checkNoEmail, modalFrame);
 		} else {
-			webDriver.setTextInFrame(txtEmail2, modalFrame, email);
+			webDriver.setText(txtEmail2,  email);
 		}
 
 		if(riesgoAsegurado) {
-			webDriver.clickInFrame(checkRiesgoAsegurado, modalFrame);
+			webDriver.click(checkRiesgoAsegurado);
 		} else {
-			webDriver.clickElementFromDropDownByIndexInFrame(comboTipoVia, modalFrame, 1);
-			webDriver.setTextInFrame(txtVia, modalFrame, via);
-			webDriver.setTextInFrame(txtNumero, modalFrame, numero);
-			webDriver.setTextInFrame(txtPiso, modalFrame, piso);
-			webDriver.setTextInFrame(txtPuerta, modalFrame, puerta);
-			webDriver.setTextInFrame(txtCodPostal, modalFrame, cp);
-			webDriver.setTextInFrame(txtPoblacion, modalFrame, poblacion);
-			webDriver.clickElementFromDropDownByIndexInFrame(comboProvincia, modalFrame, 1);
+			webDriver.clickElementFromDropDownByIndex(comboTipoVia,1);
+			webDriver.setText(txtVia,  via);
+			webDriver.setText(txtNumero, numero);
+			webDriver.setText(txtPiso,  piso);
+			webDriver.setText(txtPuerta,  puerta);
+			webDriver.setText(txtCodPostal,  cp);
+			webDriver.setText(txtPoblacion,  poblacion);
+			webDriver.clickElementFromDropDownByIndex(comboProvincia,  1);
 		}
 
-		webDriver.clickInFrame(btnGrabar, modalFrame);
-
+		webDriver.click(btnGrabar);
+		webDriver.exitFrame();
 		debugEnd();
 		
 		return this;

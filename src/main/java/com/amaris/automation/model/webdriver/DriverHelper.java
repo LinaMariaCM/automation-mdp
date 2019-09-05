@@ -538,7 +538,8 @@ public class DriverHelper {
 					break;
 			}
 		} else if(operativeS.startsWith("Mac")) {
-			driverPath = System.getenv("user.dir");
+			driverPath = System.getProperty("user.dir") + "/";
+
 
 			switch(browserType) {
 				case BrowserType.FIREFOX:
