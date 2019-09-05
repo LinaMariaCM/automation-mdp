@@ -564,7 +564,7 @@ public class ActionSteps extends InteractionObject {
 			// 1.Declaración
 			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
 			datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
-			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", false, "", true, "", "", "", "", "", "", "", "");
+			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
 
 			// Comprobamos si necesita asistencia
 			if(asistencia) {
@@ -642,8 +642,11 @@ public class ActionSteps extends InteractionObject {
 			// Página de confirmación
 			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
 			confirmarAltaSiniestro.confirmarSiniestroOK();
-		} else if(acceso.equals(Constants.LoginAccessGestionLine)) {
+			
+			
 			// Accedemos a siniestros desde Gestión On Line
+		} else if(acceso.equals(Constants.LoginAccessGestionLine)) {
+			
 
 			// Seleccionamos la opcion alta siniestros
 			GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
