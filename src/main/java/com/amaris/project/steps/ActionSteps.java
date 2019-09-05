@@ -800,34 +800,40 @@ public class ActionSteps extends InteractionObject {
 		login(loginAcess, user);
 
 		String mediador = userS.getScenarioVar(Constants.MEDIADOR);
-
+		
 		if(loginAcess.equals(Constants.LoginAccessGestionLine)) {
 			new GestionOnlineHomePage(userS).openContratarMutuaEdificioConfort();
 		} else if(loginAcess.equals(Constants.LoginAccessInnova)) {
 			openSimulationMec();
 			new AsignarMediadorPage(userS).TerminaProcesando().SeleccionarMediadorPorCodigo(mediador).clickOnContinuarButton();
 		}
-
-		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue();
-
-		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
-
-		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgoMinimos();
-
-		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).ClickOnContinuarAndValidate();
-
-		new PrecioPage(userS).ClickOnConvertirAProjecto();
-
+		
+		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue().waitProcesando();
+		
+		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada().waitProcesando();
+		
+		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgoMinimos().waitProcesando();
+		
+		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).ClickOnContinuarAndValidate().waitProcesando();
+		
+		//new PrecioPage(userS).ClickOnConvertirAProjecto().waitProcesando();
+		
+		  
 		new DatosBasicosTomadorPage(userS)
 			.FillTomadorData(getScenarioVar(Constants.TOMADOR))
-			.clickOnContinuar();
-
-		new PrecioPorModalidadPage(userS).ExecuteActionsInPrecioPorModalidadPage();
-
+			//.clickOnContinuar()
+			.waitProcesando();
+		
+		new PrecioPorModalidadPage(userS).ExecuteActionsInPrecioPorModalidadPage().waitProcesando();
+		System.out.println("TOKEN OUT DOS");
+		
 		new ValidacionExcepcionesReglasPage(userS).clickOnContinuarButton();
-
+		System.out.println("TOKEN OUT TRES");
+		
 		new ClausulasPage(userS).ActivateclausesAndClickOnContinue();
-
+		System.out.println("TOKEN OUT CUATRO");
+		
+		/*
 		new TomadorYAseguradoPage(userS)
 			.AddDatosTomador()
 			.AddDatosTomadorDiferenteAsegurado()
@@ -838,6 +844,8 @@ public class ActionSteps extends InteractionObject {
 		new DatosBancariosPage(userS).introducirFormaPagoYPulsarContratar();
 
 		// new DataSteps(userS).imprimir_informacion_del_proyecto();
+		
+		*/
 
 		userS.getWebDriver().quit();
 

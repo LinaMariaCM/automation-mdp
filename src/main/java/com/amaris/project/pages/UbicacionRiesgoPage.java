@@ -53,6 +53,8 @@ public class UbicacionRiesgoPage extends PageObject {
 	private By txtMensajeError = By.xpath("p[ng-bind-html='modalErrores.text | encode']");
 
 	private By loaderModal = By.cssSelector("#modalLoader");
+	private By procesando = By.cssSelector("#procesando");
+	
 	// endregion
 
 	public UbicacionRiesgoPage(UserStory userS) {
@@ -60,6 +62,21 @@ public class UbicacionRiesgoPage extends PageObject {
 	}
 
 	// region Methods
+	public UbicacionRiesgoPage waitProcesando() throws Exception {
+		
+		System.out.println("Espero a ver procesando...");
+		webDriver.waitWithDriver(7000);
+		
+		while(this.webDriver.isPresent(procesando)) {
+			System.out.println("Lo veo");
+			webDriver.waitWithDriver(1500);
+		}
+		
+		System.out.println("No veo procesando...");
+		
+		return this;
+	}
+	
 	public boolean fillInmuebleAndGetAvailability() {
 		return addInmueble(getScenarioVar(Constants.INMUEBLE));
 	}

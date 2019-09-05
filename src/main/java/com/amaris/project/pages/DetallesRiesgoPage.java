@@ -76,7 +76,10 @@ public class DetallesRiesgoPage extends PageObject {
 	private By txtNumPlazasGaraje = By.cssSelector("#numPlazasGarajes");
 	private By avisoNoTieneRefCatastral = By.xpath(".//*[text()='El edificio no tiene referencia catastral, intente ubicar el riesgo de nuevo o introduzca los datos de superficies y año de construcción.']/../../../..//button[text()='Aceptar']");
 
-	private By btnConvertir = By.cssSelector("[ng-bind-html*='com_convertirProyecto']");	
+	private By btnConvertir = By.cssSelector("[ng-bind-html*='com_convertirProyecto']");
+	private By btnConvertirAProyecto = By.cssSelector("button[ng-click*='convertToProject']");
+	private By msgAvisoSistema = By.cssSelector("table.wideBox strong");
+	private By procesando = By.cssSelector("#procesando");
 	// endregion
 
 	public DetallesRiesgoPage(UserStory userS) {
@@ -84,6 +87,40 @@ public class DetallesRiesgoPage extends PageObject {
 	}
 
 	// region methods
+	
+	public DetallesRiesgoPage waitProcesando() throws Exception {
+		
+		System.out.println("Espero a ver procesando...");
+		webDriver.waitWithDriver(7000);
+		
+		while(this.webDriver.isPresent(procesando)) {
+			System.out.println("Lo veo");
+			webDriver.waitWithDriver(1500);
+		}
+		
+		System.out.println("No veo procesando...");
+		
+		//System.out.println("Esperando a angular...");
+		//this.webDriver.waitForAngular();
+		
+		return this;
+	}
+	
+	public DetallesRiesgoPage clickOnConvertirProyectoDos() throws Exception {
+		debugBegin();
+
+		webDriver.waitWithDriver(4000);
+		webDriver.clickInFrame(btnConvertirAProyecto, cuerpoFrame);
+
+		if(webDriver.isPresentInFrame(msgAvisoSistema, cuerpoFrame)) {
+			debugInfo("*** Excepción general al convertir a proyecto.");
+		}
+
+		debugEnd();
+		
+		return this;
+	}
+	
 	public DetallesRiesgoPage executeActionsInPageDetallesRiesgoPage() throws Exception {
 		debugBegin();
 
@@ -127,13 +164,14 @@ public class DetallesRiesgoPage extends PageObject {
 	}
 		
 
-	public DetallesRiesgoPage completarDatosEnDetallesRiesgoMinimos() {
+	public DetallesRiesgoPage completarDatosEnDetallesRiesgoMinimos() throws Exception{
 		debugBegin();
 
 		// CheckAvisoGarajes();
 		// GetCapitales();
 		completarDatosRiesgoMinimos();
 		clickOnContinuar();
+		//clickOnConvertirProyectoDos();
 
 		debugEnd();
 		
@@ -254,7 +292,6 @@ public class DetallesRiesgoPage extends PageObject {
 		value = webDriver.getTextInFrame(this.txtAnyoConstruccion, cuerpoFrame);
 
 		webDriver.waitWithDriver(3000);
-		clickOnContinuar();
 
 		debugEnd();
 		
