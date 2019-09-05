@@ -169,7 +169,9 @@ public class GestionOnlineHomePage extends PageObject {
 
 	public GestionOnlineHomePage buscarProyectoWeb(String noCotizacion) {
 		debugBegin();
-
+		
+		webDriver.waitWithDriver(4000);
+		
 		webDriver.clickInFrame(txtCodigoProyecto, contentFrame);
 		webDriver.appendTextInFrame(txtCodigoProyecto, contentFrame, noCotizacion);
 		webDriver.clickInFrame(btnBuscar, contentFrame);

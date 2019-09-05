@@ -732,6 +732,9 @@ public class ActionSteps extends InteractionObject {
 		gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", userS.getTestVar("num_cotizacion"));
 
 		// Denegar el proyecto gestionAutorizacionesPage.denegar();
+		
+		gestionAutorizacionesPage.denegar();
+		
 		userS.getWebDriver().quit();
 
 		debugEnd();
@@ -744,7 +747,11 @@ public class ActionSteps extends InteractionObject {
 		// Abrir el buscador de proyectos //
 		GestionOnlineHomePage gestionOnlineHomePage = new GestionOnlineHomePage(userS);
 		gestionOnlineHomePage.openMisProyectosWeb();
+		
+		System.out.println(userS.getTestVar(Constants.NUM_COTIZACION));
+		
 		gestionOnlineHomePage.buscarProyectoWeb(userS.getTestVar(Constants.NUM_COTIZACION));
+		
 	}
 
 	public void doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(String loginAccess, String user) throws Exception {

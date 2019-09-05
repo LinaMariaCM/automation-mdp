@@ -55,6 +55,8 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 	private By textoComentario = By.id("ENVIO_COM_COMENTARIOS");
 	private By btnEnviarComentarios = By.cssSelector("#formularioEnvio > div.modal-footer > button:nth-child(2)");
+	private By dropUnAnyo = By.cssSelector("option[value='AI1']");
+	
 	// endregion
 
 	public InquilinosAvalistasPage_MAC(UserStory userS) {
@@ -106,10 +108,15 @@ public class InquilinosAvalistasPage_MAC extends PageObject {
 
 		// Situacion laboral
 		seleccionarSituacion();
-		
+		webDriver.waitWithDriver(4000);
 		if(webDriver.isClickableInFrame(drpDwnDetalle, mainFrame)) {
 			debugInfo("entra condicion");
-			webDriver.clickElementFromDropDownByIndex(drpDwnDetalle, mainFrame, 1);
+			webDriver.clickInFrame(drpDwnDetalle, mainFrame);
+			//webDriver.waitWithDriver(3000);
+			webDriver.clickInFrame(dropUnAnyo, mainFrame);
+			//webDriver.clickElementFromDropDownByIndex(drpDwnDetalle, mainFrame, 1);
+			//webDriver.clickElementFromDropDownByAttribute(drpDwnDetalle, "value", "AI1");
+			//webDriver.clickElementFromDropDownByAttributeInFrame(drpDwnDetalle, mainFrame, "value", "AS1");
 		}
 		
 		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_INQUILINO));
