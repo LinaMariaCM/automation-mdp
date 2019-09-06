@@ -26,8 +26,15 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By txtFechaOcurrencia = By.id("fechsini");
 
 	// ##### DATOS DECLARACION ####
-	private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
 	private By comboTipoDeclarante = By.id("tipodecl");
+	//private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
+	private By tipoDeclaranteTomador = By.cssSelector("#tipodecl [value='TOMA']");
+	private By tipoDeclaranteAsegurado = By.cssSelector("#tipodecl [value='ASEG']");
+	private By tipoDeclaranteAdministrador = By.cssSelector("#tipodecl [value='ADMI']");
+	private By tipoDeclaranteMediador = By.cssSelector("#tipodecl [value='MEDI']");
+	private By tipoDeclaranteProfiesionales = By.cssSelector("#tipodecl [value='PROF']");
+	private By tipoDeclaranteNoPerteneciente = By.cssSelector("#tipodecl [value='NORI']");
+	
 	private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
 	private By comboMedioDeclaracion = By.id("mododecl");
 	private By txtObservaciones = By.id("comentario");

@@ -471,12 +471,12 @@ public class ActionSteps extends InteractionObject {
 		new ClientePage(userS).buscarClientePorNIF();
 
 	}
+
 	public void buscaClientePorNombre() {
 
 		new ClientePage(userS).buscarClientePorNIF();
 
 	}
-
 
 	public void buscadorCliente() {
 		new ClientePage(userS).clickContiuarResultadoBusqueda();
@@ -549,18 +549,29 @@ public class ActionSteps extends InteractionObject {
 			SiniestrosHomePage siniestrosHome = new SiniestrosHomePage(userS);
 			siniestrosHome.openAperturaAlta();
 
-			// Buscamos una póliza por Nº póliza
+			// De no haber póliza se tomará una al azar de las últimas 50
+
 			SiniestrosAltaAperturaPage altaApertura = new SiniestrosAltaAperturaPage(userS);
-			if(numPoliza.startsWith("510")) ramo = "510";
-			else if(numPoliza.startsWith("920") || numPoliza.startsWith("900")) ramo = "920";
-			else if(numPoliza.startsWith("660")) ramo = "660";
-			else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000"))) ramo = "500";
-			else if(numPoliza.startsWith("5000") || numPoliza.startsWith("600") || numPoliza.startsWith("610") || numPoliza.startsWith("620") || numPoliza.startsWith("630")
-				|| numPoliza.startsWith("640")) ramo = "640";
 
-			altaApertura.buscarPorNumPoliza(ramo, numPoliza);
-			altaApertura.continuarPrimeraPoliza();
+			debugInfo("NUM POLIZA: " + numPoliza);
+			if(numPoliza == null || numPoliza.isEmpty()) {
 
+				altaApertura.buscar50Polizas();
+				altaApertura.continuarRandomPoliza();
+
+			} else {
+				// Buscamos una póliza por Nº póliza
+
+				if(numPoliza.startsWith("510")) ramo = "510";
+				else if(numPoliza.startsWith("920") || numPoliza.startsWith("900")) ramo = "920";
+				else if(numPoliza.startsWith("660")) ramo = "660";
+				else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000"))) ramo = "500";
+				else if(numPoliza.startsWith("5000") || numPoliza.startsWith("600") || numPoliza.startsWith("610") || numPoliza.startsWith("620") || numPoliza.startsWith("630")
+					|| numPoliza.startsWith("640")) ramo = "640";
+
+				altaApertura.buscarPorNumPoliza(ramo, numPoliza);
+				altaApertura.continuarPrimeraPoliza();
+			}
 			// 1.Declaración
 			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
 			datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
@@ -642,11 +653,9 @@ public class ActionSteps extends InteractionObject {
 			// Página de confirmación
 			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
 			confirmarAltaSiniestro.confirmarSiniestroOK();
-			
-			
+
 			// Accedemos a siniestros desde Gestión On Line
 		} else if(acceso.equals(Constants.LoginAccessGestionLine)) {
-			
 
 			// Seleccionamos la opcion alta siniestros
 			GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
@@ -759,7 +768,7 @@ public class ActionSteps extends InteractionObject {
 	public void doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(String loginAccess, String user) throws Exception {
 		// Login
 		login(loginAccess, user);
-		
+
 		crear_proyecto_MAC();
 
 		if(loginAccess.equals(Constants.LoginAccessInnova)) {
@@ -1598,9 +1607,9 @@ public class ActionSteps extends InteractionObject {
 
 		// Abrir la busqueda de autorizaciones
 		new InnovaHomePage(userS).OpenGestionAutorizaciones();
-		
+
 		new GestionAutorizacionesPage(userS)
-		//debugInfo("cotizacio:" + noCotizacion);
+			// debugInfo("cotizacio:" + noCotizacion);
 			.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getTestVar(Constants.NUM_COTIZACION))
 			.autorizar();
 	}
