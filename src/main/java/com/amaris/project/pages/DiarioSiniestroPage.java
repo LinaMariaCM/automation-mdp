@@ -12,6 +12,7 @@ public class DiarioSiniestroPage extends PageObject {
     private By cuerpoFrame = By.id("mainFrame");
     private By leftFrame = By.cssSelector("#leftFrame");
     private By capaIframe = By.cssSelector("#capaIframe");
+    private By diarioSiniestro = By.cssSelector("#jt3");
     
     private By anotacion = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(1) > a > span");
     private By comunicacion = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(3) > a > span");
@@ -31,7 +32,7 @@ public class DiarioSiniestroPage extends PageObject {
     private By desplegarComen = By.cssSelector("table:nth-child(6)  a:nth-child(1)");
     private By ocultarComen = By.cssSelector("table:nth-child(6) > tbody > tr > td > a:nth-child(2)");
     private By cancelar = By.cssSelector("#botonCancelar");
-    
+
 
 
 
