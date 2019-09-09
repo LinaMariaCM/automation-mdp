@@ -417,9 +417,20 @@ public class Constants {
 	public static final String TELEFONO_CONTACTO = "contacto_telefono";
 
 	public static final String PERSONA_FISICA = "Física";
-
+	
+	//Constantes para Siniestros
+		
 	public static final String ASISTENCIA = "asistencia"; 
 	public static final String OTROS_IMPLICADOS = "otros_implicados";
 	public static final String ENCARGO = "encargo";
+	
+	//Constantes Siniestros	:	Datos Alta Siniestro
+	public static final String FECHA_OCURRENCIA = "fecha_ocurrencia";
+	public static final String TIPO_DECLARANTE = "tipo_declarante";
+	public static final String MEDIO_DECLARACION = "medio_declaracion";
+	public static final String FECHA_REGISTRO = "fecha_registro";
+	public static final String FECHA_DENUNCIA = "fecha_denuncia";
+	public static final String DECLARACION_OBSERVACIONES = "dec_observaciones";
+	public static final String DECLARACION_NOMBRE = "dec_nombre";
 	
 }
