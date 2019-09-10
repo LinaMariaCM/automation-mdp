@@ -409,7 +409,6 @@ public class Constants {
 	
 	public static final String FECHA_SINIESTRO = "fecha_siniestro";
 	public static final String CAUSA_SINIESTRO = "causa_siniestro";	
-	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro";	
 	
 	public static final String ROL_CONTACTO = "contacto_rol";	
 	public static final String NOMBRE_CONTACTO = "contacto_nombre";	
@@ -418,11 +417,7 @@ public class Constants {
 
 	public static final String PERSONA_FISICA = "Física";
 	
-	//Constantes para Siniestros
-		
-	public static final String ASISTENCIA = "asistencia"; 
-	public static final String OTROS_IMPLICADOS = "otros_implicados";
-	public static final String ENCARGO = "encargo";
+	//Constantes para Siniestros			
 	
 	//Constantes Siniestros	:	Datos Alta Siniestro
 	public static final String FECHA_OCURRENCIA = "fecha_ocurrencia";
@@ -432,5 +427,94 @@ public class Constants {
 	public static final String FECHA_DENUNCIA = "fecha_denuncia";
 	public static final String DECLARACION_OBSERVACIONES = "dec_observaciones";
 	public static final String DECLARACION_NOMBRE = "dec_nombre";
+	public static final String DECLARACION_PRIM_APELLIDO = "dec_prim_apellido";
+	public static final String DECLARACION_SEG_APELLIDO = "dec_seg_apellido";
+	public static final String DECLARACION_PREFIJO = "dec_prefijo";
+	public static final String DECLARACION_TELEFONO = "dec_telefono";
+	public static final String DECLARACION_EMAIL = "dec_email";
+	public static final String DECLARACION_EMAIL_NO_DISP = "dec_email_no_disp";
+	
+	public static final String ASISTENCIA = "asistencia"; 
+	public static final String ASISTENCIA_URGENTE = "asis_urgente";
+	public static final String ASISTENCIA_DANYOS_UBICADOS = "asis_danyos_ubicados";
+	public static final String ASISTENCIA_ORIGEN_DANYOS_REPARADOS = "asis_origen_danyos_reparado";
+	public static final String ASISTENCIA_DANYOS_A_CONSECUENCIA = "asis_danyos_a_consecuen";
+	public static final String ASISTENCIA_REF_EXTERNA = "asis_ref_externa";
+	
+	
+	public static final String CONTACTO_ROL = "cont_rol";
+	public static final String CONTACTO_NOMBRE = "cont_nombre";
+	public static final String CONTACTO_PRIM_APELLIDO = "cont_prim_apellido";
+	public static final String CONTACTO_SEG_APELLIDO = "cont_seg_apellido";
+	public static final String CONTACTO_TIPO_DOCUMENTO = "cont_tipo_doc";
+	public static final String CONTACTO_N_DOCUMENTO = "cont_n_documento";
+	public static final String CONTACTO_PREFIJO_TEL_UNO = "cont_pref_tel_1";
+	public static final String CONTACTO_TELEFONO_UNO = "cont_telefono_1";
+	public static final String CONTACTO_PREFIJO_TEL_DOS = "cont_pref_tel_2";
+	public static final String CONTACTO_TELEFONO_DOS = "cont_telefono_2";
+	public static final String CONTACTO_SEXO = "cont_sexo";
+	public static final String CONTACTO_EMAIL = "cont_email";
+	public static final String CONTACTO_EMAIL_NO_DISP = "cont_email_no_disp";
+	public static final String CONTACTO_VIVE_EN_RIESGO = "cont_vive_en_riesgo";
+	public static final String CONTACTO_DIR_TIPO_VIA = "cont_dir_tipo_via";
+	public static final String CONTACTO_DIR_CALLE = "cont_dir_calle";
+	public static final String CONTACTO_DIR_NUMERO = "cont_dir_numero";
+	public static final String CONTACTO_DIR_PISO = "cont_dir_piso";
+	public static final String CONTACTO_DIR_PUERTA = "cont_dir_puerta";
+	public static final String CONTACTO_DIR_CP = "cont_dir_CP";
+	public static final String CONTACTO_DIR_POBLACION = "cont_dir_poblacion";
+	public static final String CONTACTO_DIR_PROVINCIA = "cont_dir_provincia";
+	
+	public static final String OCURRENCIA_LUGAR = "ocu_lugar";
+	public static final String OCURRENCIA_DIR_TIPO_VIA = "ocu_dir_tipo_via";
+	public static final String OCURRENCIA_DIR_CALLE = "ocu_dir_calle";
+	public static final String OCURRENCIA_DIR_NUMERO = "ocu_dir_numero";
+	public static final String OCURRENCIA_DIR_PORTAL = "ocu_dir_portal";
+	public static final String OCURRENCIA_DIR_ESCALERA = "ocu_dir_escalera";
+	public static final String OCURRENCIA_DIR_PISO = "ocu_dir_piso";
+	public static final String OCURRENCIA_DIR_PUERTA = "ocu_dir_puerta";
+	public static final String OCURRENCIA_DIR_CP = "ocu_dir_CP";
+	public static final String OCURRENCIA_DIR_POBLACION = "ocu_dir_poblacion";
+	public static final String OCURRENCIA_DIR_PROVINCIA = "ocu_dir_provincia";
+	
+	public static final String CAUSA = "causa";
+	public static final String TIPO_CAUSA = "tipo_causa";
+	public static final String MODIFICAR_RESERVA_INICIAL = "modif_reserva_inicial";	
+	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro"; 
+	public static final String OTROS_IMPLICADOS = "otros_implicados";
+	public static final String ENCARGO = "encargo";
+	
+	public static final String ASEGURADO = "asegurado";
+	public static final String ASEGURADO_NOMBRE = "aseg_nombre";
+	public static final String ASEGURADO_PRIM_APELLIDO = "aseg_prim_apellido";
+	public static final String ASEGURADO_SEG_APELLIDO = "aseg_seg_apellido";
+	public static final String ASEGURADO_TIPO_DOCUMENTO = "aseg_tipo_documento";
+	public static final String ASEGURADO_N_DOCUMENTO = "aseg_n_documento";
+	public static final String ASEGURADO_TELEFONO_UNO = "aseg_telefono_uno";
+	public static final String ASEGURADO_TELEFONO_DOS = "aseg_telefono_dos";
+	public static final String ASEGURADO_SEXO = "aseg_sexo";
+	public static final String ASEGURADO_EMAIL = "aseg_email";
+	public static final String ASEGURADO_DIR_TIPO_VIA = "aseg_tipo_via";
+	public static final String ASEGURADO_DIR_CALLE = "aseg_dir_calle";
+	public static final String ASEGURADO_DIR_NUMERO = "aseg_dir_numero";
+	public static final String ASEGURADO_DIR_PISO = "aseg_dir_piso";
+	public static final String ASEGURADO_DIR_PUERTA = "aseg_dir_puerta";
+	public static final String ASEGURADO_DIR_CP = "aseg_dir_CP";
+	public static final String ASEGURADO_DIR_POBLACION = "aseg_dir_poblacion";
+	public static final String ASEGURADO_DIR_PROVINCIA = "aseg_sir_provincia";
+	public static final String ASEGURADO_COD_IBAN = "aseg_cod_iban";
+	public static final String ASEGURADO_COD_BANCO = "aseg_cod_banco";
+	public static final String ASEGURADO_COD_SUCURSAL ="aseg_cod_sucursal";
+	public static final String ASEGURADO_COD_DC ="aseg_cod_DC";
+	public static final String ASEGURADO_COD_CUENTA ="aseg_cod_cuenta";
+	
+	public static final String OTRO_IMPLICADO = "otro_implicado";
+	public static final String OTRO_
+	public static final String OTRO_
+	public static final String OTRO
+	public static final String OTRO_
+	public static final String OTRO_
+	
+	
 	
 }
