@@ -13,10 +13,13 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	private By modalRaro = By.cssSelector("#modalAddDocuInterv");
+	//private By modalRaro = By.cssSelector("#modalAddDocuInterv");
+	private By modalRaro = By.cssSelector("#docu div[class='row block'] #botonAddDoc");
+	
 	private By modalRaro2 = By.cssSelector(".modal-backdrop.fade.in");
 
-	private By btnAnadirDatosInquilinoPantallaPrincipal = By.id("altaInt");
+	//private By btnAnadirDatosInquilinoPantallaPrincipal = By.id("altaInt");
+	private By btnAnadirDatosInquilinoPantallaPrincipal = By.cssSelector("#altaInt");
 
 	private By btnAnadirDatosInquilino = By.cssSelector("#INQUIAVAL_GRABINTERV_CONF");
 	private By drpDwnDetalle = By.cssSelector("#INQUIAVAL_TIPOCONTRATLABAUT_CONF");
@@ -138,18 +141,24 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		System.out.println("PRUEBA 1");
 		if(webDriver.isPresentInFrame(modalRaro, mainFrame)) {
 			webDriver.setAttributeInFrame(modalRaro, mainFrame, "style", "display: none;");
+			// webDriver.setAttributeInFrame(modalRaro2, mainFrame, "hidden", "");
+		}
+		
+		if(webDriver.isPresentInFrame(modalRaro2, mainFrame)) {
 			webDriver.setAttributeInFrame(modalRaro2, mainFrame, "hidden", "");
 		}
 
-		webDriver.isPresentAndClickInFrame(btnCerrarSpesiaru, mainFrame);
+		//if(webDriver.isPresentInFrame(btnCerrarSpesiaru, mainFrame)) {
+		//	webDriver.isPresentAndClickInFrame(btnCerrarSpesiaru, mainFrame);
+		//}
 
 		System.out.println("PRUEBA 2");
 
-		webDriver.waitWithDriver(99999);
+		//webDriver.waitWithDriver(99999);
 
 		webDriver.clickInFrame(btnAnadirDatosInquilinoPantallaPrincipal, mainFrame);
 
-		webDriver.waitWithDriver(10000);
+		//webDriver.waitWithDriver(10000);
 
 		System.out.println("PRUEBA 3");
 		// Seleccionar que sea aval

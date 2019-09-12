@@ -184,11 +184,14 @@ public class MacTest extends TestObject {
 			dataSteps.el_documento_aleatoreo_inquilino();
 			
 			steps.doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			System.out.println("TOKEN 1");
 			steps.anyado_avalista();
-
+			System.out.println("TOKEN 2");
 			checkSteps.el_proyecto_MAC_se_acepta();
+			System.out.println("TOKEN 3");
 			checkSteps.se_puede_autorizar_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar(Constants.ACCESO_AUTORIZADO), userS.getScenarioVar(Constants.USUARIO_AUTORIZADO));
-
+			System.out.println("TOKEN 4");
+			
 			return null;
 		}).run();
 	}
