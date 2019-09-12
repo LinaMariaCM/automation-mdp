@@ -26,8 +26,15 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By txtFechaOcurrencia = By.id("fechsini");
 
 	// ##### DATOS DECLARACION ####
-	private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
 	private By comboTipoDeclarante = By.id("tipodecl");
+	//private By tipoDeclaranteTomador = By.cssSelector("#tipodecl > option:nth-child(2)");
+	private By tipoDeclaranteTomador = By.cssSelector("#tipodecl [value='TOMA']");
+	private By tipoDeclaranteAsegurado = By.cssSelector("#tipodecl [value='ASEG']");
+	private By tipoDeclaranteAdministrador = By.cssSelector("#tipodecl [value='ADMI']");
+	private By tipoDeclaranteMediador = By.cssSelector("#tipodecl [value='MEDI']");
+	private By tipoDeclaranteProfiesionales = By.cssSelector("#tipodecl [value='PROF']");
+	private By tipoDeclaranteNoPerteneciente = By.cssSelector("#tipodecl [value='NORI']");
+	
 	private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
 	private By comboMedioDeclaracion = By.id("mododecl");
 	private By txtObservaciones = By.id("comentario");
@@ -77,7 +84,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By txtTelefono1 = By.id("telefono1");
 	private By txtTelefono2 = By.id("telefono2");
 	private By comboSexo = By.id("sexocon");
-	private By txtEmail2 = By.id("email");
+	private By txtEmailPersona = By.id("email");
 
 	private By checkNoEmail = By.id("emailnodisp");
 	private By checkRiesgoAsegurado = By.cssSelector("#seccionDatosPersonaContacto > div.sis-col-80 > div > label > input");
@@ -113,7 +120,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.clickElementFromDropDownByIndexInFrame(comboMedioDeclaracion, cuerpoFrame, 2);
 
 		debugEnd();
-		
+
 		return this;
 	}
 
@@ -129,11 +136,12 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.appendTextInFrame(txtObservaciones, cuerpoFrame, observaciones);
 
 		debugEnd();
-		
+
 		return this;
 	}
 
-	public SiniestrosAltaAperturaDeclaracionPage altaDatosDeclarante(String nombreDeclarante, String apellidoDeclarante, String segundoApellido, String prefijoTelefono, String numeroTelefono, String emailDeclarante,
+	public SiniestrosAltaAperturaDeclaracionPage altaDatosDeclarante(String nombreDeclarante, String apellidoDeclarante, String segundoApellido, String prefijoTelefono, String numeroTelefono,
+		String emailDeclarante,
 		boolean noDisponible) {
 		debugBegin();
 
@@ -147,7 +155,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		if(noDisponible) webDriver.clickInFrame(checkEmailNoDisponible, cuerpoFrame);
 
 		debugEnd();
-		
+
 		return this;
 	}
 
@@ -166,7 +174,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		}
 
 		debugEnd();
-		
+
 		return this;
 	}
 
@@ -188,11 +196,12 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		debugBegin();
 		webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
 		debugEnd();
-		
+
 		return this;
 	}
 
-	public SiniestrosAltaAperturaDeclaracionPage altaConAsistencia(boolean requiereAsistencia, boolean resolucionUrgente, String motivo, String ubicacion, boolean origenReparado, boolean consecuencia, String RefAsistenciaExt) {
+	public SiniestrosAltaAperturaDeclaracionPage altaConAsistencia(boolean requiereAsistencia, boolean resolucionUrgente, String motivo, String ubicacion, boolean origenReparado, boolean consecuencia,
+		String RefAsistenciaExt) {
 		debugBegin();
 
 		if(requiereAsistencia) {
@@ -226,67 +235,78 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.setTextInFrame(txtRefAsistenciaExt, cuerpoFrame, RefAsistenciaExt);
 
 		debugEnd();
-		
+
 		return this;
 	}
 
-	public SiniestrosAltaAperturaDeclaracionPage datosPersonaExtra(String rol, String nombre, String apellido1, String apellido2, String tipoDocumento, String documento, String prefijoTlf, String telefono1, String prefijoTlf2,
+	public SiniestrosAltaAperturaDeclaracionPage datosPersonaExtra(String rol, String nombre, String apellido1, String apellido2, String tipoDocumento, String documento, String prefijoTlf,
+		String telefono1, String prefijoTlf2,
 		String telefono2, String sexo, boolean noEmail, String email, boolean riesgoAsegurado, String tipoVia, String via, String numero, String piso, String puerta, String cp, String poblacion,
 		String provincia) {
 		debugBegin();
-
-		webDriver.clickInFrame(buttonPersonaContacto, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(buttonPersonaContacto);
+		webDriver.switchToFrame(modalFrame);
 
 		debugInfo("Comenzamos a rellenar campos de persona extra");
-		webDriver.clickElementFromDropDownByIndexInFrame(comboRol, modalFrame, 8);
-		webDriver.setTextInFrame(txtNombre, modalFrame, nombre);
 
-		if(apellido1 != "") webDriver.setTextInFrame(txt1Apellido, modalFrame, apellido1);
-		if(apellido2 != "") webDriver.setTextInFrame(txt2Apellido, modalFrame, apellido2);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
+		webDriver.setText(txtNombre, nombre);
 
-		webDriver.clickElementFromDropDownByIndexInFrame(comboTipoDoc, modalFrame, 1);
-		webDriver.setTextInFrame(txtDocumento, modalFrame, documento);
+		if(!apellido1.isEmpty()) {
+			webDriver.setText(txt1Apellido, apellido1);
+		}
 
-		if(prefijoTlf != "") {
-			webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo1, modalFrame, "value", prefijoTlf);
+		if(!apellido2.isEmpty()) {
+			webDriver.setText(txt2Apellido, apellido2);
+		}
+
+		webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
+		webDriver.setText(txtDocumento, documento);
+
+		if(!prefijoTlf.isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(comboPrefijo1, "value", prefijoTlf);
 		} else {
 			debugInfo("no existe prefijo t1");
 		}
 
-		webDriver.setTextInFrame(txtTelefono1, modalFrame, telefono1);
+		webDriver.setText(txtTelefono1, telefono1);
 
-		if(prefijoTlf2 != "") {
-			webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo2, modalFrame, "value", prefijoTlf2);
+		if(!prefijoTlf2.isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(comboPrefijo2, "value", prefijoTlf2);
 		} else {
 			debugInfo("no existe prefijo t2");
 		}
 
-		webDriver.setTextInFrame(txtTelefono2, modalFrame, telefono2);
-		webDriver.clickElementFromDropDownByIndexInFrame(comboSexo, modalFrame, 1);
+		webDriver.setText(txtTelefono2, telefono2);
+		webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 
 		if(noEmail) {
-			webDriver.clickInFrame(checkNoEmail, modalFrame);
+			webDriver.setText(txtEmailPersona, email);
+			// webDriver.clickInFrame(checkNoEmail, modalFrame);
 		} else {
-			webDriver.setTextInFrame(txtEmail2, modalFrame, email);
+			webDriver.setText(txtEmailPersona, email);
 		}
 
 		if(riesgoAsegurado) {
-			webDriver.clickInFrame(checkRiesgoAsegurado, modalFrame);
+			webDriver.click(checkRiesgoAsegurado);
 		} else {
-			webDriver.clickElementFromDropDownByIndexInFrame(comboTipoVia, modalFrame, 1);
-			webDriver.setTextInFrame(txtVia, modalFrame, via);
-			webDriver.setTextInFrame(txtNumero, modalFrame, numero);
-			webDriver.setTextInFrame(txtPiso, modalFrame, piso);
-			webDriver.setTextInFrame(txtPuerta, modalFrame, puerta);
-			webDriver.setTextInFrame(txtCodPostal, modalFrame, cp);
-			webDriver.setTextInFrame(txtPoblacion, modalFrame, poblacion);
-			webDriver.clickElementFromDropDownByIndexInFrame(comboProvincia, modalFrame, 1);
+			webDriver.clickElementFromDropDownByIndex(comboTipoVia, 1);
+			webDriver.setText(txtVia, via);
+			webDriver.setText(txtNumero, numero);
+			webDriver.setText(txtPiso, piso);
+			webDriver.setText(txtPuerta, puerta);
+			webDriver.setText(txtCodPostal, cp);
+			webDriver.setText(txtPoblacion, poblacion);
+			webDriver.clickElementFromDropDownByIndex(comboProvincia, 1);
 		}
 
-		webDriver.clickInFrame(btnGrabar, modalFrame);
-
+		webDriver.click(btnGrabar);
+		webDriver.exitFrame();
 		debugEnd();
-		
+
 		return this;
 	}
 
@@ -294,7 +314,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		debugBegin();
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		debugEnd();
-		
+
 		return this;
 	}
 
@@ -323,7 +343,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.waitWithDriver(2500);
 
 		debugEnd();
-		
+
 		return this;
 	}
 	// endregion

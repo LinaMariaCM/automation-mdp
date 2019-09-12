@@ -8,3 +8,5 @@ test-output
 *.iml
 *.log
 bin
+*.version
+.metadata

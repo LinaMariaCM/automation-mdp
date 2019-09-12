@@ -6,10 +6,11 @@ import org.testng.annotations.Test;
 
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
+import com.amaris.automation.model.testing.objects.TestObject;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
-public class SiniestrosTest2 {
+public class SiniestrosTest2 extends TestObject {
 
 	protected SuiteManager suiteM = new SuiteManager(Constants.ALTA_SINIESTROS);
  
@@ -104,6 +105,9 @@ public class SiniestrosTest2 {
 		}).run();
 	}
 
+
+	
+	
 	@Test(dataProvider = "dataProviderSiniestrosMec01")
 
 	public void siniestrosAlta920(String testCase, String id) throws Exception {

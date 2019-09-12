@@ -518,47 +518,59 @@ public class DriverHelper {
 	}
 
 	private void setPropertyDriverPath(String operativeS, String browserType) {
+		String driverPath;
+		String[] driverFolders;
+
 		if(operativeS.startsWith("Windows")) {
-			String[] driverFolders;
-			String mavenWindowsPath = System.getenv("USERPROFILE") + "/.m2/repository/webdriver/";
+			driverPath = System.getenv("USERPROFILE") + "/.m2/repository/webdriver/";
 
 			switch(browserType) {
 				case BrowserType.FIREFOX:
-					driverFolders = new File(mavenWindowsPath + "geckodriver/win64").list();
+					driverFolders = new File(driverPath + "geckodriver/win64").list();
 					Arrays.sort(driverFolders);
-					System.setProperty("webdriver.gecko.driver", mavenWindowsPath + "geckodriver/win64/" + driverFolders[driverFolders.length - 1] + "/geckodriver.exe");
+					System.setProperty("webdriver.gecko.driver", driverPath + "geckodriver/win64/" + driverFolders[driverFolders.length - 1] + "/geckodriver.exe");
 					break;
 				case BrowserType.CHROME:
 				default:
-					driverFolders = new File(mavenWindowsPath + "chromedriver/win32").list();
+					driverFolders = new File(driverPath + "chromedriver/win32").list();
 					Arrays.sort(driverFolders);
-					System.setProperty("webdriver.chrome.driver", mavenWindowsPath + "chromedriver/win32/" + driverFolders[driverFolders.length - 1] + "/chromedriver.exe");
+					System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver/win32/" + driverFolders[driverFolders.length - 1] + "/chromedriver.exe");
+					break;
+			}
+		} else if(operativeS.startsWith("Mac")) {
+			driverPath = System.getProperty("user.dir") + '/';
+
+			switch(browserType) {
+				case BrowserType.FIREFOX:
+					System.setProperty("webdriver.gecko.driver", driverPath + "geckodriver");
+					break;
+				case BrowserType.CHROME:
+				default:
+					System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver");
 					break;
 			}
 		} else {
-			String[] driverFolders;
-			String mavenLinuxPath;
-			String mavenLinuxPathJenkins = configData.getValue("linux_path_for_maven") == null ? AutomationConstants.LINUX_PATH_FOR_MAVEN : configData.getValue("linux_path_for_maven");
-			String mavenLinuxPathHome = System.getProperty("user.home")
-				+ (configData.getValue("windows_path_for_maven") == null ? AutomationConstants.WINDOWS_PATH_FOR_MAVEN : configData.getValue("windows_path_for_maven"));
+			String mavenPathJenkins = configData.getValue("linux_path_for_maven") == null ? AutomationConstants.LINUX_PATH_FOR_MAVEN : configData.getValue("linux_path_for_maven");
+			String mavenPathHome = System.getProperty("user.home")
+				+ (configData.getValue("linux_path_for_maven") == null ? AutomationConstants.WINDOWS_PATH_FOR_MAVEN : configData.getValue("linux_path_for_maven"));
 
-			if(new File(mavenLinuxPathJenkins).list() != null) {
-				mavenLinuxPath = mavenLinuxPathJenkins;
+			if(new File(mavenPathJenkins).list() != null) {
+				driverPath = mavenPathJenkins;
 			} else {
-				mavenLinuxPath = mavenLinuxPathHome;
+				driverPath = mavenPathHome;
 			}
 
 			switch(browserType) {
 				case BrowserType.FIREFOX:
-					driverFolders = new File(mavenLinuxPath + "geckodriver/linux64").list();
+					driverFolders = new File(driverPath + "geckodriver/linux64").list();
 					Arrays.sort(driverFolders);
-					System.setProperty("webdriver.gecko.driver", mavenLinuxPath + "geckodriver/linux64/" + driverFolders[driverFolders.length - 1] + "/geckodriver");
+					System.setProperty("webdriver.gecko.driver", driverPath + "geckodriver/linux64/" + driverFolders[driverFolders.length - 1] + "/geckodriver");
 					break;
 				case BrowserType.CHROME:
 				default:
-					driverFolders = new File(mavenLinuxPath + "chromedriver/linux64").list();
+					driverFolders = new File(driverPath + "chromedriver/linux64").list();
 					Arrays.sort(driverFolders);
-					System.setProperty("webdriver.chrome.driver", mavenLinuxPath + "chromedriver/linux64/" + driverFolders[driverFolders.length - 1] + "/chromedriver");
+					System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver/linux64/" + driverFolders[driverFolders.length - 1] + "/chromedriver");
 					break;
 			}
 		}

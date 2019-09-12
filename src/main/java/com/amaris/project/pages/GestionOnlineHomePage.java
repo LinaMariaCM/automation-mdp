@@ -173,6 +173,8 @@ public class GestionOnlineHomePage extends PageObject {
 		webDriver.waitWithDriver(4000);
 		
 		webDriver.clickInFrame(txtCodigoProyecto, contentFrame);
+		debugInfo("cotizacion:" + noCotizacion);
+		webDriver.waitWithDriver(3000);
 		webDriver.appendTextInFrame(txtCodigoProyecto, contentFrame, noCotizacion);
 		webDriver.clickInFrame(btnBuscar, contentFrame);
 
