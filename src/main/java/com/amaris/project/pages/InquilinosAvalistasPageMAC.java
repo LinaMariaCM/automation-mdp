@@ -56,7 +56,6 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	private By textoComentario = By.id("ENVIO_COM_COMENTARIOS");
 	private By btnEnviarComentarios = By.cssSelector("#formularioEnvio > div.modal-footer > button:nth-child(2)");
 	private By dropUnAnyo = By.cssSelector("option[value='AI1']");
-	
 	// endregion
 
 	public InquilinosAvalistasPageMAC(UserStory userS) {
@@ -125,7 +124,7 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_INQUILINO));
 		webDriver.setTextInFrame(txtIngresos, mainFrame, getScenarioVar(Constants.INGRESOS_INQUILINO));
 
-		webDriver.click(btnAnadirDatosInquilino);
+		webDriver.clickInFrame(btnAnadirDatosInquilino, mainFrame);
 
 		debugEnd();
 
@@ -189,8 +188,8 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	public InquilinosAvalistasPageMAC validacionViabilidadInquilino() {
 		debugBegin();
 
-		webDriver.waitForElementToBeClickable(btnValidacionViabilidad);
-		webDriver.click(btnValidacionViabilidad);
+		webDriver.waitForElementToBeClickableInFrame(btnValidacionViabilidad, mainFrame);
+		webDriver.clickInFrame(btnValidacionViabilidad, mainFrame);
 
 		debugEnd();
 
@@ -203,10 +202,10 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		String situacion = getScenarioVar(Constants.SITUACION_LABORAL);
 
 		if(situacion.equals(Constants.SITUACION_LABORAL_ASALARIADO)) {
-			webDriver.clickElementFromDropDownByText(situacionLaboral, situacion);
-			webDriver.clickElementFromDropDownByText(situacionDetalle, Constants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
+			webDriver.clickElementFromDropDownByTextInFrame(situacionLaboral, mainFrame, situacion);
+			webDriver.clickElementFromDropDownByTextInFrame(situacionDetalle, mainFrame, Constants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 		} else {
-			webDriver.clickElementFromDropDownByText(situacionLaboral, situacion);
+			webDriver.clickElementFromDropDownByTextInFrame(situacionLaboral, mainFrame, situacion);
 		}
 
 		debugEnd();
@@ -228,8 +227,8 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	public InquilinosAvalistasPageMAC anadirDocumentacion() {
 		debugBegin();
 
-		webDriver.click(btnAnadirDocumentacionPrincipal);
-		webDriver.click(btnAnadirDoc);
+		webDriver.clickInFrame(btnAnadirDocumentacionPrincipal, mainFrame);
+		webDriver.clickInFrame(btnAnadirDoc, mainFrame);
 
 		// webDriver.clickInFrame(chkbxDosNominas, mainFrame);
 		// webDriver.clickInFrame(chkbxAutorizacionConsulta, mainFrame);
@@ -238,11 +237,11 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 		// webDriver.clickInFrame(btnAnadirDocumentoSubido, mainFrame);
 
-		webDriver.scrollToElement(btnEliminarDoc);
+		webDriver.scrollToElementInFrame(btnEliminarDoc, mainFrame);
 		debugInfo("Documento añadido");
-		webDriver.moveToElement(btnCerrar);
+		webDriver.moveToElementInFrame(btnCerrar, mainFrame);
 
-		webDriver.click(btnCerrar);
+		webDriver.clickInFrame(btnCerrar, mainFrame);
 
 		adjuntarDocumentos();
 
@@ -285,12 +284,12 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	public InquilinosAvalistasPageMAC enviarACompania() {
 		debugBegin();
 
-		webDriver.click(btnEnviarACompania);
+		webDriver.clickInFrame(btnEnviarACompania, mainFrame);
 
 		webDriver.waitWithDriver(3000);
-		webDriver.isPresent(textoComentario);
-		webDriver.appendText(textoComentario, "IPSUM SUM LOREM LOREM, ESTO ES UNA PRUEBA DEL EQUIPO TaaS");
-		webDriver.click(btnEnviarComentarios);
+		webDriver.isPresentInFrame(textoComentario, mainFrame);
+		webDriver.appendTextInFrame(textoComentario, mainFrame, "IPSUM SUM LOREM LOREM, ESTO ES UNA PRUEBA DEL EQUIPO TaaS");
+		webDriver.clickInFrame(btnEnviarComentarios, mainFrame);
 
 		debugEnd();
 
@@ -324,10 +323,10 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 	public String recuperarNumeroCotizacion() {
 		debugBegin();
-		webDriver.getText(numCotizacion);
+		webDriver.getTextInFrame(numCotizacion, mainFrame);
 		debugEnd();
 
-		return webDriver.getText(numCotizacion);
+		return webDriver.getTextInFrame(numCotizacion, mainFrame);
 	}
 
 }
