@@ -207,8 +207,9 @@ public class ClientePage extends PageObject {
 		webDriver.clickElementFromDropDownByTextInFrame(drpdwnTipoDocumento, menuFrameTomador, getTestVar(Constants.TIPO_DOCUMENTO));
 		webDriver.waitForElementToBeClickableInFrame(txtNumeroDocumento, menuFrameTomador);
 		webDriver.clickInFrame(txtNumeroDocumento, menuFrameTomador);
+		debugInfo("DNI Tomador" +  getScenarioVar(Constants.DNI_TOMADOR));
 
-		webDriver.appendTextInFrame(txtNumeroDocumento, menuFrameTomador, getTestVar(Constants.DNI_TOMADOR)); // NIE
+		webDriver.appendTextInFrame(txtNumeroDocumento, menuFrameTomador, getScenarioVar(Constants.DNI_TOMADOR)); // NIE
 		webDriver.appendTextInFrame(txtNombreCliente, menuFrameTomador, getConfigVar(Constants.NOMBRE_TOMADOR)); // Nombre
 		webDriver.appendTextInFrame(txtApellido1Cliente, menuFrameTomador, getConfigVar(Constants.PRIMER_APELLIDO_TOMADOR)); // Apellido1
 		webDriver.appendTextInFrame(txtApellido1Cliente2, menuFrameTomador, getConfigVar(Constants.SEGUNDO_APELLIDO_TOMADOR)); // Apellido2
@@ -452,7 +453,7 @@ public class ClientePage extends PageObject {
 		debugBegin();
 		
 		webDriver.clickInFrame(checkNif, cuerpoFrame);
-		webDriver.setTextInFrame(txtNIF, cuerpoFrame, getScenarioVar(Constants.DOCUMENTO_INQUILINO));
+		webDriver.setTextInFrame(txtNIF, cuerpoFrame, getConfigVar(Constants.DNI_TOMADOR));
 		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 		
 		debugEnd();

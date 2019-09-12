@@ -1,9 +1,11 @@
 package com.amaris.project.pages;
 
 import org.openqa.selenium.By;
-
+import org.openqa.selenium.WebElement;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import java.util.List;
+
 
 public class SiniestrosAltaAperturaPage extends PageObject {
 
@@ -43,10 +45,28 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 	private By txtCodMediador = By.id("codMediador");
 	private By comboIntervalo = By.id("intervalo");
 	private By comboPaginas = By.id("paginas");
+	
+ 	private By polizas50 = By.cssSelector(".lnkViewAllResults");
+	
+ 	private By selectPoliza = By.cssSelector(".si-button2.si-arrow-right");
+ 	//private By selectPoliza = By.cssSelector("#capaAjax > table > tbody > tr:nth-child("+ Integer.toString((int)((Math.random()*51))) +") > td:nth-child(12) > a > span");
+ 	
+ 	
+ 	
 	// endregion
 
 	public SiniestrosAltaAperturaPage(UserStory userS) {
 		super(userS);
+	}
+	
+	public SiniestrosAltaAperturaPage buscar50Polizas() {
+		debugBegin();				
+		
+		webDriver.clickInFrame(polizas50, mainFrame);
+
+		debugEnd();
+		
+		return this;
 	}
 
 	public SiniestrosAltaAperturaPage buscarPorNumPoliza(String numPoliza) {
@@ -173,6 +193,23 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 		
 		return this;
 	}
+	
+	public SiniestrosAltaAperturaPage continuarRandomPoliza() {
+		debugBegin();
+
+		List<WebElement> listaPolizas = webDriver.getElementsInFrame(selectPoliza, mainFrame);
+
+		webDriver.clickInFrame(listaPolizas.get((int)(Math.random() * (listaPolizas.size() + 1))), mainFrame);
+		
+		System.out.println(selectPoliza);
+		
+		//webDriver.clickInFrame(selectPoliza, mainFrame);
+
+		debugEnd();
+		
+		return this;
+	}
+	
 
 	// Busqueda por Direccion con la información obligatoriav TBD
 	/*

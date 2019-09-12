@@ -15,10 +15,10 @@ import com.amaris.project.pages.GestionOnlineHomePage;
 import com.amaris.project.pages.GestionPolizasBuscadorPage;
 import com.amaris.project.pages.GestionPolizasConsultarPage;
 import com.amaris.project.pages.InnovaHomePage;
-import com.amaris.project.pages.InquilinosAvalistasPage_MAC;
+import com.amaris.project.pages.InquilinosAvalistasPageMAC;
 import com.amaris.project.pages.MediadoresFichaMediadorPage;
 import com.amaris.project.pages.MensajeConfirmacionPage;
-import com.amaris.project.pages.PrecioPorModalidadPage_MAC;
+import com.amaris.project.pages.PrecioPorModalidadPageMAC;
 import com.amaris.project.pages.ValidacionExcepcionesReglasDetallesRiesgoPage;
 
 public class CheckSteps extends InteractionObject {
@@ -244,12 +244,12 @@ public class CheckSteps extends InteractionObject {
 	}
 
 	public void el_proyecto_MAC_se_deniega() {
-		Assert.assertTrue(new InquilinosAvalistasPage_MAC(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new InquilinosAvalistasPageMAC(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Se ha denegado la emisión del proyecto")));
 	}
 
 	public void el_proyecto_MAC_se_acepta() {
-		Assert.assertTrue(new InquilinosAvalistasPage_MAC(userS).recuperarTextoMensajeValidacionOK()
+		Assert.assertTrue(new InquilinosAvalistasPageMAC(userS).recuperarTextoMensajeValidacionOK()
 			.contains("El proyecto deberá ser revisado por compañía, debe adjuntar los documentos obligatorios del estudio de viabilidad, por favor cuando termine todas las gestiones no olvide pulsar el botón Enviar a Compañía. Puede continuar al siguiente paso, para seguir rellenando el resto de campos de la cotización, pero no podrá emitirla."));
 	}
 
@@ -264,7 +264,7 @@ public class CheckSteps extends InteractionObject {
 
 	public void se_puede_autorizar_usando_el_acceso_Innova_y_usuario(String loginAcess, String user) throws Exception {
 		// Enviar el proyecto
-		InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPage_MAC(userS);
+		InquilinosAvalistasPageMAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPageMAC(userS);
 		inquilinosAvalistasPage_MAC.enviarACompania();
 
 		// Cerrar el navegador
@@ -319,18 +319,18 @@ public class CheckSteps extends InteractionObject {
 
 	public void deberia_aparecer_error_rebasada_la_renta_máxima_permitida() {
 		// Comprobar que sale el error correspondiente
-		Assert.assertTrue(new PrecioPorModalidadPage_MAC(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new PrecioPorModalidadPageMAC(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Rebasada la renta máxima permitida de 3.000,00 €")));
 	}
 
 	public void deberia_aparecer_error_situacion_reasegurado() {
 		// Comprobar que sale el error correspondiente
-		Assert.assertTrue(new PrecioPorModalidadPage_MAC(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new PrecioPorModalidadPageMAC(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Situación de reaseguro no es posible la contratación")));
 	}
 
 	public void no_deberia_estar_habilitado_convertir_a_proyecto() {
 		// Comprobar que se queda deshabilitado Convertir a proyecto
-		Assert.assertFalse(new PrecioPorModalidadPage_MAC(userS).checkConvertirAProyectoIsPresent());
+		Assert.assertFalse(new PrecioPorModalidadPageMAC(userS).checkConvertirAProyectoIsPresent());
 	}
 }

@@ -28,8 +28,10 @@ public class SiniestrosOtrosImplicadosAlta extends PageObject {
 	// region Methods
 	public SiniestrosOtrosImplicadosAlta clickNuevoImplicado() {
 		debugBegin();
-		webDriver.click(btnAnadirNuevoImplicado);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(btnAnadirNuevoImplicado, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
+		
 		debugEnd();
 		
 		return this;
