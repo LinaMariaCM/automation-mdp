@@ -732,7 +732,8 @@ public class ActionSteps extends InteractionObject {
 		gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", userS.getTestVar("num_cotizacion"));
 
 		// Denegar el proyecto gestionAutorizacionesPage.denegar();
-		
+		//System.out.println("AHORA!!");
+		//userS.getWebDriver().waitWithDriver(30000);
 		gestionAutorizacionesPage.denegar();
 		
 		userS.getWebDriver().quit();

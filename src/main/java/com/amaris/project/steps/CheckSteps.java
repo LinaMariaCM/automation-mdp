@@ -255,7 +255,8 @@ public class CheckSteps extends InteractionObject {
 
 	public void el_proyecto_esta_en_estado_denegado() {
 		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) {
-			Assert.assertEquals(String.format("Denegado"), new GestionOnlineHomePage(userS).recuperarEstadoPoliza());
+			// Assert.assertEquals(String.format("Denegado"), new GestionOnlineHomePage(userS).recuperarEstadoPoliza());
+			Assert.assertTrue(String.format("Denegado").contentEquals(new GestionOnlineHomePage(userS).recuperarEstadoPoliza()) || String.format("Denegat").contentEquals(new GestionOnlineHomePage(userS).recuperarEstadoPoliza()));
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			Assert.assertEquals(String.format("Desestimada"), new GestionCotizacionesBuscadorPage(userS).getEstadoCotizacion());
 		}

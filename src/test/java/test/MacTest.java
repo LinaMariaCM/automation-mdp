@@ -243,7 +243,7 @@ public class MacTest extends TestObject {
 			steps.enviar_el_proyecto_a_la_compania();
 			steps.deniego_el_proyecto_MAC_usando_el_acceso_Innova_y_usuario(userS.getScenarioVar("accesoAuth"), userS.getScenarioVar("usuarioAuth"));
 			steps.busco_el_proyecto_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
-
+			
 			checkSteps.el_proyecto_esta_en_estado_denegado();
 
 			return null;
