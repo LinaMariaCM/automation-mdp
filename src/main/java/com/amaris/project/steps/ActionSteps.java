@@ -790,6 +790,7 @@ public class ActionSteps extends InteractionObject {
 		// SCS Inquilinos
 		InquilinosAvalistasPageMAC inquilinosAvalistasPageMAC = new InquilinosAvalistasPageMAC(userS);
 		inquilinosAvalistasPageMAC.executeActionsInInquilinosAvalistasPage();
+		System.out.println("PAL 4");
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() {

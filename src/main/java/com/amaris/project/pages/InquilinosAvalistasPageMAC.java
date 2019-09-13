@@ -69,6 +69,7 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		debugBegin();
 
 		addDatosInquilino();
+		System.out.println("TOKEN alfa");
 		anadirDocumentacion();
 		setTestVar(Constants.NUM_COTIZACION, recuperarNumeroCotizacion());
 		debugInfo("Num Cotizacion: " + getTestVar(Constants.NUM_COTIZACION));
@@ -99,10 +100,11 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		webDriver.switchToFrame(mainFrame);
 		webDriver.click(btnAnadirDatosInquilinoPantallaPrincipal);
 
-		webDriver.clickInFrame(btnAnadirDatosInquilinoPantallaPrincipal, mainFrame);
-
+		//webDriver.clickInFrame(btnAnadirDatosInquilinoPantallaPrincipal, mainFrame);
+		webDriver.waitWithDriver(3000);
+		
 		debugInfo("Nombre inquilino: " + getScenarioVar(Constants.NOMBRE_INQUILINO));
-		webDriver.setTextInFrame(txtNombre, mainFrame, getScenarioVar(Constants.NOMBRE_INQUILINO));
+		webDriver.setText(txtNombre, getScenarioVar(Constants.NOMBRE_INQUILINO));
 
 		debugInfo("Aprellido inquilino: " + getScenarioVar(Constants.PRIMER_APELLIDO_INQUILINO));
 		webDriver.setText(txtPrimerApellido, getScenarioVar(Constants.PRIMER_APELLIDO_INQUILINO));
@@ -207,12 +209,13 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 	public InquilinosAvalistasPageMAC seleccionarSituacion() {
 		debugBegin();
-		//webDriver.switchToFrame(mainFrame);
 		String situacion = getScenarioVar(Constants.SITUACION_LABORAL);
+		System.out.println(situacion);
 
 		if(situacion.equals(Constants.SITUACION_LABORAL_ASALARIADO)) {
-			webDriver.clickElementFromDropDownByTextInFrame(situacionLaboral, mainFrame, situacion);
-			webDriver.clickElementFromDropDownByTextInFrame(situacionDetalle, mainFrame, Constants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
+			webDriver.clickElementFromDropDownByText(situacionLaboral, situacion);
+
+			webDriver.clickElementFromDropDownByText(situacionDetalle, Constants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 		} else {
 			webDriver.clickElementFromDropDownByTextInFrame(situacionLaboral, mainFrame, situacion);
 		}
