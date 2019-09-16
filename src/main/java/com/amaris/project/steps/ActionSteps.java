@@ -750,6 +750,10 @@ public class ActionSteps extends InteractionObject {
 		gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", userS.getTestVar("num_cotizacion"));
 
 		// Denegar el proyecto gestionAutorizacionesPage.denegar();
+		//System.out.println("AHORA!!");
+		//userS.getWebDriver().waitWithDriver(30000);
+		gestionAutorizacionesPage.denegar();
+		
 		userS.getWebDriver().quit();
 
 		debugEnd();
@@ -762,7 +766,11 @@ public class ActionSteps extends InteractionObject {
 		// Abrir el buscador de proyectos //
 		GestionOnlineHomePage gestionOnlineHomePage = new GestionOnlineHomePage(userS);
 		gestionOnlineHomePage.openMisProyectosWeb();
+		
+		System.out.println(userS.getTestVar(Constants.NUM_COTIZACION));
+		
 		gestionOnlineHomePage.buscarProyectoWeb(userS.getTestVar(Constants.NUM_COTIZACION));
+		
 	}
 
 	public void doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(String loginAccess, String user) throws Exception {
@@ -782,6 +790,7 @@ public class ActionSteps extends InteractionObject {
 		// SCS Inquilinos
 		InquilinosAvalistasPageMAC inquilinosAvalistasPageMAC = new InquilinosAvalistasPageMAC(userS);
 		inquilinosAvalistasPageMAC.executeActionsInInquilinosAvalistasPage();
+		System.out.println("PAL 4");
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() {
@@ -816,34 +825,40 @@ public class ActionSteps extends InteractionObject {
 		login(loginAcess, user);
 
 		String mediador = userS.getScenarioVar(Constants.MEDIADOR);
-
+		
 		if(loginAcess.equals(Constants.LoginAccessGestionLine)) {
 			new GestionOnlineHomePage(userS).openContratarMutuaEdificioConfort();
 		} else if(loginAcess.equals(Constants.LoginAccessInnova)) {
 			openSimulationMec();
 			new AsignarMediadorPage(userS).TerminaProcesando().SeleccionarMediadorPorCodigo(mediador).clickOnContinuarButton();
 		}
-
-		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue();
-
-		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
-
-		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgoMinimos();
-
-		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).ClickOnContinuarAndValidate();
-
-		new PrecioPage(userS).ClickOnConvertirAProjecto();
-
+		
+		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue().waitProcesando();
+		
+		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada().waitProcesando();
+		
+		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgoMinimos().waitProcesando();
+		
+		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).ClickOnContinuarAndValidate().waitProcesando();
+		
+		//new PrecioPage(userS).ClickOnConvertirAProjecto().waitProcesando();
+		
+		  
 		new DatosBasicosTomadorPage(userS)
 			.FillTomadorData(getScenarioVar(Constants.TOMADOR))
-			.clickOnContinuar();
-
-		new PrecioPorModalidadPage(userS).ExecuteActionsInPrecioPorModalidadPage();
-
+			//.clickOnContinuar()
+			.waitProcesando();
+		
+		new PrecioPorModalidadPage(userS).ExecuteActionsInPrecioPorModalidadPage().waitProcesando();
+		System.out.println("TOKEN OUT DOS");
+		
 		new ValidacionExcepcionesReglasPage(userS).clickOnContinuarButton();
-
+		System.out.println("TOKEN OUT TRES");
+		
 		new ClausulasPage(userS).ActivateclausesAndClickOnContinue();
-
+		System.out.println("TOKEN OUT CUATRO");
+		
+		/*
 		new TomadorYAseguradoPage(userS)
 			.AddDatosTomador()
 			.AddDatosTomadorDiferenteAsegurado()
@@ -854,6 +869,8 @@ public class ActionSteps extends InteractionObject {
 		new DatosBancariosPage(userS).introducirFormaPagoYPulsarContratar();
 
 		// new DataSteps(userS).imprimir_informacion_del_proyecto();
+		
+		*/
 
 		userS.getWebDriver().quit();
 
@@ -1412,7 +1429,7 @@ public class ActionSteps extends InteractionObject {
 			|| loginAcess.equals(Constants.LoginAccessInnova)) {
 			login(loginAcess, user);
 			crear_simulacion();
-
+			
 			String mediador = getScenarioVar(Constants.MEDIADOR);
 			if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
 				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
@@ -1422,6 +1439,7 @@ public class ActionSteps extends InteractionObject {
 				asignarMediadorPage.SeleccionarMediadorPorCodigo(getScenarioVar(Constants.MEDIADOR));
 				asignarMediadorPage.clickOnContinuarButton();
 			}
+			
 
 			UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
 			ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
@@ -1431,6 +1449,7 @@ public class ActionSteps extends InteractionObject {
 			new DetallesRiesgoPage(userS)
 				// .executeActionsInPageDetallesRiesgoPage();
 				.completarDatosEnDetallesRiesgo();
+			
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).clickOnContinuar();
 
