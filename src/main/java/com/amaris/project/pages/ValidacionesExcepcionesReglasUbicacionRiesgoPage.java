@@ -21,7 +21,6 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject
 
 	private By procesandoWindow = By.cssSelector(".smallbox");
 	private By aceptarBtn = By.cssSelector("#modalErrores .modal-footer button");
-	private By procesando = By.cssSelector("#procesando");
 	// endregion
 
 	public ValidacionesExcepcionesReglasUbicacionRiesgoPage(UserStory userS) {
@@ -29,22 +28,6 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject
 	}
 
 	// region methods
-	
-	public ValidacionesExcepcionesReglasUbicacionRiesgoPage waitProcesando() throws Exception {
-			
-		System.out.println("Espero a ver procesando...");
-		webDriver.waitWithDriver(7000);
-		
-		while(this.webDriver.isPresent(procesando)) {
-			System.out.println("Lo veo");
-			webDriver.waitWithDriver(1500);
-		}
-		
-		System.out.println("No veo procesando...");
-		
-		return this;
-	}
-	
 	public ValidacionesExcepcionesReglasUbicacionRiesgoPage ClickOnContinuarButton() {
 		debugBegin();
 

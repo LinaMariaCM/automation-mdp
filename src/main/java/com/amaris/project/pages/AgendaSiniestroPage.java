@@ -51,6 +51,5 @@ public class AgendaSiniestroPage extends PageObject {
     private By asociarEti = By.cssSelector("#botonAsociar");
 
 
-    
 
 }

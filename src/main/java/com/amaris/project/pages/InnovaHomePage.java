@@ -12,8 +12,8 @@ public class InnovaHomePage extends PageObject {
 	private By mainFrame = By.cssSelector("#mainFrame");
 
 	private By btnMutuaEdificioConfort = By.xpath(".//*[normalize-space(text())='Mutua edificio confort']");
-	private By btnMutuaAlquilerConfort = By.cssSelector("a[href*='codmenu=510']");
-	private By btnGestionProjectosSimulaciones = By.cssSelector("a[href*='codmenu=GESTION_COTIZACIONES']");
+	private By btnMutuaAlquilerConfort = By.cssSelector("#jt3");
+	private By btnGestionProjectosSimulaciones = By.cssSelector("#jt5");
 
 	private By btnSiniestros = By.xpath(".//*[text()='Siniestros']");
 	private By btnMediadores = By.xpath(".//*[contains(text(),'Mediadores')]");
@@ -25,11 +25,11 @@ public class InnovaHomePage extends PageObject {
 	private By btnGestionProjectoSimulacion = By.xpath(".//*[text()='Gestión de proyecto/simulación']");
 	private By btnGestionCotizaciones = By.xpath(".//*[text()='Gestión de cotizaciones']");
 	private By btnGestionPolizas = By.xpath(".//*[@title='Gestión de pólizas']");
-	private By btnGestionPolizasMenu = By.cssSelector("a[href*='codmenu=GESTIONDPOLIZAS']");
+	private By btnGestionPolizasMenu = By.cssSelector("#jt13");
 	private By btnGestionAutorizaciones = By.cssSelector("[title*='Gestión de autorizaciones']");
 
 	private By btnMenuMEC = By.cssSelector("#boton2");
-	private By btnMHC = By.cssSelector("a[href*='codmenu=660']");
+	private By btnMHC = By.id("jt5");
 	// endregion
 
 	public InnovaHomePage(UserStory userS) {

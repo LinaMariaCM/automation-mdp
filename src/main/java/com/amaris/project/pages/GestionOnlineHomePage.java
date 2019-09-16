@@ -49,10 +49,6 @@ public class GestionOnlineHomePage extends PageObject {
 	private By estadoPoliza = By.cssSelector("#DataTables_Table_0 > tbody > tr > td:nth-child(13)");
 	private By errorBuscar = By.cssSelector(".mis-proyectos-web div[id *= modalWindow");
 	private By cerrarErrorBuscar = By.cssSelector("#modalWindow > div.modal-footer > button");
-	
-	private By desplegarAlquileres = By.cssSelector("a[data-target*='dropdown-alquiler'] p");
-	private By contratarAlquileres = By.cssSelector("div[id='dropdown-alquiler'] a p");
-	
 	// endregion
 
 	public GestionOnlineHomePage(UserStory userS) {
@@ -113,7 +109,6 @@ public class GestionOnlineHomePage extends PageObject {
 	}
 
 	public GestionOnlineHomePage openContratarMutuaAlquilerConfort() {
-		
 		debugBegin();
 
 		// // In GO UatPj environment, only need to hover over option.
@@ -123,11 +118,9 @@ public class GestionOnlineHomePage extends PageObject {
 		// webDriver.click(btnContratacionSelector);
 		// }
 		// webDriver.moveToElement(btnContratacionSelector);
+
 		webDriver.click(btnContratacion);
-		//webDriver.clickInFrame(btnContratarMutuaAlquilerConfort, contentFrame);
-		webDriver.clickInFrame(desplegarAlquileres, contentFrame);
-		webDriver.waitWithDriver(1000);
-		webDriver.clickInFrame(contratarAlquileres, contentFrame);
+		webDriver.clickInFrame(btnContratarMutuaAlquilerConfort, contentFrame);
 		webDriver.waitWithDriver(3000);
 		webDriver.switchToWindow(1);
 		debugEnd();
@@ -176,9 +169,7 @@ public class GestionOnlineHomePage extends PageObject {
 
 	public GestionOnlineHomePage buscarProyectoWeb(String noCotizacion) {
 		debugBegin();
-		
-		webDriver.waitWithDriver(4000);
-		
+
 		webDriver.clickInFrame(txtCodigoProyecto, contentFrame);
 		debugInfo("cotizacion:" + noCotizacion);
 		webDriver.waitWithDriver(3000);

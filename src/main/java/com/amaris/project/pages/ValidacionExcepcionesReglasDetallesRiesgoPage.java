@@ -40,30 +40,13 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 
 	private By loaderModal = By.cssSelector("#modalLoader");
 	private By procesandoWindow = By.cssSelector(".smallbox");
-	private By btnConvertirAProyecto = By.cssSelector("button[ng-click*='convertToProject']");
-	private By procesando = By.cssSelector("#procesando");
 	// endregion
 
 	public ValidacionExcepcionesReglasDetallesRiesgoPage(UserStory userS) {
 		super(userS);
 	}
-	
-	
-	public ValidacionExcepcionesReglasDetallesRiesgoPage waitProcesando() throws Exception {
-		
-		System.out.println("Espero a ver procesando...");
-		webDriver.waitWithDriver(7000);
-		
-		while(this.webDriver.isPresent(procesando)) {
-			System.out.println("Lo veo");
-			webDriver.waitWithDriver(1500);
-		}
-		
-		System.out.println("No veo procesando...");
-		
-		return this;
-	}
-	
+
+	// region methods
 	public boolean checkContinuarAvailability() {
 		debugBegin();
 
@@ -93,12 +76,13 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 		debugBegin();
 
 		setTestVar(Constants.INFRA_SEGURO, "false");
+
 		webDriver.waitWithDriver(1000);
 		webDriver.waitForElementNotToBeClickable(loaderModal);
 		webDriver.waitForElementNotToBeClickable(procesandoWindow);
 		webDriver.waitWithDriver(1000);
-		
-		if(!getScenarioVar(Constants.DESHABITACION).isEmpty() && !getScenarioVar(Constants.CONSTRUIDO_MADERA).isEmpty()) {
+
+		if(!getTestVar(Constants.DESHABITACION).isEmpty() && !getTestVar(Constants.CONSTRUIDO_MADERA).isEmpty()) {
 			if(Boolean.parseBoolean(getTestVar(Constants.INFRA_SEGURO))) {
 				CheckInfraseguroMsg();
 			}
@@ -108,19 +92,14 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 			}
 		}
 
-		
 		CheckAvisoConstructionYear();
 		CheckAvisoRehabilitacionIntegralWithException();
-		
+
 		webDriver.waitForElementNotToBeClickable(loaderModal);
 		webDriver.waitForElementNotToBeClickable(procesandoWindow);
-		
-		/*if(webDriver.getElementsInFrame(btnContinuar, cuerpoFrame).size() == 1) {
+
+		if(webDriver.getElementsInFrame(btnContinuar, cuerpoFrame).size() == 1) {
 			webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-		}*/
-		
-		if(webDriver.getElementsInFrame(btnConvertirAProyecto, cuerpoFrame).size() == 1) {
-			webDriver.clickInFrame(btnConvertirAProyecto, cuerpoFrame);
 		}
 
 		debugEnd();

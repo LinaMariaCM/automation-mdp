@@ -13,13 +13,10 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	//private By modalRaro = By.cssSelector("#modalAddDocuInterv");
-	private By modalRaro = By.cssSelector("#docu div[class='row block'] #botonAddDoc");
-	
+	private By modalRaro = By.cssSelector("#modalAddDocuInterv");
 	private By modalRaro2 = By.cssSelector(".modal-backdrop.fade.in");
 
-	//private By btnAnadirDatosInquilinoPantallaPrincipal = By.id("altaInt");
-	private By btnAnadirDatosInquilinoPantallaPrincipal = By.cssSelector("#altaInt");
+	private By btnAnadirDatosInquilinoPantallaPrincipal = By.id("altaInt");
 
 	private By btnAnadirDatosInquilino = By.cssSelector("#INQUIAVAL_GRABINTERV_CONF");
 	private By drpDwnDetalle = By.cssSelector("#INQUIAVAL_TIPOCONTRATLABAUT_CONF");
@@ -58,7 +55,6 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 	private By textoComentario = By.id("ENVIO_COM_COMENTARIOS");
 	private By btnEnviarComentarios = By.cssSelector("#formularioEnvio > div.modal-footer > button:nth-child(2)");
-	private By dropUnAnyo = By.cssSelector("option[value='AI1']");
 	// endregion
 
 	public InquilinosAvalistasPageMAC(UserStory userS) {
@@ -69,7 +65,6 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		debugBegin();
 
 		addDatosInquilino();
-		System.out.println("TOKEN alfa");
 		anadirDocumentacion();
 		setTestVar(Constants.NUM_COTIZACION, recuperarNumeroCotizacion());
 		debugInfo("Num Cotizacion: " + getTestVar(Constants.NUM_COTIZACION));
@@ -100,9 +95,6 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		webDriver.switchToFrame(mainFrame);
 		webDriver.click(btnAnadirDatosInquilinoPantallaPrincipal);
 
-		//webDriver.clickInFrame(btnAnadirDatosInquilinoPantallaPrincipal, mainFrame);
-		webDriver.waitWithDriver(3000);
-		
 		debugInfo("Nombre inquilino: " + getScenarioVar(Constants.NOMBRE_INQUILINO));
 		webDriver.setText(txtNombre, getScenarioVar(Constants.NOMBRE_INQUILINO));
 
@@ -113,23 +105,18 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		debugInfo("Documento inquilino: " + getScenarioVar(Constants.DOCUMENTO_INQUILINO));
 		webDriver.setText(txtDocumento, getScenarioVar(Constants.DOCUMENTO_INQUILINO));
 
+		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_INQUILINO));
+		webDriver.setText(txtIngresos, getScenarioVar(Constants.INGRESOS_INQUILINO));
+
 		// Situacion laboral
 		seleccionarSituacion();
-		webDriver.waitWithDriver(4000);
-		if(webDriver.isClickableInFrame(drpDwnDetalle, mainFrame)) {
-			debugInfo("entra condicion");
-			webDriver.clickInFrame(drpDwnDetalle, mainFrame);
-			//webDriver.waitWithDriver(3000);
-			webDriver.clickInFrame(dropUnAnyo, mainFrame);
-			//webDriver.clickElementFromDropDownByIndex(drpDwnDetalle, mainFrame, 1);
-			//webDriver.clickElementFromDropDownByAttribute(drpDwnDetalle, "value", "AI1");
-			//webDriver.clickElementFromDropDownByAttributeInFrame(drpDwnDetalle, mainFrame, "value", "AS1");
-		}
-		
-		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_INQUILINO));
-		webDriver.setTextInFrame(txtIngresos, mainFrame, getScenarioVar(Constants.INGRESOS_INQUILINO));
 
-		webDriver.clickInFrame(btnAnadirDatosInquilino, mainFrame);
+		if(webDriver.isClickable(drpDwnDetalle)) {
+			debugInfo("entra condicion");
+			webDriver.clickElementFromDropDownByIndex(drpDwnDetalle, mainFrame, 1);
+		}
+
+		webDriver.click(btnAnadirDatosInquilino);
 
 		debugEnd();
 
@@ -143,24 +130,18 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		System.out.println("PRUEBA 1");
 		if(webDriver.isPresentInFrame(modalRaro, mainFrame)) {
 			webDriver.setAttributeInFrame(modalRaro, mainFrame, "style", "display: none;");
-			// webDriver.setAttributeInFrame(modalRaro2, mainFrame, "hidden", "");
-		}
-		
-		if(webDriver.isPresentInFrame(modalRaro2, mainFrame)) {
 			webDriver.setAttributeInFrame(modalRaro2, mainFrame, "hidden", "");
 		}
 
-		//if(webDriver.isPresentInFrame(btnCerrarSpesiaru, mainFrame)) {
-		//	webDriver.isPresentAndClickInFrame(btnCerrarSpesiaru, mainFrame);
-		//}
+		webDriver.isPresentAndClickInFrame(btnCerrarSpesiaru, mainFrame);
 
 		System.out.println("PRUEBA 2");
 
-		//webDriver.waitWithDriver(99999);
+		webDriver.waitWithDriver(99999);
 
 		webDriver.clickInFrame(btnAnadirDatosInquilinoPantallaPrincipal, mainFrame);
 
-		//webDriver.waitWithDriver(10000);
+		webDriver.waitWithDriver(10000);
 
 		System.out.println("PRUEBA 3");
 		// Seleccionar que sea aval
@@ -174,18 +155,18 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 		debugInfo("Aprellido inquilino: " + getScenarioVar(Constants.PRIMER_APELLIDO_AVALISTA));
 		webDriver.setTextInFrame(txtPrimerApellido, mainFrame, userS.getTestVar(Constants.PRIMER_APELLIDO_AVALISTA));
-		
-		// Seleccionar parentesco
-		seleccionarParentesco();
-		
-		// Situacion laboral
-		seleccionarSituacion();
 
 		debugInfo("Documento inquilino: " + getScenarioVar(Constants.DOCUMENTO_AVALISTA));
 		webDriver.setTextInFrame(txtDocumento, mainFrame, userS.getTestVar(Constants.DOCUMENTO_AVALISTA));
 
 		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_AVALISTA));
 		webDriver.setTextInFrame(txtIngresos, mainFrame, userS.getTestVar(Constants.INGRESOS_AVALISTA));
+
+		// Seleccionar parentesco
+		seleccionarParentesco();
+
+		// Situacion laboral
+		seleccionarSituacion();
 
 		webDriver.clickInFrame(btnAnadirDatosInquilino, mainFrame);
 
@@ -199,8 +180,8 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	public InquilinosAvalistasPageMAC validacionViabilidadInquilino() {
 		debugBegin();
 
-		webDriver.waitForElementToBeClickableInFrame(btnValidacionViabilidad, mainFrame);
-		webDriver.clickInFrame(btnValidacionViabilidad, mainFrame);
+		webDriver.waitForElementToBeClickable(btnValidacionViabilidad);
+		webDriver.click(btnValidacionViabilidad);
 
 		debugEnd();
 
@@ -209,15 +190,14 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 	public InquilinosAvalistasPageMAC seleccionarSituacion() {
 		debugBegin();
+		//webDriver.switchToFrame(mainFrame);
 		String situacion = getScenarioVar(Constants.SITUACION_LABORAL);
-		System.out.println(situacion);
 
 		if(situacion.equals(Constants.SITUACION_LABORAL_ASALARIADO)) {
 			webDriver.clickElementFromDropDownByText(situacionLaboral, situacion);
-
 			webDriver.clickElementFromDropDownByText(situacionDetalle, Constants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 		} else {
-			webDriver.clickElementFromDropDownByTextInFrame(situacionLaboral, mainFrame, situacion);
+			webDriver.clickElementFromDropDownByText(situacionLaboral, situacion);
 		}
 
 		debugEnd();
@@ -239,8 +219,8 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	public InquilinosAvalistasPageMAC anadirDocumentacion() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnAnadirDocumentacionPrincipal, mainFrame);
-		webDriver.clickInFrame(btnAnadirDoc, mainFrame);
+		webDriver.click(btnAnadirDocumentacionPrincipal);
+		webDriver.click(btnAnadirDoc);
 
 		// webDriver.clickInFrame(chkbxDosNominas, mainFrame);
 		// webDriver.clickInFrame(chkbxAutorizacionConsulta, mainFrame);
@@ -249,11 +229,11 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 		// webDriver.clickInFrame(btnAnadirDocumentoSubido, mainFrame);
 
-		webDriver.scrollToElementInFrame(btnEliminarDoc, mainFrame);
+		webDriver.scrollToElement(btnEliminarDoc);
 		debugInfo("Documento añadido");
-		webDriver.moveToElementInFrame(btnCerrar, mainFrame);
+		webDriver.moveToElement(btnCerrar);
 
-		webDriver.clickInFrame(btnCerrar, mainFrame);
+		webDriver.click(btnCerrar);
 
 		adjuntarDocumentos();
 
@@ -285,7 +265,7 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		debugBegin();
 		// TODO: mover la ruta de fichero de upload a configuracion
 		webDriver.waitWithDriver(5000);
-		FileHelper.uploadFIle((System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf").replaceAll("/", "\\\\"));
+		FileHelper.uploadFIle(System.getProperty("user.dir") + "/" + AutomationConstants.RESOURCES_FOLDER + "prueba_normas_de_protocolo.pdf");
 		debugInfo("Fichero subido");
 
 		debugEnd();
@@ -296,12 +276,12 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 	public InquilinosAvalistasPageMAC enviarACompania() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnEnviarACompania, mainFrame);
+		webDriver.click(btnEnviarACompania);
 
 		webDriver.waitWithDriver(3000);
-		webDriver.isPresentInFrame(textoComentario, mainFrame);
-		webDriver.appendTextInFrame(textoComentario, mainFrame, "IPSUM SUM LOREM LOREM, ESTO ES UNA PRUEBA DEL EQUIPO TaaS");
-		webDriver.clickInFrame(btnEnviarComentarios, mainFrame);
+		webDriver.isPresent(textoComentario);
+		webDriver.appendText(textoComentario, "IPSUM SUM LOREM LOREM, ESTO ES UNA PRUEBA DEL EQUIPO TaaS");
+		webDriver.click(btnEnviarComentarios);
 
 		debugEnd();
 
@@ -335,10 +315,10 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 	public String recuperarNumeroCotizacion() {
 		debugBegin();
-		webDriver.getTextInFrame(numCotizacion, mainFrame);
+		webDriver.getText(numCotizacion);
 		debugEnd();
 
-		return webDriver.getTextInFrame(numCotizacion, mainFrame);
+		return webDriver.getText(numCotizacion);
 	}
 
 }

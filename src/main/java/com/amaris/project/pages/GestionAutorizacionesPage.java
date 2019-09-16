@@ -20,12 +20,11 @@ public class GestionAutorizacionesPage extends PageObject {
 	private By ddCotizacion = By.xpath(".//*[@value='COTIZACION']");
 	private By ddPendiente = By.xpath(".//*[@value='PENDIENTE']");
 
-	private By btnFlecha = By.cssSelector("div[id='capaAjax'] div[id*='capaPuntos'] span");
+	private By btnFlecha = By.xpath("//*[contains(@id, 'capaPuntos')]");
 	private By btnAutorizar = By.linkText("Autorizar");
-	private By btnAnular = By.cssSelector("div[class*='cpdatos'] li:nth-child(2)");
+	private By btnAnular = By.linkText("Anular");
 	private By btnAutorizar2 = By.cssSelector("#botonAutorizar");
-	// private By btnAnular2 = By.cssSelector("botonAnular");
-	private By btnAnular2 = By.cssSelector("div[class*='box-buttons'] input");
+	private By btnAnular2 = By.cssSelector("botonAnular");
 	private By mjsResultadoAut = By.cssSelector("tbody tbody span");
 	// endregion
 
@@ -67,7 +66,6 @@ public class GestionAutorizacionesPage extends PageObject {
 		debugBegin();
 		
 		webDriver.clickInFrame(btnFlecha, mainFrame);
-		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnAnular, mainFrame);
 		webDriver.clickInFrame(btnAnular2, mainFrame);
 		
