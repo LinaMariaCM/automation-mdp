@@ -18,6 +18,10 @@ public class Constants {
 
 	public static final String MAC = "Mac";
 	public static final String MEC = "Mec";
+	public static final String MEC_CON_PER = "MecConPer";
+	public static final String MEC_MOT_SUP_GEN = "MecMotSupGen";
+	public static final String MEC_PAR_RET_SIM = "MecParRetSim";
+	public static final String MEC_PAR_RET_PRO = "MecParRetPro";
 	public static final String MEC_SINIESTROS = "MecSin";
 	public static final String ALTA_SINIESTROS = "AltaSin";
 
@@ -111,6 +115,7 @@ public class Constants {
 	public static final String AvisoModificacionRehabilitacionIntegral = "Debido a que se ha modificado el año de rehabilitación integral y el año de rehabilitación de conducciones comunitarias, el proyecto debe ser revisado por la compañía. Hasta que no sea validado la impresión queda bloqueada y el precio no es vinculante.";
 	public static final String AvisoModificacionRehabilitacionIntegralConduccionesComunitariasGherkin = "año rehabilitación y construcciones comunitarias";
 	public static final String AvisoModificacionRehabilitacionIntegralNotPressent = "El aviso que debía aparecer cuando se modifica el año de rehabilitación integral no ha aparecido";
+	public static final String AvisoModificacionAnyoRehabilitacion = "Modificación año rehabilitación conducciones comunitarias";
 
 	public static final String TomadorCifEnTramite = "Cif_en_tramite";
 	public static final String CIF = "CIF";
@@ -119,6 +124,9 @@ public class Constants {
 	public static final String MotivoSuplementoInclusionExclusionDescuento = "Inclusión/exclusión descuento";
 	public static final String MotivoSuplementoinclusionMaquinaria = "Inclusión maquinaria";
 	public static final String MotivoSuplementoInclusionEnergiaSolar = "Inclusión placa solar";
+	public static final String MotivoSuplementoModificacionNEdificios = "Modificación N° edificios";
+	public static final String MotivoSuplementoModificacionNViviendas = "Modificación N° de viviendas";
+	public static final String MotivoSuplementoModificacionNLocales = "Modificación N° de locales";
 	public static final String CantidadDescuentoNoEspecificado = "No especificado";
 	public static final String NivelRehabilitacionAguasRehabilitadoTotalidad = "Rehabilitado en su totalidad";
 	public static final String CalidadConstruccionSencilla = "Sencilla";
@@ -416,6 +424,8 @@ public class Constants {
 	public static final String TELEFONO_CONTACTO = "contacto_telefono";
 
 	public static final String PERSONA_FISICA = "Física";
+	public static final String CAPITAL_16M = "16000000";
+	public static final String DATOS_RIESGO = "Datos de riesgo";
 	
 	//Constantes para Siniestros			
 	

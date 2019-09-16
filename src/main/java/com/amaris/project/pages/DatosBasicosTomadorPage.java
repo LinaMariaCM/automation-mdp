@@ -43,6 +43,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 	private By checkMismaDirec = By.cssSelector("[ng-model='mismaDireccionRiesgo']");
 	
 	private By btnGuardar = By.cssSelector("[ng-bind*='com_guardar']");
+	private By procesando = By.cssSelector("#procesando");
 	
 	
 	//private By btnAceptarAnyadir = By.xpath(".//div[@class='modal-footer']/button[text()='Añadir datos asegurado principal']");
@@ -60,6 +61,21 @@ public class DatosBasicosTomadorPage extends PageObject {
 	}
 
 	// region methods
+	public DatosBasicosTomadorPage waitProcesando() throws Exception {
+		
+		System.out.println("Espero a ver procesando...");
+		webDriver.waitWithDriver(7000);
+		
+		while(this.webDriver.isPresent(procesando)) {
+			System.out.println("Lo veo");
+			webDriver.waitWithDriver(1500);
+		}
+		
+		System.out.println("No veo procesando...");
+		
+		return this;
+	}
+	
 	public DatosBasicosTomadorPage clickOnContinuar() {
 		debugBegin();
 		webDriver.waitWithDriver(4000);
@@ -149,7 +165,6 @@ public class DatosBasicosTomadorPage extends PageObject {
 					webDriver.clickInFrame(btnAceptarVolver, cuerpoFrame);
 				}
 
-				// webDriver.waitWithDriver(2000);
 				webDriver.waitForElementNotToBeClickableInFrame(loaderModal, cuerpoFrame);
 				webDriver.waitWithDriver(4000);
 				System.out.println("~$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -160,13 +175,13 @@ public class DatosBasicosTomadorPage extends PageObject {
 				System.out.println("\n");
 				System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
+				webDriver.waitWithDriver(20000);
 				ActionSteps.waitForIt(webDriver);
 
 				webDriver.clickElementFromDropDownByTextInFrame(cmbTipoDocumento, cuerpoFrame, Constants.NIF);
 				setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
 				webDriver.clickInFrame(txtNumeroDocumento, cuerpoFrame);
 				webDriver.appendTextInFrame(txtNumeroDocumento, cuerpoFrame, getTestVar(Constants.DNI_TOMADOR));
-
 				webDriver.appendTextInFrame(txtNombreTomador, cuerpoFrame, getScenarioVar(Constants.NOMBRE_TOMADOR));
 				webDriver.appendTextInFrame(txtPrimerApellidoTomador, cuerpoFrame, getScenarioVar(Constants.PRIMER_APELLIDO_TOMADOR));
 				webDriver.appendTextInFrame(txtSegundoApellidoTomador, cuerpoFrame, getScenarioVar(Constants.SEGUNDO_APELLIDO_TOMADOR));
@@ -174,7 +189,9 @@ public class DatosBasicosTomadorPage extends PageObject {
 				webDriver.clickInFrame(btnValidarCliente, cuerpoFrame);
 
 				webDriver.waitWithDriver(2000);
-				webDriver.waitForElementNotToBeClickableInFrame(btnAceptar, cuerpoFrame);
+				//webDriver.waitForElementNotToBeClickableInFrame(btnAceptar, cuerpoFrame);
+				webDriver.waitForElementToBeClickableInFrame(btnAceptar, cuerpoFrame);
+				//webDriver.clickInFrame(btnAceptar, cuerpoFrame);
 				webDriver.clickInFrame(btnAceptar, cuerpoFrame);
 				webDriver.waitWithDriver(5000);
 				webDriver.clickInFrame(btnContinuar, cuerpoFrame);
@@ -209,6 +226,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 				throw new Exception(String.format("El tipo de tomador \"%s\" seleccionado no está implementado", tomadorType));
 		}
 		// browserContext.webElementHelper.waitForAngular();
+		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 
 		return this;

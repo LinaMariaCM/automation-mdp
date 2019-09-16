@@ -38,7 +38,8 @@ public class PrecioPorModalidadPage extends PageObject {
 	private By topFrame = By.cssSelector("#topFrame");
 	private By hiddenFrame = By.cssSelector("#hideFrame");
 
-	private By btnContinuar = By.cssSelector("#botonContinuar");
+	//private By btnContinuar = By.cssSelector("#botonContinuar");
+	private By btnContinuar = By.cssSelector("button[ng-bind-html*='continuar']");
 	private By btnGuardar = By.xpath(".//*[text()='Guardar']");
 	private By btnCancelar = By.xpath(".//*[contains(text(),'Cancelar')]");
 	private By btnAceptarInDialog = By.xpath(".//*[starts-with(text(),'El proyecto') and contains(text(),'se ha guardado.')]/../../../../div[@class='modal-footer']/button");
@@ -101,6 +102,7 @@ public class PrecioPorModalidadPage extends PageObject {
 	private By btnAceptarAutorizarDescuento = By.cssSelector("#modalErrores > div > div > div.modal-footer > button");
 	private By rdnRecargo = By.xpath(".//*[text()='Recargo']/../input");
 	private By roturaMquinariaChckBx = By.cssSelector("tbody.ng-scope:nth-child(14) [ng-if='pm.isEspecialGroup(item)']");
+	private By procesando = By.cssSelector("#procesando");
 	// endregion
 
 	public PrecioPorModalidadPage(UserStory userS) {
@@ -108,6 +110,21 @@ public class PrecioPorModalidadPage extends PageObject {
 	}
 
 	// region methods
+	public PrecioPorModalidadPage waitProcesando() throws Exception {
+		
+		System.out.println("Espero a ver procesando...");
+		webDriver.waitWithDriver(7000);
+		
+		while(this.webDriver.isPresent(procesando)) {
+			System.out.println("Lo veo");
+			webDriver.waitWithDriver(1500);
+		}
+		
+		System.out.println("No veo procesando...");
+		
+		return this;
+	}
+	
 	public PrecioPorModalidadPage ExecuteActionsInPrecioPorModalidadPage() {
 		debugBegin();
 
