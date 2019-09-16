@@ -18,6 +18,8 @@ public class PrecioPage extends PageObject {
 	private By productoMec = By.cssSelector("#jt2");
 	private By procesandoWindow = By.cssSelector(".smallbox");
 	private By loaderModal = By.cssSelector("#modalLoader");
+	private By procesando = By.cssSelector("div[class*='processing'] div[class*='Processing'] .textProcessing");
+	private By procesandoSombra = By.cssSelector("div[id='procesandosombra']");
 	// endregion
 
 	public PrecioPage(UserStory userS) {
@@ -25,6 +27,22 @@ public class PrecioPage extends PageObject {
 	}
 
 	// region methods
+	public PrecioPage waitProcesando() throws Exception {
+		
+		System.out.println("Espero a ver procesando...");
+		webDriver.waitWithDriver(2000);
+		
+		while(this.webDriver.isPresent(procesando)) {
+			System.out.println("Lo veo");
+			webDriver.waitWithDriver(1500);
+		}
+		
+		System.out.println("No veo procesando...");
+		webDriver.waitWithDriver(2000);
+		
+		return this;
+	}
+	
 	public PrecioPage ClickOnConvertirAProjecto() {
 		debugBegin();
 
