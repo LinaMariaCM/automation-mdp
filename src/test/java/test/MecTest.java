@@ -684,9 +684,6 @@ public class MecTest extends TestObject {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.cierro_navegador();
 			steps.agrego_un_suplemento();
-			// TODO: cambio el número de edificios a "cambio_num_edificios"
-			// TODO: cambio el número de viviendas a "cambio_num_locales"
-			// TODO: cambio el número de viviendas a "cambio_num_viviendas"
 			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNEdificios);
 			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNLocales);
 			steps.agrego_el_motivo_suplemento(Constants.MotivoSuplementoModificacionNViviendas);
@@ -711,6 +708,7 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
@@ -720,6 +718,10 @@ public class MecTest extends TestObject {
 		
 
 		userS.testActions(() -> {
+			dataSteps.anado_la_cobertura_de_accidentes_personales_de_empleados_para_un_empleado();
+			dataSteps.añado_los_teléfonos_del_tomador_y_los_horarios_de_atención();
+			dataSteps.el_asegurado_es_diferente_del_tomador();
+			dataSteps.subo_un_fichero();
 			
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
@@ -742,6 +744,7 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
@@ -751,6 +754,10 @@ public class MecTest extends TestObject {
 		
 
 		userS.testActions(() -> {
+			dataSteps.anado_la_cobertura_de_accidentes_personales_de_empleados_para_un_empleado();
+			dataSteps.añado_los_teléfonos_del_tomador_y_los_horarios_de_atención();
+			dataSteps.el_asegurado_es_diferente_del_tomador();
+			dataSteps.subo_un_fichero();
 			
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.cierro_navegador();
@@ -773,6 +780,7 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
@@ -782,9 +790,39 @@ public class MecTest extends TestObject {
 		
 
 		userS.testActions(() -> {
+			dataSteps.anado_la_cobertura_de_accidentes_personales_de_empleados_para_un_empleado();
+			dataSteps.añado_los_teléfonos_del_tomador_y_los_horarios_de_atención();
+			dataSteps.el_asegurado_es_diferente_del_tomador();
+			dataSteps.subo_un_fichero();
 			
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.el_resultado_es_que_el_proyecto_MEC_se_crea_correctamente();
+			
+			return null;
+		}).run();
+	}
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMec47() {
+		String testCase = Constants.MEC + "47";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestMec.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderMec47")
+	public void mec47(String testCase, String id) throws Exception {
+		
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		System.out.println("++++++++++++++++++++++++++++++++");
+		System.out.println("Scenario: " + userS.getScenario());
+		System.out.println("++++++++++++++++++++++++++++++++");
+		
+		userS.testActions(() -> {
+			steps.lo_consulto_en_el_buscador_de_polizas_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			steps.el_campo_cotización_contiene_el_valor_del_codigo_de_cotizacion();
 			
 			return null;
 		}).run();
@@ -1038,9 +1076,9 @@ public class MecTest extends TestObject {
 
 		userS.testActions(() -> {
 			
-			steps.doy_de_alta_un_projecto_que_llega_hasta_la_pantalla_de_datos_básicos_del_tomador_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO)); // TODO: version MEC
-			// TODO: selecciono como tomador "tomador"
-			// TODO: continuo en datos básicos del tomador
+			steps.doy_de_alta_un_projecto_que_llega_hasta_la_pantalla_de_datos_básicos_del_tomador_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
+			// TODO: version MEC
+			steps.continuo_en_datos_básicos_del_tomador();
 			checkSteps.aparece_aviso(Constants.AvisoComunidadesEnTramite);
 			
 			return null;
@@ -1072,8 +1110,8 @@ public class MecTest extends TestObject {
 		userS.testActions(() -> {
 			
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO)); // ERROR
-			// steps.cierro_navegador();
-			// checkSteps.el_valor_de_los_capitales_varia();
+			steps.cierro_navegador();
+			checkSteps.el_valor_de_los_capitales_varia();
 			
 			return null;
 		}).run();
@@ -1092,6 +1130,7 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
 		System.out.println("Scenario: " + userS.getScenario());
@@ -1103,7 +1142,6 @@ public class MecTest extends TestObject {
 		userS.testActions(() -> {
 			
 			steps.doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO)); // ERROR
-			// TODO: aparece un mensaje de error y los campos deshabilitación y edificio madera aparecen resaltados en rojo
 			
 			return null;
 		}).run();
@@ -1121,6 +1159,7 @@ public class MecTest extends TestObject {
 	public void mec103(String testCase, String id) throws Exception {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
+		DataSteps dataSteps = new DataSteps(userS);
 		ActionSteps steps = new ActionSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
@@ -1131,10 +1170,11 @@ public class MecTest extends TestObject {
 		
 
 		userS.testActions(() -> {
+			dataSteps.el_capital_continente_se_reduce_en("1000");
 			
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
-			// TODO: aparece un mensaje indicando que se va a crear un infraseguro
-			// TODO: aparece una clausula adicional
+			// En el paso anterior se comprueba que aparece un mensaje indicando que se va a crear un infraseguro
+			// En el paso anterior se comprueba que aparece una clausula adicional
 			
 			return null;
 		}).run();
@@ -1165,7 +1205,7 @@ public class MecTest extends TestObject {
 			
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.cierro_navegador();
-			// TODO: aparece un mensaje indicando que se va a crear un supraseguro
+			// En el paso anterior se comprueba que aparece un mensaje indicando que se va a crear un supraseguro
 			
 			return null;
 		}).run();
@@ -1196,7 +1236,7 @@ public class MecTest extends TestObject {
 		userS.testActions(() -> {
 			
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
-			// TODO: añade una franquicia obligatoria
+			// En el paso anterior se comprueba que añade una franquicia obligatoria
 			checkSteps.el_valor_de_los_capitales_varia();
 			
 			return null;
@@ -1278,6 +1318,7 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
@@ -1288,7 +1329,7 @@ public class MecTest extends TestObject {
 		
 
 		userS.testActions(() -> {
-			
+			dataSteps.el_asegurado_es_diferente_del_tomador();
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.cierro_navegador();
 			checkSteps.el_valor_de_los_capitales_varia();
@@ -1310,6 +1351,7 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
@@ -1320,7 +1362,7 @@ public class MecTest extends TestObject {
 		
 
 		userS.testActions(() -> {
-			
+			dataSteps.se_agrega_un_descuento();
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.cierro_navegador();
 			checkSteps.el_valor_de_los_capitales_varia();
@@ -1374,6 +1416,7 @@ public class MecTest extends TestObject {
 		
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		DataSteps dataSteps = new DataSteps(userS);
 		CheckSteps checkSteps = new CheckSteps(userS);
 
 		System.out.println("++++++++++++++++++++++++++++++++");
@@ -1384,7 +1427,7 @@ public class MecTest extends TestObject {
 		
 
 		userS.testActions(() -> {
-			
+			dataSteps.anado_la_cobertura_de_accidentes_personales_de_empleados_para_un_empleado();
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
 			steps.cierro_navegador();
 			checkSteps.el_valor_de_los_capitales_varia_una_vez_se_añade_la_cobertura_opcional();
