@@ -1,12 +1,17 @@
 package com.amaris.project.pages;
 
+
+import com.amaris.automation.model.testing.UserStory;
+import com.amaris.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
 
-public class PagosSiniestroPage {
+public class PagosSiniestroPage extends PageObject {
 
     private By cuerpoFrame = By.id("mainFrame");
     private By leftFrame = By.cssSelector("#leftFrame");
     private By capaIframe = By.cssSelector("#capaIframe");
+    private By selectorFrame = By.id("selectorTipoFigura");
+    private By accederPagos = By.xpath(".//*[text()='Pagos'] ");
 
     //Menu superior
     private By verSaldoFranquicias = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar li:nth-child(1) span");
@@ -22,7 +27,7 @@ public class PagosSiniestroPage {
     private By nuevoPago = By.cssSelector("#bloque1tr1 td:nth-child(8) a span");
 
     //Tipo perceptor
-    private By perceptor = By.cssSelector("input[name='tipoPerceptor']");
+    private By perceptor = By.cssSelector("#tipoPerceptor");
     //Participantes expediente
     private By flecha1  = By.cssSelector("tr.even td:nth-child(2) span");
     //Figuras de la poliza
@@ -36,7 +41,7 @@ public class PagosSiniestroPage {
     private By flecha3 = By.cssSelector("tr.odd td:nth-child(4) span");
 
     //Datos bancarios
-    private By medioPago = By.cssSelector("input[name='medioPago']");
+    private By medioPago = By.cssSelector("#medioPago");
     private By cuentaValidada = By.cssSelector("#checkboxCuentaValidada");
     private By codigoIban = By.cssSelector("#COMODIN_CADENA");
     private By banco = By.cssSelector("#COMODIN_CADENA_1");
@@ -98,7 +103,7 @@ public class PagosSiniestroPage {
     private By numeroFactura = By.cssSelector("#numeroFactura");
 
     //Coberturas implicadas
-    private By rCRotura = By.cssSelector("#checkCob_ST0039");
+    private By rCRotura = By.cssSelector("#checkCob_ST0030");
     private By importe0 = By.cssSelector("#importes0");
 
     private By rCOmision = By.cssSelector("#checkCob_ST0040");
@@ -161,7 +166,68 @@ public class PagosSiniestroPage {
     private By gastosSuplidos = By.cssSelector("#exentoFacInt");
 
 
+    // endregion
+
+    public PagosSiniestroPage(UserStory userS) {
+        super(userS);
+    }
+
+    // region methods
+
+    public PagosSiniestroPage nuevoPago (){
+        debugBegin();
+
+        webDriver.clickInFrame(accederPagos,leftFrame);
+        webDriver.clickInFrame(nuevoPago, cuerpoFrame);
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage SeleccionarTipoPerceptor (){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(perceptor,0);
+        webDriver.click(flecha1);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage datosPerceptor (){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(medioPago, 4);
+        webDriver.click(botonContinuar);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage importes (String fPago, String Importe1){
+        debugBegin();
+
+        webDriver.appendTextInFrame(fechaDePago, cuerpoFrame, fPago);
+        webDriver.clickElementFromDropDownByIndexInFrame(conceptoPago,cuerpoFrame,1);
+        webDriver.clickInFrame(rCRotura, cuerpoFrame);
+        webDriver.appendTextInFrame(importe0,cuerpoFrame, Importe1);
+        webDriver.clickInFrame(actualizarImportePago, cuerpoFrame);
+        webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
 
 
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage verificacion (){
+        debugBegin();
+
+        webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
+
+        debugEnd();
+        return this;
+    }
 
 }

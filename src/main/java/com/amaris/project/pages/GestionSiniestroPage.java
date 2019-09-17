@@ -63,7 +63,7 @@ public class GestionSiniestroPage {
 
     private By pagos = By.cssSelector("jt11");
 
-    private By verSaldo = By.cssSelector("ul.list-level-1.js-actionsdinamicbar:nth-child(1) span");
+    private By verSaldo = By.cssSelector("ul.list-level-1.js-actionsdinamicbar:nth-child(1) span")
 
 
 

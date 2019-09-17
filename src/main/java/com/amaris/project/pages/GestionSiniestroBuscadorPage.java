@@ -10,6 +10,8 @@ public class GestionSiniestroBuscadorPage extends PageObject {
 
 //Elementos
 private By cuerpoFrame = By.id("mainFrame");
+private By leftFrame = By.cssSelector("#leftFrame");
+private By gestionSiniestros = By.xpath(".//*[text()='Gestión de siniestros']");
 
 private By btnNoSiniestro = By.cssSelector("#filtro1");
 private By btnNoPoliza = By.cssSelector("#filtro2");
@@ -66,6 +68,16 @@ private By btnContinuar = By.cssSelector("#capaAjax tr.odd span");
 
 public GestionSiniestroBuscadorPage(UserStory userS) {
     super(userS);
+}
+
+public GestionSiniestroBuscadorPage abrirGestionSiniestro(){
+    debugBegin();
+
+    webDriver.clickInFrame(gestionSiniestros,leftFrame);
+
+    debugEnd();
+
+    return this;
 }
 
 
@@ -202,8 +214,10 @@ public GestionSiniestroBuscadorPage buscarPorOtros(String fDesde, String fHasta,
     if (negocio == "MEC"){
         webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
     }
+
     webDriver.clickElementFromDropDownByAttributeInFrame(estadoPoliza, cuerpoFrame, "value", "V");
-    webDriver.appendTextInFrame(mediador, cuerpoFrame, codMediador);
+
+    webDriver.setTextInFrame(mediador, cuerpoFrame, codMediador);
     webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
     ActionSteps.waitForIt(webDriver);
