@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
+import java.io.IOException;
 
 import java.io.IOException;
 
@@ -2343,8 +2344,35 @@ public class ActionSteps extends InteractionObject {
 			}
 		}
 
+
 		userS.getWebDriver().quit();
 
 		debugBegin();
 	}
+
+	public void realizo_pago_simple() throws Exception{
+		debugBegin();
+		PagosSiniestroPage pagosSiniestroPage = new PagosSiniestroPage(userS);
+		InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage gestionSiniestrosBuscador = new GestionSiniestroBuscadorPage(userS);
+		//En la pagina principal se busca la opcion siniestro
+		innovaHomePage.openSiniestros();
+		//Dentro de siniestros se busca la opcion gestion siniestro
+		gestionSiniestrosBuscador.abrirGestionSiniestro();
+		//Una vez dentro, se selecciona la opcion buscar por otros
+		gestionSiniestrosBuscador.buscarPorOtros("1/08/2019","15/09/2019","640","510");
+		//Seleccion del siniestro a pagar
+		pagosSiniestroPage.nuevoPago();
+		//Seleccion de un tipo de perceptor
+		pagosSiniestroPage.SeleccionarTipoPerceptor();
+		//Seleccion de datos bancarios y observaciones
+		pagosSiniestroPage.datosPerceptor();
+		//Seleccion de concepto de pago, cobertura, importes y deducciones
+		pagosSiniestroPage.importes("16/09/2019","100,00");
+		//Verificacion de todos los datos esten correctamente y grabacion del pago
+		pagosSiniestroPage.verificacion();
+		debugEnd();
+
+	}
+
 }
