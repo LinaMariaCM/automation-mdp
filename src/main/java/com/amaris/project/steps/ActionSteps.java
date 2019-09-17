@@ -1,7 +1,6 @@
 package com.amaris.project.steps;
 
 import com.amaris.automation.configuration.AutomationConstants;
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.InteractionObject;
 import com.amaris.automation.model.utils.ArrayUtils;
@@ -12,16 +11,11 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
-import java.io.IOException;
-
-import java.io.IOException;
-
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
 import com.amaris.project.Constants;
 import com.amaris.project.pages.*;
-import com.amaris.project.utils.ClausulasHelper;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;

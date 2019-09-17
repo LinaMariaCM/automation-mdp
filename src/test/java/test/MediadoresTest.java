@@ -12,7 +12,6 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 import com.amaris.project.steps.CheckSteps;
-import com.amaris.project.steps.DataSteps;
 
 public class MediadoresTest {
 

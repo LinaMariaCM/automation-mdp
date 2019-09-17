@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.steps.ActionSteps;
 
 public class GestionSiniestroAuxiliarPage extends PageObject {
 
