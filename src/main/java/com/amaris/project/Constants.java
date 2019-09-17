@@ -25,6 +25,8 @@ public class Constants {
 	public static final String MEC_SINIESTROS = "MecSin";
 	public static final String ALTA_SINIESTROS = "AltaSin";
 
+	public static final String GARAJES_CASE = "TST";
+	public static final String MEDIADORES_CASE = "Med";
 	public static final String FICHA_CLIENT = "fichaClient";
 	public static final String SINIESTRO_CONVENCIONAL_CON_PERITO = "SinConvPer";
 
