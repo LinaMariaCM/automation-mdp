@@ -1,6 +1,7 @@
 package com.amaris.project.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
@@ -70,5 +71,6 @@ public class AltaEventoSiniestroPage extends PageObject {
     public AltaEventoSiniestroPage(UserStory userS) {
         super(userS);
     }
+
 
 }

@@ -34,7 +34,32 @@ public class VistaSiniestroPage extends PageObject {
     private By sac = By.cssSelector("#SAC");
     private By dgs = By.cssSelector("#DGS");
     private By reclamacion = By.cssSelector("#RECLAMACION");
-    
 
+    //cierre
+    private By motivo = By.cssSelector("#motivoCierre");
+    private By grabar = By.cssSelector("#botonGrabar");
+
+    
+    public VistaSiniestroPage(UserStory userS) {
+        super(userS);
+    }
+
+    public VistaSiniestroPage cierre_siniestro(){
+        debugBegin();
+        webDriver.clickInFrame(vistaSiniestro, leftFrame);
+        ActionSteps.waitForIt(webDriver);
+        webDriver.clickInFrame(cerrarSiniestro, cuerpoFrame);
+       // ActionSteps.waitForIt(webDriver);
+        webDriver.waitWithDriver(5000);
+        //webDriver.click(motivo);
+        webDriver.dispatchEvent(motivo, "click");
+        debugInfo("ha hecho click");
+        //webDriver.clickElementFromDropDownByAttributeInFrame(motivo, cuerpoFrame, "value", "PRSC");
+        webDriver.clickInFrame(grabar, capaIframe);
+
+        debugEnd();
+        return this;
+
+    }
 
 }

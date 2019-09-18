@@ -10,6 +10,9 @@ public class GestionSiniestroBuscadorPage extends PageObject {
 
 //Elementos
 private By cuerpoFrame = By.id("mainFrame");
+private By leftFrame = By.cssSelector("#leftFrame");
+private By capaIframe = By.cssSelector("#capaIframe");
+private By gestion = By.cssSelector("#jt5");
 
 private By btnNoSiniestro = By.cssSelector("#filtro1");
 private By btnNoPoliza = By.cssSelector("#filtro2");
@@ -71,17 +74,19 @@ public GestionSiniestroBuscadorPage(UserStory userS) {
 
 public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza, String negocio) {
     debugBegin();
+    webDriver.clickInFrame(gestion,leftFrame);
+    debugInfo("ha dado click");
 
     webDriver.clickInFrame(btnNoPoliza, cuerpoFrame);
     if (negocio == "MEC"){
         webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
     }
-    webDriver.appendTextInFrame(txtNoPoliza, cuerpoFrame, numPoliza);
+    webDriver.setTextInFrame(txtNoPoliza, cuerpoFrame, numPoliza);
     webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
     ActionSteps.waitForIt(webDriver);
     webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-
+    
     debugEnd();
 
     return this;
@@ -95,7 +100,8 @@ public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro, i
         webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoSini, cuerpoFrame, "value", "510");
     }
     webDriver.appendTextInFrame(txtAno, cuerpoFrame, anio);
-    webDriver.appendTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
+    
+    webDriver.setTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
     webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
     ActionSteps.waitForIt(webDriver);
@@ -132,9 +138,9 @@ public GestionSiniestroBuscadorPage buscarPorAsegurado(String asegurador, String
     }else {
         webDriver.clickInFrame(btnEmpieza, cuerpoFrame);
     }
-    webDriver.appendTextInFrame(txtNombre, cuerpoFrame, nombre);
+    webDriver.setTextInFrame(txtNombre, cuerpoFrame, nombre);
     webDriver.clickInFrame(btnBuscar, cuerpoFrame);
-
+    
     ActionSteps.waitForIt(webDriver);
     webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 

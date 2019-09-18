@@ -554,4 +554,7 @@ public class Constants {
 	public static final String ENCARGO_FECHA = "enc_fecha";
 	public static final String ENCARGO_DETALLES = "enc_detalles";
 	public static final String ENCARGO_DOCUMENTOS = "enc_documentos";
+
+	public static final String CIERRE_SINIESTRO = "cierre_siniestro";
+
 }

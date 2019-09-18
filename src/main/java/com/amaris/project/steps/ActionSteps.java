@@ -2347,4 +2347,17 @@ public class ActionSteps extends InteractionObject {
 
 		debugBegin();
 	}
+
+	public void cierre_siniestro() throws Exception{
+		debugBegin();
+	InnovaHomePage innovaHome = new InnovaHomePage(userS);
+	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+	VistaSiniestroPage vistaSiniestro = new VistaSiniestroPage(userS);
+	innovaHome.openSiniestros();
+	buscadorSiniestro.buscarPorNumeroPoliza("510000397","MEC");
+	vistaSiniestro.cierre_siniestro();
+	//webDriver.waitWithDriver(2000);
+
+	}
+
 }
