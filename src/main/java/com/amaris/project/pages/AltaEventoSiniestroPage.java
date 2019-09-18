@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.steps.ActionSteps;
 
 public class AltaEventoSiniestroPage extends PageObject {
 
