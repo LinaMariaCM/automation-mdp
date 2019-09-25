@@ -2393,7 +2393,7 @@ public class ActionSteps extends InteractionObject {
 		//Seleccion del siniestro a pagar
 		pagosSiniestroPage.nuevoPago();
 		//Seleccion de un tipo de perceptor
-		pagosSiniestroPage.SeleccionarTipoPerceptor();
+		pagosSiniestroPage.seleccionarParticipantesExpediente();
 		//Seleccion de datos bancarios y observaciones
 		pagosSiniestroPage.datosPerceptor();
 		//Seleccion de concepto de pago, cobertura, importes y deducciones
