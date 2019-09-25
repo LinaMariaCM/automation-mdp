@@ -1,9 +1,13 @@
 package com.amaris.project.pages;
 
+import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.steps.ActionSteps;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class PagosSiniestroPage extends PageObject {
 
@@ -20,6 +24,7 @@ public class PagosSiniestroPage extends PageObject {
 
     private By irListadoPagos = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar div.level-1 ul.list-level-1 li.rightList span.action-return");
 
+    
     //Continuar,importes,Grabar
     private By botonContinuar1 = By.cssSelector("#botonContinuar");
 
@@ -165,6 +170,9 @@ public class PagosSiniestroPage extends PageObject {
     private By irpf = By.cssSelector("#codigoTipoIrpfFactura");
     private By gastosSuplidos = By.cssSelector("#exentoFacInt");
 
+    // comprobar si tiene pagos
+    private By listPagos = By.cssSelector("table.grid:nth-child(1) > tbody:nth-child(1) tr[valign='top'] td:nth-child(9)");
+
 
     // endregion
 
@@ -229,5 +237,38 @@ public class PagosSiniestroPage extends PageObject {
         debugEnd();
         return this;
     }
+
+    public Boolean comprobar_pagos_pendientes(){
+        debugBegin();
+        webDriver.clickInFrame(accederPagos,leftFrame);
+        ActionSteps.waitForIt(webDriver);
+        Boolean check = false;
+        if (webDriver.isClickableInFrame(listPagos, cuerpoFrame)){
+            debugInfo("antes de la lista");
+            webDriver.switchToFrame(cuerpoFrame);
+            List<WebElement> listaPagos = webDriver.getElements(listPagos);
+            debugInfo("contiene: " +listaPagos.size());
+            debugInfo("despues de la lista");
+            
+            for(int i = 0; i < listaPagos.size(); i++){
+                debugInfo("hay Pagos");
+                
+                debugInfo("Estado: "+listaPagos.get(i).getText());
+                if (listaPagos.get(i).getText().compareTo("Pagado") !=0){
+                    check = true;
+                    debugInfo("Pagos Pendiente: "+check);
+                }
+            }
+            webDriver.exitFrame();
+            
+        }else{
+            debugInfo("no hay pagos");
+        }
+
+
+        debugEnd();
+        return check; 
+    }
+    
 
 }

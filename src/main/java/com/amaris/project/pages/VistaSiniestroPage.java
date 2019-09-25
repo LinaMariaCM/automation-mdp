@@ -1,8 +1,10 @@
 package com.amaris.project.pages;
 
-import org.openqa.selenium.By;
-
+import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.steps.ActionSteps;
+
+import org.openqa.selenium.By;
 
 public class VistaSiniestroPage extends PageObject {
 
@@ -34,26 +36,35 @@ public class VistaSiniestroPage extends PageObject {
     private By reclamacion = By.cssSelector("#RECLAMACION");
 
     //cierre
+
     private By motivo = By.cssSelector("#motivoCierre");
     private By grabar = By.cssSelector("#botonGrabar");
-
+    
     
     public VistaSiniestroPage(UserStory userS) {
         super(userS);
     }
 
-    public VistaSiniestroPage cierre_siniestro(){
+    public VistaSiniestroPage cierre_siniestro(Boolean pagos, Boolean encargos, Boolean tareas ){
         debugBegin();
+        if (pagos == false && encargos == false && tareas == false){
         webDriver.clickInFrame(vistaSiniestro, leftFrame);
         ActionSteps.waitForIt(webDriver);
+        debugInfo("estoy en vista");
+        //webDriver.exitFrame();
+       // webDriver.switchToFrame(cuerpoFrame);
         webDriver.clickInFrame(cerrarSiniestro, cuerpoFrame);
-       // ActionSteps.waitForIt(webDriver);
-        webDriver.waitWithDriver(5000);
-        //webDriver.click(motivo);
-        webDriver.dispatchEvent(motivo, "click");
-        debugInfo("ha hecho click");
-        //webDriver.clickElementFromDropDownByAttributeInFrame(motivo, cuerpoFrame, "value", "PRSC");
-        webDriver.clickInFrame(grabar, capaIframe);
+        
+        
+        debugInfo("ha ehcho click");
+        webDriver.switchToFrame(capaIframe);
+        webDriver.clickElementChildByAttribute(motivo, "value", "PRSC");
+        webDriver.click(grabar);
+        webDriver.exitFrame();
+        webDriver.exitFrame();
+        }else {
+            debugInfo("Hay tareas pendientes.");
+        }
 
         debugEnd();
         return this;

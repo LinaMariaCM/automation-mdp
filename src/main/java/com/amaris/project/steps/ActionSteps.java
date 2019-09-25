@@ -2344,15 +2344,39 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 	}
 
+	public void comprobar_que_no_tenga_pagos_pendientes_ni_encargos() throws Exception{
+		debugBegin();
+
+
+
+		debugEnd();
+	}
+
 	public void cierre_siniestro() throws Exception{
 		debugBegin();
 	InnovaHomePage innovaHome = new InnovaHomePage(userS);
 	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 	VistaSiniestroPage vistaSiniestro = new VistaSiniestroPage(userS);
+	PagosSiniestroPage pagosSiniestro = new PagosSiniestroPage(userS);
+	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
 	innovaHome.openSiniestros();
 	buscadorSiniestro.buscarPorNumeroPoliza("510000397","MEC");
-	vistaSiniestro.cierre_siniestro();
+	Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
+	Boolean encargos = gestionCarpeta.comprobar_encargos();
+	Boolean tareas = agendaSiniestro.comprobar_tareas_pendientes();
+	debugInfo("Pago bool: "+pagos);
+	debugInfo("Encargos bool: "+encargos);
+	debugInfo("Tareas bool: "+tareas);
+	vistaSiniestro.cierre_siniestro(pagos, encargos, tareas);
+	
+
+
+
+
+	//vistaSiniestro.cierre_siniestro();
 	//webDriver.waitWithDriver(2000);
+	debugEnd();
 	}
 	
 	public void realizo_pago_simple() throws Exception{

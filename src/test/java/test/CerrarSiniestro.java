@@ -38,7 +38,7 @@ public class CerrarSiniestro {
 		// userS.addDMData("datosMecSin.csv", "fichero_referencias");
 
 		userS.testActions(() -> {
-            steps.login("Innova", "mcena");
+            steps.login("Innova", "Eperez");
             steps.cierre_siniestro();
 			//dataSteps.el_documento_tomador_es_aleatoreo();
 			//steps.accederCliente();

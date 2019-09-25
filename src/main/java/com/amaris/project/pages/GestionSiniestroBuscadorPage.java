@@ -21,6 +21,7 @@ private By btnFechaOcurrencia = By.cssSelector("#filtro6");
 private By btnFechaAlta = By.cssSelector("#filtro7");
 private By btnCausa = By.cssSelector("#filtro8");
 private By btnOtros = By.cssSelector("#filtro9");
+private By opProduct = By.cssSelector("#capaPOLIZA td.flexibleField");
 
 // Opcion Numero Siniestro
 private By tipoProductoSini = By.cssSelector("#prodsini");
@@ -83,15 +84,19 @@ public GestionSiniestroBuscadorPage abrirGestionSiniestro(){
 
 public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza, String negocio) {
     debugBegin();
-    webDriver.clickInFrame(gestion,leftFrame);
+    webDriver.clickInFrame(gestionSiniestros,leftFrame);
     debugInfo("ha dado click");
-
     webDriver.clickInFrame(btnNoPoliza, cuerpoFrame);
     if (negocio == "MEC"){
-        webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+        webDriver.switchToFrame(cuerpoFrame);
+     //   webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+        //webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
+        webDriver.clickElementChildByAttribute(opProduct,"value", "510");
+        webDriver.exitFrame();
+        
     }
-    webDriver.setTextInFrame(txtNoPoliza, cuerpoFrame, numPoliza);
-    webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+    webDriver.setTextInFrame(txtNoPoliza,numPoliza,cuerpoFrame);
+    webDriver.clickInFrame(btnBuscar,cuerpoFrame);
 
     ActionSteps.waitForIt(webDriver);
     webDriver.clickInFrame(btnContinuar, cuerpoFrame);
@@ -106,7 +111,7 @@ public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro, i
     
     webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
     if (negocio == "MEC"){
-        webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoSini, cuerpoFrame, "value", "510");
+    	 webDriver.clickElementChildByAttribute(opProduct,"value", "510");
     }
     webDriver.appendTextInFrame(txtAno, cuerpoFrame, anio);
     
