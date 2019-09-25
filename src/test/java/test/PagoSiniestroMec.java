@@ -34,4 +34,21 @@ public class PagoSiniestroMec extends TestObject{
             return null;
         }).run();
     }
+
+
+    @Test(dataProvider = "dataProviderSiniestrosMec01")
+
+    public void pagoSimple02(String testCase, String id) throws Exception {
+        UserStory userS = suiteM.createUserStory(testCase, id);
+        ActionSteps steps = new ActionSteps(userS);
+
+        userS.testActions(() -> {
+            steps.login("Innova", "Eperez");
+            steps.realizo_pago_simple();
+
+
+            return null;
+        }).run();
+    }
+
 }
