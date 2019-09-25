@@ -22,6 +22,7 @@ private By btnFechaAlta = By.cssSelector("#filtro7");
 private By btnCausa = By.cssSelector("#filtro8");
 private By btnOtros = By.cssSelector("#filtro9");
 private By opProduct = By.cssSelector("#capaPOLIZA td.flexibleField");
+private By opProductSIni = By.cssSelector("#capaSINIESTRO td.flexibleField");
 
 // Opcion Numero Siniestro
 private By tipoProductoSini = By.cssSelector("#prodsini");
@@ -106,14 +107,17 @@ public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza, Stri
     return this;
 }
 
-public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro, int index, String anio, String negocio) {
+public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,String anio, String negocio) {
     debugBegin();
-    
+    webDriver.clickInFrame(gestionSiniestros,leftFrame);
+    debugInfo("ha dado click");
     webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
     if (negocio == "MEC"){
-    	 webDriver.clickElementChildByAttribute(opProduct,"value", "510");
+        webDriver.switchToFrame(cuerpoFrame);
+         webDriver.clickElementChildByAttribute(opProductSIni,"value", "510");
+         webDriver.exitFrame();
     }
-    webDriver.appendTextInFrame(txtAno, cuerpoFrame, anio);
+    webDriver.setTextInFrame(txtAno, cuerpoFrame, anio);
     
     webDriver.setTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
     webDriver.clickInFrame(btnBuscar, cuerpoFrame);

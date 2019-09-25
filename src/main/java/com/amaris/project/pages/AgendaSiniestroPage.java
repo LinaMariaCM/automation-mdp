@@ -53,6 +53,10 @@ public class AgendaSiniestroPage extends PageObject {
     private By txtEtiquetas = By.cssSelector("#textoEtiquetas");
     private By asociarEti = By.cssSelector("#botonAsociar");
 
+    // pestañas
+    private By todasTareas = By.cssSelector("#pes0");
+
+
     // lista de estado de las tareas
     private By estadoTarea = By.cssSelector("table.grid tbody:nth-child(1) tr[valign='top'] td:nth-child(5)");
 
@@ -65,6 +69,8 @@ public class AgendaSiniestroPage extends PageObject {
         debugBegin();
         webDriver.clickInFrame(agenda,leftFrame);
         ActionSteps.waitForIt(webDriver);
+        webDriver.clickInFrame(todasTareas, cuerpoFrame);
+        debugInfo("click en todas");
         Boolean check = false;
         if (webDriver.isClickableInFrame(estadoTarea, cuerpoFrame)){
             debugInfo("antes de la lista");
@@ -77,7 +83,7 @@ public class AgendaSiniestroPage extends PageObject {
                 debugInfo("hay tareas");
                 
                 debugInfo("Estado: "+listaPagos.get(i).getText());
-                if (listaPagos.get(i).getText().compareTo("Pendiente") !=0){
+                if (listaPagos.get(i).getText().compareTo("Pendiente") ==0){
                     check = true;
                     debugInfo("Tareas Pendiente: "+check);
                 }

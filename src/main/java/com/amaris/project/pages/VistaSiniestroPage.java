@@ -16,7 +16,7 @@ public class VistaSiniestroPage extends PageObject {
 
     private By vistaSiniestro = By.cssSelector("#jt3");
 
-    private By cerrarSiniestro = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(1) span");
+    private By cerrarSiniestro = By.cssSelector("li:nth-child(1) span");
     private By modifiDatos = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(3) span");
     private By altaAnotacion = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(5) span");
 
@@ -52,13 +52,17 @@ public class VistaSiniestroPage extends PageObject {
         ActionSteps.waitForIt(webDriver);
         debugInfo("estoy en vista");
         //webDriver.exitFrame();
-       // webDriver.switchToFrame(cuerpoFrame);
+       // 
         webDriver.clickInFrame(cerrarSiniestro, cuerpoFrame);
         
         
-        debugInfo("ha ehcho click");
-        webDriver.switchToFrame(capaIframe);
+        debugInfo("ha hecho click");
+       webDriver.switchToFrame(cuerpoFrame);
+       webDriver.switchToFrame(capaIframe);
+        //ActionSteps.waitForIt(webDriver);
+        webDriver.waitWithDriver(4000);
         webDriver.clickElementChildByAttribute(motivo, "value", "PRSC");
+        debugInfo("ha hecho click motivo");
         webDriver.click(grabar);
         webDriver.exitFrame();
         webDriver.exitFrame();

@@ -2361,7 +2361,7 @@ public class ActionSteps extends InteractionObject {
 	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
 	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
 	innovaHome.openSiniestros();
-	buscadorSiniestro.buscarPorNumeroPoliza("510000397","MEC");
+	buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
 	Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
 	Boolean encargos = gestionCarpeta.comprobar_encargos();
 	Boolean tareas = agendaSiniestro.comprobar_tareas_pendientes();

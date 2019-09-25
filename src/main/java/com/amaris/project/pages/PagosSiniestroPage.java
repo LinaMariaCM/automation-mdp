@@ -254,7 +254,7 @@ public class PagosSiniestroPage extends PageObject {
                 debugInfo("hay Pagos");
                 
                 debugInfo("Estado: "+listaPagos.get(i).getText());
-                if (listaPagos.get(i).getText().compareTo("Pagado") !=0){
+                if (listaPagos.get(i).getText().compareTo("Pagado") !=0 && listaPagos.get(i).getText().compareTo("Anulado") !=0 ){
                     check = true;
                     debugInfo("Pagos Pendiente: "+check);
                 }
