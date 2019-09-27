@@ -558,5 +558,7 @@ public class Constants {
 	public static final String ENCARGO_DOCUMENTOS = "enc_documentos";
 
 	public static final String CIERRE_SINIESTRO = "cierre_siniestro";
+	public static final String REAPERTURA_SINIESTRO = "reapertura_siniestro";
+	public static final String REHUSO_SINIESTRO = "rehuso_siniestro";
 
 }

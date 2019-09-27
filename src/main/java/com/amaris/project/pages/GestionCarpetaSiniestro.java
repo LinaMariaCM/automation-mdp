@@ -23,7 +23,7 @@ public class GestionCarpetaSiniestro extends PageObject {
     private By tramitar = By.cssSelector("div.cpdatos a");
     private By pesEncargo = By.cssSelector("#pes2");
     private By listEncargo = By.cssSelector("table.grid > tbody:nth-child(1) tr[valign='top'] td:nth-child(8) ");
-
+    private By cerrarCarpeta = By.cssSelector("ul.topnav > li:nth-child(6) > a:nth-child(1) span");
 
     //nueva carpeta
     private By tipoImplica = By.cssSelector("#OTRIMPLI");
@@ -39,6 +39,13 @@ public class GestionCarpetaSiniestro extends PageObject {
     private By noCuenta = By.cssSelector("#codCue");
     private By compa = By.cssSelector("#companiaSOA");
     private By grabar = By.cssSelector("#botonGrabar");
+    private By estadoCarpeta = By.cssSelector("td:nth-child(7)");
+
+    // cierre carpeta
+    private By motivoCierre = By.cssSelector("#motivoCierre");
+    private By cierreTareas = By.cssSelector("#cierreTareas");
+    private By grabarCierre = By.cssSelector("#buttonRecord");
+
 
     
     public GestionCarpetaSiniestro(UserStory userS) {
@@ -75,9 +82,7 @@ public class GestionCarpetaSiniestro extends PageObject {
                         check = true;
                         debugInfo("Encargos Pendiente: "+check);
                     }
-                }
-                
-                
+                }    
             }else{
                 debugInfo("no hay encargos");
             }
@@ -85,6 +90,72 @@ public class GestionCarpetaSiniestro extends PageObject {
     
             debugEnd();
             return check; 
+    }
+
+    public GestionCarpetaSiniestro nueva_carpeta(){
+        debugBegin();
+        webDriver.clickInFrame(carpeta,leftFrame);
+        ActionSteps.waitForIt(webDriver);
+        webDriver.clickInFrame(nuevaCarpeta, cuerpoFrame);
+        debugInfo("hecho click nueva carpeta");
+        ActionSteps.waitForIt(webDriver);
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementChildByAttribute(tipoImplica,"value", "CAUS");
+        webDriver.clickElementChildByAttribute(rolImplica,"value", "TOMA");
+        webDriver.waitWithDriver(5000);
+        webDriver.setText(telefono, "911250100");
+        webDriver.setText(codIban, "1111");
+        webDriver.setText(banco, "1111");
+        webDriver.setText(sucursal, "1111");
+        webDriver.setText(dc, "11");
+        webDriver.setText(noCuenta, "1111111111");
+        webDriver.click(grabar);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this; 
+    }
+
+    
+    public GestionCarpetaSiniestro cerrar_carpeta(){
+        debugBegin();
+        webDriver.clickInFrame(carpeta,leftFrame);
+        ActionSteps.waitForIt(webDriver);
+        if (webDriver.isClickableInFrame(flechaAcciones, cuerpoFrame)){
+            debugInfo("antes de la lista");
+            webDriver.switchToFrame(cuerpoFrame);
+            List<WebElement> estado = webDriver.getElements(estadoCarpeta);
+            debugInfo("contiene: " +estado.size());
+            debugInfo("despues de la lista");
+            for(int i = 0; i < estado.size(); i++){
+                debugInfo("hay tareas");
+                
+                debugInfo("Estado: "+estado.get(i).getText());
+                if (estado.get(i).getText().compareTo("Abierto") ==0){
+                    debugInfo("Carpeta abierta: ");
+                    debugInfo("hacer tramite");
+                    debugInfo("tr[align*=center]:nth-child("+(i+2)+") div[id*=capaFlecha] a");
+                    webDriver.click(By.cssSelector("tr[align*=center]:nth-child("+(i+2)+") div[id*=capaFlecha] a"));
+                    webDriver.waitWithDriver(1000);
+                    webDriver.click(tramitar);
+                }
+            }
+            ActionSteps.waitForIt(webDriver);
+            webDriver.click(cerrarCarpeta);
+            debugInfo("cierre");
+            webDriver.exitFrame();
+            webDriver.switchToFrame(capaIframe);
+            webDriver.clickElementChildByAttribute(motivoCierre,"value", "ERAD");
+            debugInfo("motivo");
+            webDriver.click(grabarCierre);
+   
+            webDriver.exitFrame();   
+        }
+
+
+        debugEnd();    
+
+        return this;
     }
 
 }

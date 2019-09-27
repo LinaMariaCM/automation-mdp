@@ -2369,15 +2369,22 @@ public class ActionSteps extends InteractionObject {
 	debugInfo("Encargos bool: "+encargos);
 	debugInfo("Tareas bool: "+tareas);
 	vistaSiniestro.cierre_siniestro(pagos, encargos, tareas);
-	
-
-
-
-
 	//vistaSiniestro.cierre_siniestro();
 	//webDriver.waitWithDriver(2000);
 	debugEnd();
 	}
+
+	public void reapertura_siniestro()  throws Exception{
+	InnovaHomePage innovaHome = new InnovaHomePage(userS);
+	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+	innovaHome.openSiniestros();
+	buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
+	gestionCarpeta.nueva_carpeta();
+
+
+	}
+
 	
 	public void realizo_pago_simple() throws Exception{
 		debugBegin();
@@ -2403,5 +2410,20 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 
 	}
+
+	public void rehuso_siniestro() throws Exception{
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+	DiarioSiniestroPage diarioSiniestro = new DiarioSiniestroPage(userS);
+	innovaHome.openSiniestros();
+	buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
+	//gestionCarpeta.cerrar_carpeta();   lo estoy terminando
+	diarioSiniestro.rehusar_siniestro();
+	
+
+
+	}
+
+
 
 }
