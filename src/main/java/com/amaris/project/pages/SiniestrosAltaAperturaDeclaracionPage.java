@@ -4,6 +4,10 @@ import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+//import com.sun.org.apache.xml.internal.security.utils.Constants;
+import com.amaris.project.Constants;
+
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -108,7 +112,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	// region methods
 	public SiniestrosAltaAperturaDeclaracionPage altaDatosBasicos(String tipoDeclarante, String medioDeclaracion) {
 		debugBegin();
-
+		
 		DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
 
 		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fOcurrencia.format(new Date()));
@@ -126,15 +130,31 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 	public SiniestrosAltaAperturaDeclaracionPage altaDatosDeclaracion(String fechaOcurrencia, String tipoDeclarante, String medioDeclaracion, String fechaDenuncia, String observaciones) {
 		debugBegin();
-
-		webDriver.appendText(txtFechaOcurrencia, fechaOcurrencia);
+		
+		if(fechaOcurrencia.isEmpty() || fechaOcurrencia == null) {	
+			DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
+			webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fOcurrencia.format(new Date()));}
+		else {webDriver.appendText(txtFechaOcurrencia, fechaOcurrencia);}
 
 		// Añadir los tipos de value como comentario
-		webDriver.clickElementFromDropDownByAttributeInFrame(comboTipoDeclarante, cuerpoFrame, "value", tipoDeclarante);
-		webDriver.clickElementFromDropDownByAttributeInFrame(comboMedioDeclaracion, cuerpoFrame, "value", medioDeclaracion);
-		webDriver.appendTextInFrame(txtFechaDenuncia, cuerpoFrame, fechaDenuncia);
+		if(tipoDeclarante.isEmpty() || tipoDeclarante == null) { webDriver.clickElementFromDropDownByIndexInFrame(comboTipoDeclarante, cuerpoFrame, 1);}
+		else {webDriver.clickElementFromDropDownByAttributeInFrame(comboTipoDeclarante, cuerpoFrame, "value", tipoDeclarante);}
+				
+		//webDriver.clickElementFromDropDownByAttributeInFrame(comboMedioDeclaracion, cuerpoFrame, "value", medioDeclaracion);
+		if(medioDeclaracion.isEmpty() || medioDeclaracion == null) { webDriver.clickElementFromDropDownByIndexInFrame(comboMedioDeclaracion, cuerpoFrame, 1);}
+		else {webDriver.clickElementFromDropDownByAttributeInFrame(comboMedioDeclaracion, cuerpoFrame, "value", medioDeclaracion);}
+		
+		
+		//webDriver.appendTextInFrame(txtFechaDenuncia, cuerpoFrame, fechaDenuncia);
+		if(fechaDenuncia.isEmpty() || fechaDenuncia == null) {	
+			DateFormat fDenuncia = new SimpleDateFormat("dd/MM/yyyy");
+			webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fDenuncia.format(new Date()));}
+		else {webDriver.appendText(txtFechaOcurrencia, fechaDenuncia);}
+		
+		if(observaciones.isEmpty() || observaciones == null){ observaciones = "Ipsum sum lorem lorem, esto es una prueba del equipo de TaaS."; } 
 		webDriver.appendTextInFrame(txtObservaciones, cuerpoFrame, observaciones);
 
+		
 		debugEnd();
 
 		return this;
@@ -200,17 +220,18 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		return this;
 	}
 
-	public SiniestrosAltaAperturaDeclaracionPage altaConAsistencia(boolean requiereAsistencia, boolean resolucionUrgente, String motivo, String ubicacion, boolean origenReparado, boolean consecuencia,
-		String RefAsistenciaExt) {
+	public SiniestrosAltaAperturaDeclaracionPage altaConAsistencia(String requiereAsistencia, String resolucionUrgente, 
+																	String ubicacion, String origenReparado,
+																	String consecuencia, String RefAsistenciaExt) {
 		debugBegin();
 
-		if(requiereAsistencia) {
+		if(!Constants.ASISTENCIA.isEmpty()) {
 			webDriver.clickInFrame(rdbtnAsistenciaSi, cuerpoFrame);
 		} else {
 			webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
 		}
 
-		if(resolucionUrgente) {
+		if(!Constants.ASISTENCIA_URGENTE.isEmpty()) {
 			webDriver.clickInFrame(rdbtnUrgenteSi, cuerpoFrame);
 			webDriver.clickElementFromDropDownByIndexInFrame(comboMotivo, cuerpoFrame, 2);
 			//
@@ -220,13 +241,13 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		webDriver.setTextInFrame(txtUbicacionDanos, cuerpoFrame, ubicacion);
 
-		if(origenReparado) {
+		if(!Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS.isEmpty()) {
 			webDriver.clickInFrame(rdbtnReparadoSi, cuerpoFrame);
 		} else {
 			webDriver.clickInFrame(rdbtnReparadoNo, cuerpoFrame);
 		}
 
-		if(consecuencia) {
+		if(!Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA.isEmpty()) {
 			webDriver.clickInFrame(rdbtnConsecuenciasSi, cuerpoFrame);
 		} else {
 			webDriver.clickInFrame(rdbtnConsecuenciasNo, cuerpoFrame);
@@ -241,7 +262,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 	public SiniestrosAltaAperturaDeclaracionPage datosPersonaExtra(String rol, String nombre, String apellido1, String apellido2, String tipoDocumento, String documento, String prefijoTlf,
 		String telefono1, String prefijoTlf2,
-		String telefono2, String sexo, boolean noEmail, String email, boolean riesgoAsegurado, String tipoVia, String via, String numero, String piso, String puerta, String cp, String poblacion,
+		String telefono2, String sexo, String noEmail, String email, String riesgoAsegurado, String tipoVia, String via, String numero, String piso, String puerta, String cp, String poblacion,
 		String provincia) {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
@@ -252,7 +273,8 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
+		//webDriver.clickElementFromDropDownByIndex(comboRol, 8);
+		webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
 		webDriver.setText(txtNombre, nombre);
 
 		if(!apellido1.isEmpty()) {
@@ -263,7 +285,8 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 			webDriver.setText(txt2Apellido, apellido2);
 		}
 
-		webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
+		//webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
+		webDriver.clickElementFromDropDownByAttribute(comboTipoDoc, "value", tipoDocumento);
 		webDriver.setText(txtDocumento, documento);
 
 		if(!prefijoTlf.isEmpty()) {
@@ -281,26 +304,30 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		}
 
 		webDriver.setText(txtTelefono2, telefono2);
-		webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
+		//webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
+		webDriver.clickElementFromListByAttribute(comboSexo, "value", sexo);
 
-		if(noEmail) {
+		if(!noEmail.isEmpty()) {
 			webDriver.setText(txtEmailPersona, email);
 			// webDriver.clickInFrame(checkNoEmail, modalFrame);
-		} else {
-			webDriver.setText(txtEmailPersona, email);
-		}
+		} //else {
+			//webDriver.setText(txtEmailPersona, email);
+		//}
 
-		if(riesgoAsegurado) {
+		if(!riesgoAsegurado.isEmpty()) {
 			webDriver.click(checkRiesgoAsegurado);
 		} else {
-			webDriver.clickElementFromDropDownByIndex(comboTipoVia, 1);
+			//webDriver.clickElementFromDropDownByIndex(comboTipoVia, 1);
+			webDriver.clickElementFromDropDownByAttribute(comboTipoVia, "value", tipoVia);
 			webDriver.setText(txtVia, via);
 			webDriver.setText(txtNumero, numero);
 			webDriver.setText(txtPiso, piso);
 			webDriver.setText(txtPuerta, puerta);
 			webDriver.setText(txtCodPostal, cp);
 			webDriver.setText(txtPoblacion, poblacion);
-			webDriver.clickElementFromDropDownByIndex(comboProvincia, 1);
+			//webDriver.clickElementFromDropDownByIndex(comboProvincia, 1);
+			webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
+			
 		}
 
 		webDriver.click(btnGrabar);

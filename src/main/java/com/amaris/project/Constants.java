@@ -517,7 +517,7 @@ public class Constants {
 	public static final String ASEGURADO_COD_SUCURSAL ="aseg_cod_sucursal";
 	public static final String ASEGURADO_COD_DC ="aseg_cod_DC";
 	public static final String ASEGURADO_COD_CUENTA ="aseg_cod_cuenta";
-	
+		
 	public static final String OTRO_IMPLICADO = "otro_implicado";
 	public static final String OTRO_ROL = "otro_rol";
 	public static final String OTRO_NOMBRE = "otro_nombre";

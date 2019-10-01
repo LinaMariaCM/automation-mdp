@@ -536,7 +536,7 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	// ALTA SINIESTRO ALTERNATIVA
-	public void alta_siniestroAlt(String acceso, String numPoliza, boolean asistencia, boolean otrosImplicados, boolean encargo) throws Exception {
+	public void alta_siniestroAlt(String acceso, String numPoliza, String asistencia, String otrosImplicados, String encargo) throws Exception {
 		debugBegin();
 		String ramo = "";
 
@@ -575,11 +575,12 @@ public class ActionSteps extends InteractionObject {
 			// 1.Declaración
 			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
 			datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
-			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
+			
+			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", "TRUE", "prueba@esto.es", "TRUE", "", "", "", "", "", "", "", "");
 
 			// Comprobamos si necesita asistencia
-			if(asistencia) {
-				datosDeclaracion.altaConAsistencia(true, false, "", "Daños ubicados en el interior del riesgo asegurado", true, false, "");
+			if(!asistencia.isEmpty()) {
+				datosDeclaracion.altaConAsistencia("", "", "", "Daños ubicados en el interior del riesgo asegurado", "", "");
 			} else if(datosDeclaracion.posibilidadAsistencia()) {
 				datosDeclaracion.altaSinAsistencia();
 			}
@@ -629,18 +630,18 @@ public class ActionSteps extends InteractionObject {
 			implicadoAsegurado.clickApertura();
 
 			// Comprobamos si se requiere añadir un implicado extra
-			if(otrosImplicados) {
+			if(!otrosImplicados.isEmpty()) {
 				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
 				altaOtrosImplicados.clickNuevoImplicado();
 				SiniestrosOtrosImplicadosDatos otroImplicadoDatos = new SiniestrosOtrosImplicadosDatos(userS);
-				otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "NIF", "77315592B", "666885985", "", "", "implicadoextra@mail.com");
+				otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Exra", "Segundo", "NIF", "77315592B", "666885985", "", "", "implicadoextra@mail.com");
 				otroImplicadoDatos.introducirDatosDireccion("", "", "", "", "", "", "", "", "ES21", "2100", "0001", "05", "0000000001");
 				otroImplicadoDatos.clickGrabar();
 				altaOtrosImplicados.clickContinuar();
 			}
 
 			// Comprobamos si se requiere añadir un encargo
-			if(encargo) {
+			if(!encargo.isEmpty()) {
 				SiniestrosEncargoAlta altaEncargo = new SiniestrosEncargoAlta(userS);
 				altaEncargo.clickNuevoEncargo();
 				SiniestrosEncargoDatos encargoDatos = new SiniestrosEncargoDatos(userS);
@@ -2347,4 +2348,219 @@ public class ActionSteps extends InteractionObject {
 
 		debugBegin();
 	}
+
+
+	//Alta Siniestro simple y por csv
+
+	public void alta_siniestro_simple() throws Exception {
+		debugBegin();
+		String ramo = "";
+
+		// Accedemos a siniestros desde INNOVA
+		if(Constants.ACCESO.equals(Constants.LoginAccessInnova)) {
+			new InnovaHomePage(userS).openSiniestros();
+
+			// Elegimos la opción "alta" de siniestros
+			new SiniestrosHomePage(userS).openAperturaAlta();
+
+			// De no haber póliza se tomará una al azar de las últimas 50
+
+			SiniestrosAltaAperturaPage altaApertura = new SiniestrosAltaAperturaPage(userS);
+			
+			debugInfo("NUM POLIZA: " + Constants.NUM_POLIZA);
+			if(Constants.NUM_POLIZA == null || Constants.NUM_POLIZA.isEmpty()) {
+
+				altaApertura.buscar50Polizas();
+				altaApertura.continuarRandomPoliza();
+
+			} else {
+				// Buscamos una póliza por Nº póliza
+
+				if(Constants.NUM_POLIZA.startsWith("510")) ramo = "510";
+				else if(Constants.NUM_POLIZA.startsWith("920") || Constants.NUM_POLIZA.startsWith("900")) ramo = "920";
+				else if(Constants.NUM_POLIZA.startsWith("660")) ramo = "660";
+				else if(Constants.NUM_POLIZA.startsWith("400") || Constants.NUM_POLIZA.startsWith("200") || Constants.NUM_POLIZA.startsWith("150") || (Constants.NUM_POLIZA.startsWith("500") && !Constants.NUM_POLIZA.startsWith("5000"))) ramo = "500";
+				else if(Constants.NUM_POLIZA.startsWith("5000") || Constants.NUM_POLIZA.startsWith("600") || Constants.NUM_POLIZA.startsWith("610") || Constants.NUM_POLIZA.startsWith("620") || Constants.NUM_POLIZA.startsWith("630")
+					|| Constants.NUM_POLIZA.startsWith("640")) ramo = "640";
+
+				altaApertura.buscarPorNumPoliza(ramo, Constants.NUM_POLIZA);
+				altaApertura.continuarPrimeraPoliza();
+			}
+			
+			// 1.Declaración
+			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
+			//datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
+			
+			datosDeclaracion.altaDatosDeclaracion(Constants.FECHA_OCURRENCIA, Constants.TIPO_DECLARANTE, Constants.MEDIO_DECLARACION, Constants.FECHA_DENUNCIA, Constants.DECLARACION_OBSERVACIONES);
+			
+			// Añadimos datos de persona extra
+			//datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
+			datosDeclaracion.datosPersonaExtra(Constants.CONTACTO_ROL, Constants.CONTACTO_NOMBRE, Constants.CONTACTO_PRIM_APELLIDO, Constants.CONTACTO_SEG_APELLIDO, Constants.CONTACTO_TIPO_DOCUMENTO,
+												Constants.CONTACTO_N_DOCUMENTO, Constants.CONTACTO_PREFIJO_TEL_UNO, Constants.CONTACTO_TELEFONO_UNO, Constants.CONTACTO_PREFIJO_TEL_DOS, Constants.CONTACTO_TELEFONO_DOS,
+												Constants.CONTACTO_SEXO, Constants.CONTACTO_EMAIL_NO_DISP, Constants.CONTACTO_EMAIL, Constants.CONTACTO_VIVE_EN_RIESGO,
+												Constants.CONTACTO_DIR_TIPO_VIA, Constants.CONTACTO_DIR_CALLE, Constants.CONTACTO_DIR_NUMERO, Constants.CONTACTO_DIR_PISO, Constants.CONTACTO_DIR_PUERTA,
+												Constants.CONTACTO_DIR_CP, Constants.CONTACTO_DIR_POBLACION, Constants.CONTACTO_DIR_PROVINCIA);
+			// Comprobamos si necesita asistencia
+			
+			if(Constants.ASISTENCIA.isEmpty() || Constants.ASISTENCIA == null) {
+				datosDeclaracion.altaSinAsistencia();
+			}
+			else if(!Constants.ASISTENCIA.isEmpty()) { 
+				//datosDeclaracion.altaConAsistencia(true, false, "", "Daños ubicados en el interior del riesgo asegurado", true, false, "");
+				datosDeclaracion.altaConAsistencia(Constants.ASISTENCIA, Constants.ASISTENCIA_URGENTE, 
+													Constants.ASISTENCIA_DANYOS_UBICADOS,
+													Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS,
+													Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA,
+													Constants.ASISTENCIA_REF_EXTERNA);
+			} else if(datosDeclaracion.posibilidadAsistencia()) {
+				datosDeclaracion.altaSinAsistencia();
+			}
+			
+			datosDeclaracion.clickContinuar();
+
+			// Validamos cosas
+			ValidacionExcepcionesReglasPage validarReglas = new ValidacionExcepcionesReglasPage(userS);
+			if(validarReglas.comprobarNombrePagina().contains("excepciones")) validarReglas.clickOnContinuarButton();
+
+			// Completamos el apartado de Ocurrencia
+			SiniestrosAltaAperturaOcurrenciaPage datosOcurrencia = new SiniestrosAltaAperturaOcurrenciaPage(userS);
+			datosOcurrencia.altaRiesgoAsegurado();
+
+			String gCausa = "";
+			String tCausa = "";
+			String gremio = "";
+
+			if(ramo == "510" || ramo == "500") {
+				gCausa = "GC02";
+				tCausa = "TC002000";
+				gremio = "1";
+			} else if(ramo == "920") {
+				gCausa = "GC25";
+				tCausa = "TC025000";
+				gremio = "1";
+			} else if(ramo == "640") {
+				gCausa = "GC51";
+				tCausa = "TC002000";
+				gremio = "1";
+			} else if(ramo == "660") {
+				gCausa = "GC32";
+				tCausa = "TC002000";
+				gremio = "1";
+			}
+
+			datosOcurrencia.altaSeleccionarCausas(gCausa, tCausa, gremio);
+			datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", Constants.OTROS_IMPLICADOS, Constants.ENCARGO);
+			datosOcurrencia.clickContinuar();
+
+			// Validamos más cosas
+			ValidacionExcepcionesReglasPage validarReglas2 = new ValidacionExcepcionesReglasPage(userS);
+			if(validarReglas2.comprobarNombrePagina().contains("excepciones")) validarReglas2.clickOnContinuarButton();
+
+			// Completamos el apartado de Implicado asegurado
+			SiniestrosImplicadoAseguradoPage implicadoAsegurado = new SiniestrosImplicadoAseguradoPage(userS);
+			implicadoAsegurado.clickApertura();
+
+			// Comprobamos si se requiere añadir un implicado extra
+			if(!Constants.OTROS_IMPLICADOS.isEmpty()) {
+				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
+				altaOtrosImplicados.clickNuevoImplicado();
+				SiniestrosOtrosImplicadosDatos otroImplicadoDatos = new SiniestrosOtrosImplicadosDatos(userS);
+				//otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "NIF", "77315592B", "666885985", "", "", "implicadoextra@mail.com");
+				otroImplicadoDatos.introducirDatosPersonales(Constants.OTRO_ROL, Constants.OTRO_NOMBRE, Constants.OTRO_PRIM_APELLIDO, Constants.OTRO_SEG_APELLIDO,
+																Constants.OTRO_TIPO_DOCUMENTO, Constants.OTRO_N_DOCUMENTO, Constants.OTRO_TELEFONO_UNO,
+																Constants.OTRO_TELEFONO_DOS, Constants.OTRO_SEXO, Constants.OTRO_EMAIL);
+				otroImplicadoDatos.introducirDatosDireccion("", "", "", "", "", "", "", "", "ES21", "2100", "0001", "05", "0000000001");
+				otroImplicadoDatos.clickGrabar();
+				altaOtrosImplicados.clickContinuar();
+			}
+
+			// Comprobamos si se requiere añadir un encargo
+			if(!Constants.ENCARGO.isEmpty()) {
+				SiniestrosEncargoAlta altaEncargo = new SiniestrosEncargoAlta(userS);
+				altaEncargo.clickNuevoEncargo();
+				SiniestrosEncargoDatos encargoDatos = new SiniestrosEncargoDatos(userS);
+				encargoDatos.seleccionarTipoEncargo("PGRA", "PERIGRAL", "PERITACI");
+				encargoDatos.seleccionarDatosEncargo(new Date(), "");
+				encargoDatos.clickGrabar();
+				altaEncargo.clickContinuar();
+			}
+
+			// Página de confirmación
+			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+			confirmarAltaSiniestro.confirmarSiniestroOK();
+
+			// Accedemos a siniestros desde Gestión On Line
+		} else if(Constants.ACCESO.equals(Constants.LoginAccessGestionLine)) {
+
+			// Seleccionamos la opcion alta siniestros
+			GestionOnlineHomePage goHome = new GestionOnlineHomePage(userS);
+			goHome.seleccionaIdiomaCast();
+			goHome.altaSiniestros();
+
+			// Damos de alta el siniestro
+			GestionOnlineAltaSiniestro altaSiniestroGOL = new GestionOnlineAltaSiniestro(userS);
+			altaSiniestroGOL.altaInfoPoliza(Constants.NUM_POLIZA, "");
+			if(Constants.NUM_POLIZA.startsWith("510")) ramo = "510";
+			else if(Constants.NUM_POLIZA.startsWith("920") || Constants.NUM_POLIZA.startsWith("900")) ramo = "920";
+			else if(Constants.NUM_POLIZA.startsWith("660")) ramo = "660";
+			else if(Constants.NUM_POLIZA.startsWith("400") || Constants.NUM_POLIZA.startsWith("200") || Constants.NUM_POLIZA.startsWith("150") || (Constants.NUM_POLIZA.startsWith("500") && !Constants.NUM_POLIZA.startsWith("5000"))) ramo = "500";
+			else if(Constants.NUM_POLIZA.startsWith("5000") || Constants.NUM_POLIZA.startsWith("600") || Constants.NUM_POLIZA.startsWith("610") || Constants.NUM_POLIZA.startsWith("620") || Constants.NUM_POLIZA.startsWith("630")
+				|| Constants.NUM_POLIZA.startsWith("640")) ramo = "640";
+
+			String causa = "";
+			if(ramo == "510" || ramo == "500") {
+				causa = "1";
+			} else if(ramo == "920") {
+				causa = "2";
+			} else if(ramo == "640") {
+				causa = "3";
+			} else if(ramo == "660") {
+				causa = "4";
+			}
+
+			altaSiniestroGOL.altaCausaDescripcion(causa, "Descripción para la apertura del sinestro de prueba automática", "");
+			altaSiniestroGOL.altaCuentaSiniestro();
+			altaSiniestroGOL.altaPersonaContacto("INQVE__11", "Jose", "Martinez", "Perez", "666502101", "mail@mail.com");
+			altaSiniestroGOL.altaDireccionContacto(true, "", "", "", "", "", "", "", "");
+			altaSiniestroGOL.altaObservaciones("TEST Automatico apertura siniestro");
+			altaSiniestroGOL.clickEnviar();
+			altaSiniestroGOL.checkYaExisteSiniestro();
+			altaSiniestroGOL.comprobarOK();
+		}
+
+		if(Constants.ACCESO.equals(Constants.LoginAccessInnova)) {
+			// Página de confirmación
+			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+			confirmarAltaSiniestro.confirmarSiniestroOK();
+		}
+	}
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

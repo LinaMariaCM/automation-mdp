@@ -54,12 +54,13 @@ public class SiniestrosOtrosImplicadosDatos extends PageObject {
 	}
 
 	// region Methods
-	public SiniestrosOtrosImplicadosDatos introducirDatosPersonales(String tipologia, String rol, String nombre, String apellido1, String apellido2, String tipoDocumento, String numDocumento, String telefono1,
+	//public SiniestrosOtrosImplicadosDatos introducirDatosPersonales(String tipologia, String rol, String nombre, String apellido1, String apellido2, String tipoDocumento, String numDocumento, String telefono1,
+	public SiniestrosOtrosImplicadosDatos introducirDatosPersonales(String rol, String nombre, String apellido1, String apellido2, String tipoDocumento, String numDocumento, String telefono1,
 		String telefono2, String sexo, String email) {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		//webDriver.clickElementFromDropDownByAttribute(comboTipologia, "value", tipologia);
-		webDriver.clickElementFromDropDownByIndex(comboTipologia, 2);
+		//webDriver.clickElementFromDropDownByIndex(comboTipologia, 2);
 		//webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
 		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
 		webDriver.setText(txtNombre, nombre);

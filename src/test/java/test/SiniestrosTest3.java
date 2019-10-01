@@ -93,13 +93,9 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
+			
 			steps.login("Innova", "Eperez");
-
-			steps.alta_siniestroAlt(userS.getTestVar(Constants.ACCESO), 
-									userS.getTestVar(Constants.NUM_POLIZA),  
-									Boolean.parseBoolean(userS.getTestVar(Constants.ASISTENCIA)), 
-									Boolean.parseBoolean(userS.getTestVar(Constants.OTROS_IMPLICADOS)),
-									Boolean.parseBoolean(userS.getTestVar(Constants.ENCARGO)));
+			steps.alta_siniestro_simple();
 
 			return null;
 		}).run();

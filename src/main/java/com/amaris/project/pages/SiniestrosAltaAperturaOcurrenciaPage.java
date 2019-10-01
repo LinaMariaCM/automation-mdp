@@ -109,18 +109,18 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		return this;
 	}
 
-	public SiniestrosAltaAperturaOcurrenciaPage altaRellenarDatos(String descripcion, boolean implicadosExisten, boolean encargo) {
+	public SiniestrosAltaAperturaOcurrenciaPage altaRellenarDatos(String descripcion, String implicadosExisten, String encargo) {
 		debugBegin();
 
 		webDriver.appendTextInFrame(txtDescripcionSiniestro, cuerpoFrame, descripcion);
 
-		if(implicadosExisten) {
+		if(!implicadosExisten.isEmpty()) {
 			webDriver.clickInFrame(rdbtnImplicadosSi, cuerpoFrame);
 		} else {
 			webDriver.clickInFrame(rdbtnImplicadosNo, cuerpoFrame);
 		}
 
-		if(encargo) {
+		if(!encargo.isEmpty()) {
 			webDriver.clickInFrame(rdbtnEncargoSi, cuerpoFrame);
 		} else {
 			webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
