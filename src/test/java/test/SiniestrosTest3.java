@@ -95,7 +95,16 @@ public class SiniestrosTest3 extends TestObject {
 		userS.testActions(() -> {
 			
 			steps.login("Innova", "Eperez");
+			
 			steps.alta_siniestro_simple();
+			
+			steps.realizo_pago_simple();
+			
+			//steps
+			
+			steps.cierre_siniestro();
+			
+			steps.reapertura_siniestro();
 
 			return null;
 		}).run();

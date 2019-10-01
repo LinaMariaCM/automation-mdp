@@ -31,7 +31,7 @@ public class SiniestrosAltaGOLTest {
 		userS.testActions(() -> {
 			steps.login("GOL", "640");
 
-			steps.alta_siniestroAlt("GOL", "510006850", false, false, false);
+			steps.alta_siniestroAlt("GOL", "510006850", "", "", "");
 
 			return null;
 		}).run();
@@ -55,7 +55,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "500504786", false, false, false);
+				steps.alta_siniestroAlt("GOL", "500504786", "", "", "");
 
 				return null;
 			}).run();
@@ -79,7 +79,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "325", false, false, false);
+				steps.alta_siniestroAlt("GOL", "325", "", "", "");
 
 				return null;
 			}).run();
@@ -103,7 +103,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "200223717", false, false, false);
+				steps.alta_siniestroAlt("GOL", "200223717", "", "", "");
 
 				return null;
 			}).run();
@@ -128,7 +128,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "920021985", false, false, false);
+				steps.alta_siniestroAlt("GOL", "920021985", "", "", "");
 
 				return null;
 			}).run();
@@ -152,7 +152,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "900920199", false, false, false);
+				steps.alta_siniestroAlt("GOL", "900920199", "", "", "");
 
 				return null;
 			}).run();
@@ -176,7 +176,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "660008068", false, false, false);
+				steps.alta_siniestroAlt("GOL", "660008068", "", "", "");
 
 				return null;
 			}).run();
@@ -200,7 +200,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "600601509", false, false, false);
+				steps.alta_siniestroAlt("GOL", "600601509", "", "", "");
 
 				return null;
 			}).run();
@@ -224,7 +224,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "610636150", false, false, false);
+				steps.alta_siniestroAlt("GOL", "610636150", "", "", "");
 
 				return null;
 			}).run();
@@ -249,7 +249,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "630670830", false, false, false);
+				steps.alta_siniestroAlt("GOL", "630670830", "", "", "");
 
 				return null;
 			}).run();
@@ -274,7 +274,7 @@ public class SiniestrosAltaGOLTest {
 			userS.testActions(() -> {
 				steps.login("GOL", "640");
 
-				steps.alta_siniestroAlt("GOL", "640721662", false, false, false);
+				steps.alta_siniestroAlt("GOL", "640721662", "", "", "");
 
 				return null;
 			}).run();

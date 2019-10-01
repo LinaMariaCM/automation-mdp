@@ -99,7 +99,7 @@ public class SiniestrosTest2 extends TestObject {
 		userS.testActions(() -> {
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "510000020", false, false, false);
+			steps.alta_siniestroAlt("Innova", "510000020", "", "", "");
 
 			return null;
 		}).run();
@@ -118,9 +118,9 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			//steps.alta_siniestroAlt("Innova", "920017879", false, false, false);
+			//steps.alta_siniestroAlt("Innova", "920017879", "", "", "");
 		
-			steps.alta_siniestroAlt("Innova", "920017000", false, false, false);
+			steps.alta_siniestroAlt("Innova", "920017000", "", "", "");
 
 			return null;
 		}).run();
@@ -136,9 +136,9 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			//steps.alta_siniestroAlt("Innova", "900931784", false, false, false);
+			//steps.alta_siniestroAlt("Innova", "900931784", "", "", "");
 		
-			steps.alta_siniestroAlt("Innova", "900911779", false, false, false);
+			steps.alta_siniestroAlt("Innova", "900911779", "", "", "");
 
 
 			return null;
@@ -155,7 +155,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "500553299", false, false, false);
+			steps.alta_siniestroAlt("Innova", "500553299", "", "", "");
 
 			return null;
 		}).run();
@@ -171,7 +171,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "400009108", false, false, false);
+			steps.alta_siniestroAlt("Innova", "400009108", "", "", "");
 
 			return null;
 		}).run();
@@ -187,7 +187,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "150401435", false, false, false);
+			steps.alta_siniestroAlt("Innova", "150401435", "", "", "");
 
 			return null;
 		}).run();
@@ -203,7 +203,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "200226110", false, false, false);
+			steps.alta_siniestroAlt("Innova", "200226110", "", "", "");
 
 			return null;
 		}).run();
@@ -219,7 +219,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "660000097", false, false, false);
+			steps.alta_siniestroAlt("Innova", "660000097", "", "", "");
 
 			return null;
 		}).run();
@@ -235,7 +235,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "50002522", false, false, false);
+			steps.alta_siniestroAlt("Innova", "50002522", "", "", "");
 
 			return null;
 		}).run();
@@ -253,7 +253,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "600601384", false, false, false);
+			steps.alta_siniestroAlt("Innova", "600601384", "", "", "");
 
 			return null;
 		}).run();
@@ -269,7 +269,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "610619142", false, false, false);
+			steps.alta_siniestroAlt("Innova", "610619142", "", "", "");
 
 			return null;
 		}).run();
@@ -285,7 +285,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "620664851", false, false, false);
+			steps.alta_siniestroAlt("Innova", "620664851", "", "", "");
 
 			return null;
 		}).run();
@@ -301,7 +301,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "630674325", false, false, false);
+			steps.alta_siniestroAlt("Innova", "630674325", "", "", "");
 
 			return null;
 		}).run();
@@ -317,7 +317,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "640701098", false, false, false);
+			steps.alta_siniestroAlt("Innova", "640701098", "", "", "");
 
 			return null;
 		}).run();
@@ -333,7 +333,7 @@ public class SiniestrosTest2 extends TestObject {
 
 			steps.login("Innova", "Eperez");
 
-			steps.alta_siniestroAlt("Innova", "510000076", true, false, false);
+			steps.alta_siniestroAlt("Innova", "510000076", "TRUE", "", "");
 
 			return null;
 		}).run();
@@ -350,9 +350,9 @@ public class SiniestrosTest2 extends TestObject {
 			steps.login("Innova", "Eperez");
 
 
-			steps.alta_siniestroAlt("Innova", "510017734", false, true, true);
+			steps.alta_siniestroAlt("Innova", "510017734", "", "TRUE", "TRUE");
 		
-			steps.alta_siniestroAlt("Innova", "510004024", false, true, true);
+			steps.alta_siniestroAlt("Innova", "510004024", "", "TRUE", "TRUE");
 
 			return null;
 		}).run();
