@@ -25,6 +25,8 @@ public class Constants {
 	public static final String MEC_SINIESTROS = "MecSin";
 	public static final String ALTA_SINIESTROS = "AltaSin";
 
+	public static final String GARAJES_CASE = "TST";
+	public static final String MEDIADORES_CASE = "Med";
 	public static final String FICHA_CLIENT = "fichaClient";
 	public static final String SINIESTRO_CONVENCIONAL_CON_PERITO = "SinConvPer";
 
@@ -554,4 +556,9 @@ public class Constants {
 	public static final String ENCARGO_FECHA = "enc_fecha";
 	public static final String ENCARGO_DETALLES = "enc_detalles";
 	public static final String ENCARGO_DOCUMENTOS = "enc_documentos";
+
+	public static final String CIERRE_SINIESTRO = "cierre_siniestro";
+	public static final String REAPERTURA_SINIESTRO = "reapertura_siniestro";
+	public static final String REHUSO_SINIESTRO = "rehuso_siniestro";
+
 }

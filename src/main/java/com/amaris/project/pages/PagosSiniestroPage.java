@@ -1,12 +1,21 @@
 package com.amaris.project.pages;
 
-import org.openqa.selenium.By;
+import java.util.List;
 
-public class PagosSiniestroPage {
+import com.amaris.automation.model.testing.UserStory;
+import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.steps.ActionSteps;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+public class PagosSiniestroPage extends PageObject {
 
     private By cuerpoFrame = By.id("mainFrame");
     private By leftFrame = By.cssSelector("#leftFrame");
     private By capaIframe = By.cssSelector("#capaIframe");
+    private By selectorFrame = By.id("selectorTipoFigura");
+    private By accederPagos = By.xpath(".//*[text()='Pagos'] ");
 
     //Menu superior
     private By verSaldoFranquicias = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar li:nth-child(1) span");
@@ -15,6 +24,7 @@ public class PagosSiniestroPage {
 
     private By irListadoPagos = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar div.level-1 ul.list-level-1 li.rightList span.action-return");
 
+    
     //Continuar,importes,Grabar
     private By botonContinuar1 = By.cssSelector("#botonContinuar");
 
@@ -22,7 +32,7 @@ public class PagosSiniestroPage {
     private By nuevoPago = By.cssSelector("#bloque1tr1 td:nth-child(8) a span");
 
     //Tipo perceptor
-    private By perceptor = By.cssSelector("input[name='tipoPerceptor']");
+    private By perceptor = By.cssSelector("#tipoPerceptor");
     //Participantes expediente
     private By flecha1  = By.cssSelector("tr.even td:nth-child(2) span");
     //Figuras de la poliza
@@ -36,7 +46,7 @@ public class PagosSiniestroPage {
     private By flecha3 = By.cssSelector("tr.odd td:nth-child(4) span");
 
     //Datos bancarios
-    private By medioPago = By.cssSelector("input[name='medioPago']");
+    private By medioPago = By.cssSelector("#medioPago");
     private By cuentaValidada = By.cssSelector("#checkboxCuentaValidada");
     private By codigoIban = By.cssSelector("#COMODIN_CADENA");
     private By banco = By.cssSelector("#COMODIN_CADENA_1");
@@ -98,7 +108,7 @@ public class PagosSiniestroPage {
     private By numeroFactura = By.cssSelector("#numeroFactura");
 
     //Coberturas implicadas
-    private By rCRotura = By.cssSelector("#checkCob_ST0039");
+    private By rCRotura = By.cssSelector("#checkCob_ST0030");
     private By importe0 = By.cssSelector("#importes0");
 
     private By rCOmision = By.cssSelector("#checkCob_ST0040");
@@ -160,8 +170,311 @@ public class PagosSiniestroPage {
     private By irpf = By.cssSelector("#codigoTipoIrpfFactura");
     private By gastosSuplidos = By.cssSelector("#exentoFacInt");
 
+    // comprobar si tiene pagos
+    private By listPagos = By.cssSelector("table.grid:nth-child(1) > tbody:nth-child(1) tr[valign='top'] td:nth-child(9)");
 
 
+    // endregion
 
+    public PagosSiniestroPage(UserStory userS) {
+        super(userS);
+    }
+
+    // region methods
+
+    public PagosSiniestroPage nuevoPago (){
+        debugBegin();
+
+        webDriver.clickInFrame(accederPagos,leftFrame);
+        webDriver.clickInFrame(nuevoPago, cuerpoFrame);
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage seleccionarParticipantesExpediente (){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(perceptor,0);
+        webDriver.click(flecha1);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage seleccionarFiguraPoliza(){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(perceptor,1);
+        webDriver.click(flecha2);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    //VERIFICAR
+
+    public PagosSiniestroPage seleccionarEmpresasProfesionales(){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(perceptor,6);
+
+        webDriver.click(botonContinuar);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage seleccionarCompañiaContrataria(String NombreCia, String CiaContrataria){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(perceptor,2);
+        webDriver.appendText(nombreCia, NombreCia);
+        webDriver.appendText(ciaContrataria,CiaContrataria);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage seleccionarVariosDatosLibres(){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(medioPago, 3);
+        webDriver.click(botonContinuar1);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage seleccionarJuzgado(){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(medioPago, 4);
+        webDriver.click(botonContinuar1);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    //Medios pago
+    public PagosSiniestroPage medioPagoTransferencia (String CodigoIban, String Banco, String Sucursal, String dc, String cta, String cta2){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(medioPago, 2);
+        webDriver.appendText(codigoIban, CodigoIban);
+        webDriver.appendText(banco,Banco);
+        webDriver.appendText(sucursal,Sucursal);
+        webDriver.appendText(DC, dc);
+        webDriver.appendText(CTA, cta);
+        webDriver.appendText(CTA2, cta2);
+        webDriver.click(calcularIban);
+        webDriver.click(botonContinuar);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage medioPagoCheque(String docBancario){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(medioPago, 3);
+        webDriver.appendText(documentoBancario,docBancario);
+        webDriver.click(botonContinuar);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage medioPagoConsignacion (){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(medioPago, 4);
+        webDriver.click(botonContinuar);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage datosPerceptor (){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(medioPago, 4);
+        webDriver.click(botonContinuar);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    //Datos del pago
+
+    public PagosSiniestroPage datosPagoNif (String TipoDocumentoNif,  String Nombre, String PrimerApellido, String SegundoApellido, String FechaNacimiento, String Tel1, String Tel2, String Email){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(tipoDocumento,1);
+        webDriver.appendText(numeroDocumento,TipoDocumentoNif);
+        webDriver.appendText(nombre, Nombre);
+        webDriver.appendText(primerApellido,PrimerApellido);
+        webDriver.appendText(segundoApellido, SegundoApellido);
+        webDriver.appendText(fechaNacimiento, FechaNacimiento);
+        webDriver.clickElementFromDropDownByIndex(sexo,4);
+        webDriver.appendText(telefono1,Tel1);
+        webDriver.appendText(telefono2, Tel2);
+        webDriver.appendText(email, Email);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage datosPagoNie (String TipoDocumentoNie,  String Nombre, String PrimerApellido, String SegundoApellido, String FechaNacimiento, String Tel1, String Tel2, String Email){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(tipoDocumento,2);
+        webDriver.appendText(numeroDocumento,TipoDocumentoNie);
+        webDriver.appendText(nombre, Nombre);
+        webDriver.appendText(primerApellido,PrimerApellido);
+        webDriver.appendText(segundoApellido, SegundoApellido);
+        webDriver.appendText(fechaNacimiento, FechaNacimiento);
+        webDriver.clickElementFromDropDownByIndex(sexo,4);
+        webDriver.appendText(telefono1,Tel1);
+        webDriver.appendText(telefono2, Tel2);
+        webDriver.appendText(email, Email);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage datosPagoPasaporte (String TipoDocumentoPasaporte,  String Nombre, String PrimerApellido, String SegundoApellido, String FechaNacimiento, String Tel1, String Tel2, String Email){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(tipoDocumento,1);
+        webDriver.appendText(numeroDocumento,TipoDocumentoPasaporte);
+        webDriver.appendText(nombre, Nombre);
+        webDriver.appendText(primerApellido,PrimerApellido);
+        webDriver.appendText(segundoApellido, SegundoApellido);
+        webDriver.appendText(fechaNacimiento, FechaNacimiento);
+        webDriver.clickElementFromDropDownByIndex(sexo,4);
+        webDriver.appendText(telefono1,Tel1);
+        webDriver.appendText(telefono2, Tel2);
+        webDriver.appendText(email, Email);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage datosPagoCif (String TipoDocumentoCif,  String Nombre, String PrimerApellido, String SegundoApellido, String FechaNacimiento, String Tel1, String Tel2, String Email){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(tipoDocumento,1);
+        webDriver.appendText(numeroDocumento,TipoDocumentoCif);
+        webDriver.appendText(telefono1,Tel1);
+        webDriver.appendText(telefono2, Tel2);
+        webDriver.appendText(email, Email);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+
+    //Domicilio
+
+    public PagosSiniestroPage domicilio(String Domicilio, String Numero, String Portal, String Escalera, String Piso, String Puerta, String CodigoPostal, String Poblacion){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementFromDropDownByIndex(tipoVia, 14);
+        webDriver.appendText(domicilio, Domicilio);
+        webDriver.appendText(numero, Numero);
+        webDriver.appendText(portal, Portal);
+        webDriver.appendText(escalera, Escalera);
+        webDriver.appendText(piso, Piso);
+        webDriver.appendText(puerta, Puerta);
+        webDriver.appendText(codigoPostal, CodigoPostal);
+        webDriver.appendText(poblacion, Poblacion);
+        webDriver.exitFrame();
+        debugEnd();
+        return this;
+    }
+
+
+    //Observaciones
+
+    public PagosSiniestroPage observaciones  (String Observaciones){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.appendText(observaciones, Observaciones);
+        webDriver.exitFrame();
+        debugEnd();
+        return this;
+    }
+
+    //Importes
+    public PagosSiniestroPage importes (String fPago, String Importe1){
+        debugBegin();
+
+        webDriver.appendTextInFrame(fechaDePago, cuerpoFrame, fPago);
+        webDriver.clickElementFromDropDownByIndexInFrame(conceptoPago,cuerpoFrame,1);
+        webDriver.clickInFrame(rCRotura, cuerpoFrame);
+        webDriver.appendTextInFrame(importe0,cuerpoFrame, Importe1);
+        webDriver.clickInFrame(actualizarImportePago, cuerpoFrame);
+        webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
+
+
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage verificacion (){
+        debugBegin();
+
+        webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
+
+        debugEnd();
+        return this;
+    }
+
+    public Boolean comprobar_pagos_pendientes(){
+        debugBegin();
+        webDriver.clickInFrame(accederPagos,leftFrame);
+        ActionSteps.waitForIt(webDriver);
+        Boolean check = false;
+        if (webDriver.isClickableInFrame(listPagos, cuerpoFrame)){
+            debugInfo("antes de la lista");
+            webDriver.switchToFrame(cuerpoFrame);
+            List<WebElement> listaPagos = webDriver.getElements(listPagos);
+            debugInfo("contiene: " +listaPagos.size());
+            debugInfo("despues de la lista");
+            
+            for(int i = 0; i < listaPagos.size(); i++){
+                debugInfo("hay Pagos");
+                
+                debugInfo("Estado: "+listaPagos.get(i).getText());
+                if (listaPagos.get(i).getText().compareTo("Pagado") !=0 && listaPagos.get(i).getText().compareTo("Anulado") !=0 ){
+                    check = true;
+                    debugInfo("Pagos Pendiente: "+check);
+                }
+            }
+            webDriver.exitFrame();
+            
+        }else{
+            debugInfo("no hay pagos");
+        }
+
+
+        debugEnd();
+        return check; 
+    }
+    
 
 }

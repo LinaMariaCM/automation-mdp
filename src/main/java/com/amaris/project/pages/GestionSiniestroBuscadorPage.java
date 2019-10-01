@@ -10,6 +10,8 @@ public class GestionSiniestroBuscadorPage extends PageObject {
 
 //Elementos
 private By cuerpoFrame = By.id("mainFrame");
+private By leftFrame = By.cssSelector("#leftFrame");
+private By gestionSiniestros = By.xpath(".//*[text()='Gestión de siniestros']");
 
 private By btnNoSiniestro = By.cssSelector("#filtro1");
 private By btnNoPoliza = By.cssSelector("#filtro2");
@@ -19,6 +21,8 @@ private By btnFechaOcurrencia = By.cssSelector("#filtro6");
 private By btnFechaAlta = By.cssSelector("#filtro7");
 private By btnCausa = By.cssSelector("#filtro8");
 private By btnOtros = By.cssSelector("#filtro9");
+private By opProduct = By.cssSelector("#capaPOLIZA td.flexibleField");
+private By opProductSIni = By.cssSelector("#capaSINIESTRO td.flexibleField");
 
 // Opcion Numero Siniestro
 private By tipoProductoSini = By.cssSelector("#prodsini");
@@ -68,34 +72,54 @@ public GestionSiniestroBuscadorPage(UserStory userS) {
     super(userS);
 }
 
-
-public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza, String negocio) {
+public GestionSiniestroBuscadorPage abrirGestionSiniestro(){
     debugBegin();
 
-    webDriver.clickInFrame(btnNoPoliza, cuerpoFrame);
-    if (negocio == "MEC"){
-        webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
-    }
-    webDriver.appendTextInFrame(txtNoPoliza, cuerpoFrame, numPoliza);
-    webDriver.clickInFrame(btnBuscar, cuerpoFrame);
-
-    ActionSteps.waitForIt(webDriver);
-    webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+    webDriver.clickInFrame(gestionSiniestros,leftFrame);
 
     debugEnd();
 
     return this;
 }
 
-public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro, int index, String anio, String negocio) {
+
+public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza, String negocio) {
     debugBegin();
+    webDriver.clickInFrame(gestionSiniestros,leftFrame);
+    debugInfo("ha dado click");
+    webDriver.clickInFrame(btnNoPoliza, cuerpoFrame);
+    if (negocio == "MEC"){
+        webDriver.switchToFrame(cuerpoFrame);
+     //   webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+        //webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
+        webDriver.clickElementChildByAttribute(opProduct,"value", "510");
+        webDriver.exitFrame();
+        
+    }
+    webDriver.setTextInFrame(txtNoPoliza,numPoliza,cuerpoFrame);
+    webDriver.clickInFrame(btnBuscar,cuerpoFrame);
+
+    ActionSteps.waitForIt(webDriver);
+    webDriver.clickInFrame(btnContinuar, cuerpoFrame);
     
+    debugEnd();
+
+    return this;
+}
+
+public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,String anio, String negocio) {
+    debugBegin();
+    webDriver.clickInFrame(gestionSiniestros,leftFrame);
+    debugInfo("ha dado click");
     webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
     if (negocio == "MEC"){
-        webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoSini, cuerpoFrame, "value", "510");
+        webDriver.switchToFrame(cuerpoFrame);
+         webDriver.clickElementChildByAttribute(opProductSIni,"value", "510");
+         webDriver.exitFrame();
     }
-    webDriver.appendTextInFrame(txtAno, cuerpoFrame, anio);
-    webDriver.appendTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
+    webDriver.setTextInFrame(txtAno, cuerpoFrame, anio);
+    
+    webDriver.setTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
     webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
     ActionSteps.waitForIt(webDriver);
@@ -132,9 +156,9 @@ public GestionSiniestroBuscadorPage buscarPorAsegurado(String asegurador, String
     }else {
         webDriver.clickInFrame(btnEmpieza, cuerpoFrame);
     }
-    webDriver.appendTextInFrame(txtNombre, cuerpoFrame, nombre);
+    webDriver.setTextInFrame(txtNombre, cuerpoFrame, nombre);
     webDriver.clickInFrame(btnBuscar, cuerpoFrame);
-
+    
     ActionSteps.waitForIt(webDriver);
     webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 
@@ -202,8 +226,10 @@ public GestionSiniestroBuscadorPage buscarPorOtros(String fDesde, String fHasta,
     if (negocio == "MEC"){
         webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
     }
+
     webDriver.clickElementFromDropDownByAttributeInFrame(estadoPoliza, cuerpoFrame, "value", "V");
-    webDriver.appendTextInFrame(mediador, cuerpoFrame, codMediador);
+
+    webDriver.setTextInFrame(mediador, cuerpoFrame, codMediador);
     webDriver.clickInFrame(btnBuscar, cuerpoFrame);
 
     ActionSteps.waitForIt(webDriver);

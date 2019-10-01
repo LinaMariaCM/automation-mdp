@@ -1,7 +1,6 @@
 package com.amaris.project.steps;
 
 import com.amaris.automation.configuration.AutomationConstants;
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.InteractionObject;
 import com.amaris.automation.model.utils.ArrayUtils;
@@ -12,15 +11,11 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
-
-import java.io.IOException;
-
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
 import com.amaris.project.Constants;
 import com.amaris.project.pages.*;
-import com.amaris.project.utils.ClausulasHelper;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
@@ -2344,11 +2339,11 @@ public class ActionSteps extends InteractionObject {
 			}
 		}
 
+
 		userS.getWebDriver().quit();
 
 		debugBegin();
 	}
-
 
 	//Alta Siniestro simple y por csv
 
@@ -2537,30 +2532,87 @@ public class ActionSteps extends InteractionObject {
 
 
 
+	public void comprobar_que_no_tenga_pagos_pendientes_ni_encargos() throws Exception{
+		debugBegin();
+
+
+
+		debugEnd();
+	}
+
+	public void cierre_siniestro() throws Exception{
+		debugBegin();
+	InnovaHomePage innovaHome = new InnovaHomePage(userS);
+	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+	VistaSiniestroPage vistaSiniestro = new VistaSiniestroPage(userS);
+	PagosSiniestroPage pagosSiniestro = new PagosSiniestroPage(userS);
+	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
+	innovaHome.openSiniestros();
+	buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
+	Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
+	Boolean encargos = gestionCarpeta.comprobar_encargos();
+	Boolean tareas = agendaSiniestro.comprobar_tareas_pendientes();
+	debugInfo("Pago bool: "+pagos);
+	debugInfo("Encargos bool: "+encargos);
+	debugInfo("Tareas bool: "+tareas);
+	vistaSiniestro.cierre_siniestro(pagos, encargos, tareas);
+	//vistaSiniestro.cierre_siniestro();
+	//webDriver.waitWithDriver(2000);
+	debugEnd();
+	}
+
+	public void reapertura_siniestro()  throws Exception{
+	InnovaHomePage innovaHome = new InnovaHomePage(userS);
+	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+	innovaHome.openSiniestros();
+	buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
+	gestionCarpeta.nueva_carpeta();
+
+
+	}
+
+	
+	public void realizo_pago_simple() throws Exception{
+		debugBegin();
+		PagosSiniestroPage pagosSiniestroPage = new PagosSiniestroPage(userS);
+		InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage gestionSiniestrosBuscador = new GestionSiniestroBuscadorPage(userS);
+		//En la pagina principal se busca la opcion siniestro
+		innovaHomePage.openSiniestros();
+		//Dentro de siniestros se busca la opcion gestion siniestro
+		gestionSiniestrosBuscador.abrirGestionSiniestro();
+		//Una vez dentro, se selecciona la opcion buscar por otros
+		gestionSiniestrosBuscador.buscarPorOtros("1/08/2019","15/09/2019","640","510");
+		//Seleccion del siniestro a pagar
+		pagosSiniestroPage.nuevoPago();
+		//Seleccion de un tipo de perceptor
+		pagosSiniestroPage.seleccionarParticipantesExpediente();
+		//Seleccion de datos bancarios y observaciones
+		pagosSiniestroPage.datosPerceptor();
+		//Seleccion de concepto de pago, cobertura, importes y deducciones
+		pagosSiniestroPage.importes("16/09/2019","100,00");
+		//Verificacion de todos los datos esten correctamente y grabacion del pago
+		pagosSiniestroPage.verificacion();
+		debugEnd();
+
+	}
+
+	public void rehuso_siniestro() throws Exception{
+	InnovaHomePage innovaHome = new InnovaHomePage(userS);
+	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+	DiarioSiniestroPage diarioSiniestro = new DiarioSiniestroPage(userS);
+	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+	innovaHome.openSiniestros();
+	buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
+	gestionCarpeta.cerrar_carpeta();   //lo estoy terminando
+	diarioSiniestro.rehusar_siniestro();
+	
+
+
+	}
+
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

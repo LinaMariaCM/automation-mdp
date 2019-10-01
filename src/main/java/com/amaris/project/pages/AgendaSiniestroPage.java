@@ -1,6 +1,9 @@
 package com.amaris.project.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
@@ -50,7 +53,51 @@ public class AgendaSiniestroPage extends PageObject {
     private By txtEtiquetas = By.cssSelector("#textoEtiquetas");
     private By asociarEti = By.cssSelector("#botonAsociar");
 
+    // pestañas
+    private By todasTareas = By.cssSelector("#pes0");
 
+
+    // lista de estado de las tareas
+    private By estadoTarea = By.cssSelector("table.grid tbody:nth-child(1) tr[valign='top'] td:nth-child(5)");
+
+    public AgendaSiniestroPage(UserStory userS) {
+        super(userS);
+    }
     
+
+    public Boolean comprobar_tareas_pendientes(){
+        debugBegin();
+        webDriver.clickInFrame(agenda,leftFrame);
+        ActionSteps.waitForIt(webDriver);
+        webDriver.clickInFrame(todasTareas, cuerpoFrame);
+        debugInfo("click en todas");
+        Boolean check = false;
+        if (webDriver.isClickableInFrame(estadoTarea, cuerpoFrame)){
+            debugInfo("antes de la lista");
+            webDriver.switchToFrame(cuerpoFrame);
+            List<WebElement> listaPagos = webDriver.getElements(estadoTarea);
+            debugInfo("contiene: " +listaPagos.size());
+            debugInfo("despues de la lista");
+            
+            for(int i = 0; i < listaPagos.size(); i++){
+                debugInfo("hay tareas");
+                
+                debugInfo("Estado: "+listaPagos.get(i).getText());
+                if (listaPagos.get(i).getText().compareTo("Pendiente") ==0){
+                    check = true;
+                    debugInfo("Tareas Pendiente: "+check);
+                }
+            }
+            webDriver.exitFrame();
+            
+        }else{
+            debugInfo("no hay tareas");
+        }
+
+
+        debugEnd();
+        return check; 
+
+    }
 
 }
