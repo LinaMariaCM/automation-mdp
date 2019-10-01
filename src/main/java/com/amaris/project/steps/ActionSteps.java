@@ -2412,12 +2412,13 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void rehuso_siniestro() throws Exception{
-		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+	InnovaHomePage innovaHome = new InnovaHomePage(userS);
 	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 	DiarioSiniestroPage diarioSiniestro = new DiarioSiniestroPage(userS);
+	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
 	innovaHome.openSiniestros();
-	buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
-	//gestionCarpeta.cerrar_carpeta();   lo estoy terminando
+	buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
+	gestionCarpeta.cerrar_carpeta();   //lo estoy terminando
 	diarioSiniestro.rehusar_siniestro();
 	
 

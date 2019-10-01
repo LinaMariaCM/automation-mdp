@@ -42,7 +42,7 @@ public class GestionCarpetaSiniestro extends PageObject {
     private By estadoCarpeta = By.cssSelector("td:nth-child(7)");
 
     // cierre carpeta
-    private By motivoCierre = By.cssSelector("#motivoCierre");
+    private By motivoCierre = By.cssSelector("div.sis-col-50 #motivoCierre");
     private By cierreTareas = By.cssSelector("#cierreTareas");
     private By grabarCierre = By.cssSelector("#buttonRecord");
 
@@ -143,12 +143,12 @@ public class GestionCarpetaSiniestro extends PageObject {
             ActionSteps.waitForIt(webDriver);
             webDriver.click(cerrarCarpeta);
             debugInfo("cierre");
-            webDriver.exitFrame();
+            webDriver.waitWithDriver(5000);
             webDriver.switchToFrame(capaIframe);
             webDriver.clickElementChildByAttribute(motivoCierre,"value", "ERAD");
             debugInfo("motivo");
             webDriver.click(grabarCierre);
-   
+            webDriver.exitFrame();
             webDriver.exitFrame();   
         }
 
