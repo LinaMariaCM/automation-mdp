@@ -2604,10 +2604,12 @@ public class ActionSteps extends InteractionObject {
 	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 	DiarioSiniestroPage diarioSiniestro = new DiarioSiniestroPage(userS);
 	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
 	innovaHome.openSiniestros();
 	buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
-	gestionCarpeta.cerrar_carpeta();   //lo estoy terminando
-	diarioSiniestro.rehusar_siniestro();
+	agendaSiniestro.nueva_tarea();
+	//gestionCarpeta.cerrar_carpeta();   //lo estoy terminando
+	//diarioSiniestro.rehusar_siniestro();
 	
 
 

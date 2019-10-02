@@ -24,11 +24,12 @@ public class AgendaSiniestroPage extends PageObject {
     private By comunicacion = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar li:nth-child(5) span");
     private By rehuse = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar li:nth-child(7) span");
 
-
+    //nueva tarea
     private By titulo = By.cssSelector("#titulo");
     private By descripcion = By.cssSelector("#anotacion");
     private By categoria = By.cssSelector("#categoria");
     private By pioridad = By.cssSelector("#priority");
+    private By fechaFin = By.cssSelector("#fechaler");
     private By email = By.cssSelector("#email");
     private By grabar = By.cssSelector("body > form > table input[name='botonGrabar']");
     private By cerrar = By.cssSelector("input[name='botonCerrar']");
@@ -64,6 +65,30 @@ public class AgendaSiniestroPage extends PageObject {
         super(userS);
     }
     
+    public AgendaSiniestroPage nueva_tarea(){
+        debugBegin();
+        webDriver.waitWithDriver(5000);
+        webDriver.clickInFrame(agenda,leftFrame);
+        
+        ActionSteps.waitForIt(webDriver);
+        debugInfo("agenda");
+        webDriver.clickInFrame(nuevaTarea, cuerpoFrame);
+        ActionSteps.waitForIt(webDriver);
+        debugInfo("estoy en nueva tarea");
+        webDriver.setTextInFrame(titulo, cuerpoFrame, "Nueva tareas automatica");
+        webDriver.setTextInFrame(descripcion, cuerpoFrame, "Estamos probando una prueba automatizada");
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.clickElementChildByAttribute(categoria, "value", "TSLA");
+        webDriver.clickElementChildByAttribute(pioridad, "value", "1");
+        webDriver.setText(fechaFin, "30/10/2019");
+        webDriver.click(grabar);
+        ActionSteps.waitForIt(webDriver);
+        webDriver.waitWithDriver(5000);
+
+        debugEnd();
+        return this;
+    }
+
 
     public Boolean comprobar_tareas_pendientes(){
         debugBegin();
