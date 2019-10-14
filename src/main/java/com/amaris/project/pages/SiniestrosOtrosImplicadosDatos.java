@@ -1,5 +1,6 @@
 package com.amaris.project.pages;
 
+import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
@@ -60,17 +61,33 @@ public class SiniestrosOtrosImplicadosDatos extends PageObject {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		//webDriver.clickElementFromDropDownByAttribute(comboTipologia, "value", tipologia);
-		//webDriver.clickElementFromDropDownByIndex(comboTipologia, 2);
+		webDriver.clickElementFromDropDownByIndex(comboTipologia, 2);
 		//webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
+		webDriver.waitWithDriver(8000);
 		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
-		webDriver.setText(txtNombre, nombre);
-		webDriver.setText(txtApellido1, apellido1);
-		webDriver.setText(txtApellido2, apellido2);
+		
+		if(!nombre.isEmpty()) webDriver.setText(txtNombre, nombre);
+		else webDriver.setText(txtNombre, "Nombre" + Integer.toString((int)(Math.random()*100)));
+				
+		
+		if(!apellido1.isEmpty()) webDriver.setText(txtApellido1, apellido1);
+		else webDriver.setText(txtApellido1, "Nombre" + Integer.toString((int)(Math.random()*100)));
+		
+		
+		if(!apellido2.isEmpty()) webDriver.setText(txtApellido2, apellido2);
+		else webDriver.setText(txtApellido2, "Nombre" + Integer.toString((int)(Math.random()*100)));
+		
 		//webDriver.clickElementFromDropDownByAttribute(comboTipoDocumento, "value", tipoDocumento);
 		webDriver.clickElementFromDropDownByIndex(comboTipoDocumento, 1);
-		webDriver.setText(txtNumeroDocumento, numDocumento);
-		webDriver.setText(txtTelefono1, telefono1);
+		
+		if(!numDocumento.isEmpty()) webDriver.setText(txtNumeroDocumento, numDocumento);
+		else webDriver.setText(txtNumeroDocumento, DniGeneratorHelper.generateNif());
+		
+		if(!telefono1.isEmpty()) webDriver.setText(txtTelefono1, telefono1);
+		else webDriver.setText(txtTelefono1, "961234567");
+		
 		webDriver.setText(txtTelefono2, telefono2);
+		
 		//webDriver.clickElementFromDropDownByAttribute(comboSexo, "value", sexo);
 		webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 		

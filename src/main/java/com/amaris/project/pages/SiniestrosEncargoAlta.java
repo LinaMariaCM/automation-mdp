@@ -42,6 +42,7 @@ public class SiniestrosEncargoAlta extends PageObject {
 
 	public SiniestrosEncargoAlta clickNuevoEncargo() {
 		debugBegin();
+		webDriver.waitWithDriver(8000);
 		webDriver.click(anadirNuevoEncargoBtn);
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();

@@ -2,6 +2,7 @@ package com.amaris.project.pages;
 
 import org.openqa.selenium.By;
 
+import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 //import com.sun.org.apache.xml.internal.security.utils.Constants;
@@ -27,7 +28,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By buttonVolverBuscador = By.id("enlacePoliza");
 
 	// ##### DATOS OCURRENCIA #####
-	private By txtFechaOcurrencia = By.id("fechsini");
+	private By txtFechaOcurrencia = By.cssSelector("#fechsini");
 
 	// ##### DATOS DECLARACION ####
 	private By comboTipoDeclarante = By.id("tipodecl");
@@ -48,7 +49,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By txtSegundoApellido = By.id("ape2pers");
 	private By txtTelefono = By.id("telefono1");
 	private By comboPrefijo = By.id("ESTRUCTU");
-	private By txtEmail = By.id("email");
+	private By txtEmail = By.id("mail");
 	private By checkEmailNoDisponible = By.id("emailnodisp");
 
 	// ##### OTROS DATOS ####
@@ -77,7 +78,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By btnVolver = By.id("botonVolver");
 
 	// #### DATOS PERSONA CONTACTO ####
-	private By comboRol = By.id("rol");
+	private By comboRol = By.cssSelector("#rol");
 	private By txtNombre = By.id("nombre");
 	private By txt1Apellido = By.id("apellido1");
 	private By txt2Apellido = By.id("apellido2");
@@ -114,7 +115,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		debugBegin();
 		
 		DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
-
+		webDriver.waitWithDriver(3000);
 		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fOcurrencia.format(new Date()));
 		debugInfo(tipoDeclarante + "declarando a través de" + medioDeclaracion);
 		// webDriver.clickElementFromDropDownByAttribute(comboTipoDeclarante, "value",
@@ -132,9 +133,14 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		debugBegin();
 		
 		if(fechaOcurrencia.isEmpty() || fechaOcurrencia == null) {	
+			webDriver.switchToFrame(cuerpoFrame);
 			DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
-			webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fOcurrencia.format(new Date()));}
-		else {webDriver.appendText(txtFechaOcurrencia, fechaOcurrencia);}
+			webDriver.waitWithDriver(3000);
+			//webDriver.switchToFrame(modalFrame);
+			webDriver.appendText(txtFechaOcurrencia, fOcurrencia.format(new Date()));
+			webDriver.exitFrame();
+			}
+		else {webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fechaOcurrencia);}
 
 		// Añadir los tipos de value como comentario
 		if(tipoDeclarante.isEmpty() || tipoDeclarante == null) { webDriver.clickElementFromDropDownByIndexInFrame(comboTipoDeclarante, cuerpoFrame, 1);}
@@ -160,9 +166,10 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		return this;
 	}
 
-	public SiniestrosAltaAperturaDeclaracionPage altaDatosDeclarante(String nombreDeclarante, String apellidoDeclarante, String segundoApellido, String prefijoTelefono, String numeroTelefono,
-		String emailDeclarante,
-		boolean noDisponible) {
+	public SiniestrosAltaAperturaDeclaracionPage altaDatosDeclarante(String nombreDeclarante, 
+					String apellidoDeclarante, String segundoApellido,
+					String prefijoTelefono, String numeroTelefono,
+					String emailDeclarante,String noDisponible) {
 		debugBegin();
 
 		webDriver.appendTextInFrame(txtNombreDeclarante, cuerpoFrame, nombreDeclarante);
@@ -170,9 +177,18 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.appendTextInFrame(txtSegundoApellido, cuerpoFrame, segundoApellido);
 		webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo, cuerpoFrame, "value", prefijoTelefono);
 		webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
-		webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
+		
+		//webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
+		webDriver.waitWithDriver(3000);
+		webDriver.switchToFrame(cuerpoFrame);
+		if(!noDisponible.isEmpty()) {
+			webDriver.appendTextInFrame(txtEmail, modalFrame, emailDeclarante);
+			// webDriver.clickInFrame(checkNoEmail, modalFrame);
+		} else {
+			webDriver.appendTextInFrame(txtEmail, modalFrame, "prueba@esto.es");
+		}
 
-		if(noDisponible) webDriver.clickInFrame(checkEmailNoDisponible, cuerpoFrame);
+		//if(noDisponible) webDriver.clickInFrame(checkEmailNoDisponible, cuerpoFrame);
 
 		debugEnd();
 
@@ -268,27 +284,38 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(buttonPersonaContacto);
 		webDriver.switchToFrame(modalFrame);
-
+		webDriver.waitWithDriver(4000);
 		debugInfo("Comenzamos a rellenar campos de persona extra");
 
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		//webDriver.clickElementFromDropDownByIndex(comboRol, 8);
-		webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
+		//webDriver.switchToFrame(cuerpoFrame);
+		//webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
+		//webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
+		
+		if(!nombre.isEmpty()) {
 		webDriver.setText(txtNombre, nombre);
-
+		}else webDriver.setText(txtNombre, "Nombre" + Integer.toString((int)(Math.random()*100)));
+		
 		if(!apellido1.isEmpty()) {
 			webDriver.setText(txt1Apellido, apellido1);
-		}
+		}else webDriver.setText(txt1Apellido, "ApellidoUno" + Integer.toString((int)(Math.random()*100)));
 
 		if(!apellido2.isEmpty()) {
 			webDriver.setText(txt2Apellido, apellido2);
-		}
+		}else webDriver.setText(txt2Apellido, "ApellidoDos" + Integer.toString((int)(Math.random()*100)));
 
-		//webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
-		webDriver.clickElementFromDropDownByAttribute(comboTipoDoc, "value", tipoDocumento);
-		webDriver.setText(txtDocumento, documento);
-
+		if(!tipoDocumento.isEmpty()){
+			//webDriver.clickElementFromDropDownByAttribute(comboTipoDoc, "value", tipoDocumento);
+			webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
+		}else webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
+		webDriver.waitWithDriver(3000);
+		if(!documento.isEmpty()){
+		webDriver.setText(txtDocumento, documento);}
+		else {documento = DniGeneratorHelper.generateNif();
+		webDriver.waitWithDriver(3000);
+		webDriver.setText(txtDocumento, documento);}
+		
+		
 		if(!prefijoTlf.isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(comboPrefijo1, "value", prefijoTlf);
 		} else {
@@ -307,13 +334,14 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		//webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 		webDriver.clickElementFromListByAttribute(comboSexo, "value", sexo);
 
+		webDriver.waitWithDriver(3000);
 		if(!noEmail.isEmpty()) {
-			webDriver.setText(txtEmailPersona, email);
+			webDriver.setText(txtEmailPersona, "prueba@esto.es");
 			// webDriver.clickInFrame(checkNoEmail, modalFrame);
-		} //else {
-			//webDriver.setText(txtEmailPersona, email);
-		//}
-
+		} else {
+			webDriver.setText(txtEmailPersona, email);
+		}
+		webDriver.waitWithDriver(3000);
 		if(!riesgoAsegurado.isEmpty()) {
 			webDriver.click(checkRiesgoAsegurado);
 		} else {
@@ -329,7 +357,8 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 			webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
 			
 		}
-
+		//webDriver.setText(txtEmail, "prueba@esto.es");
+		webDriver.waitWithDriver(8000);
 		webDriver.click(btnGrabar);
 		webDriver.exitFrame();
 		debugEnd();
@@ -339,7 +368,12 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 	public SiniestrosAltaAperturaDeclaracionPage clickContinuar() {
 		debugBegin();
+		System.out.println(txtEmail);
+		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
+		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		if(webDriver.isPresentInFrame(btnContinuar, cuerpoFrame)){webDriver.clickInFrame(btnContinuar, cuerpoFrame);}
 		debugEnd();
 
 		return this;

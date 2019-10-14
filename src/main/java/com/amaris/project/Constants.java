@@ -432,6 +432,9 @@ public class Constants {
 	//Constantes para Siniestros			
 	
 	//Constantes Siniestros	:	Datos Alta Siniestro
+	
+	public static final String NUMERO_SINIESTRO = "numero_siniestro";
+	
 	public static final String FECHA_OCURRENCIA = "fecha_ocurrencia";
 	public static final String TIPO_DECLARANTE = "tipo_declarante";
 	public static final String MEDIO_DECLARACION = "medio_declaracion";
@@ -552,6 +555,7 @@ public class Constants {
 	
 	public static final String ENCARGO_COLABORADOR = "enc_colaborador";
 	public static final String ENCARGO = "encargo";
+	public static final String NUMERO_ENCARGO = "n_encargo";
 	public static final String ENCARGO_SUBTIPO = "enc_subtipo";
 	public static final String ENCARGO_FECHA = "enc_fecha";
 	public static final String ENCARGO_DETALLES = "enc_detalles";

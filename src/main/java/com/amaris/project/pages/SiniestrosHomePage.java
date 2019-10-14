@@ -28,6 +28,7 @@ public class SiniestrosHomePage extends PageObject {
 	// region Methods
 	public SiniestrosHomePage openAperturaAlta() {
 		debugBegin();
+		webDriver.waitWithDriver(3000);;
 		webDriver.clickInFrame(btnAperturaAlta, menuFrame);
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();

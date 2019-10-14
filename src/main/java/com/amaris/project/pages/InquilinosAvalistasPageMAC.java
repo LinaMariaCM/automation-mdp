@@ -116,21 +116,30 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		// Situacion laboral
 		seleccionarSituacion();
 		webDriver.waitWithDriver(4000);
-		if(webDriver.isClickableInFrame(drpDwnDetalle, mainFrame)) {
+		if(webDriver.isClickable(drpDwnDetalle)) {
 			debugInfo("entra condicion");
-			webDriver.clickInFrame(drpDwnDetalle, mainFrame);
+			webDriver.click(drpDwnDetalle);
 			//webDriver.waitWithDriver(3000);
-			webDriver.clickInFrame(dropUnAnyo, mainFrame);
+			webDriver.click(dropUnAnyo);
 			//webDriver.clickElementFromDropDownByIndex(drpDwnDetalle, mainFrame, 1);
 			//webDriver.clickElementFromDropDownByAttribute(drpDwnDetalle, "value", "AI1");
 			//webDriver.clickElementFromDropDownByAttributeInFrame(drpDwnDetalle, mainFrame, "value", "AS1");
+		
+		//Detalle 
+			
+			
+			
+		//Ingresos anuales	
+			
 		}
 		
 		debugInfo("Ingresos inquilino: " + getScenarioVar(Constants.INGRESOS_INQUILINO));
-		webDriver.setTextInFrame(txtIngresos, mainFrame, getScenarioVar(Constants.INGRESOS_INQUILINO));
+		webDriver.setText(txtIngresos, getScenarioVar(Constants.INGRESOS_INQUILINO));
 
-		webDriver.clickInFrame(btnAnadirDatosInquilino, mainFrame);
+		webDriver.click(btnAnadirDatosInquilino);
 
+		webDriver.exitFrame();
+		
 		debugEnd();
 
 		return this;
@@ -214,10 +223,10 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 
 		if(situacion.equals(Constants.SITUACION_LABORAL_ASALARIADO)) {
 			webDriver.clickElementFromDropDownByText(situacionLaboral, situacion);
-
+			
 			webDriver.clickElementFromDropDownByText(situacionDetalle, Constants.SITUACION_LABORAL_ASALARIADO_INDEFINIDO_MAYOR_2);
 		} else {
-			webDriver.clickElementFromDropDownByTextInFrame(situacionLaboral, mainFrame, situacion);
+			webDriver.clickElementFromDropDownByText(situacionLaboral, situacion);
 		}
 
 		debugEnd();
@@ -339,6 +348,15 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		debugEnd();
 
 		return webDriver.getTextInFrame(numCotizacion, mainFrame);
+	}
+	
+	public InquilinosAvalistasPageMAC anyadirIngresosNetosAnuales() {
+		debugBegin();
+		
+		webDriver.setTextInFrame(txtIngresos, mainFrame, "30000");
+		
+		debugEnd();
+		return this;
 	}
 
 }

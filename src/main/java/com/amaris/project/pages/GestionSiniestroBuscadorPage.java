@@ -87,20 +87,22 @@ public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza, Stri
     debugBegin();
     webDriver.clickInFrame(gestionSiniestros,leftFrame);
     debugInfo("ha dado click");
-    webDriver.clickInFrame(btnNoPoliza, cuerpoFrame);
+    webDriver.switchToFrame(cuerpoFrame);
+    webDriver.click(btnNoPoliza);
     if (negocio == "MEC"){
-        webDriver.switchToFrame(cuerpoFrame);
+      //  webDriver.switchToFrame(cuerpoFrame);
      //   webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
         //webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
         webDriver.clickElementChildByAttribute(opProduct,"value", "510");
-        webDriver.exitFrame();
+       // webDriver.exitFrame();
         
     }
-    webDriver.setTextInFrame(txtNoPoliza,numPoliza,cuerpoFrame);
-    webDriver.clickInFrame(btnBuscar,cuerpoFrame);
+    webDriver.setText(txtNoPoliza,numPoliza);
+    webDriver.click(btnBuscar);
 
     ActionSteps.waitForIt(webDriver);
-    webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+    webDriver.click(btnContinuar);
+    webDriver.exitFrame();
     
     debugEnd();
 

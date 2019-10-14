@@ -36,20 +36,35 @@ public class InmueblePage_MAC extends PageObject {
 
 	public InmueblePage_MAC AddInmuebleByAddress() {
 		debugBegin();
+		webDriver.switchToFrame(mainFrame);
 		
-		webDriver.clickInFrame(btnAnadirInmueblePantallaPrincipal, mainFrame);
-		webDriver.waitWithDriver(2000);
-		webDriver.appendTextInFrame(txtProvincia, mainFrame, getScenarioVar("provincia_inm"));
-		webDriver.clickInFrame(itemProvincia, mainFrame);
-		webDriver.appendTextInFrame(txtPoblacion, mainFrame, getScenarioVar("poblacion_inm"));
-		webDriver.clickInFrame(itemPoblacion, mainFrame);
-		webDriver.appendTextInFrame(txtNombreVia, mainFrame, getScenarioVar("nombre_via_inm"));
-		webDriver.clickInFrame(itemNomVia, mainFrame);
-		webDriver.appendTextInFrame(txtNumeroVia, mainFrame, 
+		webDriver.click(btnAnadirInmueblePantallaPrincipal);
+		
+		
+		webDriver.appendText(txtProvincia, getScenarioVar("provincia_inm"));
+		webDriver.waitWithDriver(3000);
+		webDriver.click(itemProvincia);
+		
+		
+		webDriver.appendText(txtPoblacion, getScenarioVar("poblacion_inm"));
+		webDriver.waitWithDriver(3000);
+		webDriver.click(itemPoblacion);
+		
+		
+		webDriver.appendText(txtNombreVia, getScenarioVar("nombre_via_inm"));
+		webDriver.waitWithDriver(3000);
+		webDriver.click(itemNomVia);
+		
+		
+		webDriver.appendText(txtNumeroVia, 
 			getData(Constants.FICHERO_NUM_VIA).getValue(userS.getScenario(), Constants.NUM_VIA_INMUEBLE));
-		webDriver.clickInFrame(txtNombreVia, mainFrame);
-		webDriver.clickInFrame(btnAnadirInmuebleModal, mainFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.click(txtNombreVia);
+	
 		
+		webDriver.click(btnAnadirInmuebleModal);
+		
+		webDriver.exitFrame();
 		debugEnd();
 		
 		return this;

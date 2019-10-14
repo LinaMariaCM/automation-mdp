@@ -2,6 +2,8 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
+
 import org.openqa.selenium.By;
 
 public class SiniestrosConfirmacionPage extends PageObject {
@@ -28,14 +30,18 @@ public class SiniestrosConfirmacionPage extends PageObject {
 		System.out.println("###########################\n\n");
 
 		if(webDriver.isPresent(correcto)) {
-			System.out.println("- mensaje: " + webDriver.getText(correcto) + "\n");
-			System.out.println("- " + webDriver.getText(nSiniestro) + "\n");
-			System.out.println("- Expediente generado: " + webDriver.getText(expediente));
+			System.out.println("- mensaje: " + webDriver.getTextInFrame(cuerpoFrame, correcto) + "\n");
+			System.out.println("- " + webDriver.getTextInFrame(cuerpoFrame, nSiniestro) + "\n");
+			System.out.println("- Expediente generado: " + webDriver.getTextInFrame(cuerpoFrame, expediente));
+			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(cuerpoFrame, nSiniestro));
 		} else {
 			System.out.println("Se ha producido un error.");
 		}
 
 		System.out.println();
+		
+		webDriver.waitWithDriver(4000);
+		webDriver.quit();
 		
 		debugEnd();
 		

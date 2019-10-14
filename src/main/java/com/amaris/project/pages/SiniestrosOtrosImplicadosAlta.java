@@ -2,6 +2,7 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
@@ -28,7 +29,9 @@ public class SiniestrosOtrosImplicadosAlta extends PageObject {
 	// region Methods
 	public SiniestrosOtrosImplicadosAlta clickNuevoImplicado() {
 		debugBegin();
+		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnAnadirNuevoImplicado, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 		

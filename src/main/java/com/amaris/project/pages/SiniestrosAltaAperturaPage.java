@@ -199,7 +199,9 @@ public class SiniestrosAltaAperturaPage extends PageObject {
 
 		List<WebElement> listaPolizas = webDriver.getElementsInFrame(selectPoliza, mainFrame);
 
-		webDriver.clickInFrame(listaPolizas.get((int)(Math.random() * (listaPolizas.size() + 1))), mainFrame);
+		webDriver.waitWithDriver(3000);
+		
+		webDriver.clickInFrame(listaPolizas.get((int)(Math.random() * listaPolizas.size())), mainFrame);
 		
 		System.out.println(selectPoliza);
 		

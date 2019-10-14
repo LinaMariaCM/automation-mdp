@@ -122,6 +122,7 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 
 		if(!encargo.isEmpty()) {
 			webDriver.clickInFrame(rdbtnEncargoSi, cuerpoFrame);
+			System.out.println("Hay encargo y clicko de verdad en el botón Encargos");
 		} else {
 			webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
 		}

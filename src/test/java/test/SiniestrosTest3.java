@@ -79,16 +79,20 @@ public class SiniestrosTest3 extends TestObject {
 	*/
 	
 	// PRUEBA MEC_SINIESTROS
+	
+	
+//Circuito completo siniestros : convencional especializado con Perito
+	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec01() {
 		String testCase = Constants.MEC_SINIESTROS + "01";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
 
 		return casesMatrix;
 	}
 	
 	@Test(dataProvider = "dataProviderSiniestrosMec01")
-	public void siniestrosAlta(String testCase, String id) throws Exception {
+	public void siniestrosMec01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
@@ -100,18 +104,123 @@ public class SiniestrosTest3 extends TestObject {
 			
 			steps.realizo_pago_simple();
 			
-			//steps
-			
 			steps.cierre_siniestro();
 			
 			steps.reapertura_siniestro();
 
+			
+			
 			return null;
 		}).run();
 	}
 
 	
+	//Circuito completo siniestros : convencional especializado con Asistencia
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec02() {
+		String testCase = Constants.MEC_SINIESTROS + "02";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3_2.csv");
 
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec02")
+	public void siniestrosMec02(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			steps.login("Innova", "Eperez");
+			
+			steps.alta_siniestro_simple();
+			
+			steps.realizo_pago_simple();
+			
+			steps.cierre_siniestro();
+			
+			steps.reapertura_siniestro();
+
+			
+			
+			return null;
+		}).run();
+	}
+
+		
+	
+	//Circuito completo siniestros : convencional especializado con Recobro
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec03() {
+		String testCase = Constants.MEC_SINIESTROS + "03";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3_2.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec03")
+	public void siniestrosMec03(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			steps.login("Innova", "Eperez");
+			
+			steps.alta_siniestro_simple();
+			
+			steps.realizo_pago_simple();
+			
+			steps.cierre_siniestro();
+			
+			steps.reapertura_siniestro();
+
+			
+			
+			return null;
+		}).run();
+	}
+
+	
+	
+	//Circuito completo siniestros : convencional especializado con Defensa Judicial
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec04() {
+		String testCase = Constants.MEC_SINIESTROS + "04";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3_2.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec04")
+	public void siniestros04(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			steps.login("Innova", "Eperez");
+			
+			steps.alta_siniestro_simple();
+			
+			steps.realizo_pago_simple();
+			
+			steps.cierre_siniestro();
+			
+			steps.reapertura_siniestro();
+
+			
+			
+			return null;
+		}).run();
+	}
+
+	
+	
+	//END
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
