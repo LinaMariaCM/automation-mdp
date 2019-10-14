@@ -2620,15 +2620,42 @@ public class ActionSteps extends InteractionObject {
 	InnovaHomePage innovaHome = new InnovaHomePage(userS);
 	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 	DiarioSiniestroPage diarioSiniestro = new DiarioSiniestroPage(userS);
-	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
 	innovaHome.openSiniestros();
 	buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
-	gestionCarpeta.cerrar_carpeta();   //lo estoy terminando
 	diarioSiniestro.rehusar_siniestro();
 	
 
 
 	}
+	public void transicionar_bloques() throws Exception{
+		debugBegin();
+		BloqueSiniestro bloqueSiniestro = new BloqueSiniestro(userS);
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		innovaHome.openSiniestros();
+		buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
+		bloqueSiniestro.transicionar_bloques();
+	}
+
+	public void nueva_tarea() throws Exception{
+	InnovaHomePage innovaHome = new InnovaHomePage(userS);
+	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
+	innovaHome.openSiniestros();
+	buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
+	agendaSiniestro.nueva_tarea();
+	}
+
+	public void cerrar_carpeta() throws Exception{
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+		innovaHome.openSiniestros();
+		buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
+		gestionCarpeta.cerrar_carpeta(); 
+
+	}
+
 
 
 
