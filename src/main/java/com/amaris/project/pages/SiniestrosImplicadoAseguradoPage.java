@@ -58,7 +58,9 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 
 	public SiniestrosImplicadoAseguradoPage clickApertura() {
 		debugBegin();
+
 		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
+		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 		
 		return this;

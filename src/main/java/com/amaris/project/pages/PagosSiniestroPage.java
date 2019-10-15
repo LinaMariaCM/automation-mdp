@@ -108,7 +108,7 @@ public class PagosSiniestroPage extends PageObject {
     private By numeroFactura = By.cssSelector("#numeroFactura");
 
     //Coberturas implicadas
-    private By rCRotura = By.cssSelector("#checkCob_ST0030");
+    private By rCRotura = By.cssSelector("#checkCob_ST0039");
     private By importe0 = By.cssSelector("#importes0");
 
     private By rCOmision = By.cssSelector("#checkCob_ST0040");
@@ -195,7 +195,10 @@ public class PagosSiniestroPage extends PageObject {
     public PagosSiniestroPage seleccionarParticipantesExpediente (){
         debugBegin();
         webDriver.switchToFrame(cuerpoFrame);
-        webDriver.clickElementFromDropDownByIndex(perceptor,0);
+        webDriver.clickElementFromDropDownByIndex(perceptor,6);
+        System.out.println("Elemento flecha1 es: " + flecha1);
+        webDriver.waitWithDriver(8000);
+  
         webDriver.click(flecha1);
         webDriver.exitFrame();
 
@@ -424,9 +427,11 @@ public class PagosSiniestroPage extends PageObject {
         debugBegin();
 
         webDriver.appendTextInFrame(fechaDePago, cuerpoFrame, fPago);
-        webDriver.clickElementFromDropDownByIndexInFrame(conceptoPago,cuerpoFrame,1);
+        webDriver.waitWithDriver(3000);
+        webDriver.clickElementFromDropDownByIndexInFrame(conceptoPago,cuerpoFrame,2);
         webDriver.clickInFrame(rCRotura, cuerpoFrame);
         webDriver.appendTextInFrame(importe0,cuerpoFrame, Importe1);
+        webDriver.waitWithDriver(5000);
         webDriver.clickInFrame(actualizarImportePago, cuerpoFrame);
         webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
 
@@ -437,7 +442,8 @@ public class PagosSiniestroPage extends PageObject {
 
     public PagosSiniestroPage verificacion (){
         debugBegin();
-
+        
+        webDriver.waitWithDriver(3000);
         webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
 
         debugEnd();

@@ -96,7 +96,7 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 
 		webDriver.waitWithDriver(500);
 
-		webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausa, cuerpoFrame, 1);
+		webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausa, cuerpoFrame, 2);
 
 		webDriver.waitWithDriver(500);
 

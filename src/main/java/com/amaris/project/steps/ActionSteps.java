@@ -1605,7 +1605,9 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void cierro_navegador() {
+		debugBegin();
 		userS.getWebDriver().quit();
+		debugEnd();
 	}
 
 	public void se_descargan_los_ficheros_del_suplemento_en_la_carpeta(String filesPath) {

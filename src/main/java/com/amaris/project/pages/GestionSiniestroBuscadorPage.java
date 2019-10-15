@@ -74,7 +74,7 @@ public GestionSiniestroBuscadorPage(UserStory userS) {
 
 public GestionSiniestroBuscadorPage abrirGestionSiniestro(){
     debugBegin();
-
+    
     webDriver.clickInFrame(gestionSiniestros,leftFrame);
 
     debugEnd();

@@ -31,6 +31,7 @@ public class GestionCarpetaSiniestro extends PageObject {
     private By nombre = By.cssSelector("#nombre");
     private By apellido = By.cssSelector("#apellido1");
     private By telefono = By.cssSelector("#telefono1");
+    private By telefono2 = By.cssSelector("#telefono2");
     private By email = By.cssSelector("#email");
     private By codIban = By.cssSelector("div #codIban");
     private By banco = By.cssSelector("div #codBan");
@@ -104,6 +105,9 @@ public class GestionCarpetaSiniestro extends PageObject {
         webDriver.clickElementChildByAttribute(rolImplica,"value", "TOMA");
         webDriver.waitWithDriver(5000);
         webDriver.setText(telefono, "911250100");
+        webDriver.setText(telefono2, "961234567");
+        
+        webDriver.waitWithDriver(8000);
         webDriver.setText(codIban, "1111");
         webDriver.setText(banco, "1111");
         webDriver.setText(sucursal, "1111");

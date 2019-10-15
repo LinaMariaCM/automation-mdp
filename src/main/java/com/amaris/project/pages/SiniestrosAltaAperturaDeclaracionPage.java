@@ -284,7 +284,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(buttonPersonaContacto);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.waitWithDriver(4000);
+		webDriver.waitWithDriver(6000);
 		debugInfo("Comenzamos a rellenar campos de persona extra");
 
 		//webDriver.switchToFrame(cuerpoFrame);
