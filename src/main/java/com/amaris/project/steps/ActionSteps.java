@@ -2450,6 +2450,7 @@ public class ActionSteps extends InteractionObject {
 			}
 
 			datosOcurrencia.altaSeleccionarCausas(gCausa, tCausa, gremio);
+			//datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), gremio);
 			System.out.println("Hay encargo?: "+getTestVar(Constants.ENCARGO));
 			datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", getTestVar(Constants.OTROS_IMPLICADOS), getTestVar(Constants.ENCARGO));
 			datosOcurrencia.clickContinuar();
@@ -2490,6 +2491,8 @@ public class ActionSteps extends InteractionObject {
 			// Página de confirmación
 			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
 			confirmarAltaSiniestro.confirmarSiniestroOK();
+			
+			
 
 			// Accedemos a siniestros desde Gestión On Line
 		} else if(Constants.ACCESO.equals(Constants.LoginAccessGestionLine)) {
@@ -2540,7 +2543,24 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-
+	public void tramito_siniestro_tras_alta(){
+		debugBegin();
+		
+		SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+		confirmarAltaSiniestro.tramitarSiniestro();
+		
+		debugEnd();
+	}	
+	public void compruebo_que_datos_han_viajado(){
+		
+		debugBegin();
+		
+		SiniestrosHomePage siniestrosHome = new SiniestrosHomePage(userS);
+		
+		siniestrosHome.compararCampos();
+		
+		debugEnd();
+	}
 
 	public void comprobar_que_no_tenga_pagos_pendientes_ni_encargos() throws Exception{
 		debugBegin();
@@ -2560,7 +2580,7 @@ public class ActionSteps extends InteractionObject {
 	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
 	innovaHome.openSiniestros();
 	//buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
-	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA), "MEC");
+	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 	Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
 	Boolean encargos = gestionCarpeta.comprobar_encargos();
 	Boolean tareas = agendaSiniestro.comprobar_tareas_pendientes();
@@ -2579,7 +2599,7 @@ public class ActionSteps extends InteractionObject {
 	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
 	innovaHome.openSiniestros();
 	//buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
-	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA), "MEC");
+	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 	gestionCarpeta.nueva_carpeta();
 
 
@@ -2599,7 +2619,7 @@ public class ActionSteps extends InteractionObject {
 		
 		//Una vez dentro, se selecciona la opcion buscar por otros
 		//gestionSiniestrosBuscador.buscarPorOtros("1/08/2019","15/09/2019","640","510");
-		gestionSiniestrosBuscador.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA), "MEC");
+		gestionSiniestrosBuscador.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		//Seleccion del siniestro a pagar
 		pagosSiniestroPage.nuevoPago();
 		
@@ -2658,7 +2678,36 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
+	public void realizo_recobro() throws Exception{
+		 
+		new InnovaHomePage(userS).openSiniestros();
+		new SiniestrosHomePage(userS).openGestionSiniestros();
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		
+		GestionSiniestrosPage gestionSiniestrosPage = new GestionSiniestrosPage(userS);
+		gestionSiniestrosPage.reservasYExpecativas();
+		gestionSiniestrosPage.modificarExpectativa();
+		gestionSiniestrosPage.modificarReserva();
+		gestionSiniestrosPage.verificarTotales();
+		
+		gestionSiniestrosPage.modificarExpectativasACero();
+		gestionSiniestrosPage.modificarReservaACero();
+		gestionSiniestrosPage.verificarTotales();
+		
+	}
 
 
-
+	public void compruebo_carpeta_y_encargos() throws Exception{
+		
+		GestionSiniestrosPage gestionSiniestros = new GestionSiniestrosPage(userS);
+		GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+		
+		gestionSiniestros.gestionDeCarpetas();
+		
+		if(gestionCarpeta.comprobar_tipo_carpeta()){System.out.println("ATENCIÓN	tipo carpeta IMAS.");}
+		
+		if(gestionCarpeta.comprobar_encargos()) System.out.println("encargos : Sí, hay encargos."); 
+		
+	} 
+	
 }

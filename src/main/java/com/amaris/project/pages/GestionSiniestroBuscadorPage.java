@@ -83,20 +83,23 @@ public GestionSiniestroBuscadorPage abrirGestionSiniestro(){
 }
 
 
-public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza, String negocio) {
+public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza) {
     debugBegin();
     webDriver.clickInFrame(gestionSiniestros,leftFrame);
     debugInfo("ha dado click");
     webDriver.switchToFrame(cuerpoFrame);
     webDriver.click(btnNoPoliza);
-    if (negocio == "MEC"){
-      //  webDriver.switchToFrame(cuerpoFrame);
-     //   webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
-        //webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
-        webDriver.clickElementChildByAttribute(opProduct,"value", "510");
-       // webDriver.exitFrame();
+    if (numPoliza.substring(0,2) == "510"){	webDriver.clickElementChildByAttribute(opProduct,"value", "510");}
+      									//  webDriver.switchToFrame(cuerpoFrame);
+     									//  webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+        								//webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
         
-    }
+     else if (numPoliza.substring(0,2) == "920"){	webDriver.clickElementChildByAttribute(opProduct,"value", "920");}
+    
+     else if (numPoliza.substring(0,2) == "640"){	webDriver.clickElementChildByAttribute(opProduct,"value", "640");}
+    
+        
+    
     webDriver.setText(txtNoPoliza,numPoliza);
     webDriver.click(btnBuscar);
 

@@ -24,7 +24,8 @@ public class GestionCarpetaSiniestro extends PageObject {
     private By pesEncargo = By.cssSelector("#pes2");
     private By listEncargo = By.cssSelector("table.grid > tbody:nth-child(1) tr[valign='top'] td:nth-child(8) ");
     private By cerrarCarpeta = By.cssSelector("ul.topnav > li:nth-child(6) > a:nth-child(1) span");
-
+    private By tipoCarpeta = By.cssSelector("table.grid > tbody:nth-child(1) tr[valign='top'] td:nth-child(4) ");
+    
     //nueva carpeta
     private By tipoImplica = By.cssSelector("#OTRIMPLI");
     private By rolImplica = By.cssSelector("#implicado_rol");
@@ -54,7 +55,27 @@ public class GestionCarpetaSiniestro extends PageObject {
     }
 
 
-    public Boolean comprobar_encargos(){
+    
+    
+    
+    public boolean comprobar_tipo_carpeta(){
+    	
+    	boolean check = false;
+    	
+    	List<WebElement> listaTipoCarpeta = webDriver.getElements(tipoCarpeta);
+    	
+    	for(int i=0; i < listaTipoCarpeta.size() || check; i++) {
+    		
+    		 if(webDriver.getText(listaTipoCarpeta.get(i)).compareTo("IMAS") == 0) check = true;
+    		
+    	}
+    	
+    return check;	
+    }
+    
+    
+    
+    public boolean comprobar_encargos(){
             debugBegin();
             webDriver.clickInFrame(carpeta,leftFrame);
             ActionSteps.waitForIt(webDriver);

@@ -14,7 +14,9 @@ public class SiniestrosConfirmacionPage extends PageObject {
 	private By correcto = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > span > strong");
 	private By nSiniestro = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(1) > td");
 	private By expediente = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(4) > td > div");
-	private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a > strong");
+	//private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a > strong");
+	private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a");
+	
 	// endregion
 
 	public SiniestrosConfirmacionPage(UserStory userS) {
@@ -71,7 +73,8 @@ public class SiniestrosConfirmacionPage extends PageObject {
 
 	public SiniestrosConfirmacionPage tramitarSiniestro() {
 		debugBegin();
-		webDriver.clickInFrame(tramitarSiniestro, cuerpoFrame);
+		//webDriver.clickInFrame(tramitarSiniestro, cuerpoFrame);
+		webDriver.click(tramitarSiniestro);
 		debugEnd();
 		
 		return this;

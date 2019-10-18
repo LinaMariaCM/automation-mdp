@@ -93,16 +93,16 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		webDriver.waitWithDriver(2000);
 		
 		webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 2);
-
+		// TODO cambiar por VALUE
 		webDriver.waitWithDriver(500);
-
+		// TODO cambiar por VALUE
 		webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausa, cuerpoFrame, 2);
-
+		// TODO cambiar por VALUE
 		webDriver.waitWithDriver(500);
 
 		if(webDriver.isOnScreen(comboGremio)) {
 			webDriver.clickElementFromDropDownByIndexInFrame(comboGremio, cuerpoFrame, 3);
-		}
+		}// TODO cambiar por VALUE
 
 		debugEnd();
 		

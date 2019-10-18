@@ -492,8 +492,10 @@ public class Constants {
 	public static final String OCURRENCIA_DIR_POBLACION = "ocu_dir_poblacion";
 	public static final String OCURRENCIA_DIR_PROVINCIA = "ocu_dir_provincia";
 	
-	public static final String CAUSA = "causa";
+	public static final String GRUPO_CAUSA = "grupo_causa";
+	public static final String GRUPO_CAUSA_COD = "grupo_causa_cod";
 	public static final String TIPO_CAUSA = "tipo_causa";
+	public static final String TIPO_CAUSA_COD = "tipo_causa_cod";
 	public static final String MODIFICAR_RESERVA_INICIAL = "modif_reserva_inicial";	
 	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro"; 
 	public static final String OTROS_IMPLICADOS = "otros_implicados";

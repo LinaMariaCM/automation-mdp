@@ -2,8 +2,10 @@ package com.amaris.project.pages;
 
 import org.openqa.selenium.By;
 
+import java.lang.Comparable;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
 public class SiniestrosHomePage extends PageObject {
@@ -19,6 +21,11 @@ public class SiniestrosHomePage extends PageObject {
 	private By btnGestionPagos = By.id("jt6");
 	private By btnAltaEvento = By.id("jt8");
 	private By btnGestionEventos = By.id("jt9");
+	
+//	private By nPoliza = By.xpath("/html/body/table/tbody/tr/td[1]/table/tbody/tr[1]/td[1]");
+	private By nPoliza = By.xpath("form[name='formDatos'] table table td:first-of-type");
+	private By causa = By.xpath("/html/body/table/tbody/tr/td[1]/table/tbody/tr[1]/td[4]");
+	
 	// endregion
 
 	public SiniestrosHomePage(UserStory userS) {
@@ -67,5 +74,26 @@ public class SiniestrosHomePage extends PageObject {
 		
 		return this;
 	}
+	
+	public SiniestrosHomePage compararCampos() {
+		debugBegin();
+		//String [] numPoliza = nPoliza.toString().split("/"); 
+		String numPoliza = webDriver.getText(nPoliza).toString().substring(8);
+		if(numPoliza.compareTo(getTestVar(Constants.NUM_POLIZA))==0) System.out.println("COMPARAR CAMPOS  el número de póliza coincide.");
+		else System.out.println("COMPARAR CAMPOS : póliza : El número NO coincide.");		
+
+		System.out.println("poliza csv = " + getTestVar(Constants.NUM_POLIZA));
+		System.out.println("poliza numPoliza = " + webDriver.getText(nPoliza));
+		System.out.println("poliza subString = " + numPoliza);
+		int testAAA = numPoliza.compareTo(getTestVar(Constants.NUM_POLIZA));
+		System.out.println("result compare to: " + testAAA);
+		
+		
+		//TODO añadir campos adicionales
+		
+		debugEnd();
+		return this;		
+	}
+	
 	// endregion
 }

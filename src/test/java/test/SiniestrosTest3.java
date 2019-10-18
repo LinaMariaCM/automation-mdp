@@ -81,7 +81,7 @@ public class SiniestrosTest3 extends TestObject {
 	// PRUEBA MEC_SINIESTROS
 	
 	
-//Circuito completo siniestros : convencional especializado con Perito
+//Circuito completo siniestros : convencional especializado con Asistencia
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec01() {
@@ -120,12 +120,12 @@ public class SiniestrosTest3 extends TestObject {
 	}
 
 	
-	//Circuito completo siniestros : convencional especializado con Asistencia
+	//Circuito completo siniestros : convencional especializado con Perito
 	
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec02() {
 		String testCase = Constants.MEC_SINIESTROS + "02";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3_2.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
 
 		return casesMatrix;
 	}
@@ -138,11 +138,11 @@ public class SiniestrosTest3 extends TestObject {
 		userS.testActions(() -> {
 			
 			steps.login("Innova", "Eperez");
-			
 			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
 			
+			steps.login("Innova", "Eperez");
 			steps.realizo_pago_simple();
-			
 			steps.cierre_siniestro();
 			
 			steps.reapertura_siniestro();
@@ -160,7 +160,7 @@ public class SiniestrosTest3 extends TestObject {
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec03() {
 		String testCase = Constants.MEC_SINIESTROS + "03";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3_2.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
 
 		return casesMatrix;
 	}
@@ -172,15 +172,19 @@ public class SiniestrosTest3 extends TestObject {
 
 		userS.testActions(() -> {
 			
+//			steps.login("Innova", "Eperez");
+//			steps.alta_siniestro_simple();
+//			steps.cierro_navegador();
+			
 			steps.login("Innova", "Eperez");
+			steps.realizo_recobro();
+			steps.cierro_navegador();
 			
-			steps.alta_siniestro_simple();
-			
-			steps.realizo_pago_simple();
-			
-			steps.cierre_siniestro();
-			
-			steps.reapertura_siniestro();
+//			steps.login("Innova", "Eperez");
+//			steps.realizo_pago_simple();
+//			steps.cierro_navegador();
+			//steps.cierre_siniestro();
+			//steps.reapertura_siniestro();
 
 			
 			
@@ -195,13 +199,13 @@ public class SiniestrosTest3 extends TestObject {
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec04() {
 		String testCase = Constants.MEC_SINIESTROS + "04";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3_2.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
 
 		return casesMatrix;
 	}
 	
 	@Test(dataProvider = "dataProviderSiniestrosMec04")
-	public void siniestros04(String testCase, String id) throws Exception {
+	public void siniestrosMec04(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
@@ -223,6 +227,39 @@ public class SiniestrosTest3 extends TestObject {
 		}).run();
 	}
 
+	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec05() {
+		String testCase = Constants.MEC_SINIESTROS + "05";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec05")
+	public void siniestrosMec05(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			steps.login("Innova", "Eperez");
+			
+			steps.alta_siniestro_simple();
+			
+			steps.tramito_siniestro_tras_alta();
+			
+			steps.compruebo_que_datos_han_viajado(); //TODO añadir más campos
+					
+			steps.compruebo_carpeta_y_encargos();
+			
+			
+			
+			
+			return null;
+		}).run();
+	}
+	
 	
 	
 	//END
