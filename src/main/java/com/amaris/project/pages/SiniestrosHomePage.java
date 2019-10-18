@@ -23,7 +23,7 @@ public class SiniestrosHomePage extends PageObject {
 	private By btnGestionEventos = By.id("jt9");
 	
 //	private By nPoliza = By.xpath("/html/body/table/tbody/tr/td[1]/table/tbody/tr[1]/td[1]");
-	private By nPoliza = By.xpath("form[name='formDatos'] table table td:first-of-type");
+	private By nPoliza = By.cssSelector("form[name='formDatos'] table table td:first-of-type");
 	private By causa = By.xpath("/html/body/table/tbody/tr/td[1]/table/tbody/tr[1]/td[4]");
 	
 	// endregion
