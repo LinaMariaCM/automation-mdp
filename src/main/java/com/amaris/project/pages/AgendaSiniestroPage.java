@@ -90,7 +90,7 @@ public class AgendaSiniestroPage extends PageObject {
     }
 
 
-    public Boolean comprobar_tareas_pendientes(){
+    public boolean comprobar_tareas_pendientes(){
         debugBegin();
         webDriver.clickInFrame(agenda,leftFrame);
         ActionSteps.waitForIt(webDriver);

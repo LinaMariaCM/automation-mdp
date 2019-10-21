@@ -44,7 +44,7 @@ public class DiarioSiniestrosPage extends PageObject {
     private By email = By.cssSelector("#email");
     
     //Información de comunicación
-    private By textoPrimeraComunicacion = By.cssSelector("tr.odd:nth-child(1) > td:nth-child(3) > p:nth-child(8)");
+    private By listadoMovimientosSiniestro = By.cssSelector("tr.odd:nth-child(1) > td:nth-child(3) > p:nth-child(8)");
     
 
     public DiarioSiniestrosPage(UserStory userS) {
@@ -82,12 +82,25 @@ public class DiarioSiniestrosPage extends PageObject {
     	
     	System.out.println("Comprobando mensaje de comunicación...");
     	
-    	if(webDriver.getTextInFrame(textoPrimeraComunicacion, cuerpoFrame).contains(mensaje)) System.out.println("OK , mensaje de comunicación CORRECTO.");
+    	if(webDriver.getTextInFrame(listadoMovimientosSiniestro, cuerpoFrame).contains(mensaje)) System.out.println("OK , mensaje de comunicación CORRECTO.");
     	else System.out.println("KO , mensaje de comunicación ERRÓNEO.");
     	
     	debugEnd();
     	return this;
     }
     
+    public DiarioSiniestrosPage comprobarAnotacion(){
+    	debugBegin();
+    	
+    	String mensaje = "Ipsum";
+    	
+    	System.out.println("Comprobando mensaje de anotación...");
+    	
+    	if(webDriver.getTextInFrame(listadoMovimientosSiniestro, cuerpoFrame).contains(mensaje)) System.out.println("OK , mensaje de anotación CORRECTO.");
+    	else System.out.println("KO , mensaje de anotación ERRÓNEO.");
+    	
+    	debugEnd();
+    	return this;
+    }
 
 }

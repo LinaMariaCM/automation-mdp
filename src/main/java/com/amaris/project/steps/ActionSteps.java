@@ -2244,17 +2244,40 @@ public class ActionSteps extends InteractionObject {
 		
 		new GestionSiniestrosPage(userS).comunicacion();
 		
-		new ComunicacionSinientrosPage(userS).nuevaComunicacion();
+		new ComunicacionSiniestrosPage(userS).nuevaComunicacion();
 				
 		
 		
 	}
 
-	public void compruebo_comunicacion_siniestros() throws Exception {
+	public void compruebo_comunicacion_siniestro() throws Exception {
 		
 		new GestionSiniestrosPage(userS).diario();
 		
 		new DiarioSiniestrosPage(userS).comprobarComunicacion();
+		
+	}
+	
+	
+	public void anyado_anotacion_siniestro(){
+		
+		new InnovaHomePage(userS).openSiniestros();
+		
+		new SiniestrosHomePage(userS).openGestionSiniestros();
+		
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		
+		new GestionSiniestrosPage(userS).comunicacion();
+		
+		new ComunicacionSiniestrosPage(userS).nuevaAnotacion();
+		
+	}
+	
+	public void compruebo_anotacion_siniestro() throws Exception {
+		
+		new GestionSiniestrosPage(userS).diario();
+		
+		new DiarioSiniestrosPage(userS).comprobarAnotacion();
 		
 	}
 	
@@ -2603,7 +2626,7 @@ public class ActionSteps extends InteractionObject {
 	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
 	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
 	innovaHome.openSiniestros();
-	//buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
+	//buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
 	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 	Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
 	Boolean encargos = gestionCarpeta.comprobar_encargos();
@@ -2622,7 +2645,7 @@ public class ActionSteps extends InteractionObject {
 	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
 	innovaHome.openSiniestros();
-	//buscadorSiniestro.buscarPorNumeroSiniestro("04067199", "2019","MEC");
+	//buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
 	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 	gestionCarpeta.nueva_carpeta();
 
@@ -2665,9 +2688,9 @@ public class ActionSteps extends InteractionObject {
 	public void rehuso_siniestro() throws Exception{
 	InnovaHomePage innovaHome = new InnovaHomePage(userS);
 	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
-	DiarioSiniestroPage diarioSiniestro = new DiarioSiniestroPage(userS);
+	DiarioSiniestrosPage diarioSiniestro = new DiarioSiniestrosPage(userS);
 	innovaHome.openSiniestros();
-	buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
+	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 	diarioSiniestro.rehusar_siniestro();
 	
 
@@ -2679,17 +2702,16 @@ public class ActionSteps extends InteractionObject {
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 		innovaHome.openSiniestros();
-		buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
+		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		bloqueSiniestro.transicionar_bloques();
 	}
 
-	public void nueva_tarea() throws Exception{
-	InnovaHomePage innovaHome = new InnovaHomePage(userS);
-	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
-	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
-	innovaHome.openSiniestros();
-	buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
-	agendaSiniestro.nueva_tarea();
+	public void nueva_tarea_siniestros() throws Exception{
+		
+	new InnovaHomePage(userS).openSiniestros();
+	new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+	new AgendaSiniestroPage(userS).nueva_tarea();
+	
 	}
 
 	public void cerrar_carpeta() throws Exception{
@@ -2697,7 +2719,7 @@ public class ActionSteps extends InteractionObject {
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 		GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
 		innovaHome.openSiniestros();
-		buscadorSiniestro.buscarPorNumeroSiniestro("4060519", "2019","MEC");
+		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		gestionCarpeta.cerrar_carpeta(); 
 
 	}

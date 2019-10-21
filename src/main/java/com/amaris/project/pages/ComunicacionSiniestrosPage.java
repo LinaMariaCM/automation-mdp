@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
-public class ComunicacionSinientrosPage extends PageObject {
+public class ComunicacionSiniestrosPage extends PageObject {
 
     private By cuerpoFrame = By.id("mainFrame");
     private By leftFrame = By.cssSelector("#leftFrame");
@@ -14,6 +14,10 @@ public class ComunicacionSinientrosPage extends PageObject {
     private By comunicacion = By.cssSelector("#jt6");
 
     private By nuevaComuni = By.cssSelector("#tr0 a.si-arrow-right");
+    
+    private By altaAnotacion = By.cssSelector("li.js-action:nth-child(1) > a:nth-child(1");
+    
+    private By anyadirNuevaAnotacion = By.cssSelector(".js-toggleblockparam");
 
     //1.Medio de envío
     //alta comunicacion
@@ -61,15 +65,24 @@ public class ComunicacionSinientrosPage extends PageObject {
     
     private By contenidoCarta = By.id("tinymce");
     
+    
+    //Añadir nueva anotacion
+    private By tituloNuevaAnotacion = By.cssSelector("div.sis-col-100:nth-child(1) > div:nth-child(2) > select:nth-child(1)");
+    private By comentarioNuevaAnotacion = By.cssSelector("#comentario");
+    private By ConfidencialidadAnotacion = By.cssSelector("div.sis-col-100:nth-child(5) > div:nth-child(2) > select:nth-child(1)");
+    private By grabarAnotacion = By.cssSelector("#botonContinuar2");
+    private By confidencialAnotacion = By.cssSelector("div.sis-col-100:nth-child(5) > div:nth-child(2) > select:nth-child(1)");
+    private By btnCancelarAnotacion = By.cssSelector("#botonCancelar");
+    
     //END REGION
     
     //Constructor
-    public ComunicacionSinientrosPage(UserStory userS) {
+    public ComunicacionSiniestrosPage(UserStory userS) {
 		super(userS);
 	} 
 
     
-    public ComunicacionSinientrosPage nuevaComunicacion(){
+    public ComunicacionSiniestrosPage nuevaComunicacion(){
     	debugBegin();
     	
     	webDriver.clickInFrame(comunicacion, cuerpoFrame);   	
@@ -113,6 +126,26 @@ public class ComunicacionSinientrosPage extends PageObject {
     	return this;
     	   }
         
-    
+    public ComunicacionSiniestrosPage nuevaAnotacion(){
+    	debugBegin();
+    	
+    	webDriver.clickInFrame(altaAnotacion, cuerpoFrame);
+    	
+    	webDriver.clickInFrame(anyadirNuevaAnotacion, capaIframe);
+    	
+    	webDriver.clickElementFromDropDownByAttributeInFrame(tituloNuevaAnotacion, capaIframe, "value", "Otros");
+    	
+    	webDriver.setTextInFrame(comentarioNuevaAnotacion, capaIframe, "Ipsum sum, Lorem lorem, Factum factum.");
+    	
+    	webDriver.clickElementFromDropDownByAttributeInFrame(confidencialAnotacion, capaIframe, "value", "VIGLOBAL");
+    	
+    	webDriver.clickInFrame(btnCancelarAnotacion, capaIframe);
+    	    	   	
+    	
+    	debugEnd();
+    	return this;
+    }
 
+    
+    //END
 } 

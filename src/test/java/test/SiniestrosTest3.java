@@ -14,71 +14,8 @@ public class SiniestrosTest3 extends TestObject {
 
 	protected SuiteManager suiteM = new SuiteManager(Constants.ALTA_SINIESTROS);
  
-	
-	/*
-	// PRUEBA ALTA SINIESTROS
-		@DataProvider(parallel = true)
-		public String[][] dataProviderAltaSiniestros01() {
-			String testCase = ProjectConstants.ALTA_SINIESTROS + "01";
-			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestAltaSiniestros.csv");
 
-			return casesMatrix;
-		}
-
-	
-		@Test(dataProvider = "dataProviderAltaSiniestros01")
-
-		public void siniestrosAlta510(String testCase, String id) throws Exception {
-			UserStory userS = suiteM.createUserStory(testCase, id);
-			Steps steps = new Steps(userS);
-
-			System.out.println("++++++++++++++++++++++++++++++++");
-
-	        System.out.println("Scenario: " + userS.getScenario());
-
-	        System.out.println("++++++++++++++++++++++++++++++++");        
-	        
-	        userS.addDMData("datosTestAltaSiniestros.csv", "test_id");
-			
-	        String strAsistencia, strOtrosImplicados, strEncargo;
-			boolean boolAsistencia, boolOtrosImplicados, boolEncargo;
-			//seteamos el valor de asistencia
-			strAsistencia=userS.getScenarioVar("asistencia");
-			if(strAsistencia.equals("false")) boolAsistencia=false;
-			else boolAsistencia=true;
-			
-			//*************
-			System.out.println("Valor para asistencia=" + userS.getScenarioVar("asistencia"));
-			if(boolAsistencia==true)System.out.println("TRUE");
-			else System.out.println("FALSE");
-			//*************
-			
-			//seteamos el valor de otros implicados
-			strOtrosImplicados=userS.getScenarioVar("otros_implicados");
-			if(strOtrosImplicados.equals("false")) boolOtrosImplicados=false;
-			else boolOtrosImplicados=true;
-
-			//seteamos el valor de encargo	
-			strEncargo=userS.getScenarioVar("encargo");
-			if(strEncargo.equals("false")) boolEncargo=false;
-			else boolEncargo=true;
-			
-				
-				
-				
-			userS.testActions(() -> {
-				steps.login("Innova", "Eperez");
-
-				steps.alta_siniestroAlt(userS.getScenarioVar("portal_acceso"), userS.getScenarioVar("num_poliza"), boolAsistencia, boolOtrosImplicados, boolEncargo);
-
-				return null;
-			}).run();
-		}
-	
-	
-	*/
-	
-	// PRUEBA MEC_SINIESTROS
+	// PRUEBAS SINIESTROS MEC
 	
 	
 //Circuito completo siniestros : convencional especializado con Asistencia
@@ -236,6 +173,7 @@ public class SiniestrosTest3 extends TestObject {
 		return casesMatrix;
 	}
 	
+	//Alta de siniestros con comprobaciones
 	@Test(dataProvider = "dataProviderSiniestrosMec05")
 	public void siniestrosMec05(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
@@ -252,9 +190,7 @@ public class SiniestrosTest3 extends TestObject {
 			steps.compruebo_que_datos_han_viajado(); //TODO añadir más campos
 					
 			steps.compruebo_carpeta_y_encargos();
-			
-			
-			
+						
 			
 			return null;
 		}).run();
@@ -269,7 +205,9 @@ public class SiniestrosTest3 extends TestObject {
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderSiniestrosMec05")
+	
+	//Comunicacion siniestro
+	@Test(dataProvider = "dataProviderSiniestrosMec06")
 	public void siniestrosMec06(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
@@ -281,12 +219,101 @@ public class SiniestrosTest3 extends TestObject {
 			steps.comunico_siniestro();
 					
 			steps.compruebo_comunicacion_siniestro();
+						
+			
+			return null;
+		}).run();
+	}
+	
+	//Alta anotación de un siniestro
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec07() {
+		String testCase = Constants.MEC_SINIESTROS + "07";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec07")
+	public void siniestrosMec07(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			steps.login("Innova", "Eperez");
+			
+			steps.anyado_anotacion_siniestro();
+					
+			steps.compruebo_anotacion_siniestro();
+						
 			
 			return null;
 		}).run();
 	}
 	
 	
+	//modifico un siniestro
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec08() {
+		String testCase = Constants.MEC_SINIESTROS + "08";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec08")
+	public void siniestrosMec08(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			//TODO
+						
+			
+			return null;
+		}).run();
+	}
+	
+	//compruebo agenda siniestro
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec09() {
+		String testCase = Constants.MEC_SINIESTROS + "09";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec09")
+	public void siniestrosMec09(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			//TODO
+			steps.login("Innova", "Eperez");
+			
+			steps.nueva_tarea_siniestros();
+			
+			//steps.compruebo_tarea_siniestro();
+			
+			//steps.modifico_tarea_siniestro();
+			
+			//steps.modifico_tarea_siniestro();
+			
+			//steps.cierro_tarea_siniestro();
+			
+			//steps.
+			
+			
+			return null;
+		}).run();
+	}
+	
+
+
 	
 	//END
 	@AfterSuite
