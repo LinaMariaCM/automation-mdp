@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.steps.ActionSteps;
+import com.amaris.project.steps.*;
 
-public class DiarioSiniestroPage extends PageObject {
+public class DiarioSiniestrosPage extends PageObject {
 
 
     private By cuerpoFrame = By.id("mainFrame");
@@ -42,12 +42,16 @@ public class DiarioSiniestroPage extends PageObject {
     private By grabar = By.cssSelector("#botonGrabar");
     private By nombre = By.cssSelector("#nombre");
     private By email = By.cssSelector("#email");
+    
+    //Información de comunicación
+    private By textoPrimeraComunicacion = By.cssSelector("tr.odd:nth-child(1) > td:nth-child(3) > p:nth-child(8)");
+    
 
-    public DiarioSiniestroPage(UserStory userS) {
+    public DiarioSiniestrosPage(UserStory userS) {
         super(userS);
     }
 
-    public DiarioSiniestroPage rehusar_siniestro(){
+    public DiarioSiniestrosPage rehusar_siniestro(){
         debugBegin();
         ActionSteps.waitForIt(webDriver);
         webDriver.clickInFrame(diarioSiniestro, leftFrame);
@@ -69,6 +73,20 @@ public class DiarioSiniestroPage extends PageObject {
         ActionSteps.waitForIt(webDriver);
 
         return this;
+    }
+    
+    public DiarioSiniestrosPage comprobarComunicacion(){
+    	debugBegin();
+    	
+    	String mensaje = "Tannhäuser";
+    	
+    	System.out.println("Comprobando mensaje de comunicación...");
+    	
+    	if(webDriver.getTextInFrame(textoPrimeraComunicacion, cuerpoFrame).contains(mensaje)) System.out.println("OK , mensaje de comunicación CORRECTO.");
+    	else System.out.println("KO , mensaje de comunicación ERRÓNEO.");
+    	
+    	debugEnd();
+    	return this;
     }
     
 

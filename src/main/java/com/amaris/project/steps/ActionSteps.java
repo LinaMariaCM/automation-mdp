@@ -2234,16 +2234,40 @@ public class ActionSteps extends InteractionObject {
 		mediadoresAltaMediadorPage.executeActionsAltaMediadorPage();
 	}
 
-	public void comunico_siniestro(String loginAcess, String user) throws Exception {
-		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-		// TODO Rellenar
+	public void comunico_siniestro() throws Exception {
+		
+		new InnovaHomePage(userS).openSiniestros();
+		
+		new SiniestrosHomePage(userS).openGestionSiniestros();
+		
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		
+		new GestionSiniestrosPage(userS).comunicacion();
+		
+		new ComunicacionSinientrosPage(userS).nuevaComunicacion();
+				
+		
+		
 	}
 
-	public void busco_siniestro(String loginAcess, String user) throws Exception {
-		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
+	public void compruebo_comunicacion_siniestros() throws Exception {
+		
+		new GestionSiniestrosPage(userS).diario();
+		
+		new DiarioSiniestrosPage(userS).comprobarComunicacion();
+		
+	}
+	
+	public void busco_siniestro() throws Exception {
 
 		// TODO Rellenar
+		
+		new InnovaHomePage(userS).openSiniestros();
+		
+		new SiniestrosHomePage(userS).openGestionSiniestros();
+		
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		
 	}
 
 	public void se_dan_de_alta_masivamente_proyectos_MEC_empleando_distintos_mediadores() throws Exception {

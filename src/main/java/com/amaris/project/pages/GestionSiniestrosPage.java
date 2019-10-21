@@ -21,8 +21,8 @@ public class GestionSiniestrosPage extends PageObject{
 
     //posiocion global
     
-    private By diario = By.id("jt3");
-    private By vista = By.id("jt");
+    private By diario = By.xpath(".//*[text()='Diario de siniestro  '] "); 
+    private By vista = By.xpath(".//*[text()='Vista siniestro'] "); 
     private By agenda = By.id("jt4");
     private By documentacion = By.id("jt5");	
     private By comunicacion = By.id("jt6");
@@ -144,7 +144,21 @@ public class GestionSiniestrosPage extends PageObject{
     
     //Acciones menu izquierda    
     
+	
+	
+	public GestionSiniestrosPage diario(){
+		debugBegin();
+		webDriver.clickInFrame(diario, leftFrame);
+		debugEnd();
+		return this;}
+	
+	public GestionSiniestros vista(){
+		debugBegin();
+		webDriver.clickInFrame(vista, leftFrame);
 
+		debugEnd();
+		return this;}
+	
     public GestionSiniestrosPage agenda(){	
     	debugBegin();
     	webDriver.clickInFrame(agenda, leftFrame);

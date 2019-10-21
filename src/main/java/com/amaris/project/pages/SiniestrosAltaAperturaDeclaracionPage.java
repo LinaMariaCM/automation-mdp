@@ -284,11 +284,12 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(buttonPersonaContacto);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.waitWithDriver(6000);
+		webDriver.waitWithDriver(8000);
 		debugInfo("Comenzamos a rellenar campos de persona extra");
 
 		//webDriver.switchToFrame(cuerpoFrame);
 		//webDriver.switchToFrame(modalFrame);
+		
 		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
 		//webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
 		
@@ -372,7 +373,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
+		webDriver.waitWithDriver(5000);
 		if(webDriver.isPresentInFrame(btnContinuar, cuerpoFrame)){webDriver.clickInFrame(btnContinuar, cuerpoFrame);}
 		debugEnd();
 

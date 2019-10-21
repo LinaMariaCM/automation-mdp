@@ -261,6 +261,32 @@ public class SiniestrosTest3 extends TestObject {
 	}
 	
 	
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec06() {
+		String testCase = Constants.MEC_SINIESTROS + "06";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec05")
+	public void siniestrosMec06(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			steps.login("Innova", "Eperez");
+			
+			steps.comunico_siniestro();
+					
+			steps.compruebo_comunicacion_siniestro();
+			
+			return null;
+		}).run();
+	}
+	
+	
 	
 	//END
 	@AfterSuite
