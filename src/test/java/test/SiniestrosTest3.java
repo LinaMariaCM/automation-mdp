@@ -82,7 +82,9 @@ public class SiniestrosTest3 extends TestObject {
 			steps.realizo_pago_simple();
 			steps.cierre_siniestro();
 			
+			steps.login("Innova", "Eperez");
 			steps.reapertura_siniestro();
+			steps.cierro_navegador();
 
 			
 			
@@ -196,7 +198,7 @@ public class SiniestrosTest3 extends TestObject {
 		}).run();
 	}
 	
-	
+	//comunicaciones en siniestros
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec06() {
 		String testCase = Constants.MEC_SINIESTROS + "06";
@@ -298,8 +300,6 @@ public class SiniestrosTest3 extends TestObject {
 			steps.nueva_tarea_siniestros();
 			
 			//steps.compruebo_tarea_siniestro();
-			
-			//steps.modifico_tarea_siniestro();
 			
 			//steps.modifico_tarea_siniestro();
 			

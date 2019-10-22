@@ -152,7 +152,7 @@ public class GestionSiniestrosPage extends PageObject{
 		debugEnd();
 		return this;}
 	
-	public GestionSiniestros vista(){
+	public GestionSiniestrosPage vista(){
 		debugBegin();
 		webDriver.clickInFrame(vista, leftFrame);
 
@@ -216,8 +216,13 @@ public class GestionSiniestrosPage extends PageObject{
     
     public GestionSiniestrosPage gestionDeCarpetas(){
     	debugBegin();
+    	webDriver.waitWithDriver(3000);
+       	//webDriver.scrollToElementInFrame(gestionDeCarpetas, leftFrame);
+    	webDriver.waitWithDriver(3000);
+       	webDriver.scrollToElement(gestionDeCarpetas);
+    	webDriver.waitWithDriver(3000);
     	webDriver.clickInFrame(gestionDeCarpetas, leftFrame);
-    	//webDriver.click(gestionDeCarpetas);
+    	webDriver.click(gestionDeCarpetas);
     	debugEnd();
     	return this;}
     // end region
