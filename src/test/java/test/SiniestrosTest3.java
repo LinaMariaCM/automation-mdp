@@ -312,7 +312,30 @@ public class SiniestrosTest3 extends TestObject {
 		}).run();
 	}
 	
+	
+	
+	//Información General estática de Siniestros
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec10() {
+		String testCase = Constants.MEC_SINIESTROS + "10";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
 
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec10")
+	public void siniestrosMec10(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+			//TEST TIPO
+						
+			
+			return null;
+		}).run();
+	}
 
 	
 	//END

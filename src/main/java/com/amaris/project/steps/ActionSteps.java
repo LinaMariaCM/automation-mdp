@@ -2496,7 +2496,7 @@ public class ActionSteps extends InteractionObject {
 				gremio = "1";
 			}
 
-			datosOcurrencia.altaSeleccionarCausas(gCausa, tCausa, gremio);
+			datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), getTestVar(Constants.GREMIO_CAUSA_COD));
 			//datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), gremio);
 			System.out.println("Hay encargo?: "+getTestVar(Constants.ENCARGO));
 			datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", getTestVar(Constants.OTROS_IMPLICADOS), getTestVar(Constants.ENCARGO));
@@ -2601,6 +2601,8 @@ public class ActionSteps extends InteractionObject {
 	public void compruebo_que_datos_han_viajado(){
 		
 		debugBegin();
+		
+		new GestionSiniestrosPage(userS).mostrarInfoGeneral();
 		
 		SiniestrosHomePage siniestrosHome = new SiniestrosHomePage(userS);
 		

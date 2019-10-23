@@ -19,6 +19,31 @@ public class GestionSiniestrosPage extends PageObject{
 
     private By exportaResultado = By.cssSelector("#cabExportar");
 
+    //Información estática de Gestión de Siniestros
+       
+   // private By nPoliza = By.cssSelector("form[name='formDatos'] table table td:first-of-type");
+    	
+    	private By nPolizaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");
+    	private By responsableInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(2)");
+    	
+    	private By aseguradoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");
+    	private By fOcurrenciaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(2)");
+    	
+    	private By riesgoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+    	private By fAperturaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(2)");
+    	
+    	private By tipoCausaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(1)");
+    	private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
+    	
+    	private By mediadorInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(1)");
+    	
+    	private By tareasPendientesInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(6) > td:nth-of-type(1)");
+
+    	private By costeActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");    	
+    	private By importePagosInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");   	
+    	private By reservaActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+    	
+
     //posiocion global
     
     private By diario = By.xpath(".//*[text()='Diario de siniestro  '] "); 
@@ -42,8 +67,9 @@ public class GestionSiniestrosPage extends PageObject{
     private By gestionDelFraude = By.id("jt14");
     //Carpetas
   
-    private By gestionDeCarpetas = By.xpath(".//*[title()='Gestión de carpetas'] "); 
-  
+    private By gestionDeCarpetas = By.xpath(".//*[text()='Gestión de carpetas'] "); 
+    //private By gestionDeCarpetas = By.id("jt15son");
+    
     
     //Reservas del siniestro
     
@@ -132,8 +158,6 @@ public class GestionSiniestrosPage extends PageObject{
 
     private By flechaContinuar = By.cssSelector("tr:nth-child(3) td:nth-child(11) span");
 
-    
-
     private By verSaldo = By.cssSelector("ul.list-level-1.js-actionsdinamicbar:nth-child(1) span");
 
     
@@ -218,11 +242,15 @@ public class GestionSiniestrosPage extends PageObject{
     	debugBegin();
     	webDriver.waitWithDriver(3000);
        	//webDriver.scrollToElementInFrame(gestionDeCarpetas, leftFrame);
-    	webDriver.waitWithDriver(3000);
-       	webDriver.scrollToElement(gestionDeCarpetas);
-    	webDriver.waitWithDriver(3000);
+    	//webDriver.waitWithDriver(3000);
+       	//webDriver.scrollToElement(gestionDeCarpetas);
+    	//webDriver.waitWithDriver(30000);
+   
+    	webDriver.exitFrame();
+    	//System.out.println(webDriver.getText(leftFrame));
+    	System.out.println(webDriver.getTextInFrame(gestionDeCarpetas, leftFrame));
     	webDriver.clickInFrame(gestionDeCarpetas, leftFrame);
-    	webDriver.click(gestionDeCarpetas);
+    	//webDriver.click(gestionDeCarpetas);
     	debugEnd();
     	return this;}
     // end region
@@ -355,5 +383,39 @@ public class GestionSiniestrosPage extends PageObject{
     debugEnd();
     return this;
     }
+    
+    public GestionSiniestrosPage mostrarInfoGeneral(){
+    	debugBegin();
+    	
+    	System.out.println("Número de Póliza: " + webDriver.getText(nPolizaInfo));
+    	
+    	System.out.println("Responsable: " + webDriver.getText(responsableInfo));
+    	
+    	System.out.println("Asegurado: " + webDriver.getText(aseguradoInfo));
+    	
+    	System.out.println("Fecha ocurrencia: " + webDriver.getText(fOcurrenciaInfo));
+    	
+    	System.out.println("Riesgo: " + webDriver.getText(riesgoInfo));
+    	
+    	System.out.println("Fecha apertura: " + webDriver.getText(fAperturaInfo));
+    	
+    	System.out.println("Tipo de causa: " + webDriver.getText(tipoCausaInfo));
+    	
+    	System.out.println("Estado Siniestro: " + webDriver.getText(estadoSiniestroInfo));
+    	
+    	System.out.println("Mediador: " + webDriver.getText(mediadorInfo));
+    	
+    	System.out.println("Tareas pendientes: " + webDriver.getText(tareasPendientesInfo));
+    	
+    	System.out.println("Coste actual: " + webDriver.getText(costeActualInfo));
+    	
+    	System.out.println("Importe pagos: " + webDriver.getText(importePagosInfo));
+    	
+    	System.out.println("Reserva actual: " + webDriver.getText(reservaActualInfo));  	
+    	
+    	debugEnd();
+    	return this;
+    }
+    
     
 }

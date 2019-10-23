@@ -32,9 +32,12 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 
 	// #### CAUSAS ####
 	private By grupoCausasAccidentes = By.cssSelector("#GRUCAUSA > option:nth-child(2)");
+	private By grupoCausasElemento = By.cssSelector("#GRUCAUSA > option");
 	private By tipoCausasAccidentes = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
+	private By tipoCausasElemento = By.cssSelector("#TIPOCAUS > option");
 	private By comboGrupoCausas = By.id("GRUCAUSA");
-	private By comboTiposCausa = By.id("TIPOCAUS");
+	private By comboTiposCausas = By.id("TIPOCAUS");
+	private By gremioCausasElemento = By.cssSelector("#CODGREMIO > option");
 	private By comboGremio = By.id("CODGREMIO");
 
 	// #### DATOS DE LA OCURRENCIA ####
@@ -91,19 +94,25 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		debugBegin();
 
 		webDriver.waitWithDriver(2000);
+		webDriver.switchToFrame(cuerpoFrame);
+		//webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 2);
+		//webDriver.clickElementFromDropDownByAttributeInFrame(comboGrupoCausas, cuerpoFrame, "value", "GC02");
+	
+		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", grupoCausa); 
 		
-		webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 2);
 		// TODO cambiar por VALUE
-		webDriver.waitWithDriver(500);
+		webDriver.waitWithDriver(5000);
 		// TODO cambiar por VALUE
-		webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausa, cuerpoFrame, 2);
+		//webDriver.clickElementFromDropDownByIndex(comboTiposCausa, 2);
+		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", tipoCausa); 
 		// TODO cambiar por VALUE
-		webDriver.waitWithDriver(500);
+		webDriver.waitWithDriver(3000);
 
 		if(webDriver.isOnScreen(comboGremio)) {
-			webDriver.clickElementFromDropDownByIndexInFrame(comboGremio, cuerpoFrame, 3);
+			//webDriver.clickElementFromDropDownByIndex(comboGremio, 3);
+			webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, gremioCausasElemento, "title", gremioCausa); 			
 		}// TODO cambiar por VALUE
-
+		webDriver.exitFrame();
 		debugEnd();
 		
 		return this;
