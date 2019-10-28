@@ -432,7 +432,7 @@ public class GestionSiniestrosPage extends PageObject{
     	
     	System.out.println("Póliza de siniestro: " + webDriver.getText(nPolizaInfo));
     	
-    	if(getTestVar(Constants.NUM_POLIZA).compareTo(webDriver.getText(nPolizaInfo)) == 0){
+    	if(getTestVar(Constants.NUM_POLIZA).compareTo(webDriver.getText(nPolizaInfo).toString().substring(20)) == 0){
     		System.out.println("Los números de las pólizas coinciden");
     	} else System.out.println("Los números de las pólizas NO coinciden");
     	

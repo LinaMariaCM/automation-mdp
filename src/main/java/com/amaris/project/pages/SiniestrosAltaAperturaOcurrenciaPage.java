@@ -93,7 +93,7 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	public SiniestrosAltaAperturaOcurrenciaPage altaSeleccionarCausas(String grupoCausa, String tipoCausa, String gremioCausa) {
 		debugBegin();
 
-		webDriver.waitWithDriver(2000);
+		webDriver.waitWithDriver(8000);
 		webDriver.switchToFrame(cuerpoFrame);
 		//webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 2);
 		//webDriver.clickElementFromDropDownByAttributeInFrame(comboGrupoCausas, cuerpoFrame, "value", "GC02");

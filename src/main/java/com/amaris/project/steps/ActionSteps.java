@@ -2516,7 +2516,8 @@ public class ActionSteps extends InteractionObject {
 			implicadoAsegurado.clickApertura();
 			}
 			// Comprobamos si se requiere añadir un implicado extra
-			if(!Constants.OTROS_IMPLICADOS.isEmpty()) {
+		
+			if(!getTestVar(Constants.OTROS_IMPLICADOS).isEmpty()) {
 				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
 				altaOtrosImplicados.clickNuevoImplicado();
 				SiniestrosOtrosImplicadosDatos otroImplicadoDatos = new SiniestrosOtrosImplicadosDatos(userS);
@@ -2668,19 +2669,21 @@ public class ActionSteps extends InteractionObject {
 		//Seleccion del siniestro a pagar
 		pagosSiniestroPage.nuevoPago();
 		
-		//Seleccion de un tipo de perceptor
-		pagosSiniestroPage.seleccionarParticipantesExpediente();
+		if (getTestVar(Constants.ESTADO_CARPETA).equals(getTestVar(Constants.ESTADO_CARPETA_CERRADA))){
+			//Seleccion de un tipo de perceptor
+			pagosSiniestroPage.seleccionarParticipantesExpediente();
+			
+			//Seleccion de datos bancarios y observaciones
+			pagosSiniestroPage.datosPerceptor();
+			
+			//Seleccion de concepto de pago, cobertura, importes y deducciones
+			pagosSiniestroPage.importes("01/10/2019","100,00");
+			
+			//Verificacion de todos los datos esten correctamente y grabacion del pago
+			pagosSiniestroPage.verificacion();
+		}
 		
-		//Seleccion de datos bancarios y observaciones
-		pagosSiniestroPage.datosPerceptor();
-		
-		//Seleccion de concepto de pago, cobertura, importes y deducciones
-		pagosSiniestroPage.importes("01/10/2019","100,00");
-		
-		//Verificacion de todos los datos esten correctamente y grabacion del pago
-		pagosSiniestroPage.verificacion();
 		debugEnd();
-
 	}
 
 	public void rehuso_siniestro() throws Exception{

@@ -32,6 +32,8 @@ public class SiniestrosTest3 extends TestObject {
 	public void siniestrosMec01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		
+		suiteM.setRelevantColumn(testCase, 3);
 
 		userS.testActions(() -> {
 			
