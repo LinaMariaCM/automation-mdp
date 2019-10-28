@@ -31,7 +31,7 @@ public class SiniestrosOtrosImplicadosAlta extends PageObject {
 		debugBegin();
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-		webDriver.waitWithDriver(5000);
+		webDriver.waitWithDriver(8000);
 		webDriver.clickInFrame(btnAnadirNuevoImplicado, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 		

@@ -2450,6 +2450,7 @@ public class ActionSteps extends InteractionObject {
 			
 			if(getTestVar(Constants.ASISTENCIA).isEmpty() || getTestVar(Constants.ASISTENCIA) == null) {
 				datosDeclaracion.altaSinAsistencia();
+				datosDeclaracion.clickContinuarSinAsistencia();
 			}
 			else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) { 
 				//datosDeclaracion.altaConAsistencia(true, false, "", "Daños ubicados en el interior del riesgo asegurado", true, false, "");
@@ -2458,18 +2459,20 @@ public class ActionSteps extends InteractionObject {
 					getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS),
 					getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA),
 					getTestVar(Constants.ASISTENCIA_REF_EXTERNA));
+				
+					datosDeclaracion.clickContinuar();
+					
 			} else if(datosDeclaracion.posibilidadAsistencia()) {
 				datosDeclaracion.altaSinAsistencia();
-			}
+				datosDeclaracion.clickContinuarSinAsistencia();
+			}			
 			
-		
-			
-			datosDeclaracion.clickContinuar();
 
 			// Validamos cosas
 			ValidacionExcepcionesReglasPage validarReglas = new ValidacionExcepcionesReglasPage(userS);
 			if(validarReglas.comprobarNombrePagina().contains("excepciones")) validarReglas.clickOnContinuarButton();
-
+			
+						
 			// Completamos el apartado de Ocurrencia
 			SiniestrosAltaAperturaOcurrenciaPage datosOcurrencia = new SiniestrosAltaAperturaOcurrenciaPage(userS);
 			datosOcurrencia.altaRiesgoAsegurado();
@@ -2498,7 +2501,7 @@ public class ActionSteps extends InteractionObject {
 
 			datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), getTestVar(Constants.GREMIO_CAUSA_COD));
 			//datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), gremio);
-			System.out.println("Hay encargo?: "+getTestVar(Constants.ENCARGO));
+			System.out.println("Hay encargo?: " + getTestVar(Constants.ENCARGO));
 			datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", getTestVar(Constants.OTROS_IMPLICADOS), getTestVar(Constants.ENCARGO));
 			datosOcurrencia.clickContinuar();
 
@@ -2507,9 +2510,11 @@ public class ActionSteps extends InteractionObject {
 			if(validarReglas2.comprobarNombrePagina().contains("excepciones")) validarReglas2.clickOnContinuarButton();
 
 			// Completamos el apartado de Implicado asegurado
+			System.out.println("PARA IMPLICADO ASEGURADO POLIZA: " + getTestVar(Constants.NUM_POLIZA));
+			if(!getTestVar(Constants.NUM_POLIZA).startsWith("920")){
 			SiniestrosImplicadoAseguradoPage implicadoAsegurado = new SiniestrosImplicadoAseguradoPage(userS);
 			implicadoAsegurado.clickApertura();
-
+			}
 			// Comprobamos si se requiere añadir un implicado extra
 			if(!Constants.OTROS_IMPLICADOS.isEmpty()) {
 				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
@@ -2559,16 +2564,7 @@ public class ActionSteps extends InteractionObject {
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610") || getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
 				|| getTestVar(Constants.NUM_POLIZA).startsWith("640")) ramo = "640";
 
-			String causa = "";
-			if(ramo == "510" || ramo == "500") {
-				causa = "1";
-			} else if(ramo == "920") {
-				causa = "2";
-			} else if(ramo == "640") {
-				causa = "3";
-			} else if(ramo == "660") {
-				causa = "4";
-			}
+			String causa = getTestVar(Constants.CAUSA_SINIESTRO);
 
 			altaSiniestroGOL.altaCausaDescripcion(causa, "Descripción para la apertura del sinestro de prueba automática", "");
 			altaSiniestroGOL.altaCuentaSiniestro();
@@ -2625,7 +2621,7 @@ public class ActionSteps extends InteractionObject {
 	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 	VistaSiniestroPage vistaSiniestro = new VistaSiniestroPage(userS);
 	PagosSiniestroPage pagosSiniestro = new PagosSiniestroPage(userS);
-	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+	GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
 	innovaHome.openSiniestros();
 	//buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
@@ -2645,7 +2641,7 @@ public class ActionSteps extends InteractionObject {
 	public void reapertura_siniestro()  throws Exception{
 	InnovaHomePage innovaHome = new InnovaHomePage(userS);
 	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
-	GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+	GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 	innovaHome.openSiniestros();
 	//buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
 	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
@@ -2719,7 +2715,7 @@ public class ActionSteps extends InteractionObject {
 	public void cerrar_carpeta() throws Exception{
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
-		GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		gestionCarpeta.cerrar_carpeta(); 
@@ -2748,7 +2744,7 @@ public class ActionSteps extends InteractionObject {
 	public void compruebo_carpeta_y_encargos() throws Exception{
 		
 		GestionSiniestrosPage gestionSiniestros = new GestionSiniestrosPage(userS);
-		GestionCarpetaSiniestro gestionCarpeta = new GestionCarpetaSiniestro(userS);
+		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 		
 		gestionSiniestros.gestionDeCarpetas();
 		

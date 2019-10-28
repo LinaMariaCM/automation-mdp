@@ -9,7 +9,7 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.ActionSteps;
 
-public class GestionCarpetaSiniestro extends PageObject {
+public class GestionCarpetaSiniestrosPage extends PageObject {
 
 
     private By cuerpoFrame = By.id("mainFrame");
@@ -50,7 +50,7 @@ public class GestionCarpetaSiniestro extends PageObject {
 
 
     
-    public GestionCarpetaSiniestro(UserStory userS) {
+    public GestionCarpetaSiniestrosPage(UserStory userS) {
         super(userS);
     }
 
@@ -114,7 +114,7 @@ public class GestionCarpetaSiniestro extends PageObject {
             return check; 
     }
 
-    public GestionCarpetaSiniestro nueva_carpeta(){
+    public GestionCarpetaSiniestrosPage nueva_carpeta(){
         debugBegin();
         webDriver.clickInFrame(carpeta,leftFrame);
         ActionSteps.waitForIt(webDriver);
@@ -142,7 +142,7 @@ public class GestionCarpetaSiniestro extends PageObject {
     }
 
     
-    public GestionCarpetaSiniestro cerrar_carpeta(){
+    public GestionCarpetaSiniestrosPage cerrar_carpeta(){
         debugBegin();
         webDriver.clickInFrame(carpeta,leftFrame);
         ActionSteps.waitForIt(webDriver);
