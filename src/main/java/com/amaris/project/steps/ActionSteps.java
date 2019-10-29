@@ -44,8 +44,8 @@ public class ActionSteps extends InteractionObject {
 		// webDriver);
 		String environment = InitUtils.getStringConfigVariable(Constants.ENTORNO, userS.getConfigData());
 		System.out.println("*** environment: " + environment);
-		System.out.println("*** access type: " + accessType);
-		System.out.println("*** user: " + user);
+		System.out.println("*** access type: " + getTestVar(Constants.ACCESO));
+		System.out.println("*** user: " + getTestVar(Constants.USUARIO));
 		new LoginPage(userS).logIn(environment, accessType, user);
 		debugEnd();
 	}
