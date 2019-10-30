@@ -49,6 +49,7 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	private By btnGuardarSalir = By.id("botonGuardar");
 	private By btnContinuar = By.id("botonContinuar");
 	private By descripOcu = By.id("version");
+	private By btnVerificar = By.id("botonVerificar");
 	// endregion
 
 	public SiniestrosAltaAperturaOcurrenciaPage(UserStory userS) {
@@ -196,5 +197,22 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		
 		return this;
 	}
+	
+	public SiniestrosAltaAperturaOcurrenciaPage modificarDescripcion(){
+		
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		
+		webDriver.waitForPageToLoad();
+		webDriver.setText(txtDescripcionSiniestro, "Nueva descripción de siniestro. Modificación siniestro completada con exito");
+		webDriver.click(btnVerificar);
+		debugEnd();
+		
+		webDriver.exitFrame();
+		
+		return this;
+	}
+	
 	// endregion
 }

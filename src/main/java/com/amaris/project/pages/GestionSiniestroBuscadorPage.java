@@ -66,7 +66,9 @@ private By mediador = By.cssSelector("#codMediador");
 
 private By btnBuscar = By.cssSelector("#botonBuscar");
 
-private By btnContinuar = By.cssSelector("#capaAjax tr.odd span");
+//private By btnContinuar = By.cssSelector("#capaAjax tr.odd span");
+private By btnContinuar = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(11) > a > span");
+
 
 public GestionSiniestroBuscadorPage(UserStory userS) {
     super(userS);
@@ -89,18 +91,25 @@ public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza) {
     debugInfo("ha dado click");
     webDriver.switchToFrame(cuerpoFrame);
     webDriver.click(btnNoPoliza);
-    if (numPoliza.substring(0,2) == "510"){	webDriver.clickElementChildByAttribute(opProduct,"value", "510");}
+    /*System.out.println("Ramo de póliza - " + numPoliza.substring(0,3));
+    if (numPoliza.substring(0,3) == "510"){	
+    	webDriver.clickElementChildByAttribute(opProduct,"value", "510");
+    	System.out.println("poliza de 510");
+    }
       									//  webDriver.switchToFrame(cuerpoFrame);
      									//  webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
         								//webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
         
-     else if (numPoliza.substring(0,2) == "920"){	webDriver.clickElementChildByAttribute(opProduct,"value", "920");}
+     else if (numPoliza.substring(0,3) == "920"){	webDriver.clickElementChildByAttribute(opProduct,"value", "920");}
     
-     else if (numPoliza.substring(0,2) == "640"){	webDriver.clickElementChildByAttribute(opProduct,"value", "640");}
+     else if (numPoliza.substring(0,3) == "640"){	webDriver.clickElementChildByAttribute(opProduct,"value", "640");}
+    */
     
-        
+    webDriver.clickElementFromDropDownByIndex(tipoProductoPoliza, 0);
     
     webDriver.setText(txtNoPoliza,numPoliza);
+    webDriver.waitForPageToLoad();
+    webDriver.waitForElementToBeClickable(btnBuscar);
     webDriver.click(btnBuscar);
 
     ActionSteps.waitForIt(webDriver);

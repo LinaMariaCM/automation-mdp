@@ -4,7 +4,11 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.ActionSteps;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 public class VistaSiniestroPage extends PageObject {
 
@@ -34,7 +38,22 @@ public class VistaSiniestroPage extends PageObject {
     private By sac = By.cssSelector("#SAC");
     private By dgs = By.cssSelector("#DGS");
     private By reclamacion = By.cssSelector("#RECLAMACION");
-
+    
+    //Historico
+    private By accederHistorico1 = By.cssSelector("#formPestania > table > tbody > tr.odd > td:nth-child(5) > a > span");
+    private By historico1 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(2) > td:nth-child(3)");
+    private By historico2 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(3) > td:nth-child(3)");
+    private By historico3 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(4) > td:nth-child(3)");
+    private By historico4 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(5) > td:nth-child(3)");
+    private By historico5 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(6) > td:nth-child(3)");
+    private By historico6 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(7) > td:nth-child(3)");
+    private By historico7 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(8) > td:nth-child(3)");
+    private By historico8 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(9) > td:nth-child(3)");
+    
+    private By descripcionNueva = By.cssSelector("#formDatos > table:nth-child(7) > tbody > tr.odd > td:nth-child(3)");
+    
+    private By listaValoresNuevos[] = {historico1, historico2, historico3, historico4, historico5, historico6, historico7, historico8};
+        
     //cierre
 
     private By motivo = By.cssSelector("#motivoCierre");
@@ -75,4 +94,77 @@ public class VistaSiniestroPage extends PageObject {
 
     }
 
+    public VistaSiniestroPage modificarSiniestro(){
+        debugBegin();
+
+        ActionSteps.waitForIt(webDriver);
+        webDriver.clickInFrame(vistaSiniestro, leftFrame);
+        ActionSteps.waitForIt(webDriver);
+        webDriver.clickInFrame(modifiDatos, cuerpoFrame);
+        
+        debugEnd();
+        return this;
+    }
+    
+    public VistaSiniestroPage mapeoHistoricoModificarDatos(){
+        debugBegin();
+
+        ActionSteps.waitForIt(webDriver);
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.switchToFrame(capaIframe);
+        
+        String nuevosValores="";
+        int n=0;
+        while (webDriver.isPresent(listaValoresNuevos[n])) {
+        	nuevosValores = nuevosValores + " " + webDriver.getText(listaValoresNuevos[n]);
+        	n++;
+        }
+        
+        
+        
+        if(nuevosValores.contains("NOMBREMOD") && nuevosValores.contains("PRIAPELLIDOMOD") && nuevosValores.contains("SEGAPELLIDOMOD") && nuevosValores.contains("660000001") && nuevosValores.contains("modificadoOK@mail.com")) {
+        	System.out.println("Los datos modificados se muestran correctamente en el historial");
+        }else System.out.println("Algo ha ido regular");
+        
+        Assert.assertTrue((nuevosValores.contains("NOMBREMOD") && nuevosValores.contains("PRIAPELLIDOMOD") && nuevosValores.contains("SEGAPELLIDOMOD") && nuevosValores.contains("660000001") && nuevosValores.contains("modificadoOK@mail.com")), "Los datos modificados se muestran correctamente en el historial");
+        	
+        if(webDriver.getText(descripcionNueva).contains("Modificación siniestro completada con exito")){
+        	System.out.println("Modificación siniestro completada con exito");
+        }
+        
+        Assert.assertTrue(webDriver.getText(descripcionNueva).contains("Modificación siniestro completada con exito"), "Modificación siniestro completada con exito");
+
+        	
+        
+
+        webDriver.exitFrame();
+        webDriver.exitFrame();
+        debugEnd();
+        return this;
+    }
+        
+    
+
+    public VistaSiniestroPage irVistaSiniestroHistorico(){
+        debugBegin();
+
+        ActionSteps.waitForIt(webDriver);
+        webDriver.clickInFrame(vistaSiniestro, leftFrame);
+
+        ActionSteps.waitForIt(webDriver);
+        webDriver.switchToFrame(cuerpoFrame);
+        
+        webDriver.click(historico);
+        ActionSteps.waitForIt(webDriver);
+        webDriver.click(historico);
+        ActionSteps.waitForIt(webDriver);
+        webDriver.click(accederHistorico1);
+        
+        webDriver.exitFrame();
+                
+        debugEnd();
+        return this;
+    }
+        
+        
 }
