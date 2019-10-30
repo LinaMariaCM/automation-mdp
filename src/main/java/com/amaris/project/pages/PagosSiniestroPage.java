@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
@@ -16,7 +17,17 @@ public class PagosSiniestroPage extends PageObject {
     private By capaIframe = By.cssSelector("#capaIframe");
     private By selectorFrame = By.id("selectorTipoFigura");
     private By accederPagos = By.xpath(".//*[text()='Pagos'] ");
-
+    
+    //informcacion general
+    
+//    private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
+    
+    private By estadoCarpeta = By.cssSelector("table[class='grid wideBox'] > tbody > tr:nth-of-type(2) > td:nth-child(7)");
+    
+    //Info listado de pagos de carpetas
+    
+   // private By estadoCarpeta = By.cssSelector("#bloque1tr1 td:nth-child(7) a span");
+    
     //Menu superior
     private By verSaldoFranquicias = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar li:nth-child(1) span");
     private By verDocumentacion = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar li:nth-child(1) span");
@@ -185,10 +196,20 @@ public class PagosSiniestroPage extends PageObject {
     public PagosSiniestroPage nuevoPago (){
         debugBegin();
 
+        
         webDriver.clickInFrame(accederPagos,leftFrame);
-        webDriver.clickInFrame(nuevoPago, cuerpoFrame);
+        
+        System.out.println("El estado de la carpeta es: " + webDriver.getTextInFrame(estadoCarpeta, cuerpoFrame));
+        if(webDriver.getTextInFrame(estadoCarpeta, cuerpoFrame).compareTo("Cerrado") == 0) {
+        	System.out.println("La carpeta del siniestro está cerrada, no se le puede añadir un pago.");
+        	setTestVar(Constants.ESTADO_CARPETA, Constants.ESTADO_CARPETA_CERRADA);
+        	System.out.println("Constante ESTADO_CARPETA: " + getTestVar(Constants.ESTADO_CARPETA));
+        } else {        	
+        	webDriver.clickInFrame(nuevoPago, cuerpoFrame);
+        }
 
         debugEnd();
+        
         return this;
     }
 

@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 
 
 
@@ -269,8 +270,12 @@ public class GestionSiniestrosPage extends PageObject{
     	expectativaTotal = Double.toString(resIndemnizable + resReparable + resGastos);
     	
     	List<WebElement> listaAcciones = webDriver.getElements(acciones);
+    	
+    	System.out.println("Imprimo mi supuestas acciones: " + webDriver.getText(acciones));
+    	
+    	System.out.println("Imprimo mi supuestas lista de acciones: " + listaAcciones);
     	   	
-    	webDriver.clickInFrame(listaAcciones.get(1), cuerpoFrame);
+    	webDriver.clickInFrame(listaAcciones.get(0), cuerpoFrame);
     	
     	webDriver.clickInFrame(modificarExepectativas, capaIframe);
     	
@@ -417,5 +422,32 @@ public class GestionSiniestrosPage extends PageObject{
     	return this;
     }
     
+    public GestionSiniestrosPage compararInfoGeneralCSV() {
+    	
+    	boolean check = false;
+    	
+    	System.out.println("Cotejando datos con de siniestro con csv...");
+    	
+    	System.out.println("Póliza CSV: " + getTestVar(Constants.NUM_POLIZA));
+    	
+    	System.out.println("Póliza de siniestro: " + webDriver.getText(nPolizaInfo));
+    	
+    	if(getTestVar(Constants.NUM_POLIZA).compareTo(webDriver.getText(nPolizaInfo).toString().substring(20)) == 0){
+    		System.out.println("Los números de las pólizas coinciden");
+    	} else System.out.println("Los números de las pólizas NO coinciden");
+    	
+    	System.out.println("Tipo de causa CSV: " + getTestVar(Constants.TIPO_CAUSA));
+    	
+    	System.out.println("Tipo de causa del siniestro: " + webDriver.getText(tipoCausa));
+    	
+    	if(getTestVar(Constants.TIPO_CAUSA).compareTo(webDriver.getText(tipoCausaInfo)) == 0){
+    		System.out.println("Los números de las pólizas coinciden");
+    	} else System.out.println("Los números de las pólizas NO coinciden");
+    	
+    	
+    	
+    	return this;
+    } 
+     
     
 }

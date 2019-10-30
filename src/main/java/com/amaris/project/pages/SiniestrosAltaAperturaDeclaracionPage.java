@@ -230,7 +230,18 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 	public SiniestrosAltaAperturaDeclaracionPage altaSinAsistencia() {
 		debugBegin();
-		webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
+//		System.out.println("El tipo de póliza se imprime aquí: " + getTestVar(Constants.NUM_POLIZA).substring(0,3));
+//		if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("920") != 0) {
+//			System.out.println("Resultado: " + (Constants.NUM_POLIZA).substring(0,3).compareTo("920"));
+//			System.out.println("Entro a 920");
+//			if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame); 
+//			}
+//		else if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("900") != 0) {
+//			 System.out.println("Entro a 900");
+//			 if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
+		
+		webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
+		
 		debugEnd();
 
 		return this;
@@ -374,11 +385,24 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		webDriver.waitWithDriver(5000);
-		if(webDriver.isPresentInFrame(btnContinuar, cuerpoFrame)){webDriver.clickInFrame(btnContinuar, cuerpoFrame);}
+		//if(webDriver.isPresentInFrame(btnContinuar, cuerpoFrame)){webDriver.clickInFrame(btnContinuar, cuerpoFrame);}
 		debugEnd();
 
 		return this;
 	}
+	
+	public SiniestrosAltaAperturaDeclaracionPage clickContinuarSinAsistencia() {
+		debugBegin();
+		System.out.println(txtEmail);
+		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
+		webDriver.waitWithDriver(5000);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.waitWithDriver(5000);
+		debugEnd();
+
+		return this;
+	}
+
 
 	public SiniestrosAltaAperturaDeclaracionPage completarMinimos(String numPoliza) {
 		debugBegin();

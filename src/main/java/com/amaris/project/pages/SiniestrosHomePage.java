@@ -78,7 +78,7 @@ public class SiniestrosHomePage extends PageObject {
 	
 	public SiniestrosHomePage compararCampos() {
 		debugBegin();
-		//String [] numPoliza = nPoliza.toString().split("/"); 
+	
 		String numPoliza = webDriver.getText(nPoliza).toString().substring(20);
 		if(numPoliza.compareTo(getTestVar(Constants.NUM_POLIZA))==0) { 
 			Assert.assertTrue(true, "COMPARAR CAMPOS : el número de póliza coincide.");

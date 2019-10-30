@@ -30,11 +30,9 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	public String comprobarNombrePagina() {
 		debugBegin();
 		
-		String titulo = "";
-
-		debugInfo("El 1er valor del título de la página es:" + titulo);
-		if(webDriver.isPresent(labelTitulo)) titulo = webDriver.getText(labelTitulo);
-		debugInfo("El valor final del título de la página es:" + titulo);
+		String titulo = "No vencontrado";
+		if(webDriver.isPresentInFrame(labelTitulo, cuerpoFrame)) titulo = webDriver.getTextInFrame(labelTitulo, cuerpoFrame);
+		debugInfo("El valor del título de la página es:" + titulo);
 		
 		debugEnd();
 

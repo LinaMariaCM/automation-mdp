@@ -249,6 +249,11 @@ public class UserStory {
 		getTestDataManager().setReportPath(reportPath);
 	}
 
+	public void setRelevantColumn(int relevantColumn) {
+		suiteM.setRelevantColumn(testCase, relevantColumn);
+	}
+
+
 	public UserStory setScenario(String scenario) {
 		this.scenario = scenario;
 
