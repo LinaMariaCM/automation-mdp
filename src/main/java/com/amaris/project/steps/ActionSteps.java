@@ -2708,6 +2708,31 @@ public class ActionSteps extends InteractionObject {
 		new AgendaSiniestroPage(userS).nueva_tarea();
 
 	}
+	//MIO//
+	public void modificar_siniestro_datos() throws Exception{
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		VistaSiniestroPage vistaSiniestro = new VistaSiniestroPage(userS);
+		SiniestrosAltaAperturaDeclaracionPage altaDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
+		ValidacionExcepcionesReglasPage validarReglas = new ValidacionExcepcionesReglasPage(userS);
+		SiniestrosAltaAperturaOcurrenciaPage altaOcurencia = new SiniestrosAltaAperturaOcurrenciaPage(userS);
+		ValidacionExcepcionesReglasPage validarReglas2 = new ValidacionExcepcionesReglasPage(userS);
+		SiniestrosModificarValidacion modificarValidacion = new SiniestrosModificarValidacion(userS);
+		SiniestrosConfirmacionPage confirmaModificacion = new SiniestrosConfirmacionPage(userS);
+		innovaHome.openSiniestros();
+		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		vistaSiniestro.modificarSiniestro();
+		altaDeclaracion.modificarDatosSiniestro();
+		validarReglas.comprobarPaginaModificacion();
+		altaOcurencia.modificarDescripcion();
+		validarReglas2.comprobarPaginaModificacion();
+		modificarValidacion.validar();
+		confirmaModificacion.confirmaModificacion();
+		vistaSiniestro.irVistaSiniestroHistorico();
+		vistaSiniestro.mapeoHistoricoModificarDatos();
+		
+	
+	}
 
 	public void cerrar_carpeta() throws Exception {
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);

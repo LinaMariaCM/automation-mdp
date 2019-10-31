@@ -338,8 +338,9 @@ public class SiniestrosTest3 extends TestObject {
 			return null;
 		}).run();
 	}
-
-	//Alta de Siniestros
+	
+	
+		//Alta de Siniestros
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec11() {
 		String testCase = Constants.MEC_SINIESTROS + "11";
@@ -373,6 +374,34 @@ public class SiniestrosTest3 extends TestObject {
 			return null;
 		}).run();
 	}
+	
+	//Modificar siniestro
+		@DataProvider(parallel = true)
+		public String[][] dataProviderSiniestrosMec12() {
+			String testCase = Constants.MEC_SINIESTROS + "12";
+			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+			return casesMatrix;
+		}
+		
+		//MIO//
+		@Test(dataProvider = "dataProviderSiniestrosMec12")
+		public void siniestrosMec12(String testCase, String id) throws Exception {
+			UserStory userS = suiteM.createUserStory(testCase, id);
+			ActionSteps steps = new ActionSteps(userS);
+
+			userS.testActions(() -> {
+				
+				//TEST TIPO
+				steps.login("Innova", "Eperez");
+				System.out.println("Login OK. Empezando moficar siniestro Datos");
+				steps.modificar_siniestro_datos();
+				
+							
+				
+				return null;
+			}).run();
+		}
 	
 	//END
 	@AfterSuite

@@ -11,6 +11,7 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 
 	private By btnContinuar = By.cssSelector("#botonContinuar");
 	private By labelTitulo = By.cssSelector("#formDatos > div.sis-font-l");
+	//private By avisosAutorizar = By.cssSelector("#formDatos > div.headGrid");
 	// endregion
 
 	public ValidacionExcepcionesReglasPage(UserStory userS) {
@@ -41,6 +42,23 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	public ValidacionExcepcionesReglasPage ContinuarAltaSiniestro() {
 		debugBegin();
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+	
+	public ValidacionExcepcionesReglasPage comprobarPaginaModificacion() {
+		debugBegin();
+		webDriver.waitWithDriver(5000);
+		webDriver.waitForPageToLoad();
+		webDriver.switchToFrame(cuerpoFrame);
+		if(webDriver.isPresent(labelTitulo)) {
+			System.out.println("Si está presente el título");
+			if(webDriver.getText(labelTitulo).contains("excepciones"))webDriver.click(btnContinuar);
+		}else System.out.println("NO está presente el título");
+		webDriver.exitFrame();
+
+		
 		debugEnd();
 
 		return this;

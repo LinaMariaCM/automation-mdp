@@ -20,6 +20,8 @@ public class SiniestrosConfirmacionPage extends PageObject {
 	private By expediente = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(4) > td > div");
 	//private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a > strong");
 	private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a");
+	private By mensajeOK = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
+	private By volver = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li > a > span");
 	
 	// endregion
 
@@ -83,6 +85,21 @@ public class SiniestrosConfirmacionPage extends PageObject {
 		debugBegin();
 		//webDriver.clickInFrame(tramitarSiniestro, cuerpoFrame);
 		webDriver.click(tramitarSiniestro);
+		debugEnd();
+		
+		return this;
+	}
+	
+	public SiniestrosConfirmacionPage confirmaModificacion() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+
+		if(webDriver.getText(mensajeOK).contains("El siniestro ha sido modificado correctamente")) {
+			System.out.println("Modificación de siniestro correcta");
+			webDriver.click(volver);
+		}
+
+		webDriver.exitFrame();
 		debugEnd();
 		
 		return this;

@@ -432,5 +432,29 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		return this;
 	}
+	
+	public SiniestrosAltaAperturaDeclaracionPage modificarDatosSiniestro() {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		
+		webDriver.clickElementFromDropDownByIndex(comboTipoDeclarante, 1);
+		webDriver.setText(txtNombreDeclarante, "NombreMod");
+		webDriver.setText(txtPrimerApellido, "PriApellidoMod");
+		webDriver.setText(txtSegundoApellido, "SegApellidoMod");
+		webDriver.setText(txtTelefono, "660000001");
+		webDriver.setText(txtEmail, "modificadoOK@mail.com");
+		webDriver.waitWithDriver(3000);
+		webDriver.click(btnContinuar);
+		
+		webDriver.exitFrame();
+		
+		debugEnd();
+
+
+		return this;
+	}
+	
+	
 	// endregion
 }
