@@ -48,6 +48,7 @@ public class GestionCarpetaSiniestrosPage extends PageObject {
     private By cierreTareas = By.cssSelector("#cierreTareas");
     private By grabarCierre = By.cssSelector("#buttonRecord");
 
+    private By noExistenCarpetas = By.cssSelector("body > form > div.sis-noresult");
 
     
     public GestionCarpetaSiniestrosPage(UserStory userS) {
@@ -77,39 +78,46 @@ public class GestionCarpetaSiniestrosPage extends PageObject {
     
     public boolean comprobar_encargos(){
             debugBegin();
-            webDriver.clickInFrame(carpeta,leftFrame);
-            ActionSteps.waitForIt(webDriver);
-            Boolean check = false;
-            webDriver.switchToFrame(cuerpoFrame);
-            if (webDriver.isClickable(flechaAcciones)){
-                debugInfo("hacer tramite");
-                webDriver.click(flechaAcciones);
-                webDriver.waitWithDriver(1000);
-                webDriver.click(tramitar);
-            }
-            webDriver.click(pesEncargo);
-
-            if (webDriver.isClickable(listEncargo)){
-                debugInfo("antes de la lista");
-              //  webDriver.switchToFrame(cuerpoFrame);
-                List<WebElement> listaPagos = webDriver.getElements(listEncargo);
-                debugInfo("contiene: " +listaPagos.size());
-                debugInfo("despues de la lista");
-                
-                for(int i = 0; i < listaPagos.size(); i++){
-                    debugInfo("hay encargos");
-                    
-                    debugInfo("Estado: "+listaPagos.get(i).getText());
-                    if (listaPagos.get(i).getText().compareTo("Cerrado") !=0){
-                        check = true;
-                        debugInfo("Encargos Pendiente: "+check);
-                    }
-                }    
-            }else{
-                debugInfo("no hay encargos");
-            }
-            webDriver.exitFrame();
-    
+            
+       
+		            webDriver.clickInFrame(carpeta,leftFrame);
+		            ActionSteps.waitForIt(webDriver);
+		            Boolean check = false;
+		            webDriver.switchToFrame(cuerpoFrame);
+		            if (webDriver.isClickable(flechaAcciones)){
+		                debugInfo("hacer tramite");
+		                webDriver.click(flechaAcciones);
+		                webDriver.waitWithDriver(1000);
+		                webDriver.click(tramitar);
+		            }
+		            
+		            if(webDriver.isPresent(noExistenCarpetas)) {
+		             return check;	
+		            }		            
+		            else {     
+		            webDriver.click(pesEncargo);
+		
+		            if (webDriver.isClickable(listEncargo)){
+		                debugInfo("antes de la lista");
+		              //  webDriver.switchToFrame(cuerpoFrame);
+		                List<WebElement> listaPagos = webDriver.getElements(listEncargo);
+		                debugInfo("contiene: " +listaPagos.size());
+		                debugInfo("despues de la lista");
+		                
+		                for(int i = 0; i < listaPagos.size(); i++){
+		                    debugInfo("hay encargos");
+		                    
+		                    debugInfo("Estado: "+listaPagos.get(i).getText());
+		                    if (listaPagos.get(i).getText().compareTo("Cerrado") !=0){
+		                        check = true;
+		                        debugInfo("Encargos Pendiente: "+check);
+		                    }
+		                }    
+		            }else{
+		                debugInfo("no hay encargos");
+		            }
+		            webDriver.exitFrame();
+           }
             debugEnd();
             return check; 
     }

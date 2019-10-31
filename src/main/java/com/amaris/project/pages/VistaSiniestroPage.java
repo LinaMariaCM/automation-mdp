@@ -53,11 +53,11 @@ public class VistaSiniestroPage extends PageObject {
         debugBegin();
         
         
-        System.out.println("El estado del siniestro es: " + webDriver.getText(estadoSiniestro));
-        if(webDriver.getText(estadoSiniestro).compareTo("Cerrado") == 0) {
-        	System.out.println("La carpeta del siniestro está cerrada, no se le puede añadir un pago.");
+     //   System.out.println("El estado del siniestro es: " + webDriver.getTextInFrame(estadoSiniestro, cuerpoFrame));
+    //    if(webDriver.getText(estadoSiniestro).compareTo("Cerrado") == 0) {
+    //    	System.out.println("La carpeta del siniestro está cerrada, no se le puede añadir un pago.");
 
-        } else {        	
+       // } else {        	
       
 		        if (pagos == false && encargos == false && tareas == false){
 		        webDriver.clickInFrame(vistaSiniestro, leftFrame);
@@ -82,7 +82,7 @@ public class VistaSiniestroPage extends PageObject {
 		        webDriver.exitFrame();
 		        }else {
 		            debugInfo("Hay tareas pendientes.");
-		        }
+		      //  }
         }
         debugEnd();
         return this;

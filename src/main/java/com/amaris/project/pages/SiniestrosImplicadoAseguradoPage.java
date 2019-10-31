@@ -39,7 +39,9 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 	private By txtDC = By.id("#datosAsegurado > div.sis-frame-bg > div:nth-child(29) > div.box-field.flexibleField > input");
 	private By txtNumeroCuenta = By.id("#datosAsegurado > div.sis-frame-bg > div:nth-child(30) > div.box-field.flexibleField > input");
 	private By btnGuardarSalir = By.id("botonGuardar");
-	private By btnAperturaSiniestro = By.id("botonContinuar");
+	private By btnAperturaSiniestro = By.cssSelector("#formDatos #botonera #botonContinuar");
+	private By btnValidarYContinuar = By.cssSelector("#botonContinuar");
+	
 	// endregion
 
 	public SiniestrosImplicadoAseguradoPage(UserStory userS) {
@@ -59,8 +61,22 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 	public SiniestrosImplicadoAseguradoPage clickApertura() {
 		debugBegin();
 
-		webDriver.waitWithDriver(3000);
+//		webDriver.waitWithDriver(6000);
+//		if(webDriver.isPresentInFrame(btnValidarYContinuar, cuerpoFrame)) { 
+//			webDriver.clickInFrame(btnValidarYContinuar, cuerpoFrame);
+//			System.out.println("Validamos cosas");
+//		}
+		
+		debugInfo("Texto boton: " + webDriver.getTextInFrame(btnAperturaSiniestro, cuerpoFrame));
+		webDriver.waitWithDriver(6000);
+		
 		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.executeJavaScript("document.querySelector('#botonContinuar').click()");
+		debugInfo("ELEMENT: " + webDriver.executeJavaScript("document.querySelector('#mainFrame')"));
+		debugInfo("Texto boton: " + webDriver.getAttribute(btnAperturaSiniestro, "value"));
+		webDriver.exitFrame();
+		
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 		

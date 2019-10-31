@@ -570,8 +570,9 @@ public class ActionSteps extends InteractionObject {
 			// 1.Declaración
 			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
 			datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
-			
-			datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", "TRUE", "prueba@esto.es", "TRUE", "", "", "", "", "", "", "", "");
+
+			datosDeclaracion
+				.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", "TRUE", "prueba@esto.es", "TRUE", "", "", "", "", "", "", "", "");
 
 			// Comprobamos si necesita asistencia
 			if(!asistencia.isEmpty()) {
@@ -746,10 +747,10 @@ public class ActionSteps extends InteractionObject {
 		gestionAutorizacionesPage.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", userS.getTestVar("num_cotizacion"));
 
 		// Denegar el proyecto gestionAutorizacionesPage.denegar();
-		//System.out.println("AHORA!!");
-		//userS.getWebDriver().waitWithDriver(30000);
+		// System.out.println("AHORA!!");
+		// userS.getWebDriver().waitWithDriver(30000);
 		gestionAutorizacionesPage.denegar();
-		
+
 		userS.getWebDriver().quit();
 
 		debugEnd();
@@ -762,11 +763,11 @@ public class ActionSteps extends InteractionObject {
 		// Abrir el buscador de proyectos //
 		GestionOnlineHomePage gestionOnlineHomePage = new GestionOnlineHomePage(userS);
 		gestionOnlineHomePage.openMisProyectosWeb();
-		
+
 		System.out.println(userS.getTestVar(Constants.NUM_COTIZACION));
-		
+
 		gestionOnlineHomePage.buscarProyectoWeb(userS.getTestVar(Constants.NUM_COTIZACION));
-		
+
 	}
 
 	public void doy_de_alta_un_proyecto_que_llega_hasta_la_pantalla_de_contratacion_usando_el_acceso_y_el_usuario(String loginAccess, String user) throws Exception {
@@ -821,52 +822,48 @@ public class ActionSteps extends InteractionObject {
 		login(loginAcess, user);
 
 		String mediador = userS.getScenarioVar(Constants.MEDIADOR);
-		
+
 		if(loginAcess.equals(Constants.LoginAccessGestionLine)) {
 			new GestionOnlineHomePage(userS).openContratarMutuaEdificioConfort();
 		} else if(loginAcess.equals(Constants.LoginAccessInnova)) {
 			openSimulationMec();
 			new AsignarMediadorPage(userS).TerminaProcesando().SeleccionarMediadorPorCodigo(mediador).clickOnContinuarButton();
 		}
-		
+
 		new UbicacionRiesgoPage(userS).fillInmuebleAndClickOnContinue().waitProcesando();
-		
+
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada().waitProcesando();
-		
+
 		new DetallesRiesgoPage(userS).completarDatosEnDetallesRiesgoMinimos().waitProcesando();
-		
+
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).ClickOnContinuarAndValidate().waitProcesando();
-		
-		//new PrecioPage(userS).ClickOnConvertirAProjecto().waitProcesando();
-		
-		  
+
+		// new PrecioPage(userS).ClickOnConvertirAProjecto().waitProcesando();
+
 		new DatosBasicosTomadorPage(userS)
 			.FillTomadorData(getScenarioVar(Constants.TOMADOR))
-			//.clickOnContinuar()
+			// .clickOnContinuar()
 			.waitProcesando();
-		
+
 		new PrecioPorModalidadPage(userS).ExecuteActionsInPrecioPorModalidadPage().waitProcesando();
 		System.out.println("TOKEN OUT DOS");
-		
+
 		new ValidacionExcepcionesReglasPage(userS).clickOnContinuarButton();
 		System.out.println("TOKEN OUT TRES");
-		
+
 		new ClausulasPage(userS).ActivateclausesAndClickOnContinue();
 		System.out.println("TOKEN OUT CUATRO");
-		
+
 		/*
-		new TomadorYAseguradoPage(userS)
-			.AddDatosTomador()
-			.AddDatosTomadorDiferenteAsegurado()
-			.clickOnContinuar();
-
-		new DocumentacionPage(userS).SubirFichero();
-
-		new DatosBancariosPage(userS).introducirFormaPagoYPulsarContratar();
-
-		// new DataSteps(userS).imprimir_informacion_del_proyecto();
-		
-		*/
+		 * new TomadorYAseguradoPage(userS) .AddDatosTomador() .AddDatosTomadorDiferenteAsegurado() .clickOnContinuar();
+		 * 
+		 * new DocumentacionPage(userS).SubirFichero();
+		 * 
+		 * new DatosBancariosPage(userS).introducirFormaPagoYPulsarContratar();
+		 * 
+		 * // new DataSteps(userS).imprimir_informacion_del_proyecto();
+		 * 
+		 */
 
 		userS.getWebDriver().quit();
 
@@ -1425,7 +1422,7 @@ public class ActionSteps extends InteractionObject {
 			|| loginAcess.equals(Constants.LoginAccessInnova)) {
 			login(loginAcess, user);
 			crear_simulacion();
-			
+
 			String mediador = getScenarioVar(Constants.MEDIADOR);
 			if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
 				AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
@@ -1435,7 +1432,6 @@ public class ActionSteps extends InteractionObject {
 				asignarMediadorPage.SeleccionarMediadorPorCodigo(getScenarioVar(Constants.MEDIADOR));
 				asignarMediadorPage.clickOnContinuarButton();
 			}
-			
 
 			UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
 			ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
@@ -1445,7 +1441,6 @@ public class ActionSteps extends InteractionObject {
 			new DetallesRiesgoPage(userS)
 				// .executeActionsInPageDetallesRiesgoPage();
 				.completarDatosEnDetallesRiesgo();
-			
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS).clickOnContinuar();
 
@@ -2235,62 +2230,59 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void comunico_siniestro() throws Exception {
-		
+
 		new InnovaHomePage(userS).openSiniestros();
-		
+
 		new SiniestrosHomePage(userS).openGestionSiniestros();
-		
+
 		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		
+
 		new GestionSiniestrosPage(userS).comunicacion();
-		
+
 		new ComunicacionSiniestrosPage(userS).nuevaComunicacion();
-				
-		
-		
+
 	}
 
 	public void compruebo_comunicacion_siniestro() throws Exception {
-		
+
 		new GestionSiniestrosPage(userS).diario();
-		
+
 		new DiarioSiniestrosPage(userS).comprobarComunicacion();
-		
+
 	}
-	
-	
-	public void anyado_anotacion_siniestro(){
-		
+
+	public void anyado_anotacion_siniestro() {
+
 		new InnovaHomePage(userS).openSiniestros();
-		
+
 		new SiniestrosHomePage(userS).openGestionSiniestros();
-		
+
 		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		
+
 		new GestionSiniestrosPage(userS).comunicacion();
-		
+
 		new ComunicacionSiniestrosPage(userS).nuevaAnotacion();
-		
+
 	}
-	
+
 	public void compruebo_anotacion_siniestro() throws Exception {
-		
+
 		new GestionSiniestrosPage(userS).diario();
-		
+
 		new DiarioSiniestrosPage(userS).comprobarAnotacion();
-		
+
 	}
-	
+
 	public void busco_siniestro() throws Exception {
 
 		// TODO Rellenar
-		
+
 		new InnovaHomePage(userS).openSiniestros();
-		
+
 		new SiniestrosHomePage(userS).openGestionSiniestros();
-		
+
 		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		
+
 	}
 
 	public void se_dan_de_alta_masivamente_proyectos_MEC_empleando_distintos_mediadores() throws Exception {
@@ -2388,13 +2380,12 @@ public class ActionSteps extends InteractionObject {
 			}
 		}
 
-
 		userS.getWebDriver().quit();
 
 		debugBegin();
 	}
 
-	//Alta Siniestro simple y por csv
+	// Alta Siniestro simple y por csv
 
 	public void alta_siniestro_simple() throws Exception {
 		debugBegin();
@@ -2410,7 +2401,7 @@ public class ActionSteps extends InteractionObject {
 			// De no haber póliza se tomará una al azar de las últimas 50
 
 			SiniestrosAltaAperturaPage altaApertura = new SiniestrosAltaAperturaPage(userS);
-			
+
 			debugInfo("NUM POLIZA: " + getTestVar(Constants.NUM_POLIZA));
 			if(getTestVar(Constants.NUM_POLIZA) == null || getTestVar(Constants.NUM_POLIZA).isEmpty()) {
 
@@ -2424,55 +2415,53 @@ public class ActionSteps extends InteractionObject {
 				if(getTestVar(Constants.NUM_POLIZA).startsWith("510")) ramo = "510";
 				else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900")) ramo = "920";
 				else if(getTestVar(Constants.NUM_POLIZA).startsWith("660")) ramo = "660";
-				else if(getTestVar(Constants.NUM_POLIZA).startsWith("400") || getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("150") || (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000"))) ramo = "500";
-				else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610") || getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
+				else if(getTestVar(Constants.NUM_POLIZA).startsWith("400") || getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("150")
+					|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000"))) ramo = "500";
+				else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610")
+					|| getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("640")) ramo = "640";
 
 				altaApertura.buscarPorNumPoliza(ramo, getTestVar(Constants.NUM_POLIZA));
 				waitForIt(userS.getWebDriver());
 				altaApertura.continuarPrimeraPoliza();
 			}
-			
+
 			// 1.Declaración
 			SiniestrosAltaAperturaDeclaracionPage datosDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
-			//datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
-			
-			datosDeclaracion.altaDatosDeclaracion(getTestVar(Constants.FECHA_OCURRENCIA), getTestVar(Constants.TIPO_DECLARANTE), getTestVar(Constants.MEDIO_DECLARACION), getTestVar(Constants.FECHA_DENUNCIA), getTestVar(Constants.DECLARACION_OBSERVACIONES));
-			
+			// datosDeclaracion.altaDatosBasicos("MEDI", "MAIL");
+
+			datosDeclaracion
+				.altaDatosDeclaracion(getTestVar(Constants.FECHA_OCURRENCIA), getTestVar(Constants.TIPO_DECLARANTE), getTestVar(Constants.MEDIO_DECLARACION), getTestVar(Constants.FECHA_DENUNCIA), getTestVar(Constants.DECLARACION_OBSERVACIONES));
+
 			// Añadimos datos de persona extra
-			//datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
-			datosDeclaracion.datosPersonaExtra(getTestVar(Constants.CONTACTO_ROL), getTestVar(Constants.CONTACTO_NOMBRE), getTestVar(Constants.CONTACTO_PRIM_APELLIDO), getTestVar(Constants.CONTACTO_SEG_APELLIDO), getTestVar(Constants.CONTACTO_TIPO_DOCUMENTO),
-				getTestVar(Constants.CONTACTO_N_DOCUMENTO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_UNO), getTestVar(Constants.CONTACTO_TELEFONO_UNO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_DOS), getTestVar(Constants.CONTACTO_TELEFONO_DOS),
-				getTestVar(Constants.CONTACTO_SEXO), getTestVar(Constants.CONTACTO_EMAIL_NO_DISP), getTestVar(Constants.CONTACTO_EMAIL), getTestVar(Constants.CONTACTO_VIVE_EN_RIESGO),
-				getTestVar(Constants.CONTACTO_DIR_TIPO_VIA), getTestVar(Constants.CONTACTO_DIR_CALLE), getTestVar(Constants.CONTACTO_DIR_NUMERO), getTestVar(Constants.CONTACTO_DIR_PISO), getTestVar(Constants.CONTACTO_DIR_PUERTA),
-				getTestVar(Constants.CONTACTO_DIR_CP), getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
+			// datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D",
+			// "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
+			datosDeclaracion
+				.datosPersonaExtra(getTestVar(Constants.CONTACTO_ROL), getTestVar(Constants.CONTACTO_NOMBRE), getTestVar(Constants.CONTACTO_PRIM_APELLIDO), getTestVar(Constants.CONTACTO_SEG_APELLIDO), getTestVar(Constants.CONTACTO_TIPO_DOCUMENTO), getTestVar(Constants.CONTACTO_N_DOCUMENTO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_UNO), getTestVar(Constants.CONTACTO_TELEFONO_UNO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_DOS), getTestVar(Constants.CONTACTO_TELEFONO_DOS), getTestVar(Constants.CONTACTO_SEXO), getTestVar(Constants.CONTACTO_EMAIL_NO_DISP), getTestVar(Constants.CONTACTO_EMAIL), getTestVar(Constants.CONTACTO_VIVE_EN_RIESGO), getTestVar(Constants.CONTACTO_DIR_TIPO_VIA), getTestVar(Constants.CONTACTO_DIR_CALLE), getTestVar(Constants.CONTACTO_DIR_NUMERO), getTestVar(Constants.CONTACTO_DIR_PISO), getTestVar(Constants.CONTACTO_DIR_PUERTA), getTestVar(Constants.CONTACTO_DIR_CP), getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
 			// Comprobamos si necesita asistencia
-			
+
 			if(getTestVar(Constants.ASISTENCIA).isEmpty() || getTestVar(Constants.ASISTENCIA) == null) {
 				datosDeclaracion.altaSinAsistencia();
 				datosDeclaracion.clickContinuarSinAsistencia();
-			}
-			else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) { 
-				//datosDeclaracion.altaConAsistencia(true, false, "", "Daños ubicados en el interior del riesgo asegurado", true, false, "");
-				datosDeclaracion.altaConAsistencia(getTestVar(Constants.ASISTENCIA), getTestVar(Constants.ASISTENCIA_URGENTE), 
-					getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS),
-					getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS),
-					getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA),
-					getTestVar(Constants.ASISTENCIA_REF_EXTERNA));
-				
-					datosDeclaracion.clickContinuar();
-					
+			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) {
+				// datosDeclaracion.altaConAsistencia(true, false, "", "Daños ubicados en el interior del riesgo
+				// asegurado", true, false, "");
+				datosDeclaracion
+					.altaConAsistencia(getTestVar(Constants.ASISTENCIA), getTestVar(Constants.ASISTENCIA_URGENTE), getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS), getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS), getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA), getTestVar(Constants.ASISTENCIA_REF_EXTERNA));
+
+				datosDeclaracion.clickContinuar();
+
 			} else if(datosDeclaracion.posibilidadAsistencia()) {
 				datosDeclaracion.altaSinAsistencia();
 				datosDeclaracion.clickContinuarSinAsistencia();
-			}			
-			
+			}
 
 			// Validamos cosas
 			ValidacionExcepcionesReglasPage validarReglas = new ValidacionExcepcionesReglasPage(userS);
-			if(validarReglas.comprobarNombrePagina().contains("excepciones")) validarReglas.clickOnContinuarButton();
-			
-						
+			if(validarReglas.comprobarNombrePagina().contains("excepciones")) {
+				validarReglas.clickOnContinuarButton();
+			}
+
 			// Completamos el apartado de Ocurrencia
 			SiniestrosAltaAperturaOcurrenciaPage datosOcurrencia = new SiniestrosAltaAperturaOcurrenciaPage(userS);
 			datosOcurrencia.altaRiesgoAsegurado();
@@ -2500,31 +2489,40 @@ public class ActionSteps extends InteractionObject {
 			}
 
 			datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), getTestVar(Constants.GREMIO_CAUSA_COD));
-			//datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), gremio);
+			// datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD),
+			// getTestVar(Constants.TIPO_CAUSA_COD), gremio);
 			System.out.println("Hay encargo?: " + getTestVar(Constants.ENCARGO));
 			datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", getTestVar(Constants.OTROS_IMPLICADOS), getTestVar(Constants.ENCARGO));
+			debugInfo("AQUI ES ALTA RELLENAR DATOS CAUSA");
+			userS.getWebDriver().waitWithDriver(10000);
 			datosOcurrencia.clickContinuar();
 
 			// Validamos más cosas
 			ValidacionExcepcionesReglasPage validarReglas2 = new ValidacionExcepcionesReglasPage(userS);
-			if(validarReglas2.comprobarNombrePagina().contains("excepciones")) validarReglas2.clickOnContinuarButton();
+			if(validarReglas2.comprobarNombrePagina().contains("excepciones")) {
+				debugInfo("AQUI ES VALIDACION EXCEPCIONES");
+				userS.getWebDriver().waitWithDriver(10000);
+				validarReglas2.clickOnContinuarButton();
+			}
 
 			// Completamos el apartado de Implicado asegurado
 			System.out.println("PARA IMPLICADO ASEGURADO POLIZA: " + getTestVar(Constants.NUM_POLIZA));
-			if(!getTestVar(Constants.NUM_POLIZA).startsWith("920")){
-			SiniestrosImplicadoAseguradoPage implicadoAsegurado = new SiniestrosImplicadoAseguradoPage(userS);
-			implicadoAsegurado.clickApertura();
+			if(!getTestVar(Constants.NUM_POLIZA).startsWith("920")) {
+				debugInfo("AQUI ABRIR APERTURA");
+				userS.getWebDriver().waitWithDriver(10000);
+				SiniestrosImplicadoAseguradoPage implicadoAsegurado = new SiniestrosImplicadoAseguradoPage(userS);
+				implicadoAsegurado.clickApertura();
 			}
 			// Comprobamos si se requiere añadir un implicado extra
-		
+
 			if(!getTestVar(Constants.OTROS_IMPLICADOS).isEmpty()) {
 				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
 				altaOtrosImplicados.clickNuevoImplicado();
 				SiniestrosOtrosImplicadosDatos otroImplicadoDatos = new SiniestrosOtrosImplicadosDatos(userS);
-				//otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "NIF", "77315592B", "666885985", "", "", "implicadoextra@mail.com");
-				otroImplicadoDatos.introducirDatosPersonales(getTestVar(Constants.OTRO_ROL), getTestVar(Constants.OTRO_NOMBRE), getTestVar(Constants.OTRO_PRIM_APELLIDO), Constants.OTRO_SEG_APELLIDO,
-					getTestVar(Constants.OTRO_TIPO_DOCUMENTO), getTestVar(Constants.OTRO_N_DOCUMENTO), getTestVar(Constants.OTRO_TELEFONO_UNO),
-					getTestVar(Constants.OTRO_TELEFONO_DOS), getTestVar(Constants.OTRO_SEXO), getTestVar(Constants.OTRO_EMAIL));
+				// otroImplicadoDatos.introducirDatosPersonales("LESI", "NORIE", "Implicado", "Exra", "Segundo", "NIF",
+				// "77315592B", "666885985", "", "", "implicadoextra@mail.com");
+				otroImplicadoDatos
+					.introducirDatosPersonales(getTestVar(Constants.OTRO_ROL), getTestVar(Constants.OTRO_NOMBRE), getTestVar(Constants.OTRO_PRIM_APELLIDO), Constants.OTRO_SEG_APELLIDO, getTestVar(Constants.OTRO_TIPO_DOCUMENTO), getTestVar(Constants.OTRO_N_DOCUMENTO), getTestVar(Constants.OTRO_TELEFONO_UNO), getTestVar(Constants.OTRO_TELEFONO_DOS), getTestVar(Constants.OTRO_SEXO), getTestVar(Constants.OTRO_EMAIL));
 				otroImplicadoDatos.introducirDatosDireccion("", "", "", "", "", "", "", "", "ES21", "2100", "0001", "05", "0000000001");
 				otroImplicadoDatos.clickGrabar();
 				altaOtrosImplicados.clickContinuar();
@@ -2544,8 +2542,6 @@ public class ActionSteps extends InteractionObject {
 			// Página de confirmación
 			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
 			confirmarAltaSiniestro.confirmarSiniestroOK();
-			
-			
 
 			// Accedemos a siniestros desde Gestión On Line
 		} else if(Constants.ACCESO.equals(Constants.LoginAccessGestionLine)) {
@@ -2561,8 +2557,10 @@ public class ActionSteps extends InteractionObject {
 			if(getTestVar(Constants.NUM_POLIZA).startsWith("510")) ramo = "510";
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900")) ramo = "920";
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("660")) ramo = "660";
-			else if(getTestVar(Constants.NUM_POLIZA).startsWith("400") || getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("150") || (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000"))) ramo = "500";
-			else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610") || getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
+			else if(getTestVar(Constants.NUM_POLIZA).startsWith("400") || getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("150")
+				|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000"))) ramo = "500";
+			else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610")
+				|| getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
 				|| getTestVar(Constants.NUM_POLIZA).startsWith("640")) ramo = "640";
 
 			String causa = getTestVar(Constants.CAUSA_SINIESTRO);
@@ -2575,7 +2573,7 @@ public class ActionSteps extends InteractionObject {
 			altaSiniestroGOL.clickEnviar();
 			altaSiniestroGOL.checkYaExisteSiniestro();
 			altaSiniestroGOL.comprobarOK();
-					
+
 		}
 
 		if(Constants.ACCESO.equals(Constants.LoginAccessInnova)) {
@@ -2583,121 +2581,117 @@ public class ActionSteps extends InteractionObject {
 			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
 			confirmarAltaSiniestro.confirmarSiniestroOK();
 		}
-		
+
 		debugEnd();
 	}
 
-	public void tramito_siniestro_tras_alta(){
+	public void tramito_siniestro_tras_alta() {
 		debugBegin();
-		
+
 		SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
 		confirmarAltaSiniestro.tramitarSiniestro();
-		
+
 		debugEnd();
-	}	
-	public void compruebo_que_datos_han_viajado(){
-		
+	}
+
+	public void compruebo_que_datos_han_viajado() {
+
 		debugBegin();
-		
+
 		new GestionSiniestrosPage(userS).mostrarInfoGeneral();
-		
+
 		SiniestrosHomePage siniestrosHome = new SiniestrosHomePage(userS);
-		
+
 		siniestrosHome.compararCampos();
-		
-		debugEnd();
-	}
-
-	public void comprobar_que_no_tenga_pagos_pendientes_ni_encargos() throws Exception{
-		debugBegin();
-
-
 
 		debugEnd();
 	}
 
-	public void cierre_siniestro() throws Exception{
+	public void comprobar_que_no_tenga_pagos_pendientes_ni_encargos() throws Exception {
 		debugBegin();
-	InnovaHomePage innovaHome = new InnovaHomePage(userS);
-	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
-	VistaSiniestroPage vistaSiniestro = new VistaSiniestroPage(userS);
-	PagosSiniestroPage pagosSiniestro = new PagosSiniestroPage(userS);
-	GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
-	AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
-	innovaHome.openSiniestros();
-	//buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
-	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-	Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
-	Boolean encargos = gestionCarpeta.comprobar_encargos();
-	Boolean tareas = agendaSiniestro.comprobar_tareas_pendientes();
-	debugInfo("Pago bool: "+pagos);
-	debugInfo("Encargos bool: "+encargos);
-	debugInfo("Tareas bool: "+tareas);
-	vistaSiniestro.cierre_siniestro(pagos, encargos, tareas);
-	//vistaSiniestro.cierre_siniestro();
-	//webDriver.waitWithDriver(2000);
-	debugEnd();
+
+		debugEnd();
 	}
 
-	public void reapertura_siniestro()  throws Exception{
-	InnovaHomePage innovaHome = new InnovaHomePage(userS);
-	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
-	GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
-	innovaHome.openSiniestros();
-	//buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
-	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-	gestionCarpeta.nueva_carpeta();
+	public void cierre_siniestro() throws Exception {
+		debugBegin();
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		VistaSiniestroPage vistaSiniestro = new VistaSiniestroPage(userS);
+		PagosSiniestroPage pagosSiniestro = new PagosSiniestroPage(userS);
+		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
+		AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
+		innovaHome.openSiniestros();
+		// buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
+		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
+		Boolean encargos = gestionCarpeta.comprobar_encargos();
+		Boolean tareas = agendaSiniestro.comprobar_tareas_pendientes();
+		debugInfo("Pago bool: " + pagos);
+		debugInfo("Encargos bool: " + encargos);
+		debugInfo("Tareas bool: " + tareas);
+		vistaSiniestro.cierre_siniestro(pagos, encargos, tareas);
+		// vistaSiniestro.cierre_siniestro();
+		// webDriver.waitWithDriver(2000);
+		debugEnd();
+	}
 
+	public void reapertura_siniestro() throws Exception {
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
+		innovaHome.openSiniestros();
+		// buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
+		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		gestionCarpeta.nueva_carpeta();
 
 	}
 
-	
-	public void realizo_pago_simple() throws Exception{
+	public void realizo_pago_simple() throws Exception {
 		debugBegin();
 		PagosSiniestroPage pagosSiniestroPage = new PagosSiniestroPage(userS);
 		InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
 		GestionSiniestroBuscadorPage gestionSiniestrosBuscador = new GestionSiniestroBuscadorPage(userS);
-		//En la pagina principal se busca la opcion siniestro
+		// En la pagina principal se busca la opcion siniestro
 		innovaHomePage.openSiniestros();
-		
-		//Dentro de siniestros se busca la opcion gestion siniestro
+
+		// Dentro de siniestros se busca la opcion gestion siniestro
 		gestionSiniestrosBuscador.abrirGestionSiniestro();
-		
-		//Una vez dentro, se selecciona la opcion buscar por otros
-		//gestionSiniestrosBuscador.buscarPorOtros("1/08/2019","15/09/2019","640","510");
+
+		// Una vez dentro, se selecciona la opcion buscar por otros
+		// gestionSiniestrosBuscador.buscarPorOtros("1/08/2019","15/09/2019","640","510");
 		gestionSiniestrosBuscador.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		//Seleccion del siniestro a pagar
+		// Seleccion del siniestro a pagar
 		pagosSiniestroPage.nuevoPago();
-		
-		if (getTestVar(Constants.ESTADO_CARPETA).equals(getTestVar(Constants.ESTADO_CARPETA_CERRADA))){
-			//Seleccion de un tipo de perceptor
+
+		if(getTestVar(Constants.ESTADO_CARPETA).equals(getTestVar(Constants.ESTADO_CARPETA_CERRADA))) {
+			// Seleccion de un tipo de perceptor
 			pagosSiniestroPage.seleccionarParticipantesExpediente();
-			
-			//Seleccion de datos bancarios y observaciones
+
+			// Seleccion de datos bancarios y observaciones
 			pagosSiniestroPage.datosPerceptor();
-			
-			//Seleccion de concepto de pago, cobertura, importes y deducciones
-			pagosSiniestroPage.importes("01/10/2019","100,00");
-			
-			//Verificacion de todos los datos esten correctamente y grabacion del pago
+
+			// Seleccion de concepto de pago, cobertura, importes y deducciones
+			pagosSiniestroPage.importes("01/10/2019", "100,00");
+
+			// Verificacion de todos los datos esten correctamente y grabacion del pago
 			pagosSiniestroPage.verificacion();
 		}
-		
+
 		debugEnd();
 	}
 
-	public void rehuso_siniestro() throws Exception{
-	InnovaHomePage innovaHome = new InnovaHomePage(userS);
-	GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
-	DiarioSiniestrosPage diarioSiniestro = new DiarioSiniestrosPage(userS);
-	innovaHome.openSiniestros();
-	buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-	diarioSiniestro.rehusar_siniestro();
-	
-
+	public void rehuso_siniestro() throws Exception {
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		DiarioSiniestrosPage diarioSiniestro = new DiarioSiniestrosPage(userS);
+		innovaHome.openSiniestros();
+		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		diarioSiniestro.rehusar_siniestro();
 
 	}
-	public void transicionar_bloques() throws Exception{
+
+	public void transicionar_bloques() throws Exception {
 		debugBegin();
 		BloqueSiniestro bloqueSiniestro = new BloqueSiniestro(userS);
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
@@ -2707,54 +2701,55 @@ public class ActionSteps extends InteractionObject {
 		bloqueSiniestro.transicionar_bloques();
 	}
 
-	public void nueva_tarea_siniestros() throws Exception{
-		
-	new InnovaHomePage(userS).openSiniestros();
-	new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-	new AgendaSiniestroPage(userS).nueva_tarea();
-	
+	public void nueva_tarea_siniestros() throws Exception {
+
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new AgendaSiniestroPage(userS).nueva_tarea();
+
 	}
 
-	public void cerrar_carpeta() throws Exception{
+	public void cerrar_carpeta() throws Exception {
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		gestionCarpeta.cerrar_carpeta(); 
+		gestionCarpeta.cerrar_carpeta();
 
 	}
 
-	public void realizo_recobro() throws Exception{
-		 
+	public void realizo_recobro() throws Exception {
+
 		new InnovaHomePage(userS).openSiniestros();
 		new SiniestrosHomePage(userS).openGestionSiniestros();
 		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		
+
 		GestionSiniestrosPage gestionSiniestrosPage = new GestionSiniestrosPage(userS);
 		gestionSiniestrosPage.reservasYExpecativas();
 		gestionSiniestrosPage.modificarExpectativa();
 		gestionSiniestrosPage.modificarReserva();
 		gestionSiniestrosPage.verificarTotales();
-		
+
 		gestionSiniestrosPage.modificarExpectativasACero();
 		gestionSiniestrosPage.modificarReservaACero();
 		gestionSiniestrosPage.verificarTotales();
-		
+
 	}
 
+	public void compruebo_carpeta_y_encargos() throws Exception {
 
-	public void compruebo_carpeta_y_encargos() throws Exception{
-		
 		GestionSiniestrosPage gestionSiniestros = new GestionSiniestrosPage(userS);
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
-		
+
 		gestionSiniestros.gestionDeCarpetas();
-		
-		if(gestionCarpeta.comprobar_tipo_carpeta()){System.out.println("ATENCIÓN	tipo carpeta IMAS.");}
-		
-		if(gestionCarpeta.comprobar_encargos()) System.out.println("encargos : Sí, hay encargos."); 
-		
-	} 
-	
+
+		if(gestionCarpeta.comprobar_tipo_carpeta()) {
+			System.out.println("ATENCIÓN	tipo carpeta IMAS.");
+		}
+
+		if(gestionCarpeta.comprobar_encargos()) System.out.println("encargos : Sí, hay encargos.");
+
+	}
+
 }

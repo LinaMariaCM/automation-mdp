@@ -26,6 +26,7 @@ public class GestionSiniestroBuscadorPage extends PageObject {
 	private By btnCausa = By.cssSelector("#filtro8");
 	private By btnOtros = By.cssSelector("#filtro9");
 	private By opProduct = By.cssSelector("#capaPOLIZA td.flexibleField");
+	private By opProductElemento = By.cssSelector("#capaPOLIZA td.flexibleField option");
 	private By opProductSIni = By.cssSelector("#capaSINIESTRO td.flexibleField");
 
 	// Opcion Numero Siniestro
@@ -94,19 +95,19 @@ public class GestionSiniestroBuscadorPage extends PageObject {
 		debugInfo("ha dado click");
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(btnNoPoliza);
-		if(numPoliza.substring(0, 2) == "510") {
-			webDriver.clickElementChildByAttribute(opProduct, "value", "510");
+		if(numPoliza.substring(0, 3) == "510") {
+			webDriver.clickElementFromDropDownByAttribute(opProduct, opProductElemento, "value", "510");
 		}
 		// webDriver.switchToFrame(cuerpoFrame);
 		// webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
 		// webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
 
-		else if(numPoliza.substring(0, 2) == "920") {
-			webDriver.clickElementChildByAttribute(opProduct, "value", "920");
+		else if(numPoliza.substring(0, 3) == "920") {
+			webDriver.clickElementFromDropDownByAttribute(opProduct, opProductElemento, "value", "920");
 		}
 
-		else if(numPoliza.substring(0, 2) == "640") {
-			webDriver.clickElementChildByAttribute(opProduct, "value", "640");
+		else if(numPoliza.substring(0, 3) == "640") {
+			webDriver.clickElementFromDropDownByAttribute(opProduct, opProductElemento, "value", "640");
 		}
 
 		webDriver.setText(txtNoPoliza, numPoliza);
