@@ -131,19 +131,26 @@ public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,St
     webDriver.clickInFrame(gestionSiniestros,leftFrame);
     debugInfo("ha dado click");
     webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
-    if (negocio == "MEC"){
+    /*if (negocio == "MEC"){
         webDriver.switchToFrame(cuerpoFrame);
          webDriver.clickElementChildByAttribute(opProductSIni,"value", "510");
          webDriver.exitFrame();
-    }
-    webDriver.setTextInFrame(txtAno, cuerpoFrame, anio);
+    }*/
+    webDriver.switchToFrame(cuerpoFrame);
     
-    webDriver.setTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
-    webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+	ActionSteps.waitForIt(webDriver);
+    webDriver.clickElementFromDropDownByIndex(tipoProductoSini, 0);
+
+	ActionSteps.waitForIt(webDriver);
+    webDriver.setText(txtAno, anio);
+    
+    webDriver.setText(txtNoSiniestro, siniestro);
+    webDriver.click(btnBuscar);
 
     ActionSteps.waitForIt(webDriver);
-    webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+    webDriver.click(btnContinuar);
 
+    webDriver.exitFrame();
     debugEnd();
 
     return this;
