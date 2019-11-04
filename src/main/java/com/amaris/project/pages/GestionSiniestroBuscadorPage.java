@@ -126,16 +126,40 @@ public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza) {
     return this;
 }
 
-public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,String anio, String negocio) {
+//public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,String anio, String negocio) {
+//    debugBegin();
+//    webDriver.clickInFrame(gestionSiniestros,leftFrame);
+//    debugInfo("ha dado click");
+//    webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
+//    if (negocio == "MEC"){
+//        webDriver.switchToFrame(cuerpoFrame);
+//         webDriver.clickElementChildByAttribute(opProductSIni,"value", "510");
+//         webDriver.exitFrame();
+//    }
+//    webDriver.setTextInFrame(txtAno, cuerpoFrame, anio);
+//    
+//    webDriver.setTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
+//    webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+//
+//    ActionSteps.waitForIt(webDriver);
+//    webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+//
+//    debugEnd();
+//
+//    return this;
+//}
+
+public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,String anio) {
     debugBegin();
     webDriver.clickInFrame(gestionSiniestros,leftFrame);
     debugInfo("ha dado click");
+    
     webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
-    if (negocio == "MEC"){
-        webDriver.switchToFrame(cuerpoFrame);
-         webDriver.clickElementChildByAttribute(opProductSIni,"value", "510");
-         webDriver.exitFrame();
-    }
+    
+    webDriver.switchToFrame(cuerpoFrame);
+    webDriver.clickElementChildByIndex(opProductSIni, 0);
+    webDriver.exitFrame();
+    
     webDriver.setTextInFrame(txtAno, cuerpoFrame, anio);
     
     webDriver.setTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);

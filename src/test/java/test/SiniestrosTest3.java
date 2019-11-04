@@ -362,14 +362,18 @@ public class SiniestrosTest3 extends TestObject {
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
 			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.realizo_pago_simple();
+			steps.cierre_siniestro();
 			
-//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-//			steps.cierre_siniestro();
-//			steps.cierro_navegador();
-//			
-//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-//			steps.reapertura_siniestro();
-//			steps.cierro_navegador();
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.cierre_siniestro();
+			steps.cierro_navegador();
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.reapertura_siniestro();
+			steps.cierro_navegador();
 			
 			return null;
 		}).run();

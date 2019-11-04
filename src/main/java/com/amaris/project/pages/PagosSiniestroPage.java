@@ -199,11 +199,11 @@ public class PagosSiniestroPage extends PageObject {
         
         webDriver.clickInFrame(accederPagos,leftFrame);
         
+        setTestVar(Constants.ESTADO_CARPETA, webDriver.getTextInFrame(estadoCarpeta, cuerpoFrame));
         System.out.println("El estado de la carpeta es: " + webDriver.getTextInFrame(estadoCarpeta, cuerpoFrame));
-        if(webDriver.getTextInFrame(estadoCarpeta, cuerpoFrame).compareTo("Cerrado") == 0) {
+        
+        if(getTestVar(Constants.ESTADO_CARPETA).equalsIgnoreCase(getTestVar(Constants.ESTADO_CARPETA_CERRADA))) {
         	System.out.println("La carpeta del siniestro está cerrada, no se le puede añadir un pago.");
-        	setTestVar(Constants.ESTADO_CARPETA, Constants.ESTADO_CARPETA_CERRADA);
-        	System.out.println("Constante ESTADO_CARPETA: " + getTestVar(Constants.ESTADO_CARPETA));
         } else {        	
         	webDriver.clickInFrame(nuevoPago, cuerpoFrame);
         }

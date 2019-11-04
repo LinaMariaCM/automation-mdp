@@ -180,12 +180,14 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		
 		//webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
 		webDriver.waitWithDriver(3000);
-		webDriver.switchToFrame(cuerpoFrame);
+		//webDriver.switchToFrame(cuerpoFrame);
 		if(!noDisponible.isEmpty()) {
-			webDriver.appendTextInFrame(txtEmail, modalFrame, emailDeclarante);
+			//webDriver.appendTextInFrame(txtEmail, modalFrame, emailDeclarante);
+			webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
 			// webDriver.clickInFrame(checkNoEmail, modalFrame);
 		} else {
-			webDriver.appendTextInFrame(txtEmail, modalFrame, "prueba@esto.es");
+			//webDriver.appendTextInFrame(txtEmail, modalFrame, "prueba@esto.es");
+			webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
 		}
 
 		//if(noDisponible) webDriver.clickInFrame(checkEmailNoDisponible, cuerpoFrame);

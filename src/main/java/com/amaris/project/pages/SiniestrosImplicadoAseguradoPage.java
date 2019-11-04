@@ -13,6 +13,7 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 
 	// #### DATOS DEL ASEGURADO ####
 	private By comboSeleccionAsegurado = By.id("seleccionAsegurado");
+	private By comboSeleccionAseguradoElemento = By.cssSelector("#seleccionAsegurado > option");
 	private By txtNombreAsegurado = By.id("nombre");
 	private By txtApellido1Asegurado = By.id("apellido1");
 	private By txtApellido2Asegurado = By.id("apellido2");
@@ -68,19 +69,31 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 //		}
 		
 		debugInfo("Texto boton: " + webDriver.getTextInFrame(btnAperturaSiniestro, cuerpoFrame));
-		webDriver.waitWithDriver(6000);
+		webDriver.waitWithDriver(3000);
 		
 		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.executeJavaScript("document.querySelector('#botonContinuar').click()");
-		debugInfo("ELEMENT: " + webDriver.executeJavaScript("document.querySelector('#mainFrame')"));
-		debugInfo("Texto boton: " + webDriver.getAttribute(btnAperturaSiniestro, "value"));
-		webDriver.exitFrame();
+
+		webDriver.waitWithDriver(5000);
 		
-		ActionSteps.waitForIt(webDriver);
+		
 		debugEnd();
 		
 		return this;
 	}
+	
+	public SiniestrosImplicadoAseguradoPage seleccionarImplicado() {
+		
+		debugBegin();
+		debugInfo("Seleccionamos implicado....");
+		webDriver.switchToFrame(cuerpoFrame);
+		System.out.println("...y el elegido es: "+ webDriver.getText(webDriver.getElementChildByIndex(comboSeleccionAsegurado, 1)));
+		webDriver.clickElementChildByIndex(comboSeleccionAsegurado, 1);
+		webDriver.exitFrame();
+		debugEnd();
+		
+		return this;
+	}	
+	
+	
 	// endregion
 }

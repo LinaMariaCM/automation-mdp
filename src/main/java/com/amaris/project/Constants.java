@@ -574,6 +574,7 @@ public class Constants {
 	
 	public static final String ESTADO_CARPETA = "estado_carpeta";
 	public static final String ESTADO_CARPETA_CERRADA = "cerrado";
+	public static final String ESTADO_CARPETA_ABIERTA = "abierto";
 	
 
 
