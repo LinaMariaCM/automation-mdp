@@ -2734,16 +2734,18 @@ public class ActionSteps extends InteractionObject {
 		SiniestrosModificarValidacion modificarValidacion = new SiniestrosModificarValidacion(userS);
 		SiniestrosConfirmacionPage confirmaModificacion = new SiniestrosConfirmacionPage(userS);
 		innovaHome.openSiniestros();
-		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.FECHA_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
 		vistaSiniestro.modificarSiniestro();
-		altaDeclaracion.modificarDatosSiniestro();
+		altaDeclaracion.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
+		//altaDeclaracion.modificarDatosSiniestro();
 		validarReglas.comprobarPaginaModificacion();
-		altaOcurencia.modificarDescripcion();
+		altaOcurencia.modificarDescripcion(getTestVar(Constants.DESCRIPCION_SINIESTRO));
 		validarReglas2.comprobarPaginaModificacion();
 		modificarValidacion.validar();
 		confirmaModificacion.confirmaModificacion();
 		vistaSiniestro.irVistaSiniestroHistorico();
-		vistaSiniestro.mapeoHistoricoModificarDatos();
+		vistaSiniestro.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
 		
 	
 	}

@@ -238,6 +238,7 @@ public class Constants {
 	public static final String COLECTIVO_CLIENTE = "colectivo_cliente";
 	public static final String NUM_COTIZACION = "num_cotizacion";
 	public static final String NUM_POLIZA = "numero_poliza";
+	
 
 	public static final String TIPO_DOCUMENTO = "tipo_documento";
 

@@ -197,15 +197,16 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		
 		return this;
 	}
-	
-	public SiniestrosAltaAperturaOcurrenciaPage modificarDescripcion(){
+
+	public SiniestrosAltaAperturaOcurrenciaPage modificarDescripcion(String descripcion){
+	//public SiniestrosAltaAperturaOcurrenciaPage modificarDescripcion(){
 		
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
 		
 		webDriver.waitForPageToLoad();
-		webDriver.setText(txtDescripcionSiniestro, "Nueva descripción de siniestro. Modificación siniestro completada con exito");
+		webDriver.setText(txtDescripcionSiniestro, descripcion);
 		webDriver.click(btnVerificar);
 		debugEnd();
 		
