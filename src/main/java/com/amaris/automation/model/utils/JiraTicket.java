@@ -17,14 +17,12 @@ public class JiraTicket {
 	private String linkType;
 	private String linkId;
 
-	public JiraTicket() {
-		
-	}
+	public JiraTicket() {}
 
 	public String getProject() {
 		return project;
 	}
-	
+
 	public String getIssueType() {
 		return issueType;
 	}
@@ -79,81 +77,81 @@ public class JiraTicket {
 
 	public JiraTicket setProject(String project) {
 		this.project = project;
-		
+
 		return this;
 	}
 
 	public JiraTicket setIssueType(String issueType) {
 		this.issueType = issueType;
-		
+
 		return this;
 	}
 
 	public JiraTicket setSummary(String summary) {
 		this.summary = summary;
-		
+
 		return this;
 	}
 
 	public JiraTicket setPriority(String priority) {
 		this.priority = priority;
-		
+
 		return this;
 	}
 
 	public JiraTicket setDueDate(String dueDate) {
 		this.dueDate = dueDate;
-		
+
 		return this;
 	}
 
 	public JiraTicket setComponents(String components) {
 		this.components = components;
-		
+
 		return this;
 	}
 
 	public JiraTicket setVersions(String versions) {
 		this.versions = versions;
-		
+
 		return this;
 	}
 
 	public JiraTicket setFixVersions(String fixVersions) {
 		this.fixVersions = fixVersions;
-		
+
 		return this;
 	}
 
 	public JiraTicket setAssignee(String assignee) {
 		this.assignee = assignee;
-		
+
 		return this;
 	}
 
 	public JiraTicket setReporter(String reporter) {
 		this.reporter = reporter;
-		
+
 		return this;
 	}
 
 	public JiraTicket setEnvironment(String environment) {
 		this.environment = environment;
-		
+
 		return this;
 	}
 
 	public JiraTicket setDescription(String description) {
 		this.description = description;
-		
+
 		return this;
 	}
 
 	public JiraTicket setLink(String linkType, String linkId) {
 		this.linkType = linkType;
 		this.linkId = linkId;
-		
+
 		return this;
 	}
-	
+
 }

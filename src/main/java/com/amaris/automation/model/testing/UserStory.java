@@ -253,7 +253,6 @@ public class UserStory {
 		suiteM.setRelevantColumn(testCase, relevantColumn);
 	}
 
-
 	public UserStory setScenario(String scenario) {
 		this.scenario = scenario;
 
