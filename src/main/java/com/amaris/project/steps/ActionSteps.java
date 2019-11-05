@@ -2432,7 +2432,9 @@ public class ActionSteps extends InteractionObject {
 
 			datosDeclaracion
 				.altaDatosDeclaracion(getTestVar(Constants.FECHA_OCURRENCIA), getTestVar(Constants.TIPO_DECLARANTE), getTestVar(Constants.MEDIO_DECLARACION), getTestVar(Constants.FECHA_DENUNCIA), getTestVar(Constants.DECLARACION_OBSERVACIONES));
-
+			
+			datosDeclaracion.altaDatosDeclarante(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_PREFIJO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DECLARACION_EMAIL_NO_DISP));
+			
 			// Añadimos datos de persona extra
 			// datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D",
 			// "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
@@ -2511,6 +2513,7 @@ public class ActionSteps extends InteractionObject {
 				debugInfo("AQUI ABRIR APERTURA");
 				userS.getWebDriver().waitWithDriver(10000);
 				SiniestrosImplicadoAseguradoPage implicadoAsegurado = new SiniestrosImplicadoAseguradoPage(userS);
+				implicadoAsegurado.seleccionarImplicado();
 				implicadoAsegurado.clickApertura();
 			}
 			// Comprobamos si se requiere añadir un implicado extra
@@ -2621,9 +2624,12 @@ public class ActionSteps extends InteractionObject {
 		PagosSiniestroPage pagosSiniestro = new PagosSiniestroPage(userS);
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 		AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
+		
 		innovaHome.openSiniestros();
-		// buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
-		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		
+		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		
 		Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
 		Boolean encargos = gestionCarpeta.comprobar_encargos();
 		Boolean tareas = agendaSiniestro.comprobar_tareas_pendientes();
@@ -2642,11 +2648,13 @@ public class ActionSteps extends InteractionObject {
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		// buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
-		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
 		gestionCarpeta.nueva_carpeta();
 
 	}
-
+	
+	
 	public void realizo_pago_simple() throws Exception {
 		debugBegin();
 		PagosSiniestroPage pagosSiniestroPage = new PagosSiniestroPage(userS);
@@ -2660,11 +2668,17 @@ public class ActionSteps extends InteractionObject {
 
 		// Una vez dentro, se selecciona la opcion buscar por otros
 		// gestionSiniestrosBuscador.buscarPorOtros("1/08/2019","15/09/2019","640","510");
-		gestionSiniestrosBuscador.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		//gestionSiniestrosBuscador.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		
 		// Seleccion del siniestro a pagar
 		pagosSiniestroPage.nuevoPago();
-
-		if(getTestVar(Constants.ESTADO_CARPETA).equals(getTestVar(Constants.ESTADO_CARPETA_CERRADA))) {
+		
+		System.out.println("La carpeta está: " + getTestVar(Constants.ESTADO_CARPETA));
+		System.out.println("El estado carpeta es: " + getTestVar(Constants.ESTADO_CARPETA_ABIERTA));
+		
+		if(getTestVar(Constants.ESTADO_CARPETA).equalsIgnoreCase(getTestVar(Constants.ESTADO_CARPETA_ABIERTA))) {
 			// Seleccion de un tipo de perceptor
 			pagosSiniestroPage.seleccionarParticipantesExpediente();
 
@@ -2672,7 +2686,7 @@ public class ActionSteps extends InteractionObject {
 			pagosSiniestroPage.datosPerceptor();
 
 			// Seleccion de concepto de pago, cobertura, importes y deducciones
-			pagosSiniestroPage.importes("01/10/2019", "100,00");
+			pagosSiniestroPage.importes("04/11/2019", "100,00");
 
 			// Verificacion de todos los datos esten correctamente y grabacion del pago
 			pagosSiniestroPage.verificacion();
@@ -2720,16 +2734,18 @@ public class ActionSteps extends InteractionObject {
 		SiniestrosModificarValidacion modificarValidacion = new SiniestrosModificarValidacion(userS);
 		SiniestrosConfirmacionPage confirmaModificacion = new SiniestrosConfirmacionPage(userS);
 		innovaHome.openSiniestros();
-		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.FECHA_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
 		vistaSiniestro.modificarSiniestro();
-		altaDeclaracion.modificarDatosSiniestro();
+		altaDeclaracion.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
+		//altaDeclaracion.modificarDatosSiniestro();
 		validarReglas.comprobarPaginaModificacion();
-		altaOcurencia.modificarDescripcion();
+		altaOcurencia.modificarDescripcion(getTestVar(Constants.DESCRIPCION_SINIESTRO));
 		validarReglas2.comprobarPaginaModificacion();
 		modificarValidacion.validar();
 		confirmaModificacion.confirmaModificacion();
 		vistaSiniestro.irVistaSiniestroHistorico();
-		vistaSiniestro.mapeoHistoricoModificarDatos();
+		vistaSiniestro.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
 		
 	
 	}

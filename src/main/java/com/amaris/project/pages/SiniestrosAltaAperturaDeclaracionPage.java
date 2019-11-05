@@ -180,12 +180,14 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		
 		//webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
 		webDriver.waitWithDriver(3000);
-		webDriver.switchToFrame(cuerpoFrame);
+		//webDriver.switchToFrame(cuerpoFrame);
 		if(!noDisponible.isEmpty()) {
-			webDriver.appendTextInFrame(txtEmail, modalFrame, emailDeclarante);
+			//webDriver.appendTextInFrame(txtEmail, modalFrame, emailDeclarante);
+			webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
 			// webDriver.clickInFrame(checkNoEmail, modalFrame);
 		} else {
-			webDriver.appendTextInFrame(txtEmail, modalFrame, "prueba@esto.es");
+			//webDriver.appendTextInFrame(txtEmail, modalFrame, "prueba@esto.es");
+			webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
 		}
 
 		//if(noDisponible) webDriver.clickInFrame(checkEmailNoDisponible, cuerpoFrame);
@@ -432,18 +434,19 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		return this;
 	}
-	
-	public SiniestrosAltaAperturaDeclaracionPage modificarDatosSiniestro() {
+
+	public SiniestrosAltaAperturaDeclaracionPage modificarDatosSiniestro(String nombre, String primerApellido, String segApellido, String telefono, String email) {
+	//public SiniestrosAltaAperturaDeclaracionPage modificarDatosSiniestro() {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
 		
 		webDriver.clickElementFromDropDownByIndex(comboTipoDeclarante, 1);
-		webDriver.setText(txtNombreDeclarante, "NombreMod");
-		webDriver.setText(txtPrimerApellido, "PriApellidoMod");
-		webDriver.setText(txtSegundoApellido, "SegApellidoMod");
-		webDriver.setText(txtTelefono, "660000001");
-		webDriver.setText(txtEmail, "modificadoOK@mail.com");
+		webDriver.setText(txtNombreDeclarante, nombre);
+		webDriver.setText(txtPrimerApellido, primerApellido);
+		webDriver.setText(txtSegundoApellido, segApellido);
+		webDriver.setText(txtTelefono, telefono);
+		webDriver.setText(txtEmail, email);
 		webDriver.waitWithDriver(3000);
 		webDriver.click(btnContinuar);
 		

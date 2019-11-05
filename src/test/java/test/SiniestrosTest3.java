@@ -362,14 +362,18 @@ public class SiniestrosTest3 extends TestObject {
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
 			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.realizo_pago_simple();
+			steps.cierre_siniestro();
 			
-//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-//			steps.cierre_siniestro();
-//			steps.cierro_navegador();
-//			
-//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-//			steps.reapertura_siniestro();
-//			steps.cierro_navegador();
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.cierre_siniestro();
+			steps.cierro_navegador();
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.reapertura_siniestro();
+			steps.cierro_navegador();
 			
 			return null;
 		}).run();
@@ -379,7 +383,7 @@ public class SiniestrosTest3 extends TestObject {
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec12() {
 			String testCase = Constants.MEC_SINIESTROS + "12";
-			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestModificarSiniestro.csv");
 
 			return casesMatrix;
 		}

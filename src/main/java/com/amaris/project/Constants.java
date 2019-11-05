@@ -238,6 +238,7 @@ public class Constants {
 	public static final String COLECTIVO_CLIENTE = "colectivo_cliente";
 	public static final String NUM_COTIZACION = "num_cotizacion";
 	public static final String NUM_POLIZA = "numero_poliza";
+	
 
 	public static final String TIPO_DOCUMENTO = "tipo_documento";
 
@@ -574,6 +575,7 @@ public class Constants {
 	
 	public static final String ESTADO_CARPETA = "estado_carpeta";
 	public static final String ESTADO_CARPETA_CERRADA = "cerrado";
+	public static final String ESTADO_CARPETA_ABIERTA = "abierto";
 	
 
 

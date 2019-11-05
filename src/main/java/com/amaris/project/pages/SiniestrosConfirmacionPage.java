@@ -36,18 +36,19 @@ public class SiniestrosConfirmacionPage extends PageObject {
 		System.out.println("###########################\n");
 		System.out.println("# Mensaje de confirmacion #\n");
 		System.out.println("###########################\n\n");
-		webDriver.waitWithDriver(6000);
+		webDriver.waitWithDriver(8000);
 		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
 			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto,cuerpoFrame) + "\n");
 			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");
 					
 			System.out.println("- Expediente generado: " + webDriver.getTextInFrame(expediente, cuerpoFrame));
 			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestro, cuerpoFrame));
+			webDriver.waitWithDriver(6000);
 		} else {
 			System.out.println("Se ha producido un error.");
 		}
 
-		System.out.println();
+		
 		
 		debugEnd();
 		

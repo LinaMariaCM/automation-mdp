@@ -119,8 +119,9 @@ public class VistaSiniestroPage extends PageObject {
         debugEnd();
         return this;
     }
-    
-    public VistaSiniestroPage mapeoHistoricoModificarDatos(){
+
+    public VistaSiniestroPage mapeoHistoricoModificarDatos(String nombre, String apellidoPri, String apellidoSeg, String telefono, String email, String descripcion ){
+    //public VistaSiniestroPage mapeoHistoricoModificarDatos(){
         debugBegin();
 
         ActionSteps.waitForIt(webDriver);
@@ -134,21 +135,24 @@ public class VistaSiniestroPage extends PageObject {
         	n++;
         }
         
+/*
+    	System.out.println(nuevosValores);
+    	        
+        if(nuevosValores.contains(nombre))System.out.println("nombre OK");
+        else {
+        	System.out.println("Algo ha ido regular: ");
+        	System.out.println(nombre);
+}*/
+
         
-        
-        if(nuevosValores.contains("NOMBREMOD") && nuevosValores.contains("PRIAPELLIDOMOD") && nuevosValores.contains("SEGAPELLIDOMOD") && nuevosValores.contains("660000001") && nuevosValores.contains("modificadoOK@mail.com")) {
-        	System.out.println("Los datos modificados se muestran correctamente en el historial");
-        }else System.out.println("Algo ha ido regular");
-        
-        Assert.assertTrue((nuevosValores.contains("NOMBREMOD") && nuevosValores.contains("PRIAPELLIDOMOD") && nuevosValores.contains("SEGAPELLIDOMOD") && nuevosValores.contains("660000001") && nuevosValores.contains("modificadoOK@mail.com")), "Los datos modificados se muestran correctamente en el historial");
+        Assert.assertTrue((nuevosValores.contains(nombre) && nuevosValores.contains(apellidoPri) && nuevosValores.contains(apellidoSeg) && nuevosValores.contains(telefono) && nuevosValores.contains(email)), "Los datos modificados se muestran correctamente en el historial");
         	
-        if(webDriver.getText(descripcionNueva).contains("Modificación siniestro completada con exito")){
+      /*  if(webDriver.getText(descripcionNueva).contains(descripcion)){
         	System.out.println("Modificación siniestro completada con exito");
-        }
+        }else System.out.println("Algo ha ido regular con la descripción");*/
         
         Assert.assertTrue(webDriver.getText(descripcionNueva).contains("Modificación siniestro completada con exito"), "Modificación siniestro completada con exito");
 
-        	
         
 
         webDriver.exitFrame();
