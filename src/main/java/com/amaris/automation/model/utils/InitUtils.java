@@ -1,12 +1,11 @@
 package com.amaris.automation.model.utils;
 
-import org.testng.ITestContext;
-
 import com.amaris.automation.configuration.AutomationConstants;
 import com.amaris.automation.data.DataObject;
 import com.amaris.automation.model.testing.TestDataManager;
 import com.amaris.automation.model.webdriver.configuration.BrowserType;
-import com.amaris.automation.model.webdriver.configuration.DeviceType;
+import com.amaris.automation.model.webdriver.configuration.DeviceConstants;
+import org.testng.ITestContext;
 
 public class InitUtils {
 
@@ -272,7 +271,7 @@ public class InitUtils {
 	}
 
 	public static String[] getMobileDevices() {
-		return new String[]{ DeviceType.ANDROID, DeviceType.IPHONE};
+		return new String[]{ DeviceConstants.ANDROID, DeviceConstants.IPHONE};
 	}
 
 	public static boolean deviceIsContained(String[] devicesToCheck) {
