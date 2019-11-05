@@ -1207,9 +1207,25 @@ public class DriverHelper {
 		}
 	}
 
+	public WebElement getElementInFrame(By by, By frame) {
+		switchToFrame(frame);
+		WebElement result = getElement(by);
+		exitFrame();
+
+		return result;
+	}
+
 	private List<WebElement> getAllElements() {
 		if(driverType.equals(AutomationConstants.MOBILE_APP)) return driver.findElements(By.xpath("//*"));
 		else return driver.findElements(By.cssSelector("*"));
+	}
+
+	public List<WebElement> getAllElementsInFrame(By by, By frame) {
+		switchToFrame(frame);
+		List<WebElement> result = getAllElements();
+		exitFrame();
+
+		return result;
 	}
 
 	public void removeElement(By by) {
@@ -1220,8 +1236,22 @@ public class DriverHelper {
 		}
 	}
 
+	public void removeElementInFrame(By by, By frame) {
+		switchToFrame(frame);
+		removeElement(by);
+		exitFrame();
+	}
+
 	public String getAttribute(By by, String attribute) {
-		return driver.findElement(by).getAttribute(attribute);
+		return getAttribute(driver.findElement(by), attribute);
+	}
+
+	public String getAttributeInFrame(By by, By frame, String attribute) {
+		switchToFrame(frame);
+		String result = getAttribute(driver.findElement(by), attribute);
+		exitFrame();
+
+		return result;
 	}
 
 	public String getAttribute(WebElement el, String attribute) {
@@ -1884,6 +1914,14 @@ public class DriverHelper {
 		return webElement;
 	}
 
+	public WebElement getElementFromListByTextInFrame(By elementList, By frame, String text) {
+		switchToFrame(frame);
+		WebElement webElement = getElementFromListByText(elementList, text);
+		exitFrame();
+
+		return webElement;
+	}
+
 	public void clickElementFromListByText(By elementList, String text) {
 		logger.begin();
 		WebElement el = getElementFromListByText(elementList, text);
@@ -1895,6 +1933,12 @@ public class DriverHelper {
 
 		waitForLoadToComplete();
 		logger.end();
+	}
+
+	public void clickElementFromListByTextInFrame(By elementList, By frame, String text) {
+		switchToFrame(frame);
+		clickElementFromListByText(elementList, text);
+		exitFrame();
 	}
 
 	public WebElement getElementFromListByAttribute(By elementList, String attribute, String value) {
@@ -1915,6 +1959,14 @@ public class DriverHelper {
 		return webElement;
 	}
 
+	public WebElement getElementFromListByAttributeInFrame(By elementList, By frame, String attribute, String value) {
+		switchToFrame(frame);
+		WebElement webElement = getElementFromListByAttribute(elementList, attribute, value);
+		exitFrame();
+
+		return webElement;
+	}
+
 	public void clickElementFromListByAttribute(By elementList, String attribute, String value) {
 		logger.begin();
 		WebElement el = getElementFromListByAttribute(elementList, attribute, value);
@@ -1926,6 +1978,12 @@ public class DriverHelper {
 
 		waitForLoadToComplete();
 		logger.end();
+	}
+
+	public void clickElementFromListByAttributeInFrame(By elementList, By frame, String attribute, String value) {
+		switchToFrame(frame);
+		clickElementFromListByAttribute(elementList, attribute, value);
+		exitFrame();
 	}
 
 	public WebElement getElementFromListByIndex(By elementList, int index) {
@@ -1946,6 +2004,14 @@ public class DriverHelper {
 		return webElement;
 	}
 
+	public WebElement getElementFromListByIndexInFrame(By elementList, By frame, int index) {
+		switchToFrame(frame);
+		WebElement webElement = getElementFromListByIndex(elementList, index);
+		exitFrame();
+
+		return webElement;
+	}
+
 	public void clickElementFromListByIndex(By elementList, int index) {
 		logger.begin();
 
@@ -1958,6 +2024,12 @@ public class DriverHelper {
 
 		waitForLoadToComplete();
 		logger.end();
+	}
+
+	public void clickElementFromListByIndexInFrame(By elementList, By frame, int index) {
+		switchToFrame(frame);
+		clickElementFromListByIndex(elementList, index);
+		exitFrame();
 	}
 
 	public WebElement getElementChildByIndex(By elementList, int index) {
@@ -1978,6 +2050,14 @@ public class DriverHelper {
 		return webElement;
 	}
 
+	public WebElement getElementChildByIndexInFrame(By elementList, By frame, int index) {
+		switchToFrame(frame);
+		WebElement webElement = getElementChildByIndex(elementList, index);
+		exitFrame();
+
+		return webElement;
+	}
+
 	public void clickElementChildByIndex(By elementList, int index) {
 		logger.begin();
 		WebElement el = getElementChildByIndex(elementList, index);
@@ -1991,6 +2071,12 @@ public class DriverHelper {
 		logger.end();
 	}
 
+	public void clickElementChildByIndexInFrame(By elementList, By frame, int index) {
+		switchToFrame(frame);
+		clickElementChildByIndex(elementList, index);
+		exitFrame();
+	}
+
 	public WebElement getElementChildByText(By elementList, String text) {
 		logger.begin();
 		waitForElementToBePresent(elementList);
@@ -1999,6 +2085,14 @@ public class DriverHelper {
 		WebElement webElement = !elements.isEmpty() ? elements.get(0) : null;
 
 		logger.end();
+
+		return webElement;
+	}
+
+	public WebElement getElementChildByTextInFrame(By elementList, By frame, String text) {
+		switchToFrame(frame);
+		WebElement webElement = getElementChildByText(elementList, text);
+		exitFrame();
 
 		return webElement;
 	}
@@ -2017,6 +2111,12 @@ public class DriverHelper {
 		logger.end();
 	}
 
+	public void clickElementChildByTextInFrame(By elementList, By frame, String text) {
+		switchToFrame(frame);
+		clickElementChildByText(elementList, text);
+		exitFrame();
+	}
+
 	public WebElement getElementChildByAttribute(By elementList, String attribute, String value) {
 		logger.begin();
 		waitForElementToBePresent(elementList);
@@ -2025,6 +2125,14 @@ public class DriverHelper {
 		WebElement webElement = !elements.isEmpty() ? elements.get(0) : null;
 
 		logger.end();
+
+		return webElement;
+	}
+
+	public WebElement getElementChildByAttributeInFrame(By elementList, By frame, String attribute, String value) {
+		switchToFrame(frame);
+		WebElement webElement = getElementChildByAttribute(elementList, attribute, value);
+		exitFrame();
 
 		return webElement;
 	}
@@ -2041,6 +2149,12 @@ public class DriverHelper {
 
 		waitForLoadToComplete();
 		logger.end();
+	}
+
+	public void clickElementChildByAttributeInFrame(By elementList, By frame, String attribute, String value) {
+		switchToFrame(frame);
+		clickElementChildByAttribute(elementList, attribute, value);
+		exitFrame();
 	}
 
 	// region Text
