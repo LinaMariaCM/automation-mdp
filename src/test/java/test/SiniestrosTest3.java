@@ -354,7 +354,7 @@ public class SiniestrosTest3 extends TestObject {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
-		suiteM.setRelevantColumn(testCase, 12);
+		suiteM.setRelevantColumn(testCase, 13);
 		
 		userS.testActions(() -> {
 			
@@ -364,7 +364,7 @@ public class SiniestrosTest3 extends TestObject {
 			
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.realizo_pago_simple();
-			steps.cierre_siniestro();
+			steps.cierro_navegador();
 			
 			
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));

@@ -17,6 +17,7 @@ public class PagosSiniestroPage extends PageObject {
     private By capaIframe = By.cssSelector("#capaIframe");
     private By selectorFrame = By.id("selectorTipoFigura");
     private By accederPagos = By.xpath(".//*[text()='Pagos'] ");
+   
     
     //informcacion general
     
@@ -173,6 +174,8 @@ public class PagosSiniestroPage extends PageObject {
     //Importes
     private By pagoCuentaSi = By.cssSelector("#pagoCtaSi");
     private By pagoCuentaNo = By.cssSelector("#pagoCtaNo");
+    private By causasImportes =  By.cssSelector("#coberturaImplicada .radio");
+    
 
     //Verificacion ultimo pago de carpeta
     private By ultimoPagoSi = By.cssSelector("#ultimoPagoSi");
@@ -216,7 +219,7 @@ public class PagosSiniestroPage extends PageObject {
     public PagosSiniestroPage seleccionarParticipantesExpediente (){
         debugBegin();
         webDriver.switchToFrame(cuerpoFrame);
-        webDriver.clickElementFromDropDownByIndex(perceptor,6);
+        webDriver.clickElementFromDropDownByIndex(perceptor,4);
         System.out.println("Elemento flecha1 es: " + flecha1);
         webDriver.waitWithDriver(8000);
   
@@ -446,11 +449,21 @@ public class PagosSiniestroPage extends PageObject {
     //Importes
     public PagosSiniestroPage importes (String fPago, String Importe1){
         debugBegin();
-
+        List<WebElement> listaCausasImportes = webDriver.getElementsInFrame(causasImportes, cuerpoFrame);
+         
         webDriver.appendTextInFrame(fechaDePago, cuerpoFrame, fPago);
         webDriver.waitWithDriver(3000);
-        webDriver.clickElementFromDropDownByIndexInFrame(conceptoPago,cuerpoFrame,2);
-        webDriver.clickInFrame(rCRotura, cuerpoFrame);
+       
+        //concepto pago
+        
+        webDriver.clickElementChildByIndexInFrame(conceptoPago, cuerpoFrame, 1);
+        webDriver.waitWithDriver(12000);
+        //Asignacion de cobertura
+        System.out.println("Lista de coberturas: " + listaCausasImportes);
+        System.out.println("Cobertura seleccionada: " + webDriver.getTextInFrame(listaCausasImportes.get(0), cuerpoFrame));
+        
+        webDriver.clickInFrame(listaCausasImportes.get(0), cuerpoFrame);
+        //webDriver.clickInFrame(rCRotura, cuerpoFrame);
         webDriver.appendTextInFrame(importe0,cuerpoFrame, Importe1);
         webDriver.waitWithDriver(5000);
         webDriver.clickInFrame(actualizarImportePago, cuerpoFrame);

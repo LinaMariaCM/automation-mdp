@@ -10,6 +10,7 @@ public class SiniestrosConfirmacionPage extends PageObject {
 
 	// region WebElements
 	private By cuerpoFrame = By.id("mainFrame");
+	private By topFrame = By.cssSelector("#topFrame");
 
 	private By correcto = By.cssSelector("#form1 .marco span.normal strong");
 	
@@ -22,6 +23,8 @@ public class SiniestrosConfirmacionPage extends PageObject {
 	private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a");
 	private By mensajeOK = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
 	private By volver = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li > a > span");
+	
+	private By btnLogoMutua = By.cssSelector("#logo");
 	
 	// endregion
 
@@ -105,4 +108,14 @@ public class SiniestrosConfirmacionPage extends PageObject {
 		
 		return this;
 	}
+	
+	public SiniestrosConfirmacionPage volverAHomeMutua() {
+		debugBegin();
+		
+		webDriver.clickInFrame(btnLogoMutua,topFrame);
+		debugInfo("Volvemos a la página principal de Mutua");
+		debugEnd();
+		return this;
+	}
+	//END
 }
