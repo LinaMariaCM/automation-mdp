@@ -375,7 +375,7 @@ public class SiniestrosTest3 extends TestObject {
 		}).run();
 	}
 	
-	//Modificar siniestro
+	//Modificar siniestro datos
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec12() {
 			String testCase = Constants.MEC_SINIESTROS + "12";
@@ -384,7 +384,7 @@ public class SiniestrosTest3 extends TestObject {
 			return casesMatrix;
 		}
 		
-		//MIO//
+		
 		@Test(dataProvider = "dataProviderSiniestrosMec12")
 		public void siniestrosMec12(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
@@ -403,6 +403,39 @@ public class SiniestrosTest3 extends TestObject {
 			}).run();
 		}
 	
+		
+		
+
+		//Modificar siniestro causa
+		@DataProvider(parallel = true)
+		public String[][] dataProviderSiniestrosMec13() {
+			String testCase = Constants.MEC_SINIESTROS + "13";
+			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestModificarSiniestro2.csv");
+
+			return casesMatrix;
+		}
+		
+		
+		@Test(dataProvider = "dataProviderSiniestrosMec13")
+		public void siniestrosMec13(String testCase, String id) throws Exception {
+			UserStory userS = suiteM.createUserStory(testCase, id);
+			ActionSteps steps = new ActionSteps(userS);
+
+			userS.testActions(() -> {
+				
+				//TEST TIPO
+				steps.login("Innova", "Eperez");
+				System.out.println("Login OK. Empezando moficar siniestro Causa");
+				steps.modificar_siniestro_causa();
+				
+				
+							
+				
+				return null;
+			}).run();
+		}
+		
+		
 	//END
 	@AfterSuite
 	public void afterSuite() {

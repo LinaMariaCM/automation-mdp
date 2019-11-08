@@ -2708,7 +2708,7 @@ public class ActionSteps extends InteractionObject {
 		new AgendaSiniestroPage(userS).nueva_tarea();
 
 	}
-	//MIO//
+	
 	public void modificar_siniestro_datos() throws Exception{
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
@@ -2720,11 +2720,9 @@ public class ActionSteps extends InteractionObject {
 		SiniestrosModificarValidacion modificarValidacion = new SiniestrosModificarValidacion(userS);
 		SiniestrosConfirmacionPage confirmaModificacion = new SiniestrosConfirmacionPage(userS);
 		innovaHome.openSiniestros();
-		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.FECHA_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
 		vistaSiniestro.modificarSiniestro();
 		altaDeclaracion.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
-		//altaDeclaracion.modificarDatosSiniestro();
 		validarReglas.comprobarPaginaModificacion();
 		altaOcurencia.modificarDescripcion(getTestVar(Constants.DESCRIPCION_SINIESTRO));
 		validarReglas2.comprobarPaginaModificacion();
@@ -2733,6 +2731,31 @@ public class ActionSteps extends InteractionObject {
 		vistaSiniestro.irVistaSiniestroHistorico();
 		vistaSiniestro.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
 		
+	
+	}
+	
+	public void modificar_siniestro_causa() throws Exception{
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		VistaSiniestroPage vistaSiniestro = new VistaSiniestroPage(userS);
+		SiniestrosAltaAperturaDeclaracionPage altaDeclaracion = new SiniestrosAltaAperturaDeclaracionPage(userS);
+		ValidacionExcepcionesReglasPage validarReglas = new ValidacionExcepcionesReglasPage(userS);
+		SiniestrosAltaAperturaOcurrenciaPage altaOcurencia = new SiniestrosAltaAperturaOcurrenciaPage(userS);
+		ValidacionExcepcionesReglasPage validarReglas2 = new ValidacionExcepcionesReglasPage(userS);
+		SiniestrosModificarValidacion modificarValidacion = new SiniestrosModificarValidacion(userS);
+		SiniestrosConfirmacionPage confirmaModificacion = new SiniestrosConfirmacionPage(userS);
+		GestionSiniestrosPage gestionDeSiniestro = new GestionSiniestrosPage(userS);
+		innovaHome.openSiniestros();
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.FECHA_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
+		vistaSiniestro.modificarSiniestro();
+		altaDeclaracion.continuarSinAcciones();
+		validarReglas.comprobarPaginaModificacion();
+		//modificar causa
+		altaOcurencia.modificarCausa(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD));
+		validarReglas2.comprobarPaginaModificacion();
+		modificarValidacion.validar();
+		confirmaModificacion.confirmaModificacion();
+		gestionDeSiniestro.comprobarCausa(getTestVar(Constants.TIPO_CAUSA));
 	
 	}
 

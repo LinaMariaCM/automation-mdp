@@ -1,0 +1,2 @@
+acceso;usuario;tipo_poliza;numero_poliza;numero_siniestro;fecha_siniestro;dec_nombre;dec_prim_apellido;dec_seg_apellido;dec_telefono;dec_email;descripcion_siniestro;grupo_causa;grupo_causa_cod;tipo_causa;tipo_causa_cod;
+Innova;eperez;MEC;510014666;04077715;2019;NOMBREMOD;PRIAPELLIDOMOD;SEGAPELLIDOMOD;660000001;modificadoOK@mail.com;Nueva descripción de siniestro. Modificación siniestro completada con exito;AGUA;GC02;2001 BAJANTE GENERAL;TC002001;
