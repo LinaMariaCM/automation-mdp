@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
@@ -44,6 +45,7 @@ public class GestionSiniestrosPage extends PageObject{
     	private By importePagosInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");   	
     	private By reservaActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
     	
+    	private By causaSin = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(1)");
 
     //posiocion global
     
@@ -391,6 +393,8 @@ public class GestionSiniestrosPage extends PageObject{
     
     public GestionSiniestrosPage mostrarInfoGeneral(){
     	debugBegin();
+
+        webDriver.switchToFrame(cuerpoFrame);
     	
     	System.out.println("Número de Póliza: " + webDriver.getText(nPolizaInfo));
     	
@@ -417,6 +421,8 @@ public class GestionSiniestrosPage extends PageObject{
     	System.out.println("Importe pagos: " + webDriver.getText(importePagosInfo));
     	
     	System.out.println("Reserva actual: " + webDriver.getText(reservaActualInfo));  	
+    	
+    	webDriver.exitFrame();
     	
     	debugEnd();
     	return this;
@@ -449,5 +455,21 @@ public class GestionSiniestrosPage extends PageObject{
     	return this;
     } 
      
+    
+    public GestionSiniestrosPage comprobarCausa(String causa){
+    	debugBegin();
+
+    	webDriver.waitForPageToLoad();
+        webDriver.switchToFrame(cuerpoFrame);
+    	
+    	System.out.println("Tipo de causa: " + webDriver.getText(causaSin));
+    	 Assert.assertTrue(webDriver.getText(causaSin).contains(causa), "Modificación de causa siniestro completada con exito");
+    	
+    	webDriver.exitFrame();
+    	
+    	debugEnd();
+    	return this;
+    }
+    
     
 }

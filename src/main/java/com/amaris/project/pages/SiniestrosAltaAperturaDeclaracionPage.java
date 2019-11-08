@@ -469,6 +469,18 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		return this;
 	}
 	
-	
+	public SiniestrosAltaAperturaDeclaracionPage continuarSinAcciones() {
+		debugBegin();
+		webDriver.waitForPageToLoad();
+		webDriver.switchToFrame(cuerpoFrame);
+
+		webDriver.waitWithDriver(2500);
+		webDriver.click(btnContinuar);
+
+		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
 	// endregion
 }

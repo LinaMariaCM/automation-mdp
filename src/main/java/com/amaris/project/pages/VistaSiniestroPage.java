@@ -151,7 +151,7 @@ public class VistaSiniestroPage extends PageObject {
         	System.out.println("Modificación siniestro completada con exito");
         }else System.out.println("Algo ha ido regular con la descripción");*/
         
-        Assert.assertTrue(webDriver.getText(descripcionNueva).contains("Modificación siniestro completada con exito"), "Modificación siniestro completada con exito");
+        Assert.assertTrue(webDriver.getText(descripcionNueva).contains(descripcion), "Modificación siniestro completada con exito");
 
         
 
@@ -161,6 +161,39 @@ public class VistaSiniestroPage extends PageObject {
         return this;
     }
         
+    
+    public VistaSiniestroPage mapeoHistoricoModificarCausa(String grupoCausa, String tipoCausa){
+        //public VistaSiniestroPage mapeoHistoricoModificarDatos(){
+            debugBegin();
+
+            ActionSteps.waitForIt(webDriver);
+            webDriver.switchToFrame(cuerpoFrame);
+            webDriver.switchToFrame(capaIframe);
+            
+            String nuevosValores="";
+            int n=0;
+            while (webDriver.isPresent(listaValoresNuevos[n])) {
+            	nuevosValores = nuevosValores + " " + webDriver.getText(listaValoresNuevos[n]);
+            	n++;
+            }
+            
+    /*
+        	System.out.println(nuevosValores);
+        	        
+            if(nuevosValores.contains(nombre))System.out.println("nombre OK");
+            else {
+            	System.out.println("Algo ha ido regular: ");
+            	System.out.println(nombre);
+    }*/
+
+            
+            Assert.assertTrue((nuevosValores.contains(grupoCausa) && nuevosValores.contains(tipoCausa)), "Los datos modificados se muestran correctamente en el historial");
+            
+            webDriver.exitFrame();
+            webDriver.exitFrame();
+            debugEnd();
+            return this;
+        }
     
 
     public VistaSiniestroPage irVistaSiniestroHistorico(){

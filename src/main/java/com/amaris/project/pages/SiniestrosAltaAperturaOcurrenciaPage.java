@@ -278,5 +278,28 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		return this;
 	}
 	
+	public SiniestrosAltaAperturaOcurrenciaPage modificarCausa(String grupoCausa, String tipoCausa){
+		//public SiniestrosAltaAperturaOcurrenciaPage modificarDescripcion(){
+			
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		
+		webDriver.waitForPageToLoad();
+		System.out.println("La página ha cargado. Procedemos a moificar los datos de causa.");
+		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", grupoCausa); 
+		webDriver.waitWithDriver(5000);
+		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", tipoCausa); 
+		webDriver.waitWithDriver(3000);
+		if(webDriver.isOnScreen(comboGremio)) {
+			webDriver.clickElementFromDropDownByIndex(comboGremio, 3);		
+		}
+		webDriver.click(btnVerificar);
+
+		webDriver.exitFrame();
+		debugEnd();
+			
+		return this;
+	}
+	
 	// endregion
 }
