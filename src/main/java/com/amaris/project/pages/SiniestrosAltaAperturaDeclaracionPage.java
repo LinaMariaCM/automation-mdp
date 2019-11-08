@@ -48,7 +48,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By txtPrimerApellido = By.id("ape1pers");
 	private By txtSegundoApellido = By.id("ape2pers");
 	private By txtTelefono = By.id("telefono1");
-	private By comboPrefijo = By.id("ESTRUCTU");
+	private By comboPrefijo = By.id("#datosDeclarante > div.sis-frame-bg > table > tbody > tr:nth-child(3) > td > span > div > span.ui-combobox");
 	private By txtEmail = By.id("mail");
 	private By checkEmailNoDisponible = By.id("emailnodisp");
 
@@ -171,21 +171,34 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 					String prefijoTelefono, String numeroTelefono,
 					String emailDeclarante,String noDisponible) {
 		debugBegin();
-
 		webDriver.appendTextInFrame(txtNombreDeclarante, cuerpoFrame, nombreDeclarante);
 		webDriver.appendTextInFrame(txtPrimerApellido, cuerpoFrame, apellidoDeclarante);
 		webDriver.appendTextInFrame(txtSegundoApellido, cuerpoFrame, segundoApellido);
-		webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo, cuerpoFrame, "value", prefijoTelefono);
-		webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
+		//webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo, cuerpoFrame, "value", prefijoTelefono); en principio sólo contemplado para España
 		
-		//webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
+//		if(webDriver.getTextInFrame(txtTelefono, cuerpoFrame).isEmpty()) System.out.println("El número de teléfono del declarante ya está puesto: " + webDriver.getTextInFrame(txtTelefono, cuerpoFrame));
+//		
+//		else {
+//			System.out.println("El número del declarante es: " + numeroTelefono);
+//			webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
+//		}
+		
+//		if(emailDeclarante.isEmpty()) webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "prueba_sin_mail@esto.es");
+//		else webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
+		
+		System.out.println("El número del declarante es: " + numeroTelefono);
+		webDriver.clearTextInFrame(txtTelefono, cuerpoFrame);
+		webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);	
+		
 		webDriver.waitWithDriver(3000);
-		webDriver.switchToFrame(cuerpoFrame);
+		//webDriver.switchToFrame(cuerpoFrame);
 		if(!noDisponible.isEmpty()) {
-			webDriver.appendTextInFrame(txtEmail, modalFrame, emailDeclarante);
+			//webDriver.appendTextInFrame(txtEmail, modalFrame, emailDeclarante);
+			webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
 			// webDriver.clickInFrame(checkNoEmail, modalFrame);
 		} else {
-			webDriver.appendTextInFrame(txtEmail, modalFrame, "prueba@esto.es");
+			//webDriver.appendTextInFrame(txtEmail, modalFrame, "prueba@esto.es");
+			webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "prueba_sin_mail@esto.es");
 		}
 
 		//if(noDisponible) webDriver.clickInFrame(checkEmailNoDisponible, cuerpoFrame);
@@ -395,9 +408,9 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		debugBegin();
 		System.out.println(txtEmail);
 		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
-		webDriver.waitWithDriver(5000);
+		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-		webDriver.waitWithDriver(5000);
+		webDriver.waitWithDriver(3000);
 		debugEnd();
 
 		return this;

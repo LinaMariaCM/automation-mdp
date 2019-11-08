@@ -2432,7 +2432,9 @@ public class ActionSteps extends InteractionObject {
 
 			datosDeclaracion
 				.altaDatosDeclaracion(getTestVar(Constants.FECHA_OCURRENCIA), getTestVar(Constants.TIPO_DECLARANTE), getTestVar(Constants.MEDIO_DECLARACION), getTestVar(Constants.FECHA_DENUNCIA), getTestVar(Constants.DECLARACION_OBSERVACIONES));
-
+			
+			datosDeclaracion.altaDatosDeclarante(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_PREFIJO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DECLARACION_EMAIL_NO_DISP));
+			
 			// Añadimos datos de persona extra
 			// datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D",
 			// "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
@@ -2462,7 +2464,7 @@ public class ActionSteps extends InteractionObject {
 				validarReglas.clickOnContinuarButton();
 			}
 
-			// Completamos el apartado de Ocurrencia
+			// 2.Ocurrencia
 			SiniestrosAltaAperturaOcurrenciaPage datosOcurrencia = new SiniestrosAltaAperturaOcurrenciaPage(userS);
 			datosOcurrencia.altaRiesgoAsegurado();
 
@@ -2507,15 +2509,17 @@ public class ActionSteps extends InteractionObject {
 
 			// Completamos el apartado de Implicado asegurado
 			System.out.println("PARA IMPLICADO ASEGURADO POLIZA: " + getTestVar(Constants.NUM_POLIZA));
-			if(!getTestVar(Constants.NUM_POLIZA).startsWith("920")) {
+			//if(!getTestVar(Constants.NUM_POLIZA).startsWith("920")) {
 				debugInfo("AQUI ABRIR APERTURA");
 				userS.getWebDriver().waitWithDriver(10000);
 				SiniestrosImplicadoAseguradoPage implicadoAsegurado = new SiniestrosImplicadoAseguradoPage(userS);
+				implicadoAsegurado.seleccionarImplicado();
 				implicadoAsegurado.clickApertura();
-			}
+			//}
 			// Comprobamos si se requiere añadir un implicado extra
 
 			if(!getTestVar(Constants.OTROS_IMPLICADOS).isEmpty()) {
+				debugInfo("COMPROBAMOS SI SE REQUIERE AÑADIR UN IMPLICADO EXTRA");
 				SiniestrosOtrosImplicadosAlta altaOtrosImplicados = new SiniestrosOtrosImplicadosAlta(userS);
 				altaOtrosImplicados.clickNuevoImplicado();
 				SiniestrosOtrosImplicadosDatos otroImplicadoDatos = new SiniestrosOtrosImplicadosDatos(userS);
@@ -2530,6 +2534,7 @@ public class ActionSteps extends InteractionObject {
 
 			// Comprobamos si se requiere añadir un encargo
 			if(!getTestVar(Constants.ENCARGO).isEmpty()) {
+				debugInfo("COMPROBAMOS SI SE REQUIERE UN ENCARGO");
 				SiniestrosEncargoAlta altaEncargo = new SiniestrosEncargoAlta(userS);
 				altaEncargo.clickNuevoEncargo();
 				SiniestrosEncargoDatos encargoDatos = new SiniestrosEncargoDatos(userS);
@@ -2541,7 +2546,17 @@ public class ActionSteps extends InteractionObject {
 
 			// Página de confirmación
 			SiniestrosConfirmacionPage confirmarAltaSiniestro = new SiniestrosConfirmacionPage(userS);
+			debugInfo("CONFIRMAMOS SINIESTRO");
 			confirmarAltaSiniestro.confirmarSiniestroOK();
+			
+			
+			// Si el siniestro es de tipo MAC tenemos que modificar el siniestro para asignar una causa válida para emitir un pago
+			
+			if(getTestVar(Constants.NUM_POLIZA).startsWith("920")) {
+				debugInfo("La póliza a la cual pertenece el siniestro es de tipo MAC, procedemos a modificar las causas para poder realizar pagos");
+				confirmarAltaSiniestro.volverAHomeMutua();
+				modifico_causas_siniestro_MAC();
+			}
 
 			// Accedemos a siniestros desde Gestión On Line
 		} else if(Constants.ACCESO.equals(Constants.LoginAccessGestionLine)) {
@@ -2621,9 +2636,12 @@ public class ActionSteps extends InteractionObject {
 		PagosSiniestroPage pagosSiniestro = new PagosSiniestroPage(userS);
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 		AgendaSiniestroPage agendaSiniestro = new AgendaSiniestroPage(userS);
+		
 		innovaHome.openSiniestros();
-		// buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
-		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		
+		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		
 		Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
 		Boolean encargos = gestionCarpeta.comprobar_encargos();
 		Boolean tareas = agendaSiniestro.comprobar_tareas_pendientes();
@@ -2642,11 +2660,13 @@ public class ActionSteps extends InteractionObject {
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		// buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
-		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
 		gestionCarpeta.nueva_carpeta();
 
 	}
-
+	
+	
 	public void realizo_pago_simple() throws Exception {
 		debugBegin();
 		PagosSiniestroPage pagosSiniestroPage = new PagosSiniestroPage(userS);
@@ -2660,11 +2680,17 @@ public class ActionSteps extends InteractionObject {
 
 		// Una vez dentro, se selecciona la opcion buscar por otros
 		// gestionSiniestrosBuscador.buscarPorOtros("1/08/2019","15/09/2019","640","510");
-		gestionSiniestrosBuscador.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		//gestionSiniestrosBuscador.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		
 		// Seleccion del siniestro a pagar
 		pagosSiniestroPage.nuevoPago();
-
-		if(getTestVar(Constants.ESTADO_CARPETA).equals(getTestVar(Constants.ESTADO_CARPETA_CERRADA))) {
+		
+		System.out.println("La carpeta está: " + getTestVar(Constants.ESTADO_CARPETA));
+		System.out.println("El estado carpeta es: " + Constants.ESTADO_CARPETA_ABIERTA);
+		
+		if(getTestVar(Constants.ESTADO_CARPETA).equalsIgnoreCase(Constants.ESTADO_CARPETA_ABIERTA)) {
 			// Seleccion de un tipo de perceptor
 			pagosSiniestroPage.seleccionarParticipantesExpediente();
 
@@ -2672,7 +2698,7 @@ public class ActionSteps extends InteractionObject {
 			pagosSiniestroPage.datosPerceptor();
 
 			// Seleccion de concepto de pago, cobertura, importes y deducciones
-			pagosSiniestroPage.importes("01/10/2019", "100,00");
+			pagosSiniestroPage.importes("04/11/2019", "100,00");
 
 			// Verificacion de todos los datos esten correctamente y grabacion del pago
 			pagosSiniestroPage.verificacion();
@@ -2800,6 +2826,57 @@ public class ActionSteps extends InteractionObject {
 
 		if(gestionCarpeta.comprobar_encargos()) System.out.println("encargos : Sí, hay encargos.");
 
+	}
+	
+	public void modifico_causas_siniestro_MAC() throws Exception {
+		
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		new GestionSiniestrosPage(userS).vista();
+		new VistaSiniestroPage(userS).modificarSiniestro();
+		
+		// 1.Declaración
+		new SiniestrosAltaAperturaDeclaracionPage(userS).clickContinuar();
+	// Validamos cosas
+		ValidacionExcepcionesReglasPage validarReglas = new ValidacionExcepcionesReglasPage(userS);
+		if(validarReglas.comprobarNombrePagina().contains("excepciones")) validarReglas.clickOnContinuarButton();
+		
+	// 2.Ocurrencia	
+		SiniestrosAltaAperturaOcurrenciaPage ocurrencia = new SiniestrosAltaAperturaOcurrenciaPage(userS);
+		ocurrencia.modificarCausasEspecificasMAC();
+		ocurrencia.clickContinuar();
+		
+	// Validamos más cosas
+		ValidacionExcepcionesReglasPage validarReglas2 = new ValidacionExcepcionesReglasPage(userS);
+		if(validarReglas2.comprobarNombrePagina().contains("excepciones")) {
+			debugInfo("AQUI ES VALIDACION EXCEPCIONES");
+			userS.getWebDriver().waitWithDriver(10000);
+			validarReglas2.clickOnContinuarButton();
+		}	
+		
+//	Aceptamos el apartado de Implicado asegurado
+
+		new SiniestrosImplicadoAseguradoPage(userS).clickApertura();
+		
+// Si hay un implicado extra, continuamos
+
+		if(!getTestVar(Constants.OTROS_IMPLICADOS).isEmpty()) {
+		
+			new SiniestrosOtrosImplicadosAlta(userS).clickContinuar();
+			
+			}
+		
+// Si hay encargo, aceptamos
+		if(!getTestVar(Constants.ENCARGO).isEmpty()) {	
+		
+			new SiniestrosEncargoAlta(userS).clickContinuar();
+			
+			}
+			
+// Página de confirmación
+		debugInfo("CONFIRMAMOS SI EL SINIESTRO MAC HA SIDO MODIFICADO");
+		new SiniestrosConfirmacionPage(userS).confirmarSiniestroOK();		
+		
 	}
 
 }

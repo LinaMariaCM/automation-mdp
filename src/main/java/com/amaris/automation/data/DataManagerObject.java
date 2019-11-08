@@ -13,7 +13,6 @@ import com.amaris.automation.model.utils.FileUtils;
  */
 public class DataManagerObject {
 
-	private int size = 0;
 	private String key;
 	Map<String, DataObject> mappedData = new HashMap<>();
 
@@ -39,7 +38,7 @@ public class DataManagerObject {
 	}
 
 	public int size() {
-		return this.size;
+		return mappedData.size();
 	}
 
 	public boolean containsKey(String dataKey) {
@@ -54,9 +53,7 @@ public class DataManagerObject {
 
 	public void addData(String key, DataObject dataObject) {
 		synchronized(mappedData) {
-			if(!mappedData.containsKey(key)) {
-				size++;
-			} else {
+			if(mappedData.containsKey(key)) {
 				mappedData.remove(key);
 			}
 			
@@ -66,7 +63,6 @@ public class DataManagerObject {
 
 	public void removeData(String key) {
 		synchronized(mappedData) {
-			if(mappedData.containsKey(key)) size--;
 			mappedData.remove(key);
 		}
 	}

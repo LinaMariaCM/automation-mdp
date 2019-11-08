@@ -50,6 +50,8 @@ public class GestionCarpetaSiniestrosPage extends PageObject {
 
     private By noExistenCarpetas = By.cssSelector("body > form > div.sis-noresult");
 
+    private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
+    
     
     public GestionCarpetaSiniestrosPage(UserStory userS) {
         super(userS);
@@ -135,21 +137,25 @@ public class GestionCarpetaSiniestrosPage extends PageObject {
         webDriver.waitWithDriver(5000);
         webDriver.setText(telefono, "911250100");
         webDriver.setText(telefono2, "961234567");
-        
+        webDriver.setText(email, "prueba@esto.es");
         webDriver.waitWithDriver(8000);
-        webDriver.setText(codIban, "1111");
-        webDriver.setText(banco, "1111");
-        webDriver.setText(sucursal, "1111");
-        webDriver.setText(dc, "11");
-        webDriver.setText(noCuenta, "1111111111");
-        webDriver.click(grabar);
+        webDriver.setText(codIban, "ES03");
+        webDriver.setText(banco, "2100");
+        webDriver.setText(sucursal, "1234");
+        webDriver.setText(dc, "56");
+        webDriver.setText(noCuenta, "1234567890");
+        webDriver.waitWithDriver(5000); 
+        webDriver.click(grabar);       
+        debugInfo("Comprobamos el estado del siniestro (debería ser: Abierto)");
+        System.out.println(webDriver.getText(estadoSiniestroInfo));
         webDriver.exitFrame();
 
+        webDriver.waitWithDriver(9000);
         debugEnd();
         return this; 
     }
 
-    
+  
     public GestionCarpetaSiniestrosPage cerrar_carpeta(){
         debugBegin();
         webDriver.clickInFrame(carpeta,leftFrame);

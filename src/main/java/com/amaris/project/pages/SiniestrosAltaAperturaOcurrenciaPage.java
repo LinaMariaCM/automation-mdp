@@ -13,6 +13,7 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	// region webelements
 	// ##### FRAMES ####
 	private By cuerpoFrame = By.id("mainFrame");
+	private By capaIframe = By.id("capaIframe");
 
 	// #### LUGAR DE OCURRENCIA ####
 	private By buttonRechazarApertura = By.id("cabRechazar");
@@ -39,6 +40,12 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	private By comboTiposCausas = By.id("TIPOCAUS");
 	private By gremioCausasElemento = By.cssSelector("#CODGREMIO > option");
 	private By comboGremio = By.id("CODGREMIO");
+	
+	private By reservaInicial = By.id("RESEINIC");
+	private By modificarReserva = By.cssSelector("#datosCausa > div.sis-frame-bg > table.tableForm > tbody > tr.paraOcultar > td > span:nth-child(4) > input");
+	private By btnGrabarModificarReserva = By.id("buttonRecord");
+	private By btnCancelarModificarReserva = By.id("buttonCancel");
+	
 
 	// #### DATOS DE LA OCURRENCIA ####
 	private By txtDescripcionSiniestro = By.id("version");
@@ -101,9 +108,9 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	
 		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", grupoCausa); 
 		
-		// TODO cambiar por VALUE
+	
 		webDriver.waitWithDriver(5000);
-		// TODO cambiar por VALUE
+		
 		//webDriver.clickElementFromDropDownByIndex(comboTiposCausa, 2);
 		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", tipoCausa); 
 		// TODO cambiar por VALUE
@@ -112,12 +119,36 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		if(webDriver.isOnScreen(comboGremio)) {
 			//webDriver.clickElementFromDropDownByIndex(comboGremio, 3);
 			webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, gremioCausasElemento, "title", gremioCausa); 			
-		}// TODO cambiar por VALUE
+		}
+		
+		if(webDriver.getText(reservaInicial).equalsIgnoreCase("0,00")) {
+			webDriver.click(modificarReserva);
+			webDriver.switchToFrame(capaIframe);
+			debugInfo("MODIFICAMOS LAS RESERVAS DE 0,00 A 150,00");
+			webDriver.setText(reservaInicial, "150");
+			webDriver.click(btnGrabarModificarReserva);
+		}
+		
 		webDriver.exitFrame();
 		debugEnd();
 		
 		return this;
 	}
+	public SiniestrosAltaAperturaOcurrenciaPage modificarCausasEspecificasMAC() {
+		debugBegin();
+		debugInfo("Seleccionamos causas específicas para siniestro MAC");
+		webDriver.switchToFrame(cuerpoFrame);				
+		webDriver.clickElementFromDropDownByIndex(comboTiposCausas,1); 
+		
+		webDriver.waitWithDriver(3000);
+
+		if(webDriver.isOnScreen(comboGremio)) {
+			webDriver.clickElementFromDropDownByIndex(comboGremio, 1); 	
+		}
+		webDriver.exitFrame();	
+		debugEnd();
+		return this;
+		}
 
 	public SiniestrosAltaAperturaOcurrenciaPage altaRellenarDatos(String descripcion, String implicadosExisten, String encargo) {
 		debugBegin();
