@@ -4,6 +4,10 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.ActionSteps;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.openqa.selenium.By;
 
 public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
@@ -57,6 +61,18 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	private By btnContinuar = By.id("botonContinuar");
 	private By descripOcu = By.id("version");
 	private By btnVerificar = By.id("botonVerificar");
+	
+	// ### DATOS ADICIONALES DE LA OCURRENCIA PARA CAUSAS ESPECIFICAS DE MAC ###
+	
+	private By renta = By.cssSelector("#nombdato_RENTA_1");								//Renta
+	private By suministro = By.cssSelector("#nombdato_SUMMI_1"); 						//Suministro
+	private By	fechaDemanda = By.cssSelector("#nombdato_FECHINDEM_1");					//*Fecha interposición demanda desahucio
+	private By	fechaReclamacion= By.cssSelector("#nombdato_FECHINDRC_1");				//Fecha interposición demanda reclamación
+	private By	fechaEntregaLlaves= By.cssSelector("#nombdato_FECHENLLA_1");			//Fecha entrega llaves
+	private By	fechaLanzamiento= By.cssSelector("#nombdato_FECHLANZA_1");				//Fecha lanzamiento
+	private By	fechaSentencia= By.cssSelector("#nombdato_FECHSENTE_1");				//Fecha sentencia
+	private By	fechaSolicitudAvanceRenta= By.cssSelector("#nombdato_FECHSOAREN_1");	//*Fecha solicitud avance renta
+	
 	// endregion
 
 	public SiniestrosAltaAperturaOcurrenciaPage(UserStory userS) {
@@ -137,14 +153,30 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 	public SiniestrosAltaAperturaOcurrenciaPage modificarCausasEspecificasMAC() {
 		debugBegin();
 		debugInfo("Seleccionamos causas específicas para siniestro MAC");
-		webDriver.switchToFrame(cuerpoFrame);				
-		webDriver.clickElementFromDropDownByIndex(comboTiposCausas,1); 
+		webDriver.switchToFrame(cuerpoFrame);		
 		
+		webDriver.waitWithDriver(6000);
+		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", "GC25");
+		
+		webDriver.waitWithDriver(6000);
+		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", "TC025001");
+		
+//		if(webDriver.isOnScreen(comboGremio)) {
+//			webDriver.clickElementFromDropDownByAttribute(comboGremio, gremioCausasElemento, "title", gremioCausa);	
+//		}
+		
+		//Datos Adicionales
+		
+		webDriver.setText(renta, "120");
+	
+		DateFormat fechaDeHoy = new SimpleDateFormat("dd/MM/yyyy");
+		
+		webDriver.appendText(fechaDemanda, fechaDeHoy.format(new Date()));
 		webDriver.waitWithDriver(3000);
-
-		if(webDriver.isOnScreen(comboGremio)) {
-			webDriver.clickElementFromDropDownByIndex(comboGremio, 1); 	
-		}
+		//TODO rellenar el resto de fechas opcionales
+		
+		webDriver.appendText(fechaSolicitudAvanceRenta, fechaDeHoy.format(new Date()));
+		
 		webDriver.exitFrame();	
 		debugEnd();
 		return this;

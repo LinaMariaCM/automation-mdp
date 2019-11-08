@@ -437,6 +437,7 @@ public class Constants {
 	//Constantes Siniestros	:	Datos Alta Siniestro
 	
 	public static final String NUMERO_SINIESTRO = "numero_siniestro";
+	public static final String ANYO_SINIESTRO = "anyo_siniestro";
 	
 	public static final String FECHA_OCURRENCIA = "fecha_ocurrencia";
 	public static final String TIPO_DECLARANTE = "tipo_declarante";

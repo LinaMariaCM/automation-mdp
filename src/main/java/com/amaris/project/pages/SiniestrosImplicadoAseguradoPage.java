@@ -94,6 +94,22 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 		return this;
 	}	
 	
+	public SiniestrosImplicadoAseguradoPage continuar() {
+		debugBegin();
+		//por si el telefono está mal.
+		String numeroBien = "";
+		if(webDriver.getText(txtTelefono1).startsWith("+")) {
+			numeroBien = webDriver.getText(txtTelefono1).substring(3);
+			
+			
+			webDriver.setText(txtTelefono1, numeroBien);}
+		
+		webDriver.clickInFrame(btnValidarYContinuar, cuerpoFrame);
+		ActionSteps.waitForIt(webDriver);
+		debugEnd();
+		
+		return this;
+	}
 	
 	// endregion
 }
