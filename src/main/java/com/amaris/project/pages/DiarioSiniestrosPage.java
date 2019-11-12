@@ -8,6 +8,7 @@ import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.*;
 import java.util.List;
 
+
 public class DiarioSiniestrosPage extends PageObject {
 
 
@@ -154,11 +155,27 @@ public class DiarioSiniestrosPage extends PageObject {
     public DiarioSiniestrosPage mostrarListadoMovimientos() {
     	debugBegin();
     	debugInfo("Información Listado de Movimientos desde Diario de Siniestro");
+    	System.out.println("=============================================================");
     	webDriver.switchToFrame(cuerpoFrame);
     	List<WebElement> listaMovimientos = webDriver.getElements(filaListadoMovimientos);
+    	boolean apertura = false, imas = false; 
+    	
     	for(int i=0; i< listaMovimientos.size(); i++){
         	System.out.println(webDriver.getText(listaMovimientos.get(i)));
-    	}
+        	if(webDriver.getText(listaMovimientos.get(i)).contains("(Abierto)")) apertura = true;
+        	if(webDriver.getText(listaMovimientos.get(i)).contains("IMAS")) imas = true ;        	
+        	
+        	}
+    	System.out.println("---------------------------------------------------------");
+    	System.out.println("COMPROBACION COMUNICACION APERTURA");
+    	if(apertura) {
+    		System.out.println("OK : apertura comunicada correctamente");
+    	} else {System.out.println("KO : fallo en la apertura");}
+    	if(imas) {
+    		System.out.println("OK : carpeta IMAS generada");
+    	}else {System.out.println("!!! : no se ha creado carpeta IMAS, revisar si existe fallo. ");}
+    	System.out.println("=============================================================");
+    	
     	webDriver.exitFrame();
     	
     	debugEnd();
