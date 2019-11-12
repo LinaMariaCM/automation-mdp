@@ -344,12 +344,12 @@ public class SiniestrosTest3 extends TestObject {
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec11() {
 		String testCase = Constants.MEC_SINIESTROS + "11";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros333.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros332.csv");
 
 		return casesMatrix;
 	}
 	
-	@Test(dataProvider = "dataProviderSiniestrosMec11")
+	@Test(dataProvider = "dataProviderSiniestrosMec11", priority=3)
 	public void siniestrosMec11(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
@@ -389,7 +389,7 @@ public class SiniestrosTest3 extends TestObject {
 		}
 		
 		
-		@Test(dataProvider = "dataProviderSiniestrosMec12")
+		@Test(dataProvider = "dataProviderSiniestrosMec12", priority=1)
 		public void siniestrosMec12(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
 			ActionSteps steps = new ActionSteps(userS);
@@ -420,7 +420,7 @@ public class SiniestrosTest3 extends TestObject {
 		}
 		
 		
-		@Test(dataProvider = "dataProviderSiniestrosMec13")
+		@Test(dataProvider = "dataProviderSiniestrosMec13",priority=2)
 		public void siniestrosMec13(String testCase, String id) throws Exception {
 			UserStory userS = suiteM.createUserStory(testCase, id);
 			ActionSteps steps = new ActionSteps(userS);
@@ -442,9 +442,9 @@ public class SiniestrosTest3 extends TestObject {
 		
 	//END
 	@AfterSuite
-	public void afterSuite() {
-		suiteM.createHtmlReport();
-		suiteM.createPdfReport();
+	public void afterSuite() { try
+		{suiteM.createHtmlReport();
+		suiteM.createPdfReport();} catch(Exception E) {E.printStackTrace();}
 	}
 
 }

@@ -2692,7 +2692,9 @@ public class ActionSteps extends InteractionObject {
 		
 		if(getTestVar(Constants.ESTADO_CARPETA).equalsIgnoreCase(Constants.ESTADO_CARPETA_ABIERTA)) {
 			// Seleccion de un tipo de perceptor
-			pagosSiniestroPage.seleccionarParticipantesExpediente();
+			if(getTestVar(Constants.NUM_POLIZA).startsWith("510")){
+				pagosSiniestroPage.seleccionarTipoDePerceptor();}
+				else {pagosSiniestroPage.seleccionarParticipantesExpediente();}
 
 			// Seleccion de datos bancarios y observaciones
 			pagosSiniestroPage.datosPerceptor();

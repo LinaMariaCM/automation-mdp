@@ -252,9 +252,12 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 //		else if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("900") != 0) {
 //			 System.out.println("Entro a 900");
 //			 if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
+//		if(webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)){webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
 		
-		webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
+		if(getTestVar(Constants.NUM_POLIZA).startsWith("150")){System.out.println("Póliza carece de opción: 'alta sin asistencia'.");}
+		else {webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
 		
+		debugInfo("Seleccionada: Asistencia NO");
 		debugEnd();
 
 		return this;

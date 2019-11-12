@@ -187,6 +187,8 @@ public class PagosSiniestroPage extends PageObject {
     // comprobar si tiene pagos
     private By listPagos = By.cssSelector("table.grid:nth-child(1) > tbody:nth-child(1) tr[valign='top'] td:nth-child(9)");
 
+    private By tipoPerceptor = By.cssSelector("#tipoPerceptor");
+    private By tipoPerceptorElemento = By.cssSelector("#tipoPerceptor > option");
 
     // endregion
 
@@ -220,6 +222,21 @@ public class PagosSiniestroPage extends PageObject {
         debugBegin();
         webDriver.switchToFrame(cuerpoFrame);
         webDriver.clickElementFromDropDownByIndex(perceptor,4);
+        System.out.println("Elemento flecha1 es: " + flecha1);
+        webDriver.waitWithDriver(8000);
+  
+        webDriver.click(flecha1);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+    
+    public PagosSiniestroPage seleccionarTipoDePerceptor (){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        //webDriver.clickElementFromDropDownByIndex(perceptor,4);
+        webDriver.clickElementFromDropDownByAttribute(tipoPerceptor, tipoPerceptorElemento, "value", "PE40");       
         System.out.println("Elemento flecha1 es: " + flecha1);
         webDriver.waitWithDriver(8000);
   
@@ -477,7 +494,7 @@ public class PagosSiniestroPage extends PageObject {
     public PagosSiniestroPage verificacion (){
         debugBegin();
         
-        webDriver.waitWithDriver(3000);
+        webDriver.waitWithDriver(9000);
         webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
 
         debugEnd();

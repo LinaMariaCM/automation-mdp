@@ -53,7 +53,9 @@ public class SiniestrosEncargoAlta extends PageObject {
 	public SiniestrosEncargoAlta clickContinuar() {
 		debugBegin();
 		webDriver.click(continuarBtn);
-		ActionSteps.waitForIt(webDriver);
+		//ActionSteps.waitForIt(webDriver);
+		webDriver.exitFrame();
+		webDriver.waitWithDriver(7000);
 		debugEnd();
 		
 		return this;
