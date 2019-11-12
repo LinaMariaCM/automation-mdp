@@ -440,6 +440,38 @@ public class SiniestrosTest3 extends TestObject {
 		}
 		
 		
+		@DataProvider(parallel = true)
+		public String[][] dataProviderSiniestrosMec14() {
+			String testCase = Constants.MEC_SINIESTROS + "14";
+			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros_Diario.csv");
+
+			return casesMatrix;
+		}
+		
+		@Test(dataProvider = "dataProviderSiniestrosMec14")
+		public void siniestrosMec14(String testCase, String id) throws Exception {
+			UserStory userS = suiteM.createUserStory(testCase, id);
+			ActionSteps steps = new ActionSteps(userS);
+
+			suiteM.setRelevantColumn(testCase, 13);
+			//TODO prueba de diario sinistros
+			userS.testActions(() -> {
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.alta_siniestro_simple();
+//				steps.cierro_navegador();
+				
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+				steps.compruebo_información_diario_siniestro();
+				steps.cierro_navegador();
+				
+				
+				
+				return null;
+			}).run();
+		}
+		
+		
 	//END
 	@AfterSuite
 	public void afterSuite() { try

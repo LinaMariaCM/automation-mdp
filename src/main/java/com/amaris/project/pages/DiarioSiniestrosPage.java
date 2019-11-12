@@ -1,10 +1,12 @@
 package com.amaris.project.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.*;
+import java.util.List;
 
 public class DiarioSiniestrosPage extends PageObject {
 
@@ -17,6 +19,22 @@ public class DiarioSiniestrosPage extends PageObject {
     private By anotacion = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(1) > a > span");
     private By comunicacion = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(3) > a > span");
     private By rehuse = By.cssSelector("li.js-action:nth-child(5) > a:nth-child(1) > span");
+    
+    // Información general
+	private By nPolizaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");
+	private By responsableInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(2)");
+	private By aseguradoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");
+	private By fOcurrenciaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(2)");	
+	private By riesgoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+	private By fAperturaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(2)");
+	private By tipoCausaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(1)");
+	private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
+	private By mediadorInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(1)");
+	private By tareasPendientesInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(6) > td:nth-of-type(1)");
+	private By costeActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");    	
+	private By importePagosInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");   	
+	private By reservaActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+	private By causaSin = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(1)");
 
     //Pestaña de informacion
     private By pestSituacion = By.cssSelector("#cargaCategorias > li:nth-child(2) > a");
@@ -44,7 +62,10 @@ public class DiarioSiniestrosPage extends PageObject {
     private By email = By.cssSelector("#email");
     
     //Información de comunicación
+    
     private By listadoMovimientosSiniestro = By.cssSelector("tr.odd:nth-child(1) > td:nth-child(3) > p:nth-child(8)");
+    private By filaListadoMovimientos = By.cssSelector("#tbldiario_wrapper > table > tbody tr");
+    
     
 
     public DiarioSiniestrosPage(UserStory userS) {
@@ -102,5 +123,47 @@ public class DiarioSiniestrosPage extends PageObject {
     	debugEnd();
     	return this;
     }
+    
+    public DiarioSiniestrosPage mostrarInfoGeneral() {
+    	debugBegin();
+    	debugInfo("Información General desde Diario de Siniestro");
+    	System.out.println("=========================================");
+    	
+        webDriver.switchToFrame(cuerpoFrame);
+    	
+    	System.out.println("Número de Póliza: " + webDriver.getText(nPolizaInfo));    	
+    	System.out.println("Responsable: " + webDriver.getText(responsableInfo));    	
+    	System.out.println("Asegurado: " + webDriver.getText(aseguradoInfo));    	
+    	System.out.println("Fecha ocurrencia: " + webDriver.getText(fOcurrenciaInfo));    	
+    	System.out.println("Riesgo: " + webDriver.getText(riesgoInfo));    	
+    	System.out.println("Fecha apertura: " + webDriver.getText(fAperturaInfo));    	
+    	System.out.println("Tipo de causa: " + webDriver.getText(tipoCausaInfo));    	
+    	System.out.println("Estado Siniestro: " + webDriver.getText(estadoSiniestroInfo));    	
+    	System.out.println("Mediador: " + webDriver.getText(mediadorInfo));    	
+    	System.out.println("Tareas pendientes: " + webDriver.getText(tareasPendientesInfo));    	
+    	System.out.println("Coste actual: " + webDriver.getText(costeActualInfo));    	
+    	System.out.println("Importe pagos: " + webDriver.getText(importePagosInfo));    	
+    	System.out.println("Reserva actual: " + webDriver.getText(reservaActualInfo));  	
+    	
+    	webDriver.exitFrame();
+    	
+    	debugEnd();
+    	return this;
+    }
 
+    public DiarioSiniestrosPage mostrarListadoMovimientos() {
+    	debugBegin();
+    	debugInfo("Información Listado de Movimientos desde Diario de Siniestro");
+    	webDriver.switchToFrame(cuerpoFrame);
+    	List<WebElement> listaMovimientos = webDriver.getElements(filaListadoMovimientos);
+    	for(int i=0; i< listaMovimientos.size(); i++){
+        	System.out.println(webDriver.getText(listaMovimientos.get(i)));
+    	}
+    	webDriver.exitFrame();
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+//END    
 }

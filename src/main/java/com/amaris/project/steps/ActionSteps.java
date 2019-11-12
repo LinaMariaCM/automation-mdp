@@ -2857,11 +2857,11 @@ public class ActionSteps extends InteractionObject {
 			validarReglas2.clickOnContinuarButton();
 		}	
 		
-//	Aceptamos el apartado de Implicado asegurado
+	//	Aceptamos el apartado de Implicado asegurado
 
 		new SiniestrosImplicadoAseguradoPage(userS).clickApertura();
 		
-// Si hay un implicado extra, continuamos
+	// Si hay un implicado extra, continuamos
 
 		if(!getTestVar(Constants.OTROS_IMPLICADOS).isEmpty()) {
 		
@@ -2869,23 +2869,35 @@ public class ActionSteps extends InteractionObject {
 			
 			}
 		
-// Si hay encargo, aceptamos
+	// Si hay encargo, aceptamos
 		if(!getTestVar(Constants.ENCARGO).isEmpty()) {	
 		
 			new SiniestrosEncargoAlta(userS).clickContinuar();
 			
 			}
 			
-// Verificacion de cambios en siniestros MAC		
+	// Verificacion de cambios en siniestros MAC		
 		
 		SiniestrosModificacionVerificacionPage verificacion = new SiniestrosModificacionVerificacionPage(userS);
 		verificacion.mostrarCambios();
 		verificacion.grabarCambios();
 		
-// Página de confirmación
+	// Página de confirmación
 		debugInfo("CONFIRMAMOS SI EL SINIESTRO MAC HA SIDO MODIFICADO");
 		new SiniestrosConfirmacionPage(userS).confirmarSiniestroOK();		
 		
+	}
+	
+	public void compruebo_información_diario_siniestro () throws Exception {
+	debugBegin();	
+	new InnovaHomePage(userS).openSiniestros();
+	new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+	new GestionSiniestrosPage(userS).diario();
+	DiarioSiniestrosPage diario = new DiarioSiniestrosPage(userS);
+	diario.mostrarInfoGeneral();
+	diario.mostrarListadoMovimientos();
+	debugEnd();
+	
 	}
 
 }
