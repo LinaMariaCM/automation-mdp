@@ -397,19 +397,19 @@ public class GestionSiniestrosPage extends PageObject{
     	debugInfo("Información General desde Gestión de Siniestro");
     	System.out.println("=========================================");
         webDriver.switchToFrame(cuerpoFrame);    	
-    	System.out.println("Número de Póliza: " + webDriver.getText(nPolizaInfo));	
-    	System.out.println("Responsable: " + webDriver.getText(responsableInfo));    	
-    	System.out.println("Asegurado: " + webDriver.getText(aseguradoInfo));    	
-    	System.out.println("Fecha ocurrencia: " + webDriver.getText(fOcurrenciaInfo));    	
-    	System.out.println("Riesgo: " + webDriver.getText(riesgoInfo));    	
-    	System.out.println("Fecha apertura: " + webDriver.getText(fAperturaInfo));    	
-    	System.out.println("Tipo de causa: " + webDriver.getText(tipoCausaInfo));    	
-    	System.out.println("Estado Siniestro: " + webDriver.getText(estadoSiniestroInfo));    	
-    	System.out.println("Mediador: " + webDriver.getText(mediadorInfo));    	
-    	System.out.println("Tareas pendientes: " + webDriver.getText(tareasPendientesInfo));    	
-    	System.out.println("Coste actual: " + webDriver.getText(costeActualInfo));    	
-    	System.out.println("Importe pagos: " + webDriver.getText(importePagosInfo));    	
-    	System.out.println("Reserva actual: " + webDriver.getText(reservaActualInfo));  	    	
+    	System.out.println("- " + webDriver.getText(nPolizaInfo));	
+    	System.out.println("- " + webDriver.getText(responsableInfo));    	
+    	System.out.println("- " + webDriver.getText(aseguradoInfo));    	
+    	System.out.println("- " + webDriver.getText(fOcurrenciaInfo));    	
+    	System.out.println("- " + webDriver.getText(riesgoInfo));    	
+    	System.out.println("- " + webDriver.getText(fAperturaInfo));    	
+    	System.out.println("- " + webDriver.getText(tipoCausaInfo));    	
+    	System.out.println("- " + webDriver.getText(estadoSiniestroInfo));    	
+    	System.out.println("- " + webDriver.getText(mediadorInfo));    	
+    	System.out.println("- " + webDriver.getText(tareasPendientesInfo));    	
+    	System.out.println("- " + webDriver.getText(costeActualInfo));    	
+    	System.out.println("- " + webDriver.getText(importePagosInfo));    	
+    	System.out.println("- " + webDriver.getText(reservaActualInfo));  	    	
     	webDriver.exitFrame();    	
     	debugEnd();
     	return this;
@@ -452,6 +452,20 @@ public class GestionSiniestrosPage extends PageObject{
     	System.out.println("Tipo de causa: " + webDriver.getText(causaSin));
     	 Assert.assertTrue(webDriver.getText(causaSin).contains(causa), "Modificación de causa siniestro completada con exito");
     	
+    	webDriver.exitFrame();
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+    public GestionSiniestrosPage comprobarSiniestroCerrado(){
+    	debugBegin();
+    	debugInfo("Comprobamos si el estado del siniestro es: 'Cerrado'");
+    	
+    	webDriver.switchToFrame(cuerpoFrame);  
+    	System.out.println("- " + webDriver.getText(estadoSiniestroInfo));
+    	if(webDriver.getText(estadoSiniestroInfo).contains("Cerrado")) System.out.println("OK : el siniestro está cerrado");
+    	else System.out.println("KO : el siniestro sigue abierto"); //TODO añadir trigger para que el resultado de la prueba aparezca fallo en el reporte
     	webDriver.exitFrame();
     	
     	debugEnd();
