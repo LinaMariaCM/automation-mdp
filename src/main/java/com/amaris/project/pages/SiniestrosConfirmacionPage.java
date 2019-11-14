@@ -36,17 +36,27 @@ public class SiniestrosConfirmacionPage extends PageObject {
 	public SiniestrosConfirmacionPage confirmarSiniestroOK() {
 		debugBegin();
 		
+		
+		
+		webDriver.waitWithDriver(6000);
+		debugInfo("=====================================");
+		debugInfo("Tenga un poco de paciencia por favor.");
+		debugInfo("Esto puede tardar unos segundos |||^^ ...");
+		debugInfo("=====================================");
 		System.out.println("###########################\n");
 		System.out.println("# Mensaje de confirmacion #\n");
 		System.out.println("###########################\n\n");
 		webDriver.waitWithDriver(8000);
+
+		webDriver.waitWithDriver(8000);		
 		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
 			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto,cuerpoFrame) + "\n");
 			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");
 					
 			System.out.println("- Expediente generado: " + webDriver.getTextInFrame(expediente, cuerpoFrame));
-			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestro, cuerpoFrame));
-			webDriver.waitWithDriver(6000);
+			setTestVar(Constants.NUMERO_SINIESTRO,webDriver.getTextInFrame(nSiniestro, cuerpoFrame).substring(26,34));
+			setTestVar(Constants.ANYO_SINIESTRO, webDriver.getTextInFrame(nSiniestro, cuerpoFrame).substring(21, 25));
+			//webDriver.waitWithDriver(8000);
 		} else {
 			System.out.println("Se ha producido un error.");
 		}

@@ -88,12 +88,35 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		System.out.println("...y el elegido es: "+ webDriver.getText(webDriver.getElementChildByIndex(comboSeleccionAsegurado, 1)));
 		webDriver.clickElementChildByIndex(comboSeleccionAsegurado, 1);
+		
+		if((!webDriver.getText(txtTelefono1).startsWith("(") || !webDriver.getText(txtTelefono1).startsWith("+") || webDriver.getText(txtTelefono1).length() < 9)) {
+			debugInfo("Número de teléfono 1 mal puesto :" + webDriver.getText(txtTelefono1));
+			webDriver.setText(txtTelefono1, "961234567");
+			debugInfo("Se sustituye por: 961234567");
+			
+		}
 		webDriver.exitFrame();
 		debugEnd();
 		
 		return this;
 	}	
 	
+	public SiniestrosImplicadoAseguradoPage continuar() {
+		debugBegin();
+		//por si el telefono está mal.
+		String numeroBien = "";
+		if(webDriver.getText(txtTelefono1).startsWith("+")) {
+			numeroBien = webDriver.getText(txtTelefono1).substring(3);
+			
+			
+			webDriver.setText(txtTelefono1, numeroBien);}
+		
+		webDriver.clickInFrame(btnValidarYContinuar, cuerpoFrame);
+		ActionSteps.waitForIt(webDriver);
+		debugEnd();
+		
+		return this;
+	}
 	
 	// endregion
 }

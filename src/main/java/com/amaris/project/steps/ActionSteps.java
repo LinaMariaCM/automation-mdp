@@ -2640,7 +2640,7 @@ public class ActionSteps extends InteractionObject {
 		innovaHome.openSiniestros();
 		
 		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 		
 		Boolean pagos = pagosSiniestro.comprobar_pagos_pendientes();
 		Boolean encargos = gestionCarpeta.comprobar_encargos();
@@ -2661,7 +2661,7 @@ public class ActionSteps extends InteractionObject {
 		innovaHome.openSiniestros();
 		// buscadorSiniestro.buscarPorNumeroPoliza("04067199", "2019","MEC");
 		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 		gestionCarpeta.nueva_carpeta();
 
 	}
@@ -2682,7 +2682,7 @@ public class ActionSteps extends InteractionObject {
 		// gestionSiniestrosBuscador.buscarPorOtros("1/08/2019","15/09/2019","640","510");
 		//gestionSiniestrosBuscador.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
-		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 		
 		// Seleccion del siniestro a pagar
 		pagosSiniestroPage.nuevoPago();
@@ -2692,7 +2692,9 @@ public class ActionSteps extends InteractionObject {
 		
 		if(getTestVar(Constants.ESTADO_CARPETA).equalsIgnoreCase(Constants.ESTADO_CARPETA_ABIERTA)) {
 			// Seleccion de un tipo de perceptor
-			pagosSiniestroPage.seleccionarParticipantesExpediente();
+			if(getTestVar(Constants.NUM_POLIZA).startsWith("510")){
+				pagosSiniestroPage.seleccionarTipoDePerceptor();}
+				else {pagosSiniestroPage.seleccionarParticipantesExpediente();}
 
 			// Seleccion de datos bancarios y observaciones
 			pagosSiniestroPage.datosPerceptor();
@@ -2831,7 +2833,7 @@ public class ActionSteps extends InteractionObject {
 	public void modifico_causas_siniestro_MAC() throws Exception {
 		
 		new InnovaHomePage(userS).openSiniestros();
-		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO).substring(26,34), getTestVar(Constants.NUMERO_SINIESTRO).substring(21, 25));
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 		new GestionSiniestrosPage(userS).vista();
 		new VistaSiniestroPage(userS).modificarSiniestro();
 		
@@ -2844,6 +2846,7 @@ public class ActionSteps extends InteractionObject {
 	// 2.Ocurrencia	
 		SiniestrosAltaAperturaOcurrenciaPage ocurrencia = new SiniestrosAltaAperturaOcurrenciaPage(userS);
 		ocurrencia.modificarCausasEspecificasMAC();
+		
 		ocurrencia.clickContinuar();
 		
 	// Validamos más cosas
@@ -2854,11 +2857,11 @@ public class ActionSteps extends InteractionObject {
 			validarReglas2.clickOnContinuarButton();
 		}	
 		
-//	Aceptamos el apartado de Implicado asegurado
+	//	Aceptamos el apartado de Implicado asegurado
 
 		new SiniestrosImplicadoAseguradoPage(userS).clickApertura();
 		
-// Si hay un implicado extra, continuamos
+	// Si hay un implicado extra, continuamos
 
 		if(!getTestVar(Constants.OTROS_IMPLICADOS).isEmpty()) {
 		
@@ -2866,17 +2869,35 @@ public class ActionSteps extends InteractionObject {
 			
 			}
 		
-// Si hay encargo, aceptamos
+	// Si hay encargo, aceptamos
 		if(!getTestVar(Constants.ENCARGO).isEmpty()) {	
 		
 			new SiniestrosEncargoAlta(userS).clickContinuar();
 			
 			}
 			
-// Página de confirmación
+	// Verificacion de cambios en siniestros MAC		
+		
+		SiniestrosModificacionVerificacionPage verificacion = new SiniestrosModificacionVerificacionPage(userS);
+		verificacion.mostrarCambios();
+		verificacion.grabarCambios();
+		
+	// Página de confirmación
 		debugInfo("CONFIRMAMOS SI EL SINIESTRO MAC HA SIDO MODIFICADO");
 		new SiniestrosConfirmacionPage(userS).confirmarSiniestroOK();		
 		
+	}
+	
+	public void compruebo_información_diario_siniestro () throws Exception {
+	debugBegin();	
+	new InnovaHomePage(userS).openSiniestros();
+	new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+	new GestionSiniestrosPage(userS).diario();
+	DiarioSiniestrosPage diario = new DiarioSiniestrosPage(userS);
+	diario.mostrarInfoGeneral();
+	diario.mostrarListadoMovimientos();
+	debugEnd();
+	
 	}
 
 }
