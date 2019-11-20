@@ -447,6 +447,7 @@ public class GestionSiniestrosPage extends PageObject{
     	debugBegin();
 
     	webDriver.waitForPageToLoad();
+    	webDriver.waitForLoadToComplete();
         webDriver.switchToFrame(cuerpoFrame);
     	
     	System.out.println("Tipo de causa: " + webDriver.getText(causaSin));
