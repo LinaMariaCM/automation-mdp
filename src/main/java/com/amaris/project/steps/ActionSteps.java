@@ -2648,8 +2648,9 @@ public class ActionSteps extends InteractionObject {
 		debugInfo("Pago bool: " + pagos);
 		debugInfo("Encargos bool: " + encargos);
 		debugInfo("Tareas bool: " + tareas);
+		new GestionSiniestrosPage(userS).vista();
 		vistaSiniestro.cierre_siniestro(pagos, encargos, tareas);
-		// vistaSiniestro.cierre_siniestro();
+		//vistaSiniestro.cierre_siniestro();
 		// webDriver.waitWithDriver(2000);
 		debugEnd();
 	}
@@ -2899,5 +2900,22 @@ public class ActionSteps extends InteractionObject {
 	debugEnd();
 	
 	}
-
-}
+		
+	public void compruebo_siniestro_cerrado() throws Exception {
+		debugBegin();
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+		new GestionSiniestrosPage(userS).comprobarSiniestroCerrado();
+		debugEnd();
+	}
+	
+	public void compruebo_siniestro_reaperturado() throws Exception {		
+		debugBegin();
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+		new GestionSiniestrosPage(userS).comprobarSiniestroReaperturado();
+		debugEnd();
+	}
+	
+	
+	} //END

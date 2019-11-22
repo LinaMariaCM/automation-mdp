@@ -307,7 +307,7 @@ public class SiniestrosTest3 extends TestObject {
 			
 			//steps.cierro_tarea_siniestro();
 			
-			//steps.
+			//steps.compruebo_tarea_siniestro();
 			
 			
 			return null;
@@ -461,11 +461,33 @@ public class SiniestrosTest3 extends TestObject {
 //				steps.alta_siniestro_simple();
 //				steps.cierro_navegador();
 				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.compruebo_información_diario_siniestro();
+//				steps.cierro_navegador();
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.compruebo_información_diario_siniestro();
+//				steps.cierro_navegador();
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.alta_siniestro_simple();
+//				steps.cierro_navegador();
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.cierre_siniestro();
+//				steps.cierro_navegador();
+//				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.compruebo_siniestro_cerrado();
+//				steps.cierro_navegador();
+//				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.reapertura_siniestro();
+//				steps.cierro_navegador();
+				
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-				steps.compruebo_información_diario_siniestro();
+				steps.compruebo_siniestro_reaperturado();
 				steps.cierro_navegador();
-				
-				
 				
 				return null;
 			}).run();

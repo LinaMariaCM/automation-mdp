@@ -26,6 +26,7 @@ public class Constants {
 	public static final String MEC_PAR_RET_PRO = "MecParRetPro";
 	public static final String MEC_SINIESTROS = "MecSin";
 	public static final String ALTA_SINIESTROS = "AltaSin";
+	public static final String SINIESTROS = "Sin";
 
 	public static final String GARAJES_CASE = "TST";
 	public static final String MEDIADORES_CASE = "Med";

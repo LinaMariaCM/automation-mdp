@@ -162,7 +162,7 @@ public class DiarioSiniestrosPage extends PageObject {
     	
     	for(int i=0; i< listaMovimientos.size(); i++){
         	System.out.println(webDriver.getText(listaMovimientos.get(i)));
-        	if(webDriver.getText(listaMovimientos.get(i)).contains("(Abierto)")) apertura = true;
+        	if(webDriver.getText(listaMovimientos.get(i)).contains("(Abierto)") && webDriver.getText(estadoSiniestroInfo).contains("(Abierto)")) apertura = true;
         	if(webDriver.getText(listaMovimientos.get(i)).contains("IMAS")) imas = true ;        	
         	
         	}

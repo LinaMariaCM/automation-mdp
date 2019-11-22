@@ -38,6 +38,7 @@ public class GestionSiniestrosPage extends PageObject{
     	private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
     	
     	private By mediadorInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(1)");
+    	private By fechaCierreSiniestro = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(2)");
     	
     	private By tareasPendientesInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(6) > td:nth-of-type(1)");
 
@@ -404,7 +405,8 @@ public class GestionSiniestrosPage extends PageObject{
     	System.out.println("- " + webDriver.getText(riesgoInfo));    	
     	System.out.println("- " + webDriver.getText(fAperturaInfo));    	
     	System.out.println("- " + webDriver.getText(tipoCausaInfo));    	
-    	System.out.println("- " + webDriver.getText(estadoSiniestroInfo));    	
+    	System.out.println("- " + webDriver.getText(estadoSiniestroInfo));   
+       	if(webDriver.getText(estadoSiniestroInfo).contains("Cerrado")) System.out.println("- " + webDriver.getText(fechaCierreSiniestro));   
     	System.out.println("- " + webDriver.getText(mediadorInfo));    	
     	System.out.println("- " + webDriver.getText(tareasPendientesInfo));    	
     	System.out.println("- " + webDriver.getText(costeActualInfo));    	
@@ -458,19 +460,77 @@ public class GestionSiniestrosPage extends PageObject{
     	return this;
     }
     
-    public GestionSiniestrosPage comprobarSiniestroCerrado(){
+    public GestionSiniestrosPage comprobarSiniestroCerrado(){ //TODO hacer que las comprobocaiones se reflejen en el report 
     	debugBegin();
     	debugInfo("Comprobamos si el estado del siniestro es: 'Cerrado'");
     	
     	webDriver.switchToFrame(cuerpoFrame);  
     	System.out.println("- " + webDriver.getText(estadoSiniestroInfo));
-    	if(webDriver.getText(estadoSiniestroInfo).contains("Cerrado")) System.out.println("OK : el siniestro está cerrado");
+    	if(webDriver.getText(estadoSiniestroInfo).contains("Cerrado")){ 
+    		System.out.println("OK : el siniestro está cerrado");
+    		System.out.println("- " + webDriver.getText(fechaCierreSiniestro)); //tiene que ser 
+    		System.out.println("- " + webDriver.getText(reservaActualInfo));} //tiene que ser 0
+    		
     	else System.out.println("KO : el siniestro sigue abierto"); //TODO añadir trigger para que el resultado de la prueba aparezca fallo en el reporte
+    	
     	webDriver.exitFrame();
     	
     	debugEnd();
     	return this;
     }
     
+    public GestionSiniestrosPage comprobarSiniestroReaperturadoOk() {
+    	debugBegin();
+    	debugInfo("Comprobamos si el siniestro ha reaperturado correctamente");
+    	
+    	if(webDriver.getTextInFrame(estadoSiniestroInfo, cuerpoFrame).contains("Abierto")){
+    		System.out.println("Estado de siniestro correcto");
+    		Assert.assertTrue(webDriver.getTextInFrame(estadoSiniestroInfo, cuerpoFrame).contains("Abierto"));}
+    		else {
+    			System.out.println("Estado de siniestro INCORRECTO");}
+    	
+    	Assert.assertFalse(webDriver.getTextInFrame(estadoSiniestroInfo, cuerpoFrame).contains("Abierto"));
+    	
+    	if(webDriver.getTextInFrame(costeActualInfo, cuerpoFrame).equalsIgnoreCase("0,00") && 
+    		webDriver.getTextInFrame(importePagosInfo, cuerpoFrame).equalsIgnoreCase("0,00") 
+    		&& webDriver.getTextInFrame(reservaActualInfo, cuerpoFrame).equalsIgnoreCase("0,00"))    		
+    		
+    	Assert.assertFalse(webDriver.getTextInFrame(costeActualInfo, cuerpoFrame).equalsIgnoreCase("0,00") && 
+    		webDriver.getTextInFrame(importePagosInfo, cuerpoFrame).equalsIgnoreCase("0,00") 
+    		&& webDriver.getTextInFrame(reservaActualInfo, cuerpoFrame).equalsIgnoreCase("0,00"));
+    	    	
+    	
+    	debugEnd();
+    	return this;
+    }
     
-}
+    public GestionSiniestrosPage comprobarReservasReaperturadasOk() {
+    	debugBegin();
+    	debugInfo("Comprobamos si el siniestro ha reaperturado correctamente");
+    	
+    	if(webDriver.getTextInFrame(costeActualInfo, cuerpoFrame).equalsIgnoreCase("0,00") && 
+    		webDriver.getTextInFrame(importePagosInfo, cuerpoFrame).equalsIgnoreCase("0,00") 
+    		&& webDriver.getTextInFrame(reservaActualInfo, cuerpoFrame).equalsIgnoreCase("0,00"))    		
+    		
+    	Assert.assertFalse(webDriver.getTextInFrame(costeActualInfo, cuerpoFrame).equalsIgnoreCase("0,00") && 
+    		webDriver.getTextInFrame(importePagosInfo, cuerpoFrame).equalsIgnoreCase("0,00") 
+    		&& webDriver.getTextInFrame(reservaActualInfo, cuerpoFrame).equalsIgnoreCase("0,00"));
+    	    	
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+    
+    public GestionSiniestrosPage comprobarCarpetaReaperturadaOk() {
+    	debugBegin();
+    	debugInfo("Comprobamos si el siniestro ha reaperturado correctamente");
+    	
+    	
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+    
+} //END

@@ -18,6 +18,31 @@ public class VistaSiniestroPage extends PageObject {
     private By leftFrame = By.cssSelector("#leftFrame");
     private By capaIframe = By.cssSelector("#capaIframe");
 
+    
+	private By nPolizaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");
+	private By responsableInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(2)");
+	
+	private By aseguradoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");
+	private By fOcurrenciaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(2)");
+	
+	private By riesgoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+	private By fAperturaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(2)");
+	
+	private By tipoCausaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(1)");
+	//private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
+	
+	private By estadoSiniestroInfo = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(2)");
+	
+	private By mediadorInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(1)");
+	private By fechaCierreSiniestro = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(2)");
+	
+	private By tareasPendientesInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(6) > td:nth-of-type(1)");
+
+	private By costeActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");    	
+	private By importePagosInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");   	
+	private By reservaActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+	
+	private By causaSin = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(1)");
 
     private By vistaSiniestro = By.cssSelector("#jt3");
 
@@ -78,7 +103,8 @@ public class VistaSiniestroPage extends PageObject {
 
        // } else {        	
       
-		        if (pagos == false && encargos == false && tareas == false){
+		        //if (pagos == false && encargos == false && tareas == false){
+		        if (pagos == false && encargos == false){
 		        webDriver.clickInFrame(vistaSiniestro, leftFrame);
 		        ActionSteps.waitForIt(webDriver);
 		        debugInfo("estoy en vista");
@@ -103,6 +129,9 @@ public class VistaSiniestroPage extends PageObject {
 		            debugInfo("Hay tareas pendientes.");
 		      //  }
         }
+		debugInfo("Comprobamos estado de Siniestro: ");     
+		webDriver.waitWithDriver(3000);
+		System.out.println(webDriver.getTextInFrame(estadoSiniestroInfo,cuerpoFrame));       
         debugEnd();
         return this;
 
@@ -217,5 +246,6 @@ public class VistaSiniestroPage extends PageObject {
         return this;
     }
         
-        
-}
+      
+    
+}//END
