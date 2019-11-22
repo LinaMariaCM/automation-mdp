@@ -175,11 +175,7 @@ public class VistaSiniestroPage extends PageObject {
 
         
         Assert.assertTrue((nuevosValores.contains(nombre) && nuevosValores.contains(apellidoPri) && nuevosValores.contains(apellidoSeg) && nuevosValores.contains(telefono) && nuevosValores.contains(email)), "Los datos modificados se muestran correctamente en el historial");
-        	
-      /*  if(webDriver.getText(descripcionNueva).contains(descripcion)){
-        	System.out.println("Modificación siniestro completada con exito");
-        }else System.out.println("Algo ha ido regular con la descripción");*/
-        
+        	        
         Assert.assertTrue(webDriver.getText(descripcionNueva).contains(descripcion), "Modificación siniestro completada con exito");
 
         

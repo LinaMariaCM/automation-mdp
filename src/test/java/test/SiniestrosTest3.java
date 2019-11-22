@@ -383,7 +383,7 @@ public class SiniestrosTest3 extends TestObject {
 		@DataProvider(parallel = true)
 		public String[][] dataProviderSiniestrosMec12() {
 			String testCase = Constants.MEC_SINIESTROS + "12";
-			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestModificarSiniestro.csv");
+			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestModificarSiniestro2.csv");
 
 			return casesMatrix;
 		}

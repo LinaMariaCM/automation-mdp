@@ -61,6 +61,7 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		if(webDriver.isPresent(labelTitulo)) {
 			System.out.println("Si está presente el título");
+			webDriver.waitForElementToBeClickable(btnContinuar);
 			if(webDriver.getText(labelTitulo).contains("excepciones")) webDriver.click(btnContinuar);
 		} else System.out.println("NO está presente el título");
 		webDriver.exitFrame();
