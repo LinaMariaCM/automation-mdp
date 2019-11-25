@@ -18,7 +18,7 @@ import com.amaris.automation.model.webdriver.DriverHelper;
 import com.amaris.automation.model.webdriver.configuration.BrowserType;
 
 /**
- * The UserStory class is the base to execute test, having a reference to a getTestDataManager()anager, which uses using
+ * The UserStory class is the base to execute test, having a reference to a getTestDataManager(), which uses using
  * its String variable "testId" to access the variables specific to a test, and the String variable "scenario" to access
  * the variables specific to a scenario.
  * 
@@ -247,6 +247,10 @@ public class UserStory {
 
 	public void setReportPath(String reportPath) {
 		getTestDataManager().setReportPath(reportPath);
+	}
+
+	public void setRelevantColumn(int relevantColumn) {
+		suiteM.setRelevantColumn(testCase, relevantColumn);
 	}
 
 	public UserStory setScenario(String scenario) {

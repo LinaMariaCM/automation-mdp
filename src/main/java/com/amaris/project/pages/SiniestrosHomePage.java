@@ -1,6 +1,7 @@
 package com.amaris.project.pages;
 
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 import java.lang.Comparable;
 import com.amaris.automation.model.testing.UserStory;
@@ -77,10 +78,14 @@ public class SiniestrosHomePage extends PageObject {
 	
 	public SiniestrosHomePage compararCampos() {
 		debugBegin();
-		//String [] numPoliza = nPoliza.toString().split("/"); 
-		String numPoliza = webDriver.getText(nPoliza).toString().substring(8);
-		if(numPoliza.compareTo(getTestVar(Constants.NUM_POLIZA))==0) System.out.println("COMPARAR CAMPOS  el número de póliza coincide.");
-		else System.out.println("COMPARAR CAMPOS : póliza : El número NO coincide.");		
+	
+		String numPoliza = webDriver.getText(nPoliza).toString().substring(20);
+		if(numPoliza.compareTo(getTestVar(Constants.NUM_POLIZA))==0) { 
+			Assert.assertTrue(true, "COMPARAR CAMPOS : el número de póliza coincide.");
+			System.out.println("COMPARAR CAMPOS : el número de póliza coincide.");}
+		else {
+			Assert.assertTrue(false, "COMPARAR CAMPOS : póliza : El número NO coincide.");
+			System.out.println("COMPARAR CAMPOS : póliza : El número NO coincide.");}		
 
 		System.out.println("poliza csv = " + getTestVar(Constants.NUM_POLIZA));
 		System.out.println("poliza numPoliza = " + webDriver.getText(nPoliza));

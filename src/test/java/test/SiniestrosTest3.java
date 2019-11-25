@@ -23,7 +23,7 @@ public class SiniestrosTest3 extends TestObject {
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosMec01() {
 		String testCase = Constants.MEC_SINIESTROS + "01";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros331.csv");
 
 		return casesMatrix;
 	}
@@ -32,22 +32,24 @@ public class SiniestrosTest3 extends TestObject {
 	public void siniestrosMec01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
+		
+		suiteM.setRelevantColumn(testCase, 12);
 
 		userS.testActions(() -> {
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.realizo_pago_simple();
 			steps.cierro_navegador();
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.cierre_siniestro();
 			steps.cierro_navegador();
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.reapertura_siniestro();
 			steps.cierro_navegador();
 			
@@ -74,15 +76,15 @@ public class SiniestrosTest3 extends TestObject {
 
 		userS.testActions(() -> {
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.realizo_pago_simple();
 			steps.cierre_siniestro();
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.reapertura_siniestro();
 			steps.cierro_navegador();
 
@@ -111,15 +113,15 @@ public class SiniestrosTest3 extends TestObject {
 
 		userS.testActions(() -> {
 			
-//			steps.login("Innova", "Eperez");
+//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 //			steps.alta_siniestro_simple();
 //			steps.cierro_navegador();
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.realizo_recobro();
 			steps.cierro_navegador();
 			
-//			steps.login("Innova", "Eperez");
+//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 //			steps.realizo_pago_simple();
 //			steps.cierro_navegador();
 			//steps.cierre_siniestro();
@@ -150,7 +152,7 @@ public class SiniestrosTest3 extends TestObject {
 
 		userS.testActions(() -> {
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			
 			steps.alta_siniestro_simple();
 			
@@ -183,7 +185,7 @@ public class SiniestrosTest3 extends TestObject {
 
 		userS.testActions(() -> {
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			
 			steps.alta_siniestro_simple();
 			
@@ -216,7 +218,7 @@ public class SiniestrosTest3 extends TestObject {
 
 		userS.testActions(() -> {
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			
 			steps.comunico_siniestro();
 					
@@ -243,7 +245,7 @@ public class SiniestrosTest3 extends TestObject {
 
 		userS.testActions(() -> {
 			
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			
 			steps.anyado_anotacion_siniestro();
 					
@@ -295,7 +297,7 @@ public class SiniestrosTest3 extends TestObject {
 		userS.testActions(() -> {
 			
 			//TODO
-			steps.login("Innova", "Eperez");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			
 			steps.nueva_tarea_siniestros();
 			
@@ -305,20 +307,198 @@ public class SiniestrosTest3 extends TestObject {
 			
 			//steps.cierro_tarea_siniestro();
 			
-			//steps.
+			//steps.compruebo_tarea_siniestro();
 			
 			
 			return null;
 		}).run();
 	}
 	
-
-
 	
+	
+	//Información General estática de Siniestros
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec10() {
+		String testCase = Constants.MEC_SINIESTROS + "10";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec10")
+	public void siniestrosMec10(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			
+
+						
+			
+			return null;
+		}).run();
+	}
+	
+	
+		//Alta de Siniestros
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec11() {
+		String testCase = Constants.MEC_SINIESTROS + "11";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
+
+		return casesMatrix;
+	}
+	
+	@Test(dataProvider = "dataProviderSiniestrosMec11", priority=3)
+	public void siniestrosMec11(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		suiteM.setRelevantColumn(testCase, 13);
+		
+		userS.testActions(() -> {
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.realizo_pago_simple();
+			steps.cierro_navegador();
+			
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.cierre_siniestro();
+			steps.cierro_navegador();
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.reapertura_siniestro();
+			steps.cierro_navegador();
+			
+			return null;
+		}).run();
+	}
+	
+	//Modificar siniestro datos
+		@DataProvider(parallel = true)
+		public String[][] dataProviderSiniestrosMec12() {
+			String testCase = Constants.MEC_SINIESTROS + "12";
+			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestModificarSiniestro2.csv");
+
+			return casesMatrix;
+		}
+		
+		
+		@Test(dataProvider = "dataProviderSiniestrosMec12", priority=1)
+		public void siniestrosMec12(String testCase, String id) throws Exception {
+			UserStory userS = suiteM.createUserStory(testCase, id);
+			ActionSteps steps = new ActionSteps(userS);
+
+			userS.testActions(() -> {
+				
+				//TEST TIPO
+				steps.login("Innova", "Eperez");
+				System.out.println("Login OK. Empezando moficar siniestro Datos");
+				steps.modificar_siniestro_datos();
+				
+							
+				
+				return null;
+			}).run();
+		}
+	
+		
+		
+
+		//Modificar siniestro causa
+		@DataProvider(parallel = true)
+		public String[][] dataProviderSiniestrosMec13() {
+			String testCase = Constants.MEC_SINIESTROS + "13";
+			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestModificarSiniestro2.csv");
+
+			return casesMatrix;
+		}
+		
+		
+		@Test(dataProvider = "dataProviderSiniestrosMec13",priority=2)
+		public void siniestrosMec13(String testCase, String id) throws Exception {
+			UserStory userS = suiteM.createUserStory(testCase, id);
+			ActionSteps steps = new ActionSteps(userS);
+
+			userS.testActions(() -> {
+				
+				//TEST TIPO
+				steps.login("Innova", "Eperez");
+				System.out.println("Login OK. Empezando moficar siniestro Causa");
+				steps.modificar_siniestro_causa();
+				
+				
+							
+				
+				return null;
+			}).run();
+		}
+		
+		
+		@DataProvider(parallel = true)
+		public String[][] dataProviderSiniestrosMec14() {
+			String testCase = Constants.MEC_SINIESTROS + "14";
+			String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros_Diario.csv");
+
+			return casesMatrix;
+		}
+		
+		@Test(dataProvider = "dataProviderSiniestrosMec14")
+		public void siniestrosMec14(String testCase, String id) throws Exception {
+			UserStory userS = suiteM.createUserStory(testCase, id);
+			ActionSteps steps = new ActionSteps(userS);
+
+			suiteM.setRelevantColumn(testCase, 13);
+			//TODO prueba de diario sinistros
+			userS.testActions(() -> {
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.alta_siniestro_simple();
+//				steps.cierro_navegador();
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.compruebo_información_diario_siniestro();
+//				steps.cierro_navegador();
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.compruebo_información_diario_siniestro();
+//				steps.cierro_navegador();
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.alta_siniestro_simple();
+//				steps.cierro_navegador();
+				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.cierre_siniestro();
+//				steps.cierro_navegador();
+//				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.compruebo_siniestro_cerrado();
+//				steps.cierro_navegador();
+//				
+//				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//				steps.reapertura_siniestro();
+//				steps.cierro_navegador();
+				
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+				steps.compruebo_siniestro_reaperturado();
+				steps.cierro_navegador();
+				
+				return null;
+			}).run();
+		}
+		
+		
 	//END
 	@AfterSuite
-	public void afterSuite() {
-		suiteM.createHtmlReport();
+	public void afterSuite() { try
+		{suiteM.createHtmlReport();
+		suiteM.createPdfReport();} catch(Exception E) {E.printStackTrace();}
 	}
 
 }

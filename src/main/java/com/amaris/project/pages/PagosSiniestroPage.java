@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
@@ -16,7 +17,18 @@ public class PagosSiniestroPage extends PageObject {
     private By capaIframe = By.cssSelector("#capaIframe");
     private By selectorFrame = By.id("selectorTipoFigura");
     private By accederPagos = By.xpath(".//*[text()='Pagos'] ");
-
+   
+    
+    //informcacion general
+    
+//    private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
+    
+    private By estadoCarpeta = By.cssSelector("table[class='grid wideBox'] > tbody > tr:nth-of-type(2) > td:nth-child(7)");
+    
+    //Info listado de pagos de carpetas
+    
+   // private By estadoCarpeta = By.cssSelector("#bloque1tr1 td:nth-child(7) a span");
+    
     //Menu superior
     private By verSaldoFranquicias = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar li:nth-child(1) span");
     private By verDocumentacion = By.cssSelector("div.actionsbar.js-fixedbar.js-assignedfixedbar li:nth-child(1) span");
@@ -162,6 +174,8 @@ public class PagosSiniestroPage extends PageObject {
     //Importes
     private By pagoCuentaSi = By.cssSelector("#pagoCtaSi");
     private By pagoCuentaNo = By.cssSelector("#pagoCtaNo");
+    private By causasImportes =  By.cssSelector("#coberturaImplicada .radio");
+    
 
     //Verificacion ultimo pago de carpeta
     private By ultimoPagoSi = By.cssSelector("#ultimoPagoSi");
@@ -173,6 +187,8 @@ public class PagosSiniestroPage extends PageObject {
     // comprobar si tiene pagos
     private By listPagos = By.cssSelector("table.grid:nth-child(1) > tbody:nth-child(1) tr[valign='top'] td:nth-child(9)");
 
+    private By tipoPerceptor = By.cssSelector("#tipoPerceptor");
+    private By tipoPerceptorElemento = By.cssSelector("#tipoPerceptor > option");
 
     // endregion
 
@@ -185,17 +201,42 @@ public class PagosSiniestroPage extends PageObject {
     public PagosSiniestroPage nuevoPago (){
         debugBegin();
 
+        
         webDriver.clickInFrame(accederPagos,leftFrame);
-        webDriver.clickInFrame(nuevoPago, cuerpoFrame);
+        
+        setTestVar(Constants.ESTADO_CARPETA, webDriver.getTextInFrame(estadoCarpeta, cuerpoFrame));
+        System.out.println("El estado de la carpeta es: " + webDriver.getTextInFrame(estadoCarpeta, cuerpoFrame));
+        
+        if(getTestVar(Constants.ESTADO_CARPETA).equalsIgnoreCase(getTestVar(Constants.ESTADO_CARPETA_CERRADA))) {
+        	System.out.println("La carpeta del siniestro está cerrada, no se le puede añadir un pago.");
+        } else {        	
+        	webDriver.clickInFrame(nuevoPago, cuerpoFrame);
+        }
 
         debugEnd();
+        
         return this;
     }
 
     public PagosSiniestroPage seleccionarParticipantesExpediente (){
         debugBegin();
         webDriver.switchToFrame(cuerpoFrame);
-        webDriver.clickElementFromDropDownByIndex(perceptor,6);
+        webDriver.clickElementFromDropDownByIndex(perceptor,4);
+        System.out.println("Elemento flecha1 es: " + flecha1);
+        webDriver.waitWithDriver(8000);
+  
+        webDriver.click(flecha1);
+        webDriver.exitFrame();
+
+        debugEnd();
+        return this;
+    }
+    
+    public PagosSiniestroPage seleccionarTipoDePerceptor (){
+        debugBegin();
+        webDriver.switchToFrame(cuerpoFrame);
+        //webDriver.clickElementFromDropDownByIndex(perceptor,4);
+        webDriver.clickElementFromDropDownByAttribute(tipoPerceptor, tipoPerceptorElemento, "value", "PE40");       
         System.out.println("Elemento flecha1 es: " + flecha1);
         webDriver.waitWithDriver(8000);
   
@@ -425,11 +466,21 @@ public class PagosSiniestroPage extends PageObject {
     //Importes
     public PagosSiniestroPage importes (String fPago, String Importe1){
         debugBegin();
-
+        List<WebElement> listaCausasImportes = webDriver.getElementsInFrame(causasImportes, cuerpoFrame);
+         
         webDriver.appendTextInFrame(fechaDePago, cuerpoFrame, fPago);
         webDriver.waitWithDriver(3000);
-        webDriver.clickElementFromDropDownByIndexInFrame(conceptoPago,cuerpoFrame,2);
-        webDriver.clickInFrame(rCRotura, cuerpoFrame);
+       
+        //concepto pago
+        
+        webDriver.clickElementChildByIndexInFrame(conceptoPago, cuerpoFrame, 1);
+        webDriver.waitWithDriver(12000);
+        //Asignacion de cobertura
+        System.out.println("Lista de coberturas: " + listaCausasImportes);
+        System.out.println("Cobertura seleccionada: " + webDriver.getTextInFrame(listaCausasImportes.get(0), cuerpoFrame));
+        
+        webDriver.clickInFrame(listaCausasImportes.get(0), cuerpoFrame);
+        //webDriver.clickInFrame(rCRotura, cuerpoFrame);
         webDriver.appendTextInFrame(importe0,cuerpoFrame, Importe1);
         webDriver.waitWithDriver(5000);
         webDriver.clickInFrame(actualizarImportePago, cuerpoFrame);
@@ -443,7 +494,7 @@ public class PagosSiniestroPage extends PageObject {
     public PagosSiniestroPage verificacion (){
         debugBegin();
         
-        webDriver.waitWithDriver(3000);
+        webDriver.waitWithDriver(9000);
         webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
 
         debugEnd();

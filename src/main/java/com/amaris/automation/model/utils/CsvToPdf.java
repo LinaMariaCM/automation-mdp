@@ -63,13 +63,13 @@ public class CsvToPdf extends CsvToHtml {
 	}
 
 	@Override
-	protected void addErrorCase(String[][] dataMatrix, String reportPath, String timeStamp, HtmlElement accordionContent, int index) {
+	protected void addErrorCase(String[][] dataMatrix, String reportPath, String timeStamp, HtmlElement accordionContent, int index, int relevantColumns) {
 		HtmlElement table = HtmlUtils.createTable(1, 1);
 
 		HtmlElement caseVariables = new HtmlElement("div")
 			.addAttribute("class", "boxes cases");
 
-		for(int j = 0; j < dataMatrix[0].length - 4; j++) {
+		for(int j = 0; j < relevantColumns; j++) {
 			caseVariables.addChild(new HtmlElement("div")
 				.addAttribute("class", "box case")
 				.setContent(translateOrFormat(dataMatrix[0][j]) + ": "
@@ -139,14 +139,14 @@ public class CsvToPdf extends CsvToHtml {
 	}
 
 	@Override
-	protected HtmlElement getErrorReportNode(String[][] dataMatrix, String reportPath, String timeStamp) {
+	protected HtmlElement getErrorReportNode(String[][] dataMatrix, String reportPath, String timeStamp, int relevantColumns) {
 		HtmlElement accordionContent = new HtmlElement("div")
 			.addAttribute("class", "ac-content");
 
 		for(int i = 1; i < dataMatrix.length; i++) {
 			if(dataMatrix[i][dataMatrix[0].length - 3] != null && !dataMatrix[i][dataMatrix[0].length - 3].isEmpty()
 				&& dataMatrix[i][dataMatrix[0].length - 3].equals(AutomationConstants.TEST_FAILURE)) {
-				addErrorCase(dataMatrix, reportPath, timeStamp, accordionContent, i);
+				addErrorCase(dataMatrix, reportPath, timeStamp, accordionContent, i, relevantColumns);
 			}
 		}
 

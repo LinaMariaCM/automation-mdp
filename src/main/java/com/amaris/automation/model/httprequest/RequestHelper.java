@@ -1,5 +1,7 @@
 package com.amaris.automation.model.httprequest;
 
+import java.util.Map;
+
 import io.restassured.RestAssured;
 import io.restassured.authentication.AuthenticationScheme;
 import io.restassured.authentication.NoAuthScheme;
@@ -100,6 +102,14 @@ public class RequestHelper {
 
 	public RequestHelper addCookie(String cookieName, String cookieValue) {
 		requestBuilder.addCookie(cookieName, cookieValue);
+
+		return this;
+	}
+
+	public RequestHelper addCookies(Map<String, String> cookies) {
+		for(Map.Entry<String, String> cookie : cookies.entrySet()) {
+			addCookie(cookie.getKey(), cookie.getValue());
+		}
 
 		return this;
 	}

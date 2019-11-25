@@ -15,6 +15,8 @@ public class Constants {
 	public static final String USUARIO = "usuario";
 	public static final String CAMBIO_USUARIO = "cambio_usuario";
 	public static final String USUARIO_AUTORIZADO = "usuarioAuth";
+	public static final String TIPO_POLIZA = "tipo_poliza";
+	
 
 	public static final String MAC = "Mac";
 	public static final String MEC = "Mec";
@@ -24,6 +26,7 @@ public class Constants {
 	public static final String MEC_PAR_RET_PRO = "MecParRetPro";
 	public static final String MEC_SINIESTROS = "MecSin";
 	public static final String ALTA_SINIESTROS = "AltaSin";
+	public static final String SINIESTROS = "Sin";
 
 	public static final String GARAJES_CASE = "TST";
 	public static final String MEDIADORES_CASE = "Med";
@@ -236,6 +239,7 @@ public class Constants {
 	public static final String COLECTIVO_CLIENTE = "colectivo_cliente";
 	public static final String NUM_COTIZACION = "num_cotizacion";
 	public static final String NUM_POLIZA = "numero_poliza";
+	
 
 	public static final String TIPO_DOCUMENTO = "tipo_documento";
 
@@ -434,6 +438,7 @@ public class Constants {
 	//Constantes Siniestros	:	Datos Alta Siniestro
 	
 	public static final String NUMERO_SINIESTRO = "numero_siniestro";
+	public static final String ANYO_SINIESTRO = "anyo_siniestro";
 	
 	public static final String FECHA_OCURRENCIA = "fecha_ocurrencia";
 	public static final String TIPO_DECLARANTE = "tipo_declarante";
@@ -496,6 +501,9 @@ public class Constants {
 	public static final String GRUPO_CAUSA_COD = "grupo_causa_cod";
 	public static final String TIPO_CAUSA = "tipo_causa";
 	public static final String TIPO_CAUSA_COD = "tipo_causa_cod";
+	public static final String GREMIO_CAUSA = "gremio_causa";
+	public static final String GREMIO_CAUSA_COD = "gremio_causa_cod";
+	
 	public static final String MODIFICAR_RESERVA_INICIAL = "modif_reserva_inicial";	
 	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro"; 
 	public static final String OTROS_IMPLICADOS = "otros_implicados";
@@ -566,5 +574,11 @@ public class Constants {
 	public static final String CIERRE_SINIESTRO = "cierre_siniestro";
 	public static final String REAPERTURA_SINIESTRO = "reapertura_siniestro";
 	public static final String REHUSO_SINIESTRO = "rehuso_siniestro";
+	
+	public static final String ESTADO_CARPETA = "estado_carpeta";
+	public static final String ESTADO_CARPETA_CERRADA = "cerrado";
+	public static final String ESTADO_CARPETA_ABIERTA = "abierto";
+	
+
 
 }

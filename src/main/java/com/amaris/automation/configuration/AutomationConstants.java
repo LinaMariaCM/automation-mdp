@@ -61,7 +61,11 @@ public class AutomationConstants {
 	public static final String SEND_IMG = "send_img";
 	public static final String CREATE_JIRA_TICKETS = "create_jira_tickets";
 	public static final String JIRA_TEST_ID = "jira_test_id";
-	
+	public static final String JIRA_URL = "jira_url";
+	public static final String JIRA_USER = "jira_user";
+	public static final String JIRA_SECRET = "jira_secret";
+	public static final String JIRA_PROJECT = "jira_project";
+
 	public static final String SUCCESS_ZEPHYR = "SUCCESS";
 	public static final String FAILURE_ZEPHYR = "FAILURE";
 	public static final String NOT_EXECUTED_ZEPHYR = "NOT_EXECUTED";

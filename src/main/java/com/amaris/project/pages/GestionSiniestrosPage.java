@@ -5,9 +5,11 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 
 
 
@@ -19,9 +21,37 @@ public class GestionSiniestrosPage extends PageObject{
 
     private By exportaResultado = By.cssSelector("#cabExportar");
 
+    //Información estática de Gestión de Siniestros
+       
+   // private By nPoliza = By.cssSelector("form[name='formDatos'] table table td:first-of-type");
+    	
+    	private By nPolizaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");
+    	private By responsableInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(2)");
+    	
+    	private By aseguradoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");
+    	private By fOcurrenciaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(2)");
+    	
+    	private By riesgoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+    	private By fAperturaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(2)");
+    	
+    	private By tipoCausaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(1)");
+    	private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
+    	
+    	private By mediadorInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(1)");
+    	private By fechaCierreSiniestro = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(2)");
+    	
+    	private By tareasPendientesInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(6) > td:nth-of-type(1)");
+
+    	private By costeActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");    	
+    	private By importePagosInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");   	
+    	private By reservaActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+    	
+    	private By causaSin = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(1)");
+
     //posiocion global
     
-    private By diario = By.xpath(".//*[text()='Diario de siniestro  '] "); 
+    //private By diario = By.xpath(".//*[text()='Diario de siniestro  '] "); 
+    private By diario = By.cssSelector("#jt1son a[title*='Diario de siniestro  ']");
     private By vista = By.xpath(".//*[text()='Vista siniestro'] "); 
     private By agenda = By.id("jt4");
     private By documentacion = By.id("jt5");	
@@ -42,8 +72,9 @@ public class GestionSiniestrosPage extends PageObject{
     private By gestionDelFraude = By.id("jt14");
     //Carpetas
   
-    private By gestionDeCarpetas = By.xpath(".//*[title()='Gestión de carpetas'] "); 
-  
+    private By gestionDeCarpetas = By.xpath(".//*[text()='Gestión de carpetas'] "); 
+    //private By gestionDeCarpetas = By.id("jt15son");
+    
     
     //Reservas del siniestro
     
@@ -132,8 +163,6 @@ public class GestionSiniestrosPage extends PageObject{
 
     private By flechaContinuar = By.cssSelector("tr:nth-child(3) td:nth-child(11) span");
 
-    
-
     private By verSaldo = By.cssSelector("ul.list-level-1.js-actionsdinamicbar:nth-child(1) span");
 
     
@@ -218,11 +247,15 @@ public class GestionSiniestrosPage extends PageObject{
     	debugBegin();
     	webDriver.waitWithDriver(3000);
        	//webDriver.scrollToElementInFrame(gestionDeCarpetas, leftFrame);
-    	webDriver.waitWithDriver(3000);
-       	webDriver.scrollToElement(gestionDeCarpetas);
-    	webDriver.waitWithDriver(3000);
+    	//webDriver.waitWithDriver(3000);
+       	//webDriver.scrollToElement(gestionDeCarpetas);
+    	//webDriver.waitWithDriver(30000);
+   
+    	webDriver.exitFrame();
+    	//System.out.println(webDriver.getText(leftFrame));
+    	System.out.println(webDriver.getTextInFrame(gestionDeCarpetas, leftFrame));
     	webDriver.clickInFrame(gestionDeCarpetas, leftFrame);
-    	webDriver.click(gestionDeCarpetas);
+    	//webDriver.click(gestionDeCarpetas);
     	debugEnd();
     	return this;}
     // end region
@@ -241,8 +274,12 @@ public class GestionSiniestrosPage extends PageObject{
     	expectativaTotal = Double.toString(resIndemnizable + resReparable + resGastos);
     	
     	List<WebElement> listaAcciones = webDriver.getElements(acciones);
+    	
+    	System.out.println("Imprimo mi supuestas acciones: " + webDriver.getText(acciones));
+    	
+    	System.out.println("Imprimo mi supuestas lista de acciones: " + listaAcciones);
     	   	
-    	webDriver.clickInFrame(listaAcciones.get(1), cuerpoFrame);
+    	webDriver.clickInFrame(listaAcciones.get(0), cuerpoFrame);
     	
     	webDriver.clickInFrame(modificarExepectativas, capaIframe);
     	
@@ -356,4 +393,145 @@ public class GestionSiniestrosPage extends PageObject{
     return this;
     }
     
-}
+    public GestionSiniestrosPage mostrarInfoGeneral(){
+    	debugBegin();
+    	debugInfo("Información General desde Gestión de Siniestro");
+    	System.out.println("=========================================");
+        webDriver.switchToFrame(cuerpoFrame);    	
+    	System.out.println("- " + webDriver.getText(nPolizaInfo));	
+    	System.out.println("- " + webDriver.getText(responsableInfo));    	
+    	System.out.println("- " + webDriver.getText(aseguradoInfo));    	
+    	System.out.println("- " + webDriver.getText(fOcurrenciaInfo));    	
+    	System.out.println("- " + webDriver.getText(riesgoInfo));    	
+    	System.out.println("- " + webDriver.getText(fAperturaInfo));    	
+    	System.out.println("- " + webDriver.getText(tipoCausaInfo));    	
+    	System.out.println("- " + webDriver.getText(estadoSiniestroInfo));   
+       	if(webDriver.getText(estadoSiniestroInfo).contains("Cerrado")) System.out.println("- " + webDriver.getText(fechaCierreSiniestro));   
+    	System.out.println("- " + webDriver.getText(mediadorInfo));    	
+    	System.out.println("- " + webDriver.getText(tareasPendientesInfo));    	
+    	System.out.println("- " + webDriver.getText(costeActualInfo));    	
+    	System.out.println("- " + webDriver.getText(importePagosInfo));    	
+    	System.out.println("- " + webDriver.getText(reservaActualInfo));  	    	
+    	webDriver.exitFrame();    	
+    	debugEnd();
+    	return this;
+    }
+    
+    public GestionSiniestrosPage compararInfoGeneralCSV() {
+    	
+    	boolean check = false;
+    	
+    	System.out.println("Cotejando datos con de siniestro con csv...");
+    	
+    	System.out.println("Póliza CSV: " + getTestVar(Constants.NUM_POLIZA));
+    	
+    	System.out.println("Póliza de siniestro: " + webDriver.getText(nPolizaInfo));
+    	
+    	if(getTestVar(Constants.NUM_POLIZA).compareTo(webDriver.getText(nPolizaInfo).toString().substring(20)) == 0){
+    		System.out.println("Los números de las pólizas coinciden");
+    	} else System.out.println("Los números de las pólizas NO coinciden");
+    	
+    	System.out.println("Tipo de causa CSV: " + getTestVar(Constants.TIPO_CAUSA));
+    	
+    	System.out.println("Tipo de causa del siniestro: " + webDriver.getText(tipoCausa));
+    	
+    	if(getTestVar(Constants.TIPO_CAUSA).compareTo(webDriver.getText(tipoCausaInfo)) == 0){
+    		System.out.println("Los números de las pólizas coinciden");
+    	} else System.out.println("Los números de las pólizas NO coinciden");
+    	
+    	
+    	
+    	return this;
+    } 
+     
+    
+    public GestionSiniestrosPage comprobarCausa(String causa){
+    	debugBegin();
+
+    	webDriver.waitForPageToLoad();
+    	webDriver.waitForLoadToComplete();
+        webDriver.switchToFrame(cuerpoFrame);
+    	
+    	System.out.println("Tipo de causa: " + webDriver.getText(causaSin));
+    	 Assert.assertTrue(webDriver.getText(causaSin).contains(causa), "Modificación de causa siniestro completada con exito");
+    	
+    	webDriver.exitFrame();
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+    public GestionSiniestrosPage comprobarSiniestroCerrado(){ //TODO hacer que las comprobocaiones se reflejen en el report 
+    	debugBegin();
+    	debugInfo("Comprobamos si el estado del siniestro es: 'Cerrado'");
+    	
+    	webDriver.switchToFrame(cuerpoFrame);  
+    	System.out.println("- " + webDriver.getText(estadoSiniestroInfo));
+    	if(webDriver.getText(estadoSiniestroInfo).contains("Cerrado")){ 
+    		System.out.println("OK : el siniestro está cerrado");
+    		System.out.println("- " + webDriver.getText(fechaCierreSiniestro)); //tiene que ser 
+    		System.out.println("- " + webDriver.getText(reservaActualInfo));} //tiene que ser 0
+    		
+    	else System.out.println("KO : el siniestro sigue abierto"); //TODO añadir trigger para que el resultado de la prueba aparezca fallo en el reporte
+    	
+    	webDriver.exitFrame();
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+    public GestionSiniestrosPage comprobarSiniestroReaperturadoOk() {
+    	debugBegin();
+    	debugInfo("Comprobamos si el siniestro ha reaperturado correctamente");
+    	
+    	if(webDriver.getTextInFrame(estadoSiniestroInfo, cuerpoFrame).contains("Abierto")){
+    		System.out.println("Estado de siniestro correcto");
+    		Assert.assertTrue(webDriver.getTextInFrame(estadoSiniestroInfo, cuerpoFrame).contains("Abierto"));}
+    		else {
+    			System.out.println("Estado de siniestro INCORRECTO");}
+    	
+    	Assert.assertFalse(webDriver.getTextInFrame(estadoSiniestroInfo, cuerpoFrame).contains("Abierto"));
+    	
+    	if(webDriver.getTextInFrame(costeActualInfo, cuerpoFrame).equalsIgnoreCase("0,00") && 
+    		webDriver.getTextInFrame(importePagosInfo, cuerpoFrame).equalsIgnoreCase("0,00") 
+    		&& webDriver.getTextInFrame(reservaActualInfo, cuerpoFrame).equalsIgnoreCase("0,00"))    		
+    		
+    	Assert.assertFalse(webDriver.getTextInFrame(costeActualInfo, cuerpoFrame).equalsIgnoreCase("0,00") && 
+    		webDriver.getTextInFrame(importePagosInfo, cuerpoFrame).equalsIgnoreCase("0,00") 
+    		&& webDriver.getTextInFrame(reservaActualInfo, cuerpoFrame).equalsIgnoreCase("0,00"));
+    	    	
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+    public GestionSiniestrosPage comprobarReservasReaperturadasOk() {
+    	debugBegin();
+    	debugInfo("Comprobamos si el siniestro ha reaperturado correctamente");
+    	
+    	if(webDriver.getTextInFrame(costeActualInfo, cuerpoFrame).equalsIgnoreCase("0,00") && 
+    		webDriver.getTextInFrame(importePagosInfo, cuerpoFrame).equalsIgnoreCase("0,00") 
+    		&& webDriver.getTextInFrame(reservaActualInfo, cuerpoFrame).equalsIgnoreCase("0,00"))    		
+    		
+    	Assert.assertFalse(webDriver.getTextInFrame(costeActualInfo, cuerpoFrame).equalsIgnoreCase("0,00") && 
+    		webDriver.getTextInFrame(importePagosInfo, cuerpoFrame).equalsIgnoreCase("0,00") 
+    		&& webDriver.getTextInFrame(reservaActualInfo, cuerpoFrame).equalsIgnoreCase("0,00"));
+    	    	
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+    
+    public GestionSiniestrosPage comprobarCarpetaReaperturadaOk() {
+    	debugBegin();
+    	debugInfo("Comprobamos si el siniestro ha reaperturado correctamente");
+    	
+    	
+    	
+    	debugEnd();
+    	return this;
+    }
+    
+    
+} //END

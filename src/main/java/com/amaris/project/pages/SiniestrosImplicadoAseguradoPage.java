@@ -13,6 +13,7 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 
 	// #### DATOS DEL ASEGURADO ####
 	private By comboSeleccionAsegurado = By.id("seleccionAsegurado");
+	private By comboSeleccionAseguradoElemento = By.cssSelector("#seleccionAsegurado > option");
 	private By txtNombreAsegurado = By.id("nombre");
 	private By txtApellido1Asegurado = By.id("apellido1");
 	private By txtApellido2Asegurado = By.id("apellido2");
@@ -39,7 +40,9 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 	private By txtDC = By.id("#datosAsegurado > div.sis-frame-bg > div:nth-child(29) > div.box-field.flexibleField > input");
 	private By txtNumeroCuenta = By.id("#datosAsegurado > div.sis-frame-bg > div:nth-child(30) > div.box-field.flexibleField > input");
 	private By btnGuardarSalir = By.id("botonGuardar");
-	private By btnAperturaSiniestro = By.id("botonContinuar");
+	private By btnAperturaSiniestro = By.cssSelector("#formDatos #botonera #botonContinuar");
+	private By btnValidarYContinuar = By.cssSelector("#botonContinuar");
+	
 	// endregion
 
 	public SiniestrosImplicadoAseguradoPage(UserStory userS) {
@@ -59,12 +62,61 @@ public class SiniestrosImplicadoAseguradoPage extends PageObject {
 	public SiniestrosImplicadoAseguradoPage clickApertura() {
 		debugBegin();
 
+//		webDriver.waitWithDriver(6000);
+//		if(webDriver.isPresentInFrame(btnValidarYContinuar, cuerpoFrame)) { 
+//			webDriver.clickInFrame(btnValidarYContinuar, cuerpoFrame);
+//			System.out.println("Validamos cosas");
+//		}
+		
+		debugInfo("Texto boton: " + webDriver.getTextInFrame(btnAperturaSiniestro, cuerpoFrame));
 		webDriver.waitWithDriver(3000);
+		
 		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
+
+		webDriver.waitWithDriver(5000);
+		
+		
+		debugEnd();
+		
+		return this;
+	}
+	
+	public SiniestrosImplicadoAseguradoPage seleccionarImplicado() {
+		
+		debugBegin();
+		debugInfo("Seleccionamos implicado....");
+		webDriver.switchToFrame(cuerpoFrame);
+		System.out.println("...y el elegido es: "+ webDriver.getText(webDriver.getElementChildByIndex(comboSeleccionAsegurado, 1)));
+		webDriver.clickElementChildByIndex(comboSeleccionAsegurado, 1);
+		
+		if((!webDriver.getText(txtTelefono1).startsWith("(") || !webDriver.getText(txtTelefono1).startsWith("+") || webDriver.getText(txtTelefono1).length() < 9)) {
+			debugInfo("Número de teléfono 1 mal puesto :" + webDriver.getText(txtTelefono1));
+			webDriver.setText(txtTelefono1, "961234567");
+			debugInfo("Se sustituye por: 961234567");
+			
+		}
+		webDriver.exitFrame();
+		debugEnd();
+		
+		return this;
+	}	
+	
+	public SiniestrosImplicadoAseguradoPage continuar() {
+		debugBegin();
+		//por si el telefono está mal.
+		String numeroBien = "";
+		if(webDriver.getText(txtTelefono1).startsWith("+")) {
+			numeroBien = webDriver.getText(txtTelefono1).substring(3);
+			
+			
+			webDriver.setText(txtTelefono1, numeroBien);}
+		
+		webDriver.clickInFrame(btnValidarYContinuar, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 		
 		return this;
 	}
+	
 	// endregion
 }

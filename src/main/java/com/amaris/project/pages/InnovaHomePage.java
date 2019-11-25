@@ -10,6 +10,7 @@ public class InnovaHomePage extends PageObject {
 	private By leftFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
 	private By mainFrame = By.cssSelector("#mainFrame");
+	private By logoMutua = By.cssSelector("#logo");
 
 	private By btnMutuaEdificioConfort = By.xpath(".//*[normalize-space(text())='Mutua edificio confort']");
 	private By btnMutuaAlquilerConfort = By.cssSelector("a[href*='codmenu=510']");
@@ -129,6 +130,10 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openSiniestros() {
 		debugBegin();
+		if(webDriver.isPresentInFrame(logoMutua,topFrame)) {
+			webDriver.clickInFrame(logoMutua, topFrame);
+			webDriver.waitWithDriver(3000);}
+		
 		webDriver.doubleClickInFrame(btnSiniestros, leftFrame);
 		debugEnd();
 		

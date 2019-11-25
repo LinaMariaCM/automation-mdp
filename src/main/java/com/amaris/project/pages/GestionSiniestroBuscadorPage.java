@@ -1,9 +1,13 @@
 package com.amaris.project.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
 public class GestionSiniestroBuscadorPage extends PageObject {
@@ -66,7 +70,10 @@ private By mediador = By.cssSelector("#codMediador");
 
 private By btnBuscar = By.cssSelector("#botonBuscar");
 
-private By btnContinuar = By.cssSelector("#capaAjax tr.odd span");
+//private By btnContinuar = By.cssSelector("#capaAjax tr.odd span");
+private By btnContinuar = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(11) > a > span");
+private By btnContinuarElemento = By.cssSelector("#formListado tr:last-of-type [onclick*='enlaceContinuar']");
+
 
 public GestionSiniestroBuscadorPage(UserStory userS) {
     super(userS);
@@ -89,18 +96,25 @@ public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza) {
     debugInfo("ha dado click");
     webDriver.switchToFrame(cuerpoFrame);
     webDriver.click(btnNoPoliza);
-    if (numPoliza.substring(0,2) == "510"){	webDriver.clickElementChildByAttribute(opProduct,"value", "510");}
+    /*System.out.println("Ramo de póliza - " + numPoliza.substring(0,3));
+    if (numPoliza.substring(0,3) == "510"){	
+    	webDriver.clickElementChildByAttribute(opProduct,"value", "510");
+    	System.out.println("poliza de 510");
+    }
       									//  webDriver.switchToFrame(cuerpoFrame);
      									//  webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
         								//webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
         
-     else if (numPoliza.substring(0,2) == "920"){	webDriver.clickElementChildByAttribute(opProduct,"value", "920");}
+     else if (numPoliza.substring(0,3) == "920"){	webDriver.clickElementChildByAttribute(opProduct,"value", "920");}
     
-     else if (numPoliza.substring(0,2) == "640"){	webDriver.clickElementChildByAttribute(opProduct,"value", "640");}
+     else if (numPoliza.substring(0,3) == "640"){	webDriver.clickElementChildByAttribute(opProduct,"value", "640");}
+    */
     
-        
+    webDriver.clickElementFromDropDownByIndex(tipoProductoPoliza, 0);
     
     webDriver.setText(txtNoPoliza,numPoliza);
+    webDriver.waitForPageToLoad();
+    webDriver.waitForElementToBeClickable(btnBuscar);
     webDriver.click(btnBuscar);
 
     ActionSteps.waitForIt(webDriver);
@@ -130,6 +144,37 @@ public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,St
     ActionSteps.waitForIt(webDriver);
     webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 
+    debugEnd();
+
+    return this;
+}
+
+public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,String anio) {
+    debugBegin();
+    webDriver.clickInFrame(gestionSiniestros,leftFrame);
+    debugInfo("ha dado click");
+    
+    webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
+    /*if (negocio == "MEC"){
+        webDriver.switchToFrame(cuerpoFrame);
+         webDriver.clickElementChildByAttribute(opProductSIni,"value", "510");
+         webDriver.exitFrame();
+    }*/
+    webDriver.switchToFrame(cuerpoFrame);
+    
+	ActionSteps.waitForIt(webDriver);
+    webDriver.clickElementFromDropDownByIndex(tipoProductoSini, 0);
+
+	ActionSteps.waitForIt(webDriver);
+    webDriver.setText(txtAno, anio);
+    
+    webDriver.setText(txtNoSiniestro, siniestro);
+    webDriver.click(btnBuscar);
+
+    ActionSteps.waitForIt(webDriver);
+    webDriver.click(btnContinuar);
+
+    webDriver.exitFrame();
     debugEnd();
 
     return this;
@@ -204,49 +249,94 @@ public GestionSiniestroBuscadorPage buscarPorAlta(String fDesde, String fHasta) 
 
     return this;
 }
-
-public GestionSiniestroBuscadorPage buscarPorCausa(String fDesde, String fHasta, String nombre) {
-    debugBegin();
     
-    webDriver.clickInFrame(btnCausa, cuerpoFrame);
-    webDriver.appendTextInFrame(fechaCausaDesde, cuerpoFrame, fDesde);
-    webDriver.appendTextInFrame(fechaCausaHasta, cuerpoFrame, fHasta);
-    webDriver.appendTextInFrame(codigoCausa, cuerpoFrame, nombre);
-    webDriver.clickInFrame(btnBuscar, cuerpoFrame);
-
-    ActionSteps.waitForIt(webDriver);
-    webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-
-    debugEnd();
-
-    return this;
-}
-
-public GestionSiniestroBuscadorPage buscarPorOtros(String fDesde, String fHasta, String codMediador, String negocio) {
-    debugBegin();
     
-    webDriver.clickInFrame(btnOtros, cuerpoFrame);
-    webDriver.appendTextInFrame(fechaOtrosDesde, cuerpoFrame, fDesde);
-    webDriver.appendTextInFrame(fechaOtrosHasta, cuerpoFrame, fHasta);
-    if (negocio == "MEC"){
-        webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
-    }
+    
+    
+    
+    //Alternativo_MIRKO
+	/*public GestionSiniestroBuscadorPage buscarPorNumeroPoliza(String numPoliza) {
+		debugBegin();
+		webDriver.clickInFrame(gestionSiniestros, leftFrame);
+		debugInfo("ha dado click");
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(btnNoPoliza);
+		if(numPoliza.substring(0, 3) == "510") {
+			webDriver.clickElementFromDropDownByAttribute(opProduct, opProductElemento, "value", "510");
+		}
+		// webDriver.switchToFrame(cuerpoFrame);
+		// webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+		// webDriver.clickElementFromDropDownByAttribute(opProduct, tipoProductoPoliza, "value", '510');
 
-    webDriver.clickElementFromDropDownByAttributeInFrame(estadoPoliza, cuerpoFrame, "value", "V");
+		else if(numPoliza.substring(0, 3) == "920") {
+			webDriver.clickElementFromDropDownByAttribute(opProduct, opProductElemento, "value", "920");
+		}
 
-    webDriver.setTextInFrame(mediador, cuerpoFrame, codMediador);
-    webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		else if(numPoliza.substring(0, 3) == "640") {
+			webDriver.clickElementFromDropDownByAttribute(opProduct, opProductElemento, "value", "640");
+		}
 
-    ActionSteps.waitForIt(webDriver);
-    webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.setText(txtNoPoliza, numPoliza);
+		webDriver.click(btnBuscar);*/
 
-    debugEnd();
+		/*List<WebElement> listaBtnContinuar = webDriver.getElements(btnContinuar);
 
-    return this;
-}
+		if(listaBtnContinuar.size() == 1) {
+			webDriver.click(btnContinuarElemento);
+			System.out.println("Solo 1 siniestro para la póliza " + getTestVar(Constants.NUM_POLIZA));
+		} else {
+			webDriver.click(listaBtnContinuar.get(listaBtnContinuar.size()));
+			System.out.println("Hay " + listaBtnContinuar.size() + " siniestros para la póliza " + getTestVar(Constants.NUM_POLIZA));
+		}*/
+		/*webDriver.waitWithDriver(3000);
+		webDriver.click(btnContinuarElemento);
 
+		webDriver.exitFrame();
 
+		debugEnd();
 
+		return this;
+	}*/
 
+	
+	public GestionSiniestroBuscadorPage buscarPorCausa(String fDesde, String fHasta, String nombre) {
+		debugBegin();
+
+		webDriver.clickInFrame(btnCausa, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaCausaDesde, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaCausaHasta, cuerpoFrame, fHasta);
+		webDriver.appendTextInFrame(codigoCausa, cuerpoFrame, nombre);
+		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+
+		ActionSteps.waitForIt(webDriver);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
+		debugEnd();
+
+		return this;
+	}
+
+	public GestionSiniestroBuscadorPage buscarPorOtros(String fDesde, String fHasta, String codMediador, String negocio) {
+		debugBegin();
+
+		webDriver.clickInFrame(btnOtros, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaOtrosDesde, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaOtrosHasta, cuerpoFrame, fHasta);
+		if(negocio == "MEC") {
+			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+		}
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(estadoPoliza, cuerpoFrame, "value", "V");
+
+		webDriver.setTextInFrame(mediador, cuerpoFrame, codMediador);
+		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+
+		ActionSteps.waitForIt(webDriver);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
+		debugEnd();
+
+		return this;
+	}
 
 }

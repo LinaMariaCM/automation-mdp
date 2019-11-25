@@ -24,8 +24,7 @@ import com.amaris.automation.model.utils.objects.DebugLogger;
 import com.amaris.automation.model.utils.objects.Pair;
 
 /**
- * The SuiteManager class is used to manage test objects like the
- * TestDataManager and the result matrix.
+ * The SuiteManager class is used to manage test objects like the TestDataManager and the result matrix.
  *
  * @author Alfredo Moises Boullosa Ramones
  */
@@ -484,7 +483,7 @@ public class SuiteManager {
 			try {
 				RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/html/" + fileName)
 					.setSendFile(fileName, "text/html; charset=utf-8", text);
-	
+
 				if(request.post().getStatusCode() == 201) {
 					logger.info(FILE_SENT_SUCCESS_MESSAGE + fileName);
 				} else {
@@ -510,7 +509,7 @@ public class SuiteManager {
 			try {
 				fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
 				RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/csvfile/" + fileName);
-	
+
 				if(request.get().getStatusCode() == 200) {
 					logger.info("File was received correctly: " + fileName);
 					result = InitUtils.getResultMatrixFromCsvString(request.getResponseAsString().replaceAll("\r\n", "\n"));
@@ -553,10 +552,10 @@ public class SuiteManager {
 
 	public String[][] getCsvReport(String timeStamp) {
 		String[][] result = null;
-		
+
 		try {
 			RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/csv/" + timeStamp + ".csv");
-	
+
 			if(request.get().getStatusCode() == 200) {
 				logger.info("File was received correctly: " + timeStamp + ".csv");
 				result = InitUtils.getResultMatrixFromCsvString(request.getResponseAsString().replaceAll("\r\n", "\n"));
@@ -575,12 +574,12 @@ public class SuiteManager {
 		try {
 			fileName = fileName.endsWith(".csv") ? fileName : fileName + ".csv";
 			String buildId = projectId + suiteName + (driver.isEmpty() ? "" : "." + driver) + initialTimeStamp;
-	
+
 			RequestHelper request = new RequestHelper(apiUrl + "/" + projectId + "/post/" + suiteName + "/" + buildId);
-	
+
 			request.setSendFile(fileName, "text/csv", text)
 				.post();
-	
+
 			if(request.getStatusCode() == 201) {
 				logger.info(FILE_SENT_SUCCESS_MESSAGE + fileName);
 			} else {
@@ -629,10 +628,10 @@ public class SuiteManager {
 	protected void updateZephyrTicket(String jiraTicketId, String result) {
 		DataObject configData = getTestDataManager(testCases.get(0).getKey()).getConfigData();
 
-		String url = InitUtils.getStringConfigVariable("jira_url", configData);
-		String user = InitUtils.getStringConfigVariable("jira_user", configData);
-		String pass = InitUtils.getStringConfigVariable("jira_pass", configData);
-		String project = InitUtils.getStringConfigVariable("jira_project", configData);
+		String url = InitUtils.getStringConfigVariable(AutomationConstants.JIRA_URL, configData);
+		String user = InitUtils.getStringConfigVariable(AutomationConstants.JIRA_USER, configData);
+		String pass = InitUtils.getStringConfigVariable(AutomationConstants.JIRA_SECRET, configData);
+		String project = InitUtils.getStringConfigVariable(AutomationConstants.JIRA_PROJECT, configData);
 
 		if(url != null && !url.isEmpty() && user != null && !user.isEmpty()
 			&& pass != null && !pass.isEmpty() && project != null && !project.isEmpty()) {
@@ -643,10 +642,10 @@ public class SuiteManager {
 	protected void createJiraTicket(UserStory userS, Throwable throwable) {
 		DataObject configData = getTestDataManager(testCases.get(0).getKey()).getConfigData();
 
-		String url = InitUtils.getStringConfigVariable("jira_url", configData);
-		String user = InitUtils.getStringConfigVariable("jira_user", configData);
-		String pass = InitUtils.getStringConfigVariable("jira_pass", configData);
-		String project = InitUtils.getStringConfigVariable("jira_project", configData);
+		String url = InitUtils.getStringConfigVariable(AutomationConstants.JIRA_URL, configData);
+		String user = InitUtils.getStringConfigVariable(AutomationConstants.JIRA_USER, configData);
+		String pass = InitUtils.getStringConfigVariable(AutomationConstants.JIRA_SECRET, configData);
+		String project = InitUtils.getStringConfigVariable(AutomationConstants.JIRA_PROJECT, configData);
 
 		if(url != null && !url.isEmpty() && user != null && !user.isEmpty()
 			&& pass != null && !pass.isEmpty() && project != null && !project.isEmpty()) {
