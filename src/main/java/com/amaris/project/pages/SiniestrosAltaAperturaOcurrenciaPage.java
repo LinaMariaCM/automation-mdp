@@ -2,6 +2,7 @@ package com.amaris.project.pages;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
 import java.text.DateFormat;
@@ -159,7 +160,8 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", "GC25");
 		
 		webDriver.waitWithDriver(6000);
-		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", "TC025001");
+		System.out.println("El grupo causa específica es: " + getTestVar(Constants.TIPO_CAUSA_MAC) + " , con código: " + getTestVar(Constants.TIPO_CAUSA_MAC_COD));
+		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", getTestVar(Constants.TIPO_CAUSA_MAC_COD));
 		
 //		if(webDriver.isOnScreen(comboGremio)) {
 //			webDriver.clickElementFromDropDownByAttribute(comboGremio, gremioCausasElemento, "title", gremioCausa);	

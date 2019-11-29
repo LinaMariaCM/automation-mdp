@@ -449,7 +449,6 @@ public class GestionSiniestrosPage extends PageObject{
     	debugBegin();
 
     	webDriver.waitForPageToLoad();
-    	webDriver.waitForLoadToComplete();
         webDriver.switchToFrame(cuerpoFrame);
     	
     	System.out.println("Tipo de causa: " + webDriver.getText(causaSin));
@@ -525,9 +524,10 @@ public class GestionSiniestrosPage extends PageObject{
     
     public GestionSiniestrosPage comprobarCarpetaReaperturadaOk() {
     	debugBegin();
-    	debugInfo("Comprobamos si el siniestro ha reaperturado correctamente");
+    	debugInfo("Comprobamos si la carpeta ha reaperturado correctamente");
     	
-    	
+    	webDriver.clickInFrame(gestionDeCarpetas, leftFrame);
+    	   	
     	
     	debugEnd();
     	return this;

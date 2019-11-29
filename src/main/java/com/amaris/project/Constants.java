@@ -503,6 +503,9 @@ public class Constants {
 	public static final String TIPO_CAUSA_COD = "tipo_causa_cod";
 	public static final String GREMIO_CAUSA = "gremio_causa";
 	public static final String GREMIO_CAUSA_COD = "gremio_causa_cod";
+	public static final String TIPO_CAUSA_MAC = "tipo_causa_mac";
+	public static final String TIPO_CAUSA_MAC_COD = "tipo_causa_mac_cod";
+	
 	
 	public static final String MODIFICAR_RESERVA_INICIAL = "modif_reserva_inicial";	
 	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro"; 

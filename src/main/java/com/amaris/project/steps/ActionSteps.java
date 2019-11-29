@@ -2552,7 +2552,7 @@ public class ActionSteps extends InteractionObject {
 			
 			// Si el siniestro es de tipo MAC tenemos que modificar el siniestro para asignar una causa válida para emitir un pago
 			
-			if(getTestVar(Constants.NUM_POLIZA).startsWith("920")) {
+			if(getTestVar(Constants.NUM_POLIZA).startsWith("920") && getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025000")) {
 				debugInfo("La póliza a la cual pertenece el siniestro es de tipo MAC, procedemos a modificar las causas para poder realizar pagos");
 				confirmarAltaSiniestro.volverAHomeMutua();
 				modifico_causas_siniestro_MAC();
@@ -2913,7 +2913,7 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
-		new GestionSiniestrosPage(userS).comprobarSiniestroReaperturado();
+		new GestionSiniestrosPage(userS).comprobarSiniestroReaperturadoOk();
 		debugEnd();
 	}
 	
