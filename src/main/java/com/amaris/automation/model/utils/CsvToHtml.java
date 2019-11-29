@@ -463,6 +463,7 @@ public class CsvToHtml {
 		for(String variable : variables) {
 			if(!new File(reportPath + AutomationConstants.THUMBNAILS_FOLDER + '/' + variable + ".png").exists()) {
 				haveImages = false;
+				break;
 			}
 		}
 
