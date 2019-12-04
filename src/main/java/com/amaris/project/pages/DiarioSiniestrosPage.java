@@ -2,6 +2,7 @@ package com.amaris.project.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
@@ -37,6 +38,8 @@ public class DiarioSiniestrosPage extends PageObject {
 	private By reservaActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
 	private By causaSin = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(1)");
 
+	private By avisos = By.cssSelector("body > table.sis-frame-bg.wideBox > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(1) > td:nth-child(2)");
+	
     //Pestaña de informacion
     private By pestSituacion = By.cssSelector("#cargaCategorias > li:nth-child(2) > a");
     private By pestComunicacion = By.cssSelector("#cargaCategorias > li:nth-child(3) > a");
@@ -94,6 +97,19 @@ public class DiarioSiniestrosPage extends PageObject {
         webDriver.exitFrame();
         ActionSteps.waitForIt(webDriver);
 
+        return this;
+    }
+    
+    //TODO completar parte de reconsiderar
+    public DiarioSiniestrosPage comprobar_siniestro_reconsiderado(){
+        debugBegin();
+
+       //comprobar estado de siniestro : "Reconsiderado"        
+        
+        boolean reconsiderado = webDriver.getTextInFrame(avisos,cuerpoFrame).contains("Reconsiderado");
+        if(reconsiderado) { System.out.println("Siniestro reconsiderado");}
+        Assert.assertTrue(reconsiderado);
+        
         return this;
     }
     

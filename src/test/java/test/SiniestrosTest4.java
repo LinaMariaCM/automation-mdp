@@ -8,6 +8,7 @@ import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
 import com.amaris.project.Constants;
+import com.amaris.project.pages.GestionSiniestrosPage;
 import com.amaris.project.steps.ActionSteps;
 
 
@@ -41,11 +42,14 @@ public void siniestros01(String testCase, String id) throws Exception {
 		steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 		steps.realizo_pago_simple();
 		steps.cierro_navegador();
-		
-		
+				
 		steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 		steps.cierre_siniestro();
 		steps.cierro_navegador();
+		
+//		steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//		steps.comprobacion_cierre_siniestro();
+//		steps.cierro_navegador();
 		
 		steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 		steps.reapertura_siniestro();
@@ -114,44 +118,44 @@ public void siniestros01(String testCase, String id) throws Exception {
 		}).run();
 	}
 	
-	//Altas de siniestros con causas específicas para MAC
-	@DataProvider(parallel = true)
-	public String[][] dataProviderSiniestros04() {
-		String testCase = Constants.SINIESTROS + "04";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestrosMacCausasVarias.csv");
+//	//Altas de siniestros con causas específicas para MAC
+//	@DataProvider(parallel = true)
+//	public String[][] dataProviderSiniestros04() {
+//		String testCase = Constants.SINIESTROS + "04";
+//		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestrosMacCausasVarias.csv");
+//
+//		return casesMatrix;
+//	}
 
-		return casesMatrix;
-	}
-
-	@Test(dataProvider = "dataProviderSiniestros04")
-	public void siniestros04(String testCase, String id) throws Exception {
-		UserStory userS = suiteM.createUserStory(testCase, id);
-		ActionSteps steps = new ActionSteps(userS);
-
-		suiteM.setRelevantColumn(testCase, 15);
-		
-		userS.testActions(() -> {
-			
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_siniestro_simple();
-			steps.cierro_navegador();
-			
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.realizo_pago_simple();
-			steps.cierro_navegador();
-			
-			
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.cierre_siniestro();
-			steps.cierro_navegador();
-			
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.reapertura_siniestro();
-			steps.cierro_navegador();
-			
-			return null;
-		}).run();
-	}
+//	@Test(dataProvider = "dataProviderSiniestros04")
+//	public void siniestros04(String testCase, String id) throws Exception {
+//		UserStory userS = suiteM.createUserStory(testCase, id);
+//		ActionSteps steps = new ActionSteps(userS);
+//
+//		suiteM.setRelevantColumn(testCase, 15);
+//		
+//		userS.testActions(() -> {
+//			
+//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//			steps.alta_siniestro_simple();
+//			steps.cierro_navegador();
+//			
+//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//			steps.realizo_pago_simple();
+//			steps.cierro_navegador();
+//			
+//			
+//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//			steps.cierre_siniestro();
+//			steps.cierro_navegador();
+//			
+//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+//			steps.reapertura_siniestro();
+//			steps.cierro_navegador();
+//			
+//			return null;
+//		}).run();
+//	}
 
 	
 	@AfterSuite

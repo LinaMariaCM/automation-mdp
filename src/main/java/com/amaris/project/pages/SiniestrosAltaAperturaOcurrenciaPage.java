@@ -131,7 +131,7 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		//webDriver.clickElementFromDropDownByIndex(comboTiposCausa, 2);
 		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", tipoCausa); 
 		// TODO cambiar por VALUE
-		webDriver.waitWithDriver(3000);
+		webDriver.waitWithDriver(5000);
 
 		if(webDriver.isOnScreen(comboGremio)) {
 			//webDriver.clickElementFromDropDownByIndex(comboGremio, 3);

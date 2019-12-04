@@ -2655,7 +2655,20 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	
+	public void comprobacion_cierre_siniestro() throws Exception {
+		debugBegin();
+		
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+		new GestionSiniestrosPage(userS).comprobarSiniestroCerrado();
+		
+		debugEnd();
+	}
+	
+	
 	public void reapertura_siniestro() throws Exception {
+		debugBegin();
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
@@ -2664,9 +2677,16 @@ public class ActionSteps extends InteractionObject {
 		//buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 		gestionCarpeta.nueva_carpeta();
-
+		debugEnd();
 	}
 	
+	public void comprobacion_reapertura_siniestro() throws Exception {
+		debugBegin();
+		
+		
+		
+		debugEnd();
+	}
 	
 	public void realizo_pago_simple() throws Exception {
 		debugBegin();
@@ -2711,15 +2731,25 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void rehuso_siniestro() throws Exception {
+		debugBegin();
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 		DiarioSiniestrosPage diarioSiniestro = new DiarioSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		diarioSiniestro.rehusar_siniestro();
-
+		debugEnd();
 	}
-
+	public void reconsidero_siniestro_rehusado() throws Exception {
+	
+		//TODO
+		// buscar siniestro (rehusado)
+		// generar pago
+		// completar lfujo de pago
+		// comprobar si estadop reconsiderado
+		
+	}	
+		
 	public void transicionar_bloques() throws Exception {
 		debugBegin();
 		BloqueSiniestro bloqueSiniestro = new BloqueSiniestro(userS);
