@@ -87,4 +87,16 @@ public class BloqueSiniestro extends PageObject {
         debugEnd();
         return this;
     }
+  /*  public BloqueSiniestro plan_pago_carpeta(){
+        debugBegin();
+        webDriver.waitWithDriver(2000);
+        webDriver.clickInFrame(bloque,leftFrame);
+        ActionSteps.waitForIt(webDriver);
+        debugInfo("Estoy en bloque");
+        webDriver.waitWithDriver(3000);
+        webDriver.switchToFrame(cuerpoFrame);
+
+        webDriver.exitFrame();
+        debugEnd();
+        return this;}*/
 }

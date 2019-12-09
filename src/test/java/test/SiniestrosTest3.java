@@ -430,7 +430,7 @@ public class SiniestrosTest3 extends TestObject {
 				//TEST TIPO
 				steps.login("Innova", "Eperez");
 				System.out.println("Login OK. Empezando moficar siniestro Causa");
-				steps.modificar_siniestro_causa();
+				//steps.modificar_siniestro_causa();
 				
 				
 							
@@ -453,7 +453,7 @@ public class SiniestrosTest3 extends TestObject {
 			UserStory userS = suiteM.createUserStory(testCase, id);
 			ActionSteps steps = new ActionSteps(userS);
 
-			suiteM.setRelevantColumn(testCase, 13);
+			suiteM.setRelevantColumn(testCase, 15);
 			//TODO prueba de diario sinistros
 			userS.testActions(() -> {
 				
@@ -492,7 +492,84 @@ public class SiniestrosTest3 extends TestObject {
 				return null;
 			}).run();
 		}
-		
+
+	//Hacer pago para un siniestro MAC con causa 2500 modificado a 25001
+
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec15() {
+		String testCase = Constants.MEC_SINIESTROS + "15";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3anto.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderSiniestrosMec15")
+	public void siniestrosMec15(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.realizo_pago_simple();
+			steps.cierro_navegador();
+
+			return null;
+		}).run();
+	}
+
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec16() {
+		String testCase = Constants.MEC_SINIESTROS + "16";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3anto.csv");
+
+		return casesMatrix;
+	}
+	@Test(dataProvider = "dataProviderSiniestrosMec16")
+	public void siniestrosMec16(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.realizo_plan_pagos_MAC();
+			steps.cierro_navegador();
+
+			return null;
+		}).run();
+	}
+
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec17() {
+		String testCase = Constants.MEC_SINIESTROS + "17";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros3anto.csv");
+
+		return casesMatrix;
+	}
+	@Test(dataProvider = "dataProviderSiniestrosMec17")
+	public void siniestrosMec17(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.retenciones_declaracion_apertura_siniestro_fechas();
+			steps.cierro_navegador();
+
+			return null;
+		}).run();
+	}
+
 		
 	//END
 	@AfterSuite

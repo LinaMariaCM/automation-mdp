@@ -27,6 +27,7 @@ public class Constants {
 	public static final String MEC_SINIESTROS = "MecSin";
 	public static final String ALTA_SINIESTROS = "AltaSin";
 	public static final String SINIESTROS = "Sin";
+	public static final String MAC_SINIESTROS = "MacSin";
 
 	public static final String GARAJES_CASE = "TST";
 	public static final String MEDIADORES_CASE = "Med";
@@ -183,6 +184,13 @@ public class Constants {
 	public static final String PolizaDetailFranquiciaVoluntariaErrorMessage = "no muestra el importe de la franquicia voluntaria";
 	public static final String AvisoGarajesErrorMessage = "El mensaje Los datos de superficies (m2) son orientativos, por favor reviselos no ha aparecido";
 	public static final String AvisoGarajes = "Los datos de superficies (m2) son orientativos, por favor reviselos";
+
+	public static final String FECHA_OCURRENCIA_AVISOS = "El campo FECHA OCURRENCIA no se ha rellenado correctamente.";
+
+
+
+
+
 
 	public static final String PolizaDetailTabDetallesRiesgo = "Detalles Riesgo";
 	public static final String PolizaDetailTabClausulas = "Clausulas";

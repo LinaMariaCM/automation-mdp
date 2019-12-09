@@ -1,5 +1,6 @@
 package com.amaris.project.pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
 import com.amaris.automation.model.helpers.DniGeneratorHelper;
@@ -7,10 +8,11 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 //import com.sun.org.apache.xml.internal.security.utils.Constants;
 import com.amaris.project.Constants;
-
+import org.testng.Assert;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
@@ -39,7 +41,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	private By tipoDeclaranteMediador = By.cssSelector("#tipodecl [value='MEDI']");
 	private By tipoDeclaranteProfiesionales = By.cssSelector("#tipodecl [value='PROF']");
 	private By tipoDeclaranteNoPerteneciente = By.cssSelector("#tipodecl [value='NORI']");
-	
+
 	private By medioDeclaracionCorreoElec = By.cssSelector("#mododecl > option:nth-child(2)");
 	private By comboMedioDeclaracion = By.id("mododecl");
 	private By txtObservaciones = By.id("comentario");
@@ -113,7 +115,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	// region methods
 	public SiniestrosAltaAperturaDeclaracionPage altaDatosBasicos(String tipoDeclarante, String medioDeclaracion) {
 		debugBegin();
-		
+
 		DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
 		webDriver.waitWithDriver(3000);
 		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fOcurrencia.format(new Date()));
@@ -131,65 +133,64 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 	public SiniestrosAltaAperturaDeclaracionPage altaDatosDeclaracion(String fechaOcurrencia, String tipoDeclarante, String medioDeclaracion, String fechaDenuncia, String observaciones) {
 		debugBegin();
-		
-		if(fechaOcurrencia.isEmpty() || fechaOcurrencia == null) {	
+
+		if(fechaOcurrencia.isEmpty() || fechaOcurrencia == null) {
 			webDriver.switchToFrame(cuerpoFrame);
 			DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
 			webDriver.waitWithDriver(3000);
 			//webDriver.switchToFrame(modalFrame);
 			webDriver.appendText(txtFechaOcurrencia, fOcurrencia.format(new Date()));
 			webDriver.exitFrame();
-			}
-		else {webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fechaOcurrencia);}
+		} else {webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fechaOcurrencia);}
 
 		// Añadir los tipos de value como comentario
-		if(tipoDeclarante.isEmpty() || tipoDeclarante == null) { webDriver.clickElementFromDropDownByIndexInFrame(comboTipoDeclarante, cuerpoFrame, 1);}
-		else {webDriver.clickElementFromDropDownByAttributeInFrame(comboTipoDeclarante, cuerpoFrame, "value", tipoDeclarante);}
-				
+		if(tipoDeclarante.isEmpty() || tipoDeclarante == null) { webDriver.clickElementFromDropDownByIndexInFrame(comboTipoDeclarante, cuerpoFrame, 1);} else {
+			webDriver.clickElementFromDropDownByAttributeInFrame(comboTipoDeclarante, cuerpoFrame, "value", tipoDeclarante);
+		}
+
 		//webDriver.clickElementFromDropDownByAttributeInFrame(comboMedioDeclaracion, cuerpoFrame, "value", medioDeclaracion);
-		if(medioDeclaracion.isEmpty() || medioDeclaracion == null) { webDriver.clickElementFromDropDownByIndexInFrame(comboMedioDeclaracion, cuerpoFrame, 1);}
-		else {webDriver.clickElementFromDropDownByAttributeInFrame(comboMedioDeclaracion, cuerpoFrame, "value", medioDeclaracion);}
-		
-		
+		if(medioDeclaracion.isEmpty() || medioDeclaracion == null) { webDriver.clickElementFromDropDownByIndexInFrame(comboMedioDeclaracion, cuerpoFrame, 1);} else {
+			webDriver.clickElementFromDropDownByAttributeInFrame(comboMedioDeclaracion, cuerpoFrame, "value", medioDeclaracion);
+		}
+
 		//webDriver.appendTextInFrame(txtFechaDenuncia, cuerpoFrame, fechaDenuncia);
-		if(fechaDenuncia.isEmpty() || fechaDenuncia == null) {	
+		if(fechaDenuncia.isEmpty() || fechaDenuncia == null) {
 			DateFormat fDenuncia = new SimpleDateFormat("dd/MM/yyyy");
-			webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fDenuncia.format(new Date()));}
-		else {webDriver.appendText(txtFechaOcurrencia, fechaDenuncia);}
-		
-		if(observaciones.isEmpty() || observaciones == null){ observaciones = "Ipsum sum lorem lorem, esto es una prueba del equipo de TaaS."; } 
+			webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fDenuncia.format(new Date()));
+		} else {webDriver.appendText(txtFechaOcurrencia, fechaDenuncia);}
+
+		if(observaciones.isEmpty() || observaciones == null) { observaciones = "Ipsum sum lorem lorem, esto es una prueba del equipo de TaaS."; }
 		webDriver.appendTextInFrame(txtObservaciones, cuerpoFrame, observaciones);
 
-		
 		debugEnd();
 
 		return this;
 	}
 
-	public SiniestrosAltaAperturaDeclaracionPage altaDatosDeclarante(String nombreDeclarante, 
-					String apellidoDeclarante, String segundoApellido,
-					String prefijoTelefono, String numeroTelefono,
-					String emailDeclarante,String noDisponible) {
+	public SiniestrosAltaAperturaDeclaracionPage altaDatosDeclarante(String nombreDeclarante,
+		String apellidoDeclarante, String segundoApellido,
+		String prefijoTelefono, String numeroTelefono,
+		String emailDeclarante, String noDisponible) {
 		debugBegin();
 		webDriver.appendTextInFrame(txtNombreDeclarante, cuerpoFrame, nombreDeclarante);
 		webDriver.appendTextInFrame(txtPrimerApellido, cuerpoFrame, apellidoDeclarante);
 		webDriver.appendTextInFrame(txtSegundoApellido, cuerpoFrame, segundoApellido);
 		//webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo, cuerpoFrame, "value", prefijoTelefono); en principio sólo contemplado para España
-		
-//		if(webDriver.getTextInFrame(txtTelefono, cuerpoFrame).isEmpty()) System.out.println("El número de teléfono del declarante ya está puesto: " + webDriver.getTextInFrame(txtTelefono, cuerpoFrame));
-//		
-//		else {
-//			System.out.println("El número del declarante es: " + numeroTelefono);
-//			webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
-//		}
-		
-//		if(emailDeclarante.isEmpty()) webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "prueba_sin_mail@esto.es");
-//		else webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
-		
+
+		//		if(webDriver.getTextInFrame(txtTelefono, cuerpoFrame).isEmpty()) System.out.println("El número de teléfono del declarante ya está puesto: " + webDriver.getTextInFrame(txtTelefono, cuerpoFrame));
+		//
+		//		else {
+		//			System.out.println("El número del declarante es: " + numeroTelefono);
+		//			webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
+		//		}
+
+		//		if(emailDeclarante.isEmpty()) webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "prueba_sin_mail@esto.es");
+		//		else webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
+
 		System.out.println("El número del declarante es: " + numeroTelefono);
 		webDriver.clearTextInFrame(txtTelefono, cuerpoFrame);
-		webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);	
-		
+		webDriver.appendTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
+
 		webDriver.waitWithDriver(3000);
 		//webDriver.switchToFrame(cuerpoFrame);
 		if(!noDisponible.isEmpty()) {
@@ -243,29 +244,30 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 	public SiniestrosAltaAperturaDeclaracionPage altaSinAsistencia() {
 		debugBegin();
-//		System.out.println("El tipo de póliza se imprime aquí: " + getTestVar(Constants.NUM_POLIZA).substring(0,3));
-//		if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("920") != 0) {
-//			System.out.println("Resultado: " + (Constants.NUM_POLIZA).substring(0,3).compareTo("920"));
-//			System.out.println("Entro a 920");
-//			if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame); 
-//			}
-//		else if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("900") != 0) {
-//			 System.out.println("Entro a 900");
-//			 if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
-//		if(webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)){webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
-		
-		if(getTestVar(Constants.NUM_POLIZA).startsWith("150")){System.out.println("Póliza carece de opción: 'alta sin asistencia'.");}
-		else {webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
-		
+		//		System.out.println("El tipo de póliza se imprime aquí: " + getTestVar(Constants.NUM_POLIZA).substring(0,3));
+		//		if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("920") != 0) {
+		//			System.out.println("Resultado: " + (Constants.NUM_POLIZA).substring(0,3).compareTo("920"));
+		//			System.out.println("Entro a 920");
+		//			if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
+		//			}
+		//		else if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("900") != 0) {
+		//			 System.out.println("Entro a 900");
+		//			 if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
+		//		if(webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)){webDriver.clickInFrame(rdbtnAsistenciaNo, cuerpoFrame);}
+
+		if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {System.out.println("Póliza carece de opción: 'alta sin asistencia'.");} else {
+			webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
+		}
+
 		debugInfo("Seleccionada: Asistencia NO");
 		debugEnd();
 
 		return this;
 	}
 
-	public SiniestrosAltaAperturaDeclaracionPage altaConAsistencia(String requiereAsistencia, String resolucionUrgente, 
-																	String ubicacion, String origenReparado,
-																	String consecuencia, String RefAsistenciaExt) {
+	public SiniestrosAltaAperturaDeclaracionPage altaConAsistencia(String requiereAsistencia, String resolucionUrgente,
+		String ubicacion, String origenReparado,
+		String consecuencia, String RefAsistenciaExt) {
 		debugBegin();
 
 		if(!Constants.ASISTENCIA.isEmpty()) {
@@ -316,34 +318,35 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		//webDriver.switchToFrame(cuerpoFrame);
 		//webDriver.switchToFrame(modalFrame);
-		
+
 		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
 		//webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
-		
+
 		if(!nombre.isEmpty()) {
-		webDriver.setText(txtNombre, nombre);
-		}else webDriver.setText(txtNombre, "Nombre" + Integer.toString((int)(Math.random()*100)));
-		
+			webDriver.setText(txtNombre, nombre);
+		} else webDriver.setText(txtNombre, "Nombre" + Integer.toString((int) (Math.random() * 100)));
+
 		if(!apellido1.isEmpty()) {
 			webDriver.setText(txt1Apellido, apellido1);
-		}else webDriver.setText(txt1Apellido, "ApellidoUno" + Integer.toString((int)(Math.random()*100)));
+		} else webDriver.setText(txt1Apellido, "ApellidoUno" + Integer.toString((int) (Math.random() * 100)));
 
 		if(!apellido2.isEmpty()) {
 			webDriver.setText(txt2Apellido, apellido2);
-		}else webDriver.setText(txt2Apellido, "ApellidoDos" + Integer.toString((int)(Math.random()*100)));
+		} else webDriver.setText(txt2Apellido, "ApellidoDos" + Integer.toString((int) (Math.random() * 100)));
 
-		if(!tipoDocumento.isEmpty()){
+		if(!tipoDocumento.isEmpty()) {
 			//webDriver.clickElementFromDropDownByAttribute(comboTipoDoc, "value", tipoDocumento);
 			webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
-		}else webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
+		} else webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
 		webDriver.waitWithDriver(3000);
-		if(!documento.isEmpty()){
-		webDriver.setText(txtDocumento, documento);}
-		else {documento = DniGeneratorHelper.generateNif();
-		webDriver.waitWithDriver(3000);
-		webDriver.setText(txtDocumento, documento);}
-		
-		
+		if(!documento.isEmpty()) {
+			webDriver.setText(txtDocumento, documento);
+		} else {
+			documento = DniGeneratorHelper.generateNif();
+			webDriver.waitWithDriver(3000);
+			webDriver.setText(txtDocumento, documento);
+		}
+
 		if(!prefijoTlf.isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(comboPrefijo1, "value", prefijoTlf);
 		} else {
@@ -383,7 +386,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 			webDriver.setText(txtPoblacion, poblacion);
 			//webDriver.clickElementFromDropDownByIndex(comboProvincia, 1);
 			webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
-			
+
 		}
 		//webDriver.setText(txtEmail, "prueba@esto.es");
 		webDriver.waitWithDriver(8000);
@@ -406,7 +409,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		return this;
 	}
-	
+
 	public SiniestrosAltaAperturaDeclaracionPage clickContinuarSinAsistencia() {
 		debugBegin();
 		System.out.println(txtEmail);
@@ -418,7 +421,6 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		return this;
 	}
-
 
 	public SiniestrosAltaAperturaDeclaracionPage completarMinimos(String numPoliza) {
 		debugBegin();
@@ -450,11 +452,11 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	}
 
 	public SiniestrosAltaAperturaDeclaracionPage modificarDatosSiniestro(String nombre, String primerApellido, String segApellido, String telefono, String email) {
-	//public SiniestrosAltaAperturaDeclaracionPage modificarDatosSiniestro() {
+		//public SiniestrosAltaAperturaDeclaracionPage modificarDatosSiniestro() {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
-		
+
 		webDriver.clickElementFromDropDownByIndex(comboTipoDeclarante, 1);
 		webDriver.setText(txtNombreDeclarante, nombre);
 		webDriver.setText(txtPrimerApellido, primerApellido);
@@ -463,15 +465,14 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		webDriver.setText(txtEmail, email);
 		webDriver.waitWithDriver(3000);
 		webDriver.click(btnContinuar);
-		
-		webDriver.exitFrame();
-		
-		debugEnd();
 
+		webDriver.exitFrame();
+
+		debugEnd();
 
 		return this;
 	}
-	
+
 	public SiniestrosAltaAperturaDeclaracionPage continuarSinAcciones() {
 		debugBegin();
 		webDriver.waitForPageToLoad();
@@ -485,5 +486,170 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		return this;
 	}
+
+	//  RETENCIONES
+
+	// localizar alerta, comparar texto y clic en aceptar para quitarla
+
+	/*public SiniestrosAltaAperturaDeclaracionPage accionesSobreAlerta() {
+		if(webDriver.alertIsPresent(true)) {
+			debugBegin();
+			comprobarContenidoAlerta();
+			webDriver.acceptAlert();
+		} else {
+			debugInfo("Ha fallado la localización de la retención");
+		}
+		debugEnd();
+		return this;
+	}*/
+
+	public SiniestrosAltaAperturaDeclaracionPage comprobarAlerta(String textoEsperado) {
+		debugBegin();
+
+		if(webDriver.alertIsPresent()) {
+			String alertResult = webDriver.getAlertText().substring(70);
+
+			boolean checkAviso = alertResult.equalsIgnoreCase(textoEsperado);
+
+			debugInfo("Mensaje esperado: " + textoEsperado);
+			debugInfo("Mensaje real: " + alertResult);
+
+			Assert.assertTrue(checkAviso, "COMPARAR CAMPOS : alerta fecha de ocurrencia NO se muestra");
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	/*public SiniestrosAltaAperturaDeclaracionPage comprobarAvisoFechaOcurrencia() {
+		debugBegin();
+
+	A UTLIZAR LA SIGUIENTE LÍNEA PARA INVOCAR DIRECTAMENTE A LA CONSTANTE ESTIPULADA
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+
+		debugEnd();
+
+		return this;
+	}*/
+
+	// Dejar el campo fecha de ocrrencia vacío
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaVacio() {
+		debugBegin();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.waitWithDriver(500);
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		webDriver.acceptAlert();
+
+		debugEnd();
+		return this;
+	}
+
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaFormatoIncorrecto() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.appendText(txtFechaOcurrencia, "09/of/2019");
+		webDriver.click(btnContinuar);
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		webDriver.acceptAlert();
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}
+
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaPosteriorHoy() {
+		debugBegin();
+
+		Date fechaManyana = new Date();
+
+		// convert date to calendar
+		Calendar c = Calendar.getInstance();
+		c.setTime(fechaManyana);
+
+		// manipulate date
+		c.add(Calendar.DATE, 1);
+
+		fechaManyana = c.getTime();
+		String datoFechaMañana = fechaManyana.toString();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.appendText(txtFechaOcurrencia,datoFechaMañana);
+		webDriver.click(btnContinuar);
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		webDriver.acceptAlert();
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}
+
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaHaceTresMeses() {
+		debugBegin();
+
+		Date fechaHaceMeses = new Date();
+
+		Calendar c = Calendar.getInstance();
+		c.setTime(fechaHaceMeses );
+
+		c.add(Calendar.MONTH, -3);
+		fechaHaceMeses = c.getTime();
+		String datosFechaHaceMeses = fechaHaceMeses.toString();
+
+		webDriver.switchToFrame(cuerpoFrame);
+
+		webDriver.appendText(txtFechaOcurrencia,datosFechaHaceMeses);
+
+		webDriver.click(btnContinuar);
+
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+
+		webDriver.acceptAlert();
+
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}
+
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaHoy() {
+		debugBegin();
+		DateFormat fechaHoy = new SimpleDateFormat("dd/MM/yyyy");
+		String datoFechaHoy = fechaHoy.toString();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.appendText(txtFechaOcurrencia,datoFechaHoy);
+		webDriver.click(btnContinuar);
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		webDriver.acceptAlert();
+		debugInfo("se cierra la ventana emergente y el test queda completado con éxito");
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}
+
+	/*
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaAnteriorFechaVigenciaPoliza() {
+		debugBegin();
+		DateFormat fechaHoy = new SimpleDateFormat("dd/MM/yyyy");
+		String datoFechaHoy = fechaHoy.toString();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.appendText(txtFechaOcurrencia,datoFechaHoy);
+		webDriver.click(btnContinuar);
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		webDriver.acceptAlert();
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}*/
+
+
+
+
+
+
 	// endregion
 }

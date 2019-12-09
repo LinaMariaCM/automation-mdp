@@ -105,7 +105,7 @@ public void siniestros01(String testCase, String id) throws Exception {
 			//TEST TIPO
 			steps.login("Innova", "Eperez");
 			System.out.println("Login OK. Empezando moficar siniestro Causa");
-			steps.modificar_siniestro_causa();
+			//steps.modificar_siniestro_causa();
 			
 			
 						
