@@ -19,7 +19,6 @@ public class GestionPagosPage extends PageObject{
 	private By consultarPagos = By.cssSelector("a#jt6");
 	
 		//Autorización
-	private By
 	
 	//METHODS REGION
 	
