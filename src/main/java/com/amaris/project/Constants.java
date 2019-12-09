@@ -582,6 +582,6 @@ public class Constants {
 	public static final String ESTADO_CARPETA_CERRADA = "cerrado";
 	public static final String ESTADO_CARPETA_ABIERTA = "abierto";
 	
-
+	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
 }

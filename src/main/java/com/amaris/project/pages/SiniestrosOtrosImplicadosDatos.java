@@ -66,35 +66,39 @@ public class SiniestrosOtrosImplicadosDatos extends PageObject {
 		webDriver.waitWithDriver(8000);
 		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
 		
-		if(!nombre.isEmpty()) webDriver.setText(txtNombre, nombre);
+		if(nombre != null && !nombre.isEmpty()) webDriver.setText(txtNombre, nombre);
 		else webDriver.setText(txtNombre, "Nombre" + Integer.toString((int)(Math.random()*100)));
 				
 		
-		if(!apellido1.isEmpty()) webDriver.setText(txtApellido1, apellido1);
+		if(apellido1 != null && !apellido1.isEmpty()) webDriver.setText(txtApellido1, apellido1);
 		else webDriver.setText(txtApellido1, "Nombre" + Integer.toString((int)(Math.random()*100)));
 		
 		
-		if(!apellido2.isEmpty()) webDriver.setText(txtApellido2, apellido2);
+		if(apellido2 != null && !apellido2.isEmpty()) webDriver.setText(txtApellido2, apellido2);
 		else webDriver.setText(txtApellido2, "Nombre" + Integer.toString((int)(Math.random()*100)));
 		
 		//webDriver.clickElementFromDropDownByAttribute(comboTipoDocumento, "value", tipoDocumento);
 		webDriver.clickElementFromDropDownByIndex(comboTipoDocumento, 1);
 		
-		if(!numDocumento.isEmpty()) webDriver.setText(txtNumeroDocumento, numDocumento);
+		if(numDocumento != null && !numDocumento.isEmpty()) webDriver.setText(txtNumeroDocumento, numDocumento);
 		else webDriver.setText(txtNumeroDocumento, DniGeneratorHelper.generateNif());
 		
-		if(!telefono1.isEmpty()) webDriver.setText(txtTelefono1, telefono1);
+		if(telefono1 != null && !telefono1.isEmpty()) webDriver.setText(txtTelefono1, telefono1);
 		else webDriver.setText(txtTelefono1, "961234567");
 		
-		webDriver.setText(txtTelefono2, telefono2);
+		if(telefono2 != null && !telefono2.isEmpty()) webDriver.setText(txtTelefono1, telefono2);
+		else webDriver.setText(txtTelefono2, "961234567");
+		
 		
 		//webDriver.clickElementFromDropDownByAttribute(comboSexo, "value", sexo);
-		webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
+		if(sexo != null && !sexo.isEmpty()) webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 		
-		if(email.isEmpty()) {
+		
+		if(email != null && email.isEmpty()) {
 			webDriver.click(checkEmailNoDisponble);
 		} else {
-			webDriver.setText(txtEmail, email);
+			if(email != null && email.isEmpty()) webDriver.setText(txtEmail, email);
+			else webDriver.setText(txtEmail, "prueba@esto.es");
 		}
 
 		debugEnd();

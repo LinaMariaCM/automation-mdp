@@ -101,16 +101,17 @@ public class DiarioSiniestrosPage extends PageObject {
     }
     
     //TODO completar parte de reconsiderar
-    public DiarioSiniestrosPage comprobar_siniestro_reconsiderado(){
+    
+    public boolean comprobar_siniestro_reconsiderado(){
         debugBegin();
 
        //comprobar estado de siniestro : "Reconsiderado"        
         
         boolean reconsiderado = webDriver.getTextInFrame(avisos,cuerpoFrame).contains("Reconsiderado");
         if(reconsiderado) { System.out.println("Siniestro reconsiderado");}
-        Assert.assertTrue(reconsiderado);
+        // donde se realice la llamada es necesario colocar una assert para evaluar la comprobación
         
-        return this;
+        return reconsiderado;
     }
     
     public DiarioSiniestrosPage comprobarComunicacion(){

@@ -138,12 +138,24 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 			webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, gremioCausasElemento, "title", gremioCausa); 			
 		}
 		
-		if(webDriver.getText(reservaInicial).equalsIgnoreCase("0,00")) {
+		//si es necesario modificar la reserva a un valor específico, se lee desde csv
+		if((getTestVar(Constants.RESERVA_ESPECIFICA) != null && !getTestVar(Constants.RESERVA_ESPECIFICA).isEmpty()) 
+			|| webDriver.getText(reservaInicial).equals("0,00")){
+			String reserva = "150";
+			
 			webDriver.click(modificarReserva);
+			
+			if(getTestVar(Constants.RESERVA_ESPECIFICA) != null && !getTestVar(Constants.RESERVA_ESPECIFICA).isEmpty()) {
+				reserva = getTestVar(Constants.RESERVA_ESPECIFICA);
+			}
+			
+			debugInfo("MODIFICAMOS LAS RESERVAS A: " + reserva);
 			webDriver.switchToFrame(capaIframe);
-			debugInfo("MODIFICAMOS LAS RESERVAS DE 0,00 A 150,00");
-			webDriver.setText(reservaInicial, "150");
+			webDriver.waitWithDriver(5000);
+			webDriver.setText(reservaInicial, reserva);
 			webDriver.click(btnGrabarModificarReserva);
+			webDriver.exitFrame();
+			webDriver.switchToFrame(cuerpoFrame);
 		}
 		
 		webDriver.exitFrame();
@@ -186,16 +198,22 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 
 	public SiniestrosAltaAperturaOcurrenciaPage altaRellenarDatos(String descripcion, String implicadosExisten, String encargo) {
 		debugBegin();
-
+		
+		if(descripcion != null && descripcion.isEmpty()) {
+			descripcion = "No se ha pasado pasado descripción por csv, se procede a rellenar descripción en modo automático : equipo TaaS";
+		}
+		debugInfo("La descripción del siniestro es: "+ descripcion);
+		webDriver.waitWithDriver(3000);
 		webDriver.appendTextInFrame(txtDescripcionSiniestro, cuerpoFrame, descripcion);
-
-		if(!implicadosExisten.isEmpty()) {
+		webDriver.waitWithDriver(3000);
+		if(implicadosExisten != null && !implicadosExisten.isEmpty()) {
+			
 			webDriver.clickInFrame(rdbtnImplicadosSi, cuerpoFrame);
 		} else {
 			webDriver.clickInFrame(rdbtnImplicadosNo, cuerpoFrame);
 		}
 
-		if(!encargo.isEmpty()) {
+		if(encargo != null && !encargo.isEmpty()) {
 			webDriver.clickInFrame(rdbtnEncargoSi, cuerpoFrame);
 			System.out.println("Hay encargo y clicko de verdad en el botón Encargos");
 		} else {

@@ -1,0 +1,2 @@
+acceso;usuario;tipo_poliza;numero_poliza;asistencia;grupo_causa;grupo_causa_cod;tipo_causa;tipo_causa_cod;otros_implicados;encargo;numero_siniestro;anyo_siniestro;tipo_causa_mac;tipo_causa_mac_cod;reserva_especifica;dec_email;cont_tipo_doc;cont_telefono_1;cont_email;cont_vive_en_riesgo;gremio_causa;gremio_causa_cod
+Innova;eperez;MEC;510010733;TRUE;AGUA;GC02;2001 BAJANTE GENERAL;TC002001;TRUE;TRUE;;;;;31000;prueba@esto.com;NIF;961234567;prueba@esto.com;TRUE;FONTANERO;FONTANERO
