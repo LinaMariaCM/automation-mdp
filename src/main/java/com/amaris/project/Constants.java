@@ -33,6 +33,7 @@ public class Constants {
 	public static final String MEDIADORES_CASE = "Med";
 	public static final String FICHA_CLIENT = "fichaClient";
 	public static final String SINIESTRO_CONVENCIONAL_CON_PERITO = "SinConvPer";
+	public static final String DATE_FORMAT = "dd/MM/yyyy";
 
 	// Mutua de Propietarios Constants
 

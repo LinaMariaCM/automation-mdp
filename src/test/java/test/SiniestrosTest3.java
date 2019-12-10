@@ -113,9 +113,9 @@ public class SiniestrosTest3 extends TestObject {
 
 		userS.testActions(() -> {
 			
-//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-//			steps.alta_siniestro_simple();
-//			steps.cierro_navegador();
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
 			
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.realizo_recobro();
@@ -570,6 +570,28 @@ public class SiniestrosTest3 extends TestObject {
 		}).run();
 	}
 
+
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec18() {
+		String testCase = Constants.MEC_SINIESTROS + "18";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+	@Test(dataProvider = "dataProviderSiniestrosMec18")
+	public void siniestrosMec18(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.transicionar_bloques();
+			steps.cierro_navegador();
+
+			return null;
+		}).run();
+	}
 		
 	//END
 	@AfterSuite

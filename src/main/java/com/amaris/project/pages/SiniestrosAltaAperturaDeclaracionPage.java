@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.DateUtils;
 //import com.sun.org.apache.xml.internal.security.utils.Constants;
 import com.amaris.project.Constants;
 import org.testng.Assert;
@@ -568,7 +569,6 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
 
 		webDriver.acceptAlert();
-		webDriver.exitFrame();
 
 		debugEnd();
 
@@ -578,25 +578,14 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaPosteriorHoy() {
 		debugBegin();
 
-		Date fechaManyana = new Date();
+		String datoFechaManyana = DateUtils.getModifiedDate(Calendar.DATE, 1, Constants.DATE_FORMAT);
 
-		// convert date to calendar
-		Calendar c = Calendar.getInstance();
-		c.setTime(fechaManyana);
-
-		// manipulate date
-		c.add(Calendar.DATE, 1);
-
-		fechaManyana = c.getTime();
-		String datoFechaManyana = fechaManyana.toString();
-
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.appendText(txtFechaOcurrencia, datoFechaManyana);
-
-		webDriver.click(btnContinuar);
+		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, datoFechaManyana);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		
 		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		
 		webDriver.acceptAlert();
-		webDriver.exitFrame();
 
 		debugEnd();
 		
@@ -605,27 +594,15 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaHaceTresMeses() {
 		debugBegin();
+		
+		String fechaHaceTresMeses = DateUtils.getModifiedDate(Calendar.MONTH, -3, Constants.DATE_FORMAT);
 
-		Date fechaHaceMeses = new Date();
-
-		Calendar c = Calendar.getInstance();
-		c.setTime(fechaHaceMeses);
-
-		c.add(Calendar.MONTH, -3);
-		fechaHaceMeses = c.getTime();
-		String datosFechaHaceMeses = fechaHaceMeses.toString();
-
-		webDriver.switchToFrame(cuerpoFrame);
-
-		webDriver.appendText(txtFechaOcurrencia, datosFechaHaceMeses);
-
-		webDriver.click(btnContinuar);
+		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fechaHaceTresMeses);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 
 		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
 
 		webDriver.acceptAlert();
-
-		webDriver.exitFrame();
 
 		debugEnd();
 		
@@ -635,15 +612,15 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaHoy() {
 		debugBegin();
 		
-		String datoFechaHoy = new SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date());
+		String datoFechaHoy = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.appendText(txtFechaOcurrencia, datoFechaHoy);
-		webDriver.click(btnContinuar);
+		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, datoFechaHoy);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		
 		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		
 		webDriver.acceptAlert();
-		debugInfo("se cierra la ventana emergente y el test queda completado con éxito");
-		webDriver.exitFrame();
+		debugInfo("Se cierra la ventana emergente y el test queda completado con éxito");
 
 		debugEnd();
 		
@@ -651,15 +628,21 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 	}
 
 	/*
-	 * public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaAnteriorFechaVigenciaPoliza() { debugBegin();
-	 * DateFormat fechaHoy = new SimpleDateFormat("dd/MM/yyyy"); String datoFechaHoy = fechaHoy.toString();
-	 * 
-	 * webDriver.switchToFrame(cuerpoFrame); webDriver.appendText(txtFechaOcurrencia,datoFechaHoy);
-	 * webDriver.click(btnContinuar); comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS); webDriver.acceptAlert();
-	 * webDriver.exitFrame();
-	 * 
-	 * debugEnd(); return this; }
-	 */
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaAnteriorFechaVigenciaPoliza() {
+		debugBegin();
+		DateFormat fechaHoy = new SimpleDateFormat("dd/MM/yyyy");
+		String datoFechaHoy = fechaHoy.toString();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.appendText(txtFechaOcurrencia,datoFechaHoy);
+		webDriver.click(btnContinuar);
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		webDriver.acceptAlert();
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}*/
 
 	// endregion
 }
