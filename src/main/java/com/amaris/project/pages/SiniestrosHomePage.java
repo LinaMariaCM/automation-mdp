@@ -60,6 +60,14 @@ public class SiniestrosHomePage extends PageObject {
 		return this;
 	}
 
+	public SiniestrosHomePage openGestionPagos() {
+		debugBegin();
+		webDriver.doubleClickInFrame(btnGestionPagos, menuFrame);
+		debugEnd();
+		
+		return this;
+	}
+	
 	public SiniestrosHomePage openAltaEvento() {
 		debugBegin();
 		webDriver.doubleClickInFrame(btnAltaEvento, menuFrame);

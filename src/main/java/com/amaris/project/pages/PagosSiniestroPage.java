@@ -552,7 +552,7 @@ public class PagosSiniestroPage extends PageObject {
 		return check;
 	}
 
-	public PagosSiniestroPage desbloquear_pago() {
+	public PagosSiniestroPage desbloquearPago() {
 		debugBegin();
 		debugInfo("Comprobamos el estado del pago... ");
 		System.out.println("El esado actual del pago es: " + webDriver.getText(infoSituacionPagoLista));

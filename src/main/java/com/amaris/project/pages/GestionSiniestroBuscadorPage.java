@@ -170,7 +170,7 @@ public GestionSiniestroBuscadorPage buscarPorNumeroSiniestro(String siniestro,St
     
     webDriver.setText(txtNoSiniestro, siniestro);
     webDriver.click(btnBuscar);
-
+    webDriver.waitWithDriver(3000);
     ActionSteps.waitForIt(webDriver);
     webDriver.click(btnContinuar);
 

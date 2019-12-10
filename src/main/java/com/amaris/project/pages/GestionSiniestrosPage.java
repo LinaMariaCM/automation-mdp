@@ -64,7 +64,7 @@ public class GestionSiniestrosPage extends PageObject{
     //OJO! revisar conforme se intreractue con los distintos elementos si es necesario pasar de by.id() a by.xpath()
     private By reservasYExpectativas = By.xpath(".//*[text()='Reservas y expectativas'] "); 
     
-    private By pagos = By.cssSelector("jt11");
+    private By pagos = By.cssSelector("[title = 'Pagos  ']");
     
     private By recobros = By.id("jt12");
     

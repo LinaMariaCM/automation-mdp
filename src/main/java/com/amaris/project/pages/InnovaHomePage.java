@@ -31,6 +31,8 @@ public class InnovaHomePage extends PageObject {
 
 	private By btnMenuMEC = By.cssSelector("#boton2");
 	private By btnMHC = By.cssSelector("a[href*='codmenu=660']");
+	private By gestionPagos = By.cssSelector("[title = 'Gestión de pagos de siniestros  ']");
+	
 	// endregion
 
 	public InnovaHomePage(UserStory userS) {
@@ -156,5 +158,14 @@ public class InnovaHomePage extends PageObject {
 		return this;
 	}
 
+	public InnovaHomePage openGestionPagos() {
+		debugBegin();
+		webDriver.doubleClickInFrame(gestionPagos, leftFrame);
+		debugEnd();
+		
+		return this;
+	}
+
+	
 	// endregion
 }
