@@ -130,11 +130,13 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openSiniestros() {
 		debugBegin();
+		
 		if(webDriver.isPresentInFrame(logoMutua,topFrame)) {
 			webDriver.clickInFrame(logoMutua, topFrame);
-			webDriver.waitWithDriver(3000);}
+			webDriver.waitWithDriver(3000);
+		}
 		
-		webDriver.doubleClickInFrame(btnSiniestros, leftFrame);
+		webDriver.clickInFrame(btnSiniestros, leftFrame);
 		debugEnd();
 		
 		return this;
