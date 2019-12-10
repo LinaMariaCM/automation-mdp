@@ -574,7 +574,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		String datoFechaMañana = fechaManyana.toString();
 
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.appendText(txtFechaOcurrencia,datoFechaMañana);
+		webDriver.appendText(txtFechaOcurrencia, datoFechaMañana);
 		webDriver.click(btnContinuar);
 		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
 		webDriver.acceptAlert();
@@ -590,7 +590,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		Date fechaHaceMeses = new Date();
 
 		Calendar c = Calendar.getInstance();
-		c.setTime(fechaHaceMeses );
+		c.setTime(fechaHaceMeses);
 
 		c.add(Calendar.MONTH, -3);
 		fechaHaceMeses = c.getTime();
@@ -598,7 +598,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 
-		webDriver.appendText(txtFechaOcurrencia,datosFechaHaceMeses);
+		webDriver.appendText(txtFechaOcurrencia, datosFechaHaceMeses);
 
 		webDriver.click(btnContinuar);
 
@@ -618,7 +618,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		String datoFechaHoy = fechaHoy.toString();
 
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.appendText(txtFechaOcurrencia,datoFechaHoy);
+		webDriver.appendText(txtFechaOcurrencia, datoFechaHoy);
 		webDriver.click(btnContinuar);
 		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
 		webDriver.acceptAlert();
@@ -645,11 +645,6 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		debugEnd();
 		return this;
 	}*/
-
-
-
-
-
 
 	// endregion
 }

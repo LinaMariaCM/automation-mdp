@@ -202,16 +202,17 @@ public class PagosSiniestroPage extends PageObject {
    // private By desplegablePeriodicidad = By.cssSelector("form [id='datosPlan'] > select [id='periodicidad'] > option");
     private By btnGenerarPlan = By.cssSelector("input.secondButton");
     private By tablaPagos = By.id("detallePlan");
-    private By marcaPagos = By.cssSelector("table.sis-frame-bg.wideBox > tbody > tr > td:nth-child(2) > table.sis-frame-bg2.wideBox > tbody > tr:nth-child(2)");
+    private By marcaPagos = By.cssSelector("table[class='sis-frame-bg.wideBox1] > tbody > tr > td:nth-child(2) > table[class='sis-frame-bg2.wideBox'] > tbody > tr:nth-child(2)");
 
     //comprobaciones tras finalizar (a parte de las ya grabadas)
     //private By fechaDemandaDeshaucio = By.cssSelector();
     //private By fechaAvanceRenta = By.cssSelector();
 
     //pago a carpeta
-    private By abrirBloques = By.cssSelector("a.menujer2");
-    private By desplegarCarpetas = By.cssSelector("#bloque1tr1 > td:nth-child(4) > div.cabeceraBloqueDesplegable1");
-    private By menuAccionesCarpetaBloque = By.cssSelector("#bloque1tr1b > td:nth-child(7) > div.capaFlecha1910237");
+    private By abrirBloques = By.cssSelector("a#jt7");
+    private By desplegarCarpetas = By.cssSelector("a#cabeceraBloqueDesplegable1");
+    private By menuAccionesCarpetaBloque = By.cssSelector("table[class='grid wideBox'] > tbody >  tr[id*='bloque1tr1b'] > td:nth-child(7) > div.sis-box-actions");
+
     private By btnPagoACarpeta = By.cssSelector("div.pdata > div > ul > li:nth-child(2) > a");
 
     private By volverListaPagos = By.cssSelector("div.menuNav.menuNavPosAbsolute.menuNavPosFixed > div > ul > li.rightList > a");
@@ -579,13 +580,13 @@ public class PagosSiniestroPage extends PageObject {
            webDriver.switchToFrame(cuerpoFrame);
            webDriver.appendText(planFPrimerPago,fPlanPrimerPago.format(new Date()));
            // DateFormat fPlanPrimerPago = new SimpleDateFormat("dd/MM/yyyy");
-            webDriver.waitWithDriver(3000);
+          //  webDriver.waitWithDriver(3000);
             //webDriver.appendText(planFPrimerPago, fPlanPrimerPago.format(new Date()));
       /*       webDriver.exitFrame();
        }
         else {webDriver.appendTextInFrame(planFPrimerPago, cuerpoFrame, fechaPlanPrimerPago);}
 */
-        webDriver.appendText(planFActivacion,fechaActivacion);
+        webDriver.appendText(planFActivacion,fActivacionPlan.format(new Date()));
       /*  if(fechaActivacion.isEmpty() || fechaActivacion == null) {
             webDriver.switchToFrame(cuerpoFrame);
             DateFormat fActivacionPlan = new SimpleDateFormat("dd/MM/yyyy");
@@ -597,6 +598,7 @@ public class PagosSiniestroPage extends PageObject {
 */
         webDriver.appendText(planImportePrimerPago, importePrimerPagoPlan);
         webDriver.click(btnGenerarPlan);
+        webDriver.waitWithDriver(2000);
         //método para probar que se ha generado
         if(webDriver.isPresent(tablaPagos)) {
             if(webDriver.getText(tablaPagos).contains("120")) {
@@ -614,6 +616,7 @@ public class PagosSiniestroPage extends PageObject {
 
     public PagosSiniestroPage comprobarPlanPagosMAC (){
         debugBegin();
+        webDriver.waitWithDriver(4000);
         webDriver.switchToFrame(cuerpoFrame);
         webDriver.click(volverListaPagos);
         if(webDriver.isPresent(marcaPagos)) {
@@ -627,20 +630,39 @@ public class PagosSiniestroPage extends PageObject {
     }
 
     public PagosSiniestroPage iniciarPagoACarpeta (){
-        webDriver.switchToFrame(leftFrame);
-        webDriver.click(abrirBloques);
-        webDriver.exitFrame();
+        debugBegin();
+        webDriver.waitWithDriver(4000);
+        webDriver.clickInFrame(abrirBloques, leftFrame);
         webDriver.switchToFrame(cuerpoFrame);
         webDriver.click(desplegarCarpetas);
         debugInfo("Se despliegan las carpetas del bloque");
-        webDriver.click(menuAccionesCarpetaBloque);
+        webDriver.isClickableAndClick(menuAccionesCarpetaBloque);
+       // webDriver.click(menuAccionesCarpetaBloque);
         debugInfo("se abre el menú de acciones de las carpetas");
-        webDriver.click(btnPagoACarpeta);
+        webDriver.isClickableAndClick(btnPagoACarpeta);
         debugInfo("clic en botón pago a carpeta");
         webDriver.exitFrame();
         debugEnd();
         return this;
     }
 
+  //  localizar IMAS - Implicado asegurado	en tabla  <td>IMAS - Implicado asegurado</td> -- #bloque1tr1b > td:nth-child(2)
+  //   body > form > table.grid.wideBox > tbody ---  tr#tr1b > td > div > table > tbody   tr#bloque1tr1b > td:nth-child(7) --  div#capaFlecha1910403
+
+ /*   for(int i = 0; i < listaBloques.size(); i++){
+        String codigo = webDriver.getText(By.cssSelector("#bloque1tr"+(i+1)+ "> td:nth-child(2")); // depende en que fila este es un numero u otro. Ej:segunda fila tendra el numero 2
+        debugInfo("el codigo es: "+codigo);
+        webDriver.click(By.cssSelector("#capaFlecha"+codigo+" a")); // el selector va dependiendo de que codigo de bloque sea.
+        debugInfo("click acciones");
+        if (webDriver.isClickable(transicionar)){
+            debugInfo("contiene transiciona");
+            webDriver.click(transicionar);
+            webDriver.waitWithDriver(3000);
+        }
+        else {
+            debugInfo("no contiene transiciona");
+            webDriver.click(By.cssSelector("#cabeceraBloqueDesplegable"+(i+1)));  // se hace este click porque cuan le doy al boton de acciones el desplejable tapa al siguiente selector
+        }"table.grid.wideBox > tbody > tr[id*='bloque']"
+*/
     // endregion
 }
