@@ -649,7 +649,7 @@ public class PagosSiniestroPage extends PageObject {
   //  localizar IMAS - Implicado asegurado	en tabla  <td>IMAS - Implicado asegurado</td> -- #bloque1tr1b > td:nth-child(2)
   //   body > form > table.grid.wideBox > tbody ---  tr#tr1b > td > div > table > tbody   tr#bloque1tr1b > td:nth-child(7) --  div#capaFlecha1910403
 
- /*   for(int i = 0; i < listaBloques.size(); i++){
+    for(int i = 0; i < listaBloques.size(); i++){
         String codigo = webDriver.getText(By.cssSelector("#bloque1tr"+(i+1)+ "> td:nth-child(2")); // depende en que fila este es un numero u otro. Ej:segunda fila tendra el numero 2
         debugInfo("el codigo es: "+codigo);
         webDriver.click(By.cssSelector("#capaFlecha"+codigo+" a")); // el selector va dependiendo de que codigo de bloque sea.
@@ -663,6 +663,6 @@ public class PagosSiniestroPage extends PageObject {
             debugInfo("no contiene transiciona");
             webDriver.click(By.cssSelector("#cabeceraBloqueDesplegable"+(i+1)));  // se hace este click porque cuan le doy al boton de acciones el desplejable tapa al siguiente selector
         }"table.grid.wideBox > tbody > tr[id*='bloque']"
-*/
+
     // endregion
 }

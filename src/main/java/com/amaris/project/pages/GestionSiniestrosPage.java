@@ -48,6 +48,8 @@ public class GestionSiniestrosPage extends PageObject{
     	
     	private By causaSin = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(1)");
 
+    	private By carpeta = By.cssSelector("#bloque1tr1");
+
     //posiocion global
     
     //private By diario = By.xpath(".//*[text()='Diario de siniestro  '] "); 
@@ -264,13 +266,27 @@ public class GestionSiniestrosPage extends PageObject{
     //Acciones
     
     String expectativaTotal = "";
-    public GestionSiniestrosPage modificarExpectativa(){	
-    	
+    public GestionSiniestrosPage modificarExpectativa(){
+
+    	// cositas de moi
+		for(int i = 0; i < webDriver.getElements(By.cssSelector(".grid.wideBox > tbody > tr")).size() - 1; i++) {
+			WebElement carpeta = webDriver.getElement(By.cssSelector(
+				".grid.wideBox > tbody > tr:nth-child(" + (2 + i) + ") > td:nth-of-type(2)"));
+			WebElement bloque = webDriver.getElement(By.cssSelector(
+				".grid.wideBox > tbody > tr:nth-child(" + (2 + i) + ") > td:nth-of-type(3)"));
+
+			carpeta.getText();
+		}
+
     	debugBegin();
     	double resIndemnizable = (double) Math.round((Math.random()*10) * 100d) / 100d;    	 
        	double resReparable = (double) Math.round((Math.random()*10) * 100d) / 100d;    	
     	double resGastos = (double) Math.round((Math.random()*10) * 100d) / 100d;
-    	   	
+
+		List<WebElement> listaCarpetas = webDriver.getElements(carpeta);
+
+		// almacenar las referencias de las Imas y comprobar sus reservas, seleccionar una y localizar sus acciones para implementar lo anterior
+
     	expectativaTotal = Double.toString(resIndemnizable + resReparable + resGastos);
     	
     	List<WebElement> listaAcciones = webDriver.getElements(acciones);
@@ -280,16 +296,20 @@ public class GestionSiniestrosPage extends PageObject{
     	System.out.println("Imprimo mi supuestas lista de acciones: " + listaAcciones);
     	   	
     	webDriver.clickInFrame(listaAcciones.get(0), cuerpoFrame);
+
+    	webDriver.switchToFrame(capaIframe);
     	
-    	webDriver.clickInFrame(modificarExepectativas, capaIframe);
+    	webDriver.click(modificarExepectativas);
     	
-    	webDriver.setTextInFrame(expReservaIndemnizable, capaIframe, Double.toString(resIndemnizable));
+    	webDriver.setText(expReservaIndemnizable, Double.toString(resIndemnizable));
     	
-    	webDriver.setTextInFrame(expReservaReparable, capaIframe, Double.toString(resReparable));
+    	webDriver.setText(expReservaReparable, Double.toString(resReparable));
     	
-    	webDriver.setTextInFrame(expReservaGastos, capaIframe, Double.toString(resGastos));
+    	webDriver.setText(expReservaGastos, Double.toString(resGastos));
     	
-    	webDriver.clickInFrame(btnGrabarExpectativa, capaIframe);
+    	webDriver.click(btnGrabarExpectativa);
+
+    	webDriver.exitFrame();
     	
     	debugEnd();
     	return this;

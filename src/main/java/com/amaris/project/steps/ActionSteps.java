@@ -2797,9 +2797,11 @@ public class ActionSteps extends InteractionObject {
 
 	public void realizo_recobro() throws Exception {
 
-		new InnovaHomePage(userS).openSiniestros();
+		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		new SiniestrosHomePage(userS).openGestionSiniestros();
-		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
+
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
 
 		GestionSiniestrosPage gestionSiniestrosPage = new GestionSiniestrosPage(userS);
 		gestionSiniestrosPage.reservasYExpecativas();
