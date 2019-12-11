@@ -581,6 +581,44 @@ public class Constants {
 	public static final String ESTADO_CARPETA_CERRADA = "cerrado";
 	public static final String ESTADO_CARPETA_ABIERTA = "abierto";
 
-	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
+	public static final String ALERTA_FECHA_OCURRENCIA = "El campo FECHA OCURRENCIA no se ha rellenado correctamente.";
+	public static final String ALERTA_TIPO_DECLARANTE = "El campo TIPO DECLARANTE es un campo obligatorio.";
+	public static final String ALERTA_MEDIO_DECLARACION = "El campo MEDIO DE DECLARACIÓN es un campo obligatorio.";
+	public static final String ALERTA_FECHA_DENUNCIA = "El campo FECHA DE DENUNCIA no se ha rellenado correctamente.";
+	public static final String ALERTA_TELEFONO = "Utiliza un formato que coincida con el solicitado";
+	public static final String ALERTA_EMAIL = "El campo EMAIL no se ha rellenado correctamente.";
+	public static final String ALERTA_ASISTENCIA = "El campo REQUIERE ASISTENCIA es un campo obligatorio.";
+	public static final String ALERTA_ROL = "El campo ROL es un campo obligatorio.";
+	public static final String ALERTA_NOMBRE_IMPLICADO = "El campo NOMBRE IMPLICADO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_TELEFONO_1 = "El campo TELÉFONO 1 no se ha rellenado correctamente.";
+	public static final String ALERTA_TELEFONO_2 = "El campo TELÉFONO 2 no se ha rellenado correctamente.";
+	public static final String ALERTA_EMAIL_PERSONA_CONTACTO = "El campo E-MAIL no se ha rellenado correctamente.";
+	public static final String ALERTA_GRUPO_CAUSAS = "El campo GRUPO CAUSAS es un campo obligatorio.";
+	public static final String ALERTA_TIPO_CAUSAS = "El campo TIPO CAUSAS es un campo obligatorio.";
+	public static final String ALERTA_DESCRIPCION_SINIESTRO_CARACTERES = "El campo \"Descripción del siniestro\" debe contener al menos 20 caracteres.";
+	public static final String ALERTA_DESCRIPCION_SINIESTRO = "El campo DESCRIPCIÓN DEL SINIESTRO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_EXISTEN_IMPLICADOS = "El campo ¿EXISTEN OTROS IMPLICADOS? es un campo obligatorio.";
+	public static final String ALERTA_NECESITA_ENCARGO = "El campo ¿SE NECESITA ENCARGO? es un campo obligatorio.";
+	public static final String ALERTA_TITULO_ANOTACION = "El campo TÍTULO DE ANOTACIÓN es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_EMAIL_ASEGURADO = "El campo E-MAIL no se ha rellenado correctamente.";
+	public static final String ALERTA_NUMERO = "El campo NÚMERO no se ha rellenado correctamente.";
+	public static final String ALERTA_CODIGO_POSTAL = "El campo CÓDIGO POSTAL es incorrecto.";
+	public static final String ALERTA_TIPOLOGIA_IMPLICADO = "El campo TIPOLOGÍA IMPLICADO es un campo obligatorio.";
+	public static final String ALERTA_PRIMER_APELLIDO = "El campo 1ER.APELLIDO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_CODIGO_IBAN = "El campo CÓDIGO IBAN es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_BANCO = "El campo BANCO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_SUCURSAL = "El campo SUCURSAL es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_DC = "El campo DC es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_NUMERO_DE_CUENTA = "El campo Nº CUENTA es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_ENCARGO_EXISTENTE = "Ya existe un encargo de ese tipo/subtipo en esta carpeta.";
+	public static final String ALERTA_TIPO_COLABORADOR = "El campo TIPO COLABORADOR es un campo obligatorio.";
+	public static final String ALERTA_TIPO_ENCARGO = "El campo TIPO ENCARGO es un campo obligatorio.";
+	public static final String ALERTA_SUBTIPO_ENCARGO = "El campo SUBTIPO DE ENCARGO es un campo obligatorio.";
+	public static final String ALERTA_FECHA_ENCARGO = "El campo FECHA DE ENCARGO no se ha rellenado correctamente.";
+	public static final String ALERTA_NOMBRE_COLABORADOR = "El campo NOMBRE COLABORADOR es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_NUMERO_COLABORADOR = "El campo Nº COLABORADOR es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_TIPO_AREA_INFLUENCIA = "El campo TIPO es un campo obligatorio.";
+	public static final String ALERTA_PROVINCIA_COLABORADOR = "El campo PROVINCIA es un campo obligatorio.";
 
+	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 }
