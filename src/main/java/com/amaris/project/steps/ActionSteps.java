@@ -2758,7 +2758,7 @@ public class ActionSteps extends InteractionObject {
 		GestionSiniestroBuscadorPage buscadorSiniestro = new GestionSiniestroBuscadorPage(userS);
 		DiarioSiniestrosPage diarioSiniestro = new DiarioSiniestrosPage(userS);
 		innovaHome.openSiniestros();
-		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), (getTestVar(Constants.ANYO_SINIESTRO)));
 		diarioSiniestro.rehusar_siniestro();
 		debugEnd();
 	}
@@ -2778,9 +2778,16 @@ public class ActionSteps extends InteractionObject {
 
 		realizo_pago_simple();
 
-		// completar lfujo de pago
+		desbloqueo_pago();	
+	
+		// completar flujo de pago
 
+		gestionar_pago();
 		
+		new InnovaHomePage(userS).openSiniestros();
+		new SiniestrosHomePage(userS).openGestionSiniestros();
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+		new GestionSiniestrosPage(userS).diario();
 		
 		// comprobar si estadop reconsiderado
 		Assert.assertTrue(diarioSiniestro.comprobar_siniestro_reconsiderado());
@@ -3010,4 +3017,54 @@ public class ActionSteps extends InteractionObject {
 			.fechaOcurrenciaHoy();
 		debugEnd();
 	}
-} //END
+	
+	public void desbloqueo_pago() {
+		debugBegin();
+		new InnovaHomePage(userS).openSiniestros();
+		new SiniestrosHomePage(userS).openGestionSiniestros();
+		new GestionSiniestroBuscadorPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+		new GestionSiniestrosPage(userS).pagos();
+		new PagosSiniestroPage(userS).desbloquearPago();
+		
+		debugEnd();
+	}
+	
+	public void gestionar_pago() throws Exception {
+		debugBegin();
+		 
+		new InnovaHomePage(userS)
+			.openGestionPagos();
+		
+		debugInfo("Autorizamos pago.");
+		new GestionPagosPage(userS)
+			.autorizar()
+			.anyadirPagos()
+			.buscarPagosPorSiniestro()
+			.anyadirPagosALista()
+			.continuarConPagos()
+			.continuarConPagos()
+			.autorizarPagos()
+			.volverAlMenuGestionPagos();
+		
+		debugInfo("Confirmamos pago.");
+		new GestionPagosPage(userS)
+			.confirmar()
+			.anyadirPagos()
+			.buscarPagosPorFecha(null,null)
+			.anyadirPagosALista()
+			.continuarConPagos()
+			.autorizarPagos()
+			.volverAlMenuGestionPagos();
+		
+		debugInfo("Emitimos manualmente pago");
+		new GestionPagosPage(userS)
+			.emisionManual()
+			.anyadirPagosAEmitir()
+			.buscarPagosPorFecha(null,null)
+			.anyadirPagosALista()
+			.continuarConPagos()
+			.emitirPago();
+		
+		debugEnd();
+	}
+} // END
