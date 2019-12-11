@@ -3,7 +3,7 @@ package com.amaris.project;
 public class Constants {
 
 	private Constants() {}
-	
+
 	// Web page
 	public static final String CLIENT = "Mutua de Propietarios";
 	public static final String USER_TYPE = "user_type";
@@ -16,7 +16,6 @@ public class Constants {
 	public static final String CAMBIO_USUARIO = "cambio_usuario";
 	public static final String USUARIO_AUTORIZADO = "usuarioAuth";
 	public static final String TIPO_POLIZA = "tipo_poliza";
-	
 
 	public static final String MAC = "Mac";
 	public static final String MEC = "Mec";
@@ -27,11 +26,13 @@ public class Constants {
 	public static final String MEC_SINIESTROS = "MecSin";
 	public static final String ALTA_SINIESTROS = "AltaSin";
 	public static final String SINIESTROS = "Sin";
+	public static final String MAC_SINIESTROS = "MacSin";
 
 	public static final String GARAJES_CASE = "TST";
 	public static final String MEDIADORES_CASE = "Med";
 	public static final String FICHA_CLIENT = "fichaClient";
 	public static final String SINIESTRO_CONVENCIONAL_CON_PERITO = "SinConvPer";
+	public static final String DATE_FORMAT = "dd/MM/yyyy";
 
 	// Mutua de Propietarios Constants
 
@@ -184,6 +185,8 @@ public class Constants {
 	public static final String AvisoGarajesErrorMessage = "El mensaje Los datos de superficies (m2) son orientativos, por favor reviselos no ha aparecido";
 	public static final String AvisoGarajes = "Los datos de superficies (m2) son orientativos, por favor reviselos";
 
+	public static final String FECHA_OCURRENCIA_AVISOS = "El campo FECHA OCURRENCIA no se ha rellenado correctamente.";
+
 	public static final String PolizaDetailTabDetallesRiesgo = "Detalles Riesgo";
 	public static final String PolizaDetailTabClausulas = "Clausulas";
 	public static final String PolizaDetailTabImportes = "Importes";
@@ -220,7 +223,7 @@ public class Constants {
 	public static final String FILTRO_BUSCADOR_EDIFICIO = "filtro_buscador_edificio";
 
 	public static final String GESTION_ONLINE_DISPONIBLE = "gestion_online_disponible";
-	
+
 	public static final String CLAUSULA = "clausula";
 	public static final String MODIFICAR_CLAUSULAS = "modificar_clausulas";
 	public static final String CLAUSULA_HIPOTECARIA = "clausula_hipotecaria";
@@ -239,7 +242,6 @@ public class Constants {
 	public static final String COLECTIVO_CLIENTE = "colectivo_cliente";
 	public static final String NUM_COTIZACION = "num_cotizacion";
 	public static final String NUM_POLIZA = "numero_poliza";
-	
 
 	public static final String TIPO_DOCUMENTO = "tipo_documento";
 
@@ -420,26 +422,26 @@ public class Constants {
 	public static final String FICHERO_REFERENCIAS = "fichero_referencias";
 	public static final String SUBIR_FICHERO = "subir_fichero";
 	public static final String FECHA_ALQUILER = "fecha_contr_alq";
-	
+
 	public static final String FECHA_SINIESTRO = "fecha_siniestro";
-	public static final String CAUSA_SINIESTRO = "causa_siniestro";	
-	
-	public static final String ROL_CONTACTO = "contacto_rol";	
-	public static final String NOMBRE_CONTACTO = "contacto_nombre";	
-	public static final String APELLIDO_CONTACTO = "contacto_apellido";	
+	public static final String CAUSA_SINIESTRO = "causa_siniestro";
+
+	public static final String ROL_CONTACTO = "contacto_rol";
+	public static final String NOMBRE_CONTACTO = "contacto_nombre";
+	public static final String APELLIDO_CONTACTO = "contacto_apellido";
 	public static final String TELEFONO_CONTACTO = "contacto_telefono";
 
 	public static final String PERSONA_FISICA = "Física";
 	public static final String CAPITAL_16M = "16000000";
 	public static final String DATOS_RIESGO = "Datos de riesgo";
-	
-	//Constantes para Siniestros			
-	
-	//Constantes Siniestros	:	Datos Alta Siniestro
-	
+
+	// Constantes para Siniestros
+
+	// Constantes Siniestros : Datos Alta Siniestro
+
 	public static final String NUMERO_SINIESTRO = "numero_siniestro";
 	public static final String ANYO_SINIESTRO = "anyo_siniestro";
-	
+
 	public static final String FECHA_OCURRENCIA = "fecha_ocurrencia";
 	public static final String TIPO_DECLARANTE = "tipo_declarante";
 	public static final String MEDIO_DECLARACION = "medio_declaracion";
@@ -453,15 +455,14 @@ public class Constants {
 	public static final String DECLARACION_TELEFONO = "dec_telefono";
 	public static final String DECLARACION_EMAIL = "dec_email";
 	public static final String DECLARACION_EMAIL_NO_DISP = "dec_email_no_disp";
-	
-	public static final String ASISTENCIA = "asistencia"; 
+
+	public static final String ASISTENCIA = "asistencia";
 	public static final String ASISTENCIA_URGENTE = "asis_urgente";
 	public static final String ASISTENCIA_DANYOS_UBICADOS = "asis_danyos_ubicados";
 	public static final String ASISTENCIA_ORIGEN_DANYOS_REPARADOS = "asis_origen_danyos_reparado";
 	public static final String ASISTENCIA_DANYOS_A_CONSECUENCIA = "asis_danyos_a_consecuen";
 	public static final String ASISTENCIA_REF_EXTERNA = "asis_ref_externa";
-	
-	
+
 	public static final String CONTACTO_ROL = "cont_rol";
 	public static final String CONTACTO_NOMBRE = "cont_nombre";
 	public static final String CONTACTO_PRIM_APELLIDO = "cont_prim_apellido";
@@ -484,7 +485,7 @@ public class Constants {
 	public static final String CONTACTO_DIR_CP = "cont_dir_CP";
 	public static final String CONTACTO_DIR_POBLACION = "cont_dir_poblacion";
 	public static final String CONTACTO_DIR_PROVINCIA = "cont_dir_provincia";
-	
+
 	public static final String OCURRENCIA_LUGAR = "ocu_lugar";
 	public static final String OCURRENCIA_DIR_TIPO_VIA = "ocu_dir_tipo_via";
 	public static final String OCURRENCIA_DIR_CALLE = "ocu_dir_calle";
@@ -496,7 +497,7 @@ public class Constants {
 	public static final String OCURRENCIA_DIR_CP = "ocu_dir_CP";
 	public static final String OCURRENCIA_DIR_POBLACION = "ocu_dir_poblacion";
 	public static final String OCURRENCIA_DIR_PROVINCIA = "ocu_dir_provincia";
-	
+
 	public static final String GRUPO_CAUSA = "grupo_causa";
 	public static final String GRUPO_CAUSA_COD = "grupo_causa_cod";
 	public static final String TIPO_CAUSA = "tipo_causa";
@@ -505,13 +506,11 @@ public class Constants {
 	public static final String GREMIO_CAUSA_COD = "gremio_causa_cod";
 	public static final String TIPO_CAUSA_MAC = "tipo_causa_mac";
 	public static final String TIPO_CAUSA_MAC_COD = "tipo_causa_mac_cod";
-	
-	
-	public static final String MODIFICAR_RESERVA_INICIAL = "modif_reserva_inicial";	
-	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro"; 
+
+	public static final String MODIFICAR_RESERVA_INICIAL = "modif_reserva_inicial";
+	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro";
 	public static final String OTROS_IMPLICADOS = "otros_implicados";
-	
-	
+
 	public static final String ASEGURADO = "asegurado";
 	public static final String ASEGURADO_NOMBRE = "aseg_nombre";
 	public static final String ASEGURADO_PRIM_APELLIDO = "aseg_prim_apellido";
@@ -532,10 +531,10 @@ public class Constants {
 	public static final String ASEGURADO_DIR_PROVINCIA = "aseg_sir_provincia";
 	public static final String ASEGURADO_COD_IBAN = "aseg_cod_iban";
 	public static final String ASEGURADO_COD_BANCO = "aseg_cod_banco";
-	public static final String ASEGURADO_COD_SUCURSAL ="aseg_cod_sucursal";
-	public static final String ASEGURADO_COD_DC ="aseg_cod_DC";
-	public static final String ASEGURADO_COD_CUENTA ="aseg_cod_cuenta";
-		
+	public static final String ASEGURADO_COD_SUCURSAL = "aseg_cod_sucursal";
+	public static final String ASEGURADO_COD_DC = "aseg_cod_DC";
+	public static final String ASEGURADO_COD_CUENTA = "aseg_cod_cuenta";
+
 	public static final String OTRO_IMPLICADO = "otro_implicado";
 	public static final String OTRO_ROL = "otro_rol";
 	public static final String OTRO_NOMBRE = "otro_nombre";
@@ -565,7 +564,7 @@ public class Constants {
 	public static final String OTRO_POLIZA = "otro_poliza";
 	public static final String OTRO_REF_CONTRARIA = "otro_referencia_contraria";
 	public static final String OTRO_COMP_PRIV_EMAIL = "otro_comp_priv_email";
-	
+
 	public static final String ENCARGO_COLABORADOR = "enc_colaborador";
 	public static final String ENCARGO = "encargo";
 	public static final String NUMERO_ENCARGO = "n_encargo";
@@ -577,11 +576,49 @@ public class Constants {
 	public static final String CIERRE_SINIESTRO = "cierre_siniestro";
 	public static final String REAPERTURA_SINIESTRO = "reapertura_siniestro";
 	public static final String REHUSO_SINIESTRO = "rehuso_siniestro";
-	
+
 	public static final String ESTADO_CARPETA = "estado_carpeta";
 	public static final String ESTADO_CARPETA_CERRADA = "cerrado";
 	public static final String ESTADO_CARPETA_ABIERTA = "abierto";
-	
-	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
+	public static final String ALERTA_FECHA_OCURRENCIA = "El campo FECHA OCURRENCIA no se ha rellenado correctamente.";
+	public static final String ALERTA_TIPO_DECLARANTE = "El campo TIPO DECLARANTE es un campo obligatorio.";
+	public static final String ALERTA_MEDIO_DECLARACION = "El campo MEDIO DE DECLARACIÓN es un campo obligatorio.";
+	public static final String ALERTA_FECHA_DENUNCIA = "El campo FECHA DE DENUNCIA no se ha rellenado correctamente.";
+	public static final String ALERTA_TELEFONO = "Utiliza un formato que coincida con el solicitado";
+	public static final String ALERTA_EMAIL = "El campo EMAIL no se ha rellenado correctamente.";
+	public static final String ALERTA_ASISTENCIA = "El campo REQUIERE ASISTENCIA es un campo obligatorio.";
+	public static final String ALERTA_ROL = "El campo ROL es un campo obligatorio.";
+	public static final String ALERTA_NOMBRE_IMPLICADO = "El campo NOMBRE IMPLICADO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_TELEFONO_1 = "El campo TELÉFONO 1 no se ha rellenado correctamente.";
+	public static final String ALERTA_TELEFONO_2 = "El campo TELÉFONO 2 no se ha rellenado correctamente.";
+	public static final String ALERTA_EMAIL_PERSONA_CONTACTO = "El campo E-MAIL no se ha rellenado correctamente.";
+	public static final String ALERTA_GRUPO_CAUSAS = "El campo GRUPO CAUSAS es un campo obligatorio.";
+	public static final String ALERTA_TIPO_CAUSAS = "El campo TIPO CAUSAS es un campo obligatorio.";
+	public static final String ALERTA_DESCRIPCION_SINIESTRO_CARACTERES = "El campo \"Descripción del siniestro\" debe contener al menos 20 caracteres.";
+	public static final String ALERTA_DESCRIPCION_SINIESTRO = "El campo DESCRIPCIÓN DEL SINIESTRO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_EXISTEN_IMPLICADOS = "El campo ¿EXISTEN OTROS IMPLICADOS? es un campo obligatorio.";
+	public static final String ALERTA_NECESITA_ENCARGO = "El campo ¿SE NECESITA ENCARGO? es un campo obligatorio.";
+	public static final String ALERTA_TITULO_ANOTACION = "El campo TÍTULO DE ANOTACIÓN es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_EMAIL_ASEGURADO = "El campo E-MAIL no se ha rellenado correctamente.";
+	public static final String ALERTA_NUMERO = "El campo NÚMERO no se ha rellenado correctamente.";
+	public static final String ALERTA_CODIGO_POSTAL = "El campo CÓDIGO POSTAL es incorrecto.";
+	public static final String ALERTA_TIPOLOGIA_IMPLICADO = "El campo TIPOLOGÍA IMPLICADO es un campo obligatorio.";
+	public static final String ALERTA_PRIMER_APELLIDO = "El campo 1ER.APELLIDO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_CODIGO_IBAN = "El campo CÓDIGO IBAN es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_BANCO = "El campo BANCO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_SUCURSAL = "El campo SUCURSAL es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_DC = "El campo DC es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_NUMERO_DE_CUENTA = "El campo Nº CUENTA es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_ENCARGO_EXISTENTE = "Ya existe un encargo de ese tipo/subtipo en esta carpeta.";
+	public static final String ALERTA_TIPO_COLABORADOR = "El campo TIPO COLABORADOR es un campo obligatorio.";
+	public static final String ALERTA_TIPO_ENCARGO = "El campo TIPO ENCARGO es un campo obligatorio.";
+	public static final String ALERTA_SUBTIPO_ENCARGO = "El campo SUBTIPO DE ENCARGO es un campo obligatorio.";
+	public static final String ALERTA_FECHA_ENCARGO = "El campo FECHA DE ENCARGO no se ha rellenado correctamente.";
+	public static final String ALERTA_NOMBRE_COLABORADOR = "El campo NOMBRE COLABORADOR es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_NUMERO_COLABORADOR = "El campo Nº COLABORADOR es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_TIPO_AREA_INFLUENCIA = "El campo TIPO es un campo obligatorio.";
+	public static final String ALERTA_PROVINCIA_COLABORADOR = "El campo PROVINCIA es un campo obligatorio.";
+
+	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 }

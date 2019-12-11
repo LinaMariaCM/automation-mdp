@@ -8,7 +8,6 @@ import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
 import com.amaris.project.Constants;
-import com.amaris.project.pages.GestionSiniestrosPage;
 import com.amaris.project.steps.ActionSteps;
 
 public class SiniestrosTest4 extends TestObject {
@@ -97,12 +96,11 @@ public class SiniestrosTest4 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			// TEST TIPO
 			steps.login("Innova", "Eperez");
 			System.out.println("Login OK. Empezando moficar siniestro Causa");
 			steps.modificar_siniestro_causa();
-
+			
 			return null;
 		}).run();
 	}

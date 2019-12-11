@@ -854,7 +854,7 @@ public class DriverHelper {
 		if(maximize) maximizeWindow();
 
 		if(desktop && Integer.parseInt(((JavascriptExecutor) driver)
-				.executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
+			.executeAsyncScript("arguments[0](window.outerWidth);").toString()) < smallWindowLimit) {
 			smallWindowMode = true;
 		}
 	}
@@ -2432,7 +2432,9 @@ public class DriverHelper {
 	}
 
 	public void exitFrame() {
-		driver.switchTo().defaultContent();
+		if(!alertIsPresent()) {
+			driver.switchTo().defaultContent();
+		}
 	}
 	// endregion
 
@@ -2653,12 +2655,14 @@ public class DriverHelper {
 	public void waitForPageToLoad() {
 		logger.begin();
 
-		try {
-			new WebDriverWait(driver, implicitTimeout)
-				.pollingEvery(Duration.ofMillis(500))
-				.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript("return !document ? false : !document.readyState ? false : document.readyState;")));
-		} catch(JavascriptException e) {
-			logger.error("Exception waiting for page to load" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+		if(!alertIsPresent()) {
+			try {
+				new WebDriverWait(driver, implicitTimeout)
+					.pollingEvery(Duration.ofMillis(500))
+					.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript("return !document ? false : !document.readyState ? false : document.readyState;")));
+			} catch(JavascriptException e) {
+				logger.error("Exception waiting for page to load" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+			}
 		}
 
 		logger.end();
@@ -3488,26 +3492,18 @@ public class DriverHelper {
 		boolean result = false;
 
 		try {
-			driver.switchTo().alert().getText();
-
-			exitFrame();
+			driver.switchTo().alert();
 
 			result = true;
-		} catch(Exception e) {
-			logger.info("Error trying to get alert present state");
+		} catch(NoAlertPresentException e) {
+			logger.info("No alerts present");
 		}
 
 		return result;
 	}
 
 	public String getAlertText() {
-		Alert alert = driver.switchTo().alert();
-
-		String text = alert.getText();
-
-		exitFrame();
-
-		return text;
+		return driver.switchTo().alert().getText();
 	}
 
 	public void acceptAlert() {

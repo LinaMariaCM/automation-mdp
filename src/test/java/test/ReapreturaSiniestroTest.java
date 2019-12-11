@@ -3,7 +3,6 @@ package test;
 //Circuito completo siniestros (convencional / especializado con perito)
 //--------------------------------------------------------------------------
 
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
