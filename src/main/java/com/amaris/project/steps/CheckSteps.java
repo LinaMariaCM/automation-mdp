@@ -5,21 +5,21 @@ import org.testng.Assert;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.InteractionObject;
 import com.amaris.project.Constants;
-import com.amaris.project.pages.ClientePage;
-import com.amaris.project.pages.ContratacionPage_MAC;
-import com.amaris.project.pages.DetallesRiesgoPage;
-import com.amaris.project.pages.FichaEdificioPage;
-import com.amaris.project.pages.GestionAutorizacionesPage;
-import com.amaris.project.pages.GestionCotizacionesBuscadorPage;
-import com.amaris.project.pages.GestionOnlineHomePage;
-import com.amaris.project.pages.GestionPolizasBuscadorPage;
-import com.amaris.project.pages.GestionPolizasConsultarPage;
-import com.amaris.project.pages.InnovaHomePage;
-import com.amaris.project.pages.InquilinosAvalistasPageMAC;
-import com.amaris.project.pages.MediadoresFichaMediadorPage;
-import com.amaris.project.pages.MensajeConfirmacionPage;
-import com.amaris.project.pages.PrecioPorModalidadPageMAC;
-import com.amaris.project.pages.ValidacionExcepcionesReglasDetallesRiesgoPage;
+import com.amaris.project.pages.administracion.clientes.ClientePage;
+import com.amaris.project.pages.administracion.fichaedificio.FichaEdificioPage;
+import com.amaris.project.pages.administracion.gestionautorizaciones.GestionAutorizacionesPage;
+import com.amaris.project.pages.administracion.mediadores.MediadoresFichaMediadorPage;
+import com.amaris.project.pages.comun.ValidacionExcepcionesReglasDetallesRiesgoPage;
+import com.amaris.project.pages.comun.gestiononline.GestionOnlineHomePage;
+import com.amaris.project.pages.comun.innova.InnovaHomePage;
+import com.amaris.project.pages.productos.DetallesRiesgoPage;
+import com.amaris.project.pages.productos.GestionCotizacionesBuscadorPage;
+import com.amaris.project.pages.productos.GestionPolizasBuscadorPage;
+import com.amaris.project.pages.productos.GestionPolizasConsultarPage;
+import com.amaris.project.pages.productos.MensajeConfirmacionPage;
+import com.amaris.project.pages.productos.mac.ContratacionPage_MAC;
+import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMAC;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMAC;
 
 public class CheckSteps extends InteractionObject {
 

@@ -5,9 +5,9 @@ import java.io.IOException;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.pages.GestionCotizacionesBuscadorPage;
-import com.amaris.project.pages.InnovaHomePage;
-import com.amaris.project.pages.InnovaLoginPage;
+import com.amaris.project.pages.comun.innova.InnovaHomePage;
+import com.amaris.project.pages.comun.innova.InnovaLoginPage;
+import com.amaris.project.pages.productos.GestionCotizacionesBuscadorPage;
 import com.amaris.project.Constants;
 
 public class InnovaApplicationAccessHelper extends PageObject implements IApplicationAccessHelper {

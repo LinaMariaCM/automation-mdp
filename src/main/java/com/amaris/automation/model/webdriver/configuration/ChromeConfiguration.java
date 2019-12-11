@@ -48,7 +48,7 @@ public class ChromeConfiguration extends BrowserConfiguration {
 		}
 
 		options.setCapability(CapabilityType.LOGGING_PREFS, prefs);
-		options.addArguments("disable-popup-blocking");
+		options.addArguments("--disable-popup-blocking");
 		options.addArguments("--enable-strict-powerful-feature-restrictions");
 		options.addArguments("--disable-geolocation");
 
