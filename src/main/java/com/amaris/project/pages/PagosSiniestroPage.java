@@ -1,5 +1,8 @@
 package com.amaris.project.pages;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;
@@ -8,6 +11,7 @@ import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class PagosSiniestroPage extends PageObject {
@@ -212,6 +216,28 @@ public class PagosSiniestroPage extends PageObject {
 	private By DesbloquearCuentaValidada = By.cssSelector("#checkNoValid");
 	private By DesbloquearGrabar = By.cssSelector("#buttonRecord");
 
+    private By radioActivarPlanPago = By.cssSelector("#planPagoSi");
+
+    private By planFPrimerPago = By.cssSelector("input#fPrimerPago");
+    private By planFActivacion = By.cssSelector("input#fActivacion");
+    private By planImportePrimerPago = By.cssSelector("input#importePrimerPago");
+   // private By desplegablePeriodicidad = By.cssSelector("form [id='datosPlan'] > select [id='periodicidad'] > option");
+    private By btnGenerarPlan = By.cssSelector("input.secondButton");
+    private By tablaPagos = By.id("detallePlan");
+    private By marcaPagos = By.cssSelector("table[class='sis-frame-bg.wideBox1] > tbody > tr > td:nth-child(2) > table[class='sis-frame-bg2.wideBox'] > tbody > tr:nth-child(2)");
+
+    //comprobaciones tras finalizar (a parte de las ya grabadas)
+    //private By fechaDemandaDeshaucio = By.cssSelector();
+    //private By fechaAvanceRenta = By.cssSelector();
+
+    //pago a carpeta
+    private By abrirBloques = By.cssSelector("a#jt7");
+    private By desplegarCarpetas = By.cssSelector("a#cabeceraBloqueDesplegable1");
+    private By menuAccionesCarpetaBloque = By.cssSelector("table[class='grid wideBox'] > tbody >  tr[id*='bloque1tr1b'] > td:nth-child(7) > div.sis-box-actions");
+
+    private By btnPagoACarpeta = By.cssSelector("div.pdata > div > ul > li:nth-child(2) > a");
+
+    private By volverListaPagos = By.cssSelector("div.menuNav.menuNavPosAbsolute.menuNavPosFixed > div > ul > li.rightList > a");
 	// endregion
 
 	public PagosSiniestroPage(UserStory userS) {
@@ -485,7 +511,7 @@ public class PagosSiniestroPage extends PageObject {
 	}
 
 	// Importes
-	public PagosSiniestroPage importes(String fPago, String Importe1) {
+	public PagosSiniestroPage importes(String fPago, String Importe1, boolean activarPlanMAC) {
 		debugBegin();
 		List<WebElement> listaCausasImportes = webDriver.getElementsInFrame(causasImportes, cuerpoFrame);
 
@@ -505,7 +531,15 @@ public class PagosSiniestroPage extends PageObject {
 		webDriver.appendTextInFrame(importe0, cuerpoFrame, Importe1);
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(actualizarImportePago, cuerpoFrame);
-		webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
+		
+		if(activarPlanMAC) {
+            webDriver.clickInFrame(radioActivarPlanPago, cuerpoFrame);
+            webDriver.waitWithDriver(8000);
+            webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
+            webDriver.exitFrame();
+        } else {
+            webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
+        }
 
 		debugEnd();
 		return this;
@@ -577,5 +611,83 @@ public class PagosSiniestroPage extends PageObject {
 		return this;
 	}
 
-	
+	public PagosSiniestroPage emitirPlanPagosMAC(String fechaPlanPrimerPago,  String fechaActivacion, String importePrimerPagoPlan){
+        debugBegin();
+       // webDriver.switchToFrame(cuerpoFrame);
+
+        DateFormat fPlanPrimerPago = new SimpleDateFormat("dd/MM/yyyy");
+													   
+
+        DateFormat fActivacionPlan = new SimpleDateFormat("dd/MM/yyyy");
+			  
+ 
+      // if(fechaPlanPrimerPago.isEmpty() || fechaPlanPrimerPago == null) {
+           webDriver.switchToFrame(cuerpoFrame);
+           webDriver.appendText(planFPrimerPago,fPlanPrimerPago.format(new Date()));
+           // DateFormat fPlanPrimerPago = new SimpleDateFormat("dd/MM/yyyy");
+          //  webDriver.waitWithDriver(3000);
+            //webDriver.appendText(planFPrimerPago, fPlanPrimerPago.format(new Date()));
+      /*       webDriver.exitFrame();
+       }
+        else {webDriver.appendTextInFrame(planFPrimerPago, cuerpoFrame, fechaPlanPrimerPago);}
+*/
+        webDriver.appendText(planFActivacion,fActivacionPlan.format(new Date()));
+      /*  if(fechaActivacion.isEmpty() || fechaActivacion == null) {
+            webDriver.switchToFrame(cuerpoFrame);
+            DateFormat fActivacionPlan = new SimpleDateFormat("dd/MM/yyyy");
+            webDriver.waitWithDriver(3000);
+            webDriver.appendText(planFActivacion, fActivacionPlan.format(new Date()));
+            webDriver.exitFrame();
+        }
+        else {webDriver.appendTextInFrame(planFActivacion, cuerpoFrame, fechaActivacion);}
+*/
+        webDriver.appendText(planImportePrimerPago, importePrimerPagoPlan);
+        webDriver.click(btnGenerarPlan);
+        webDriver.waitWithDriver(2000);
+        //método para probar que se ha generado
+        if(webDriver.isPresent(tablaPagos)) {
+            if(webDriver.getText(tablaPagos).contains("120")) {
+                System.out.println("Si está presente el importe de primer pago");
+                webDriver.click(botonContinuar1);
+            }
+        } else {
+            System.out.println("NO está presente el importe del primer pago");
+            webDriver.click(botonContinuar1);
+        }
+        webDriver.exitFrame();
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage comprobarPlanPagosMAC (){
+        debugBegin();
+        webDriver.waitWithDriver(4000);
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.click(volverListaPagos);
+        if(webDriver.isPresent(marcaPagos)) {
+            webDriver.getText(marcaPagos).contains("2000");
+            System.out.println("Si está presente el importe de pagos");
+            //webDriver.waitForElementToBeClickable(botonContinuar1);
+        } else System.out.println("La marca de pagos NO muestra el importe del plan de pagos");
+        webDriver.exitFrame();
+        debugEnd();
+        return this;
+    }
+
+    public PagosSiniestroPage iniciarPagoACarpeta (){
+        debugBegin();
+        webDriver.waitWithDriver(4000);
+        webDriver.clickInFrame(abrirBloques, leftFrame);
+        webDriver.switchToFrame(cuerpoFrame);
+        webDriver.click(desplegarCarpetas);
+        debugInfo("Se despliegan las carpetas del bloque");
+        webDriver.isClickableAndClick(menuAccionesCarpetaBloque);
+       // webDriver.click(menuAccionesCarpetaBloque);
+        debugInfo("se abre el menú de acciones de las carpetas");
+        webDriver.isClickableAndClick(btnPagoACarpeta);
+        debugInfo("clic en botón pago a carpeta");
+        webDriver.exitFrame();
+        debugEnd();
+        return this;
+    }
 }// END

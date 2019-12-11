@@ -97,12 +97,11 @@ public class SiniestrosTest4 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			// TEST TIPO
 			steps.login("Innova", "Eperez");
 			System.out.println("Login OK. Empezando moficar siniestro Causa");
 			steps.modificar_siniestro_causa();
-
+			
 			return null;
 		}).run();
 	}

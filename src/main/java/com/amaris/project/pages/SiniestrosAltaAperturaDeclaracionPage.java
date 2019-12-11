@@ -1,15 +1,19 @@
 package com.amaris.project.pages;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 
 import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.DateUtils;
 //import com.sun.org.apache.xml.internal.security.utils.Constants;
 import com.amaris.project.Constants;
+import org.testng.Assert;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
@@ -180,11 +184,18 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		String prefijoTelefono, String numeroTelefono,
 		String emailDeclarante, String noDisponible) {
 		debugBegin();
-		if(nombreDeclarante != null) webDriver.appendTextInFrame(txtNombreDeclarante, cuerpoFrame, nombreDeclarante);
-
-		if(apellidoDeclarante != null) webDriver.appendTextInFrame(txtPrimerApellido, cuerpoFrame, apellidoDeclarante);
-
-		if(segundoApellido != null) webDriver.appendTextInFrame(txtSegundoApellido, cuerpoFrame, segundoApellido);
+		
+		if(nombreDeclarante != null) {
+			webDriver.appendTextInFrame(txtNombreDeclarante, cuerpoFrame, nombreDeclarante);
+		}
+		
+		if(apellidoDeclarante != null) {
+			webDriver.appendTextInFrame(txtPrimerApellido, cuerpoFrame, apellidoDeclarante);
+		}
+		
+		if(segundoApellido != null) {
+			webDriver.appendTextInFrame(txtSegundoApellido, cuerpoFrame, segundoApellido);
+		}
 		// webDriver.clickElementFromDropDownByAttributeInFrame(comboPrefijo, cuerpoFrame, "value", prefijoTelefono); en
 		// principio sólo contemplado para España
 
@@ -200,7 +211,9 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		// else webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
 
 		System.out.println("El número del declarante es: " + numeroTelefono);
-		if(numeroTelefono != null) webDriver.setTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
+		if(numeroTelefono != null) {
+			webDriver.setTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
+		}
 
 		webDriver.waitWithDriver(3000);
 		// webDriver.switchToFrame(cuerpoFrame);
@@ -355,6 +368,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 			webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
 		} else webDriver.clickElementFromDropDownByIndex(comboTipoDoc, 1);
 		webDriver.waitWithDriver(3000);
+
 		if(documento != null && !documento.isEmpty()) {
 			webDriver.setText(txtDocumento, documento);
 		} else {
@@ -377,9 +391,13 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 			debugInfo("no existe prefijo t2");
 		}
 
-		if(telefono2 != null && !telefono2.isEmpty()) webDriver.setText(txtTelefono2, telefono2);
+		if(telefono2 != null && !telefono2.isEmpty()) {
+			webDriver.setText(txtTelefono2, telefono2);
+		}
 		// webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
-		if(sexo != null && !sexo.isEmpty())webDriver.clickElementFromListByAttribute(comboSexo, "value", sexo);
+		if(sexo != null && !sexo.isEmpty()) {
+			webDriver.clickElementFromListByAttribute(comboSexo, "value", sexo);
+		}
 
 		webDriver.waitWithDriver(3000);
 		if(noEmail != null && !noEmail.isEmpty()) {
@@ -402,7 +420,6 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 			if(poblacion != null && !poblacion.isEmpty()) webDriver.setText(txtPoblacion, poblacion);
 			// webDriver.clickElementFromDropDownByIndex(comboProvincia, 1);
 			if(provincia != null && !provincia.isEmpty()) webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
-
 		}
 		// webDriver.setText(txtEmail, "prueba@esto.es");
 		webDriver.waitWithDriver(8000);
@@ -502,5 +519,144 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		return this;
 	}
+
+	// RETENCIONES
+
+	// localizar alerta, comparar texto y clic en aceptar para quitarla
+
+	/*
+	 * public SiniestrosAltaAperturaDeclaracionPage accionesSobreAlerta() { if(webDriver.alertIsPresent(true)) {
+	 * debugBegin(); comprobarContenidoAlerta(); webDriver.acceptAlert(); } else {
+	 * debugInfo("Ha fallado la localización de la retención"); } debugEnd(); return this; }
+	 */
+
+	public SiniestrosAltaAperturaDeclaracionPage comprobarAlerta(String textoEsperado) {
+		debugBegin();
+
+		if(webDriver.alertIsPresent()) {
+			String alertResult = webDriver.getAlertText();
+			alertResult = alertResult.substring(0, alertResult.indexOf('\n')).trim();
+
+			boolean checkAviso = alertResult.equalsIgnoreCase(textoEsperado);
+
+			debugInfo("Mensaje esperado: " + textoEsperado);
+			debugInfo("Mensaje real: " + alertResult);
+
+			Assert.assertTrue(checkAviso, "COMPARAR CAMPOS : alerta fecha de ocurrencia NO se muestra");
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	/*
+	 * public SiniestrosAltaAperturaDeclaracionPage comprobarAvisoFechaOcurrencia() { debugBegin();
+	 * 
+	 * A UTLIZAR LA SIGUIENTE LÍNEA PARA INVOCAR DIRECTAMENTE A LA CONSTANTE ESTIPULADA
+	 * comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+	 * 
+	 * debugEnd();
+	 * 
+	 * return this; }
+	 */
+
+	// Dejar el campo fecha de ocrrencia vacío
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaVacio() {
+		debugBegin();
+		
+		webDriver.clearTextInFrame(txtFechaOcurrencia, cuerpoFrame);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		webDriver.acceptAlert();
+		debugEnd();
+
+		return this;
+	}
+
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaFormatoIncorrecto() {
+		debugBegin();
+
+		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, "09/of/2019");
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaPosteriorHoy() {
+		debugBegin();
+
+		String datoFechaManyana = DateUtils.getModifiedDate(Calendar.DATE, 1, Constants.DATE_FORMAT);
+
+		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, datoFechaManyana);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		
+		webDriver.acceptAlert();
+
+		debugEnd();
+		
+		return this;
+	}
+
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaHaceTresMeses() {
+		debugBegin();
+		
+		String fechaHaceTresMeses = DateUtils.getModifiedDate(Calendar.MONTH, -3, Constants.DATE_FORMAT);
+
+		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, fechaHaceTresMeses);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+
+		webDriver.acceptAlert();
+
+		debugEnd();
+		
+		return this;
+	}
+
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaHoy() {
+		debugBegin();
+		
+		String datoFechaHoy = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+		
+		webDriver.appendTextInFrame(txtFechaOcurrencia, cuerpoFrame, datoFechaHoy);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		
+		webDriver.acceptAlert();
+		debugInfo("Se cierra la ventana emergente y el test queda completado con éxito");
+
+		debugEnd();
+		
+		return this;
+	}
+
+	/*
+	public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaAnteriorFechaVigenciaPoliza() {
+		debugBegin();
+		DateFormat fechaHoy = new SimpleDateFormat("dd/MM/yyyy");
+		String datoFechaHoy = fechaHoy.toString();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.appendText(txtFechaOcurrencia,datoFechaHoy);
+		webDriver.click(btnContinuar);
+		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
+		webDriver.acceptAlert();
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}*/
+
 	// endregion
 }

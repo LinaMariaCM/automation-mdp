@@ -129,7 +129,10 @@ public class SiniestrosAltaAperturaOcurrenciaPage extends PageObject {
 		webDriver.waitWithDriver(5000);
 		
 		//webDriver.clickElementFromDropDownByIndex(comboTiposCausa, 2);
-		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", tipoCausa); 
+		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", tipoCausa);
+
+		// COMENTADO Antonia   webDriver.clickElementFromDropDownByAttribute(tipoCausasElemento, "value", tipoCausa);
+
 		// TODO cambiar por VALUE
 		webDriver.waitWithDriver(5000);
 
