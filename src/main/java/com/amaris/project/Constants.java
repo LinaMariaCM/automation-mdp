@@ -3,7 +3,7 @@ package com.amaris.project;
 public class Constants {
 
 	private Constants() {}
-	
+
 	// Web page
 	public static final String CLIENT = "Mutua de Propietarios";
 	public static final String USER_TYPE = "user_type";
@@ -16,7 +16,7 @@ public class Constants {
 	public static final String CAMBIO_USUARIO = "cambio_usuario";
 	public static final String USUARIO_AUTORIZADO = "usuarioAuth";
 	public static final String TIPO_POLIZA = "tipo_poliza";
-	
+
 	public static final String MAC = "Mac";
 	public static final String MEC = "Mec";
 	public static final String MEC_CON_PER = "MecConPer";
@@ -187,11 +187,6 @@ public class Constants {
 
 	public static final String FECHA_OCURRENCIA_AVISOS = "El campo FECHA OCURRENCIA no se ha rellenado correctamente.";
 
-
-
-
-
-
 	public static final String PolizaDetailTabDetallesRiesgo = "Detalles Riesgo";
 	public static final String PolizaDetailTabClausulas = "Clausulas";
 	public static final String PolizaDetailTabImportes = "Importes";
@@ -228,7 +223,7 @@ public class Constants {
 	public static final String FILTRO_BUSCADOR_EDIFICIO = "filtro_buscador_edificio";
 
 	public static final String GESTION_ONLINE_DISPONIBLE = "gestion_online_disponible";
-	
+
 	public static final String CLAUSULA = "clausula";
 	public static final String MODIFICAR_CLAUSULAS = "modificar_clausulas";
 	public static final String CLAUSULA_HIPOTECARIA = "clausula_hipotecaria";
@@ -247,7 +242,6 @@ public class Constants {
 	public static final String COLECTIVO_CLIENTE = "colectivo_cliente";
 	public static final String NUM_COTIZACION = "num_cotizacion";
 	public static final String NUM_POLIZA = "numero_poliza";
-	
 
 	public static final String TIPO_DOCUMENTO = "tipo_documento";
 
@@ -428,26 +422,26 @@ public class Constants {
 	public static final String FICHERO_REFERENCIAS = "fichero_referencias";
 	public static final String SUBIR_FICHERO = "subir_fichero";
 	public static final String FECHA_ALQUILER = "fecha_contr_alq";
-	
+
 	public static final String FECHA_SINIESTRO = "fecha_siniestro";
-	public static final String CAUSA_SINIESTRO = "causa_siniestro";	
-	
-	public static final String ROL_CONTACTO = "contacto_rol";	
-	public static final String NOMBRE_CONTACTO = "contacto_nombre";	
-	public static final String APELLIDO_CONTACTO = "contacto_apellido";	
+	public static final String CAUSA_SINIESTRO = "causa_siniestro";
+
+	public static final String ROL_CONTACTO = "contacto_rol";
+	public static final String NOMBRE_CONTACTO = "contacto_nombre";
+	public static final String APELLIDO_CONTACTO = "contacto_apellido";
 	public static final String TELEFONO_CONTACTO = "contacto_telefono";
 
 	public static final String PERSONA_FISICA = "Física";
 	public static final String CAPITAL_16M = "16000000";
 	public static final String DATOS_RIESGO = "Datos de riesgo";
-	
-	//Constantes para Siniestros			
-	
-	//Constantes Siniestros	:	Datos Alta Siniestro
-	
+
+	// Constantes para Siniestros
+
+	// Constantes Siniestros : Datos Alta Siniestro
+
 	public static final String NUMERO_SINIESTRO = "numero_siniestro";
 	public static final String ANYO_SINIESTRO = "anyo_siniestro";
-	
+
 	public static final String FECHA_OCURRENCIA = "fecha_ocurrencia";
 	public static final String TIPO_DECLARANTE = "tipo_declarante";
 	public static final String MEDIO_DECLARACION = "medio_declaracion";
@@ -461,14 +455,14 @@ public class Constants {
 	public static final String DECLARACION_TELEFONO = "dec_telefono";
 	public static final String DECLARACION_EMAIL = "dec_email";
 	public static final String DECLARACION_EMAIL_NO_DISP = "dec_email_no_disp";
-	
-	public static final String ASISTENCIA = "asistencia"; 
+
+	public static final String ASISTENCIA = "asistencia";
 	public static final String ASISTENCIA_URGENTE = "asis_urgente";
 	public static final String ASISTENCIA_DANYOS_UBICADOS = "asis_danyos_ubicados";
 	public static final String ASISTENCIA_ORIGEN_DANYOS_REPARADOS = "asis_origen_danyos_reparado";
 	public static final String ASISTENCIA_DANYOS_A_CONSECUENCIA = "asis_danyos_a_consecuen";
 	public static final String ASISTENCIA_REF_EXTERNA = "asis_ref_externa";
-	
+
 	public static final String CONTACTO_ROL = "cont_rol";
 	public static final String CONTACTO_NOMBRE = "cont_nombre";
 	public static final String CONTACTO_PRIM_APELLIDO = "cont_prim_apellido";
@@ -491,7 +485,7 @@ public class Constants {
 	public static final String CONTACTO_DIR_CP = "cont_dir_CP";
 	public static final String CONTACTO_DIR_POBLACION = "cont_dir_poblacion";
 	public static final String CONTACTO_DIR_PROVINCIA = "cont_dir_provincia";
-	
+
 	public static final String OCURRENCIA_LUGAR = "ocu_lugar";
 	public static final String OCURRENCIA_DIR_TIPO_VIA = "ocu_dir_tipo_via";
 	public static final String OCURRENCIA_DIR_CALLE = "ocu_dir_calle";
@@ -503,7 +497,7 @@ public class Constants {
 	public static final String OCURRENCIA_DIR_CP = "ocu_dir_CP";
 	public static final String OCURRENCIA_DIR_POBLACION = "ocu_dir_poblacion";
 	public static final String OCURRENCIA_DIR_PROVINCIA = "ocu_dir_provincia";
-	
+
 	public static final String GRUPO_CAUSA = "grupo_causa";
 	public static final String GRUPO_CAUSA_COD = "grupo_causa_cod";
 	public static final String TIPO_CAUSA = "tipo_causa";
@@ -512,13 +506,11 @@ public class Constants {
 	public static final String GREMIO_CAUSA_COD = "gremio_causa_cod";
 	public static final String TIPO_CAUSA_MAC = "tipo_causa_mac";
 	public static final String TIPO_CAUSA_MAC_COD = "tipo_causa_mac_cod";
-	
-	
-	public static final String MODIFICAR_RESERVA_INICIAL = "modif_reserva_inicial";	
-	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro"; 
+
+	public static final String MODIFICAR_RESERVA_INICIAL = "modif_reserva_inicial";
+	public static final String DESCRIPCION_SINIESTRO = "descripcion_siniestro";
 	public static final String OTROS_IMPLICADOS = "otros_implicados";
-	
-	
+
 	public static final String ASEGURADO = "asegurado";
 	public static final String ASEGURADO_NOMBRE = "aseg_nombre";
 	public static final String ASEGURADO_PRIM_APELLIDO = "aseg_prim_apellido";
@@ -539,10 +531,10 @@ public class Constants {
 	public static final String ASEGURADO_DIR_PROVINCIA = "aseg_sir_provincia";
 	public static final String ASEGURADO_COD_IBAN = "aseg_cod_iban";
 	public static final String ASEGURADO_COD_BANCO = "aseg_cod_banco";
-	public static final String ASEGURADO_COD_SUCURSAL ="aseg_cod_sucursal";
-	public static final String ASEGURADO_COD_DC ="aseg_cod_DC";
-	public static final String ASEGURADO_COD_CUENTA ="aseg_cod_cuenta";
-		
+	public static final String ASEGURADO_COD_SUCURSAL = "aseg_cod_sucursal";
+	public static final String ASEGURADO_COD_DC = "aseg_cod_DC";
+	public static final String ASEGURADO_COD_CUENTA = "aseg_cod_cuenta";
+
 	public static final String OTRO_IMPLICADO = "otro_implicado";
 	public static final String OTRO_ROL = "otro_rol";
 	public static final String OTRO_NOMBRE = "otro_nombre";
@@ -572,7 +564,7 @@ public class Constants {
 	public static final String OTRO_POLIZA = "otro_poliza";
 	public static final String OTRO_REF_CONTRARIA = "otro_referencia_contraria";
 	public static final String OTRO_COMP_PRIV_EMAIL = "otro_comp_priv_email";
-	
+
 	public static final String ENCARGO_COLABORADOR = "enc_colaborador";
 	public static final String ENCARGO = "encargo";
 	public static final String NUMERO_ENCARGO = "n_encargo";
@@ -584,11 +576,11 @@ public class Constants {
 	public static final String CIERRE_SINIESTRO = "cierre_siniestro";
 	public static final String REAPERTURA_SINIESTRO = "reapertura_siniestro";
 	public static final String REHUSO_SINIESTRO = "rehuso_siniestro";
-	
+
 	public static final String ESTADO_CARPETA = "estado_carpeta";
 	public static final String ESTADO_CARPETA_CERRADA = "cerrado";
 	public static final String ESTADO_CARPETA_ABIERTA = "abierto";
-	
+
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
 }
