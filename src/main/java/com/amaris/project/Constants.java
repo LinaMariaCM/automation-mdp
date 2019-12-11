@@ -469,7 +469,6 @@ public class Constants {
 	public static final String ASISTENCIA_DANYOS_A_CONSECUENCIA = "asis_danyos_a_consecuen";
 	public static final String ASISTENCIA_REF_EXTERNA = "asis_ref_externa";
 	
-	
 	public static final String CONTACTO_ROL = "cont_rol";
 	public static final String CONTACTO_NOMBRE = "cont_nombre";
 	public static final String CONTACTO_PRIM_APELLIDO = "cont_prim_apellido";

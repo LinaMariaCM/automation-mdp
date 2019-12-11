@@ -298,7 +298,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 		String ubicacion, String origenReparado,
 		String consecuencia, String RefAsistenciaExt) {
 		debugBegin();
-
+		webDriver.waitWithDriver(2000);
 		if(!Constants.ASISTENCIA.isEmpty()) {
 			webDriver.clickInFrame(rdbtnAsistenciaSi, cuerpoFrame);
 		} else {
@@ -307,6 +307,7 @@ public class SiniestrosAltaAperturaDeclaracionPage extends PageObject {
 
 		if(!Constants.ASISTENCIA_URGENTE.isEmpty()) {
 			webDriver.clickInFrame(rdbtnUrgenteSi, cuerpoFrame);
+			webDriver.waitWithDriver(2000);
 			webDriver.clickElementFromDropDownByIndexInFrame(comboMotivo, cuerpoFrame, 2);
 			//
 		} else {
