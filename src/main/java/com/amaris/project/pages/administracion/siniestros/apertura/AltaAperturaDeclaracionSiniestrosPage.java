@@ -569,6 +569,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
 		webDriver.acceptAlert();
+
 		debugEnd();
 
 		return this;

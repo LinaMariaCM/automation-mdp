@@ -3048,10 +3048,7 @@ public class ActionSteps extends InteractionObject {
 		// 1.Declaración
 		new AltaAperturaDeclaracionSiniestrosPage(userS)
 			.fechaOcurrenciaPosteriorHoy()
-			// .fechaOcurrenciaAnteriorFechaVigenciaPoliza()
 			.fechaOcurrenciaHaceTresMeses()
-			// .fechaDenunciaAnteriorOcurrencia()
-			// .fechaDenunciaPosteriorHoy()
 			.fechaOcurrenciaFormatoIncorrecto()
 			.fechaOcurrenciaVacio()
 			.fechaOcurrenciaHoy();
