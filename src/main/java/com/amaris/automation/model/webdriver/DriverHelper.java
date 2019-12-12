@@ -2436,6 +2436,12 @@ public class DriverHelper {
 			driver.switchTo().defaultContent();
 		}
 	}
+
+	public String getCurrentFrame() {
+		String frameName = executeJavaScript("return self.name;");
+		
+		return frameName.isEmpty() || frameName.equals("undefined") ? "root" : frameName;
+	}
 	// endregion
 
 	// region Focus
