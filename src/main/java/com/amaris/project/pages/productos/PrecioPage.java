@@ -27,7 +27,7 @@ public class PrecioPage extends PageObject {
 	}
 
 	// region methods
-	public PrecioPage waitProcesando() throws Exception {
+	public PrecioPage waitProcesando() {
 
 		System.out.println("Espero a ver procesando...");
 		webDriver.waitWithDriver(2000);

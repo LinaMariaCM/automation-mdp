@@ -82,6 +82,8 @@ public class Constants {
 	public static final String UatEnvironment = "UAT";
 	public static final String QAEnvironment = "QA";
 	public static final String ATMIRAEnvironment = "ATMIRA";
+	public static final String MantEnvironment = "Mant";
+	public static final String PostproEnvironment = "Postpro";
 	public static final String UpgradeEnvironment = "Upgrade";
 	public static final String SiniestrosEnvironment = "Siniestros";
 	public static final String MigracionEnvironment = "Migracion";

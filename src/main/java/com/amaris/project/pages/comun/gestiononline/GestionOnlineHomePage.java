@@ -63,7 +63,7 @@ public class GestionOnlineHomePage extends PageObject {
 	public GestionOnlineHomePage acceptCookies() {
 		debugBegin();
 		webDriver.waitWithDriver(2500);
-		webDriver.click(btnAceptarCookies);;
+		webDriver.click(btnAceptarCookies);
 		debugEnd();
 
 		return this;

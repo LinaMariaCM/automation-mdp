@@ -7,10 +7,12 @@ import com.amaris.automation.model.utils.ArrayUtils;
 import com.amaris.automation.model.utils.FileUtils;
 import com.amaris.automation.model.utils.InitUtils;
 import com.amaris.automation.model.webdriver.DriverHelper;
+
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
+
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
@@ -378,7 +380,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void createProjectMAC(String accessType) throws Exception {
+	public void createProjectMAC(String accessType) {
 		debugBegin();
 
 		if(accessType.equals(Constants.LoginAccessGestionLine)) {
@@ -391,7 +393,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void searchAuthorisation() throws Exception {
+	public void searchAuthorisation() {
 		new InnovaHomePage(userS).OpenGestionAutorizaciones();
 		new GestionAutorizacionesPage(userS).buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getTestVar(Constants.NUM_COTIZACION));
 	}
@@ -547,7 +549,7 @@ public class ActionSteps extends InteractionObject {
 
 	// ALTA SINIESTRO
 
-	public void alta_siniestro(String acceso, String numPoliza) throws Exception {
+	public void alta_siniestro(String acceso, String numPoliza) {
 		debugBegin();
 
 		if(acceso.equals(Constants.LoginAccessInnova)) {
@@ -588,7 +590,7 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	// ALTA SINIESTRO ALTERNATIVA
-	public void alta_siniestroAlt(String acceso, String numPoliza, String asistencia, String otrosImplicados, String encargo) throws Exception {
+	public void alta_siniestroAlt(String acceso, String numPoliza, String asistencia, String otrosImplicados, String encargo) {
 		debugBegin();
 		String ramo = "";
 
@@ -913,13 +915,13 @@ public class ActionSteps extends InteractionObject {
 
 		/*
 		 * new TomadorYAseguradoPage(userS) .AddDatosTomador() .AddDatosTomadorDiferenteAsegurado() .clickOnContinuar();
-		 * 
+		 *
 		 * new DocumentacionPage(userS).SubirFichero();
-		 * 
+		 *
 		 * new DatosBancariosPage(userS).introducirFormaPagoYPulsarContratar();
-		 * 
+		 *
 		 * // new DataSteps(userS).imprimir_informacion_del_proyecto();
-		 * 
+		 *
 		 */
 
 		userS.getWebDriver().quit();
@@ -1175,23 +1177,23 @@ public class ActionSteps extends InteractionObject {
 			 * login(loginAccess, user); //userS.initializeVariables(loginAcess);
 			 * //userS.applicationAccessHelper.LoginAndCreateSimulation(tCData.getUsuario(),
 			 * userS.getProperties().passwordComun);
-			 * 
-			 * 
-			 * 
+			 *
+			 *
+			 *
 			 * AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
 			 * asignarMediadorPage.selectMediadorAndClickOnContinuar();
-			 * 
+			 *
 			 * UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
 			 * ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
-			 * 
+			 *
 			 * ValidacionesExcepcionesReglasUbicacionRiesgoPage validacionesExcepcionesReglasUbicacionRiesgo = new
 			 * ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS);
 			 * validacionesExcepcionesReglasUbicacionRiesgo.isUbicacionRiesgoUtilizada();
-			 * 
+			 *
 			 * detallesRiesgoPage = new DetallesRiesgoPage(webDriver, userS.getTestDataManager()); //
 			 * detallesRiesgoPage. ExecuteActionsInPageDetallesRiesgoPageWithoutClickinOnContinue();
 			 * detallesRiesgoPage.completarDatosEnDetallesRiesgoSinContinuar();
-			 * 
+			 *
 			 */
 		}
 
@@ -2286,7 +2288,7 @@ public class ActionSteps extends InteractionObject {
 		mediadoresAltaMediadorPage.executeActionsAltaMediadorPage();
 	}
 
-	public void comunico_siniestro() throws Exception {
+	public void comunico_siniestro() {
 
 		new InnovaHomePage(userS).openSiniestros();
 
@@ -2300,7 +2302,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void compruebo_comunicacion_siniestro() throws Exception {
+	public void compruebo_comunicacion_siniestro() {
 
 		new GestionSiniestrosPage(userS).diario();
 
@@ -2322,7 +2324,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void compruebo_anotacion_siniestro() throws Exception {
+	public void compruebo_anotacion_siniestro() {
 
 		new GestionSiniestrosPage(userS).diario();
 
@@ -2330,7 +2332,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void busco_siniestro() throws Exception {
+	public void busco_siniestro() {
 
 		// TODO Rellenar
 
@@ -2527,7 +2529,7 @@ public class ActionSteps extends InteractionObject {
 			datosOcurrencia.altaRiesgoAsegurado();
 			/*
 			 * SIN uso en NINGUNA PARTE String gCausa = ""; String tCausa = ""; String gremio = "";
-			 * 
+			 *
 			 * if(ramo == "510" || ramo == "500") { gCausa = "GC02"; tCausa = "TC002000"; gremio = "1"; } else if(ramo
 			 * == "920") { gCausa = "GC25"; tCausa = "TC025000"; gremio = "1"; } else if(ramo == "640") { gCausa =
 			 * "GC51"; tCausa = "TC002000"; gremio = "1"; } else if(ramo == "660") { gCausa = "GC32"; tCausa =
@@ -2665,13 +2667,13 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void comprobar_que_no_tenga_pagos_pendientes_ni_encargos() throws Exception {
+	public void comprobar_que_no_tenga_pagos_pendientes_ni_encargos() {
 		debugBegin();
 
 		debugEnd();
 	}
 
-	public void cierre_siniestro() throws Exception {
+	public void cierre_siniestro() {
 		debugBegin();
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
@@ -2698,7 +2700,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void comprobacion_cierre_siniestro() throws Exception {
+	public void comprobacion_cierre_siniestro() {
 		debugBegin();
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -2708,7 +2710,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void reapertura_siniestro() throws Exception {
+	public void reapertura_siniestro() {
 		debugBegin();
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
@@ -2721,13 +2723,13 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void comprobacion_reapertura_siniestro() throws Exception {
+	public void comprobacion_reapertura_siniestro() {
 		debugBegin();
 
 		debugEnd();
 	}
 
-	public void realizo_pago_simple() throws Exception {
+	public void realizo_pago_simple() {
 		debugBegin();
 		PagosSiniestrosPage pagosSiniestroPage = new PagosSiniestrosPage(userS);
 		InnovaHomePage innovaHomePage = new InnovaHomePage(userS);
@@ -2771,17 +2773,18 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void realizo_plan_pagos_MAC() throws Exception {
+	public void realizo_plan_pagos_MAC() {
 		debugBegin();
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
 		PagosSiniestrosPage pagosSiniestroPage = new PagosSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+		BloqueSiniestrosPage BloqueSiniestrosPage = new BloqueSiniestrosPage(userS);
+		BloqueSiniestrosPage.iniciarPagoACarpeta();
 
 		// Seleccion del siniestro a pagar
 		pagosSiniestroPage
-			.iniciarPagoACarpeta()
 			.seleccionarParticipantesExpediente()
 			.datosPerceptor()
 			.importes("08/12/2019", "2000,00", true)
@@ -2793,7 +2796,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void rehuso_siniestro() throws Exception {
+	public void rehuso_siniestro() {
 		debugBegin();
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
@@ -2834,17 +2837,19 @@ public class ActionSteps extends InteractionObject {
 		Assert.assertTrue(diarioSiniestro.comprobar_siniestro_reconsiderado());
 	}
 
-	public void transicionar_bloques() throws Exception {
+	public void transicionar_bloques() {
 		debugBegin();
 		BloqueSiniestrosPage bloqueSiniestro = new BloqueSiniestrosPage(userS);
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		bloqueSiniestro.transicionar_bloques();
+		bloqueSiniestro.transicionarBloqueCerrandoOrigen();
+		bloqueSiniestro.transicionarBloqueSinCerrarOrigen();
+
 	}
 
-	public void nueva_tarea_siniestros() throws Exception {
+	public void nueva_tarea_siniestros() {
 
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
@@ -2852,7 +2857,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void modificar_siniestro_datos() throws Exception {
+	public void modificar_siniestro_datos() {
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
 		VistaSiniestrosPage vistaSiniestro = new VistaSiniestrosPage(userS);
@@ -2878,7 +2883,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void modificar_siniestro_causa() throws Exception {
+	public void modificar_siniestro_causa() {
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
 		VistaSiniestrosPage vistaSiniestro = new VistaSiniestrosPage(userS);
@@ -2890,7 +2895,7 @@ public class ActionSteps extends InteractionObject {
 		ConfirmacionSiniestrosPage confirmaModificacion = new ConfirmacionSiniestrosPage(userS);
 		GestionSiniestrosPage gestionDeSiniestro = new GestionSiniestrosPage(userS);
 		innovaHome.openSiniestros();
-		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.FECHA_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 		vistaSiniestro.modificarSiniestro();
 		altaDeclaracion.continuarSinAcciones();
 		validarReglas.comprobarPaginaModificacion();
@@ -2903,7 +2908,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void cerrar_carpeta() throws Exception {
+	public void cerrar_carpeta() {
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
@@ -2913,13 +2918,13 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void realizo_recobro() throws Exception {
+	public void realizo_recobro() {
+		//lo comentado es por el parche
+		//InnovaHomePage innovaHome = new InnovaHomePage(userS);
+		//	new HomeSiniestrosPage(userS).openGestionSiniestros();
+		//	GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
 
-		InnovaHomePage innovaHome = new InnovaHomePage(userS);
-		new HomeSiniestrosPage(userS).openGestionSiniestros();
-		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
-
-		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
+		//	buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
 
 		GestionSiniestrosPage gestionSiniestrosPage = new GestionSiniestrosPage(userS);
 		gestionSiniestrosPage.reservasYExpecativas();
@@ -2927,13 +2932,13 @@ public class ActionSteps extends InteractionObject {
 		gestionSiniestrosPage.modificarReserva();
 		gestionSiniestrosPage.verificarTotales();
 
-		gestionSiniestrosPage.modificarExpectativasACero();
-		gestionSiniestrosPage.modificarReservaACero();
+		//gestionSiniestrosPage.modificarExpectativasACero();
+	//	gestionSiniestrosPage.modificarReservaACero();
 		gestionSiniestrosPage.verificarTotales();
 
 	}
 
-	public void compruebo_carpeta_y_encargos() throws Exception {
+	public void compruebo_carpeta_y_encargos() {
 
 		GestionSiniestrosPage gestionSiniestros = new GestionSiniestrosPage(userS);
 		GestionCarpetaSiniestrosPage gestionCarpeta = new GestionCarpetaSiniestrosPage(userS);
@@ -2948,7 +2953,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void modifico_causas_siniestro_MAC() throws Exception {
+	public void modifico_causas_siniestro_MAC() {
 
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
@@ -3006,7 +3011,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void compruebo_información_diario_siniestro() throws Exception {
+	public void compruebo_información_diario_siniestro() {
 		debugBegin();
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
@@ -3018,7 +3023,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void compruebo_siniestro_cerrado() throws Exception {
+	public void compruebo_siniestro_cerrado() {
 		debugBegin();
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
@@ -3026,7 +3031,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void compruebo_siniestro_reaperturado() throws Exception {
+	public void compruebo_siniestro_reaperturado() {
 		debugBegin();
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
@@ -3034,7 +3039,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void retenciones_declaracion_apertura_siniestro_fechas() throws Exception {
+	public void retenciones_declaracion_apertura_siniestro_fechas() {
 		debugBegin();
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -3066,7 +3071,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void gestionar_pago() throws Exception {
+	public void gestionar_pago() {
 		debugBegin();
 
 		new InnovaHomePage(userS)
@@ -3104,4 +3109,18 @@ public class ActionSteps extends InteractionObject {
 
 		debugEnd();
 	}
+
+	public void parche_siniestro_entorno() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openSiniestros();
+
+		new GestionBuscadorSiniestrosPage(userS)
+			.metodo_parche("04084913", "2019");
+
+		debugEnd();
+
+	}
+
 } // END

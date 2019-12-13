@@ -112,10 +112,8 @@ public class Pair<K, V> implements Serializable {
 			@SuppressWarnings("unchecked")
 			Pair<K, V> pair = (Pair<K, V>) o;
 
-			if((key != null ? !key.equals(pair.key) : pair.key != null)
-				|| (value != null ? !value.equals(pair.value) : pair.value != null)) {
-				result = false;
-			} else result = true;
+			result = (key != null ? key.equals(pair.key) : pair.key == null)
+				&& (value != null ? value.equals(pair.value) : pair.value == null);
 		}
 
 		return result;

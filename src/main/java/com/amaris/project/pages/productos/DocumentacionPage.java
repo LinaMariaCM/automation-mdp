@@ -34,7 +34,7 @@ public class DocumentacionPage extends PageObject {
 	}
 
 	// region methods
-	public DocumentacionPage SubirFichero() throws AWTException, URISyntaxException {
+	public DocumentacionPage SubirFichero() throws URISyntaxException {
 		debugBegin();
 
 		if(getTestVar(Constants.USUARIO).equals("calbets")) {

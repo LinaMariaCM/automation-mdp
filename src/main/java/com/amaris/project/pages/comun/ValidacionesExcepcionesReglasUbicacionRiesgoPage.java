@@ -30,7 +30,7 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject
 
 	// region methods
 
-	public ValidacionesExcepcionesReglasUbicacionRiesgoPage waitProcesando() throws Exception {
+	public ValidacionesExcepcionesReglasUbicacionRiesgoPage waitProcesando() {
 
 		System.out.println("Espero a ver procesando...");
 		webDriver.waitWithDriver(7000);

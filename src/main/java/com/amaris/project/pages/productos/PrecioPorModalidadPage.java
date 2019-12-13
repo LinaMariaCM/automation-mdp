@@ -110,7 +110,7 @@ public class PrecioPorModalidadPage extends PageObject {
 	}
 
 	// region methods
-	public PrecioPorModalidadPage waitProcesando() throws Exception {
+	public PrecioPorModalidadPage waitProcesando() {
 
 		System.out.println("Espero a ver procesando...");
 		webDriver.waitWithDriver(7000);

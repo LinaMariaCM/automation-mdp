@@ -132,7 +132,8 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openSiniestros() {
 		debugBegin();
-
+		//espera añadida para postrpro. a falta de prepro
+		webDriver.waitWithDriver(8000);
 		if(webDriver.isPresentInFrame(logoMutua, topFrame)) {
 			webDriver.clickInFrame(logoMutua, topFrame);
 			webDriver.waitWithDriver(3000);

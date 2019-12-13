@@ -87,7 +87,7 @@ public class DetallesRiesgoPage extends PageObject {
 
 	// region methods
 
-	public DetallesRiesgoPage waitProcesando() throws Exception {
+	public DetallesRiesgoPage waitProcesando() {
 
 		System.out.println("Espero a ver procesando...");
 		webDriver.waitWithDriver(7000);
@@ -105,7 +105,7 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage clickOnConvertirProyectoDos() throws Exception {
+	public DetallesRiesgoPage clickOnConvertirProyectoDos() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);
@@ -147,7 +147,7 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public void clickOnConvertirProyecto() throws Exception {
+	public void clickOnConvertirProyecto() {
 		debugBegin();
 		System.out.println("TOKEN A");
 		this.webDriver.scrollToBottom();
@@ -162,7 +162,7 @@ public class DetallesRiesgoPage extends PageObject {
 		debugEnd();
 	}
 
-	public DetallesRiesgoPage completarDatosEnDetallesRiesgoMinimos() throws Exception {
+	public DetallesRiesgoPage completarDatosEnDetallesRiesgoMinimos() {
 		debugBegin();
 
 		// CheckAvisoGarajes();
