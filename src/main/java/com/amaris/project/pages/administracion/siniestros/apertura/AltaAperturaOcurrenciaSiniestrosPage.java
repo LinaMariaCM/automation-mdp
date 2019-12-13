@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 
 public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
@@ -320,6 +321,80 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		webDriver.click(btnVerificar);
 
 		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
+
+	// -----------------------------------------RETENCIONES---------------------------------------------------------------------
+
+	//---------------------------CAUSA-------------------------------------------------
+
+	public AltaAperturaOcurrenciaSiniestrosPage grupoCausaFalloVacio() {
+		debugBegin();
+
+		seleccionarGrupoCausa("Seleccionar");
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_GRUPO_CAUSAS);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public AltaAperturaOcurrenciaSiniestrosPage seleccionarGrupoCausa() {
+		return seleccionarGrupoCausa("");
+	}
+
+	public AltaAperturaOcurrenciaSiniestrosPage seleccionarGrupoCausa(String opcion) {
+		debugBegin();
+		switch(opcion) {
+			case "Seleccionar":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 0);
+				break;
+			case "Accidentes":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 1);
+				break;
+			default:
+			case "Agua":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 2);
+				break;
+			case "Asistencia complementaria":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 3);
+				break;
+			case "Daños eléctricos":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 4);
+				break;
+			case "Defensa y reclamación":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 5);
+				break;
+			case "Fenómenos Atmosféricos":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 6);
+				break;
+			case "Incendio":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 7);
+				break;
+			case "Jardines":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 8);
+				break;
+			case "R.C.General":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 9);
+				break;
+			case "Riesgos Extensivos":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 10);
+				break;
+			case "Robo":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 11);
+				break;
+			case "Rotura Cristales":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 12);
+				break;
+			case "Varios":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 13);
+				break;
+		}
+
 		debugEnd();
 
 		return this;

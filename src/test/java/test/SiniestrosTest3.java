@@ -525,7 +525,7 @@ public class SiniestrosTest3 extends TestObject {
 		userS.testActions(() -> {
 
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.retenciones_declaracion_apertura_siniestro_fechas();
+			steps.comprobar_casos_error_declaracion_apertura_siniestro();
 			steps.cierro_navegador();
 
 			return null;

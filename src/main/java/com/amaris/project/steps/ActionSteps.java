@@ -7,15 +7,16 @@ import com.amaris.automation.model.utils.ArrayUtils;
 import com.amaris.automation.model.utils.FileUtils;
 import com.amaris.automation.model.utils.InitUtils;
 import com.amaris.automation.model.webdriver.DriverHelper;
+
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
+
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
 import com.amaris.project.Constants;
-import com.amaris.project.pages.*;
 import com.amaris.project.pages.administracion.clientes.ClientePage;
 import com.amaris.project.pages.administracion.fichaedificio.FichaEdificioPage;
 import com.amaris.project.pages.administracion.gestionautorizaciones.GestionAutorizacionesPage;
@@ -617,7 +618,8 @@ public class ActionSteps extends InteractionObject {
 				if(numPoliza.startsWith("510")) ramo = "510";
 				else if(numPoliza.startsWith("920") || numPoliza.startsWith("900")) ramo = "920";
 				else if(numPoliza.startsWith("660")) ramo = "660";
-				else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000"))) ramo = "500";
+				else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000")))
+					ramo = "500";
 				else if(numPoliza.startsWith("5000") || numPoliza.startsWith("600") || numPoliza.startsWith("610") || numPoliza.startsWith("620") || numPoliza.startsWith("630")
 					|| numPoliza.startsWith("640")) ramo = "640";
 
@@ -722,7 +724,8 @@ public class ActionSteps extends InteractionObject {
 			if(numPoliza.startsWith("510")) ramo = "510";
 			else if(numPoliza.startsWith("920") || numPoliza.startsWith("900")) ramo = "920";
 			else if(numPoliza.startsWith("660")) ramo = "660";
-			else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000"))) ramo = "500";
+			else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000")))
+				ramo = "500";
 			else if(numPoliza.startsWith("5000") || numPoliza.startsWith("600") || numPoliza.startsWith("610") || numPoliza.startsWith("620") || numPoliza.startsWith("630")
 				|| numPoliza.startsWith("640")) ramo = "640";
 
@@ -913,13 +916,13 @@ public class ActionSteps extends InteractionObject {
 
 		/*
 		 * new TomadorYAseguradoPage(userS) .AddDatosTomador() .AddDatosTomadorDiferenteAsegurado() .clickOnContinuar();
-		 * 
+		 *
 		 * new DocumentacionPage(userS).SubirFichero();
-		 * 
+		 *
 		 * new DatosBancariosPage(userS).introducirFormaPagoYPulsarContratar();
-		 * 
+		 *
 		 * // new DataSteps(userS).imprimir_informacion_del_proyecto();
-		 * 
+		 *
 		 */
 
 		userS.getWebDriver().quit();
@@ -1175,23 +1178,23 @@ public class ActionSteps extends InteractionObject {
 			 * login(loginAccess, user); //userS.initializeVariables(loginAcess);
 			 * //userS.applicationAccessHelper.LoginAndCreateSimulation(tCData.getUsuario(),
 			 * userS.getProperties().passwordComun);
-			 * 
-			 * 
-			 * 
+			 *
+			 *
+			 *
 			 * AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
 			 * asignarMediadorPage.selectMediadorAndClickOnContinuar();
-			 * 
+			 *
 			 * UbicacionRiesgoPage ubicacionRiesgoPage = new UbicacionRiesgoPage(userS);
 			 * ubicacionRiesgoPage.fillInmuebleAndClickOnContinue();
-			 * 
+			 *
 			 * ValidacionesExcepcionesReglasUbicacionRiesgoPage validacionesExcepcionesReglasUbicacionRiesgo = new
 			 * ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS);
 			 * validacionesExcepcionesReglasUbicacionRiesgo.isUbicacionRiesgoUtilizada();
-			 * 
+			 *
 			 * detallesRiesgoPage = new DetallesRiesgoPage(webDriver, userS.getTestDataManager()); //
 			 * detallesRiesgoPage. ExecuteActionsInPageDetallesRiesgoPageWithoutClickinOnContinue();
 			 * detallesRiesgoPage.completarDatosEnDetallesRiesgoSinContinuar();
-			 * 
+			 *
 			 */
 		}
 
@@ -2470,10 +2473,12 @@ public class ActionSteps extends InteractionObject {
 				// Buscamos una póliza por Nº póliza
 
 				if(getTestVar(Constants.NUM_POLIZA).startsWith("510")) ramo = "510";
-				else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900")) ramo = "920";
+				else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900"))
+					ramo = "920";
 				else if(getTestVar(Constants.NUM_POLIZA).startsWith("660")) ramo = "660";
 				else if(getTestVar(Constants.NUM_POLIZA).startsWith("400") || getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("150")
-					|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000"))) ramo = "500";
+					|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000")))
+					ramo = "500";
 				else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610")
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("640")) ramo = "640";
@@ -2527,7 +2532,7 @@ public class ActionSteps extends InteractionObject {
 			datosOcurrencia.altaRiesgoAsegurado();
 			/*
 			 * SIN uso en NINGUNA PARTE String gCausa = ""; String tCausa = ""; String gremio = "";
-			 * 
+			 *
 			 * if(ramo == "510" || ramo == "500") { gCausa = "GC02"; tCausa = "TC002000"; gremio = "1"; } else if(ramo
 			 * == "920") { gCausa = "GC25"; tCausa = "TC025000"; gremio = "1"; } else if(ramo == "640") { gCausa =
 			 * "GC51"; tCausa = "TC002000"; gremio = "1"; } else if(ramo == "660") { gCausa = "GC32"; tCausa =
@@ -2613,10 +2618,12 @@ public class ActionSteps extends InteractionObject {
 			GestionOnlineAltaSiniestrosPage altaSiniestroGOL = new GestionOnlineAltaSiniestrosPage(userS);
 			altaSiniestroGOL.altaInfoPoliza(getTestVar(Constants.NUM_POLIZA), "");
 			if(getTestVar(Constants.NUM_POLIZA).startsWith("510")) ramo = "510";
-			else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900")) ramo = "920";
+			else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900"))
+				ramo = "920";
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("660")) ramo = "660";
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("400") || getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("150")
-				|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000"))) ramo = "500";
+				|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000")))
+				ramo = "500";
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610")
 				|| getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
 				|| getTestVar(Constants.NUM_POLIZA).startsWith("640")) ramo = "640";
@@ -3034,7 +3041,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void retenciones_declaracion_apertura_siniestro_fechas() throws Exception {
+	public void comprobar_casos_error_declaracion_apertura_siniestro() throws Exception {
 		debugBegin();
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -3047,11 +3054,45 @@ public class ActionSteps extends InteractionObject {
 			.SeleccionarResultado();
 		// 1.Declaración
 		new AltaAperturaDeclaracionSiniestrosPage(userS)
-			.fechaOcurrenciaPosteriorHoy()
-			.fechaOcurrenciaHaceTresMeses()
-			.fechaOcurrenciaFormatoIncorrecto()
-			.fechaOcurrenciaVacio()
-			.fechaOcurrenciaHoy();
+			.rellenarDatosMinimos()
+			.fechaOcurrenciaFalloVacio()
+			.fechaOcurrenciaFalloFormatoIncorrecto()
+			.fechaOcurrenciaHoy()
+			.tipoDeclaranteFalloVacio()
+			.seleccionarTipoDeclarante()
+			.medioDeclaracionFalloVacio()
+			.seleccionarMedioDeclaracion()
+			.emailDeclaranteFalloVacio()
+			.emailDeclaranteFalloFormatoIncorrecto()
+			.emailDeclaranteFalloNoDisponible()
+			.asistenciaFalloVacio()
+			.seleccionarAsistencia()
+			.fechaOcurrenciaFalloPosteriorHoy()
+			.fechaOcurrenciaFalloAnteriorFechaVigenciaPoliza()
+			.fechaOcurrenciaHoy()
+			.personaContactoFalloAñadir()
+			.rolPersonaContactoFalloVacio()
+			.seleccionarRolPersonaContacto()
+			.nombrePersonaContactoFalloVacio()
+			.escribirNombrePersonaContacto()
+			.telefonoPersonaContactoFalloVacio()
+			.telefonoPersonaContactoFalloAlfanumerico()
+			.escribirTelefonoPersonaContacto()
+			.emailPersonaContactoFalloVacio()
+			.emailPersonaContactoFalloFormatoIncorrecto()
+			.emailPersonaContactoFalloNoDisponible()
+			.fechaDenunciaFalloVacio()
+			.fechaDenunciaFalloFormatoIncorrecto()
+			.fechaDenunciaFalloAnteriorOcurrencia()
+			.fechaDenunciaFalloPosteriorHoy()
+			.fechaDenunciaHoy()
+			.clickContinuar()
+			.fechaOcurrenciaFalloHaceTresMeses()
+		;
+		new AltaAperturaOcurrenciaSiniestrosPage(userS)
+			.grupoCausaFalloVacio()
+			.seleccionarGrupoCausa();
+
 		debugEnd();
 	}
 
