@@ -194,7 +194,7 @@ public class SiniestrosTest4 extends TestObject {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
-			
+						
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.rehuso_siniestro();
 			steps.cierro_navegador();
