@@ -20,7 +20,9 @@ public class ChecksUtils extends PageObject {
 
 		if(webDriver.alertIsPresent() && comprobacionEsperada) {
 			String alertResult = webDriver.getAlertText();
-			alertResult = alertResult.substring(0, alertResult.indexOf('\n')).trim();
+
+			int indice = alertResult.indexOf('\n');
+			alertResult = alertResult.substring(0, indice == -1 ? alertResult.length() : indice).trim();
 
 			boolean checkAviso = alertResult.equalsIgnoreCase(textoEsperado);
 

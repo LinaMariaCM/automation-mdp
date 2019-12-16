@@ -916,7 +916,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 
-		comprobarAlertaAvisoSistema(Constants.ALERTA_AÑADIR_PERSONAS_CONTACTO);
+		comprobarAlertaAvisoSistema(Constants.ALERTA_ANYADIR_PERSONAS_CONTACTO);
 		clickVolver();
 
 		debugEnd();

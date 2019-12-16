@@ -3087,11 +3087,61 @@ public class ActionSteps extends InteractionObject {
 			.fechaDenunciaFalloPosteriorHoy()
 			.fechaDenunciaHoy()
 			.clickContinuar()
-			.fechaOcurrenciaFalloHaceTresMeses()
+		//.fechaOcurrenciaFalloHaceTresMeses()
 		;
 		new AltaAperturaOcurrenciaSiniestrosPage(userS)
 			.grupoCausaFalloVacio()
-			.seleccionarGrupoCausa();
+			.seleccionarGrupoCausa()
+			.tipoCausaFalloVacio()
+			.seleccionarTipoCausa()
+			.descripcionSiniestroFalloVacio()
+			.descripcionSiniestroFalloMinimoCaracteres()
+			.escribirDescripcionSiniestro()
+			.existenImplicadosFalloVacio()
+			.seleccionarExistenImplicados()
+			.necesitaEncargoFalloVacio()
+			.seleccionarNecesitaEncargo();
+		new ImplicadoAseguradoSiniestrosPage(userS)
+			.capturaDatosSiniestro()
+			.anotacionesImplicadoTituloFalloVacio()
+			.escribirAnotacionesImplicado();
+
+		new OtrosImplicadosDatosSiniestrosPage(userS)
+			.otrosImplicadosFalloVacio()
+			.tipologiaImplicadoFalloVacio()
+			.seleccionarTipologiaImplicado()
+			.rolImplicadoFalloVacio()
+			.seleccionarRolImplicado()
+			.nombreImplicadoFalloVacio()
+			.escribirNombreImplicado()
+			.telefonoPrimeroImplicadoFalloVacio()
+			.escribirTelefonoPrimeroImplicado()
+			.telefonoSegundoImplicadoFalloFormatoIncorrecto()
+			.escribirTelefonoSegundoImplicado()
+			.emailImplicadoFalloVacio()
+			.emailImplicadoFalloFormatoIncorrecto()
+			.escribirEmailImplicado()
+			.ibanImplicadoFalloVacio()
+			.escribirIbanImplicado()
+			.bancoImplicadoFalloVacio()
+			.escribirBancoImplicado()
+			.sucursalImplicadoFalloVacio()
+			.escribirSucursalImplicado()
+			.dcImplicadoFalloVacio()
+			.escribirDcImplicado()
+			.numeroCuentaImplicadoFalloVacio()
+			.escribirNumeroCuentaImplicado()
+			//comprobar 2
+			.checkIbanNoDisponible();
+
+		new EncargoDatosSiniestrosPage(userS)
+			.anyadirEncargoFalloVacio()
+			.tipoColaboradorFalloVacio()
+			.seleccionarTipoColaborador()
+			.tipoEncargoFalloVacio()
+			.seleccionarTipoEncargo()
+			.subtipoEncargoFalloVacio()
+			.seleccionarSubtipoEncargo();
 
 		debugEnd();
 	}
