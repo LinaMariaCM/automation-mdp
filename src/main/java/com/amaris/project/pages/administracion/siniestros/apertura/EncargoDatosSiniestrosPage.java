@@ -5,8 +5,10 @@ import com.amaris.automation.model.testing.objects.PageObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
+import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
@@ -204,6 +206,46 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 				webDriver.clickElementFromDropDownByIndexInFrame(comboSubtipoEncargo, cuerpoFrame, 2);
 				break;
 		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public EncargoDatosSiniestrosPage fechaEncargoFalloVacio() {
+		debugBegin();
+		webDriver.clearTextInFrame(txtFechaEncargo, cuerpoFrame);
+		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ENCARGO);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public EncargoDatosSiniestrosPage fechaEncargoFormatoIncorrecto() {
+		debugBegin();
+		webDriver.setTextInFrame(txtFechaEncargo, cuerpoFrame, "12/if/201p");
+		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ENCARGO);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public EncargoDatosSiniestrosPage escribirfechaEncargo() {
+		debugBegin();
+
+		String datoFechaHoy = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+
+		webDriver.setTextInFrame(txtFechaEncargo, cuerpoFrame, datoFechaHoy);
+		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
 
 		debugEnd();
 

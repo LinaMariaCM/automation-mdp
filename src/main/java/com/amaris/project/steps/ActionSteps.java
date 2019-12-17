@@ -3052,6 +3052,7 @@ public class ActionSteps extends InteractionObject {
 		new GestionPolizasBuscadorPage(userS)
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA))
 			.SeleccionarResultado();
+
 		// 1.Declaración
 		new AltaAperturaDeclaracionSiniestrosPage(userS)
 			.rellenarDatosMinimos()
@@ -3064,9 +3065,15 @@ public class ActionSteps extends InteractionObject {
 			.seleccionarMedioDeclaracion()
 			.emailDeclaranteFalloVacio()
 			.emailDeclaranteFalloFormatoIncorrecto()
-			.emailDeclaranteFalloNoDisponible()
-			.asistenciaFalloVacio()
-			.seleccionarAsistencia()
+			.emailDeclaranteFalloNoDisponible();
+
+		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
+			new AltaAperturaDeclaracionSiniestrosPage(userS)
+				.asistenciaFalloVacio()
+				.seleccionarAsistencia();
+		}
+
+		new AltaAperturaDeclaracionSiniestrosPage(userS)
 			.fechaOcurrenciaFalloPosteriorHoy()
 			.fechaOcurrenciaFalloAnteriorFechaVigenciaPoliza()
 			.fechaOcurrenciaHoy()
@@ -3086,14 +3093,24 @@ public class ActionSteps extends InteractionObject {
 			.fechaDenunciaFalloAnteriorOcurrencia()
 			.fechaDenunciaFalloPosteriorHoy()
 			.fechaDenunciaHoy()
-			.clickContinuar()
-		//.fechaOcurrenciaFalloHaceTresMeses()
-		;
+			.clickContinuar();
+		//.fechaOcurrenciaFalloHaceTresMeses();
+
 		new AltaAperturaOcurrenciaSiniestrosPage(userS)
+			.comprobarAvisos()
 			.grupoCausaFalloVacio()
 			.seleccionarGrupoCausa()
-			.tipoCausaFalloVacio()
-			.seleccionarTipoCausa()
+			.tipoCausaFalloVacio();
+
+		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
+			new AltaAperturaOcurrenciaSiniestrosPage(userS)
+				.seleccionarTipoCausa();
+		} else {
+			new AltaAperturaOcurrenciaSiniestrosPage(userS)
+				.seleccionarTipoCausa("2000 AGUA");
+		}
+
+		new AltaAperturaOcurrenciaSiniestrosPage(userS)
 			.descripcionSiniestroFalloVacio()
 			.descripcionSiniestroFalloMinimoCaracteres()
 			.escribirDescripcionSiniestro()
@@ -3101,8 +3118,13 @@ public class ActionSteps extends InteractionObject {
 			.seleccionarExistenImplicados()
 			.necesitaEncargoFalloVacio()
 			.seleccionarNecesitaEncargo();
+
+		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
+			new ImplicadoAseguradoSiniestrosPage(userS)
+				.capturaDatosSiniestro();
+		}
+
 		new ImplicadoAseguradoSiniestrosPage(userS)
-			.capturaDatosSiniestro()
 			.anotacionesImplicadoTituloFalloVacio()
 			.escribirAnotacionesImplicado();
 
@@ -3120,9 +3142,9 @@ public class ActionSteps extends InteractionObject {
 			.escribirTelefonoSegundoImplicado()
 			.emailImplicadoFalloVacio()
 			.emailImplicadoFalloFormatoIncorrecto()
-			.escribirEmailImplicado()
+			.setDisponibilidadEmail(false)
 			.ibanImplicadoFalloVacio()
-			.escribirIbanImplicado()
+			.escribirIbanImplicado("4543")
 			.bancoImplicadoFalloVacio()
 			.escribirBancoImplicado()
 			.sucursalImplicadoFalloVacio()
@@ -3131,8 +3153,9 @@ public class ActionSteps extends InteractionObject {
 			.escribirDcImplicado()
 			.numeroCuentaImplicadoFalloVacio()
 			.escribirNumeroCuentaImplicado()
-			//comprobar 2
-			.checkIbanNoDisponible();
+			.setDisponibilidadIban(false)
+			.clickGrabar()
+			.clickContinuar();
 
 		new EncargoDatosSiniestrosPage(userS)
 			.anyadirEncargoFalloVacio()
@@ -3141,7 +3164,13 @@ public class ActionSteps extends InteractionObject {
 			.tipoEncargoFalloVacio()
 			.seleccionarTipoEncargo()
 			.subtipoEncargoFalloVacio()
-			.seleccionarSubtipoEncargo();
+			.seleccionarSubtipoEncargo()
+			.fechaEncargoFalloVacio()
+			.fechaEncargoFormatoIncorrecto()
+			.escribirfechaEncargo();
+
+		new ConfirmacionSiniestrosPage(userS)
+			.check();
 
 		debugEnd();
 	}

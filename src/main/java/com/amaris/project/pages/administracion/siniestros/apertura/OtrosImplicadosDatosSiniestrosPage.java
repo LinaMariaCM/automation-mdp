@@ -52,6 +52,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 	private By txtPoliza = By.id("numpoliza");
 	private By txtRefContraria = By.id("referencia");
 	private By txtCorreoE = By.id("correoElectronico");
+
+	private By ibanObligatorioTxt = By.id("obligaCodIban");
+	private By emailObligatorioTxt = By.id("obligaMail");
 	// endregion
 
 	public OtrosImplicadosDatosSiniestrosPage(UserStory userS) {
@@ -96,10 +99,13 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		if(sexo != null && !sexo.isEmpty()) webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 
 		if(email != null && email.isEmpty()) {
-			webDriver.click(checkEmailNoDisponble);
+			setDisponibilidadEmail(false);
 		} else {
-			if(email != null && email.isEmpty()) webDriver.setText(txtEmail, email);
-			else webDriver.setText(txtEmail, "prueba@esto.es");
+			if(email != null && email.isEmpty()) {
+				webDriver.setText(txtEmail, email);
+			} else {
+				webDriver.setText(txtEmail, "prueba@esto.es");
+			}
 		}
 
 		debugEnd();
@@ -152,7 +158,15 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage clickGrabar() {
 		debugBegin();
-		webDriver.click(btnGrabar);
+		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage clickContinuar() {
+		debugBegin();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -177,7 +191,7 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 	public OtrosImplicadosDatosSiniestrosPage tipologiaImplicadoFalloVacio() {
 		debugBegin();
 		webDriver.clickInFrame(anyadirNuevoImplicadoBtn, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPOLOGIA_IMPLICADO);
 		webDriver.acceptAlert();
@@ -217,7 +231,8 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage rolImplicadoFalloVacio() {
 		debugBegin();
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ROL);
 		webDriver.acceptAlert();
@@ -272,8 +287,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage nombreImplicadoFalloVacio() {
 		debugBegin();
+
 		webDriver.clearTextInFrame(txtNombre, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_IMPLICADO);
 		webDriver.acceptAlert();
@@ -293,8 +309,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage telefonoPrimeroImplicadoFalloVacio() {
 		debugBegin();
+
 		webDriver.clearTextInFrame(txtTelefono1, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_1);
 		webDriver.acceptAlert();
@@ -314,8 +331,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage telefonoSegundoImplicadoFalloFormatoIncorrecto() {
 		debugBegin();
+
 		webDriver.setTextInFrame(txtTelefono2, cuerpoFrame, "14587fhtp");
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_2);
 		webDriver.acceptAlert();
@@ -335,8 +353,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage emailImplicadoFalloVacio() {
 		debugBegin();
+
 		webDriver.clearTextInFrame(txtEmail, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EMAIL_PERSONA_CONTACTO);
 		webDriver.acceptAlert();
@@ -348,8 +367,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage emailImplicadoFalloFormatoIncorrecto() {
 		debugBegin();
-		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@prueba");
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+
+		escribirEmailImplicado("prueba@prueba");
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EMAIL_PERSONA_CONTACTO);
 		webDriver.acceptAlert();
@@ -359,9 +379,23 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public OtrosImplicadosDatosSiniestrosPage escribirEmailImplicado() {
+	public OtrosImplicadosDatosSiniestrosPage escribirEmailImplicado(String email) {
 		debugBegin();
-		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@prueba.es");
+		webDriver.setTextInFrame(txtEmail, cuerpoFrame, email);
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage setDisponibilidadEmail(boolean value) {
+		debugBegin();
+
+		webDriver.clickInFrame(checkEmailNoDisponble, cuerpoFrame);
+
+		if(value != webDriver.getAttributeInFrame(emailObligatorioTxt, cuerpoFrame, "style").equals("display : inline;")) {
+			webDriver.clickInFrame(checkEmailNoDisponble, cuerpoFrame);
+		}
+
 		debugEnd();
 
 		return this;
@@ -369,8 +403,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage ibanImplicadoFalloVacio() {
 		debugBegin();
+
 		webDriver.clearTextInFrame(txtIBAN, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CODIGO_IBAN);
 		webDriver.acceptAlert();
@@ -380,9 +415,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public OtrosImplicadosDatosSiniestrosPage escribirIbanImplicado() {
+	public OtrosImplicadosDatosSiniestrosPage escribirIbanImplicado(String iban) {
 		debugBegin();
-		webDriver.setTextInFrame(txtIBAN, cuerpoFrame, "4158");
+		webDriver.setTextInFrame(txtIBAN, cuerpoFrame, iban);
 		debugEnd();
 
 		return this;
@@ -390,8 +425,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage bancoImplicadoFalloVacio() {
 		debugBegin();
+
 		webDriver.clearTextInFrame(txtBanco, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_BANCO);
 		webDriver.acceptAlert();
@@ -411,8 +447,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage sucursalImplicadoFalloVacio() {
 		debugBegin();
+
 		webDriver.clearTextInFrame(txtSucursal, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUCURSAL);
 		webDriver.acceptAlert();
@@ -432,8 +469,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage dcImplicadoFalloVacio() {
 		debugBegin();
+
 		webDriver.clearTextInFrame(txtDC, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DC);
 		webDriver.acceptAlert();
@@ -453,8 +491,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage numeroCuentaImplicadoFalloVacio() {
 		debugBegin();
+
 		webDriver.clearTextInFrame(txtNumCuenta, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		clickGrabar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_DE_CUENTA);
 		webDriver.acceptAlert();
@@ -472,14 +511,12 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	///
-	public OtrosImplicadosDatosSiniestrosPage checkIbanNoDisponible() {
-		debugBegin();
+	public OtrosImplicadosDatosSiniestrosPage setDisponibilidadIban(boolean value) {
 		webDriver.clickInFrame(checkIbanNoDisponble, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
-		debugEnd();
+
+		if(value != webDriver.getAttributeInFrame(ibanObligatorioTxt, cuerpoFrame, "style").equals("display : inline;")) {
+			webDriver.clickInFrame(checkIbanNoDisponble, cuerpoFrame);
+		}
 
 		return this;
 	}

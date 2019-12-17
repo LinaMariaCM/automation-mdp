@@ -1104,7 +1104,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(checkEmailNoDisponible, modalFrame);
 
 		webDriver.switchToFrame(cuerpoFrame);
-		if(!webDriver.getAttributeInFrame(emailNoDisponiblePCHidden, modalFrame, "style").equalsIgnoreCase("display : inline;")) {
+		if(!webDriver.getAttributeInFrame(emailNoDisponiblePCHidden, modalFrame, "style").equals("display : inline;")) {
 			webDriver.switchToFrame(cuerpoFrame);
 			webDriver.clickInFrame(checkEmailNoDisponible, modalFrame);
 		}

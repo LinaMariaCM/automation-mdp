@@ -74,6 +74,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	private By fechaSentencia = By.cssSelector("#nombdato_FECHSENTE_1"); // Fecha sentencia
 	private By fechaSolicitudAvanceRenta = By.cssSelector("#nombdato_FECHSOAREN_1"); // *Fecha solicitud avance renta
 
+	private By mensajeAvisoTxt = By.cssSelector(".grid.wideBox tr:nth-child(2) > td:nth-child(2)");
 	// endregion
 
 	public AltaAperturaOcurrenciaSiniestrosPage(UserStory userS) {
@@ -330,9 +331,23 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	//---------------------------CAUSA-------------------------------------------------
 
+	public AltaAperturaOcurrenciaSiniestrosPage comprobarAvisos() {
+		webDriver.waitWithDriver(5000);
+		if(webDriver.isPresentInFrame(mensajeAvisoTxt, cuerpoFrame)) {
+			String aviso = webDriver.getTextInFrame(mensajeAvisoTxt, cuerpoFrame);
+
+			if(aviso.contains("Existe otro siniestro con") && aviso.contains("para esta póliza con la misma fecha de ocurrencia.")) {
+				clickContinuar();
+			}
+		}
+
+		return this;
+	}
+
 	public AltaAperturaOcurrenciaSiniestrosPage grupoCausaFalloVacio() {
 		debugBegin();
 
+		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DESCRIPCION_SINIESTRO_CARACTERES);
 		webDriver.acceptAlert();
@@ -532,7 +547,6 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		webDriver.acceptAlert();
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EXISTEN_IMPLICADOS);
 		webDriver.acceptAlert();
-
 
 		debugEnd();
 

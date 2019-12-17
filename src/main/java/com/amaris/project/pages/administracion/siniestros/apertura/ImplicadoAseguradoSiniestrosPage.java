@@ -54,7 +54,6 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 
 	private By txtTituloAnotacion = By.id("titulo");
 	private By txtClausulaEspecial = By.cssSelector(".grid.wideBox tr:nth-child(2) > td:nth-child(2)");
-
 	// endregion
 
 	public ImplicadoAseguradoSiniestrosPage(UserStory userS) {
