@@ -207,6 +207,35 @@ public class SiniestrosTest4 extends TestObject {
 		}).run();
 	}
 	
+	
+	
+	// Guardar siniestro durante el alta y modificar después
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestros07() {
+		String testCase = Constants.SINIESTROS + "07";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestrosGuardarYTramitar.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderSiniestros07")
+	public void siniestros07(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		suiteM.setRelevantColumn(testCase, 16);
+
+		userS.testActions(() -> {
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
+
+			return null;
+		}).run();
+	}
+	
+	
 	//FIN ZONA DE PRUEBAS
 	@AfterSuite
 	public void afterSuite() {

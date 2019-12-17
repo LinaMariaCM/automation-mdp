@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.Locale;
 import org.testng.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.server.handler.AcceptAlert;
 
 import com.amaris.project.Constants;
 import com.amaris.project.pages.*;
@@ -2540,6 +2541,24 @@ public class ActionSteps extends InteractionObject {
 			datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", getTestVar(Constants.OTROS_IMPLICADOS), getTestVar(Constants.ENCARGO));
 			debugInfo("AQUI ES ALTA RELLENAR DATOS CAUSA");
 			userS.getWebDriver().waitWithDriver(10000);
+			
+			// Si el csv contempla la opción de guardar en medio del alta
+			if(!getTestVar(Constants.GUARDAR_EN_ALTA).isEmpty()) {
+				debugInfo("Seleccionada opción de guardado, se procede a guardar el siniestros provisional");
+				datosOcurrencia.clickGuardarSalir();
+				
+				new GestionSiniestrosPage(userS).logo();
+				
+				new InnovaHomePage(userS).openSiniestros();
+				new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.SINIESTRO_PROVISIONAL), getTestVar(Constants.ANYO_SINIESTRO));
+				new VistaSiniestrosPage(userS).modificarAltaSiniestro();
+				datosDeclaracion.clickContinuarSinAsistencia();
+				if(validarReglas.comprobarNombrePagina().contains("excepciones")) {
+					validarReglas.clickOnContinuarButton();
+					}
+				
+			}
+			
 			datosOcurrencia.clickContinuar();
 
 			// Validamos más cosas
@@ -2822,7 +2841,7 @@ public class ActionSteps extends InteractionObject {
 		desbloqueo_pago();
 
 		// completar flujo de pago
-
+		
 		gestionar_pago();
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -2851,6 +2870,7 @@ public class ActionSteps extends InteractionObject {
 		new AgendaSiniestrosPage(userS).nueva_tarea();
 
 	}
+
 
 	public void modificar_siniestro_datos() throws Exception {
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);
@@ -3062,7 +3082,7 @@ public class ActionSteps extends InteractionObject {
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 		new GestionSiniestrosPage(userS).pagos();
 		new PagosSiniestrosPage(userS).desbloquearPago();
-
+		
 		debugEnd();
 	}
 

@@ -621,4 +621,11 @@ public class Constants {
 	public static final String ALERTA_PROVINCIA_COLABORADOR = "El campo PROVINCIA es un campo obligatorio.";
 
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
-}
+
+	public static final String TAREA_TITULO = "tarea_titulo";
+	
+	public static final String GUARDAR_EN_ALTA = "guardar_en_alta";
+	public static final String SINIESTRO_PROVISIONAL = "siniestro_provisional";
+	
+	
+}// END

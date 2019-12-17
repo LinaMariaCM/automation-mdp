@@ -46,9 +46,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 		System.out.println("###########################\n");
 		System.out.println("# Mensaje de confirmacion #\n");
 		System.out.println("###########################\n\n");
-		webDriver.waitWithDriver(8000);
-
-		webDriver.waitWithDriver(8000);
+		webDriver.waitWithDriver(16000);
 		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
 			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto, cuerpoFrame) + "\n");
 			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");

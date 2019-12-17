@@ -72,6 +72,9 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	private By fechaLanzamiento = By.cssSelector("#nombdato_FECHLANZA_1"); // Fecha lanzamiento
 	private By fechaSentencia = By.cssSelector("#nombdato_FECHSENTE_1"); // Fecha sentencia
 	private By fechaSolicitudAvanceRenta = By.cssSelector("#nombdato_FECHSOAREN_1"); // *Fecha solicitud avance renta
+	
+	//GUARDAR Y SALIR
+	private By mensajeSiniestroProvisional = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
 
 	// endregion
 
@@ -223,6 +226,29 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 			webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
 		}
 
+		debugEnd();
+
+		return this;
+	}
+	
+	public AltaAperturaOcurrenciaSiniestrosPage clickGuardarSalir() {
+		debugBegin();
+		debugInfo("Procedemos a Guardar y Salir durante el alta de un siniestro.");
+		System.out.println("######################################################");
+		webDriver.clickInFrame(btnGuardarSalir, cuerpoFrame);
+		webDriver.acceptAlert();
+		webDriver.waitWithDriver(6000);
+		String mensajeSiniProv = webDriver.getTextInFrame(mensajeSiniestroProvisional, cuerpoFrame);
+		String numSinProv = mensajeSiniProv.substring(61, 67);
+		String anyoSinProv = mensajeSiniProv.substring(56, 60);
+		System.out.println("- Número siniestro provisional: " + numSinProv);
+		System.out.println("- Año siniestro provisional: "+ anyoSinProv);
+		setTestVar(Constants.SINIESTRO_PROVISIONAL, numSinProv);
+		setTestVar(Constants.ANYO_SINIESTRO, anyoSinProv);
+		System.out.println("- Número siniestro provisional: " + getTestVar(Constants.SINIESTRO_PROVISIONAL));
+		System.out.println("- Año siniestro provisional: "+  getTestVar(Constants.ANYO_SINIESTRO));
+		System.out.println(mensajeSiniProv);				
+		
 		debugEnd();
 
 		return this;

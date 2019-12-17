@@ -66,6 +66,7 @@ public class GestionPagosPage extends PageObject {
 	// Opciones de gestión
 	public GestionPagosPage autorizar() {
 		debugBegin();
+		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(autorizarPagos, leftFrame);
 		debugEnd();
 		return this;
