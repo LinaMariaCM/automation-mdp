@@ -1,5 +1,6 @@
 package com.amaris.project.pages.administracion.siniestros.apertura;
 
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
@@ -146,7 +147,7 @@ public class ModificarSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(btnNoPoliza, cuerpoFrame);
-		if(negocio == "MEC") {
+		if(negocio.equals(Constants.MEC)) {
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
 		}
 		webDriver.appendTextInFrame(txtNoPoliza, cuerpoFrame, numPoliza);
@@ -164,7 +165,7 @@ public class ModificarSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
-		if(negocio == "MEC") {
+		if(negocio.equals(Constants.MEC)) {
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoSini, cuerpoFrame, "value", "510");
 		}
 		webDriver.appendTextInFrame(txtAno, cuerpoFrame, anio);
@@ -271,7 +272,7 @@ public class ModificarSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(btnOtros, cuerpoFrame);
 		webDriver.appendTextInFrame(fechaOtrosDesde, cuerpoFrame, fDesde);
 		webDriver.appendTextInFrame(fechaOtrosHasta, cuerpoFrame, fHasta);
-		if(negocio == "MEC") {
+		if(negocio.equals(Constants.MEC)) {
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
 		}
 		webDriver.clickElementFromDropDownByAttributeInFrame(estadoPoliza, cuerpoFrame, "value", "V");

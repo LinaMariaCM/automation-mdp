@@ -3,6 +3,8 @@ package com.amaris.project.pages.administracion.siniestros.apertura;
 import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
+import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 
 public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
@@ -13,6 +15,8 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 	// #### DATOS DEL ASEGURADO ####
 	private By btnAnotaciones = By.cssSelector("#enlaceDialogo > span");
 	private By btnVolver = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
+	private By anyadirNuevoImplicadoBtn = By.cssSelector("[onclick*='addImplicado()']");
+	private By btnContinuar = By.id("botonContinuar");
 	private By btnGrabar = By.id("botonGrabar");
 	private By comboTipologia = By.id("OTRIMPLI");
 	private By comboRol = By.id("implicado_rol");
@@ -48,6 +52,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 	private By txtPoliza = By.id("numpoliza");
 	private By txtRefContraria = By.id("referencia");
 	private By txtCorreoE = By.id("correoElectronico");
+
+	private By ibanObligatorioTxt = By.id("obligaCodIban");
+	private By emailObligatorioTxt = By.id("obligaMail");
 	// endregion
 
 	public OtrosImplicadosDatosSiniestrosPage(UserStory userS) {
@@ -92,10 +99,13 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		if(sexo != null && !sexo.isEmpty()) webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 
 		if(email != null && email.isEmpty()) {
-			webDriver.click(checkEmailNoDisponble);
+			setDisponibilidadEmail(false);
 		} else {
-			if(email != null && email.isEmpty()) webDriver.setText(txtEmail, email);
-			else webDriver.setText(txtEmail, "prueba@esto.es");
+			if(email != null && email.isEmpty()) {
+				webDriver.setText(txtEmail, email);
+			} else {
+				webDriver.setText(txtEmail, "prueba@esto.es");
+			}
 		}
 
 		debugEnd();
@@ -103,7 +113,8 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public OtrosImplicadosDatosSiniestrosPage introducirDatosDireccion(String tipoVia, String calle, String numero, String piso, String puerta, String cp, String poblacion, String provincia, String IBAN,
+	public OtrosImplicadosDatosSiniestrosPage introducirDatosDireccion(String tipoVia, String calle, String numero, String piso, String puerta, String cp, String poblacion, String provincia,
+		String IBAN,
 		String banco,
 		String sucursal, String DC, String nCuenta) {
 		debugBegin();
@@ -147,8 +158,365 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosDatosSiniestrosPage clickGrabar() {
 		debugBegin();
-		webDriver.click(btnGrabar);
+		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
 		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage clickContinuar() {
+		debugBegin();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	//---------------------RETENCIONES-----------------------------------------------
+
+	public OtrosImplicadosDatosSiniestrosPage otrosImplicadosFalloVacio() {
+		debugBegin();
+
+		webDriver.waitWithDriver(3000);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_IMPLICADO);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage tipologiaImplicadoFalloVacio() {
+		debugBegin();
+		webDriver.clickInFrame(anyadirNuevoImplicadoBtn, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPOLOGIA_IMPLICADO);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage seleccionarTipologiaImplicado() {
+		return seleccionarTipologiaImplicado("Causante");
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage seleccionarTipologiaImplicado(String opcion) {
+		debugBegin();
+
+		switch(opcion) {
+			case "Seleccionar":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboTipologia, cuerpoFrame, 0);
+				break;
+			default:
+			case "Causante":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboTipologia, cuerpoFrame, 1);
+				break;
+			case "Lesionado":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboTipologia, cuerpoFrame, 2);
+				break;
+			case "Perjudicado":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboTipologia, cuerpoFrame, 3);
+				break;
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage rolImplicadoFalloVacio() {
+		debugBegin();
+
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ROL);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage seleccionarRolImplicado() {
+		return seleccionarRolImplicado("Tomador");
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage seleccionarRolImplicado(String opcion) {
+		debugBegin();
+
+		switch(opcion) {
+			case "Seleccionar":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 0);
+				break;
+			default:
+			case "Tomador":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 1);
+				break;
+			case "Empleado Comunidad de Propietarios":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 2);
+				break;
+			case "Portero":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 3);
+				break;
+			case "Asegurado":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 4);
+				break;
+			case "Copropietario":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 5);
+				break;
+			case "Inquilino":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 6);
+				break;
+			case "Presidente":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 7);
+				break;
+			case "No perteneciente al riesgo":
+				webDriver.clickElementFromDropDownByIndexInFrame(comboRol, cuerpoFrame, 8);
+				break;
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage nombreImplicadoFalloVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(txtNombre, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_IMPLICADO);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirNombreImplicado() {
+		debugBegin();
+		webDriver.setTextInFrame(txtNombre, cuerpoFrame, "Nombre");
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage telefonoPrimeroImplicadoFalloVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(txtTelefono1, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_1);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirTelefonoPrimeroImplicado() {
+		debugBegin();
+		webDriver.setTextInFrame(txtTelefono1, cuerpoFrame, "698745896");
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage telefonoSegundoImplicadoFalloFormatoIncorrecto() {
+		debugBegin();
+
+		webDriver.setTextInFrame(txtTelefono2, cuerpoFrame, "14587fhtp");
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_2);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirTelefonoSegundoImplicado() {
+		debugBegin();
+		webDriver.setTextInFrame(txtTelefono2, cuerpoFrame, "698745896");
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage emailImplicadoFalloVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(txtEmail, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EMAIL_PERSONA_CONTACTO);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage emailImplicadoFalloFormatoIncorrecto() {
+		debugBegin();
+
+		escribirEmailImplicado("prueba@prueba");
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EMAIL_PERSONA_CONTACTO);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirEmailImplicado(String email) {
+		debugBegin();
+		webDriver.setTextInFrame(txtEmail, cuerpoFrame, email);
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage setDisponibilidadEmail(boolean value) {
+		debugBegin();
+
+		webDriver.clickInFrame(checkEmailNoDisponble, cuerpoFrame);
+
+		if(value != webDriver.getAttributeInFrame(emailObligatorioTxt, cuerpoFrame, "style").equals("display : inline;")) {
+			webDriver.clickInFrame(checkEmailNoDisponble, cuerpoFrame);
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage ibanImplicadoFalloVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(txtIBAN, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CODIGO_IBAN);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirIbanImplicado(String iban) {
+		debugBegin();
+		webDriver.setTextInFrame(txtIBAN, cuerpoFrame, iban);
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage bancoImplicadoFalloVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(txtBanco, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_BANCO);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirBancoImplicado() {
+		debugBegin();
+		webDriver.setTextInFrame(txtBanco, cuerpoFrame, "1542");
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage sucursalImplicadoFalloVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(txtSucursal, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUCURSAL);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirSucursalImplicado() {
+		debugBegin();
+		webDriver.setTextInFrame(txtSucursal, cuerpoFrame, "1478");
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage dcImplicadoFalloVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(txtDC, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DC);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirDcImplicado() {
+		debugBegin();
+		webDriver.setTextInFrame(txtDC, cuerpoFrame, "1479");
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage numeroCuentaImplicadoFalloVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(txtNumCuenta, cuerpoFrame);
+		clickGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_DE_CUENTA);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage escribirNumeroCuentaImplicado() {
+		debugBegin();
+		webDriver.setTextInFrame(txtNumCuenta, cuerpoFrame, "2278");
+		debugEnd();
+
+		return this;
+	}
+
+	public OtrosImplicadosDatosSiniestrosPage setDisponibilidadIban(boolean value) {
+		webDriver.clickInFrame(checkIbanNoDisponble, cuerpoFrame);
+
+		if(value != webDriver.getAttributeInFrame(ibanObligatorioTxt, cuerpoFrame, "style").equals("display : inline;")) {
+			webDriver.clickInFrame(checkIbanNoDisponble, cuerpoFrame);
+		}
 
 		return this;
 	}

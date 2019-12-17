@@ -1,5 +1,7 @@
 package com.amaris.project;
 
+import org.openqa.selenium.By;
+
 public class Constants {
 
 	private Constants() {}
@@ -582,9 +584,11 @@ public class Constants {
 	public static final String ESTADO_CARPETA_ABIERTA = "abierto";
 
 	public static final String ALERTA_FECHA_OCURRENCIA = "El campo FECHA OCURRENCIA no se ha rellenado correctamente.";
+	public static final String ALERTA_FECHA_OCURRENCIA_POSTERIOR_HOY = "La fecha de ocurrencia del siniestro no puede ser posterior al día de hoy.";
 	public static final String ALERTA_TIPO_DECLARANTE = "El campo TIPO DECLARANTE es un campo obligatorio.";
 	public static final String ALERTA_MEDIO_DECLARACION = "El campo MEDIO DE DECLARACIÓN es un campo obligatorio.";
 	public static final String ALERTA_FECHA_DENUNCIA = "El campo FECHA DE DENUNCIA no se ha rellenado correctamente.";
+	public static final String ALERTA_FECHA_DENUNCIA_ANTERIOR_OCURRENCIA = "La fecha de denuncia es anterior a la fecha de ocurrencia o es posterior a la fecha actual.";
 	public static final String ALERTA_TELEFONO = "Utiliza un formato que coincida con el solicitado";
 	public static final String ALERTA_EMAIL = "El campo EMAIL no se ha rellenado correctamente.";
 	public static final String ALERTA_ASISTENCIA = "El campo REQUIERE ASISTENCIA es un campo obligatorio.";
@@ -599,7 +603,7 @@ public class Constants {
 	public static final String ALERTA_DESCRIPCION_SINIESTRO = "El campo DESCRIPCIÓN DEL SINIESTRO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_EXISTEN_IMPLICADOS = "El campo ¿EXISTEN OTROS IMPLICADOS? es un campo obligatorio.";
 	public static final String ALERTA_NECESITA_ENCARGO = "El campo ¿SE NECESITA ENCARGO? es un campo obligatorio.";
-	public static final String ALERTA_TITULO_ANOTACION = "El campo TÍTULO DE ANOTACIÓN es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_TITULO_ANOTACION = "El campo TÍTULO DE LA ANOTACIÓN es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_EMAIL_ASEGURADO = "El campo E-MAIL no se ha rellenado correctamente.";
 	public static final String ALERTA_NUMERO = "El campo NÚMERO no se ha rellenado correctamente.";
 	public static final String ALERTA_CODIGO_POSTAL = "El campo CÓDIGO POSTAL es incorrecto.";
@@ -619,6 +623,15 @@ public class Constants {
 	public static final String ALERTA_NUMERO_COLABORADOR = "El campo Nº COLABORADOR es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_TIPO_AREA_INFLUENCIA = "El campo TIPO es un campo obligatorio.";
 	public static final String ALERTA_PROVINCIA_COLABORADOR = "El campo PROVINCIA es un campo obligatorio.";
+	public static final String ALERTA_ANYADIR_PERSONAS_CONTACTO = "Es necesario que se agregue al menos una persona de contacto antes de continuar con la apertura del siniestro, es un dato obligatorio.";
+	public static final String ALERTA_POLIZA_FUERA_VIGOR = "La póliza no estaba en vigor en la fecha de ocurrencia del siniestro.";
+	public static final String ALERTA_OCURRENCIA_HACE_TRES_MESES = "Siniestro ocurrido hace más de tres meses";
+	public static final String ALERTA_POLIZA_CLAUSULAS_ESPECIALES= "Póliza con cláusulas especiales";
+	public static final String ALERTA_ANYADIR_IMPLICADO= "Debes introducir al menos un implicado";
+	public static final String ALERTA_ANYADIR_ENCARGO= "Debes introducir al menos un encargo";
+	public static final String ALERTA_EXISTE_TIPO_SUBTIPO_CARPETA= "Ya existe un encargo de ese tipo/subtipo en esta carpeta.";
+
+
 
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 }
