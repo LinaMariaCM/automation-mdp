@@ -281,11 +281,12 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		// if(webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)){webDriver.clickInFrame(rdbtnAsistenciaNo,
 		// cuerpoFrame);}
 
-		if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
-			System.out.println("Póliza carece de opción: 'alta sin asistencia'.");
-		} else {
-			webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
-		}
+		//if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+		//	System.out.println("Póliza carece de opción: 'alta sin asistencia'.");
+		//} else {
+		webDriver.waitWithDriver(4000);
+		webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
+		//}
 
 		debugInfo("Seleccionada: Asistencia NO");
 		debugEnd();
@@ -442,12 +443,13 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	public AltaAperturaDeclaracionSiniestrosPage clickContinuar() {
 		debugBegin();
-		System.out.println(txtEmail);
+
 		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		webDriver.waitWithDriver(5000);
 		// if(webDriver.isPresentInFrame(btnContinuar, cuerpoFrame)){webDriver.clickInFrame(btnContinuar, cuerpoFrame);}
+
 		debugEnd();
 
 		return this;
@@ -455,11 +457,12 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	public AltaAperturaDeclaracionSiniestrosPage clickContinuarSinAsistencia() {
 		debugBegin();
-		System.out.println(txtEmail);
+
 		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
+
 		debugEnd();
 
 		return this;
@@ -555,8 +558,6 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 			Assert.assertTrue(checkAviso, "COMPARAR CAMPOS : alerta fecha de ocurrencia NO se muestra");
 		}
 
-
-
 		debugEnd();
 
 		return this;
@@ -564,12 +565,12 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	/*
 	 * public SiniestrosAltaAperturaDeclaracionPage comprobarAvisoFechaOcurrencia() { debugBegin();
-	 * 
+	 *
 	 * A UTLIZAR LA SIGUIENTE LÍNEA PARA INVOCAR DIRECTAMENTE A LA CONSTANTE ESTIPULADA
 	 * comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS);
-	 * 
+	 *
 	 * debugEnd();
-	 * 
+	 *
 	 * return this; }
 	 */
 
@@ -657,11 +658,11 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 	/*
 	 * public SiniestrosAltaAperturaDeclaracionPage fechaOcurrenciaAnteriorFechaVigenciaPoliza() { debugBegin();
 	 * DateFormat fechaHoy = new SimpleDateFormat("dd/MM/yyyy"); String datoFechaHoy = fechaHoy.toString();
-	 * 
+	 *
 	 * webDriver.switchToFrame(cuerpoFrame); webDriver.appendText(txtFechaOcurrencia,datoFechaHoy);
 	 * webDriver.click(btnContinuar); comprobarAlerta(Constants.FECHA_OCURRENCIA_AVISOS); webDriver.acceptAlert();
 	 * webDriver.exitFrame();
-	 * 
+	 *
 	 * debugEnd(); return this; }
 	 */
 
