@@ -95,8 +95,8 @@ public class GestionSiniestrosPage extends PageObject {
 	private By infoRecobros = By.cssSelector("#bloque1tr1 > td:nth-child(7)");
 	private By infoCoste = By.cssSelector("#bloque1tr1 > td:nth-child(8)");
 
-	private By acciones = By.cssSelector("[id*='capaFlecha'] a");
-	// mio private By acciones = By.cssSelector("#bloque1tr1 > td:nth-child(9) > div");
+	//private By acciones = By.cssSelector("[id*='capaFlecha'] a");
+	private By acciones = By.cssSelector("#bloque1tr1 > td:nth-child(9) > div");
 
 	private By consultarExpectaticvas = By.cssSelector("body > div.pdata > div > ul > li:nth-child(1) > a");
 	private By consultarReservas = By.cssSelector("body > div.pdata > div > ul > li:nth-child(2) > a");
@@ -283,9 +283,6 @@ public class GestionSiniestrosPage extends PageObject {
 	// end region
 
 	// Reservas y expectativas
-	// Acciones
-
-	String expectativaTotal = "";
 
 	public GestionSiniestrosPage modificarExpectativa() {
 
@@ -294,28 +291,7 @@ public class GestionSiniestrosPage extends PageObject {
 		double expReparable = (double) Math.round((Math.random() * 10) * 100d) / 100d;
 		double expGastos = (double) Math.round((Math.random() * 10) * 100d) / 100d;
 
-		//	List<WebElement> listaCarpetas = webDriver.getElements(listaCarpeta);
-
-		// almacenar las referencias de las Imas y comprobar sus reservas, seleccionar una y localizar sus acciones para
-		// implementar lo anterior
-
 		setTestVar(EXPECTATIVA_TOTAL, Double.toString(expIndemnizable + expReparable + expGastos));
-
-		//List<WebElement> listaAcciones = webDriver.getElements(acciones);
-
-		//	System.out.println("Imprimo mi supuestas acciones: " + webDriver.getText(acciones));
-
-		//	System.out.println("Imprimo mi supuestas lista de acciones: " + listaAcciones);
-
-		/*	webDriver.clickInFrame(listaAcciones.get(0), cuerpoFrame);
-
-		webDriver.clickInFrame(acciones, cuerpoFrame);
-
-		webDriver.clickInFrame(acciones, cuerpoFrame);
-
-		webDriver.switchToFrame(capaIframe);
-		webDriver.click(modificarExepectativas);
-		*/
 
 		webDriver.waitForElementToBeClickableInFrame(listaCarpeta, cuerpoFrame);
 		debugInfo("el botón para desplegar el menú acciones de carpeta");
@@ -332,11 +308,11 @@ public class GestionSiniestrosPage extends PageObject {
 		webDriver.setTextInFrame(expReservaIndemnizable, capaIframe, Double.toString(expIndemnizable));
 		webDriver.switchToFrame(cuerpoFrame);
 		debugInfo("se modifica la expectativa indemnizable");
-		ActionSteps.waitForIt(webDriver); // nuevo
+		//ActionSteps.waitForIt(webDriver); // nuevo
 		webDriver.setTextInFrame(expReservaReparable, capaIframe, Double.toString(expReparable));
 		webDriver.switchToFrame(cuerpoFrame);
 		debugInfo("se modifica la expectativa gastos");
-		ActionSteps.waitForIt(webDriver); // nuevo
+		//	ActionSteps.waitForIt(webDriver); // nuevo
 		webDriver.setTextInFrame(expReservaGastos, capaIframe, Double.toString(expGastos));
 		webDriver.switchToFrame(cuerpoFrame);
 		debugInfo("todos los campos del modal son modificados");
@@ -344,38 +320,38 @@ public class GestionSiniestrosPage extends PageObject {
 		debugInfo("se grabam las expectativas añadidas");
 		webDriver.exitFrame();
 
-		//	expectativaTotal = Double.toString(resIndemnizable + resReparable + resGastos);
-
 		debugEnd();
 		return this;
 
 	}
 
-
-/*	public GestionSiniestrosPage modificarExpectativasACero() {
+	public GestionSiniestrosPage modificarExpectativasACero() {
 
 		debugBegin();
 
-		expectativaTotal = "0";
+		setTestVar(EXPECTATIVA_TOTAL, "0");
 
-		webDriver.clickInFrame(acciones, cuerpoFrame);
-
-		webDriver.clickInFrame(modificarExepectativas, capaIframe);
+		webDriver.waitForElementToBeClickableInFrame(listaCarpeta, cuerpoFrame);
+		webDriver.clickInFrame(listaCarpeta, cuerpoFrame);
+		webDriver.waitForElementToBeClickableInFrame(modificarExepectativas, cuerpoFrame);
+		webDriver.clickInFrame(modificarExepectativas, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
 
 		webDriver.setTextInFrame(expReservaIndemnizable, capaIframe, "0");
-
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.setTextInFrame(expReservaReparable, capaIframe, "0");
-
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.setTextInFrame(expReservaGastos, capaIframe, "0");
-
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickInFrame(btnGrabarExpectativa, capaIframe);
+		webDriver.exitFrame();
 
 		webDriver.acceptAlert();
 
 		debugEnd();
 
 		return this;
-	}*/
+	}
 
 	public GestionSiniestrosPage modificarReserva() {
 
@@ -387,27 +363,24 @@ public class GestionSiniestrosPage extends PageObject {
 
 		setTestVar(RESERVA_TOTAL, Double.toString(resIndemnizable + resReparable + resGastos));
 
-		ActionSteps.waitForIt(webDriver);
-		webDriver.waitForElementToBeClickableInFrame(listaCarpeta, cuerpoFrame);
+		//webDriver.waitForElementToBeClickableInFrame(listaCarpeta, cuerpoFrame);
 		debugInfo("el botón para desplegar el menú acciones de carpeta");
 		webDriver.clickInFrame(listaCarpeta, cuerpoFrame);
 		debugInfo("desplegar menú acciones de carpeta");
-		webDriver.waitForElementToBeClickableInFrame(modificarReservas, cuerpoFrame);
+		//webDriver.waitForElementToBeClickableInFrame(modificarReservas, cuerpoFrame);
 		debugInfo("esperar que abra el menú de acciones");
 		webDriver.clickInFrame(modificarReservas, cuerpoFrame);
 		debugInfo("click en modificar expectativas");
 		webDriver.switchToFrame(cuerpoFrame);
-
 		debugInfo("cambiar y esperar al iframe");
-		ActionSteps.waitForIt(webDriver); // nuevo
+
+		ActionSteps.waitForIt(webDriver);
 		webDriver.setTextInFrame(reservaIndemnizable, capaIframe, Double.toString(resIndemnizable));
 		webDriver.switchToFrame(cuerpoFrame);
 		debugInfo("se modifica la expectativa indemnizable");
-		ActionSteps.waitForIt(webDriver); // nuevo
 		webDriver.setTextInFrame(reservaReparable, capaIframe, Double.toString(resReparable));
 		webDriver.switchToFrame(cuerpoFrame);
 		debugInfo("se modifica la expectativa gastos");
-		ActionSteps.waitForIt(webDriver); // nuevo
 		webDriver.setTextInFrame(reservaGastos, capaIframe, Double.toString(resGastos));
 		webDriver.switchToFrame(cuerpoFrame);
 		debugInfo("todos los campos del modal son modificados");
@@ -415,20 +388,6 @@ public class GestionSiniestrosPage extends PageObject {
 		debugInfo("se grabam las expectativas añadidas");
 		webDriver.exitFrame();
 		webDriver.waitWithDriver(3000);
-
-		/*
-
-		webDriver.clickInFrame(acciones, cuerpoFrame);
-
-		webDriver.clickInFrame(modificarExepectativas, capaIframe);
-
-		webDriver.setTextInFrame(reservaIndemnizable, capaIframe, Double.toString(resIndemnizable));
-
-		webDriver.setTextInFrame(reservaReparable, capaIframe, Double.toString(resReparable));
-
-		webDriver.setTextInFrame(reservaGastos, capaIframe, Double.toString(resGastos));
-
-		webDriver.clickInFrame(btnGrabarExpectativa, capaIframe);*/
 
 		debugEnd();
 
@@ -442,17 +401,20 @@ public class GestionSiniestrosPage extends PageObject {
 
 		setTestVar(RESERVA_TOTAL, "0");
 
-		webDriver.clickInFrame(acciones, cuerpoFrame);
-
-		webDriver.clickInFrame(modificarExepectativas, capaIframe);
-
+		webDriver.waitForElementToBeClickableInFrame(listaCarpeta, cuerpoFrame);
+		webDriver.clickInFrame(listaCarpeta, cuerpoFrame);
+		webDriver.waitForElementToBeClickableInFrame(modificarReservas, cuerpoFrame);
+		webDriver.clickInFrame(modificarReservas, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.setTextInFrame(reservaIndemnizable, capaIframe, "0");
-
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.setTextInFrame(reservaReparable, capaIframe, "0");
-
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.setTextInFrame(reservaGastos, capaIframe, "0");
-
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickInFrame(btnGrabarReservas, capaIframe);
+		webDriver.exitFrame();
+		webDriver.waitWithDriver(3000);
 
 		webDriver.acceptAlert();
 
@@ -467,50 +429,25 @@ public class GestionSiniestrosPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		String reservaActual = webDriver.getText(infoReservaActual).trim();
 
-		webDriver.takeScreenshot("comprobacion expectativas", userS.getReportPath());
+		webDriver.takeScreenshot("comprobacion reservas", userS.getReportPath());
 
-		if(reservaActual.equals(getTestVar(RESERVA_TOTAL +"€"))) {
-			debugInfo("VerificarTotales info: las reservas coinciden.");
-		} else debugInfo("VerificarTotales info : las reservas NO coincicen.");
-
-		debugInfo("Reserva Actual: " + reservaActual);
-		debugInfo("Reserva Total: " + getTestVar(RESERVA_TOTAL +"€"));
+		boolean checkReservas = reservaActual.equals(getTestVar(RESERVA_TOTAL + "€"));
+		Assert.assertTrue(checkReservas, "COMPARAR CAMPOS : Verificar Totales info: las reservas coinciden.");
 
 		String expectativaActual = webDriver.getText(infoExpectativaActual).trim();
-		if(expectativaActual.equals(getTestVar(EXPECTATIVA_TOTAL + "€"))) {
-			debugInfo("VerificarTotales info : las expectativas coincicen.");
 
-		} else debugInfo("VerificarTotales info : las expectativas NO coincicen.");
+		webDriver.takeScreenshot("comprobacion expectativas", userS.getReportPath());
+
+		boolean checkExpectativas = expectativaActual.equals(getTestVar(EXPECTATIVA_TOTAL + "€"));
+		Assert.assertTrue(checkExpectativas, "COMPARAR CAMPOS : Verificar Totales info: las expectativas coinciden.");
 
 		webDriver.exitFrame();
 
 		debugEnd();
 
 		return this;
+
 	}
-
-	/*
-	public GestionSiniestrosPage comprobarAlerta(String textoEsperado) {
-		debugBegin();
-
-		if(webDriver.alertIsPresent()) {
-			String alertResult = webDriver.getAlertText();
-			alertResult = alertResult.substring(0, alertResult.indexOf('\n')).trim();
-a partir de aqyí copiar en lugar de la cadena if / else
-			boolean checkAviso = alertResult.equalsIgnoreCase(textoEsperado);
-
-			debugInfo("Mensaje esperado: " + textoEsperado);
-			debugInfo("Mensaje real: " + alertResult);
-
-			Assert.assertTrue(checkAviso, "COMPARAR CAMPOS : alerta fecha de ocurrencia NO se muestra");
-		}
-
-		debugEnd();
-
-		return this;
-	}
-
-*/
 
 	public GestionSiniestrosPage mostrarInfoGeneral() {
 		debugBegin();
