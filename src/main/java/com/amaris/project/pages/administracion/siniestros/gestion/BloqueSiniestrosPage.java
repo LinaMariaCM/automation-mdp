@@ -2,6 +2,7 @@ package com.amaris.project.pages.administracion.siniestros.gestion;
 
 import com.amaris.project.pages.administracion.siniestros.apertura.AltaAperturaDeclaracionSiniestrosPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public class BloqueSiniestrosPage extends PageObject {
 	private By grabar = By.cssSelector("#botonGrabar");
 	private By cancelar = By.cssSelector("#botonCancelar");
 	private By error = By.cssSelector("td.sis-font-l");
+	private By bloqueTransicionado = By.cssSelector("#bloque1tr2 > td:nth-child(2)");
+
 	// Opciones
 	private By opReservas = By.cssSelector("#reservas");
 	private By opOriginal = By.cssSelector("#tareas_ori");
@@ -44,8 +47,8 @@ public class BloqueSiniestrosPage extends PageObject {
 	private By listaBloques = By.cssSelector("#bloque1tr1 > td:nth-child(1)");
 	private By desplegarCarpetas = By.cssSelector("a#cabeceraBloqueDesplegable1");
 	private By listaCarpetas = By.cssSelector("#bloque1tr1b > td:nth-child(2)");
-	private By menuAccionesCarpetaBloque = By.cssSelector("table[class='grid wideBox'] > tbody >  tr[id*='bloque1tr1b'] > td:nth-child(7) > div.sis-box-actions");
-	private By btnPagoACarpeta = By.cssSelector("#bloque1tr1b > td:nth-child(7)");
+	private By menuAccionesCarpetaBloque = By.cssSelector(".innerTable [id*='capaFlecha']");
+	private By btnPagoACarpeta = By.cssSelector("[onclick*='TITULO=Pago a carpeta']");
 
 	public BloqueSiniestrosPage(UserStory userS) {
 		super(userS);
@@ -56,64 +59,59 @@ public class BloqueSiniestrosPage extends PageObject {
 		webDriver.waitWithDriver(2000);
 		webDriver.clickInFrame(bloque, leftFrame);
 		ActionSteps.waitForIt(webDriver);
+
 		debugInfo("Estoy en bloque");
 		webDriver.waitWithDriver(3000);
 		webDriver.switchToFrame(cuerpoFrame);
+
 		List<WebElement> listaBloques = webDriver.getElements(listaBloque);
-		debugInfo("contiene: " + listaBloques.size());
-		debugInfo("despues de la lista");
+		debugInfo("Contiene: " + listaBloques.size());
+
 		for(int i = 0; i < listaBloques.size(); i++) {
-			String codigo = webDriver.getText(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2")); // depende
-			// en que
-			// fila este
-			// es un
-			// numero u
-			// otro.
-			// Ej:segunda
-			// fila
-			// tendra el
-			// numero 2
-			debugInfo("el codigo es: " + codigo);
-			webDriver.click(By.cssSelector("#capaFlecha" + codigo + " a")); // el selector va dependiendo de que codigo
-			// de bloque sea.
-			debugInfo("click acciones");
+			// Depende en que fila este es un numero u otro. Ej:segunda fila tendra el numero 2
+			String codigo = webDriver.getText(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2"));
+			debugInfo("El codigo es: " + codigo);
+			// El selector va dependiendo de que codigo de bloque sea.
+			debugInfo("Click acciones");
+			webDriver.click(By.cssSelector("#capaFlecha" + codigo + " a"));
+
 			if(webDriver.isClickable(transicionar)) {
-				debugInfo("contiene transiciona");
+				debugInfo("Contiene transiciona");
 				webDriver.click(transicionar);
 				webDriver.waitWithDriver(3000);
+				break;
 			} else {
-				debugInfo("no contiene transiciona");
-				webDriver.click(By.cssSelector("#cabeceraBloqueDesplegable" + (i + 1))); // se hace este click porque
-				// cuando le doy al boton de
-				// acciones el desplejable
-				// tapa al siguiente
-				// selector
+				debugInfo("No contiene transiciona");
+				// Se hace este click porque cuando le doy al boton de acciones el desplejable tapa al siguiente selector
+				webDriver.click(By.cssSelector("#cabeceraBloqueDesplegable" + (i + 1)));
 			}
 		}
+
 		webDriver.switchToFrame(capaIframe);
+		webDriver.click(bloqueDesti);
 		webDriver.clickElementChildByAttribute(bloqueDesti, "value", "11");
-		debugInfo("destino bloque");
+		debugInfo("Destino bloque");
 		if(webDriver.isClickable(error)) {
 			String mensjError = webDriver.getText(By.cssSelector("td.sis-font-l p strong"));
 			debugInfo(mensjError);
 		} else {
-			webDriver.click(opReservas);
 			debugInfo("Opcion reservas");
+			webDriver.click(opReservas);
 
-			webDriver.click(opOriginal);
 			debugInfo("Opcion Tareas originales");
+			webDriver.click(opOriginal);
 
-			webDriver.click(opTareas);
 			debugInfo("Opcion Tareas destino");
+			webDriver.click(opTareas);
 
-			webDriver.click(opDatos);
 			debugInfo("Opcion Datos");
+			webDriver.click(opDatos);
 
-			webDriver.click(opCierre);
 			debugInfo("Opcion Cierre expediente de origen");
+			webDriver.click(opCierre);
 
-			webDriver.click(grabar);
 			debugInfo("Se acaba de transicionar el bloque 13 al 11");
+			webDriver.click(grabar);
 		}
 
 		webDriver.exitFrame();
@@ -133,7 +131,7 @@ public class BloqueSiniestrosPage extends PageObject {
 		debugInfo("contiene: " + listaBloques.size());
 		debugInfo("despues de la lista");
 		for(int i = 0; i < listaBloques.size(); i++) {
-			String codigo = webDriver.getText(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2"));
+			String codigo = webDriver.getText(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2)"));
 			debugInfo("el codigo es: " + codigo);
 			webDriver.click(By.cssSelector("#capaFlecha" + codigo + " a"));
 			debugInfo("click acciones");
@@ -147,6 +145,7 @@ public class BloqueSiniestrosPage extends PageObject {
 			}
 		}
 		webDriver.switchToFrame(capaIframe);
+		webDriver.click(bloqueDesti);
 		webDriver.clickElementChildByAttribute(bloqueDesti, "value", "31");
 		debugInfo("destino bloque");
 		if(webDriver.isClickable(error)) {
@@ -177,32 +176,62 @@ public class BloqueSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(bloque, leftFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.waitWithDriver(3000);
 
-		debugInfo("Estoy en bloque");
+		debugInfo("Estoy en bloques");
 		webDriver.switchToFrame(cuerpoFrame);
-		List<WebElement> listaBloques = webDriver.getElements(listaBloque);
-		debugInfo("contiene: " + listaBloques.size());
 
-		for(int i = 0; i < listaBloques.size(); i++) {
-			String codigo = webDriver.getText(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2"));
-			debugInfo("el codigo es: " + codigo);
-			webDriver.click(By.cssSelector("#capaFlecha" + codigo + " a"));
+		//List<WebElement> listaBloques = webDriver.getElements(listaBloque);
 
-			debugInfo("click acciones");
-			if(webDriver.isClickable(btnPagoACarpeta)) {
-				webDriver.click(btnPagoACarpeta);
-				webDriver.waitWithDriver(3000);
-			} else {
-				webDriver.click(By.cssSelector("#cabeceraBloqueDesplegable" + (i + 1)));
-			}
-		}
+		debugInfo("clic en desplegar lista de carpetas");
+		webDriver.click(desplegarCarpetas);
+		//webDriver.waitForElementToBeClickable(menuAccionesCarpetaBloque);
+		debugInfo("clic en desplegar lista de acciones de carpetas");
+		webDriver.click(menuAccionesCarpetaBloque);
+		//webDriver.clickInFrame(menuAccionesCarpetaBloque, cuerpoFrame);
+		//webDriver.switchToFrame(cuerpoFrame);
+		//ActionSteps.waitForIt(webDriver);
+		debugInfo("Clic en el botón pago a carpeta");
+		webDriver.click(btnPagoACarpeta);
+
 		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public BloqueSiniestrosPage verificarTransicionesCerrandoOrigen() {
+
+		debugBegin();
+
+		webDriver.clickInFrame(bloque, leftFrame);
+		webDriver.switchToFrame(cuerpoFrame);
+		String codigoTransicionado = webDriver.getText(bloqueTransicionado).trim();
+
+		boolean checkTransicionado = codigoTransicionado.equals(getTestVar("11"));
+		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino es 11, tal como se introdujo en la prueba");
+
+		webDriver.exitFrame();
+
 		debugEnd();
 		return this;
 
 	}
 
-	// mapear contenido de filas .grid.wideBox tr:not(:first-child)")[0].textContent.trim().split("\n")
+	public BloqueSiniestrosPage verificarTransicionesSinCerrarOrigen() {
+
+		debugBegin();
+
+		webDriver.clickInFrame(bloque, leftFrame);
+		webDriver.switchToFrame(cuerpoFrame);
+		String codigoTransicionado = webDriver.getText(bloqueTransicionado).trim();
+
+		boolean checkTransicionado = codigoTransicionado.equals(getTestVar("31"));
+		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino es 31, tal como se introdujo en la prueba");
+
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+
+	}
 
 }
