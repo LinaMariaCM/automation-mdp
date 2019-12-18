@@ -302,7 +302,7 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(btnOtros, cuerpoFrame);
 		webDriver.appendTextInFrame(fechaOtrosDesde, cuerpoFrame, fDesde);
 		webDriver.appendTextInFrame(fechaOtrosHasta, cuerpoFrame, fHasta);
-		if(negocio == "MEC") {
+		if(negocio.equals("MEC")) {
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
 		}
 
