@@ -16,7 +16,7 @@ public class FichaEdificioPage extends PageObject {
 	private By cuerpoFrame = By.name("cuerpo");
 	private By menuFrame = By.cssSelector("#leftFrame");
 
-	private By fichaEdificioLink = By.xpath(".//*[text()='Ficha Edificio']");;
+	private By fichaEdificioLink = By.xpath(".//*[text()='Ficha Edificio']");
 
 	private By rdbDireccion = By.cssSelector("#filtro1");
 	private By rdbRefCatastral = By.cssSelector("#filtro2");

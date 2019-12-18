@@ -213,8 +213,8 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		// if(emailDeclarante.isEmpty()) webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "prueba_sin_mail@esto.es");
 		// else webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
 
-		System.out.println("El número del declarante es: " + numeroTelefono);
 		if(numeroTelefono != null) {
+			debugInfo("El número del declarante es: " + numeroTelefono);
 			webDriver.setTextInFrame(txtTelefono, cuerpoFrame, numeroTelefono);
 		}
 
@@ -285,11 +285,12 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		// if(webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)){webDriver.clickInFrame(rdbtnAsistenciaNo,
 		// cuerpoFrame);}
 
-		if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
-			System.out.println("Póliza carece de opción: 'alta sin asistencia'.");
-		} else {
-			webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
-		}
+		//if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+		//	System.out.println("Póliza carece de opción: 'alta sin asistencia'.");
+		//} else {
+		webDriver.waitWithDriver(4000);
+		webDriver.isPresentAndClickInFrame(rdbtnAsistenciaNo, cuerpoFrame);
+		//}
 
 		debugInfo("Seleccionada: Asistencia NO");
 		debugEnd();
@@ -350,10 +351,20 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitWithDriver(9000);
 		debugInfo("Comenzamos a rellenar campos de persona extra");
+		/*webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(buttonPersonaContacto);
+		webDriver.exitFrame();
+		webDriver.switchToFrame(cuerpoFrame);
+		debugInfo("Comenzamos a esperar");
+		webDriver.waitForElementToBeClickable(modalFrame);
+		webDriver.switchToFrame(modalFrame);
+		//webDriver.waitForLoadToComplete();
+		debugInfo("Comenzamos a rellenar campos de persona extra");
+		webDriver.waitWithDriver(6000);*/
 
 		// webDriver.switchToFrame(cuerpoFrame);
 		// webDriver.switchToFrame(modalFrame);
-
+		debugInfo("BEFORE comboRol");
 		webDriver.clickElementFromDropDownByIndex(comboRol, 8);
 		// webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
 
@@ -440,12 +451,13 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	public AltaAperturaDeclaracionSiniestrosPage clickContinuar() {
 		debugBegin();
-		System.out.println(txtEmail);
+
 		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		webDriver.waitWithDriver(5000);
 		// if(webDriver.isPresentInFrame(btnContinuar, cuerpoFrame)){webDriver.clickInFrame(btnContinuar, cuerpoFrame);}
+
 		debugEnd();
 
 		return this;
@@ -453,11 +465,12 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	public AltaAperturaDeclaracionSiniestrosPage clickContinuarSinAsistencia() {
 		debugBegin();
-		System.out.println(txtEmail);
+
 		webDriver.setTextInFrame(txtEmail, cuerpoFrame, "prueba@esto.es");
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
+
 		debugEnd();
 
 		return this;
@@ -608,6 +621,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_OCURRENCIA);
 		webDriver.acceptAlert();
+
 		debugEnd();
 
 		return this;

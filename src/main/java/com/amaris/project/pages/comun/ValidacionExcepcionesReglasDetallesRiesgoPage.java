@@ -48,7 +48,7 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 		super(userS);
 	}
 
-	public ValidacionExcepcionesReglasDetallesRiesgoPage waitProcesando() throws Exception {
+	public ValidacionExcepcionesReglasDetallesRiesgoPage waitProcesando() {
 
 		System.out.println("Espero a ver procesando...");
 		webDriver.waitWithDriver(7000);

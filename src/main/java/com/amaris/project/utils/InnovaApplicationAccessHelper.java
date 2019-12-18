@@ -88,7 +88,7 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 	}
 
 	@Override
-	public void OpenMutuaEdificioConfort() throws AWTException, InterruptedException {
+	public void OpenMutuaEdificioConfort() {
 		this.innovaHomePage.openMutuaEdificioConfort();
 	}
 
@@ -168,7 +168,7 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 	}
 
 	@Override
-	public void OpenMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException {
+	public void OpenMutuaAlquilerConfort() {
 		this.innovaHomePage.OpenMutuaAlquilerConfort();
 
 	}

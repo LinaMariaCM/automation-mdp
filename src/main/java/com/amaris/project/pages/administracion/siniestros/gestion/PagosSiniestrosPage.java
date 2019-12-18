@@ -7,12 +7,14 @@ import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.pages.productos.AvisoSistemaPage;
 import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 public class PagosSiniestrosPage extends PageObject {
 
@@ -244,24 +246,17 @@ public class PagosSiniestrosPage extends PageObject {
 	private By planFPrimerPago = By.cssSelector("input#fPrimerPago");
 	private By planFActivacion = By.cssSelector("input#fActivacion");
 	private By planImportePrimerPago = By.cssSelector("input#importePrimerPago");
-	// private By desplegablePeriodicidad = By.cssSelector("form [id='datosPlan'] > select [id='periodicidad'] >
-	// option");
 	private By btnGenerarPlan = By.cssSelector("input.secondButton");
 	private By tablaPagos = By.id("detallePlan");
 	private By marcaPagos = By.cssSelector("table[class='sis-frame-bg.wideBox1] > tbody > tr > td:nth-child(2) > table[class='sis-frame-bg2.wideBox'] > tbody > tr:nth-child(2)");
-
-	// comprobaciones tras finalizar (a parte de las ya grabadas)
-	// private By fechaDemandaDeshaucio = By.cssSelector();
-	// private By fechaAvanceRenta = By.cssSelector();
+	private By primerPagoTabla = By.cssSelector("#capaBloque1Desplegable2 > table.grid.wideBox > tbody > tr:nth-child(2) > td:nth-child(10)");
+	private By msjConfirmarPrimerPago = By.cssSelector("table.narrowBox");
 
 	// pago a carpeta
-	private By abrirBloques = By.cssSelector("a#jt7");
+
+	//	private By volverListaPagos = By.cssSelector("div.menuNav.menuNavPosAbsolute.menuNavPosFixed > div > ul > li.rightList > a");
+	private By volverListaPagos = By.cssSelector("div.menuNav.menuNavPosAbsolute > div > ul > li > a > span.retorno");
 	private By desplegarCarpetas = By.cssSelector("a#cabeceraBloqueDesplegable1");
-	private By menuAccionesCarpetaBloque = By.cssSelector("table[class='grid wideBox'] > tbody >  tr[id*='bloque1tr1b'] > td:nth-child(7) > div.sis-box-actions");
-
-	private By btnPagoACarpeta = By.cssSelector("div.pdata > div > ul > li:nth-child(2) > a");
-
-	private By volverListaPagos = By.cssSelector("div.menuNav.menuNavPosAbsolute.menuNavPosFixed > div > ul > li.rightList > a");
 	// endregion
 
 	public PagosSiniestrosPage(UserStory userS) {
@@ -291,6 +286,7 @@ public class PagosSiniestrosPage extends PageObject {
 
 	public PagosSiniestrosPage seleccionarParticipantesExpediente() {
 		debugBegin();
+		webDriver.waitWithDriver(3000);
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickElementFromDropDownByIndex(perceptor, 4);
 		System.out.println("Elemento flecha1 es: " + flecha1);
@@ -537,6 +533,9 @@ public class PagosSiniestrosPage extends PageObject {
 	// Importes
 	public PagosSiniestrosPage importes(String fPago, String Importe1, boolean activarPlanMAC) {
 		debugBegin();
+
+		fPago = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+
 		List<WebElement> listaCausasImportes = webDriver.getElementsInFrame(causasImportes, cuerpoFrame);
 
 		webDriver.appendTextInFrame(fechaDePago, cuerpoFrame, fPago);
@@ -561,7 +560,6 @@ public class PagosSiniestrosPage extends PageObject {
 			webDriver.clickInFrame(radioActivarPlanPago, cuerpoFrame);
 			webDriver.waitWithDriver(8000);
 			webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
-			webDriver.exitFrame();
 		} else {
 			webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
 		}
@@ -589,8 +587,7 @@ public class PagosSiniestrosPage extends PageObject {
 			debugInfo("antes de la lista");
 			webDriver.switchToFrame(cuerpoFrame);
 			List<WebElement> listaPagos = webDriver.getElements(listPagos);
-			debugInfo("contiene: " + listaPagos.size());
-			debugInfo("despues de la lista");
+			debugInfo("Contiene: " + listaPagos.size());
 
 			for(int i = 0; i < listaPagos.size(); i++) {
 				debugInfo("hay Pagos");
@@ -604,7 +601,7 @@ public class PagosSiniestrosPage extends PageObject {
 			webDriver.exitFrame();
 
 		} else {
-			debugInfo("no hay pagos");
+			debugInfo("No hay pagos");
 		}
 
 		debugEnd();
@@ -645,43 +642,31 @@ public class PagosSiniestrosPage extends PageObject {
 
 	public PagosSiniestrosPage emitirPlanPagosMAC(String fechaPlanPrimerPago, String fechaActivacion, String importePrimerPagoPlan) {
 		debugBegin();
-		// webDriver.switchToFrame(cuerpoFrame);
 
-		DateFormat fPlanPrimerPago = new SimpleDateFormat("dd/MM/yyyy");
-
-		DateFormat fActivacionPlan = new SimpleDateFormat("dd/MM/yyyy");
-
-		// if(fechaPlanPrimerPago.isEmpty() || fechaPlanPrimerPago == null) {
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.appendText(planFPrimerPago, fPlanPrimerPago.format(new Date()));
-		// DateFormat fPlanPrimerPago = new SimpleDateFormat("dd/MM/yyyy");
-		// webDriver.waitWithDriver(3000);
-		// webDriver.appendText(planFPrimerPago, fPlanPrimerPago.format(new Date()));
-		/*
-		 * webDriver.exitFrame(); } else {webDriver.appendTextInFrame(planFPrimerPago, cuerpoFrame,
-		 * fechaPlanPrimerPago);}
-		 */
-		webDriver.appendText(planFActivacion, fActivacionPlan.format(new Date()));
-		/*
-		 * if(fechaActivacion.isEmpty() || fechaActivacion == null) { webDriver.switchToFrame(cuerpoFrame); DateFormat
-		 * fActivacionPlan = new SimpleDateFormat("dd/MM/yyyy"); webDriver.waitWithDriver(3000);
-		 * webDriver.appendText(planFActivacion, fActivacionPlan.format(new Date())); webDriver.exitFrame(); } else
-		 * {webDriver.appendTextInFrame(planFActivacion, cuerpoFrame, fechaActivacion);}
-		 */
-		webDriver.appendText(planImportePrimerPago, importePrimerPagoPlan);
-		webDriver.click(btnGenerarPlan);
 		webDriver.waitWithDriver(2000);
+		fechaPlanPrimerPago = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+
+		fechaActivacion = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+
+		webDriver.appendTextInFrame(planFPrimerPago, cuerpoFrame, fechaPlanPrimerPago);
+		webDriver.appendTextInFrame(planFActivacion, cuerpoFrame, fechaActivacion);
+		webDriver.appendTextInFrame(planImportePrimerPago, cuerpoFrame, importePrimerPagoPlan);
+
+		webDriver.clickInFrame(btnGenerarPlan, cuerpoFrame);
+
+		webDriver.waitWithDriver(2000);
+
 		// método para probar que se ha generado
-		if(webDriver.isPresent(tablaPagos)) {
-			if(webDriver.getText(tablaPagos).contains("120")) {
+		if(webDriver.isPresentInFrame(tablaPagos, cuerpoFrame)) {
+			if(webDriver.getTextInFrame(tablaPagos, cuerpoFrame).contains("120")) {
 				System.out.println("Si está presente el importe de primer pago");
-				webDriver.click(botonContinuar1);
+				webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
 			}
 		} else {
 			System.out.println("NO está presente el importe del primer pago");
-			webDriver.click(botonContinuar1);
+			webDriver.clickInFrame(botonContinuar1, cuerpoFrame);
 		}
-		webDriver.exitFrame();
+
 		debugEnd();
 		return this;
 	}
@@ -689,50 +674,24 @@ public class PagosSiniestrosPage extends PageObject {
 	public PagosSiniestrosPage comprobarPlanPagosMAC() {
 		debugBegin();
 		webDriver.waitWithDriver(4000);
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(volverListaPagos);
-		if(webDriver.isPresent(marcaPagos)) {
-			webDriver.getText(marcaPagos).contains("2000");
-			System.out.println("Si está presente el importe de pagos");
-			// webDriver.waitForElementToBeClickable(botonContinuar1);
-		} else System.out.println("La marca de pagos NO muestra el importe del plan de pagos");
-		webDriver.exitFrame();
-		debugEnd();
-		return this;
-	}
 
-	public PagosSiniestrosPage iniciarPagoACarpeta() {
-		debugBegin();
+		if(!webDriver.getTextInFrame(msjConfirmarPrimerPago, cuerpoFrame).contains("120,00")) {
+			debugInfo("El importe del primer pago no coincide con el establecido de 120€");
+		}
+
+		webDriver.clickInFrame(volverListaPagos, cuerpoFrame);
+
 		webDriver.waitWithDriver(4000);
-		webDriver.clickInFrame(abrirBloques, leftFrame);
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(desplegarCarpetas);
-		debugInfo("Se despliegan las carpetas del bloque");
-		webDriver.isClickableAndClick(menuAccionesCarpetaBloque);
-		// webDriver.click(menuAccionesCarpetaBloque);
-		debugInfo("se abre el menú de acciones de las carpetas");
-		webDriver.isClickableAndClick(btnPagoACarpeta);
-		debugInfo("clic en botón pago a carpeta");
-		webDriver.exitFrame();
+		webDriver.clickInFrame(desplegarCarpetas, cuerpoFrame);
+
+		String ppagoTabla = webDriver.getTextInFrame(primerPagoTabla, cuerpoFrame).trim();
+
+		boolean checkPPagoTabla = ppagoTabla.contains("120,00€");
+		Assert.assertTrue(checkPPagoTabla, "COMPARAR CAMPOS : El primer pago se lista en la tabla de pagos");
+
 		debugEnd();
 		return this;
 	}
-
-	// localizar IMAS - Implicado asegurado en tabla <td>IMAS - Implicado asegurado</td> -- #bloque1tr1b >
-	// td:nth-child(2)
-	// body > form > table.grid.wideBox > tbody --- tr#tr1b > td > div > table > tbody tr#bloque1tr1b > td:nth-child(7)
-	// -- div#capaFlecha1910403
-
-	/*
-	 * for(int i = 0; i < listaBloques.size(); i++){ String codigo =
-	 * webDriver.getText(By.cssSelector("#bloque1tr"+(i+1)+ "> td:nth-child(2")); // depende en que fila este es un
-	 * numero u otro. Ej:segunda fila tendra el numero 2 debugInfo("el codigo es: "+codigo);
-	 * webDriver.click(By.cssSelector("#capaFlecha"+codigo+" a")); // el selector va dependiendo de que codigo de bloque
-	 * sea. debugInfo("click acciones"); if (webDriver.isClickable(transicionar)){ debugInfo("contiene transiciona");
-	 * webDriver.click(transicionar); webDriver.waitWithDriver(3000); } else { debugInfo("no contiene transiciona");
-	 * webDriver.click(By.cssSelector("#cabeceraBloqueDesplegable"+(i+1))); // se hace este click porque cuan le doy al
-	 * boton de acciones el desplejable tapa al siguiente selector }"table.grid.wideBox > tbody > tr[id*='bloque']"
-	 */
 
 	// endregion
 }

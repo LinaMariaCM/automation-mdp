@@ -61,7 +61,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 	}
 
 	// region methods
-	public DatosBasicosTomadorPage waitProcesando() throws Exception {
+	public DatosBasicosTomadorPage waitProcesando() {
 
 		System.out.println("Espero a ver procesando...");
 		webDriver.waitWithDriver(7000);

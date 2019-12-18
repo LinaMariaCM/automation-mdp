@@ -35,7 +35,7 @@ public class HomeSiniestrosPage extends PageObject {
 	// region Methods
 	public HomeSiniestrosPage openAperturaAlta() {
 		debugBegin();
-		webDriver.waitWithDriver(3000);;
+		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(btnAperturaAlta, menuFrame);
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();
@@ -86,7 +86,7 @@ public class HomeSiniestrosPage extends PageObject {
 	public HomeSiniestrosPage compararCampos() {
 		debugBegin();
 
-		String numPoliza = webDriver.getText(nPoliza).toString().substring(20);
+		String numPoliza = webDriver.getText(nPoliza).substring(20);
 		if(numPoliza.compareTo(getTestVar(Constants.NUM_POLIZA)) == 0) {
 			Assert.assertTrue(true, "COMPARAR CAMPOS : el número de póliza coincide.");
 			System.out.println("COMPARAR CAMPOS : el número de póliza coincide.");

@@ -30,7 +30,7 @@ public class InitUtils {
 	public static String getStringConfigVariable(String key, DataObject dataObject) {
 		String stringValue = System.getProperty(key);
 
-		if(((stringValue != null && stringValue.isEmpty()) || stringValue == null) && dataObject != null) {
+		if((stringValue == null || stringValue.isEmpty()) && dataObject != null) {
 			stringValue = dataObject.getValue(key);
 		}
 
@@ -51,7 +51,7 @@ public class InitUtils {
 	public static String setStringConfigVariable(String key, DataObject dataObject) {
 		String stringValue = System.getProperty(key);
 
-		if((stringValue != null && stringValue.isEmpty()) || stringValue == null) stringValue = dataObject.getValue(key);
+		if(stringValue == null || stringValue.isEmpty()) stringValue = dataObject.getValue(key);
 		else dataObject.setValue(key, stringValue);
 
 		return stringValue;

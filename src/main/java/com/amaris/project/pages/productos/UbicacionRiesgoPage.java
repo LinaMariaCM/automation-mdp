@@ -65,7 +65,7 @@ public class UbicacionRiesgoPage extends PageObject {
 	}
 
 	// region Methods
-	public UbicacionRiesgoPage waitProcesando() throws Exception {
+	public UbicacionRiesgoPage waitProcesando() {
 
 		System.out.println("Espero a ver procesando...");
 		webDriver.waitWithDriver(7000);

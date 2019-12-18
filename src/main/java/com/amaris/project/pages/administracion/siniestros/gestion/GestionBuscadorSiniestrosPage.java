@@ -146,6 +146,7 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 
 	public GestionBuscadorSiniestrosPage buscarPorNumeroSiniestro(String siniestro, String anio) {
 		debugBegin();
+		webDriver.waitWithDriver(2000);
 		webDriver.clickInFrame(gestionSiniestros, leftFrame);
 		debugInfo("ha dado click");
 
@@ -161,6 +162,7 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 
 //		ActionSteps.waitForIt(webDriver);
 		webDriver.setText(txtAno, anio);
+
 
 		webDriver.setText(txtNoSiniestro, siniestro);
 		webDriver.click(btnBuscar);
@@ -303,6 +305,7 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(btnOtros, cuerpoFrame);
 		webDriver.appendTextInFrame(fechaOtrosDesde, cuerpoFrame, fDesde);
 		webDriver.appendTextInFrame(fechaOtrosHasta, cuerpoFrame, fHasta);
+		
 		if(negocio.equals(Constants.MEC)) {
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
 		}
@@ -319,5 +322,34 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 
 		return this;
 	}
+
+
+	public GestionBuscadorSiniestrosPage metodo_parche (String siniestro_parche, String anio_parche) {
+		debugBegin();
+		webDriver.waitWithDriver(2000);
+		webDriver.clickInFrame(gestionSiniestros, leftFrame);
+		debugInfo("ha dado click");
+
+		webDriver.waitWithDriver(3000);
+		webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
+
+		ActionSteps.waitForIt(webDriver);
+		webDriver.setText(txtAno, anio_parche);
+
+
+		webDriver.setText(txtNoSiniestro, siniestro_parche);
+		webDriver.click(btnBuscar);
+		webDriver.waitWithDriver(3000);
+		ActionSteps.waitForIt(webDriver);
+		webDriver.click(btnContinuar);
+		webDriver.waitWithDriver(5000);
+		debugInfo("clic en Abrir siniestro");
+		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
+
 
 }

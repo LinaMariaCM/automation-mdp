@@ -53,9 +53,7 @@ public class DataManagerObject {
 
 	public void addData(String key, DataObject dataObject) {
 		synchronized(mappedData) {
-			if(mappedData.containsKey(key)) {
-				mappedData.remove(key);
-			}
+			mappedData.remove(key);
 			
 			mappedData.put(key, dataObject);
 		}

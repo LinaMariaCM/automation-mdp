@@ -1450,6 +1450,16 @@ public class DriverHelper {
 		exitFrame();
 	}
 
+	public void dispatchEventInFrame(By by, By frame, String event) {
+		dispatchEventInFrame(waitForElementToBePresent(by), frame, event);
+	}
+
+	public void dispatchEventInFrame(WebElement element, By frame, String event) {
+		switchToFrame(frame);
+		dispatchEvent(element, event);
+		exitFrame();
+	}
+
 	public void dispatchEvent(By by, String event) {
 		dispatchEvent(waitForElementToBePresent(by), event);
 	}
@@ -1571,6 +1581,16 @@ public class DriverHelper {
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
 		logger.end();
+	}
+
+	public void clickOverInFrame(By by, By frame) {
+		clickOverInFrame(waitForElementToBeClickable(by), frame);
+	}
+
+	public void clickOverInFrame(WebElement el, By frame) {
+		switchToFrame(frame);
+		clickOver(el);
+		exitFrame();
 	}
 
 	public void clickOver(By by) {

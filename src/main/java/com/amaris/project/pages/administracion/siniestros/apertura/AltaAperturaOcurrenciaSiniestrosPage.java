@@ -180,7 +180,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", "GC25");
 
 		webDriver.waitWithDriver(6000);
-		System.out.println("El grupo causa específica es: " + getTestVar(Constants.TIPO_CAUSA_MAC) + " , con código: " + getTestVar(Constants.TIPO_CAUSA_MAC_COD));
+		debugInfo("El grupo causa específica es: " + getTestVar(Constants.TIPO_CAUSA_MAC) + " , con código: " + getTestVar(Constants.TIPO_CAUSA_MAC_COD));
 		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", getTestVar(Constants.TIPO_CAUSA_MAC_COD));
 
 		// if(webDriver.isOnScreen(comboGremio)) {
