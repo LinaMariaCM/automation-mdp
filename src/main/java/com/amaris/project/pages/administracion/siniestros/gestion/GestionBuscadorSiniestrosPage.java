@@ -124,11 +124,13 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(gestionSiniestros, leftFrame);
 		debugInfo("ha dado click");
 		webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
-		if(negocio.equals(Constants.MEC)) {
+		
+		if(negocio != null && negocio.equals(Constants.MEC)) {
 			webDriver.switchToFrame(cuerpoFrame);
 			webDriver.clickElementChildByAttribute(opProductSIni, "value", "510");
 			webDriver.exitFrame();
 		}
+		
 		webDriver.setTextInFrame(txtAno, cuerpoFrame, anio);
 
 		webDriver.setTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
@@ -154,16 +156,16 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		 */
 		webDriver.switchToFrame(cuerpoFrame);
 
-		ActionSteps.waitForIt(webDriver);
-		webDriver.clickElementFromDropDownByIndex(tipoProductoSini, 0);
+//		ActionSteps.waitForIt(webDriver);
+//		webDriver.clickElementFromDropDownByIndex(tipoProductoSini, 0);
 
-		ActionSteps.waitForIt(webDriver);
+//		ActionSteps.waitForIt(webDriver);
 		webDriver.setText(txtAno, anio);
 
 		webDriver.setText(txtNoSiniestro, siniestro);
 		webDriver.click(btnBuscar);
-		webDriver.waitWithDriver(3000);
-		ActionSteps.waitForIt(webDriver);
+		webDriver.waitWithDriver(6000);
+		//ActionSteps.waitForIt(webDriver);
 		webDriver.click(btnContinuar);
 
 		webDriver.exitFrame();

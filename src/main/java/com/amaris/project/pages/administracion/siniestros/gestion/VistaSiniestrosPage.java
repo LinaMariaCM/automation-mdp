@@ -43,6 +43,7 @@ public class VistaSiniestrosPage extends PageObject {
 
 	private By cerrarSiniestro = By.cssSelector("li:nth-child(1) span");
 	private By modifiDatos = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(3) span");
+	private By modificarAlta = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(1) > a > span");
 	private By altaAnotacion = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(5) span");
 
 	// Pestañas
@@ -141,6 +142,19 @@ public class VistaSiniestrosPage extends PageObject {
 		debugEnd();
 		return this;
 	}
+	
+	public VistaSiniestrosPage modificarAltaSiniestro() {
+		debugBegin();
+
+		ActionSteps.waitForIt(webDriver);
+		webDriver.clickInFrame(vistaSiniestro, leftFrame);
+		ActionSteps.waitForIt(webDriver);
+		webDriver.clickInFrame(modificarAlta, cuerpoFrame);
+
+		debugEnd();
+		return this;
+	}
+	
 
 	public VistaSiniestrosPage mapeoHistoricoModificarDatos(String nombre, String apellidoPri, String apellidoSeg, String telefono, String email, String descripcion) {
 		// public VistaSiniestroPage mapeoHistoricoModificarDatos(){

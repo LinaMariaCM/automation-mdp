@@ -15,7 +15,10 @@ public class GestionSiniestrosPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 	private By leftFrame = By.cssSelector("#leftFrame");
 	private By capaIframe = By.cssSelector("#capaIframe");
-
+	private By topFrame = By.cssSelector("#topFrame");
+	
+	private By logo = By.cssSelector("#logo");
+	
 	private By exportaResultado = By.cssSelector("#cabExportar");
 
 	// Información estática de Gestión de Siniestros
@@ -164,6 +167,13 @@ public class GestionSiniestrosPage extends PageObject {
 		super(userS);
 	}
 
+	public GestionSiniestrosPage logo() {
+		debugBegin();
+		webDriver.clickInFrame(logo, topFrame);
+		debugEnd();
+		return this;
+	}
+	
 	// Acciones menu izquierda
 
 	public GestionSiniestrosPage diario() {
@@ -227,6 +237,7 @@ public class GestionSiniestrosPage extends PageObject {
 	public GestionSiniestrosPage pagos() {
 		debugBegin();
 		webDriver.clickInFrame(pagos, leftFrame);
+		webDriver.waitWithDriver(6000);
 		debugEnd();
 		return this;
 	}
