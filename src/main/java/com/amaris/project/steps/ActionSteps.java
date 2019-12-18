@@ -13,11 +13,11 @@ import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
 
+import com.sun.tools.jxc.ap.Const;
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
 import com.amaris.project.Constants;
-import com.amaris.project.pages.*;
 import com.amaris.project.pages.administracion.clientes.ClientePage;
 import com.amaris.project.pages.administracion.fichaedificio.FichaEdificioPage;
 import com.amaris.project.pages.administracion.gestionautorizaciones.GestionAutorizacionesPage;
@@ -2764,7 +2764,7 @@ public class ActionSteps extends InteractionObject {
 			pagosSiniestroPage.datosPerceptor();
 
 			// Seleccion de concepto de pago, cobertura, importes y deducciones
-			pagosSiniestroPage.importes("03/12/2019", "100,00", false);
+			pagosSiniestroPage.importes("", "100,00", false);
 
 			// Verificacion de todos los datos esten correctamente y grabacion del pago
 			pagosSiniestroPage.verificacion();
@@ -2780,16 +2780,19 @@ public class ActionSteps extends InteractionObject {
 		PagosSiniestrosPage pagosSiniestroPage = new PagosSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+
+		// Comentados hasta que se resuelva el pago a carpeta
 		BloqueSiniestrosPage BloqueSiniestrosPage = new BloqueSiniestrosPage(userS);
+
 		BloqueSiniestrosPage.iniciarPagoACarpeta();
 
 		// Seleccion del siniestro a pagar
 		pagosSiniestroPage
 			.seleccionarParticipantesExpediente()
 			.datosPerceptor()
-			.importes("08/12/2019", "2000,00", true)
+			.importes("", "1000,00", true)
 			.verificacion()
-			.emitirPlanPagosMAC("08/12/2019", "08/12/2019", "120")
+			.emitirPlanPagosMAC("", "", "120")
 			.verificacion()
 			.comprobarPlanPagosMAC();
 		debugInfo("test completado con éxito");
@@ -2844,9 +2847,8 @@ public class ActionSteps extends InteractionObject {
 		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
 		innovaHome.openSiniestros();
 		buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		bloqueSiniestro.transicionarBloqueCerrandoOrigen();
-		bloqueSiniestro.transicionarBloqueSinCerrarOrigen();
-
+		bloqueSiniestro.transicionarBloqueCerrandoOrigen()
+			.verificarTransicionesCerrandoOrigen();
 	}
 
 	public void nueva_tarea_siniestros() {
@@ -2919,22 +2921,36 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void realizo_recobro() {
-		//lo comentado es por el parche
-		//InnovaHomePage innovaHome = new InnovaHomePage(userS);
-		//	new HomeSiniestrosPage(userS).openGestionSiniestros();
-		//	GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
+		new InnovaHomePage(userS).openSiniestros();
+		new HomeSiniestrosPage(userS).openGestionSiniestros();
+		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
 
-		//	buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
 
 		GestionSiniestrosPage gestionSiniestrosPage = new GestionSiniestrosPage(userS);
-		gestionSiniestrosPage.reservasYExpecativas();
-		gestionSiniestrosPage.modificarExpectativa();
-		gestionSiniestrosPage.modificarReserva();
+		gestionSiniestrosPage.reservasYExpecativas()
+			.modificarReserva()
+			.modificarExpectativa()
+			.verificarTotales();
+
+		gestionSiniestrosPage.modificarExpectativasACero();
+		gestionSiniestrosPage.modificarReservaACero();
 		gestionSiniestrosPage.verificarTotales();
 
-		//gestionSiniestrosPage.modificarExpectativasACero();
-	//	gestionSiniestrosPage.modificarReservaACero();
-		gestionSiniestrosPage.verificarTotales();
+	}
+
+	public void reservas_expectativas_0() {
+		new InnovaHomePage(userS).openSiniestros();
+		new HomeSiniestrosPage(userS).openGestionSiniestros();
+		GestionBuscadorSiniestrosPage buscadorSiniestro = new GestionBuscadorSiniestrosPage(userS);
+
+		buscadorSiniestro.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
+
+		GestionSiniestrosPage gestionSiniestrosPage = new GestionSiniestrosPage(userS);
+		gestionSiniestrosPage.reservasYExpecativas()
+			.modificarExpectativasACero()
+			.modificarReservaACero()
+			.verificarTotales();
 
 	}
 
@@ -3013,14 +3029,21 @@ public class ActionSteps extends InteractionObject {
 
 	public void compruebo_información_diario_siniestro() {
 		debugBegin();
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
-		new GestionSiniestrosPage(userS).diario();
-		DiarioSiniestrosPage diario = new DiarioSiniestrosPage(userS);
-		diario.mostrarInfoGeneral();
-		diario.mostrarListadoMovimientos();
-		debugEnd();
 
+		new InnovaHomePage(userS)
+			.openSiniestros();
+
+		new GestionBuscadorSiniestrosPage(userS)
+			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
+
+		new GestionSiniestrosPage(userS)
+			.diario();
+
+		new DiarioSiniestrosPage(userS)
+			.mostrarInfoGeneral()
+			.mostrarListadoMovimientos();
+
+		debugEnd();
 	}
 
 	public void compruebo_siniestro_cerrado() {
@@ -3108,19 +3131,6 @@ public class ActionSteps extends InteractionObject {
 			.emitirPago();
 
 		debugEnd();
-	}
-
-	public void parche_siniestro_entorno() {
-		debugBegin();
-
-		new InnovaHomePage(userS)
-			.openSiniestros();
-
-		new GestionBuscadorSiniestrosPage(userS)
-			.metodo_parche("04084913", "2019");
-
-		debugEnd();
-
 	}
 
 } // END
