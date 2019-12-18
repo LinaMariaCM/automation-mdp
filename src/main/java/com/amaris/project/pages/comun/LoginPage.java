@@ -12,7 +12,7 @@ public class LoginPage extends PageObject {
 		super(userS);
 	}
 
-	public LoginPage logIn(String environment, String accessType, String user) throws Exception {
+	public LoginPage logIn(String environment, String accessType, String user) {
 		switch(environment) {
 			case Constants.PreEnvironment:
 				webDriver.go(getConfigVar(accessType + "Home-Pre"));
@@ -48,7 +48,7 @@ public class LoginPage extends PageObject {
 				webDriver.go(getConfigVar(accessType + "Home-RecibosCheck"));
 				break;
 			default:
-				throw new Exception("Environment not available");
+				debugError("Environment not available");
 		}
 
 		switch(accessType) {
@@ -60,12 +60,9 @@ public class LoginPage extends PageObject {
 				new GestionOnlineLoginPage(userS)
 					.login(user, getGlobalVar("password"));
 				webDriver.waitWithDriver(2000);
-				// new GestionOnlineHomePage(userS)
-				// .acceptCookies();
-				// .closeNovedadesDialog();
 				break;
 			default:
-				throw new Exception("Not implemented login access type selected");
+				debugError("Not implemented login access type selected");
 		}
 
 		// webDriver.setWaitForAngular(true);

@@ -172,7 +172,7 @@ public class DataSteps extends InteractionObject {
 				.selectMediadorAndClickOnContinuar();
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.SeleccionarMediadorPorCodigo(getScenarioVar(Constants.ACCESO))
+				.seleccionarMediadorPorCodigo(getScenarioVar(Constants.ACCESO))
 				.clickOnContinuarButton();
 		}
 
@@ -189,24 +189,24 @@ public class DataSteps extends InteractionObject {
 			.clickOnContinuar();
 
 		new PrecioPage(userS)
-			.ClickOnConvertirAProjecto();
+			.clickOnConvertirAProjecto();
 
 		new DatosBasicosTomadorPage(userS)
-			.FillTomadorData(getScenarioVar(Constants.TOMADOR))
+			.fillTomadorData(getScenarioVar(Constants.TOMADOR))
 			.clickOnContinuar();
 
 		new PrecioPorModalidadPage(userS)
-			.ExecuteActionsInPrecioPorModalidadPage();
+			.executeActionsInPrecioPorModalidadPage();
 
 		new ValidacionExcepcionesReglasPage(userS)
 			.clickOnContinuarButton();
 
 		new ClausulasPage(userS)
-			.ActivateclausesAndClickOnContinue();
+			.activateclausesAndClickOnContinue();
 
 		new TomadorYAseguradoPage(userS)
-			.AddDatosTomador()
-			.AddDatosTomadorDiferenteAsegurado()
+			.addDatosTomador()
+			.addDatosTomadorDiferenteAsegurado()
 			.clickOnContinuar();
 
 		new DatosBancariosPage(userS)
@@ -225,7 +225,7 @@ public class DataSteps extends InteractionObject {
 				.openContratarMutuaAlquilerConfort();
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.SelectMediadorMACAndClickOnContinuar();
+				.selectMediadorMACAndClickOnContinuar();
 		}
 
 		// Seleccionar modalidad en Precio page

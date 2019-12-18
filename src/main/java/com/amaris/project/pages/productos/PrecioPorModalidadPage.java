@@ -125,7 +125,7 @@ public class PrecioPorModalidadPage extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPage ExecuteActionsInPrecioPorModalidadPage() {
+	public PrecioPorModalidadPage executeActionsInPrecioPorModalidadPage() {
 		debugBegin();
 
 		ActionSteps.waitForIt(webDriver);

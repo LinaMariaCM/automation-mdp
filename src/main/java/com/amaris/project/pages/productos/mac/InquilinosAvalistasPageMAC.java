@@ -268,7 +268,7 @@ public class InquilinosAvalistasPageMAC extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMAC anadirDocumentacionAval() {
+	public InquilinosAvalistasPageMAC anyadirDocumentacionAval() {
 		debugBegin();
 
 		webDriver.clickInFrame(btnAnadirDocumentacionPrincipal, mainFrame);

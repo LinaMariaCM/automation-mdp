@@ -36,14 +36,14 @@ public class ConfirmarPage extends PageObject {
 
 	// region methods
 
-	public ConfirmarPage ActivateMotivosSuplementoAndClickOnContinuar() {
-		ActivateMotivosSuplemento();
-		ClickOnContinuar();
+	public ConfirmarPage activateMotivosSuplementoAndClickOnContinuar() {
+		activateMotivosSuplemento();
+		clickOnContinuar();
 
 		return this;
 	}
 
-	public ConfirmarPage ActivateMotivosSuplemento() {
+	public ConfirmarPage activateMotivosSuplemento() {
 		for(int pageNumber = 1; pageNumber <= 6; pageNumber++) {
 
 			ActivateMotivosSuplementoInPage(pageNumber);
@@ -64,7 +64,7 @@ public class ConfirmarPage extends PageObject {
 		return this;
 	}
 
-	public ConfirmarPage ClickOnContinuar() {
+	public ConfirmarPage clickOnContinuar() {
 		debugBegin();
 		// webDriver.waitForPageLoadWithAngular();
 		// wh.waitForPageLoadWithAngular();

@@ -80,8 +80,8 @@ public class PagosSiniestrosPage extends PageObject {
 	// Empresas profesionales
 	private By empresaColaboradora = By.cssSelector("#idPerceptor");
 	// Compañia contrataria
-	private By nombreCia = By.cssSelector("#nombreCiaCC");
-	private By ciaContrataria = By.cssSelector("#ciaCC");
+	private By nombreCiaInput = By.cssSelector("#nombreCiaCC");
+	private By ciaContratariaInput = By.cssSelector("#ciaCC");
 	// Compañia reparadora
 	private By flecha3 = By.cssSelector("tr.odd td:nth-child(4) span");
 
@@ -339,12 +339,12 @@ public class PagosSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public PagosSiniestrosPage seleccionarCompañiaContrataria(String NombreCia, String CiaContrataria) {
+	public PagosSiniestrosPage seleccionarCompanyiaContrataria(String nombreCia, String ciaContrataria) {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickElementFromDropDownByIndex(perceptor, 2);
-		webDriver.appendText(nombreCia, NombreCia);
-		webDriver.appendText(ciaContrataria, CiaContrataria);
+		webDriver.appendText(nombreCiaInput, nombreCia);
+		webDriver.appendText(ciaContratariaInput, ciaContrataria);
 		webDriver.exitFrame();
 
 		debugEnd();
@@ -578,7 +578,7 @@ public class PagosSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public Boolean comprobar_pagos_pendientes() {
+	public Boolean comprobarPagosPendientes() {
 		debugBegin();
 		webDriver.clickInFrame(accederPagos, leftFrame);
 		ActionSteps.waitForIt(webDriver);

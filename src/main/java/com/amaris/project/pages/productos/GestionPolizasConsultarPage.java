@@ -60,7 +60,7 @@ public class GestionPolizasConsultarPage extends PageObject {
 	}
 
 	// region methods
-	public GestionPolizasConsultarPage CheckPolizaNumber() {
+	public GestionPolizasConsultarPage checkPolizaNumber() {
 		debugBegin();
 
 		// Get the text from the policy number shown in the header of the policy file.

@@ -76,7 +76,7 @@ public class DatosBancariosPage extends PageObject {
 	// region methods
 	public DatosBancariosPage introducirFormaPagoYPulsarGuardar() {
 		FillPaymentMethod(getTestVar(Constants.MEDIO_PAGO));
-		ClickOnGuardar();
+		clickOnGuardar();
 		GetProjectCodeNumberAndClickOnAceptarButton();
 
 		return this;
@@ -84,7 +84,7 @@ public class DatosBancariosPage extends PageObject {
 
 	public DatosBancariosPage introducirFormaPagoYPulsarContratar() {
 		FillPaymentMethod(getTestVar(Constants.MEDIO_PAGO));
-		ClickOnGuardar();
+		clickOnGuardar();
 		GetProjectCodeNumberAndClickOnAceptarButton();
 		AceptarCondicionesLegales();
 		ClickOnContratarAndGetPolizaNumber();
@@ -94,7 +94,7 @@ public class DatosBancariosPage extends PageObject {
 
 	public DatosBancariosPage introducirFormaPagoYPulsarSolicitarPeritacion() {
 		fillStaticIban();
-		ClickOnGuardar();
+		clickOnGuardar();
 		GetProjectCodeNumberAndClickOnAceptarButton();
 		AceptarCondicionesLegales();
 		ClickOnSolicitarPeritacion();
@@ -106,7 +106,7 @@ public class DatosBancariosPage extends PageObject {
 
 	public DatosBancariosPage modificarFormaPagoYPulsarGuardar() {
 		FillPaymentMethod(getTestVar(Constants.CAMBIO_MEDIO_PAGO));
-		ClickOnGuardar();
+		clickOnGuardar();
 		GetProjectCodeNumberAndClickOnAceptarButton();
 
 		return this;
@@ -114,7 +114,7 @@ public class DatosBancariosPage extends PageObject {
 
 	public DatosBancariosPage modificarFormaPagoYPulsarContratar() {
 		FillPaymentMethod(getTestVar(Constants.CAMBIO_MEDIO_PAGO));
-		ClickOnGuardar();
+		clickOnGuardar();
 		GetProjectCodeNumberAndClickOnAceptarButton();
 		AceptarCondicionesLegales();
 		ClickOnContratarAndGetPolizaNumber();
@@ -122,7 +122,7 @@ public class DatosBancariosPage extends PageObject {
 		return this;
 	}
 
-	public DatosBancariosPage ClickOnGuardar() {
+	public DatosBancariosPage clickOnGuardar() {
 		debugBegin();
 
 		webDriver.clickInFrame(btnGuardar, cuerpoFrame);
@@ -306,7 +306,7 @@ public class DatosBancariosPage extends PageObject {
 		return trimmedPolizaNumber;
 	}
 
-	public DatosBancariosPage ClickOnEmitirSuplemento() {
+	public DatosBancariosPage clickOnEmitirSuplemento() {
 		debugBegin();
 
 		webDriver.clickInFrame(btnEmitirSuplemento, cuerpoFrame);

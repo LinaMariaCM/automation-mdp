@@ -18,7 +18,7 @@ public class ValidacionExcepcionesReglasConfirmarPoliza extends PageObject {
 	}
 
 	// region methods
-	public ValidacionExcepcionesReglasConfirmarPoliza ClickOnContinuarButton() {
+	public ValidacionExcepcionesReglasConfirmarPoliza clickOnContinuarButton() {
 		debugBegin();
 		// if
 		// (this.tData.getMotivosSuplemento().containsKey(MutuaPropietariosConstants.MotivoSuplementoInclusionExclusionDescuento)

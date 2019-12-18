@@ -45,7 +45,7 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject
 		return this;
 	}
 
-	public ValidacionesExcepcionesReglasUbicacionRiesgoPage ClickOnContinuarButton() {
+	public ValidacionesExcepcionesReglasUbicacionRiesgoPage clickOnContinuarButton() {
 		debugBegin();
 
 		if(webDriver.isPresentInFrame(lblExistenProjectosSuplementoActivo, cuerpoFrame)) {
