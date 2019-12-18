@@ -43,7 +43,7 @@ public class PrecioPage extends PageObject {
 		return this;
 	}
 
-	public PrecioPage ClickOnConvertirAProjecto() {
+	public PrecioPage clickOnConvertirAProjecto() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);

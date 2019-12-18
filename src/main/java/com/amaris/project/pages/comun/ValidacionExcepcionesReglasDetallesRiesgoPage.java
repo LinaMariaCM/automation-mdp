@@ -88,7 +88,7 @@ public class ValidacionExcepcionesReglasDetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public ValidacionExcepcionesReglasDetallesRiesgoPage ClickOnContinuarAndValidate() {
+	public ValidacionExcepcionesReglasDetallesRiesgoPage clickOnContinuarAndValidate() {
 		debugBegin();
 
 		setTestVar(Constants.INFRA_SEGURO, "false");

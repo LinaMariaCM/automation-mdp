@@ -53,8 +53,8 @@ public class DatosBasicosTomadorPage extends PageObject {
 		super(userS);
 	}
 
-	public DatosBasicosTomadorPage ExecuteActionsInPageTomadorYAseguradoPage(String tomadorType) throws Exception {
-		FillTomadorData(tomadorType);
+	public DatosBasicosTomadorPage executeActionsInPageTomadorYAseguradoPage(String tomadorType) throws Exception {
+		fillTomadorData(tomadorType);
 		clickOnContinuar();
 
 		return this;
@@ -149,7 +149,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 		return this;
 	}
 
-	public DatosBasicosTomadorPage FillTomadorData(String tomadorType) throws Exception {
+	public DatosBasicosTomadorPage fillTomadorData(String tomadorType) {
 		debugBegin();
 
 		switch(tomadorType) {
@@ -220,9 +220,9 @@ public class DatosBasicosTomadorPage extends PageObject {
 
 				break;
 			default:
-				throw new Exception(String.format("El tipo de tomador \"%s\" seleccionado no está implementado", tomadorType));
+				debugError(String.format("El tipo de tomador \"%s\" seleccionado no está implementado", tomadorType));
 		}
-		// browserContext.webElementHelper.waitForAngular();
+		
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 

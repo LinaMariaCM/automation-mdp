@@ -146,7 +146,7 @@ public class AgendaSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public boolean comprobar_tareas_pendientes() {
+	public boolean comprobarTareasPendientes() {
 		debugBegin();
 		webDriver.clickInFrame(agenda, leftFrame);
 		ActionSteps.waitForIt(webDriver);

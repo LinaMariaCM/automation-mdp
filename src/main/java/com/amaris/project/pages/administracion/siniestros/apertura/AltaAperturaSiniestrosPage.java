@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.steps.ActionSteps;
+
 import java.util.List;
 
 public class AltaAperturaSiniestrosPage extends PageObject {
@@ -61,6 +63,7 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(polizas50, mainFrame);
+		ActionSteps.waitForIt(userS.getWebDriver());
 
 		debugEnd();
 
@@ -87,6 +90,8 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 		webDriver.clickElementFromDropDownByIndexInFrame(comboProducto, mainFrame, 0);
 		webDriver.setTextInFrame(txtNumPoliza, mainFrame, numPoliza);
 		webDriver.clickInFrame(btnBuscar, mainFrame);
+		
+		ActionSteps.waitForIt(userS.getWebDriver());
 
 		debugEnd();
 

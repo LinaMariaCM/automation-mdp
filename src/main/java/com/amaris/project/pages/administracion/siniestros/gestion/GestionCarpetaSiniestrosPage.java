@@ -70,7 +70,7 @@ public class GestionCarpetaSiniestrosPage extends PageObject {
 		return check;
 	}
 
-	public boolean comprobar_encargos() {
+	public boolean comprobarEncargos() {
 		debugBegin();
 
 		webDriver.clickInFrame(carpeta, leftFrame);
@@ -114,7 +114,7 @@ public class GestionCarpetaSiniestrosPage extends PageObject {
 		return check;
 	}
 
-	public GestionCarpetaSiniestrosPage nueva_carpeta() {
+	public GestionCarpetaSiniestrosPage nuevaCarpeta() {
 		debugBegin();
 		webDriver.clickInFrame(carpeta, leftFrame);
 		ActionSteps.waitForIt(webDriver);
@@ -145,7 +145,7 @@ public class GestionCarpetaSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public GestionCarpetaSiniestrosPage cerrar_carpeta() {
+	public GestionCarpetaSiniestrosPage cerrarCarpeta() {
 		debugBegin();
 		webDriver.clickInFrame(carpeta, leftFrame);
 		ActionSteps.waitForIt(webDriver);

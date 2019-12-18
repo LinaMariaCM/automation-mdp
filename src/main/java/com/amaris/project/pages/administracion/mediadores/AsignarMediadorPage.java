@@ -30,7 +30,7 @@ public class AsignarMediadorPage extends PageObject {
 		super(userS);
 	}
 
-	public AsignarMediadorPage TerminaProcesando() {
+	public AsignarMediadorPage terminaProcesando() {
 		this.webDriver.waitForElementNotToBePresent(procesando);
 
 		return this;
@@ -44,13 +44,13 @@ public class AsignarMediadorPage extends PageObject {
 	}
 
 	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String codigoMed) {
-		this.SeleccionarMediadorPorCodigo(codigoMed);
+		this.seleccionarMediadorPorCodigo(codigoMed);
 		this.clickOnContinuarButton();
 
 		return this;
 	}
 
-	public AsignarMediadorPage SelectMediadorMACAndClickOnContinuar() {
+	public AsignarMediadorPage selectMediadorMACAndClickOnContinuar() {
 		SeleccionarMediadorMACPorCodigo(getScenarioVar(Constants.MEDIADOR));
 		clickOnContinuarButton();
 
@@ -69,7 +69,7 @@ public class AsignarMediadorPage extends PageObject {
 		return this;
 	}
 
-	public AsignarMediadorPage SeleccionarMediadorPorCodigo(String codigoMediador) {
+	public AsignarMediadorPage seleccionarMediadorPorCodigo(String codigoMediador) {
 		debugBegin();
 
 		if(userS.getScenario().contains(Constants.MAC)) {

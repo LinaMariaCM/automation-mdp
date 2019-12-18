@@ -55,7 +55,7 @@ public class ClausulasPage extends PageObject {
 	}
 
 	// region methods
-	public ClausulasPage ActivateclausesAndClickOnContinue() throws Exception {
+	public ClausulasPage activateclausesAndClickOnContinue() {
 		activateClauses();
 		completarClausulaHipotecaria();
 		clickOnContinuar();
@@ -63,12 +63,12 @@ public class ClausulasPage extends PageObject {
 		return this;
 	}
 
-	public ClausulasPage clickOnContinuar() throws Exception {
+	public ClausulasPage clickOnContinuar() {
 		debugBegin();
 
 		if(Boolean.parseBoolean(getTestVar(Constants.INFRA_SEGURO)) && !isClausulaSelected(102)) {
 			try {
-				throw new Exception("La clausula 102 no se ha seleccionado al crear un infraseguro");
+				debugError("La clausula 102 no se ha seleccionado al crear un infraseguro");
 			} catch(Exception e) {
 				setTestVar("mensaje_error", "La clausula 102 no se ha seleccionado al crear un infraseguro");
 				// webDriver.getScenario().write("La clausula 102 no se ha

@@ -70,7 +70,7 @@ public class DiarioSiniestrosPage extends PageObject {
 		super(userS);
 	}
 
-	public DiarioSiniestrosPage rehusar_siniestro() {
+	public DiarioSiniestrosPage rehusarSiniestro() {
 		debugBegin();
 		ActionSteps.waitForIt(webDriver);
 		webDriver.clickInFrame(diarioSiniestro, leftFrame);

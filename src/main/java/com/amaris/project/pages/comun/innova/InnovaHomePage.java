@@ -88,7 +88,7 @@ public class InnovaHomePage extends PageObject {
 		return this;
 	}
 
-	public InnovaHomePage OpenGestionPolizas() {
+	public InnovaHomePage openGestionPolizas() {
 		debugBegin();
 
 		webDriver.clickInFrame(btnMapaSitio, topFrame);
@@ -99,7 +99,7 @@ public class InnovaHomePage extends PageObject {
 		return this;
 	}
 
-	public InnovaHomePage OpenGestionAutorizaciones() {
+	public InnovaHomePage openGestionAutorizaciones() {
 		debugBegin();
 
 		webDriver.scrollToElementInFrame(btnGestionAutorizaciones, leftFrame);

@@ -65,7 +65,7 @@ public class GestionPolizasBuscadorPage extends PageObject {
 		return this;
 	}
 
-	public GestionPolizasBuscadorPage SeleccionarResultado() {
+	public GestionPolizasBuscadorPage seleccionarResultado() {
 		debugBegin();
 
 		if(!webDriver.isPresentAndClickInFrame(continuar, cuerpoFrame)) {
@@ -77,7 +77,7 @@ public class GestionPolizasBuscadorPage extends PageObject {
 		return this;
 	}
 
-	public GestionPolizasBuscadorPage AddSuplementoGeneral() {
+	public GestionPolizasBuscadorPage addSuplementoGeneral() {
 		debugBegin();
 
 		webDriver.clickInFrame(btnMostrarAcciones, cuerpoFrame);
@@ -107,7 +107,7 @@ public class GestionPolizasBuscadorPage extends PageObject {
 		return this;
 	}
 
-	public GestionPolizasBuscadorPage ConsultarPoliza() {
+	public GestionPolizasBuscadorPage consultarPoliza() {
 		debugBegin();
 		webDriver.clickInFrame(btnMostrarAcciones, cuerpoFrame);
 		webDriver.clickInFrame(btnConsulta, cuerpoFrame);

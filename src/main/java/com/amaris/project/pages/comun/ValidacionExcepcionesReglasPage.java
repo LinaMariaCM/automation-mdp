@@ -46,7 +46,7 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 		return titulo;
 	}
 
-	public ValidacionExcepcionesReglasPage ContinuarAltaSiniestro() {
+	public ValidacionExcepcionesReglasPage continuarAltaSiniestro() {
 		debugBegin();
 		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		debugEnd();

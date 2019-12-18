@@ -105,7 +105,7 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 
 	@Override
 	public void OpenGestionPolizas() {
-		this.innovaHomePage.OpenGestionPolizas();
+		this.innovaHomePage.openGestionPolizas();
 	}
 
 	@Override

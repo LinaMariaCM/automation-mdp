@@ -69,13 +69,13 @@ public class CheckSteps extends InteractionObject {
 			new ActionSteps(userS).login(getScenarioVar(Constants.CAMBIO_ACCESO), getScenarioVar(Constants.USUARIO));
 		}
 
-		new InnovaHomePage(userS).OpenGestionPolizas();
+		new InnovaHomePage(userS).openGestionPolizas();
 
 		new GestionPolizasBuscadorPage(userS)
 			.buscarPorNumeroPoliza(getScenarioVar(Constants.NUM_POLIZA))
-			.ConsultarPoliza();
+			.consultarPoliza();
 
-		new GestionPolizasConsultarPage(userS).CheckPolizaNumber();
+		new GestionPolizasConsultarPage(userS).checkPolizaNumber();
 	}
 
 	public void el_valor_de_los_capitales_varia() {
@@ -163,11 +163,11 @@ public class CheckSteps extends InteractionObject {
 	}
 
 	public void la_poliza_muestra_en_la_pestanya(String toBeChecked, String tab) throws Exception {
-		new InnovaHomePage(userS).OpenGestionPolizas();
+		new InnovaHomePage(userS).openGestionPolizas();
 
 		new GestionPolizasBuscadorPage(userS)
 			.buscarPorNumeroPoliza(getScenarioVar(Constants.NUM_POLIZA))
-			.ConsultarPoliza();
+			.consultarPoliza();
 
 		GestionPolizasConsultarPage gestionPolizasConsultarPage = new GestionPolizasConsultarPage(userS);
 
@@ -282,7 +282,7 @@ public class CheckSteps extends InteractionObject {
 		new ActionSteps(userS).login(getScenarioVar(Constants.ACCESO_AUTORIZADO), getScenarioVar(Constants.USUARIO_AUTORIZADO));
 
 		// Abrir la busqueda de autorizaciones
-		new InnovaHomePage(userS).OpenGestionAutorizaciones();
+		new InnovaHomePage(userS).openGestionAutorizaciones();
 
 		String resultadoAutorizacion = new GestionAutorizacionesPage(userS)
 			.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getTestVar(Constants.NUM_COTIZACION))
