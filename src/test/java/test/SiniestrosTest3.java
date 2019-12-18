@@ -106,11 +106,10 @@ public class SiniestrosTest3 extends TestObject {
 		userS.testActions(() -> {
 
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			//steps.alta_siniestro_simple();
-			steps.parche_siniestro_entorno();
-		//	steps.cierro_navegador();
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
 
-			//steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.realizo_recobro();
 			steps.cierro_navegador();
 
@@ -547,6 +546,9 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
 
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.transicionar_bloques();
