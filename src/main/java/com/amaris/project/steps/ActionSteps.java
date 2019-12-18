@@ -12,10 +12,9 @@ import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Date;
 import java.util.Locale;
-
-import com.sun.tools.jxc.ap.Const;
 import org.testng.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.remote.server.handler.AcceptAlert;
 
 import com.amaris.project.Constants;
 import com.amaris.project.pages.administracion.clientes.ClientePage;
@@ -619,7 +618,8 @@ public class ActionSteps extends InteractionObject {
 				if(numPoliza.startsWith("510")) ramo = "510";
 				else if(numPoliza.startsWith("920") || numPoliza.startsWith("900")) ramo = "920";
 				else if(numPoliza.startsWith("660")) ramo = "660";
-				else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000"))) ramo = "500";
+				else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000")))
+					ramo = "500";
 				else if(numPoliza.startsWith("5000") || numPoliza.startsWith("600") || numPoliza.startsWith("610") || numPoliza.startsWith("620") || numPoliza.startsWith("630")
 					|| numPoliza.startsWith("640")) ramo = "640";
 
@@ -724,7 +724,8 @@ public class ActionSteps extends InteractionObject {
 			if(numPoliza.startsWith("510")) ramo = "510";
 			else if(numPoliza.startsWith("920") || numPoliza.startsWith("900")) ramo = "920";
 			else if(numPoliza.startsWith("660")) ramo = "660";
-			else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000"))) ramo = "500";
+			else if(numPoliza.startsWith("400") || numPoliza.startsWith("200") || numPoliza.startsWith("150") || (numPoliza.startsWith("500") && !numPoliza.startsWith("5000")))
+				ramo = "500";
 			else if(numPoliza.startsWith("5000") || numPoliza.startsWith("600") || numPoliza.startsWith("610") || numPoliza.startsWith("620") || numPoliza.startsWith("630")
 				|| numPoliza.startsWith("640")) ramo = "640";
 
@@ -2472,10 +2473,12 @@ public class ActionSteps extends InteractionObject {
 				// Buscamos una póliza por Nº póliza
 
 				if(getTestVar(Constants.NUM_POLIZA).startsWith("510")) ramo = "510";
-				else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900")) ramo = "920";
+				else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900"))
+					ramo = "920";
 				else if(getTestVar(Constants.NUM_POLIZA).startsWith("660")) ramo = "660";
 				else if(getTestVar(Constants.NUM_POLIZA).startsWith("400") || getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("150")
-					|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000"))) ramo = "500";
+					|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000")))
+					ramo = "500";
 				else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610")
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("640")) ramo = "640";
@@ -2542,6 +2545,24 @@ public class ActionSteps extends InteractionObject {
 			datosOcurrencia.altaRellenarDatos("Descripción test para realizar un alta de siniestro", getTestVar(Constants.OTROS_IMPLICADOS), getTestVar(Constants.ENCARGO));
 			debugInfo("AQUI ES ALTA RELLENAR DATOS CAUSA");
 			userS.getWebDriver().waitWithDriver(10000);
+			
+			// Si el csv contempla la opción de guardar en medio del alta
+			if(!getTestVar(Constants.GUARDAR_EN_ALTA).isEmpty()) {
+				debugInfo("Seleccionada opción de guardado, se procede a guardar el siniestros provisional");
+				datosOcurrencia.clickGuardarSalir();
+				
+				new GestionSiniestrosPage(userS).logo();
+				
+				new InnovaHomePage(userS).openSiniestros();
+				new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.SINIESTRO_PROVISIONAL), getTestVar(Constants.ANYO_SINIESTRO));
+				new VistaSiniestrosPage(userS).modificarAltaSiniestro();
+				datosDeclaracion.clickContinuarSinAsistencia();
+				if(validarReglas.comprobarNombrePagina().contains("excepciones")) {
+					validarReglas.clickOnContinuarButton();
+					}
+				
+			}
+			
 			datosOcurrencia.clickContinuar();
 
 			// Validamos más cosas
@@ -2615,10 +2636,12 @@ public class ActionSteps extends InteractionObject {
 			GestionOnlineAltaSiniestrosPage altaSiniestroGOL = new GestionOnlineAltaSiniestrosPage(userS);
 			altaSiniestroGOL.altaInfoPoliza(getTestVar(Constants.NUM_POLIZA), "");
 			if(getTestVar(Constants.NUM_POLIZA).startsWith("510")) ramo = "510";
-			else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900")) ramo = "920";
+			else if(getTestVar(Constants.NUM_POLIZA).startsWith("920") || getTestVar(Constants.NUM_POLIZA).startsWith("900"))
+				ramo = "920";
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("660")) ramo = "660";
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("400") || getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("150")
-				|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000"))) ramo = "500";
+				|| (getTestVar(Constants.NUM_POLIZA).startsWith("500") && !getTestVar(Constants.NUM_POLIZA).startsWith("5000")))
+				ramo = "500";
 			else if(getTestVar(Constants.NUM_POLIZA).startsWith("5000") || getTestVar(Constants.NUM_POLIZA).startsWith("600") || getTestVar(Constants.NUM_POLIZA).startsWith("610")
 				|| getTestVar(Constants.NUM_POLIZA).startsWith("620") || getTestVar(Constants.NUM_POLIZA).startsWith("630")
 				|| getTestVar(Constants.NUM_POLIZA).startsWith("640")) ramo = "640";
@@ -2828,7 +2851,7 @@ public class ActionSteps extends InteractionObject {
 		desbloqueo_pago();
 
 		// completar flujo de pago
-
+		
 		gestionar_pago();
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -3062,7 +3085,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void retenciones_declaracion_apertura_siniestro_fechas() {
+	public void comprobar_casos_error_declaracion_apertura_siniestro() {
 		debugBegin();
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -3073,13 +3096,126 @@ public class ActionSteps extends InteractionObject {
 		new GestionPolizasBuscadorPage(userS)
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA))
 			.SeleccionarResultado();
+
 		// 1.Declaración
 		new AltaAperturaDeclaracionSiniestrosPage(userS)
-			.fechaOcurrenciaPosteriorHoy()
-			.fechaOcurrenciaHaceTresMeses()
-			.fechaOcurrenciaFormatoIncorrecto()
-			.fechaOcurrenciaVacio()
-			.fechaOcurrenciaHoy();
+			.rellenarDatosMinimos()
+			.fechaOcurrenciaFalloVacio()
+			.fechaOcurrenciaFalloFormatoIncorrecto()
+			.fechaOcurrenciaHoy()
+			.tipoDeclaranteFalloVacio()
+			.seleccionarTipoDeclarante()
+			.medioDeclaracionFalloVacio()
+			.seleccionarMedioDeclaracion()
+			.emailDeclaranteFalloVacio()
+			.emailDeclaranteFalloFormatoIncorrecto()
+			.emailDeclaranteFalloNoDisponible();
+
+		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
+			new AltaAperturaDeclaracionSiniestrosPage(userS)
+				.asistenciaFalloVacio()
+				.seleccionarAsistencia();
+		}
+
+		new AltaAperturaDeclaracionSiniestrosPage(userS)
+			.fechaOcurrenciaFalloPosteriorHoy()
+			.fechaOcurrenciaFalloAnteriorFechaVigenciaPoliza()
+			.fechaOcurrenciaHoy()
+			.personaContactoFalloAñadir()
+			.rolPersonaContactoFalloVacio()
+			.seleccionarRolPersonaContacto()
+			.nombrePersonaContactoFalloVacio()
+			.escribirNombrePersonaContacto()
+			.telefonoPersonaContactoFalloVacio()
+			.telefonoPersonaContactoFalloAlfanumerico()
+			.escribirTelefonoPersonaContacto()
+			.emailPersonaContactoFalloVacio()
+			.emailPersonaContactoFalloFormatoIncorrecto()
+			.emailPersonaContactoFalloNoDisponible()
+			.fechaDenunciaFalloVacio()
+			.fechaDenunciaFalloFormatoIncorrecto()
+			.fechaDenunciaFalloAnteriorOcurrencia()
+			.fechaDenunciaFalloPosteriorHoy()
+			.fechaDenunciaHoy()
+			.clickContinuar();
+		//.fechaOcurrenciaFalloHaceTresMeses();
+
+		new AltaAperturaOcurrenciaSiniestrosPage(userS)
+			.comprobarAvisos()
+			.grupoCausaFalloVacio()
+			.seleccionarGrupoCausa()
+			.tipoCausaFalloVacio();
+
+		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
+			new AltaAperturaOcurrenciaSiniestrosPage(userS)
+				.seleccionarTipoCausa();
+		} else {
+			new AltaAperturaOcurrenciaSiniestrosPage(userS)
+				.seleccionarTipoCausa("2000 AGUA");
+		}
+
+		new AltaAperturaOcurrenciaSiniestrosPage(userS)
+			.descripcionSiniestroFalloVacio()
+			.descripcionSiniestroFalloMinimoCaracteres()
+			.escribirDescripcionSiniestro()
+			.existenImplicadosFalloVacio()
+			.seleccionarExistenImplicados()
+			.necesitaEncargoFalloVacio()
+			.seleccionarNecesitaEncargo();
+
+		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
+			new ImplicadoAseguradoSiniestrosPage(userS)
+				.capturaDatosSiniestro();
+		}
+
+		new ImplicadoAseguradoSiniestrosPage(userS)
+			.anotacionesImplicadoTituloFalloVacio()
+			.escribirAnotacionesImplicado();
+
+		new OtrosImplicadosDatosSiniestrosPage(userS)
+			.otrosImplicadosFalloVacio()
+			.tipologiaImplicadoFalloVacio()
+			.seleccionarTipologiaImplicado()
+			.rolImplicadoFalloVacio()
+			.seleccionarRolImplicado()
+			.nombreImplicadoFalloVacio()
+			.escribirNombreImplicado()
+			.telefonoPrimeroImplicadoFalloVacio()
+			.escribirTelefonoPrimeroImplicado()
+			.telefonoSegundoImplicadoFalloFormatoIncorrecto()
+			.escribirTelefonoSegundoImplicado()
+			.emailImplicadoFalloVacio()
+			.emailImplicadoFalloFormatoIncorrecto()
+			.setDisponibilidadEmail(false)
+			.ibanImplicadoFalloVacio()
+			.escribirIbanImplicado("4543")
+			.bancoImplicadoFalloVacio()
+			.escribirBancoImplicado()
+			.sucursalImplicadoFalloVacio()
+			.escribirSucursalImplicado()
+			.dcImplicadoFalloVacio()
+			.escribirDcImplicado()
+			.numeroCuentaImplicadoFalloVacio()
+			.escribirNumeroCuentaImplicado()
+			.setDisponibilidadIban(false)
+			.clickGrabar()
+			.clickContinuar();
+
+		new EncargoDatosSiniestrosPage(userS)
+			.anyadirEncargoFalloVacio()
+			.tipoColaboradorFalloVacio()
+			.seleccionarTipoColaborador()
+			.tipoEncargoFalloVacio()
+			.seleccionarTipoEncargo()
+			.subtipoEncargoFalloVacio()
+			.seleccionarSubtipoEncargo()
+			.fechaEncargoFalloVacio()
+			.fechaEncargoFormatoIncorrecto()
+			.escribirfechaEncargo();
+
+		new ConfirmacionSiniestrosPage(userS)
+			.check();
+
 		debugEnd();
 	}
 
@@ -3090,7 +3226,7 @@ public class ActionSteps extends InteractionObject {
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 		new GestionSiniestrosPage(userS).pagos();
 		new PagosSiniestrosPage(userS).desbloquearPago();
-
+		
 		debugEnd();
 	}
 

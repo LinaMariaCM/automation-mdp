@@ -2445,15 +2445,20 @@ public class DriverHelper {
 		} else {
 			driver.switchTo().frame(driver.findElement(by));
 		}
+		
+		waitForLoadToComplete();
 	}
 
 	public void switchToParentFrame() {
 		driver.switchTo().parentFrame();
+		
+		waitForLoadToComplete();
 	}
 
 	public void exitFrame() {
 		if(!alertIsPresent()) {
 			driver.switchTo().defaultContent();
+			waitForLoadToComplete();
 		}
 	}
 
@@ -2702,7 +2707,7 @@ public class DriverHelper {
 				new WebDriverWait(driver, implicitTimeout)
 					.pollingEvery(Duration.ofMillis(500))
 					.until((ExpectedCondition<Boolean>) wd -> (((JavascriptExecutor) wd)
-						.executeScript("return jQuery.active == 0  && jQuery.isReady;") + "").equals("true"));
+						.executeScript("return !jQuery || (jQuery.active == 0  && jQuery.isReady)") + "").equals("true"));
 			}
 		} catch(WebDriverException e) {
 			if(e.getMessage() == null || (e.getMessage() != null && !e.getMessage().contains("jQuery is not defined"))) {

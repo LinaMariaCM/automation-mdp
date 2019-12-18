@@ -2,14 +2,20 @@ package com.amaris.project.pages.administracion.siniestros.apertura;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
+import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 
 	// region WebElements
 	private By cuerpoFrame = By.id("mainFrame");
+	private By modalFrame = By.id("capaIframe");
+	private By anotacionesBtn = By.cssSelector("#enlaceDialogo > span");
+	private By anotacionesNuevoBtn = By.cssSelector("#cabApunteDialogo0 > span");
 
 	// #### DATOS DEL ASEGURADO ####
 	private By comboSeleccionAsegurado = By.id("seleccionAsegurado");
@@ -35,14 +41,19 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	private By comboProvincia = By.id("provincia");
 
 	private By txtIBAN = By.cssSelector("#datosAsegurado > div.sis-frame-bg > div:nth-child(26) > div.box-field.flexibleField > input");
-	private By txtBanco = By.id("#datosAsegurado > div.sis-frame-bg > div:nth-child(27) > div.box-field.flexibleField > input");
-	private By txtSucursal = By.id("#datosAsegurado > div.sis-frame-bg > div:nth-child(28) > div.box-field.flexibleField > input");
-	private By txtDC = By.id("#datosAsegurado > div.sis-frame-bg > div:nth-child(29) > div.box-field.flexibleField > input");
-	private By txtNumeroCuenta = By.id("#datosAsegurado > div.sis-frame-bg > div:nth-child(30) > div.box-field.flexibleField > input");
+	private By txtBanco = By.cssSelector("#datosAsegurado > div.sis-frame-bg > div:nth-child(27) > div.box-field.flexibleField > input");
+	private By txtSucursal = By.cssSelector("#datosAsegurado > div.sis-frame-bg > div:nth-child(28) > div.box-field.flexibleField > input");
+	private By txtDC = By.cssSelector("#datosAsegurado > div.sis-frame-bg > div:nth-child(29) > div.box-field.flexibleField > input");
+	private By txtNumeroCuenta = By.cssSelector("#datosAsegurado > div.sis-frame-bg > div:nth-child(30) > div.box-field.flexibleField > input");
 	private By btnGuardarSalir = By.id("botonGuardar");
 	private By btnAperturaSiniestro = By.cssSelector("#formDatos #botonera #botonContinuar");
-	private By btnValidarYContinuar = By.cssSelector("#botonContinuar");
+	private By btnValidarYContinuar = By.id("botonContinuar");
+	private By btnContinuar = By.id("botonContinuar");
+	private By btnGrabarAnotacion = By.id("botonContinuar2");
+	private By btnCerrarAnotaciones = By.id("botonCancelar");
 
+	private By txtTituloAnotacion = By.id("titulo");
+	private By txtClausulaEspecial = By.cssSelector(".grid.wideBox tr:nth-child(2) > td:nth-child(2)");
 	// endregion
 
 	public ImplicadoAseguradoSiniestrosPage(UserStory userS) {
@@ -112,6 +123,62 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 
 		webDriver.clickInFrame(btnValidarYContinuar, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
+		debugEnd();
+
+		return this;
+	}
+
+	//------------------------RETENCIONES-------------------------------------------
+
+	public ImplicadoAseguradoSiniestrosPage capturaDatosSiniestro() {
+		debugBegin();
+
+		String textoClausulaEspecial = webDriver.getTextInFrame(txtClausulaEspecial, cuerpoFrame).trim();
+
+		boolean checkAvisoHaceTresMeses = textoClausulaEspecial.equalsIgnoreCase(Constants.ALERTA_POLIZA_CLAUSULAS_ESPECIALES);
+
+		debugInfo("Mensaje esperado: " + Constants.ALERTA_POLIZA_CLAUSULAS_ESPECIALES);
+		debugInfo("Mensaje real: " + textoClausulaEspecial);
+
+		Assert.assertTrue(checkAvisoHaceTresMeses, "COMPARAR CAMPOS : alerta NO se muestra");
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
+		debugEnd();
+
+		return this;
+	}
+
+	public ImplicadoAseguradoSiniestrosPage anotacionesImplicadoTituloFalloVacio() {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(anotacionesBtn);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitWithDriver(5000);
+		webDriver.click(anotacionesNuevoBtn);
+		webDriver.click(btnGrabarAnotacion);
+		webDriver.exitFrame();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TITULO_ANOTACION);
+		webDriver.acceptAlert();
+
+		debugEnd();
+
+		return this;
+	}
+
+	public ImplicadoAseguradoSiniestrosPage escribirAnotacionesImplicado() {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.setText(txtTituloAnotacion, "Esto es una anotación.");
+		webDriver.click(btnGrabarAnotacion);
+		webDriver.waitWithDriver(3000);
+		webDriver.click(btnCerrarAnotaciones);
+		webDriver.exitFrame();
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+
 		debugEnd();
 
 		return this;

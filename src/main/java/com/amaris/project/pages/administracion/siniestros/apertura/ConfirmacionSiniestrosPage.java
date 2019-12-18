@@ -46,9 +46,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 		System.out.println("###########################\n");
 		System.out.println("# Mensaje de confirmacion #\n");
 		System.out.println("###########################\n\n");
-		webDriver.waitWithDriver(8000);
-
-		webDriver.waitWithDriver(8000);
+		webDriver.waitWithDriver(16000);
 		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
 			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto, cuerpoFrame) + "\n");
 			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");
@@ -71,18 +69,22 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 
 		System.out.println("###########################\n");
 		System.out.println("# Mensaje de confirmacion #\n");
-		System.out.println("###########################\n\n");
+		System.out.println("###########################");
+
+		webDriver.waitWithDriver(5000);
+
 		// Need refactor By elements
-		if(webDriver.isPresent(correcto)) {
-			System.out.println("- mensaje: " + webDriver.getText(correcto) + "\n");
-			System.out.println("- " + webDriver.getText(nSiniestro) + "\n");
+		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
+			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto, cuerpoFrame) + "\n");
+			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");
 
-			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getText(nSiniestro));
+			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestro, cuerpoFrame));
 
-			System.out.println("- Expediente generado: " + webDriver.getText(expediente));
+			System.out.println("- Expediente generado: " + webDriver.getTextInFrame(expediente, cuerpoFrame));
 		} else {
 			System.out.println("Se ha producido un error.");
 		}
+		System.out.println("###########################");
 
 		System.out.println();
 

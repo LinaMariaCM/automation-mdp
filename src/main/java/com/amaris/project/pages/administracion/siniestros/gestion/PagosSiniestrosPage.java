@@ -9,6 +9,7 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
+import com.amaris.project.pages.productos.AvisoSistemaPage;
 import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;
@@ -24,10 +25,33 @@ public class PagosSiniestrosPage extends PageObject {
 	private By accederPagos = By.xpath(".//*[text()='Pagos'] ");
 
 	// informacion general
+	private By avisosInfo = By.cssSelector("body > form > table.sis-frame-bg.wideBox > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(1) > td:nth-child(2)");
+	
+	private By nPolizaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");
+	private By responsableInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(2)");
 
-	// private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) >
-	// td:nth-of-type(2)");
+	private By aseguradoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");
+	private By fOcurrenciaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(2) > td:nth-of-type(2)");
 
+	private By riesgoInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+	private By fAperturaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(3) > td:nth-of-type(2)");
+
+	private By tipoCausaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(1)");
+	private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)");
+
+	private By mediadorInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(1)");
+	private By fechaCierreSiniestro = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(2)");
+
+	private By tareasPendientesInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(6) > td:nth-of-type(1)");
+
+	private By costeActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");
+	private By importePagosInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(2) > td:nth-of-type(1)");
+	private By reservaActualInfo = By.cssSelector("form[name='formDatos'] table td:nth-of-type(2) table > tbody > tr:nth-of-type(3) > td:nth-of-type(1)");
+
+	private By causaSin = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(1)");
+
+	private By carpeta = By.cssSelector("#bloque1tr1");
+	
 	private By estadoCarpeta = By.cssSelector("table[class='grid wideBox'] > tbody > tr:nth-of-type(2) > td:nth-child(7)");
 
 	// Info listado de pagos de carpetas
@@ -527,6 +551,7 @@ public class PagosSiniestrosPage extends PageObject {
 
 		webDriver.clickInFrame(listaCausasImportes.get(0), cuerpoFrame);
 		// webDriver.clickInFrame(rCRotura, cuerpoFrame);
+		if(Importe1 == null || Importe1.isEmpty()) Importe1 = "123";
 		webDriver.appendTextInFrame(importe0, cuerpoFrame, Importe1);
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(actualizarImportePago, cuerpoFrame);
@@ -586,9 +611,16 @@ public class PagosSiniestrosPage extends PageObject {
 	public PagosSiniestrosPage desbloquearPago() {
 		debugBegin();
 		debugInfo("Comprobamos el estado del pago... ");
-		System.out.println("El esado actual del pago es: " + webDriver.getText(infoSituacionPagoLista));
-		if(webDriver.getText(infoEstadoPagoLista).contains("Pendiente de Autorización")) {
+		
+		if(webDriver.getTextInFrame(avisosInfo,cuerpoFrame).contains("Reconsiderado")) {
+			System.out.println("Siniestro ya reconsiderado");
+			new GestionSiniestrosPage(userS).logo();
+			return this;
+		}
+		System.out.println("El esado actual del pago es: " + webDriver.getTextInFrame(infoSituacionPagoLista,cuerpoFrame));
+		if(webDriver.getTextInFrame(infoEstadoPagoLista,cuerpoFrame).contains("Pendiente de Autorización")) {
 			System.out.println("Error: Pago ya desbloqueado");
+			new GestionSiniestrosPage(userS).logo();
 			return this;
 		}
 
