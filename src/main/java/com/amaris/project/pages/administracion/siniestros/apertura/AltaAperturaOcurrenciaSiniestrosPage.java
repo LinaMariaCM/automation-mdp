@@ -228,6 +228,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 			webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
 		}
 
+		webDriver.waitWithDriver(2000);// espera para que haga clic en el botón continuar
 		debugEnd();
 
 		return this;
