@@ -108,6 +108,8 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 			}
 		}
 
+		webDriver.exitFrame();
+
 		debugEnd();
 
 		return this;
