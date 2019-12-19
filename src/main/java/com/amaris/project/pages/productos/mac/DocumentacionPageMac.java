@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import com.amaris.project.Constants;
 import com.amaris.project.utils.FileHelper;
 
-public class DocumentacionPage_MAC extends PageObject {
+public class DocumentacionPageMac extends PageObject {
 
 	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
@@ -26,11 +26,11 @@ public class DocumentacionPage_MAC extends PageObject {
 	private By chbxAceptacion = By.xpath(".//*[text()='Aceptación del mediador']");
 	// endregion
 
-	public DocumentacionPage_MAC(UserStory userS) {
+	public DocumentacionPageMac(UserStory userS) {
 		super(userS);
 	}
 
-	public DocumentacionPage_MAC ExecuteActionsInDocumentacionPage() {
+	public DocumentacionPageMac ExecuteActionsInDocumentacionPage() {
 		debugBegin();
 
 		webDriver.clickInFrame(btnAnadirDocumentacionPantallaPrincipal, mainFrame);
@@ -43,7 +43,7 @@ public class DocumentacionPage_MAC extends PageObject {
 		return this;
 	}
 
-	public DocumentacionPage_MAC addDocumentContratacion() {
+	public DocumentacionPageMac addDocumentContratacion() {
 		debugBegin();
 
 		webDriver.clickInFrame(btnAnadirDocumentacionPantallaPrincipal, mainFrame);

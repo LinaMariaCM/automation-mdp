@@ -65,12 +65,12 @@ import com.amaris.project.pages.productos.PrecioPage;
 import com.amaris.project.pages.productos.PrecioPorModalidadPage;
 import com.amaris.project.pages.productos.TomadorYAseguradoPage;
 import com.amaris.project.pages.productos.UbicacionRiesgoPage;
-import com.amaris.project.pages.productos.mac.ContratacionPage_MAC;
-import com.amaris.project.pages.productos.mac.DocumentacionPage_MAC;
-import com.amaris.project.pages.productos.mac.InmueblePage_MAC;
+import com.amaris.project.pages.productos.mac.ContratacionPageMac;
+import com.amaris.project.pages.productos.mac.DocumentacionPageMac;
+import com.amaris.project.pages.productos.mac.InmueblePageMac;
 import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMAC;
 import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMAC;
-import com.amaris.project.pages.productos.mac.TomadorYAseguradoPage_MAC;
+import com.amaris.project.pages.productos.mac.TomadorYAseguradoPageMac;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
@@ -332,7 +332,7 @@ public class ActionSteps extends InteractionObject {
 				.selectMediadorMACAndClickOnContinuar();
 		} else if(loginAccess.equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.SeleccionarMediadorMACPorCodigo(mediador)
+				.seleccionarMediadorMACPorCodigo(mediador)
 				.clickOnContinuarButton();
 		}
 
@@ -432,7 +432,7 @@ public class ActionSteps extends InteractionObject {
 		new PrecioPorModalidadPageMAC(userS).clickContinuar();
 		new InquilinosAvalistasPageMAC(userS).clickContinuar();
 		// Completar paso Contratación
-		new ContratacionPage_MAC(userS).ExecuteActionsInContratacionPage();
+		new ContratacionPageMac(userS).executeActionsInContratacionPage();
 
 		// loginAcess = getScenarioVar(Constants.ACCESO);
 		// if
@@ -549,7 +549,7 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		new ClientePage(userS)
-			.anadirMarcaNegativa();
+			.anyadirMarcaNegativa();
 
 		debugEnd();
 	}
@@ -804,7 +804,7 @@ public class ActionSteps extends InteractionObject {
 	// MAC: SE INFORMA DE QUE LA POLIZA NO SE PUEDE EMITIR
 	public void se_informa_de_que_la_poliza_no_se_puede_emitir() {
 		// Compropar el estado
-		Assert.assertTrue(new ContratacionPage_MAC(userS).checkPolizaError());
+		Assert.assertTrue(new ContratacionPageMac(userS).checkPolizaError());
 	}
 
 	// MAC: MODIFICAR INGRESOS
@@ -875,16 +875,16 @@ public class ActionSteps extends InteractionObject {
 		new InquilinosAvalistasPageMAC(userS)
 			.clickContinuar();
 
-		new TomadorYAseguradoPage_MAC(userS)
+		new TomadorYAseguradoPageMac(userS)
 			.executeActionsInTomadorYAseguradoPage();
 
-		new InmueblePage_MAC(userS)
+		new InmueblePageMac(userS)
 			.executeActionsInInmueblePage();
 
-		new DocumentacionPage_MAC(userS)
+		new DocumentacionPageMac(userS)
 			.addDocumentContratacion();
 
-		new ContratacionPage_MAC(userS)
+		new ContratacionPageMac(userS)
 			.seleccionarCheckYContratar();
 
 		debugEnd();
@@ -1723,7 +1723,7 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		new MensajeConfirmacionPage(userS)
-			.DownlodadDocumentsToFolder(filesPath);
+			.downlodadDocumentsToFolder(filesPath);
 
 		debugEnd();
 	}
@@ -1771,16 +1771,16 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuar();
 
 		// Rellenar datos de contratacion, pagina 3
-		new TomadorYAseguradoPage_MAC(userS)
+		new TomadorYAseguradoPageMac(userS)
 			.executeActionsInTomadorYAseguradoPage();
 
-		new InmueblePage_MAC(userS)
+		new InmueblePageMac(userS)
 			.executeActionsInInmueblePage();
 
-		new DocumentacionPage_MAC(userS)
+		new DocumentacionPageMac(userS)
 			.addDocumentContratacion();
 
-		new ContratacionPage_MAC(userS)
+		new ContratacionPageMac(userS)
 			.seleccionarCheckYContratar();
 	}
 

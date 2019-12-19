@@ -6,7 +6,7 @@ import com.amaris.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
 import com.amaris.project.Constants;
 
-public class TomadorYAseguradoPage_MAC extends PageObject {
+public class TomadorYAseguradoPageMac extends PageObject {
 
 	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
@@ -49,7 +49,7 @@ public class TomadorYAseguradoPage_MAC extends PageObject {
 	private By txtIBAN = By.cssSelector("#bloque2Tomador");
 	// endregion
 
-	public TomadorYAseguradoPage_MAC(UserStory userS) {
+	public TomadorYAseguradoPageMac(UserStory userS) {
 		super(userS);
 	}
 

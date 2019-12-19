@@ -93,7 +93,7 @@ public class ClausulasPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 
-		if(getConfigVar("ModificarClausulas").equals(Constants.ModificarClausulas)) {
+		if(getConfigVar(Constants.MODIFICAR_CLAUSULAS).equals(Constants.ModificarClausulas)) {
 			for(int pageNumber = 1; pageNumber < 6; pageNumber++) {
 				activateClausesInPage(pageNumber);
 

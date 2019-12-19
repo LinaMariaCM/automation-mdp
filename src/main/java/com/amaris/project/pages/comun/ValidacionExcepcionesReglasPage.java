@@ -10,11 +10,8 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	// region webelements
 	private By cuerpoFrame = By.name("cuerpo");
 
-	private By btnContinuar = By.cssSelector("#botonContinuar");
-	// private By labelTitulo = By.cssSelector("#formDatos > div.sis-font-l");
-	private By labelTitulo = By.xpath("//*[@id='formDatos']/div[3]");
-
-	// private By avisosAutorizar = By.cssSelector("#formDatos > div.headGrid");
+	private By continuarBtn = By.cssSelector("#botonContinuar");
+	private By tituloTxt = By.xpath("//*[@id='formDatos']/div[3]");
 	// endregion
 
 	public ValidacionExcepcionesReglasPage(UserStory userS) {
@@ -24,7 +21,7 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	// region Methods
 	public ValidacionExcepcionesReglasPage clickOnContinuarButton() {
 		debugBegin();
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -35,8 +32,8 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 
 		String titulo = "No vencontrado";
 		ActionSteps.waitForIt(webDriver);
-		if(webDriver.isPresentInFrame(labelTitulo, cuerpoFrame)) {
-			titulo = webDriver.getTextInFrame(labelTitulo, cuerpoFrame);
+		if(webDriver.isPresentInFrame(tituloTxt, cuerpoFrame)) {
+			titulo = webDriver.getTextInFrame(tituloTxt, cuerpoFrame);
 		}
 
 		debugInfo("El valor del título de la página es:" + titulo);
@@ -48,7 +45,7 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 
 	public ValidacionExcepcionesReglasPage continuarAltaSiniestro() {
 		debugBegin();
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -57,13 +54,20 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	public ValidacionExcepcionesReglasPage comprobarPaginaModificacion() {
 		debugBegin();
 		webDriver.waitWithDriver(5000);
-		webDriver.waitForPageToLoad();
+		
 		webDriver.switchToFrame(cuerpoFrame);
-		if(webDriver.isPresent(labelTitulo)) {
-			System.out.println("Si está presente el título");
-			webDriver.waitForElementToBeClickable(btnContinuar);
-			if(webDriver.getText(labelTitulo).contains("excepciones")) webDriver.click(btnContinuar);
-		} else System.out.println("NO está presente el título");
+		
+		if(webDriver.isPresent(tituloTxt)) {
+			debugInfo("Esta presente el titulo");
+			webDriver.waitForElementToBeClickable(continuarBtn);
+			
+			if(webDriver.getText(tituloTxt).contains("excepciones")) {
+				webDriver.click(continuarBtn);
+			}
+		} else {
+			debugInfo("NO está presente el título");
+		}
+		
 		webDriver.exitFrame();
 
 		debugEnd();

@@ -83,7 +83,6 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	}
 
 	//--------------------------------------RETENCIONES-------------------------------------------------------
-
 	public EncargoDatosSiniestrosPage anyadirEncargoFalloVacio() {
 		debugBegin();
 

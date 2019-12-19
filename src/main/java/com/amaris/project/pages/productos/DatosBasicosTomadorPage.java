@@ -36,13 +36,12 @@ public class DatosBasicosTomadorPage extends PageObject {
 	private By btnAceptarVolver = By.cssSelector("#com_aceptar");
 
 	private By btnAnyadir = By.cssSelector("[data-target='#tomadorAseguradoPopUp']");
-	private By btnAceptarAnyadir = By.cssSelector("#tomadorAseguradoPopUp .modal-footer [type='submit']"); // div.modal-footer
-																											// > button
+	private By btnAceptarAnyadir = By.cssSelector("#tomadorAseguradoPopUp .modal-footer [type='submit']");
 
 	private By cumple = By.name("fechaNacimiento");
 	private By checkMismaDirec = By.cssSelector("[ng-model='mismaDireccionRiesgo']");
 
-	private By btnGuardar = By.cssSelector("[ng-bind*='com_guardar']");
+	private By guardarBtn = By.cssSelector("[ng-bind*='com_guardar']");
 	private By procesando = By.cssSelector("#procesando");
 
 	// private By btnAceptarAnyadir = By.xpath(".//div[@class='modal-footer']/button[text()='Añadir datos asegurado

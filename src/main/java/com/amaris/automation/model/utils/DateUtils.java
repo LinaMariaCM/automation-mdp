@@ -9,6 +9,9 @@ import java.util.Locale;
 
 public class DateUtils {
 
+	public static final String DATE_FORMAT = "dd/MM/yyy";
+	public static final String HOUR_FORMAT = "HH:mm:ss";
+
 	public static Date getTodayDate() {
 		return new Date();
 	}
@@ -98,17 +101,9 @@ public class DateUtils {
 
 		return date;
 	}
-
-	public static String getCommonDateFormat() {
-		return "dd/MM/yyy";
-	}
-
-	public static String getCommonHourFormat() {
-		return "HH:mm:ss";
-	}
-
+	
 	public static String dateToString(Date date) {
-		return dateToString(date, getCommonDateFormat());
+		return dateToString(date, DateUtils.DATE_FORMAT);
 	}
 
 	public static String dateToString(Date date, String dateFormat) {

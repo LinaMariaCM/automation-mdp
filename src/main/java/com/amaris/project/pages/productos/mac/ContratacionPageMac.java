@@ -5,35 +5,35 @@ import com.amaris.automation.model.testing.objects.PageObject;
 
 import org.openqa.selenium.By;
 
-public class ContratacionPage_MAC extends PageObject {
+public class ContratacionPageMac extends PageObject {
 
 	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 	private By btnContratar = By.cssSelector("#btnContratar");
-	private By errorMessage = By.id("VALIDACONTR");
+	private By errorMessageTxt = By.id("VALIDACONTR");
 
 	private By checkLopd = By.cssSelector("#chkLopd");
 
-	private By messagePoliza = By.xpath("./html/body/table[1]/tbody/tr/td");
-	private By messageRecibo = By.xpath("./html/body/table[1]/tbody/tr/td");
+	private By messagePolizaTxt = By.xpath("./html/body/table[1]/tbody/tr/td");
+	private By messageReciboTxt = By.xpath("./html/body/table[1]/tbody/tr/td");
 	// endregion
 
-	public ContratacionPage_MAC(UserStory userS) {
+	public ContratacionPageMac(UserStory userS) {
 		super(userS);
 	}
 
-	public ContratacionPage_MAC ExecuteActionsInContratacionPage() {
+	public ContratacionPageMac executeActionsInContratacionPage() {
 		debugBegin();
-		// Add datos tomador
-		new TomadorYAseguradoPage_MAC(userS).executeActionsInTomadorYAseguradoPage();
+		
+		new TomadorYAseguradoPageMac(userS)
+			.executeActionsInTomadorYAseguradoPage();
 
-		// Add datos inmueble
-		new InmueblePage_MAC(userS).executeActionsInInmueblePage();
+		new InmueblePageMac(userS)
+			.executeActionsInInmueblePage();
 
-		// Add documentacion
-		new DocumentacionPage_MAC(userS).addDocumentContratacion();
+		new DocumentacionPageMac(userS)
+			.addDocumentContratacion();
 
-		// Tick lopd and click contratar
 		seleccionarCheckYContratar();
 
 		debugEnd();
@@ -41,7 +41,7 @@ public class ContratacionPage_MAC extends PageObject {
 		return this;
 	}
 
-	public ContratacionPage_MAC seleccionarCheckYContratar() {
+	public ContratacionPageMac seleccionarCheckYContratar() {
 		debugBegin();
 
 		// Marcar el check
@@ -61,8 +61,8 @@ public class ContratacionPage_MAC extends PageObject {
 
 		boolean res = false;
 
-		if(webDriver.isPresentInFrame(errorMessage, mainFrame)
-			&& webDriver.getTextInFrame(errorMessage, mainFrame).contains("¡Error! No se puede emitir la póliza, "
+		if(webDriver.isPresentInFrame(errorMessageTxt, mainFrame)
+			&& webDriver.getTextInFrame(errorMessageTxt, mainFrame).contains("¡Error! No se puede emitir la póliza, "
 				+ "el proyecto deberá ser revisado por compañía, debe adjuntar los documentos obligatorios para el estudio de viabilidad en el paso anterior "
 				+ "y esperar la respuesta vía email o bien en Mis proyectos web")) {
 			res = true;
@@ -78,10 +78,10 @@ public class ContratacionPage_MAC extends PageObject {
 
 		boolean res = false;
 
-		if(webDriver.isPresentInFrame(messagePoliza, mainFrame)
-			&& webDriver.isPresentInFrame(messageRecibo, mainFrame)
-			&& webDriver.getTextInFrame(messagePoliza, mainFrame).contains("ha sido dada de alta correctamente")
-			&& webDriver.getTextInFrame(messageRecibo, mainFrame).contains("se ha generado correctamente")) {
+		if(webDriver.isPresentInFrame(messagePolizaTxt, mainFrame)
+			&& webDriver.isPresentInFrame(messageReciboTxt, mainFrame)
+			&& webDriver.getTextInFrame(messagePolizaTxt, mainFrame).contains("ha sido dada de alta correctamente")
+			&& webDriver.getTextInFrame(messageReciboTxt, mainFrame).contains("se ha generado correctamente")) {
 			res = true;
 		}
 

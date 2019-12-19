@@ -6,7 +6,7 @@ import com.amaris.project.Constants;
 
 import org.openqa.selenium.By;
 
-public class InmueblePage_MAC extends PageObject {
+public class InmueblePageMac extends PageObject {
 
 	// // region webelements
 	private By mainFrame = By.cssSelector("#mainFrame");
@@ -24,17 +24,17 @@ public class InmueblePage_MAC extends PageObject {
 	private By itemNomVia = By.xpath(".//*[@id='ui-active-menuitem']");
 	// endregion
 
-	public InmueblePage_MAC(UserStory userS) {
+	public InmueblePageMac(UserStory userS) {
 		super(userS);
 	}
 
 	// region Methods
-	public InmueblePage_MAC executeActionsInInmueblePage() {
+	public InmueblePageMac executeActionsInInmueblePage() {
 		// TODO I mean... really?
 		return AddInmuebleByAddress();
 	}
 
-	public InmueblePage_MAC AddInmuebleByAddress() {
+	public InmueblePageMac AddInmuebleByAddress() {
 		debugBegin();
 		webDriver.switchToFrame(mainFrame);
 

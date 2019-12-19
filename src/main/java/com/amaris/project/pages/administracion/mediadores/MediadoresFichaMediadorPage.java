@@ -12,7 +12,7 @@ public class MediadoresFichaMediadorPage extends PageObject {
 	private By topFrame = By.cssSelector("#topFrame");
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	private By tituloPagina = By.cssSelector("h1.titulopagina");
+	private By tituloPaginaTxt = By.cssSelector("h1.titulopagina");
 	// endregion
 
 	public MediadoresFichaMediadorPage(UserStory userS) {
@@ -22,7 +22,7 @@ public class MediadoresFichaMediadorPage extends PageObject {
 	// region methods
 	public String getContenidoTituloPagina() {
 		debugBegin();
-		String contenido = webDriver.getTextInFrame(tituloPagina, mainFrame);
+		String contenido = webDriver.getTextInFrame(tituloPaginaTxt, mainFrame);
 		debugEnd();
 
 		return contenido;

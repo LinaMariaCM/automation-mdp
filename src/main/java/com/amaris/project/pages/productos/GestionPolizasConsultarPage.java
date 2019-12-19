@@ -80,7 +80,7 @@ public class GestionPolizasConsultarPage extends PageObject {
 		return this;
 	}
 
-	public GestionPolizasConsultarPage CheckClausulas() {
+	public GestionPolizasConsultarPage checkClausulas() {
 		debugBegin();
 
 		webDriver.clickInFrame(tabHeaderClausulas, cuerpoFrame);
@@ -102,10 +102,10 @@ public class GestionPolizasConsultarPage extends PageObject {
 		return this;
 	}
 
-	public GestionPolizasConsultarPage CheckValueInTab(String tab, String valueToBeChecked, String expectedValue) throws Exception {
+	public GestionPolizasConsultarPage checkValueInTab(String tab, String valueToBeChecked, String expectedValue) throws Exception {
 		debugBegin();
 
-		OpenTab(tab);
+		openTab(tab);
 
 		By lblObjectSelector;
 		String message = "";
@@ -207,7 +207,7 @@ public class GestionPolizasConsultarPage extends PageObject {
 		return this;
 	}
 
-	public GestionPolizasConsultarPage OpenTab(String tabName) throws Exception {
+	public GestionPolizasConsultarPage openTab(String tabName) throws Exception {
 		debugBegin();
 
 		switch(tabName) {
@@ -236,7 +236,7 @@ public class GestionPolizasConsultarPage extends PageObject {
 		return this;
 	}
 
-	public GestionPolizasConsultarPage CheckAnyoAndNivelRehabilitacion() throws Exception {
+	public GestionPolizasConsultarPage checkAnyoAndNivelRehabilitacion() throws Exception {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
@@ -245,8 +245,9 @@ public class GestionPolizasConsultarPage extends PageObject {
 		List<WebElement> anyoRehab = webDriver.getElementsInFrame(lblAnyoRehabConstructiones, cuerpoFrame);
 		List<WebElement> nivelRehab = webDriver.getElementsInFrame(lblNivelRehabConstrucciones, cuerpoFrame);
 
-		if(anyoRehab.isEmpty()
-			|| nivelRehab.isEmpty()) { throw new Exception("El año o el nivel de rehabilitación de las contrucciones comunitarias no ha aparecido correctamente"); }
+		if(anyoRehab.isEmpty() || nivelRehab.isEmpty()) { 
+			throw new Exception("El año o el nivel de rehabilitación de las contrucciones comunitarias no ha aparecido correctamente");
+		}
 
 		String anyoRehabilitacion = webDriver.getText(anyoRehab.get(0));
 		String nivelRehabilitacion = webDriver.getText(nivelRehab.get(0));

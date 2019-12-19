@@ -37,7 +37,7 @@ public class MensajeConfirmacionPage extends PageObject {
 	}
 
 	// region methods
-	public MensajeConfirmacionPage DownlodadDocumentsToFolder(String path) {
+	public MensajeConfirmacionPage downlodadDocumentsToFolder(String path) {
 		debugBegin();
 
 		List<DownloadLinkHelper> downloads = getDownloadLinksAndNames();
@@ -57,7 +57,7 @@ public class MensajeConfirmacionPage extends PageObject {
 			webDriver.doubleClick(p.getDownloadLink());
 			webDriver.exitFrame();
 
-			if(CheckIfFilesInFolderHaveBeenDownloaded(reportFolder)) {
+			if(checkIfFilesInFolderHaveBeenDownloaded(reportFolder)) {
 				try {
 					String[] extensions = { "pdf"};
 					Collection<File> files = FileUtils.listFiles(reportFolder, extensions, true);
@@ -93,7 +93,7 @@ public class MensajeConfirmacionPage extends PageObject {
 		return downloads;
 	}
 
-	public boolean CheckIfFilesInFolderHaveBeenDownloaded(File tempFolder) {
+	public boolean checkIfFilesInFolderHaveBeenDownloaded(File tempFolder) {
 		debugBegin();
 
 		boolean result = false;
@@ -116,7 +116,7 @@ public class MensajeConfirmacionPage extends PageObject {
 		return result;
 	}
 
-	public MensajeConfirmacionPage CheckIfPageHasLoadedCorrectly() {
+	public MensajeConfirmacionPage checkIfPageHasLoadedCorrectly() {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);

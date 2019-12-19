@@ -11,22 +11,22 @@ public class GestionAutorizacionesPage extends PageObject {
 	private By topFrame = By.cssSelector("#topFrame");
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	private By cmbProceso = By.name("PROCESO");
-	private By cmbEstado = By.cssSelector("#ESTADO");
-	private By btnBuscar = By.name("botonBuscar");
+	private By procesoBtn = By.name("PROCESO");
+	private By estadoBtn = By.cssSelector("#ESTADO");
+	private By buscarBtn = By.name("botonBuscar");
 
-	private By numCotizacion = By.cssSelector("#NUMOBJETO");
+	private By numCotizacionBtn = By.cssSelector("#NUMOBJETO");
 
 	private By ddCotizacion = By.xpath(".//*[@value='COTIZACION']");
 	private By ddPendiente = By.xpath(".//*[@value='PENDIENTE']");
 
-	private By btnFlecha = By.cssSelector("div[id='capaAjax'] div[id*='capaPuntos'] span");
-	private By btnAutorizar = By.linkText("Autorizar");
-	private By btnAnular = By.cssSelector("div[class*='cpdatos'] li:nth-child(2)");
-	private By btnAutorizar2 = By.cssSelector("#botonAutorizar");
+	private By flechaBtn = By.cssSelector("div[id='capaAjax'] div[id*='capaPuntos'] span");
+	private By autorizarBtn = By.linkText("Autorizar");
+	private By anularBtn = By.cssSelector("div[class*='cpdatos'] li:nth-child(2)");
+	private By autorizar2Btn = By.cssSelector("#botonAutorizar");
 	// private By btnAnular2 = By.cssSelector("botonAnular");
-	private By btnAnular2 = By.cssSelector("div[class*='box-buttons'] input");
-	private By mjsResultadoAut = By.cssSelector("tbody tbody span");
+	private By anular2Btn = By.cssSelector("div[class*='box-buttons'] input");
+	private By resultadoAutTxt = By.cssSelector("tbody tbody span");
 	// endregion
 
 	public GestionAutorizacionesPage(UserStory userS) {
@@ -37,14 +37,14 @@ public class GestionAutorizacionesPage extends PageObject {
 	public GestionAutorizacionesPage buscarAutorizaciones(String seleccionProceso, String seleccionEstado, String noCotizacion) {
 		debugBegin();
 
-		webDriver.clickInFrame(cmbProceso, mainFrame);
+		webDriver.clickInFrame(procesoBtn, mainFrame);
 
-		webDriver.clickElementFromDropDownByTextInFrame(cmbProceso, mainFrame, seleccionProceso);
-		webDriver.clickInFrame(cmbEstado, mainFrame);
-		webDriver.clickElementFromDropDownByTextInFrame(cmbEstado, mainFrame, seleccionEstado);
-		webDriver.clickInFrame(numCotizacion, mainFrame);
-		webDriver.setTextInFrame(numCotizacion, mainFrame, noCotizacion);
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickElementFromDropDownByTextInFrame(procesoBtn, mainFrame, seleccionProceso);
+		webDriver.clickInFrame(estadoBtn, mainFrame);
+		webDriver.clickElementFromDropDownByTextInFrame(estadoBtn, mainFrame, seleccionEstado);
+		webDriver.clickInFrame(numCotizacionBtn, mainFrame);
+		webDriver.setTextInFrame(numCotizacionBtn, mainFrame, noCotizacion);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -54,9 +54,9 @@ public class GestionAutorizacionesPage extends PageObject {
 	public GestionAutorizacionesPage autorizar() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnFlecha, mainFrame);
-		webDriver.clickInFrame(btnAutorizar, mainFrame);
-		webDriver.clickInFrame(btnAutorizar2, mainFrame);
+		webDriver.clickInFrame(flechaBtn, mainFrame);
+		webDriver.clickInFrame(autorizarBtn, mainFrame);
+		webDriver.clickInFrame(autorizar2Btn, mainFrame);
 
 		debugEnd();
 
@@ -66,10 +66,10 @@ public class GestionAutorizacionesPage extends PageObject {
 	public GestionAutorizacionesPage denegar() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnFlecha, mainFrame);
+		webDriver.clickInFrame(flechaBtn, mainFrame);
 		webDriver.waitWithDriver(5000);
-		webDriver.clickInFrame(btnAnular, mainFrame);
-		webDriver.clickInFrame(btnAnular2, mainFrame);
+		webDriver.clickInFrame(anularBtn, mainFrame);
+		webDriver.clickInFrame(anular2Btn, mainFrame);
 
 		debugEnd();
 
@@ -79,7 +79,7 @@ public class GestionAutorizacionesPage extends PageObject {
 	public String recuperarResultadoAutorizacion() {
 		debugBegin();
 
-		String result = webDriver.getTextInFrame(mjsResultadoAut, mainFrame);
+		String result = webDriver.getTextInFrame(resultadoAutTxt, mainFrame);
 
 		debugEnd();
 

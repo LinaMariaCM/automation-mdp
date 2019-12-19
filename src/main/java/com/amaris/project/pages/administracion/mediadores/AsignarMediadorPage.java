@@ -11,14 +11,14 @@ public class AsignarMediadorPage extends PageObject {
 	private By mainFrame = By.cssSelector("#mainFrame");
 
 	private By razonSocial = By.cssSelector("#nombreRazonSocial");
-	private By txtCodigoMediador = By.id("codigoMediador");
-	private By txtCodigoMediadorMAC = By.id("codigo");
-	private By txtDocumento = By.cssSelector("#numDocumento");
+	private By codigoMediadorTxt = By.id("codigoMediador");
+	private By codigoMediadorMacTxt = By.id("codigo");
+	private By documentoTxt = By.cssSelector("#numDocumento");
 
-	private By btnBuscar = By.xpath(".//*[text()='Buscar']");
-	private By btnBuscarMAC = By.cssSelector("#botonBuscar");
-	private By radioBtnResultadoBusqueda = By.xpath(".//*[@type='radio']");
-	private By btnContinuar = By.xpath(".//*[contains(text(),'Continuar')]");
+	private By buscarBtn = By.xpath(".//*[text()='Buscar']");
+	private By buscarMacBtn = By.cssSelector("#botonBuscar");
+	private By resultadoBusquedaBtn = By.xpath(".//*[@type='radio']");
+	private By continuarBtn = By.xpath(".//*[contains(text(),'Continuar')]");
 
 	private By procesandoWindow = By.cssSelector(".smallbox");
 	private By loaderModal = By.cssSelector("#modalLoader");
@@ -31,7 +31,7 @@ public class AsignarMediadorPage extends PageObject {
 	}
 
 	public AsignarMediadorPage terminaProcesando() {
-		this.webDriver.waitForElementNotToBePresent(procesando);
+		webDriver.waitForElementNotToBePresent(procesando);
 
 		return this;
 	}
@@ -44,14 +44,14 @@ public class AsignarMediadorPage extends PageObject {
 	}
 
 	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String codigoMed) {
-		this.seleccionarMediadorPorCodigo(codigoMed);
-		this.clickOnContinuarButton();
+		seleccionarMediadorPorCodigo(codigoMed);
+		clickOnContinuarButton();
 
 		return this;
 	}
 
 	public AsignarMediadorPage selectMediadorMACAndClickOnContinuar() {
-		SeleccionarMediadorMACPorCodigo(getScenarioVar(Constants.MEDIADOR));
+		seleccionarMediadorMACPorCodigo(getScenarioVar(Constants.MEDIADOR));
 		clickOnContinuarButton();
 
 		return this;
@@ -62,7 +62,7 @@ public class AsignarMediadorPage extends PageObject {
 
 		webDriver.waitWithDriver(3000);
 		// webDriver.waitForElementToBeClickableInFrame(btnContinuar, cuerpoFrame);
-		webDriver.clickInFrame(btnContinuar, mainFrame);
+		webDriver.clickInFrame(continuarBtn, mainFrame);
 
 		debugEnd();
 
@@ -73,19 +73,19 @@ public class AsignarMediadorPage extends PageObject {
 		debugBegin();
 
 		if(userS.getScenario().contains(Constants.MAC)) {
-			webDriver.appendTextInFrame(txtCodigoMediadorMAC, mainFrame, codigoMediador);
-			webDriver.click(btnBuscarMAC);
+			webDriver.appendTextInFrame(codigoMediadorMacTxt, mainFrame, codigoMediador);
+			webDriver.click(buscarMacBtn);
 		} else {
 			webDriver.waitForElementNotToBeClickable(procesandoWindow);
 
-			webDriver.appendTextInFrame(txtCodigoMediador, mainFrame, codigoMediador);
+			webDriver.appendTextInFrame(codigoMediadorTxt, mainFrame, codigoMediador);
 
-			webDriver.clickInFrame(txtDocumento, mainFrame);
-			webDriver.clickInFrame(btnBuscar, mainFrame);
+			webDriver.clickInFrame(documentoTxt, mainFrame);
+			webDriver.clickInFrame(buscarBtn, mainFrame);
 
 			webDriver.waitForElementNotToBeClickableInFrame(loaderModal, mainFrame);
 
-			webDriver.clickInFrame(radioBtnResultadoBusqueda, mainFrame);
+			webDriver.clickInFrame(resultadoBusquedaBtn, mainFrame);
 
 			webDriver.waitForElementNotToBeClickable(loaderModal);
 		}
@@ -95,15 +95,14 @@ public class AsignarMediadorPage extends PageObject {
 		return this;
 	}
 
-	public AsignarMediadorPage SeleccionarMediadorMACPorCodigo(String codigoMediador) {
+	public AsignarMediadorPage seleccionarMediadorMACPorCodigo(String codigoMediador) {
 		debugBegin();
 
 		webDriver.waitWithDriver(2000);
-		webDriver.appendTextInFrame(txtCodigoMediadorMAC, mainFrame, codigoMediador);
+		webDriver.appendTextInFrame(codigoMediadorMacTxt, mainFrame, codigoMediador);
 
-		webDriver.clickInFrame(btnBuscarMAC, mainFrame);
+		webDriver.clickInFrame(buscarMacBtn, mainFrame);
 
-		// wh.clickInFrame(radioBtnResultadoBusqueda, cuerpoFrame);
 		debugEnd();
 
 		return this;

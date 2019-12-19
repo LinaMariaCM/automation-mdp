@@ -1957,6 +1957,12 @@ public class DriverHelper {
 		logger.end();
 	}
 
+	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By elementList, By frame, String attribute, String value) {
+		switchToFrame(frame);
+		clickElementFromDropDownByAttribute(containingElement, elementList, attribute, value);
+		exitFrame();
+	}
+
 	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By frame, String attribute, String value) {
 		switchToFrame(frame);
 		clickElementFromDropDownByAttribute(containingElement, containingElement, attribute, value);
@@ -2065,10 +2071,7 @@ public class DriverHelper {
 		logger.begin();
 		WebElement el = getElementFromListByAttribute(elementList, attribute, value);
 
-		if(el != null) click(el);
-		else {
-			logger.info("No child elements found on " + elementList);
-		}
+		click(el);
 
 		waitForLoadToComplete();
 		logger.end();
