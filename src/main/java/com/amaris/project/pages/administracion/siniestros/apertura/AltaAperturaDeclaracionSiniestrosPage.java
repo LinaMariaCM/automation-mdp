@@ -84,6 +84,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	// #### DATOS PERSONA CONTACTO ####
 	private By comboRol = By.cssSelector("#rol");
+	private By elementoRol = By.cssSelector("#rol > option:nth-child");
 	private By txtNombre = By.id("nombre");
 	private By txt1Apellido = By.id("apellido1");
 	private By txt2Apellido = By.id("apellido2");
@@ -348,8 +349,8 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(buttonPersonaContacto);
-		webDriver.switchToFrame(modalFrame);
 		webDriver.waitWithDriver(9000);
+		webDriver.switchToFrame(modalFrame);
 		debugInfo("Comenzamos a rellenar campos de persona extra");
 		/*webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(buttonPersonaContacto);
