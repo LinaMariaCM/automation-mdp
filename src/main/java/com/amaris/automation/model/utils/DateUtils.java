@@ -1,13 +1,20 @@
 package com.amaris.automation.model.utils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateUtils {
 
 	public static Date getTodayDate() {
 		return new Date();
+	}
+
+	public static String getDayOfWeek() {
+		return LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US);
 	}
 
 	public static String getTodayDate(String dateFormat) {

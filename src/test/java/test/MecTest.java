@@ -7,6 +7,7 @@ import org.testng.annotations.Test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
+import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.CheckSteps;
 import com.amaris.project.steps.DataSteps;
@@ -36,7 +37,7 @@ public class MecTest extends TestObject {
 		System.out.println("++++++++++++++++++++++++++++++++");
 		
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -63,7 +64,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -92,7 +93,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -122,7 +123,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_que_llega_hasta_la_pantalla_de_precio_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -151,7 +152,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.intento_dar_alta_simulacion_hasta_datos_riesgo(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -179,7 +180,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -207,7 +208,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -238,7 +239,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			dataSteps.el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO)); 
@@ -268,7 +269,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_MEC_y_la_convierto_en_un_proyecto_usando(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -296,7 +297,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 
@@ -328,7 +329,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 
@@ -363,7 +364,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			steps.doy_de_alta_una_simulacion_MEC_que_llega_hasta_la_pantalla_de_detalles_de_riesgo_usando_el_acceso_y_el_usuario(userS.getScenarioVar(Constants.ACCESO), userS.getScenarioVar(Constants.USUARIO));
@@ -394,7 +395,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 
 		userS.testActions(() -> {
 			
@@ -427,7 +428,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -457,7 +458,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -490,7 +491,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -528,7 +529,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -564,7 +565,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -600,7 +601,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -638,7 +639,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -676,7 +677,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -714,7 +715,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -750,7 +751,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -786,7 +787,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -847,7 +848,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -879,7 +880,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 		userS.testActions(() -> {
 			
@@ -911,7 +912,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 		userS.testActions(() -> {
 			
@@ -944,7 +945,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 		userS.testActions(() -> {
 			
@@ -974,7 +975,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 		userS.testActions(() -> {
 			
@@ -1006,7 +1007,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 		userS.testActions(() -> {
 			
@@ -1038,7 +1039,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1071,7 +1072,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1104,7 +1105,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1136,7 +1137,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1166,7 +1167,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1198,7 +1199,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1230,7 +1231,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1262,7 +1263,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1293,7 +1294,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1325,7 +1326,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1358,7 +1359,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1390,7 +1391,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1423,7 +1424,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
@@ -1455,7 +1456,7 @@ public class MecTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMec" + ActionSteps.getDayOfWeek() + ".csv", "fichero_referencias");
+		userS.addDMData("datosMec" + DateUtils.getDayOfWeek() + ".csv", "fichero_referencias");
 		
 
 		userS.testActions(() -> {
