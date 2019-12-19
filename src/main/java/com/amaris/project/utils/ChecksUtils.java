@@ -2,7 +2,6 @@ package com.amaris.project.utils;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.pages.administracion.siniestros.apertura.AltaAperturaDeclaracionSiniestrosPage;
 import org.testng.Assert;
 
 public class ChecksUtils extends PageObject {

@@ -2,8 +2,6 @@ package com.amaris.project.pages.administracion.siniestros.gestion;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.server.handler.interactions.ClickInSession;
-
 import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;

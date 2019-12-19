@@ -1,8 +1,5 @@
 package com.amaris.project.utils;
 
-import java.awt.AWTException;
-import java.io.IOException;
-
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.pages.comun.innova.InnovaHomePage;

@@ -9,11 +9,7 @@ import com.amaris.automation.model.utils.InitUtils;
 import com.amaris.automation.model.webdriver.DriverHelper;
 
 import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.time.format.TextStyle;
 import java.util.Date;
-import java.util.Locale;
-
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
@@ -83,10 +79,6 @@ public class ActionSteps extends InteractionObject {
 
 	public ActionSteps(UserStory userStory) {
 		super(userStory);
-	}
-
-	public static String getDayOfWeek() {
-		return LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US);
 	}
 
 	public void login(String accessType, String user) {

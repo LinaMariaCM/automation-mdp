@@ -1,15 +1,8 @@
 package com.amaris.project.pages.administracion.siniestros.gestion;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
-
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.automation.model.utils.StringUtils;
-import com.amaris.project.Constants;
-import com.amaris.project.steps.ActionSteps;
 
 public class TareaDetallesSiniestrosPage extends PageObject{
 

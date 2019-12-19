@@ -1,15 +1,11 @@
 package com.amaris.project.pages.administracion.siniestros.gestion;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
-import com.amaris.project.pages.productos.AvisoSistemaPage;
 import com.amaris.project.steps.ActionSteps;
 
 import org.openqa.selenium.By;

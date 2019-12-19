@@ -1,6 +1,5 @@
 package com.amaris.project.pages.productos;
 
-import java.awt.AWTException;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;

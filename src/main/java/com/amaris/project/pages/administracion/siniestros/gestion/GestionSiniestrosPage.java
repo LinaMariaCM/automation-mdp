@@ -1,17 +1,12 @@
 package com.amaris.project.pages.administracion.siniestros.gestion;
 
-import java.util.List;
-
 import com.amaris.project.steps.ActionSteps;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
-
-import javax.swing.plaf.basic.BasicSliderUI;
 
 public class GestionSiniestrosPage extends PageObject {
 

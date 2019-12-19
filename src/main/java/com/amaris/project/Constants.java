@@ -1,7 +1,5 @@
 package com.amaris.project;
 
-import org.openqa.selenium.By;
-
 public class Constants {
 
 	private Constants() {}
