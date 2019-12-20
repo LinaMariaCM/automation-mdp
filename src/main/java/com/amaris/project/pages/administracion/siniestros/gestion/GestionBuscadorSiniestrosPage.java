@@ -11,7 +11,8 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	// Elementos
 	private By cuerpoFrame = By.id("mainFrame");
 	private By leftFrame = By.cssSelector("#leftFrame");
-	private By gestionSiniestros = By.xpath(".//*[text()='Gestión de siniestros']");
+	//private By gestionSiniestros = By.xpath(".//*[text()='Gestión de siniestros']");
+	private By gestionSiniestros = By.cssSelector("#jt5");
 
 	private By btnNoSiniestro = By.cssSelector("#filtro1");
 	private By btnNoPoliza = By.cssSelector("#filtro2");

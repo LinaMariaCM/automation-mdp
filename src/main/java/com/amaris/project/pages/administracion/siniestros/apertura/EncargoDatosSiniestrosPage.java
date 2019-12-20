@@ -30,7 +30,7 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	private By comboTipoEncargo = By.id("selectEncargo");
 	private By comboTipoEncargoElemento = By.cssSelector("#selectEncargo > option");
 
-	private By comboSubtipoEncargo = By.id("selectAgrupacion");
+	private By comboSubtipoEncargo = By.cssSelector("#selectAgrupacion > option");
 	private By txtFechaEncargo = By.id("fechenca");
 	private By txtDetalles = By.id("comentario");
 
@@ -48,17 +48,18 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	public EncargoDatosSiniestrosPage seleccionarTipoEncargo(String colaborador, String tipoEncargo, String subtipoEncargo) {
 		debugBegin();
 
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, comboTipoColaboradorElemento, "value", colaborador);
 		// webDriver.clickElementFromDropDownByIndex(comboTipoColaborador, 2);
-		webDriver.waitWithDriver(10000);
-		// webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, comboTipoColaboradorElemento, "value",
-		// colaborador);
-		// webDriver.clickElementFromDropDownByAttribute(comboTipoEncargo, "value", tipoEncargo);
+		webDriver.waitWithDriver(6000);
+		// webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, comboTipoColaboradorElemento, "value", colaborador);
+		webDriver.clickElementFromDropDownByAttribute(comboTipoEncargo, "value", tipoEncargo);
 		// webDriver.clickElementFromDropDownByIndex(comboTipoEncargo, 1);
-		webDriver.waitWithDriver(10000);
-		// webDriver.clickElementFromDropDownByAttribute(comboSubtipoEncargo, "value", subtipoEncargo);
-		webDriver.clickElementFromDropDownByIndex(comboSubtipoEncargo, 2);
+		webDriver.waitWithDriver(6000);
+		webDriver.clickElementFromDropDownByAttribute(comboSubtipoEncargo, "value", subtipoEncargo);
+		//webDriver.clickElementFromDropDownByIndex(comboSubtipoEncargo, 2);
 
+		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -66,10 +67,10 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage seleccionarDatosEncargo(Date fechaEncargo, String detalles) {
 		debugBegin();
-
-		webDriver.setText(txtFechaEncargo, fOcurrencia.format(fechaEncargo));
-		webDriver.setText(txtDetalles, detalles);
-
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.appendText(txtFechaEncargo, fOcurrencia.format(fechaEncargo));
+		webDriver.appendText(txtDetalles, detalles);
+		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -77,7 +78,7 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage clickGrabar() {
 		debugBegin();
-		webDriver.click(btnGrabar);
+		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
 		debugEnd();
 
 		return this;
