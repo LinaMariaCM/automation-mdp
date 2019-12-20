@@ -36,27 +36,27 @@ public class AsignarMediadorPage extends PageObject {
 	}
 
 	// region methods
-	public AsignarMediadorPage selectMediadorAndClickOnContinuar() {
-		selectMediadorAndClickOnContinuar(getScenarioVar(Constants.MEDIADOR));
+	public AsignarMediadorPage selectMediadorAndClickContinuar() {
+		selectMediadorAndClickContinuar(getScenarioVar(Constants.MEDIADOR));
 
 		return this;
 	}
 
-	public AsignarMediadorPage selectMediadorAndClickOnContinuar(String codigoMed) {
+	public AsignarMediadorPage selectMediadorAndClickContinuar(String codigoMed) {
 		seleccionarMediadorPorCodigo(codigoMed);
-		clickOnContinuarButton();
+		clickContinuar();
 
 		return this;
 	}
 
-	public AsignarMediadorPage selectMediadorMACAndClickOnContinuar() {
+	public AsignarMediadorPage selectMediadorMACAndClickContinuar() {
 		seleccionarMediadorMACPorCodigo(getScenarioVar(Constants.MEDIADOR));
-		clickOnContinuarButton();
+		clickContinuar();
 
 		return this;
 	}
 
-	public AsignarMediadorPage clickOnContinuarButton() {
+	public AsignarMediadorPage clickContinuar() {
 		debugBegin();
 
 		webDriver.waitWithDriver(3000);

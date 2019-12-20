@@ -401,7 +401,7 @@ public class UbicacionRiesgoPage extends PageObject {
 					.createNewProject();
 
 				new AsignarMediadorPage(userS)
-					.selectMediadorAndClickOnContinuar();
+					.selectMediadorAndClickContinuar();
 
 				webDriver.moveToElementInFrame(anadirInmueblePantallaPrincipalBtn, cuerpoFrame);
 				webDriver.clickInFrame(criterioBusquedaReferenciaCatastralBtn, cuerpoFrame);

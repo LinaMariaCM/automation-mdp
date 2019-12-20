@@ -18,7 +18,7 @@ public class ValidacionExcepcionesReglasConfirmarPoliza extends PageObject {
 	}
 
 	// region Methods
-	public ValidacionExcepcionesReglasConfirmarPoliza clickOnContinuarButton() {
+	public ValidacionExcepcionesReglasConfirmarPoliza clickContinuar() {
 		debugBegin();
 		
 		boolean arePresent = webDriver.waitForElementToBeClickableInFrame(continuarBtn, cuerpoFrame) != null;

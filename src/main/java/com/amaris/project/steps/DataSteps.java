@@ -169,11 +169,11 @@ public class DataSteps extends InteractionObject {
 		String mediador = getScenarioVar(Constants.MEDIADOR);
 		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
 				.seleccionarMediadorPorCodigo(getScenarioVar(Constants.ACCESO))
-				.clickOnContinuarButton();
+				.clickContinuar();
 		}
 
 		new UbicacionRiesgoPage(userS)
@@ -206,7 +206,7 @@ public class DataSteps extends InteractionObject {
 			.clickContinuar();
 
 		new ValidacionExcepcionesReglasPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ClausulasPage(userS)
 			.activarClausulas()
@@ -216,7 +216,7 @@ public class DataSteps extends InteractionObject {
 		new TomadorYAseguradoPage(userS)
 			.addDatosTomador()
 			.addDatosTomadorDiferenteAsegurado()
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new DatosBancariosPage(userS)
 			.fillPaymentMethod(getTestVar(Constants.MEDIO_PAGO))
@@ -236,7 +236,7 @@ public class DataSteps extends InteractionObject {
 				.openContratarMutuaAlquilerConfort();
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.selectMediadorMACAndClickOnContinuar();
+				.selectMediadorMACAndClickContinuar();
 		}
 
 		// Seleccionar modalidad en Precio page

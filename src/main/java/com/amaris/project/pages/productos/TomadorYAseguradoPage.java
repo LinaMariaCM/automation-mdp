@@ -169,7 +169,7 @@ public class TomadorYAseguradoPage extends PageObject {
 		return this;
 	}
 
-	public TomadorYAseguradoPage clickOnContinuar() {
+	public TomadorYAseguradoPage clickContinuar() {
 		debugBegin();
 		webDriver.scrollToBottomInFrame(cuerpoFrame);
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);

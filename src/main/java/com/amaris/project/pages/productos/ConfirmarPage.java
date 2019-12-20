@@ -29,7 +29,7 @@ public class ConfirmarPage extends PageObject {
 	}
 
 	// region Methods
-	public ConfirmarPage activateMotivosSuplementoAndClickOnContinuar() {
+	public ConfirmarPage activateMotivosSuplementoAndClickContinuar() {
 		activateMotivosSuplemento();
 		clickContinuar();
 

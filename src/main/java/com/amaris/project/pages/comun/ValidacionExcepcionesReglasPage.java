@@ -19,7 +19,7 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	}
 
 	// region Methods
-	public ValidacionExcepcionesReglasPage clickOnContinuarButton() {
+	public ValidacionExcepcionesReglasPage clickContinuar() {
 		debugBegin();
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
