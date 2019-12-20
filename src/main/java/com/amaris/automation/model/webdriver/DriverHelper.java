@@ -1626,8 +1626,20 @@ public class DriverHelper {
 		logger.end();
 	}
 
+	public void doubleClickInFrame(By by, By frame) {
+		switchToFrame(frame);
+		doubleClick(by);
+		exitFrame();
+	}
+
 	public void doubleClick(By by) {
 		doubleClick(driver.findElement(by));
+	}
+
+	public void doubleClickInFrame(WebElement element, By frame) {
+		switchToFrame(frame);
+		doubleClick(element);
+		exitFrame();
 	}
 
 	public void doubleClick(WebElement element) {
@@ -1639,12 +1651,6 @@ public class DriverHelper {
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
 		logger.end();
-	}
-
-	public void doubleClickInFrame(By by, By frame) {
-		switchToFrame(frame);
-		doubleClick(by);
-		exitFrame();
 	}
 
 	/**
@@ -2527,6 +2533,12 @@ public class DriverHelper {
 
 		logger.end();
 	}
+	
+	public void scrollToBottomInFrame(By frame) {
+		switchToFrame(frame);
+		scrollToBottom();
+		exitFrame();
+	}
 
 	@SuppressWarnings("rawtypes")
 	public void scrollToBottom() {
@@ -2922,11 +2934,6 @@ public class DriverHelper {
 	}
 
 	// endregion
-
-	public boolean isEnabled(By by) {
-		return driver.findElement(by).isEnabled();
-	}
-
 	public Dimension getWindowSize() {
 		Dimension size;
 
@@ -3033,18 +3040,36 @@ public class DriverHelper {
 		}
 	}
 
-	public boolean isSelectedInFrame(By webElement, By frame) {
+	public boolean isEnabledInFrame(By by, By frame) {
+		switchToFrame(frame);
+		boolean result = isEnabled(by);
+		exitFrame();
+		
+		return result;
+	}
+
+
+	public boolean isEnabled(By by) {
+		return driver.findElement(by).isEnabled();
+	}
+
+
+	public boolean isSelectedInFrame(By by, By frame) {
 		boolean result = false;
 
 		switchToFrame(frame);
-		result = isSelected(webElement);
+		result = isSelected(by);
 		exitFrame();
 
 		return result;
 	}
 
-	public boolean isSelected(By webElement) {
-		return driver.findElement(webElement).isSelected();
+	public boolean isSelected(By by) {
+		return isSelected(driver.findElement(by));
+	}
+
+	public boolean isSelected(WebElement webElement) {
+		return webElement.isSelected();
 	}
 
 	public boolean isOnScreen(By by) {
@@ -3304,6 +3329,10 @@ public class DriverHelper {
 		});
 
 		logger.end();
+	}
+
+	public void closeWindow() {
+		closeWindow(getMainWindowHandle());
 	}
 
 	public void closeWindow(String windowHandle) {
