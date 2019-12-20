@@ -8,20 +8,18 @@ import org.openqa.selenium.By;
 
 public class InmueblePageMac extends PageObject {
 
-	// // region webelements
+	// // region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	private By btnAnadirInmueblePantallaPrincipal = By.cssSelector("#botonAddInmueble");
-	private By btnAnadirInmuebleModal = By.cssSelector("#AnyadirInmu");
-	private By txtProvincia = By.cssSelector("#ALTACLIE_BS_PROVINCIA_ARVATO");
-	private By txtPoblacion = By.cssSelector("#ALTACLIE_BS_POBLACION_ARVATO");
-	private By txtNombreVia = By.cssSelector("#ALTACLIE_BS_NOMVIA_ARVATO");
-	private By txtNumeroVia = By.cssSelector("#ALTACLIE_BS_NUMVIA");
+	private By anyadirInmueblePantallaPrincipalBtn = By.cssSelector("#botonAddInmueble");
+	private By anyadirInmuebleModalInput = By.cssSelector("#AnyadirInmu");
+	private By provinciaInput = By.cssSelector("#ALTACLIE_BS_PROVINCIA_ARVATO");
+	private By poblacionInput = By.cssSelector("#ALTACLIE_BS_POBLACION_ARVATO");
+	private By nombreViaInput = By.cssSelector("#ALTACLIE_BS_NOMVIA_ARVATO");
+	private By numeroViaInput = By.cssSelector("#ALTACLIE_BS_NUMVIA");
 
-	// TODO comprobar selector repetido
-	private By itemProvincia = By.xpath(".//*[@id='ui-active-menuitem']");
-	private By itemPoblacion = By.xpath(".//*[@id='ui-active-menuitem']");
-	private By itemNomVia = By.xpath(".//*[@id='ui-active-menuitem']");
+	private By poblacionBtn = By.xpath(".//*[@id='ui-active-menuitem']");
+	private By nomViaBtn = By.xpath(".//*[@id='ui-active-menuitem']");
 	// endregion
 
 	public InmueblePageMac(UserStory userS) {
@@ -29,34 +27,29 @@ public class InmueblePageMac extends PageObject {
 	}
 
 	// region Methods
-	public InmueblePageMac executeActionsInInmueblePage() {
-		// TODO I mean... really?
-		return AddInmuebleByAddress();
-	}
-
-	public InmueblePageMac AddInmuebleByAddress() {
+	public InmueblePageMac addInmuebleByAddress() {
 		debugBegin();
 		webDriver.switchToFrame(mainFrame);
 
-		webDriver.click(btnAnadirInmueblePantallaPrincipal);
+		webDriver.click(anyadirInmueblePantallaPrincipalBtn);
 
-		webDriver.appendText(txtProvincia, getScenarioVar("provincia_inm"));
+		webDriver.appendText(provinciaInput, getScenarioVar(Constants.PROVINCIA_INMUEBLE));
 		webDriver.waitWithDriver(3000);
-		webDriver.click(itemProvincia);
+		webDriver.click(poblacionBtn);
 
-		webDriver.appendText(txtPoblacion, getScenarioVar("poblacion_inm"));
+		webDriver.appendText(poblacionInput, getScenarioVar(Constants.POBLACION_INMUEBLE));
 		webDriver.waitWithDriver(3000);
-		webDriver.click(itemPoblacion);
+		webDriver.click(poblacionBtn);
 
-		webDriver.appendText(txtNombreVia, getScenarioVar("nombre_via_inm"));
+		webDriver.appendText(nombreViaInput, getScenarioVar(Constants.NOMBRE_VIA_INMUEBLE));
 		webDriver.waitWithDriver(3000);
-		webDriver.click(itemNomVia);
+		webDriver.click(nomViaBtn);
 
-		webDriver.appendText(txtNumeroVia, getData(Constants.FICHERO_NUM_VIA).getValue(userS.getScenario(), Constants.NUM_VIA_INMUEBLE));
+		webDriver.appendText(numeroViaInput, getData(Constants.FICHERO_NUM_VIA).getValue(userS.getScenario(), Constants.NUM_VIA_INMUEBLE));
 		webDriver.waitWithDriver(3000);
-		webDriver.click(txtNombreVia);
+		webDriver.click(nombreViaInput);
 
-		webDriver.click(btnAnadirInmuebleModal);
+		webDriver.click(anyadirInmuebleModalInput);
 
 		webDriver.exitFrame();
 		debugEnd();

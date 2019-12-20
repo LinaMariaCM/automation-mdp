@@ -35,7 +35,6 @@ public class Constants {
 	public static final String DATE_FORMAT = "dd/MM/yyyy";
 
 	// Mutua de Propietarios Constants
-
 	public static final String DeshabitacionInferior = "Inferior al 75%";
 
 	public static final String NuevoTomadorYAseguradoPrincipal = "nuevo_tomador_y_asegurado_principal";
@@ -436,6 +435,8 @@ public class Constants {
 	public static final String PERSONA_FISICA = "Física";
 	public static final String CAPITAL_16M = "16000000";
 	public static final String DATOS_RIESGO = "Datos de riesgo";
+	
+	public static final String NUMERO_PROYECTO = "numero_proyecto";
 
 	// Constantes para Siniestros
 
@@ -632,7 +633,6 @@ public class Constants {
 	public static final String ALERTA_EXISTE_TIPO_SUBTIPO_CARPETA= "Ya existe un encargo de ese tipo/subtipo en esta carpeta.";
 
 
-
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
 	public static final String TAREA_TITULO = "tarea_titulo";
@@ -640,5 +640,10 @@ public class Constants {
 	public static final String GUARDAR_EN_ALTA = "guardar_en_alta";
 	public static final String SINIESTRO_PROVISIONAL = "siniestro_provisional";
 	
-	
+	public static final String PRECIO_BASICO_AFTER = "precio_basico_after";
+	public static final String PRECIO_BASICO_BEFORE = "precio_basico_before";
+	public static final String PRECIO_COMPLETO_AFTER = "precio_completo_after";
+	public static final String PRECIO_COMPLETO_BEFORE = "precio_completo_before";
+	public static final String PRECIO_PLUS_AFTER = "precio_plus_after";
+	public static final String PRECIO_PLUS_BEFORE = "precio_plus_before";
 }// END

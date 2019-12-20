@@ -12,33 +12,12 @@ public class ContratacionPageMac extends PageObject {
 	private By btnContratar = By.cssSelector("#btnContratar");
 	private By errorMessageTxt = By.id("VALIDACONTR");
 
-	private By checkLopd = By.cssSelector("#chkLopd");
-
 	private By messagePolizaTxt = By.xpath("./html/body/table[1]/tbody/tr/td");
 	private By messageReciboTxt = By.xpath("./html/body/table[1]/tbody/tr/td");
 	// endregion
 
 	public ContratacionPageMac(UserStory userS) {
 		super(userS);
-	}
-
-	public ContratacionPageMac executeActionsInContratacionPage() {
-		debugBegin();
-		
-		new TomadorYAseguradoPageMac(userS)
-			.executeActionsInTomadorYAseguradoPage();
-
-		new InmueblePageMac(userS)
-			.executeActionsInInmueblePage();
-
-		new DocumentacionPageMac(userS)
-			.addDocumentContratacion();
-
-		seleccionarCheckYContratar();
-
-		debugEnd();
-
-		return this;
 	}
 
 	public ContratacionPageMac seleccionarCheckYContratar() {

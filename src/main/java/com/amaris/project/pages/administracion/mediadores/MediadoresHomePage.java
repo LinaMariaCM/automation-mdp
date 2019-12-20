@@ -8,8 +8,6 @@ public class MediadoresHomePage extends PageObject {
 
 	// region webelements
 	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
-	private By mainFrame = By.cssSelector("#mainFrame");
 
 	private By altaProspectBtn = By.xpath(".//*[contains(@title,'Prospect')]");
 	private By altaMediadorBtn = By.xpath(".//*[contains(@title,'Mediador  ')]");

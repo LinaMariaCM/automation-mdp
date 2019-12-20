@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
@@ -15,58 +14,40 @@ import com.amaris.project.Constants;
 
 public class ClausulasPage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By cuerpoFrame = By.name("cuerpo");
+	
+	private By addClausulaHipotecariaBtn = By.xpath(".//*[text()='Añadir cláusula y/o hipotecaria']");
+	private By tabClausulaHipotecariaBtn = By.xpath(".//*[text()='Cláusula hipotecaria']");
 
-	// Rows with a checkbox and a clausula
-	private By rowWithClausula = By.xpath(".//tr[td[input]]");
-	private List<WebElement> rowWithClausulaList;
+	private By tipoDocumentoDrpDwn = By.id("tipodocumento");
+	private By numeroDocumentoInput = By.name("numerodocumento");
 
-	private By clausulaPageSelector = By.xpath(".//*[@class='pagination' and ancestor::*[contains(@ng-if,'control.totalPages')]]");
-	private By btnAddClausulaHipotecaria = By.xpath(".//*[text()='Añadir cláusula y/o hipotecaria']");
-	private By btnTabClausulaHipotecaria = By.xpath(".//*[text()='Cláusula hipotecaria']");
+	private By nombreAseguradoInput = By.id("nombreasegurado");
+	private By apellido1AseguradoInput = By.id("apellido1asegurado");
+	private By apellido2AseguradoInput = By.id("apellido2asegurado");
+	private By direccionRiesgoDrpDwn = By.id("direccionriesgo");
+	private By entidadBancariaDrpDwn = By.id("entidadbancaria");
+	private By coheficienteParticipacionInput = By.id("coefparticipacion");
 
-	private By cmbTipoDocumento = By.id("tipodocumento");
-	private By txtNumeroDocumento = By.name("numerodocumento");
+	private By addClausulaBtn = By.xpath(".//*[text()='Añadir cláusula' and @ng-click='cp.insertarClausula()']");
+	private By continuarInCreationBtn = By.xpath(".//*[text()='Continuar']");
+	private By nextClausulasPageBtn = By.xpath(".//*[@ng-click='control.update(control.current + 1)']");
 
-	private By txtNombreAsegurado = By.id("nombreasegurado");
-	private By txtApellido1Asegurado = By.id("apellido1asegurado");
-	private By txtApellido2Asegurado = By.id("apellido2asegurado");
-	private By cmbDireccionRiesgo = By.id("direccionriesgo");
-	private By cmbEntidadBancaria = By.id("entidadbancaria");
-	private By txtCoheficienteParticipacion = By.id("coefparticipacion");
-
-	private By btnAddClausula = By.xpath(".//*[text()='Añadir cláusula' and @ng-click='cp.insertarClausula()']");
-	private By btnContinuarInEdition = By.xpath(".//*[@title='Continuar']");
-	private By btnContinuarInCreation = By.xpath(".//*[text()='Continuar']");
-	private By btnNextClausulasPage = By.xpath(".//*[@ng-click='control.update(control.current + 1)']");
-
-	private By rowCheckboxWithCoberturaOpcional = By.xpath(".//tr[td[input]]");
-	private List<WebElement> rowCheckboxWithCoberturaOpcionalList;
-
-	private String xPathFilterClausulaCheckbox = ".//td[2]/input";
-	private String xPathFilterClausulaText = ".//td[6]";
-	private String xPathFilterClausulaNumber = ".//td[4]";
-	private List<ClausulasHelper> clausulas = new ArrayList<>();
+	private By clausulaCheckbox = By.xpath(".//td[2]/input");
+	private By clausulaTxt = By.xpath(".//td[2]/input.//td[6]");
+	private By clausulaNumber = By.xpath(".//td[2]/input.//td[4]");
 	// endregion
 
 	public ClausulasPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region methods
-	public ClausulasPage activateclausesAndClickOnContinue() {
-		activateClauses();
-		completarClausulaHipotecaria();
-		clickOnContinuar();
-
-		return this;
-	}
-
-	public ClausulasPage clickOnContinuar() {
+	// region Methods
+	public ClausulasPage clickContinuar() {
 		debugBegin();
 
-		if(Boolean.parseBoolean(getTestVar(Constants.INFRA_SEGURO)) && !isClausulaSelected(102)) {
+		if(Boolean.parseBoolean(getTestVar(Constants.INFRA_SEGURO)) && !clausulaIsSelected(102)) {
 			try {
 				debugError("La clausula 102 no se ha seleccionado al crear un infraseguro");
 			} catch(Exception e) {
@@ -75,89 +56,71 @@ public class ClausulasPage extends PageObject {
 				// seleccionado al crear un infraseguro");
 			}
 		}
-		webDriver.switchToFrame(cuerpoFrame);
-		// webDriver.waitForPageLoadWithAngular();
-		// cuerpoFrame.click();
-		webDriver.scrollToBottom();
+
+		webDriver.scrollToBottomInFrame(cuerpoFrame);
 		webDriver.waitWithDriver(4000);
-		webDriver.click(btnContinuarInCreation);
-		webDriver.exitFrame();
+		webDriver.clickInFrame(continuarInCreationBtn, cuerpoFrame);
 
 		debugEnd();
 
 		return this;
 	}
 
-	public ClausulasPage activateClauses() {
+	public ClausulasPage activarClausulas() {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
-
-		if(getConfigVar(Constants.MODIFICAR_CLAUSULAS).equals(Constants.ModificarClausulas)) {
+		if(getConfigVar(Constants.MODIFICAR_CLAUSULAS) != null 
+			&& getConfigVar(Constants.MODIFICAR_CLAUSULAS).equals(Constants.ModificarClausulas)) {
 			for(int pageNumber = 1; pageNumber < 6; pageNumber++) {
-				activateClausesInPage(pageNumber);
+				activarClausulasInPage(pageNumber);
 
-				if(!existToBeActivatedClauses()) {
+				if(!existToBeActivatedClauses(pageNumber)) {
 					break;
 				} else {
-					webDriver.scrollToBottom();
-					webDriver.click(btnNextClausulasPage);
+					webDriver.scrollToBottomInFrame(cuerpoFrame);
+					webDriver.clickInFrame(nextClausulasPageBtn, cuerpoFrame);
 				}
 			}
 		}
 
-		webDriver.exitFrame();
-
 		debugEnd();
 
 		return this;
 	}
 
-	private List<ClausulasHelper> getClausulasInPage(Integer pageNumber) {
+	private List<ClausulasHelper> getClausulasInPage(int pageNumber) {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
-		// webDriver.waitForPageLoadWithAngular();
-
 		List<ClausulasHelper> clausulasTemp = new ArrayList<>();
+		List<ClausulasHelper> clausulasList = new ArrayList<>();
+		clausulasList.addAll(getClausulasInPage(pageNumber));
 
-		rowWithClausulaList.forEach(p -> {
-			// By element =
-			// p.findElement(By.xpath(xPathFilterClausulaCheckbox));
-			if(webDriver.isSelected(By.xpath(xPathFilterClausulaCheckbox))) {
+		clausulasList.forEach(p -> {
+			if(webDriver.isSelectedInFrame(clausulaCheckbox, cuerpoFrame)) {
 				clausulasTemp.add(new ClausulasHelper(pageNumber, true,
-					webDriver.getText(By.xpath(xPathFilterClausulaCheckbox + xPathFilterClausulaNumber)),
-					webDriver.getText(By.xpath(xPathFilterClausulaCheckbox + xPathFilterClausulaText)),
-					webDriver.getElement(By.xpath(xPathFilterClausulaCheckbox))));
-				// clausulasTemp.add(new ClausulasHelper(pageNumber, true,
-				// p.findElement(By.xpath(xPathFilterClausulaNumber)).getText(),
-				// p.findElement(By.xpath(xPathFilterClausulaText)).getText(),
-				// element));
+					webDriver.getTextInFrame(clausulaTxt, cuerpoFrame),
+					webDriver.getTextInFrame(clausulaNumber, cuerpoFrame),
+					webDriver.getElementInFrame(clausulaCheckbox, cuerpoFrame)));
 			} else {
 				clausulasTemp.add(new ClausulasHelper(pageNumber, false,
-					webDriver.getText(By.xpath(xPathFilterClausulaCheckbox + xPathFilterClausulaNumber)),
-					webDriver.getText(By.xpath(xPathFilterClausulaCheckbox + xPathFilterClausulaText)),
-					webDriver.getElement(By.xpath(xPathFilterClausulaCheckbox))));
-				// clausulasTemp.add(new ClausulasHelper(pageNumber, false,
-				// p.findElement(By.xpath(xPathFilterClausulaNumber)).getText(),
-				// p.findElement(By.xpath(xPathFilterClausulaText)).getText(),
-				// element));
+					webDriver.getTextInFrame(clausulaTxt, cuerpoFrame),
+					webDriver.getTextInFrame(clausulaNumber, cuerpoFrame),
+					webDriver.getElementInFrame(clausulaCheckbox, cuerpoFrame)));
 			}
 		});
-
-		webDriver.exitFrame();
 
 		debugEnd();
 
 		return clausulasTemp;
 	}
 
-	private ClausulasPage activateClausesInPage(Integer pageNumber) {
+	private ClausulasPage activarClausulasInPage(int pageNumber) {
 		debugBegin();
 
-		clausulas.addAll(getClausulasInPage(pageNumber));
+		List<ClausulasHelper> clausulasList = new ArrayList<>();
+		clausulasList.addAll(getClausulasInPage(pageNumber));
 
-		for(ClausulasHelper clausula : clausulas) {
+		for(ClausulasHelper clausula : clausulasList) {
 			if(!clausula.getSelected() && ClausulasHelper.getClausulas(userS).contains(clausula.getNumber())) {
 				webDriver.clickInFrame(clausula.getCheckbox(), cuerpoFrame);
 				clausula.setSelected(true);
@@ -169,10 +132,13 @@ public class ClausulasPage extends PageObject {
 		return this;
 	}
 
-	private boolean existToBeActivatedClauses() {
+	private boolean existToBeActivatedClauses(int pageNumber) {
 		boolean check = false;
+		
+		List<ClausulasHelper> clausulasList = new ArrayList<>();
+		clausulasList.addAll(getClausulasInPage(pageNumber));
 
-		List<ClausulasHelper> clausulasTemp = clausulas.stream()
+		List<ClausulasHelper> clausulasTemp = clausulasList.stream()
 			.filter(p -> ClausulasHelper.getClausulas(userS).contains(p.getNumber()) && p.getSelected())
 			.collect(Collectors.toList());
 
@@ -183,12 +149,13 @@ public class ClausulasPage extends PageObject {
 		return check;
 	}
 
-	private String getClausulaStatusInPage(int Clausula, int pageNumber) {
+	private String getClausulaStatusInPage(int clausulaNumber, int pageNumber) {
 		debugBegin();
 
-		clausulas.addAll(getClausulasInPage(pageNumber));
+		List<ClausulasHelper> clausulasList = new ArrayList<>();
+		clausulasList.addAll(getClausulasInPage(pageNumber));
 
-		List<ClausulasHelper> clausulasfound = clausulas.stream().filter(p -> p.getNumber().equals(Integer.toString(Clausula)))
+		List<ClausulasHelper> clausulasfound = clausulasList.stream().filter(p -> p.getNumber().equals(Integer.toString(clausulaNumber)))
 			.collect(Collectors.toList());
 
 		if(clausulasfound.size() == 1) {
@@ -204,7 +171,7 @@ public class ClausulasPage extends PageObject {
 		return Constants.ClausulaNoEncontrada;
 	}
 
-	public boolean isClausulaSelected(Integer clausula) {
+	public boolean clausulaIsSelected(int clausula) {
 		debugBegin();
 
 		boolean result = false;
@@ -212,14 +179,16 @@ public class ClausulasPage extends PageObject {
 		for(int pageNumber = 1; pageNumber <= 6; pageNumber++) {
 			String clausulaSelected = getClausulaStatusInPage(clausula, pageNumber);
 
-			if(clausulaSelected.equals(Constants.ClausulaEncontradaYSeleccionada)) {
-				result = true;
-				break;
-			} else if(clausulaSelected.equals(Constants.ClausulaEncontradaYNoSeleccionada)) {
+			if(clausulaSelected.equals(Constants.ClausulaEncontradaYSeleccionada) 
+				|| clausulaSelected.equals(Constants.ClausulaEncontradaYNoSeleccionada)) {
+				if(clausulaSelected.equals(Constants.ClausulaEncontradaYSeleccionada)) {
+					result = true;					
+				}
+				
 				break;
 			}
 
-			webDriver.clickInFrame(btnNextClausulasPage, cuerpoFrame);
+			webDriver.clickInFrame(nextClausulasPageBtn, cuerpoFrame);
 		}
 
 		debugEnd();
@@ -228,25 +197,26 @@ public class ClausulasPage extends PageObject {
 	}
 
 	public ClausulasPage completarClausulaHipotecaria() {
-
 		if(Boolean.parseBoolean(userS.getTestVar("clausula_hipotecaria"))) {
-			webDriver.switchToFrame(this.cuerpoFrame);
-			webDriver.click(this.btnAddClausulaHipotecaria);
-			webDriver.click(this.btnTabClausulaHipotecaria);
-			webDriver.clickElementFromDropDownByText(this.cmbTipoDocumento, Constants.NIF);
-			webDriver.appendText(this.txtNumeroDocumento, DniGeneratorHelper.generateNif());
-			webDriver.appendText(this.txtNombreAsegurado, Constants.ClausulaHipotecariaNombre);
-			webDriver.appendText(this.txtApellido1Asegurado, Constants.ClausulaHipotecariaApellido1);
-			webDriver.appendText(this.txtApellido2Asegurado, Constants.ClausulaHipotecariaApellido2);
-			webDriver.clickElementFromDropDownByIndex(this.cmbDireccionRiesgo, 0);
-			webDriver.clickElementFromDropDownByText(this.cmbEntidadBancaria, Constants.ClausulaHipotecariaEntidadBancaria);
-			webDriver.appendText(this.txtCoheficienteParticipacion, Constants.ClausulaHipotecariaCoheficienteParticipacion);
-			webDriver.tabulateElement(this.txtCoheficienteParticipacion);
-			webDriver.click(this.btnAddClausula);
-			webDriver.exitFrame();
+			webDriver.clickInFrame(addClausulaHipotecariaBtn, cuerpoFrame);
+			webDriver.clickInFrame(tabClausulaHipotecariaBtn, cuerpoFrame);
+			
+			webDriver.clickElementFromDropDownByTextInFrame(tipoDocumentoDrpDwn, cuerpoFrame, Constants.NIF);
+			
+			webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, DniGeneratorHelper.generateNif());
+			webDriver.appendTextInFrame(nombreAseguradoInput, cuerpoFrame, Constants.ClausulaHipotecariaNombre);
+			webDriver.appendTextInFrame(apellido1AseguradoInput, cuerpoFrame, Constants.ClausulaHipotecariaApellido1);
+			webDriver.appendTextInFrame(apellido2AseguradoInput, cuerpoFrame, Constants.ClausulaHipotecariaApellido2);
+			
+			webDriver.clickElementFromDropDownByIndexInFrame(direccionRiesgoDrpDwn, cuerpoFrame, 0);
+			webDriver.clickElementFromDropDownByTextInFrame(entidadBancariaDrpDwn, cuerpoFrame, Constants.ClausulaHipotecariaEntidadBancaria);
+			
+			webDriver.appendTextInFrame(coheficienteParticipacionInput, cuerpoFrame, Constants.ClausulaHipotecariaCoheficienteParticipacion);
+			
+			webDriver.tabulateElementInFrame(coheficienteParticipacionInput, cuerpoFrame);
+			webDriver.clickInFrame(addClausulaBtn, cuerpoFrame);
 		}
 
 		return this;
 	}
-
 }

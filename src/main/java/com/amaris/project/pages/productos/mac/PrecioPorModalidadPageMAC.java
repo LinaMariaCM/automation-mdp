@@ -7,64 +7,48 @@ import com.amaris.project.Constants;
 
 import org.openqa.selenium.By;
 
-public class PrecioPorModalidadPageMAC extends PageObject {
+public class PrecioPorModalidadPageMac extends PageObject {
 
 	// region webelements
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	private By drpdwnModalidad = By.cssSelector("#nombdato_MODALIDAD_1");
-	private By txtRenta = By.cssSelector("#DTRIESALQCONF_RENTA");
-	private By btnConvertirProyecto = By.cssSelector("#botonContinuar");
-	private By drpdnImpagoAlquiler = By.cssSelector("#selCobertura");
-	private By drpdnFranquicia = By.cssSelector("#selFranquicia");
-	private By btnContinuar = By.cssSelector("#botonContinuar");
-	private By msjError = By.cssSelector("div[class *= 'alert alert-danger alert-dismissable'");
-
-	private By msjErrorRebasada = By.cssSelector("#RAUTCAPMAXCONF");
-	private By msjErrorReaseguro = By.cssSelector("#REASRENTAALQ");
+	private By modalidadDrpDwn = By.cssSelector("#nombdato_MODALIDAD_1");
+	private By rentaInput = By.cssSelector("#DTRIESALQCONF_RENTA");
+	private By convertirProyectoBtn = By.cssSelector("#botonContinuar");
+	private By impagoAlquilerDrpDwn = By.cssSelector("#selCobertura");
+	private By franquiciaDrpDwn = By.cssSelector("#selFranquicia");
+	private By continuarBtn = By.cssSelector("#botonContinuar");
+	private By msjErrorTxt = By.cssSelector("div[class *= 'alert alert-danger alert-dismissable'");
 	// endregion
 
-	public PrecioPorModalidadPageMAC(UserStory userS) {
+	public PrecioPorModalidadPageMac(UserStory userS) {
 		super(userS);
 	}
 
-	public PrecioPorModalidadPageMAC executeActionsInPrecioPorModalidadPage() {
+	public PrecioPorModalidadPageMac completarRentaMensualAlquiler() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);
-		completarRentaMensualAlquiler();
-		completarGarantiasBasicas();
-		clickOnConvertirAProyecto();
+
+		webDriver.setTextInFrame(rentaInput, mainFrame, getScenarioVar(Constants.RENTA_MENSUAL_ALQUILER));
+		webDriver.tabulateElementInFrame(rentaInput, mainFrame);
 
 		debugEnd();
 
 		return this;
 	}
 
-	public PrecioPorModalidadPageMAC completarRentaMensualAlquiler() {
-		debugBegin();
-
-		webDriver.waitWithDriver(4000);
-
-		webDriver.setTextInFrame(txtRenta, mainFrame, getScenarioVar(Constants.RENTA_MENSUAL_ALQUILER));
-		webDriver.tabulateElementInFrame(txtRenta, mainFrame);
-
-		debugEnd();
-
-		return this;
-	}
-
-	public PrecioPorModalidadPageMAC clickOnConvertirAProyecto() {
+	public PrecioPorModalidadPageMac clickConvertirAProyecto() {
 		debugBegin();
 
 		webDriver.waitWithDriver(8000);
-		webDriver.clickInFrame(btnConvertirProyecto, mainFrame);
+		webDriver.clickInFrame(convertirProyectoBtn, mainFrame);
 		debugEnd();
 
 		return this;
 	}
 
-	public PrecioPorModalidadPageMAC completarGarantiasBasicas() {
+	public PrecioPorModalidadPageMac completarGarantiasBasicas() {
 		debugBegin();
 
 		String impagoAlquiler = getScenarioVar(Constants.IMPAGO_ALQUILER);
@@ -83,39 +67,39 @@ public class PrecioPorModalidadPageMAC extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPageMAC seleccionarImpagoAlquiler() {
+	public PrecioPorModalidadPageMac seleccionarImpagoAlquiler() {
 		debugBegin();
 
 		debugInfo("SCENARIO: " + userS.getScenario() + ", VALUE: " + getScenarioVar(Constants.IMPAGO_ALQUILER)
 			+ ", SCENARIODATA: " + (userS.getTestDataManager().getData(AutomationConstants.SCENARIO_DATA) != null));
 
-		webDriver.clickElementFromDropDownByTextInFrame(drpdnImpagoAlquiler, mainFrame, getScenarioVar(Constants.IMPAGO_ALQUILER));
+		webDriver.clickElementFromDropDownByTextInFrame(impagoAlquilerDrpDwn, mainFrame, getScenarioVar(Constants.IMPAGO_ALQUILER));
 
 		debugEnd();
 
 		return this;
 	}
 
-	public PrecioPorModalidadPageMAC seleccionarFranquicia() {
+	public PrecioPorModalidadPageMac seleccionarFranquicia() {
 		debugBegin();
-		webDriver.clickElementFromDropDownByTextInFrame(drpdnFranquicia, mainFrame, getScenarioVar(Constants.FRANQUICIA_MAC));
+		webDriver.clickElementFromDropDownByTextInFrame(franquiciaDrpDwn, mainFrame, getScenarioVar(Constants.FRANQUICIA_MAC));
 		debugEnd();
 
 		return this;
 	}
 
-	public PrecioPorModalidadPageMAC clickContinuar() {
+	public PrecioPorModalidadPageMac clickContinuar() {
 		debugBegin();
 		webDriver.waitWithDriver(6000);
-		webDriver.clickInFrame(btnContinuar, mainFrame);
+		webDriver.clickInFrame(continuarBtn, mainFrame);
 		debugEnd();
 
 		return this;
 	}
 
-	public PrecioPorModalidadPageMAC selectModalidad() {
+	public PrecioPorModalidadPageMac selectModalidad() {
 		debugBegin();
-		webDriver.clickElementFromDropDownByTextInFrame(drpdwnModalidad, mainFrame, getTestVar(Constants.MODALIDAD));
+		webDriver.clickElementFromDropDownByTextInFrame(modalidadDrpDwn, mainFrame, getTestVar(Constants.MODALIDAD));
 		debugEnd();
 
 		return this;
@@ -123,7 +107,7 @@ public class PrecioPorModalidadPageMAC extends PageObject {
 
 	public String recuperarTextoMensajeError() {
 		debugBegin();
-		String mensajeError = webDriver.getTextInFrame(msjError, mainFrame).substring(2);
+		String mensajeError = webDriver.getTextInFrame(msjErrorTxt, mainFrame).substring(2);
 		debugError("ERROR RECUPERADO - " + mensajeError);
 		debugEnd();
 
@@ -132,8 +116,9 @@ public class PrecioPorModalidadPageMAC extends PageObject {
 
 	public boolean checkConvertirAProyectoIsPresent() {
 		debugBegin();
-		boolean checker = webDriver.isPresentInFrame(btnConvertirProyecto, mainFrame);
+		boolean checker = webDriver.isPresentInFrame(convertirProyectoBtn, mainFrame);
 		debugEnd();
+
 		return checker;
 	}
 	// endregion

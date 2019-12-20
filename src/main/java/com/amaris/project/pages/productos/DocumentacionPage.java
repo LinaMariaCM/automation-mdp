@@ -12,20 +12,16 @@ import com.amaris.project.utils.FileHelper;
 
 public class DocumentacionPage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By cuerpoFrame = By.name("cuerpo");
-	private By leftFrame = By.cssSelector("#leftFrame");
-	private By anadirDocumentoPendiente = By
-		.cssSelector("body > div > div:nth-child(1) > div.container.ng-scope > form > div > div:nth-child(1) > div > div.row.margin-top-10 > div > div > table > tbody > tr:nth-child(2) > td > button");
-	private By btnSubirFichero = By
+	private By subirFicheroBtn = By
 		.cssSelector("body > div > div:nth-child(1) > div.container.ng-scope > form > div > div:nth-child(2) > div > div:nth-child(2) > div > div > table > tbody > tr > td > button");
-	private By btnSubirFicheroModal = By.cssSelector("#subirFicheroModal > div > div > form > div.modal-footer > div > button.btn.btn-primary.ng-binding");
+	private By subirFicheroModalBtn = By.cssSelector("#subirFicheroModal > div > div > form > div.modal-footer > div > button.btn.btn-primary.ng-binding");
 
-	private By btnSeleccionarFichero = By.xpath(".//*[text()='Seleccionar fichero']");
-	private By chkAceptacionMediador = By.xpath(".//tr[td[text()='Aceptación del mediador']]/td[1]/input");
+	private By seleccionarFicheroBtn = By.xpath(".//*[text()='Seleccionar fichero']");
+	private By aceptacionMediadorBtn = By.xpath(".//tr[td[text()='Aceptación del mediador']]/td[1]/input");
 
-	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
-	private By btnDocumentacion = By.xpath(".//*[text()='8. Documentación']");
+	private By continuarBtn = By.xpath(".//*[text()='Continuar']");
 	// endregion
 
 	public DocumentacionPage(UserStory userS) {
@@ -37,19 +33,19 @@ public class DocumentacionPage extends PageObject {
 		debugBegin();
 
 		if(getTestVar(Constants.USUARIO).equals("calbets")) {
-			webDriver.clickInFrame(btnSubirFichero, cuerpoFrame);
+			webDriver.clickInFrame(subirFicheroBtn, cuerpoFrame);
 
 			URL url = getClass().getResource("/gatoimagen.jpg");
 			File file = new File(url.toURI());
 			String path = file.getAbsolutePath();
 
-			webDriver.clickInFrame(btnSeleccionarFichero, cuerpoFrame);
+			webDriver.clickInFrame(seleccionarFicheroBtn, cuerpoFrame);
 
-			FileHelper.uploadFIle(path);
+			FileHelper.uploadFile(path);
 
-			webDriver.clickInFrame(chkAceptacionMediador, cuerpoFrame);
-			webDriver.clickInFrame(btnSubirFicheroModal, cuerpoFrame);
-			webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+			webDriver.clickInFrame(aceptacionMediadorBtn, cuerpoFrame);
+			webDriver.clickInFrame(subirFicheroModalBtn, cuerpoFrame);
+			webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		}
 
 		debugEnd();
@@ -57,9 +53,9 @@ public class DocumentacionPage extends PageObject {
 		return this;
 	}
 
-	public DocumentacionPage ClickOnContinuar() {
+	public DocumentacionPage clickContinuar() {
 		debugBegin();
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

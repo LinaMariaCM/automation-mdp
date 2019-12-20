@@ -7,10 +7,9 @@ import com.amaris.project.Constants;
 
 public class AsignarMediadorPage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	private By razonSocial = By.cssSelector("#nombreRazonSocial");
 	private By codigoMediadorTxt = By.id("codigoMediador");
 	private By codigoMediadorMacTxt = By.id("codigo");
 	private By documentoTxt = By.cssSelector("#numDocumento");
@@ -61,7 +60,6 @@ public class AsignarMediadorPage extends PageObject {
 		debugBegin();
 
 		webDriver.waitWithDriver(3000);
-		// webDriver.waitForElementToBeClickableInFrame(btnContinuar, cuerpoFrame);
 		webDriver.clickInFrame(continuarBtn, mainFrame);
 
 		debugEnd();

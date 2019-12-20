@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import com.amaris.automation.model.testing.UserStory;
@@ -14,132 +13,113 @@ import com.amaris.project.utils.MotivosSuplementoHelper;
 
 public class ConfirmarPage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By cuerpoFrame = By.name("cuerpo");
 
-	private By rowWithMotivoSuplemento = By.xpath(".//tr[td[input]]");
-	private List<WebElement> rowWithMotivoSuplementoList = new ArrayList<>();
+	private By nextMotivosSuplementoPageBtn = By.xpath(".//*[@aria-label='Siguiente' and contains(@ng-click,'cms.paginator.update(cms.paginator.current + 1)')]");
 
-	private By btnNextMotivosSuplementoPage = By.xpath(".//*[@aria-label='Siguiente' and contains(@ng-click,'cms.paginator.update(cms.paginator.current + 1)')]");
+	private By continuarBtn = By.xpath(".//*[text()='Continuar']");
 
-	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
-
-	private String xPathFilterSuplementoCheckbox = ".//td[1]/input";
-	private String xPathFilterSuplementoText = ".//td[2]";
+	private By suplementoCheckbox = By.xpath(".//td[1]/input");
+	private By suplementoText = By.xpath(".//td[2]");
 	// endregion
 
 	public ConfirmarPage(UserStory userS) {
 		super(userS);
 	}
 
-	private List<MotivosSuplementoHelper> motivosSuplemento = new ArrayList<>();
-
-	// region methods
-
+	// region Methods
 	public ConfirmarPage activateMotivosSuplementoAndClickOnContinuar() {
 		activateMotivosSuplemento();
-		clickOnContinuar();
+		clickContinuar();
 
 		return this;
 	}
 
 	public ConfirmarPage activateMotivosSuplemento() {
+		boolean exists = true;
+
 		for(int pageNumber = 1; pageNumber <= 6; pageNumber++) {
+			activateMotivosSuplementoInPage(pageNumber);
 
-			ActivateMotivosSuplementoInPage(pageNumber);
-
-			if(!ExistToBeActivatedMotivosSuplemento()) {
+			if(!existToBeActivatedMotivosSuplemento(pageNumber)) {
+				exists = false;
 				break;
 			} else {
 				try {
-					webDriver.clickInFrame(btnNextMotivosSuplementoPage, cuerpoFrame);
+					webDriver.clickInFrame(nextMotivosSuplementoPageBtn, cuerpoFrame);
 				} catch(Exception e) {
 					debugError("El boton siguiente no ha aparecido");
 				}
 			}
 		}
 
-		Assert.assertFalse(ExistToBeActivatedMotivosSuplemento(), "El motivo del suplemento no se ha podido seleccionar");
+		Assert.assertFalse(exists, "El motivo del suplemento no se ha podido seleccionar");
 
 		return this;
 	}
 
-	public ConfirmarPage clickOnContinuar() {
+	public ConfirmarPage clickContinuar() {
 		debugBegin();
-		// webDriver.waitForPageLoadWithAngular();
-		// wh.waitForPageLoadWithAngular();
-		webDriver.scrollToBottom();
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-
+		webDriver.scrollToBottomInFrame(cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
 	}
 
-	public List<MotivosSuplementoHelper> GetMotivosSuplementoInPage(Integer pageNumber) {
+	public List<MotivosSuplementoHelper> getMotivosSuplementoInPage(int pageNumber) {
 		debugBegin();
-		// webDriver.switchToFrame(cuerpoFrame);
-		// webDriver.waitForPageLoadWithAngular();
 
 		List<MotivosSuplementoHelper> motivosSuplementoTemp = new ArrayList<>();
+		List<MotivosSuplementoHelper> motivosSuplemento = new ArrayList<>();
+		motivosSuplemento.addAll(getMotivosSuplementoInPage(pageNumber));
 
-		rowWithMotivoSuplementoList.forEach(p -> {
-			WebElement element = p.findElement(By.xpath(xPathFilterSuplementoCheckbox));
-
-			if(element.isSelected()) {
-				motivosSuplementoTemp.add(new MotivosSuplementoHelper(true,
-					p.findElement(By.xpath(xPathFilterSuplementoText)).getText(),
-					p.findElement(By.xpath(xPathFilterSuplementoCheckbox)),
-					pageNumber));
-			} else {
-				motivosSuplementoTemp.add(new MotivosSuplementoHelper(false,
-					p.findElement(By.xpath(xPathFilterSuplementoText)).getText(),
-					p.findElement(By.xpath(xPathFilterSuplementoCheckbox)),
-					pageNumber));
-			}
-		});
-		// webDriver.exitFrame();
+		motivosSuplemento.forEach(p -> motivosSuplementoTemp.add(new MotivosSuplementoHelper(false,
+			webDriver.getTextInFrame(suplementoText, cuerpoFrame),
+			webDriver.getElementInFrame(suplementoCheckbox, cuerpoFrame),
+			pageNumber)));
 
 		debugEnd();
 
 		return motivosSuplementoTemp;
 	}
 
-	private ConfirmarPage ActivateMotivosSuplementoInPage(Integer pageNumber) {
+	private ConfirmarPage activateMotivosSuplementoInPage(int pageNumber) {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
-		motivosSuplemento.addAll(GetMotivosSuplementoInPage(pageNumber));
+		List<MotivosSuplementoHelper> motivosSuplemento = new ArrayList<>();
+		motivosSuplemento.addAll(getMotivosSuplementoInPage(pageNumber));
 
 		motivosSuplemento.stream().filter(p -> MotivosSuplementoHelper.getMotivosSuplementos(userS).containsKey(p.getDescription()))
 			.forEach(x -> {
-				if(x.getSelected().equals(false) && MotivosSuplementoHelper.getMotivosSuplementos(userS).get(x.getDescription())) {
-					// wh.clickOnWebElementInFrame(x.getCheckbox(), cuerpoFrame);
-					webDriver.click(x.getCheckbox());
+				webDriver.clickInFrame(x.getCheckbox(), cuerpoFrame);
+
+				if(x.getSelected().equals(false)
+					&& MotivosSuplementoHelper.getMotivosSuplementos(userS).get(x.getDescription())) {
 					x.setSelected(true);
-				} else if(x.getSelected().equals(true) && !MotivosSuplementoHelper.getMotivosSuplementos(userS).get(x.getDescription())) {
-					// wh.clickOnWebElementInFrame(x.getCheckbox(), cuerpoFrame);
-					webDriver.click(x.getCheckbox());
+				} else if(x.getSelected().equals(true)
+					&& !MotivosSuplementoHelper.getMotivosSuplementos(userS).get(x.getDescription())) {
 					x.setSelected(false);
 				}
 			});
-
-		webDriver.exitFrame();
 
 		debugEnd();
 
 		return this;
 	}
 
-	private boolean ExistToBeActivatedMotivosSuplemento() {
+	private boolean existToBeActivatedMotivosSuplemento(int pageNumber) {
 		debugBegin();
 
 		boolean result = false;
 
+		List<MotivosSuplementoHelper> motivosSuplemento = new ArrayList<>();
+		motivosSuplemento.addAll(getMotivosSuplementoInPage(pageNumber));
+
 		List<MotivosSuplementoHelper> motivosSuplementoTemp = motivosSuplemento.stream()
 			.filter(p -> MotivosSuplementoHelper.getMotivosSuplementos(userS).containsKey(p.getDescription())
-				&&
-				p.getSelected().equals(MotivosSuplementoHelper.getMotivosSuplementos(userS).get(p.getDescription())))
+				&& p.getSelected().equals(MotivosSuplementoHelper.getMotivosSuplementos(userS).get(p.getDescription())))
 			.collect(Collectors.toList());
 
 		if(motivosSuplementoTemp.size() != MotivosSuplementoHelper.getMotivosSuplementos(userS).size()) {

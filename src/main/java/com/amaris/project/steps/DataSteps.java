@@ -17,7 +17,7 @@ import com.amaris.project.pages.productos.PrecioPage;
 import com.amaris.project.pages.productos.PrecioPorModalidadPage;
 import com.amaris.project.pages.productos.TomadorYAseguradoPage;
 import com.amaris.project.pages.productos.UbicacionRiesgoPage;
-import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMAC;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac;
 import com.amaris.project.utils.ClausulasHelper;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 
@@ -72,7 +72,7 @@ public class DataSteps extends InteractionObject {
 	}
 
 	public void con_el_número_de_poliza() {
-		setTestVar(Constants.NUM_POLIZA, new DatosBancariosPage(userS).GetPolizaNumber());
+		setTestVar(Constants.NUM_POLIZA, new DatosBancariosPage(userS).getPolizaNumber());
 	}
 
 	public void se_modifica_el_año_de_rehabiliación_integral_a(Integer anyoRehabilitacionIntegral) {
@@ -177,32 +177,41 @@ public class DataSteps extends InteractionObject {
 		}
 
 		new UbicacionRiesgoPage(userS)
-			.fillInmuebleAndClickOnContinue();
+			.fillInmuebleAndClickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
 
 		new DetallesRiesgoPage(userS)
-			.completarDatosEnDetallesRiesgo();
+			.completarDatosRiesgo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
 			.clickOnContinuar();
 
 		new PrecioPage(userS)
-			.clickOnConvertirAProjecto();
+			.clickConvertirAProjecto();
 
 		new DatosBasicosTomadorPage(userS)
 			.fillTomadorData(getScenarioVar(Constants.TOMADOR))
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new PrecioPorModalidadPage(userS)
-			.executeActionsInPrecioPorModalidadPage();
+			.seleccionarModalidad()
+			.completarCoberturaPorMaquinaria()
+			.completarCoberturasEmpleados()
+			.completarCoberturasEnergiaSolar()
+			.completarFranquiciaVoluntaria()
+			.completarOQuitarDescuentoRecargo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasPage(userS)
 			.clickOnContinuarButton();
 
 		new ClausulasPage(userS)
-			.activateclausesAndClickOnContinue();
+			.activarClausulas()
+			.completarClausulaHipotecaria()
+			.clickContinuar();
 
 		new TomadorYAseguradoPage(userS)
 			.addDatosTomador()
@@ -210,7 +219,9 @@ public class DataSteps extends InteractionObject {
 			.clickOnContinuar();
 
 		new DatosBancariosPage(userS)
-			.introducirFormaPagoYPulsarGuardar();
+			.fillPaymentMethod(getTestVar(Constants.MEDIO_PAGO))
+			.clickGuardar()
+			.getProjectCodeNumberAndClickOnAceptarButton();
 
 		imprimir_informacion_del_proyecto();
 
@@ -229,7 +240,7 @@ public class DataSteps extends InteractionObject {
 		}
 
 		// Seleccionar modalidad en Precio page
-		new PrecioPorModalidadPageMAC(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.selectModalidad();
 	}
 

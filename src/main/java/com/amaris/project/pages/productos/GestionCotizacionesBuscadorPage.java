@@ -7,22 +7,19 @@ import com.amaris.project.Constants;
 
 public class GestionCotizacionesBuscadorPage extends PageObject {
 
-	// region Bys
-	private By menuFrame = By.name("toc");
-	private By topFrame = By.cssSelector("#topFrame");
+	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	private By btnBuscar = By.name("botonBuscar");
+	private By buscarBtn = By.name("botonBuscar");
 
-	private By rdnNoCotizacion = By.cssSelector("#filtro1");
-	private By txtNumeroCotizacion = By.cssSelector("#cotizsec");
-	private By cmbProductoCotizacion = By.name("producto_cotizacion");
-	private By txtResultadosNumeroCotizacion = By.xpath(".//*[@title='Número cotización']");
+	private By numeroCotizacionBtn = By.cssSelector("#filtro1");
+	private By numeroCotizacionInput = By.cssSelector("#cotizsec");
+	private By productoCotizacionDrpDwn = By.name("producto_cotizacion");
+	private By wesultadosNumeroCotizacionTxt = By.xpath(".//*[@title='Número cotización']");
 
-	private By btnMostrarAcciones = By.xpath(".//*[@title='Mostrar acciones']");
-	private By btnModificar = By.xpath(".//*[text()='Modificar']");
-	private By btnAltaComo = By.xpath(".//*[text()='Alta Como']");
-	private By estadoCotizacion = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(8)");
+	private By mostrarAccionesBtn = By.xpath(".//*[@title='Mostrar acciones']");
+	private By modificarBtn = By.xpath(".//*[text()='Modificar']");
+	private By estadoCotizacionTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(8)");
 	// endregion
 
 	public GestionCotizacionesBuscadorPage(UserStory userS) {
@@ -33,15 +30,16 @@ public class GestionCotizacionesBuscadorPage extends PageObject {
 	public GestionCotizacionesBuscadorPage searchCotizacion(String cotizacion) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdnNoCotizacion, mainFrame);
+		webDriver.clickInFrame(numeroCotizacionBtn, mainFrame);
+		
 		if(userS.getTestCase().contains("Mec")) {
-			webDriver.clickElementFromDropDownByTextInFrame(cmbProductoCotizacion, mainFrame, Constants.MutuaEdificioConfort);
+			webDriver.clickElementFromDropDownByTextInFrame(productoCotizacionDrpDwn, mainFrame, Constants.MutuaEdificioConfort);
 		} else if(userS.getTestCase().contains("Mac")) {
-			webDriver.clickElementFromDropDownByTextInFrame(cmbProductoCotizacion, mainFrame, Constants.MutuaAlquierConfort);
+			webDriver.clickElementFromDropDownByTextInFrame(productoCotizacionDrpDwn, mainFrame, Constants.MutuaAlquierConfort);
 		}
 
-		webDriver.setTextInFrame(txtNumeroCotizacion, mainFrame, cotizacion);
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.setTextInFrame(numeroCotizacionInput, mainFrame, cotizacion);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -50,7 +48,7 @@ public class GestionCotizacionesBuscadorPage extends PageObject {
 
 	public String getCotizacion() {
 		debugBegin();
-		String cotizacion = webDriver.getTextInFrame(txtResultadosNumeroCotizacion, mainFrame);
+		String cotizacion = webDriver.getTextInFrame(wesultadosNumeroCotizacionTxt, mainFrame);
 		debugEnd();
 
 		return cotizacion;
@@ -59,8 +57,8 @@ public class GestionCotizacionesBuscadorPage extends PageObject {
 	public GestionCotizacionesBuscadorPage modificarProjecto() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnMostrarAcciones, mainFrame);
-		webDriver.clickInFrame(btnModificar, mainFrame);
+		webDriver.clickInFrame(mostrarAccionesBtn, mainFrame);
+		webDriver.clickInFrame(modificarBtn, mainFrame);
 
 		debugEnd();
 
@@ -69,7 +67,7 @@ public class GestionCotizacionesBuscadorPage extends PageObject {
 
 	public String getEstadoCotizacion() {
 		debugBegin();
-		String result = webDriver.getTextInFrame(estadoCotizacion, mainFrame);
+		String result = webDriver.getTextInFrame(estadoCotizacionTxt, mainFrame);
 		debugEnd();
 
 		return result;

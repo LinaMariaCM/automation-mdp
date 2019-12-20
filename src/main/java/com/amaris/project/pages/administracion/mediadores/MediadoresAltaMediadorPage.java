@@ -8,9 +8,7 @@ import com.amaris.project.Constants;
 
 public class MediadoresAltaMediadorPage extends PageObject {
 
-	// region webelements
-	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
+	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 
@@ -28,7 +26,6 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	private By comprobarDireccionBtn = By.cssSelector("#BOTON_NORMADOM");
 	private By aceptarDireccionBtn = By.cssSelector("#BOTON_ACEPTAR");
 	private By aceptarDireccionPostalBtn = By.cssSelector("#BOTON_ACEPDOMI");
-	private By btnAsignarDomicilio = By.cssSelector("#BOTON_DOMIMEDI");
 
 	private By tipoMediadorDrpDwn = By.cssSelector("#ALTAMEDI_TIPOMEDIALTA");
 	private By tipoDocumentoDrpDwn = By.cssSelector("#ALTAMEDI_TIPODOCMED");
@@ -161,7 +158,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage writeNombreFiscalYApellidosMediador() {
 		debugBegin();
-		
+
 		if(getTestVar(Constants.TIPO_DOCUMENTO) != null
 			&& getTestVar(Constants.TIPO_DOCUMENTO).equals(Constants.NIF)) {
 			webDriver.appendTextInFrame(nombreFiscalInput, mainFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
@@ -184,7 +181,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		}
 
 		if(getTestVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Diferente que el fiscal")) {
-			// Cuando nombre comercial es diferente que el fiscal, 
+			// Cuando nombre comercial es diferente que el fiscal,
 			// hay que marcar el radio button y completar el nombre
 			// comercial (by default it is
 			// the same as the nombre fiscal).
@@ -215,7 +212,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage writeNumeroRegistroDGS() {
 		debugBegin();
-		// Solo requiere Nº registo DGSFP cuando el tipo mediador es 
+		// Solo requiere Nº registo DGSFP cuando el tipo mediador es
 		// "Agente vinculado", "BS Exclusivo", "BS Vinculado", o "Corredor".
 		if(getTestVar(Constants.TIPO_MEDIADOR) != null && getTestVar(Constants.TIPO_MEDIADOR).equals("Agente vinculado")
 			|| getTestVar(Constants.TIPO_MEDIADOR).equals("BS Exclusivo") || getTestVar(Constants.TIPO_MEDIADOR).equals("Corredor")) {
@@ -295,7 +292,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(anyadirNuevaDireccionBtn, mainFrame);
-		
+
 		webDriver.switchToFrame(mainFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.clickElementFromDropDownByText(tipoDomicilioDrpDwn, "Comercial");
@@ -321,7 +318,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(anyadirNuevaDireccionBtn, mainFrame);
-		
+
 		webDriver.switchToFrame(mainFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.clickElementFromDropDownByText(tipoDomicilioDrpDwn, "Fiscal");
@@ -347,7 +344,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(anyadirNuevaDireccionBtn, mainFrame);
-		
+
 		webDriver.switchToFrame(mainFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.clickElementFromDropDownByText(tipoDomicilioDrpDwn, "Postal producción");

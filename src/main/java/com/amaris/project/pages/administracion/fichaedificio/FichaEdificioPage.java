@@ -12,7 +12,7 @@ import com.amaris.project.Constants;
 
 public class FichaEdificioPage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By cuerpoFrame = By.name("cuerpo");
 	private By menuFrame = By.cssSelector("#leftFrame");
 
@@ -35,9 +35,6 @@ public class FichaEdificioPage extends PageObject {
 	private By viaInput = By.cssSelector("#BUSC_EDIF_VIA");
 	private By postCodInput = By.cssSelector("#BUSC_EDIF_POSTCOD");
 	private By numViaInput = By.cssSelector("#BUSC_EDIF_NUMVIA");
-	private By compFormPag = By.cssSelector("#formularioPaginacion");
-
-	private By menuDropdown = By.cssSelector("ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all");
 
 	private By menuItem1Btn = By.xpath("/html/body/ul[1]/li/a");
 	private By menuItem2Btn = By.xpath("/html/body/ul[2]/li/a");
@@ -51,15 +48,15 @@ public class FichaEdificioPage extends PageObject {
 	private By buscarBtn = By.cssSelector("[name=''botonBuscar]");
 	private By btnContinuar = By.xpath("//*[@id='tr1']/td[6]");
 
-	private By lblDireccion = By.xpath(".//*[text()='Dirección: ']");
-	private By lblMediador = By.xpath(".//*[text()='Mediador: ']");
-	private By lblDatosMediador = By.xpath(".//*[text()='Datos Mediador: ']");
-	private By lblNumViviendas = By.xpath(".//*[text()='Nº Viviendas: '");
-	private By lblAntiguedad = By.xpath(".//*[text()='Antigüedad del edificio: ']");
-	private By lblSuperficie = By.xpath(".//*[text()='Superficie construida(m2): ']");
+	private By direccionTxt = By.xpath(".//*[text()='Dirección: ']");
+	private By mediadorTxt = By.xpath(".//*[text()='Mediador: ']");
+	private By datosMediadorTxt = By.xpath(".//*[text()='Datos Mediador: ']");
+	private By numViviendasTxt = By.xpath(".//*[text()='Nº Viviendas: '");
+	private By antiguedadTxt = By.xpath(".//*[text()='Antigüedad del edificio: ']");
+	private By superficieTxt = By.xpath(".//*[text()='Superficie construida(m2): ']");
 
-	private By tabResumen = By.cssSelector("#pes0");
-	private By tabPolizas = By.cssSelector("#pes1");
+	private By resumenTab = By.cssSelector("#pes0");
+	private By polizasTab = By.cssSelector("#pes1");
 	// endregion
 
 	public FichaEdificioPage(UserStory userS) {
@@ -98,7 +95,7 @@ public class FichaEdificioPage extends PageObject {
 			webDriver.appendTextInFrame(refCatastralInput, cuerpoFrame, tablaHash.get(i + "").get("ref_catastral"));
 
 			webDriver.clickInFrame(buscarBtn, cuerpoFrame);
-			
+
 			webDriver.waitForAngular();
 			webDriver.waitForElementToBeClickableInFrame(barraResultados, cuerpoFrame);
 
@@ -126,7 +123,7 @@ public class FichaEdificioPage extends PageObject {
 		// Iterate by number of lines
 		for(int i = 0; i < tablaHash.size(); i++) {
 			boolean dropDownPresent = true;
-			
+
 			String address = tablaHash.get(i + "").get("provincia") + " " + tablaHash.get(i + "").get("poblacion") + " "
 				+ tablaHash.get(i + "").get("direccion") + " " + tablaHash.get(i + "").get("numero");
 
@@ -175,7 +172,7 @@ public class FichaEdificioPage extends PageObject {
 
 			if(webDriver.isPresentInFrame(postCodInput, cuerpoFrame)) {
 				String codigoPostal = tablaHash.get(i + "").get("codigo_postal");
-				
+
 				webDriver.appendTextInFrame(postCodInput, cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
 			}
 
@@ -385,8 +382,10 @@ public class FichaEdificioPage extends PageObject {
 	public boolean checkResultadoDireccion() {
 		debugBegin();
 
-		boolean result = checkResultadoDireccion(webDriver.getTextInFrame(poblacionInput, cuerpoFrame), webDriver.getTextInFrame(viaInput, cuerpoFrame), webDriver
-			.getTextInFrame(numViaInput, cuerpoFrame), null, null);
+		boolean result = checkResultadoDireccion(
+			webDriver.getTextInFrame(poblacionInput, cuerpoFrame), 
+			webDriver.getTextInFrame(viaInput, cuerpoFrame), 
+			webDriver.getTextInFrame(numViaInput, cuerpoFrame), null, null);
 
 		debugEnd();
 
@@ -435,14 +434,14 @@ public class FichaEdificioPage extends PageObject {
 
 	public boolean checkCabeceraFicha() {
 		debugBegin();
-		
-		boolean check = webDriver.isPresentInFrame(lblDireccion, cuerpoFrame);
 
-		check = check && webDriver.isPresentInFrame(lblMediador, cuerpoFrame);
-		check = check && webDriver.isPresentInFrame(lblDatosMediador, cuerpoFrame);
-		check = check && webDriver.isPresentInFrame(lblNumViviendas, cuerpoFrame);
-		check = check && webDriver.isPresentInFrame(lblAntiguedad, cuerpoFrame);
-		check = check && webDriver.isPresentInFrame(lblSuperficie, cuerpoFrame);
+		boolean check = webDriver.isPresentInFrame(direccionTxt, cuerpoFrame);
+
+		check = check && webDriver.isPresentInFrame(mediadorTxt, cuerpoFrame);
+		check = check && webDriver.isPresentInFrame(datosMediadorTxt, cuerpoFrame);
+		check = check && webDriver.isPresentInFrame(numViviendasTxt, cuerpoFrame);
+		check = check && webDriver.isPresentInFrame(antiguedadTxt, cuerpoFrame);
+		check = check && webDriver.isPresentInFrame(superficieTxt, cuerpoFrame);
 
 		debugEnd();
 
@@ -451,10 +450,10 @@ public class FichaEdificioPage extends PageObject {
 
 	public boolean checkPestanaResumenVisible() {
 		debugBegin();
-		
+
 		boolean check = false;
 
-		check = webDriver.isPresentInFrame(tabResumen, cuerpoFrame);
+		check = webDriver.isPresentInFrame(resumenTab, cuerpoFrame);
 
 		debugEnd();
 
@@ -463,10 +462,10 @@ public class FichaEdificioPage extends PageObject {
 
 	public boolean checkPestanaPolizasVisible() {
 		debugBegin();
-		
+
 		boolean check = false;
 
-		check = webDriver.isPresentInFrame(tabPolizas, cuerpoFrame);
+		check = webDriver.isPresentInFrame(polizasTab, cuerpoFrame);
 
 		debugEnd();
 

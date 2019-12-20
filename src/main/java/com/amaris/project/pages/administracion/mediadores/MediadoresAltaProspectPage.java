@@ -10,9 +10,7 @@ import com.amaris.project.Constants;
 
 public class MediadoresAltaProspectPage extends PageObject {
 
-	// region webelements
-	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
+	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 

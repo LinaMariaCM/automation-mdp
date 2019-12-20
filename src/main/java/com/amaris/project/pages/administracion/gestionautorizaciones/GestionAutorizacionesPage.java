@@ -6,9 +6,7 @@ import com.amaris.automation.model.testing.objects.PageObject;
 
 public class GestionAutorizacionesPage extends PageObject {
 
-	// region webelements
-	private By cuerpoFrame = By.name("cuerpo");
-	private By topFrame = By.cssSelector("#topFrame");
+	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 
 	private By procesoBtn = By.name("PROCESO");
@@ -17,14 +15,10 @@ public class GestionAutorizacionesPage extends PageObject {
 
 	private By numCotizacionBtn = By.cssSelector("#NUMOBJETO");
 
-	private By ddCotizacion = By.xpath(".//*[@value='COTIZACION']");
-	private By ddPendiente = By.xpath(".//*[@value='PENDIENTE']");
-
 	private By flechaBtn = By.cssSelector("div[id='capaAjax'] div[id*='capaPuntos'] span");
 	private By autorizarBtn = By.linkText("Autorizar");
 	private By anularBtn = By.cssSelector("div[class*='cpdatos'] li:nth-child(2)");
 	private By autorizar2Btn = By.cssSelector("#botonAutorizar");
-	// private By btnAnular2 = By.cssSelector("botonAnular");
 	private By anular2Btn = By.cssSelector("div[class*='box-buttons'] input");
 	private By resultadoAutTxt = By.cssSelector("tbody tbody span");
 	// endregion
