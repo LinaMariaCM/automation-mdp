@@ -3453,7 +3453,7 @@ public class ActionSteps extends InteractionObject {
 			.escribirTelefonoSegundoImplicado()
 			.emailImplicadoFalloVacio()
 			.emailImplicadoFalloFormatoIncorrecto()
-			.setDisponibilidadEmail(false)
+			.setDisponibilidadEmail(true)
 			.ibanImplicadoFalloVacio()
 			.escribirIbanImplicado("4543")
 			.bancoImplicadoFalloVacio()

@@ -41,7 +41,7 @@ public class OtrosImplicadosAltaSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosAltaSiniestrosPage clickContinuar() {
 		debugBegin();
-		webDriver.click(btnContinuar);
+		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -49,7 +49,7 @@ public class OtrosImplicadosAltaSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosAltaSiniestrosPage clickGuardarSalir() {
 		debugBegin();
-		webDriver.click(btnGuardarSalir);
+		webDriver.clickInFrame(btnGuardarSalir, cuerpoFrame);
 		debugEnd();
 
 		return this;

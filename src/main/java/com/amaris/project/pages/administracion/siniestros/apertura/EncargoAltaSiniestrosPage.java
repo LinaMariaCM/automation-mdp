@@ -42,8 +42,8 @@ public class EncargoAltaSiniestrosPage extends PageObject {
 
 	public EncargoAltaSiniestrosPage clickNuevoEncargo() {
 		debugBegin();
-		webDriver.waitWithDriver(8000);
-		webDriver.click(anadirNuevoEncargoBtn);
+		webDriver.waitWithDriver(6000);
+		webDriver.clickInFrame(anadirNuevoEncargoBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 
@@ -52,9 +52,8 @@ public class EncargoAltaSiniestrosPage extends PageObject {
 
 	public EncargoAltaSiniestrosPage clickContinuar() {
 		debugBegin();
-		webDriver.click(continuarBtn);
-		// ActionSteps.waitForIt(webDriver);
-		webDriver.exitFrame();
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		ActionSteps.waitForIt(webDriver);
 		webDriver.waitWithDriver(7000);
 		debugEnd();
 

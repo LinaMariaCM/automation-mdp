@@ -55,6 +55,8 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 	private By ibanObligatorioTxt = By.id("obligaCodIban");
 	private By emailObligatorioTxt = By.id("obligaMail");
+
+
 	// endregion
 
 	public OtrosImplicadosDatosSiniestrosPage(UserStory userS) {
@@ -64,6 +66,7 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 	// region Methods
 	// public SiniestrosOtrosImplicadosDatos introducirDatosPersonales(String tipologia, String rol, String nombre,
 	// String apellido1, String apellido2, String tipoDocumento, String numDocumento, String telefono1,
+
 	public OtrosImplicadosDatosSiniestrosPage introducirDatosPersonales(String rol, String nombre, String apellido1, String apellido2, String tipoDocumento, String numDocumento, String telefono1,
 		String telefono2, String sexo, String email) {
 		debugBegin();
@@ -98,7 +101,8 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		// webDriver.clickElementFromDropDownByAttribute(comboSexo, "value", sexo);
 		if(sexo != null && !sexo.isEmpty()) webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 
-		if(email != null && email.isEmpty()) {
+
+		/*if(email != null && email.isEmpty()) {
 			setDisponibilidadEmail(false);
 		} else {
 			if(email != null && email.isEmpty()) {
@@ -106,7 +110,15 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 			} else {
 				webDriver.setText(txtEmail, "prueba@esto.es");
 			}
-		}
+		}*/
+/* método bueno, estudiar por qué falla para incorporarlo cuando sepa por qué
+		if(email == null && email.isEmpty()){
+			webDriver.click(checkEmailNoDisponble);
+		}else{
+			webDriver.appendText(txtEmail, email);
+		}*/
+
+		webDriver.click(checkEmailNoDisponble);
 
 		webDriver.exitFrame();
 
@@ -121,24 +133,31 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		String sucursal, String DC, String nCuenta) {
 		debugBegin();
 
-		webDriver.clickElementFromDropDownByAttribute(comboTipoVia, "value", tipoVia);
-		webDriver.setText(txtCalle, calle);
-		webDriver.setText(txtNumero, numero);
-		webDriver.setText(txtPiso, piso);
-		webDriver.setText(txtPuerta, puerta);
-		webDriver.setText(txtCP, cp);
-		webDriver.setText(txtPoblacion, poblacion);
-		webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
+		webDriver.switchToFrame(cuerpoFrame);
+// if añadido por Antonia el 19/12/ falta incorporar datos en csv, para pasar alguna dirección del riesgo
 
-		if(IBAN.isEmpty() || banco.isEmpty() || sucursal.isEmpty() || DC.isEmpty() || nCuenta.isEmpty()) {
+		if(tipoVia != null && !tipoVia.isEmpty() || calle != null && !calle.isEmpty() || numero != null && !numero.isEmpty() || piso != null && !piso.isEmpty() || puerta != null && !puerta.isEmpty() || cp !=null && !cp.isEmpty() || poblacion != null && !poblacion.isEmpty() || provincia != null && !provincia.isEmpty()){
+
+			webDriver.clickElementFromDropDownByAttribute(comboTipoVia, "value", tipoVia);
+			webDriver.setText(txtCalle, calle);
+			webDriver.setText(txtNumero, numero);
+			webDriver.setText(txtPiso, piso);
+			webDriver.setText(txtPuerta, puerta);
+			webDriver.setText(txtCP, cp);
+			webDriver.setText(txtPoblacion, poblacion);
+			webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
+		}
+
+		if(IBAN == null && IBAN.isEmpty() || banco == null && banco.isEmpty() || sucursal == null && sucursal.isEmpty() || DC == null && DC.isEmpty() || nCuenta == null && nCuenta.isEmpty()) {
 			webDriver.click(checkIbanNoDisponble);
 		} else {
-			webDriver.setText(txtIBAN, IBAN);
-			webDriver.setText(txtBanco, banco);
-			webDriver.setText(txtSucursal, sucursal);
-			webDriver.setText(txtDC, DC);
-			webDriver.setText(txtNumCuenta, nCuenta);
+			webDriver.appendText(txtIBAN, IBAN);
+			webDriver.appendText(txtBanco, banco);
+			webDriver.appendText(txtSucursal, sucursal);
+			webDriver.appendText(txtDC, DC);
+			webDriver.appendText(txtNumCuenta, nCuenta);
 		}
+		webDriver.exitFrame();
 
 		debugEnd();
 
@@ -394,9 +413,10 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 
 		webDriver.clickInFrame(checkEmailNoDisponble, cuerpoFrame);
 
-		if(value != webDriver.getAttributeInFrame(emailObligatorioTxt, cuerpoFrame, "style").equals("display : inline;")) {
+		if(value != webDriver.getAttributeInFrame(emailObligatorioTxt, cuerpoFrame, "style").contains("display : inline;")) {
 			webDriver.clickInFrame(checkEmailNoDisponble, cuerpoFrame);
 		}
+
 
 		debugEnd();
 

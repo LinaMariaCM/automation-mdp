@@ -337,7 +337,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 
 		webDriver.waitForPageToLoad();
-		System.out.println("La página ha cargado. Procedemos a moificar los datos de causa.");
+		debugInfo("La página ha cargado. Procedemos a moificar los datos de causa.");
 		webDriver.waitWithDriver(2000);
 		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", grupoCausa);
 		webDriver.waitWithDriver(5000);
