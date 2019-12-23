@@ -798,7 +798,7 @@ public class ActionSteps extends InteractionObject {
 				.altaObservaciones("TEST Automatico apertura siniestro")
 				.clickEnviar()
 				.checkYaExisteSiniestro()
-				.comprobarOK();
+				.comprobarOk();
 		}
 
 		if(acceso.equals(Constants.LoginAccessInnova)) {
@@ -2479,7 +2479,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 
 		new GestionSiniestrosPage(userS)
-			.comunicacion();
+			.goToComunicacion();
 
 		new ComunicacionSiniestrosPage(userS)
 			.nuevaComunicacion();
@@ -2488,7 +2488,7 @@ public class ActionSteps extends InteractionObject {
 
 	public void compruebo_comunicacion_siniestro() {
 		new GestionSiniestrosPage(userS)
-			.diario();
+			.goToDiario();
 
 		new DiarioSiniestrosPage(userS)
 			.comprobarComunicacion();
@@ -2505,7 +2505,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 
 		new GestionSiniestrosPage(userS)
-			.comunicacion();
+			.goToComunicacion();
 
 		new ComunicacionSiniestrosPage(userS)
 			.nuevaAnotacion();
@@ -2513,7 +2513,7 @@ public class ActionSteps extends InteractionObject {
 
 	public void compruebo_anotacion_siniestro() {
 		new GestionSiniestrosPage(userS)
-			.diario();
+			.goToDiario();
 
 		new DiarioSiniestrosPage(userS)
 			.comprobarAnotacion();
@@ -2736,7 +2736,7 @@ public class ActionSteps extends InteractionObject {
 					.clickGuardarSalir();
 
 				new GestionSiniestrosPage(userS)
-					.logo();
+					.clickLogo();
 
 				new InnovaHomePage(userS)
 					.openSiniestros();
@@ -2865,7 +2865,7 @@ public class ActionSteps extends InteractionObject {
 				.altaObservaciones("TEST Automatico apertura siniestro")
 				.clickEnviar()
 				.checkYaExisteSiniestro()
-				.comprobarOK();
+				.comprobarOk();
 
 			new ConfirmacionSiniestrosPage(userS)
 				.confirmarSiniestroOK();
@@ -2922,10 +2922,10 @@ public class ActionSteps extends InteractionObject {
 		debugInfo("Tareas bool: " + tareas);
 
 		new GestionSiniestrosPage(userS)
-			.vista();
+			.goToVista();
 
 		new VistaSiniestrosPage(userS)
-			.cierre_siniestro(pagos, encargos, tareas);
+			.cierreSiniestro(pagos, encargos, tareas);
 
 		// webDriver.waitWithDriver(2000);
 		debugEnd();
@@ -3032,7 +3032,7 @@ public class ActionSteps extends InteractionObject {
 			.verificacion()
 			.emitirPlanPagosMAC("", "", "120")
 			.verificacion()
-			.comprobarPlanPagosMAC();
+			.comprobarPlanPagosMac();
 
 		debugInfo("test completado con éxito");
 		debugEnd();
@@ -3081,7 +3081,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
 		new GestionSiniestrosPage(userS)
-			.diario();
+			.goToDiario();
 
 		// comprobar si estadop reconsiderado
 		Assert.assertTrue(new DiarioSiniestrosPage(userS).comprobar_siniestro_reconsiderado());
@@ -3111,7 +3111,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 
 		new AgendaSiniestrosPage(userS)
-			.nueva_tarea();
+			.nuevaTarea();
 	}
 
 	public void modificar_siniestro_datos() {
@@ -3230,9 +3230,9 @@ public class ActionSteps extends InteractionObject {
 
 	public void compruebo_carpeta_y_encargos() {
 		new GestionSiniestrosPage(userS)
-			.gestionDeCarpetas();
+			.goToGestionDeCarpetas();
 
-		if(new GestionCarpetaSiniestrosPage(userS).comprobar_tipo_carpeta()) {
+		if(new GestionCarpetaSiniestrosPage(userS).comprobarTipoCarpeta()) {
 			debugInfo("ATENCIÓN	tipo carpeta IMAS.");
 		}
 
@@ -3249,7 +3249,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
 		new GestionSiniestrosPage(userS)
-			.vista();
+			.goToVista();
 
 		new VistaSiniestrosPage(userS)
 			.modificarSiniestro();
@@ -3312,7 +3312,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
 		new GestionSiniestrosPage(userS)
-			.diario();
+			.goToDiario();
 
 		new DiarioSiniestrosPage(userS)
 			.mostrarInfoGeneral()
@@ -3388,7 +3388,7 @@ public class ActionSteps extends InteractionObject {
 			.fechaOcurrenciaFalloPosteriorHoy()
 			.fechaOcurrenciaFalloAnteriorFechaVigenciaPoliza()
 			.fechaOcurrenciaHoy()
-			.personaContactoFalloAñadir()
+			.personaContactoFalloAnyadir()
 			.rolPersonaContactoFalloVacio()
 			.seleccionarRolPersonaContacto()
 			.nombrePersonaContactoFalloVacio()
@@ -3499,7 +3499,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
 		new GestionSiniestrosPage(userS)
-			.pagos();
+			.goToPagos();
 
 		new PagosSiniestrosPage(userS)
 			.desbloquearPago();

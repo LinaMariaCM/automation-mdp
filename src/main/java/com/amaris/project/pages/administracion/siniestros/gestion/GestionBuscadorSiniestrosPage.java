@@ -11,63 +11,63 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	// Elementos
 	private By cuerpoFrame = By.id("mainFrame");
 	private By leftFrame = By.cssSelector("#leftFrame");
-	//private By gestionSiniestros = By.xpath(".//*[text()='Gestión de siniestros']");
-	private By gestionSiniestros = By.cssSelector("#jt5");
+	// private By gestionSiniestros = By.xpath(".//*[text()='Gestión de siniestros']");
+	private By gestionSiniestrosBtn = By.cssSelector("#jt5");
 
-	private By btnNoSiniestro = By.cssSelector("#filtro1");
-	private By btnNoPoliza = By.cssSelector("#filtro2");
-	private By btnNoRecibo = By.cssSelector("#filtro3");
-	private By btnAsegurado = By.cssSelector("#filtro4");
-	private By btnFechaOcurrencia = By.cssSelector("#filtro6");
-	private By btnFechaAlta = By.cssSelector("#filtro7");
-	private By btnCausa = By.cssSelector("#filtro8");
-	private By btnOtros = By.cssSelector("#filtro9");
+	private By numeroSiniestroBtn = By.cssSelector("#filtro1");
+	private By numeroPolizaBtn = By.cssSelector("#filtro2");
+	private By numeroReciboBtn = By.cssSelector("#filtro3");
+	private By aseguradoBtn = By.cssSelector("#filtro4");
+	private By fechaOcurrenciaBtn = By.cssSelector("#filtro6");
+	private By fechaAltaBtn = By.cssSelector("#filtro7");
+	private By causaBtn = By.cssSelector("#filtro8");
+	private By otrosBtn = By.cssSelector("#filtro9");
 	private By opProduct = By.cssSelector("#capaPOLIZA td.flexibleField");
-	private By opProductSIni = By.cssSelector("#capaSINIESTRO td.flexibleField");
+	private By opProductoSiniestroDrpDwn = By.cssSelector("#capaSINIESTRO td.flexibleField");
 
 	// Opcion Numero Siniestro
 	private By tipoProductoSini = By.cssSelector("#prodsini");
-	private By txtAno = By.cssSelector("#seriesin");
-	private By txtNoSiniestro = By.cssSelector("#numesini");
+	private By anyoInput = By.cssSelector("#seriesin");
+	private By numeroSiniestroInput = By.cssSelector("#numesini");
 
 	// Opcion Numero Poliza
-	private By tipoProductoPoliza = By.cssSelector("#producto");
-	private By txtNoPoliza = By.cssSelector("#polizsec");
+	private By tipoProductoPolizaDrpDwn = By.cssSelector("#producto");
+	private By numeroPolizaInput = By.cssSelector("#polizsec");
 
 	// Opcion Numero recibo
-	private By txtNoRecibo1 = By.cssSelector("#recibann");
-	private By txtNoRecibo2 = By.cssSelector("#recibsec");
+	private By numeroRecibo1Input = By.cssSelector("#recibann");
+	private By numeroRecibo2Input = By.cssSelector("#recibsec");
 
 	// Opcion Asegurado
-	private By txtNodocumento = By.cssSelector("#numedocu");
-	private By txtNombre = By.cssSelector("#nombpcom");
-	private By btnEmpieza = By.cssSelector("#nombpcom");
-	private By btnContiene = By.cssSelector("#contiene");
+	private By numeroDocumentoInput = By.cssSelector("#numedocu");
+	private By nombreInput = By.cssSelector("#nombpcom");
+	private By empiezaBtn = By.cssSelector("#nombpcom");
+	private By contieneBtn = By.cssSelector("#contiene");
 
 	// Opcion fecha ocurrencia
-	private By fechaDesde = By.cssSelector("#desde");
-	private By fechaHasta = By.cssSelector("#hasta");
+	private By fechaDesdeInput = By.cssSelector("#desde");
+	private By fechaHastaInput = By.cssSelector("#hasta");
 
 	// Opcion fecha alta
-	private By fechaAltaDesde = By.cssSelector("#altadesde");
-	private By fechaAltaHasta = By.cssSelector("#altahasta");
+	private By fechaAltaDesdeInput = By.cssSelector("#altadesde");
+	private By fechaAltaHastaInput = By.cssSelector("#altahasta");
 
 	// Opcion tipo causa
-	private By fechaCausaDesde = By.cssSelector("#fechDesde");
-	private By fechaCausaHasta = By.cssSelector("#fechHasta");
-	private By codigoCausa = By.cssSelector("#name4");
+	private By fechaCausaDesdeInput = By.cssSelector("#fechDesde");
+	private By fechaCausaHastaInput = By.cssSelector("#fechHasta");
+	private By codigoCausaInput = By.cssSelector("#name4");
 
 	// Opcion Otros
-	private By fechaOtrosDesde = By.cssSelector("#fdesde");
-	private By fechaOtrosHasta = By.cssSelector("#fhasta");
-	private By estadoPoliza = By.cssSelector("#estado");
+	private By fechaOtrosDesdeInput = By.cssSelector("#fdesde");
+	private By fechaOtrosHastaInput = By.cssSelector("#fhasta");
+	private By estadoPolizaDrpDwn = By.cssSelector("#estado");
 	private By negocio = By.cssSelector("#productoSini");
-	private By mediador = By.cssSelector("#codMediador");
+	private By mediadorInput = By.cssSelector("#codMediador");
 
-	private By btnBuscar = By.cssSelector("#botonBuscar");
+	private By buscarBtn = By.cssSelector("#botonBuscar");
 
 	// private By btnContinuar = By.cssSelector("#capaAjax tr.odd span");
-	private By btnContinuar = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(11) > a > span");
+	private By continuarBtn = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(11) > a > span");
 	private By btnContinuarElemento = By.cssSelector("#formListado tr:last-of-type [onclick*='enlaceContinuar']");
 
 	public GestionBuscadorSiniestrosPage(UserStory userS) {
@@ -77,7 +77,7 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage abrirGestionSiniestro() {
 		debugBegin();
 
-		webDriver.clickInFrame(gestionSiniestros, leftFrame);
+		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
 
 		debugEnd();
 
@@ -86,10 +86,10 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 
 	public GestionBuscadorSiniestrosPage buscarPorNumeroPoliza(String numPoliza) {
 		debugBegin();
-		webDriver.clickInFrame(gestionSiniestros, leftFrame);
+		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
 		debugInfo("ha dado click");
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(btnNoPoliza);
+		webDriver.click(numeroPolizaBtn);
 		/*
 		 * System.out.println("Ramo de póliza - " + numPoliza.substring(0,3)); if (numPoliza.substring(0,3) == "510"){
 		 * webDriver.clickElementChildByAttribute(opProduct,"value", "510"); System.out.println("poliza de 510"); } //
@@ -104,15 +104,15 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		 * "640");}
 		 */
 
-		webDriver.clickElementFromDropDownByIndex(tipoProductoPoliza, 0);
+		webDriver.clickElementFromDropDownByIndex(tipoProductoPolizaDrpDwn, 0);
 
-		webDriver.setText(txtNoPoliza, numPoliza);
+		webDriver.setText(numeroPolizaInput, numPoliza);
 		webDriver.waitForPageToLoad();
-		webDriver.waitForElementToBeClickable(btnBuscar);
-		webDriver.click(btnBuscar);
+		webDriver.waitForElementToBeClickable(buscarBtn);
+		webDriver.click(buscarBtn);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.click(btnContinuar);
+		webDriver.click(continuarBtn);
 		webDriver.exitFrame();
 
 		debugEnd();
@@ -122,23 +122,23 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 
 	public GestionBuscadorSiniestrosPage buscarPorNumeroSiniestro(String siniestro, String anio, String negocio) {
 		debugBegin();
-		webDriver.clickInFrame(gestionSiniestros, leftFrame);
-		debugInfo("ha dado click");
-		webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
-		
+
+		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
+		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);
+
 		if(negocio != null && negocio.equals(Constants.MEC)) {
 			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.clickElementChildByAttribute(opProductSIni, "value", "510");
+			webDriver.clickElementChildByAttribute(opProductoSiniestroDrpDwn, "value", "510");
 			webDriver.exitFrame();
 		}
-		
-		webDriver.setTextInFrame(txtAno, cuerpoFrame, anio);
 
-		webDriver.setTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.setTextInFrame(anyoInput, cuerpoFrame, anio);
+
+		webDriver.setTextInFrame(numeroSiniestroInput, cuerpoFrame, siniestro);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -148,28 +148,27 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage buscarPorNumeroSiniestro(String siniestro, String anio) {
 		debugBegin();
 		webDriver.waitWithDriver(2000);
-		webDriver.clickInFrame(gestionSiniestros, leftFrame);
+		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
 		debugInfo("ha dado click");
 
-		webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
+		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);
 		/*
 		 * if (negocio.equals(Constants.MEC)){ webDriver.switchToFrame(cuerpoFrame);
 		 * webDriver.clickElementChildByAttribute(opProductSIni,"value", "510"); webDriver.exitFrame(); }
 		 */
 		webDriver.switchToFrame(cuerpoFrame);
 
-//		ActionSteps.waitForIt(webDriver);
-//		webDriver.clickElementFromDropDownByIndex(tipoProductoSini, 0);
+		// ActionSteps.waitForIt(webDriver);
+		// webDriver.clickElementFromDropDownByIndex(tipoProductoSini, 0);
 
-//		ActionSteps.waitForIt(webDriver);
-		webDriver.setText(txtAno, anio);
+		// ActionSteps.waitForIt(webDriver);
+		webDriver.setText(anyoInput, anio);
 
-
-		webDriver.setText(txtNoSiniestro, siniestro);
-		webDriver.click(btnBuscar);
+		webDriver.setText(numeroSiniestroInput, siniestro);
+		webDriver.click(buscarBtn);
 		webDriver.waitWithDriver(6000);
-		//ActionSteps.waitForIt(webDriver);
-		webDriver.click(btnContinuar);
+		// ActionSteps.waitForIt(webDriver);
+		webDriver.click(continuarBtn);
 
 		webDriver.exitFrame();
 		debugEnd();
@@ -180,13 +179,13 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage buscarPorRecibo(String recibo1, String recibo2) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnNoRecibo, cuerpoFrame);
-		webDriver.appendTextInFrame(txtNoRecibo1, cuerpoFrame, recibo1);
-		webDriver.appendTextInFrame(txtNoRecibo2, cuerpoFrame, recibo2);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(numeroReciboBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(numeroRecibo1Input, cuerpoFrame, recibo1);
+		webDriver.appendTextInFrame(numeroRecibo2Input, cuerpoFrame, recibo2);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -196,18 +195,20 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage buscarPorAsegurado(String asegurador, String opNombre, String nombre, String documento) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnAsegurado, cuerpoFrame);
-		webDriver.appendTextInFrame(txtNodocumento, cuerpoFrame, documento);
+		webDriver.clickInFrame(aseguradoBtn, cuerpoFrame);
+
+		webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, documento);
 		if(opNombre == "contiene") {
-			webDriver.clickInFrame(btnContiene, cuerpoFrame);
+			webDriver.clickInFrame(contieneBtn, cuerpoFrame);
 		} else {
-			webDriver.clickInFrame(btnEmpieza, cuerpoFrame);
+			webDriver.clickInFrame(empiezaBtn, cuerpoFrame);
 		}
-		webDriver.setTextInFrame(txtNombre, cuerpoFrame, nombre);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+
+		webDriver.setTextInFrame(nombreInput, cuerpoFrame, nombre);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -217,13 +218,13 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage buscarPorOcurrencia(String fDesde, String fHasta) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnFechaOcurrencia, cuerpoFrame);
-		webDriver.appendTextInFrame(fechaDesde, cuerpoFrame, fDesde);
-		webDriver.appendTextInFrame(fechaHasta, cuerpoFrame, fHasta);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(fechaOcurrenciaBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaDesdeInput, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaHastaInput, cuerpoFrame, fHasta);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -233,13 +234,13 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage buscarPorAlta(String fDesde, String fHasta) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnFechaAlta, cuerpoFrame);
-		webDriver.appendTextInFrame(fechaAltaDesde, cuerpoFrame, fDesde);
-		webDriver.appendTextInFrame(fechaAltaHasta, cuerpoFrame, fHasta);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(fechaAltaBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaAltaDesdeInput, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaAltaHastaInput, cuerpoFrame, fHasta);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -286,14 +287,14 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage buscarPorCausa(String fDesde, String fHasta, String nombre) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnCausa, cuerpoFrame);
-		webDriver.appendTextInFrame(fechaCausaDesde, cuerpoFrame, fDesde);
-		webDriver.appendTextInFrame(fechaCausaHasta, cuerpoFrame, fHasta);
-		webDriver.appendTextInFrame(codigoCausa, cuerpoFrame, nombre);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(causaBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaCausaDesdeInput, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaCausaHastaInput, cuerpoFrame, fHasta);
+		webDriver.appendTextInFrame(codigoCausaInput, cuerpoFrame, nombre);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -303,54 +304,52 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage buscarPorOtros(String fDesde, String fHasta, String codMediador, String negocio) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnOtros, cuerpoFrame);
-		webDriver.appendTextInFrame(fechaOtrosDesde, cuerpoFrame, fDesde);
-		webDriver.appendTextInFrame(fechaOtrosHasta, cuerpoFrame, fHasta);
+		webDriver.clickInFrame(otrosBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaOtrosDesdeInput, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaOtrosHastaInput, cuerpoFrame, fHasta);
 
 		if(negocio.equals(Constants.MEC)) {
-			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPolizaDrpDwn, cuerpoFrame, "value", "510");
 		}
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(estadoPoliza, cuerpoFrame, "value", "V");
+		webDriver.clickElementFromDropDownByAttributeInFrame(estadoPolizaDrpDwn, cuerpoFrame, "value", "V");
 
-		webDriver.setTextInFrame(mediador, cuerpoFrame, codMediador);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.setTextInFrame(mediadorInput, cuerpoFrame, codMediador);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
 		return this;
 	}
 
-
-	public GestionBuscadorSiniestrosPage metodo_parche (String siniestro_parche, String anio_parche) {
+	// TODO Revisar para hacer reusable
+	public GestionBuscadorSiniestrosPage metodoParche(String siniestroParche, String anyoParche) {
 		debugBegin();
+
 		webDriver.waitWithDriver(2000);
-		webDriver.clickInFrame(gestionSiniestros, leftFrame);
-		debugInfo("ha dado click");
+		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
 
 		webDriver.waitWithDriver(3000);
-		webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
-		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.setText(txtAno, anio_parche);
+		webDriver.setTextInFrame(anyoInput, cuerpoFrame, anyoParche);
 
-
-		webDriver.setText(txtNoSiniestro, siniestro_parche);
-		webDriver.click(btnBuscar);
+		webDriver.setTextInFrame(numeroSiniestroInput, cuerpoFrame, siniestroParche);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		ActionSteps.waitForIt(webDriver);
-		webDriver.click(btnContinuar);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		webDriver.waitWithDriver(5000);
-		debugInfo("clic en Abrir siniestro");
-		webDriver.exitFrame();
+
+		debugInfo("Clic en Abrir siniestro");
+
 		debugEnd();
 
 		return this;
 	}
-
 
 }

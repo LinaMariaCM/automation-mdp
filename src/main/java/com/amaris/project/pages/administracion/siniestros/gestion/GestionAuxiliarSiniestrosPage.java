@@ -13,26 +13,26 @@ public class GestionAuxiliarSiniestrosPage extends PageObject {
 
 	private By gestionAux = By.cssSelector("#jt6");
 
-	// gestion auxiliar
+	// Gestion auxiliar
 	private By estadoFecha = By.cssSelector("#filtro1");
 	private By direccion = By.cssSelector("#filtro2");
 	private By cierreFecha = By.cssSelector("#filtro3");
 	private By referen = By.cssSelector("filtro4");
 	private By buscar = By.cssSelector("#botonBuscar");
 
-	// estado y fecha
+	// Estado y fecha
 	private By estado = By.cssSelector("#estado");
 	private By fechaDesde = By.cssSelector("#fxestDesde");
 	private By fechaHasta = By.cssSelector("#fxestHasta");
 
-	// dirrecion del riesgo
+	// Dirrecion del riesgo
 	private By provincia = By.cssSelector("select[id='provincia']");
 	private By txtPoblacion = By.cssSelector("#poblacion");
 	private By txtcodiPost = By.cssSelector("#postal");
 	private By txtCalle = By.cssSelector("#calle");
 	private By txtNumero = By.cssSelector("#numero");
 
-	// fecha cierre
+	// Fecha cierre
 	private By fechaDesdeCierre = By.cssSelector("#fCierreDesde");
 	private By fechaHastaCierre = By.cssSelector("##fCierreHasta");
 	private By tipoReferen = By.cssSelector("#tipoRefe");
