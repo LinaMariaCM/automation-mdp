@@ -8,7 +8,7 @@ import com.amaris.project.utils.FileHelper;
 
 import org.openqa.selenium.By;
 
-public class InquilinosAvalistasPageMac extends PageObject {
+public class InquilinosAvalistasPageMac1 extends PageObject {
 
 	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
@@ -54,11 +54,11 @@ public class InquilinosAvalistasPageMac extends PageObject {
 	private By unAnyoBtn = By.cssSelector("option[value='AI1']");
 	// endregion
 
-	public InquilinosAvalistasPageMac(UserStory userS) {
+	public InquilinosAvalistasPageMac1(UserStory userS) {
 		super(userS);
 	}
 
-	public InquilinosAvalistasPageMac executeActionsInInquilinosAvalistasPage() {
+	public InquilinosAvalistasPageMac1 executeActionsInInquilinosAvalistasPage() {
 		debugBegin();
 
 		addDatosInquilino();
@@ -75,7 +75,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac modificarRentasInquilino() {
+	public InquilinosAvalistasPageMac1 modificarRentasInquilino() {
 		webDriver.clickInFrame(editarBtn, mainFrame);
 		webDriver.appendTextInFrame(ingresosInput, mainFrame, getTestVar(Constants.INGRESOS_INQUILINO_NUEVOS));
 		webDriver.clickInFrame(modificarBtn, mainFrame);
@@ -84,7 +84,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac addDatosInquilino() {
+	public InquilinosAvalistasPageMac1 addDatosInquilino() {
 		debugBegin();
 
 		webDriver.switchToFrame(mainFrame);
@@ -133,7 +133,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac addDatosAval() {
+	public InquilinosAvalistasPageMac1 addDatosAval() {
 		debugBegin();
 
 		if(webDriver.isPresentInFrame(modalRaro, mainFrame)) {
@@ -183,7 +183,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac validacionViabilidadInquilino() {
+	public InquilinosAvalistasPageMac1 validacionViabilidadInquilino() {
 		debugBegin();
 		webDriver.clickInFrame(validacionViabilidadBtn, mainFrame);
 		debugEnd();
@@ -191,7 +191,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac seleccionarSituacion() {
+	public InquilinosAvalistasPageMac1 seleccionarSituacion() {
 		debugBegin();
 		String situacion = getScenarioVar(Constants.SITUACION_LABORAL);
 		debugInfo("Situacion: " + situacion);
@@ -209,7 +209,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac seleccionarParentesco() {
+	public InquilinosAvalistasPageMac1 seleccionarParentesco() {
 		debugBegin();
 
 		String parentescoText = getScenarioVar(Constants.PARENTESCO_AVALISTA);
@@ -220,7 +220,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac anyadirDocumentacion() {
+	public InquilinosAvalistasPageMac1 anyadirDocumentacion() {
 		debugBegin();
 
 		webDriver.clickInFrame(anyadirDocumentacionPrincipalBtn, mainFrame);
@@ -245,7 +245,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac anyadirDocumentacionAval() {
+	public InquilinosAvalistasPageMac1 anyadirDocumentacionAval() {
 		debugBegin();
 
 		webDriver.clickInFrame(anyadirDocumentacionPrincipalBtn, mainFrame);
@@ -264,7 +264,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac adjuntarDocumentos() {
+	public InquilinosAvalistasPageMac1 adjuntarDocumentos() {
 		debugBegin();
 		// TODO: mover la ruta de fichero de upload a configuracion
 		webDriver.waitWithDriver(5000);
@@ -276,7 +276,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return this;
 	}
 
-	public InquilinosAvalistasPageMac enviarACompania() {
+	public InquilinosAvalistasPageMac1 enviarACompania() {
 		debugBegin();
 
 		webDriver.clickInFrame(enviarACompaniaBtn, mainFrame);
@@ -308,7 +308,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return result;
 	}
 
-	public InquilinosAvalistasPageMac clickContinuar() {
+	public InquilinosAvalistasPageMac1 clickContinuar() {
 		debugBegin();
 		webDriver.clickInFrame(continuarBtn, mainFrame);
 		debugEnd();
@@ -325,7 +325,7 @@ public class InquilinosAvalistasPageMac extends PageObject {
 		return result;
 	}
 
-	public InquilinosAvalistasPageMac anyadirIngresosNetosAnuales() {
+	public InquilinosAvalistasPageMac1 anyadirIngresosNetosAnuales() {
 		debugBegin();
 		webDriver.setTextInFrame(ingresosInput, mainFrame, "30000");
 		debugEnd();

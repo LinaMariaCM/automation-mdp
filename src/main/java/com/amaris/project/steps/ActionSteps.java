@@ -68,8 +68,8 @@ import com.amaris.project.pages.productos.UbicacionRiesgoPage;
 import com.amaris.project.pages.productos.mac.ContratacionPageMac;
 import com.amaris.project.pages.productos.mac.DocumentacionPageMac;
 import com.amaris.project.pages.productos.mac.InmueblePageMac;
-import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac;
-import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac;
+import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac1;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac1;
 import com.amaris.project.pages.productos.mac.TomadorYAseguradoPageMac;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 import com.google.common.base.Splitter;
@@ -347,7 +347,7 @@ public class ActionSteps extends InteractionObject {
 		}
 
 		// Precio
-		new PrecioPorModalidadPageMac(userS)
+		new PrecioPorModalidadPageMac1(userS)
 			.completarRentaMensualAlquiler()
 			.completarGarantiasBasicas()
 			.clickConvertirAProyecto();
@@ -358,7 +358,7 @@ public class ActionSteps extends InteractionObject {
 		// precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
 
 		// Inquilinos
-		new InquilinosAvalistasPageMac(userS).executeActionsInInquilinosAvalistasPage();
+		new InquilinosAvalistasPageMac1(userS).executeActionsInInquilinosAvalistasPage();
 
 		// SCS Inquilinos
 		// InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
@@ -395,7 +395,7 @@ public class ActionSteps extends InteractionObject {
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMac(userS)
+		new InquilinosAvalistasPageMac1(userS)
 			.enviarACompania();
 
 		debugEnd();
@@ -441,8 +441,8 @@ public class ActionSteps extends InteractionObject {
 				.selectMediadorMACAndClickContinuar();
 		}
 
-		new PrecioPorModalidadPageMac(userS).clickContinuar();
-		new InquilinosAvalistasPageMac(userS).clickContinuar();
+		new PrecioPorModalidadPageMac1(userS).clickContinuar();
+		new InquilinosAvalistasPageMac1(userS).clickContinuar();
 
 		// Completar paso Contratación
 		new TomadorYAseguradoPageMac(userS)
@@ -837,7 +837,7 @@ public class ActionSteps extends InteractionObject {
 
 	// MAC AÑADIR AVALISTA
 	public void anyado_avalista() {
-		new InquilinosAvalistasPageMac(userS)
+		new InquilinosAvalistasPageMac1(userS)
 			.addDatosAval()
 			.anyadirDocumentacionAval()
 			.validacionViabilidadInquilino();
@@ -884,20 +884,20 @@ public class ActionSteps extends InteractionObject {
 		}
 
 		// SCS Precio
-		new PrecioPorModalidadPageMac(userS)
+		new PrecioPorModalidadPageMac1(userS)
 			.completarRentaMensualAlquiler()
 			.completarGarantiasBasicas()
 			.clickConvertirAProyecto();
 
 		// SCS Inquilinos
-		new InquilinosAvalistasPageMac(userS)
+		new InquilinosAvalistasPageMac1(userS)
 			.executeActionsInInquilinosAvalistasPage();
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMac(userS)
+		new InquilinosAvalistasPageMac1(userS)
 			.clickContinuar();
 
 		new TomadorYAseguradoPageMac(userS)
@@ -916,12 +916,12 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void la_renta_mensual_es() {
-		new PrecioPorModalidadPageMac(userS)
+		new PrecioPorModalidadPageMac1(userS)
 			.completarRentaMensualAlquiler();
 	}
 
 	public void la_suma_asegurada_de_impago_alquiler_es() {
-		new PrecioPorModalidadPageMac(userS)
+		new PrecioPorModalidadPageMac1(userS)
 			.seleccionarImpagoAlquiler();
 	}
 
@@ -1863,7 +1863,7 @@ public class ActionSteps extends InteractionObject {
 	public void envio_el_proyecto_a__la_compania() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMac(userS)
+		new InquilinosAvalistasPageMac1(userS)
 			.enviarACompania();
 		// userS.getWebDriver().quit();
 		debugEnd();
@@ -1884,9 +1884,9 @@ public class ActionSteps extends InteractionObject {
 				.selectMediadorMACAndClickContinuar();
 		}
 
-		new PrecioPorModalidadPageMac(userS)
+		new PrecioPorModalidadPageMac1(userS)
 			.clickContinuar();
-		new InquilinosAvalistasPageMac(userS)
+		new InquilinosAvalistasPageMac1(userS)
 			.clickContinuar();
 
 		// Rellenar datos de contratacion, pagina 3
@@ -1915,19 +1915,19 @@ public class ActionSteps extends InteractionObject {
 			.selectMediadorMACAndClickContinuar();
 
 		// SCS Precio
-		new PrecioPorModalidadPageMac(userS)
+		new PrecioPorModalidadPageMac1(userS)
 			.completarRentaMensualAlquiler()
 			.completarGarantiasBasicas()
 			.clickConvertirAProyecto();
 
 		// SCS Inquilinos
-		new InquilinosAvalistasPageMac(userS)
+		new InquilinosAvalistasPageMac1(userS)
 			.addDatosInquilino();
 		// inquilinosAvalistasPage_MAC.ValidacionViabilidadInquilino();
 	}
 
 	public void valido_el_proyecto() {
-		new InquilinosAvalistasPageMac(userS)
+		new InquilinosAvalistasPageMac1(userS)
 			.validacionViabilidadInquilino();
 	}
 

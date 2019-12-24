@@ -17,7 +17,7 @@ import com.amaris.project.pages.productos.PrecioPage;
 import com.amaris.project.pages.productos.PrecioPorModalidadPage;
 import com.amaris.project.pages.productos.TomadorYAseguradoPage;
 import com.amaris.project.pages.productos.UbicacionRiesgoPage;
-import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac1;
 import com.amaris.project.utils.ClausulasHelper;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 
@@ -240,7 +240,7 @@ public class DataSteps extends InteractionObject {
 		}
 
 		// Seleccionar modalidad en Precio page
-		new PrecioPorModalidadPageMac(userS)
+		new PrecioPorModalidadPageMac1(userS)
 			.selectModalidad();
 	}
 
