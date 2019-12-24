@@ -18,7 +18,7 @@ import com.amaris.project.pages.productos.GestionPolizasBuscadorPage;
 import com.amaris.project.pages.productos.GestionPolizasConsultarPage;
 import com.amaris.project.pages.productos.MensajeConfirmacionPage;
 import com.amaris.project.pages.productos.mac.ContratacionPageMac;
-import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac1;
+import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac;
 import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac1;
 
 public class CheckSteps extends InteractionObject {
@@ -270,12 +270,12 @@ public class CheckSteps extends InteractionObject {
 	}
 
 	public void el_proyecto_MAC_se_deniega() {
-		Assert.assertTrue(new InquilinosAvalistasPageMac1(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new InquilinosAvalistasPageMac(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Se ha denegado la emisión del proyecto")));
 	}
 
 	public void el_proyecto_MAC_se_acepta() {
-		Assert.assertTrue(new InquilinosAvalistasPageMac1(userS).recuperarTextoMensajeValidacionOK()
+		Assert.assertTrue(new InquilinosAvalistasPageMac(userS).recuperarTextoMensajeValidacionOK()
 			.contains("El proyecto deberá ser revisado por compañía, debe adjuntar los documentos obligatorios del estudio de viabilidad, por favor cuando termine todas las gestiones no olvide pulsar el botón Enviar a Compañía. Puede continuar al siguiente paso, para seguir rellenando el resto de campos de la cotización, pero no podrá emitirla."));
 	}
 
@@ -289,7 +289,7 @@ public class CheckSteps extends InteractionObject {
 	}
 
 	public void se_puede_autorizar_usando_el_acceso_Innova_y_usuario(String loginAcess, String user) throws Exception {
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.enviarACompania();
 
 		userS.getWebDriver().quit();

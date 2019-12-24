@@ -68,7 +68,7 @@ import com.amaris.project.pages.productos.UbicacionRiesgoPage;
 import com.amaris.project.pages.productos.mac.ContratacionPageMac;
 import com.amaris.project.pages.productos.mac.DocumentacionPageMac;
 import com.amaris.project.pages.productos.mac.InmueblePageMac;
-import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac1;
+import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac;
 import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac1;
 import com.amaris.project.pages.productos.mac.TomadorYAseguradoPageMac;
 import com.amaris.project.utils.MotivosSuplementoHelper;
@@ -358,7 +358,7 @@ public class ActionSteps extends InteractionObject {
 		// precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
 
 		// Inquilinos
-		new InquilinosAvalistasPageMac1(userS).executeActionsInInquilinosAvalistasPage();
+		new InquilinosAvalistasPageMac(userS).executeActionsInInquilinosAvalistasPage();
 
 		// SCS Inquilinos
 		// InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
@@ -395,7 +395,7 @@ public class ActionSteps extends InteractionObject {
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.enviarACompania();
 
 		debugEnd();
@@ -442,7 +442,7 @@ public class ActionSteps extends InteractionObject {
 		}
 
 		new PrecioPorModalidadPageMac1(userS).clickContinuar();
-		new InquilinosAvalistasPageMac1(userS).clickContinuar();
+		new InquilinosAvalistasPageMac(userS).clickContinuar();
 
 		// Completar paso Contratación
 		new TomadorYAseguradoPageMac(userS)
@@ -837,7 +837,7 @@ public class ActionSteps extends InteractionObject {
 
 	// MAC AÑADIR AVALISTA
 	public void anyado_avalista() {
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.addDatosAval()
 			.anyadirDocumentacionAval()
 			.validacionViabilidadInquilino();
@@ -890,14 +890,14 @@ public class ActionSteps extends InteractionObject {
 			.clickConvertirAProyecto();
 
 		// SCS Inquilinos
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.executeActionsInInquilinosAvalistasPage();
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.clickContinuar();
 
 		new TomadorYAseguradoPageMac(userS)
@@ -1863,7 +1863,7 @@ public class ActionSteps extends InteractionObject {
 	public void envio_el_proyecto_a__la_compania() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.enviarACompania();
 		// userS.getWebDriver().quit();
 		debugEnd();
@@ -1886,7 +1886,7 @@ public class ActionSteps extends InteractionObject {
 
 		new PrecioPorModalidadPageMac1(userS)
 			.clickContinuar();
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.clickContinuar();
 
 		// Rellenar datos de contratacion, pagina 3
@@ -1921,13 +1921,13 @@ public class ActionSteps extends InteractionObject {
 			.clickConvertirAProyecto();
 
 		// SCS Inquilinos
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.addDatosInquilino();
 		// inquilinosAvalistasPage_MAC.ValidacionViabilidadInquilino();
 	}
 
 	public void valido_el_proyecto() {
-		new InquilinosAvalistasPageMac1(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.validacionViabilidadInquilino();
 	}
 
