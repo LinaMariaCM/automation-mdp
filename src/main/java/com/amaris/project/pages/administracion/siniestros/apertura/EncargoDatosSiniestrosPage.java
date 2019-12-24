@@ -3,8 +3,6 @@ package com.amaris.project.pages.administracion.siniestros.apertura;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.amaris.automation.model.utils.DateUtils;

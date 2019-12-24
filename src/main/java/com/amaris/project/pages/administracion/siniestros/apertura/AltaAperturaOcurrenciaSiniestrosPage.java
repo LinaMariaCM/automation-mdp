@@ -6,10 +6,6 @@ import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 
