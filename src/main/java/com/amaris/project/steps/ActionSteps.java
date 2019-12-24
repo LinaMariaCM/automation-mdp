@@ -69,7 +69,7 @@ import com.amaris.project.pages.productos.mac.ContratacionPageMac;
 import com.amaris.project.pages.productos.mac.DocumentacionPageMac;
 import com.amaris.project.pages.productos.mac.InmueblePageMac;
 import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac;
-import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac1;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac;
 import com.amaris.project.pages.productos.mac.TomadorYAseguradoPageMac;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 import com.google.common.base.Splitter;
@@ -347,7 +347,7 @@ public class ActionSteps extends InteractionObject {
 		}
 
 		// Precio
-		new PrecioPorModalidadPageMac1(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.completarRentaMensualAlquiler()
 			.completarGarantiasBasicas()
 			.clickConvertirAProyecto();
@@ -441,7 +441,7 @@ public class ActionSteps extends InteractionObject {
 				.selectMediadorMACAndClickContinuar();
 		}
 
-		new PrecioPorModalidadPageMac1(userS).clickContinuar();
+		new PrecioPorModalidadPageMac(userS).clickContinuar();
 		new InquilinosAvalistasPageMac(userS).clickContinuar();
 
 		// Completar paso Contratación
@@ -884,7 +884,7 @@ public class ActionSteps extends InteractionObject {
 		}
 
 		// SCS Precio
-		new PrecioPorModalidadPageMac1(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.completarRentaMensualAlquiler()
 			.completarGarantiasBasicas()
 			.clickConvertirAProyecto();
@@ -916,12 +916,12 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void la_renta_mensual_es() {
-		new PrecioPorModalidadPageMac1(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.completarRentaMensualAlquiler();
 	}
 
 	public void la_suma_asegurada_de_impago_alquiler_es() {
-		new PrecioPorModalidadPageMac1(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.seleccionarImpagoAlquiler();
 	}
 
@@ -1884,7 +1884,7 @@ public class ActionSteps extends InteractionObject {
 				.selectMediadorMACAndClickContinuar();
 		}
 
-		new PrecioPorModalidadPageMac1(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.clickContinuar();
 		new InquilinosAvalistasPageMac(userS)
 			.clickContinuar();
@@ -1915,7 +1915,7 @@ public class ActionSteps extends InteractionObject {
 			.selectMediadorMACAndClickContinuar();
 
 		// SCS Precio
-		new PrecioPorModalidadPageMac1(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.completarRentaMensualAlquiler()
 			.completarGarantiasBasicas()
 			.clickConvertirAProyecto();

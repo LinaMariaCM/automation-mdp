@@ -19,7 +19,7 @@ import com.amaris.project.pages.productos.GestionPolizasConsultarPage;
 import com.amaris.project.pages.productos.MensajeConfirmacionPage;
 import com.amaris.project.pages.productos.mac.ContratacionPageMac;
 import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac;
-import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac1;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac;
 
 public class CheckSteps extends InteractionObject {
 
@@ -337,18 +337,18 @@ public class CheckSteps extends InteractionObject {
 
 	public void deberia_aparecer_error_rebasada_la_renta_máxima_permitida() {
 		// Comprobar que sale el error correspondiente
-		Assert.assertTrue(new PrecioPorModalidadPageMac1(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new PrecioPorModalidadPageMac(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Rebasada la renta máxima permitida de 3.000,00 €")));
 	}
 
 	public void deberia_aparecer_error_situacion_reasegurado() {
 		// Comprobar que sale el error correspondiente
-		Assert.assertTrue(new PrecioPorModalidadPageMac1(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new PrecioPorModalidadPageMac(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Situación de reaseguro no es posible la contratación")));
 	}
 
 	public void no_deberia_estar_habilitado_convertir_a_proyecto() {
 		// Comprobar que se queda deshabilitado Convertir a proyecto
-		Assert.assertFalse(new PrecioPorModalidadPageMac1(userS).checkConvertirAProyectoIsPresent());
+		Assert.assertFalse(new PrecioPorModalidadPageMac(userS).checkConvertirAProyectoIsPresent());
 	}
 }

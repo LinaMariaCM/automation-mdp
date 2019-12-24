@@ -7,7 +7,7 @@ import com.amaris.project.Constants;
 
 import org.openqa.selenium.By;
 
-public class PrecioPorModalidadPageMac1 extends PageObject {
+public class PrecioPorModalidadPageMac extends PageObject {
 
 	// region webelements
 	private By mainFrame = By.cssSelector("#mainFrame");
@@ -21,11 +21,11 @@ public class PrecioPorModalidadPageMac1 extends PageObject {
 	private By msjErrorTxt = By.cssSelector("div[class *= 'alert alert-danger alert-dismissable'");
 	// endregion
 
-	public PrecioPorModalidadPageMac1(UserStory userS) {
+	public PrecioPorModalidadPageMac(UserStory userS) {
 		super(userS);
 	}
 
-	public PrecioPorModalidadPageMac1 completarRentaMensualAlquiler() {
+	public PrecioPorModalidadPageMac completarRentaMensualAlquiler() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);
@@ -38,7 +38,7 @@ public class PrecioPorModalidadPageMac1 extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPageMac1 clickConvertirAProyecto() {
+	public PrecioPorModalidadPageMac clickConvertirAProyecto() {
 		debugBegin();
 
 		webDriver.waitWithDriver(8000);
@@ -48,7 +48,7 @@ public class PrecioPorModalidadPageMac1 extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPageMac1 completarGarantiasBasicas() {
+	public PrecioPorModalidadPageMac completarGarantiasBasicas() {
 		debugBegin();
 
 		String impagoAlquiler = getScenarioVar(Constants.IMPAGO_ALQUILER);
@@ -67,7 +67,7 @@ public class PrecioPorModalidadPageMac1 extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPageMac1 seleccionarImpagoAlquiler() {
+	public PrecioPorModalidadPageMac seleccionarImpagoAlquiler() {
 		debugBegin();
 
 		debugInfo("SCENARIO: " + userS.getScenario() + ", VALUE: " + getScenarioVar(Constants.IMPAGO_ALQUILER)
@@ -80,7 +80,7 @@ public class PrecioPorModalidadPageMac1 extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPageMac1 seleccionarFranquicia() {
+	public PrecioPorModalidadPageMac seleccionarFranquicia() {
 		debugBegin();
 		webDriver.clickElementFromDropDownByTextInFrame(franquiciaDrpDwn, mainFrame, getScenarioVar(Constants.FRANQUICIA_MAC));
 		debugEnd();
@@ -88,7 +88,7 @@ public class PrecioPorModalidadPageMac1 extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPageMac1 clickContinuar() {
+	public PrecioPorModalidadPageMac clickContinuar() {
 		debugBegin();
 		webDriver.waitWithDriver(6000);
 		webDriver.clickInFrame(continuarBtn, mainFrame);
@@ -97,7 +97,7 @@ public class PrecioPorModalidadPageMac1 extends PageObject {
 		return this;
 	}
 
-	public PrecioPorModalidadPageMac1 selectModalidad() {
+	public PrecioPorModalidadPageMac selectModalidad() {
 		debugBegin();
 		webDriver.clickElementFromDropDownByTextInFrame(modalidadDrpDwn, mainFrame, getTestVar(Constants.MODALIDAD));
 		debugEnd();
