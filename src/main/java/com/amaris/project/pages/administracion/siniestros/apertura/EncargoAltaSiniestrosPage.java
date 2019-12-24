@@ -13,7 +13,7 @@ public class EncargoAltaSiniestrosPage extends PageObject {
 
 	// #### DATOS DEL ASEGURADO ####
 	private By anotacionesBtn = By.cssSelector("#enlaceDialogo > span");
-	private By anadirNuevoEncargoBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(4) > a > span");
+	private By anyadirNuevoEncargoBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(4) > a > span");
 	private By volverAlBuscadorBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
 	private By guardarSalirBtn = By.id("botonGuardar");
 	private By continuarBtn = By.id("botonContinuar");
@@ -43,7 +43,7 @@ public class EncargoAltaSiniestrosPage extends PageObject {
 	public EncargoAltaSiniestrosPage clickNuevoEncargo() {
 		debugBegin();
 		webDriver.waitWithDriver(6000);
-		webDriver.clickInFrame(anadirNuevoEncargoBtn, cuerpoFrame);
+		webDriver.clickInFrame(anyadirNuevoEncargoBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 

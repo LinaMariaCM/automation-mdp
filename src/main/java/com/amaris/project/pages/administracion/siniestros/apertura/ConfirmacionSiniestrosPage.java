@@ -12,22 +12,21 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 	private By topFrame = By.cssSelector("#topFrame");
 
-	private By correcto = By.cssSelector("#form1 .marco span.normal strong");
+	private By correctoTxt = By.cssSelector("#form1 .marco span.normal strong");
 
 	// private By correcto = By.cssSelector(".normal > strong:nth-child(1)");
 	// private By nSiniestro = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody >
 	// tr:nth-child(1) > td");
-	private By nSiniestro = By.cssSelector("#form1 .marco > table tr > td");
+	private By nSiniestroTxt = By.cssSelector("#form1 .marco > table tr > td");
 
-	private By expediente = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(4) > td > div");
+	private By expedienteTxt = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(4) > td > div");
 	// private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) >
 	// a > strong");
-	private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a");
-	private By mensajeOK = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
-	private By volver = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li > a > span");
+	private By tramitarSiniestroBtn = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a");
+	private By mensajeOKTxt = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
+	private By volverBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li > a > span");
 
-	private By btnLogoMutua = By.cssSelector("#logo");
-
+	private By logoMutuaBtn = By.cssSelector("#logo");
 	// endregion
 
 	public ConfirmacionSiniestrosPage(UserStory userS) {
@@ -35,6 +34,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 	}
 
 	// region Methods
+	// TODO Unir con check
 	public ConfirmacionSiniestrosPage confirmarSiniestroOK() {
 		debugBegin();
 
@@ -43,20 +43,21 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 		debugInfo("Tenga un poco de paciencia por favor.");
 		debugInfo("Esto puede tardar unos segundos |||^^ ...");
 		debugInfo("=====================================");
-		System.out.println("###########################\n");
-		System.out.println("# Mensaje de confirmacion #\n");
-		System.out.println("###########################\n\n");
+		debugInfo("###########################\n");
+		debugInfo("# Mensaje de confirmacion #\n");
+		debugInfo("###########################\n\n");
 		webDriver.waitWithDriver(16000);
-		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
-			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto, cuerpoFrame) + "\n");
-			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");
+		
+		if(webDriver.isPresentInFrame(correctoTxt, cuerpoFrame)) {
+			debugInfo("- mensaje: " + webDriver.getTextInFrame(correctoTxt, cuerpoFrame) + "\n");
+			debugInfo("- " + webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame) + "\n");
 
-			System.out.println("- Expediente generado: " + webDriver.getTextInFrame(expediente, cuerpoFrame));
-			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestro, cuerpoFrame).substring(26, 34));
-			setTestVar(Constants.ANYO_SINIESTRO, webDriver.getTextInFrame(nSiniestro, cuerpoFrame).substring(21, 25));
+			debugInfo("- Expediente generado: " + webDriver.getTextInFrame(expedienteTxt, cuerpoFrame));
+			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame).substring(26, 34));
+			setTestVar(Constants.ANYO_SINIESTRO, webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame).substring(21, 25));
 			// webDriver.waitWithDriver(8000);
 		} else {
-			System.out.println("Se ha producido un error.");
+			debugInfo("Se ha producido un error.");
 		}
 
 		debugEnd();
@@ -67,26 +68,24 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 	public ConfirmacionSiniestrosPage check() {
 		debugBegin();
 
-		System.out.println("###########################\n");
-		System.out.println("# Mensaje de confirmacion #\n");
-		System.out.println("###########################");
+		debugInfo("###########################\n");
+		debugInfo("# Mensaje de confirmacion #\n");
+		debugInfo("###########################");
 
 		webDriver.waitWithDriver(5000);
 
 		// Need refactor By elements
-		if(webDriver.isPresentInFrame(correcto, cuerpoFrame)) {
-			System.out.println("- mensaje: " + webDriver.getTextInFrame(correcto, cuerpoFrame) + "\n");
-			System.out.println("- " + webDriver.getTextInFrame(nSiniestro, cuerpoFrame) + "\n");
+		if(webDriver.isPresentInFrame(correctoTxt, cuerpoFrame)) {
+			debugInfo("- mensaje: " + webDriver.getTextInFrame(correctoTxt, cuerpoFrame) + "\n");
+			debugInfo("- " + webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame) + "\n");
 
-			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestro, cuerpoFrame));
+			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame));
 
-			System.out.println("- Expediente generado: " + webDriver.getTextInFrame(expediente, cuerpoFrame));
+			debugInfo("- Expediente generado: " + webDriver.getTextInFrame(expedienteTxt, cuerpoFrame));
 		} else {
-			System.out.println("Se ha producido un error.");
+			debugInfo("Se ha producido un error.");
 		}
-		System.out.println("###########################");
-
-		System.out.println();
+		debugInfo("###########################");
 
 		debugEnd();
 
@@ -95,8 +94,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 
 	public ConfirmacionSiniestrosPage tramitarSiniestro() {
 		debugBegin();
-		// webDriver.clickInFrame(tramitarSiniestro, cuerpoFrame);
-		webDriver.click(tramitarSiniestro);
+		webDriver.click(tramitarSiniestroBtn);
 		debugEnd();
 
 		return this;
@@ -104,14 +102,12 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 
 	public ConfirmacionSiniestrosPage confirmaModificacion() {
 		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
 
-		if(webDriver.getText(mensajeOK).contains("El siniestro ha sido modificado correctamente")) {
-			System.out.println("Modificación de siniestro correcta");
-			webDriver.click(volver);
+		if(webDriver.getTextInFrame(mensajeOKTxt, cuerpoFrame).contains("El siniestro ha sido modificado correctamente")) {
+			debugInfo("Modificación de siniestro correcta");
+			webDriver.clickInFrame(volverBtn, cuerpoFrame);
 		}
-
-		webDriver.exitFrame();
+		
 		debugEnd();
 
 		return this;
@@ -120,9 +116,11 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 	public ConfirmacionSiniestrosPage volverAHomeMutua() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnLogoMutua, topFrame);
+		webDriver.clickInFrame(logoMutuaBtn, topFrame);
 		debugInfo("Volvemos a la página principal de Mutua");
+		
 		debugEnd();
+		
 		return this;
 	}
 	// END
