@@ -1938,12 +1938,14 @@ public class DriverHelper {
 
 	public void clickElementFromDropDownByText(By dropDown, String value) {
 		logger.begin();
+		
 		waitForElementToBeClickable(dropDown);
 
 		Select select = new Select(driver.findElement(dropDown));
 		select.selectByVisibleText(value);
 
 		waitForLoadToComplete();
+		
 		logger.end();
 	}
 
@@ -1955,11 +1957,10 @@ public class DriverHelper {
 
 	public void clickElementFromDropDownByAttribute(By elementToClick, By elementList, String attribute, String value) {
 		logger.begin();
+		
 		click(elementToClick);
-
 		clickElementFromListByAttribute(elementList, attribute, value);
 
-		waitForLoadToComplete();
 		logger.end();
 	}
 
@@ -1971,35 +1972,39 @@ public class DriverHelper {
 
 	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By frame, String attribute, String value) {
 		switchToFrame(frame);
-		clickElementFromDropDownByAttribute(containingElement, containingElement, attribute, value);
+		clickElementFromDropDownByAttribute(containingElement, attribute, value);
 		exitFrame();
 	}
 
 	public void clickElementFromDropDownByAttribute(By containingElement, String attribute, String value) {
-		clickElementFromDropDownByAttribute(containingElement, containingElement, attribute, value);
+		click(containingElement);
+		clickElementChildByAttribute(containingElement, attribute, value);
+	}
+
+	public void clickElementFromDropDownByIndexInFrame(By elementToClick, By elementList, By frame, int index) {
+		switchToFrame(frame);
+
+		clickElementFromDropDownByIndex(elementToClick, elementList, index);
+
+		exitFrame();
 	}
 
 	public void clickElementFromDropDownByIndex(By elementToClick, By elementList, int index) {
 		click(elementToClick);
-
 		clickElementChildByIndex(elementList, index);
-
-		waitForLoadToComplete();
 	}
 
 	public void clickElementFromDropDownByIndex(By elementContainer, int index) {
-		clickElementFromDropDownByIndex(elementContainer, elementContainer, index);
+		click(elementContainer);
+		clickElementChildByIndex(elementContainer, index);
 	}
 
 	public void clickElementFromDropDownByIndexInFrame(By elementToClick, By frame, int index) {
 		switchToFrame(frame);
 
-		click(elementToClick);
-		clickElementChildByIndex(elementToClick, index);
+		clickElementFromDropDownByIndex(elementToClick, index);
 
 		exitFrame();
-
-		waitForLoadToComplete();
 	}
 
 	public WebElement getElementFromListByText(By elementList, String text) {
@@ -3072,6 +3077,14 @@ public class DriverHelper {
 		return webElement.isSelected();
 	}
 
+	public boolean isOnScreenInFrame(By by, By frame) {
+		switchToFrame(frame);
+		boolean result = isOnScreen(by, -1); 
+		exitFrame();
+		
+		return result;
+	}
+
 	public boolean isOnScreen(By by) {
 		return isOnScreen(by, -1);
 	}
@@ -3094,6 +3107,14 @@ public class DriverHelper {
 				+ (e.getMessage() != null && !e.getMessage().isEmpty() ? ": " + e.getMessage() : ""));
 		}
 
+		return result;
+	}
+
+	public boolean isOnScreenInFrame(WebElement webElement, By frame) {
+		switchToFrame(frame);
+		boolean result = isOnScreen(webElement, -1); 
+		exitFrame();
+		
 		return result;
 	}
 
