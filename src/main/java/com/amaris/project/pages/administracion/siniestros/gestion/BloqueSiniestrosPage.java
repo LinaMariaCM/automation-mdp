@@ -214,7 +214,7 @@ public class BloqueSiniestrosPage extends PageObject {
 		String codigoTransicionado = webDriver.getTextInFrame(bloqueTransicionadoTxt, cuerpoFrame).trim();
 
 		boolean checkTransicionado = codigoTransicionado.equals(getTestVar("11"));
-		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino es 11, tal como se introdujo en la prueba");
+		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino NO es 11, tal como se introdujo en la prueba");
 
 		debugEnd();
 
@@ -228,7 +228,7 @@ public class BloqueSiniestrosPage extends PageObject {
 		String codigoTransicionado = webDriver.getTextInFrame(bloqueTransicionadoTxt, cuerpoFrame).trim();
 
 		boolean checkTransicionado = codigoTransicionado.equals(getTestVar("31"));
-		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino es 31, tal como se introdujo en la prueba");
+		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino NO es 31, tal como se introdujo en la prueba");
 
 		debugEnd();
 		return this;

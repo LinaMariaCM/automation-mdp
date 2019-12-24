@@ -199,6 +199,7 @@ public class PagosSiniestrosPage extends PageObject {
 	private By pagoCuentaSi = By.cssSelector("#pagoCtaSi");
 	private By pagoCuentaNo = By.cssSelector("#pagoCtaNo");
 	private By causasImportesBtn = By.cssSelector("#coberturaImplicada .radio");
+	private By causasImportesTxt = By.cssSelector("#coberturaImplicada tr:not(:first-child) > td:nth-child(2)");
 
 	// Verificacion ultimo pago de carpeta
 	private By ultimoPagoSi = By.cssSelector("#ultimoPagoSi");
@@ -546,7 +547,6 @@ public class PagosSiniestrosPage extends PageObject {
 		// TODO Cambiar, si se asigna directamente el valor, no hace falta ponerlo de parametro
 		fPago = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 
-		List<WebElement> listaCausasImportes = webDriver.getElementsInFrame(causasImportesBtn, cuerpoFrame);
 
 		webDriver.appendTextInFrame(fechaDePagoInput, cuerpoFrame, fPago);
 		webDriver.waitWithDriver(3000);
@@ -556,15 +556,18 @@ public class PagosSiniestrosPage extends PageObject {
 		webDriver.waitWithDriver(12000);
 		
 		// Asignacion de cobertura
-		debugInfo("Cobertura seleccionada: " + webDriver.getTextInFrame(listaCausasImportes.get(0), cuerpoFrame));
+		debugInfo("Cobertura seleccionada: " + webDriver.getTextInFrame(causasImportesTxt, cuerpoFrame));
 
-		webDriver.clickInFrame(listaCausasImportes.get(0), cuerpoFrame);
+		webDriver.clickInFrame(causasImportesBtn, cuerpoFrame);
 
 		if(importe == null || importe.isEmpty()) {
 			importe = "123";
 		}
-		
-		webDriver.appendTextInFrame(importe0Input, cuerpoFrame, importe);
+
+		debugInfo("Importe: " + importe);
+		webDriver.clickInFrame(importe0Input, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.setTextInFrame(importe0Input, cuerpoFrame, importe);
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(actualizarImportePagoBtn, cuerpoFrame);
 
@@ -603,7 +606,7 @@ public class PagosSiniestrosPage extends PageObject {
 			debugInfo("Contiene: " + listaPagos.size());
 
 			for(int i = 0; i < listaPagos.size(); i++) {
-				debugInfo("Estado: " + listaPagos.get(i).getText());
+				debugInfo("Estado: " + webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame));
 				
 				if(!webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame).equals("Pagado") 
 					&& !webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame).equals("Anulado")) {

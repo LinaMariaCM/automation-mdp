@@ -2250,10 +2250,7 @@ public class DriverHelper {
 
 		WebElement el = getElementChildByAttribute(elementList, attribute, value);
 
-		if(el != null) click(el);
-		else {
-			logger.info("No child elements found on " + elementList);
-		}
+		click(el);
 
 		waitForLoadToComplete();
 		logger.end();
@@ -2457,7 +2454,9 @@ public class DriverHelper {
 			AppiumDriver<WebElement> appDriver = ((AppiumDriver<WebElement>) driver);
 			appDriver.switchTo().frame(driver.findElement(by));
 		} else {
-			driver.switchTo().frame(driver.findElement(by));
+			new WebDriverWait(driver, 3)
+				.pollingEvery(Duration.ofMillis(500))
+				.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
 		}
 		
 		waitForLoadToComplete();
@@ -2713,6 +2712,10 @@ public class DriverHelper {
 					.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript("return !document ? false : !document.readyState ? false : document.readyState;")));
 			} catch(JavascriptException e) {
 				logger.error("Exception waiting for page to load" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+			} catch(WebDriverException e) {
+				if(e.getMessage() == null || !e.getMessage().contains("Cannot find context with specified id")) {
+					throw e;
+				}
 			}
 		}
 

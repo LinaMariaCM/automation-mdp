@@ -36,19 +36,11 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 			titulo = webDriver.getTextInFrame(tituloTxt, cuerpoFrame);
 		}
 
-		debugInfo("El valor del título de la página es:" + titulo);
+		debugInfo("El valor del título de la página es: " + titulo);
 
 		debugEnd();
 
 		return titulo;
-	}
-
-	public ValidacionExcepcionesReglasPage continuarAltaSiniestro() {
-		debugBegin();
-		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
 	}
 
 	public ValidacionExcepcionesReglasPage comprobarPaginaModificacion() {

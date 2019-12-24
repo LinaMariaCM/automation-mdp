@@ -20,12 +20,12 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	private By btnVolver = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
 	private By grabarBtn = By.id("botonGrabar");
 	private By tipoColaboradorDrpDwn = By.id("tipoEspe");
-	private By comboTipoColaboradorElemento = By.cssSelector("#tipoEspe > option");
+	private By tipoColaboradorOption = By.cssSelector("#tipoEspe > option");
 
 	private By tipoEncargoDrpDwn = By.id("selectEncargo");
 	private By comboTipoEncargoElemento = By.cssSelector("#selectEncargo > option");
 
-	private By subtipoEncargoDrpDwn = By.cssSelector("#selectAgrupacion > option");
+	private By subtipoEncargoDrpDwn = By.cssSelector("#selectAgrupacion");
 	private By fechaEncargoInput = By.id("fechenca");
 	private By detallesInput = By.id("comentario");
 
@@ -43,7 +43,7 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	public EncargoDatosSiniestrosPage seleccionarTipoEncargo(String colaborador, String tipoEncargo, String subtipoEncargo) {
 		debugBegin();
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(tipoColaboradorDrpDwn, comboTipoColaboradorElemento, cuerpoFrame, "value", colaborador);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoColaboradorDrpDwn, cuerpoFrame, "value", colaborador);
 		// webDriver.clickElementFromDropDownByIndex(comboTipoColaborador, 2);
 		webDriver.waitWithDriver(6000);
 		// webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, comboTipoColaboradorElemento, "value", colaborador);

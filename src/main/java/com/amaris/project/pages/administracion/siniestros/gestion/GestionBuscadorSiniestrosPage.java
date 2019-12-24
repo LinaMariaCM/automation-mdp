@@ -12,7 +12,8 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 	private By leftFrame = By.cssSelector("#leftFrame");
 	// private By gestionSiniestros = By.xpath(".//*[text()='Gestión de siniestros']");
-	private By gestionSiniestrosBtn = By.cssSelector("#jt5");
+	//private By gestionSiniestrosBtn = By.cssSelector("#jt5");
+	private By gestionSiniestrosBtn = By.cssSelector("[href*='codmenu=GESTIONDSINIESTRO']");
 
 	private By numeroSiniestroBtn = By.cssSelector("#filtro1");
 	private By numeroPolizaBtn = By.cssSelector("#filtro2");
@@ -145,32 +146,29 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public GestionBuscadorSiniestrosPage buscarPorNumeroSiniestro(String siniestro, String anio) {
+	public GestionBuscadorSiniestrosPage buscarPorNumeroSiniestro(String siniestro, String anyo) {
 		debugBegin();
 		webDriver.waitWithDriver(2000);
 		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
-		debugInfo("ha dado click");
 
 		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);
 		/*
 		 * if (negocio.equals(Constants.MEC)){ webDriver.switchToFrame(cuerpoFrame);
 		 * webDriver.clickElementChildByAttribute(opProductSIni,"value", "510"); webDriver.exitFrame(); }
 		 */
-		webDriver.switchToFrame(cuerpoFrame);
 
 		// ActionSteps.waitForIt(webDriver);
 		// webDriver.clickElementFromDropDownByIndex(tipoProductoSini, 0);
 
 		// ActionSteps.waitForIt(webDriver);
-		webDriver.setText(anyoInput, anio);
+		webDriver.setTextInFrame(anyoInput, cuerpoFrame, anyo);
 
-		webDriver.setText(numeroSiniestroInput, siniestro);
-		webDriver.click(buscarBtn);
+		webDriver.setTextInFrame(numeroSiniestroInput, cuerpoFrame, siniestro);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 		webDriver.waitWithDriver(6000);
 		// ActionSteps.waitForIt(webDriver);
-		webDriver.click(continuarBtn);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
-		webDriver.exitFrame();
 		debugEnd();
 
 		return this;

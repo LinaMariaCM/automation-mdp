@@ -161,8 +161,8 @@ public class AgendaSiniestrosPage extends PageObject {
 			debugInfo("Contiene: " + listaPagos.size());
 
 			for(int i = 0; i < listaPagos.size(); i++) {
-				debugInfo("Estado: " + listaPagos.get(i).getText());
-				if(listaPagos.get(i).getText().compareTo("Pendiente") == 0) {
+				debugInfo("Estado: " + webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame));
+				if(webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame).equals("Pendiente")) {
 					check = true;
 					debugInfo("Tareas pendiente: " + check);
 				}

@@ -94,12 +94,12 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	public ImplicadoAseguradoSiniestrosPage seleccionarImplicado() {
 		debugBegin();
 		
-		debugInfo("Seleccionamos implicado: " + webDriver.getText(webDriver.getElementChildByIndexInFrame(seleccionAseguradoDrpDwn, cuerpoFrame, 1)));
+		//debugInfo("Seleccionamos implicado: " + webDriver.getElementChildByIndexInFrame(seleccionAseguradoDrpDwn, cuerpoFrame, 1).getText());
 		webDriver.clickElementChildByIndexInFrame(seleccionAseguradoDrpDwn, cuerpoFrame, 1);
 
 		if((!webDriver.getTextInFrame(telefono1Input, cuerpoFrame).startsWith("(") || !webDriver.getTextInFrame(telefono1Input, cuerpoFrame).startsWith("+") 
 			|| webDriver.getTextInFrame(telefono1Input, cuerpoFrame).length() < 9)) {
-			debugInfo("Número de teléfono 1 mal puesto :" + webDriver.getTextInFrame(telefono1Input, cuerpoFrame));
+			debugInfo("Número de teléfono 1 mal puesto: " + webDriver.getTextInFrame(telefono1Input, cuerpoFrame));
 			webDriver.setTextInFrame(telefono1Input, cuerpoFrame, "961234567");
 			debugInfo("Se sustituye por: 961234567");
 		}

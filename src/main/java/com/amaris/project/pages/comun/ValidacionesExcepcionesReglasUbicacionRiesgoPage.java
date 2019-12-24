@@ -32,7 +32,7 @@ public class ValidacionesExcepcionesReglasUbicacionRiesgoPage extends PageObject
 
 	public ValidacionesExcepcionesReglasUbicacionRiesgoPage waitProcesando() {
 		debugInfo("Espero el mensaje \"procesando\"");
-		webDriver.waitWithDriver(7000);
+		webDriver.waitWithDriver(5000);
 
 		while(this.webDriver.isPresent(procesandoTxt)) {
 			debugInfo("Veo el mensaje \"procesando\"");

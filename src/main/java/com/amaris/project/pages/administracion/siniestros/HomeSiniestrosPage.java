@@ -17,7 +17,8 @@ public class HomeSiniestrosPage extends PageObject {
 
 	private By aperturaAltaBtn = By.id("jt2");
 	private By aperturaModificarBtn = By.id("jt3");
-	private By gestionSiniestrosBtn = By.id("jt5");
+//	private By gestionSiniestrosBtn = By.id("jt5");
+	private By gestionSiniestrosBtn = By.cssSelector("[href*='codmenu=GESTIONDSINIESTRO']");
 	private By gestionPagosBtn = By.id("jt6");
 	private By altaEventoBtn = By.id("jt8");
 	private By gestionEventosBtn = By.id("jt9");
@@ -53,7 +54,7 @@ public class HomeSiniestrosPage extends PageObject {
 
 	public HomeSiniestrosPage openGestionSiniestros() {
 		debugBegin();
-		webDriver.doubleClickInFrame(gestionSiniestrosBtn, menuFrame);
+		webDriver.clickInFrame(gestionSiniestrosBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -61,7 +62,7 @@ public class HomeSiniestrosPage extends PageObject {
 
 	public HomeSiniestrosPage openGestionPagos() {
 		debugBegin();
-		webDriver.doubleClickInFrame(gestionPagosBtn, menuFrame);
+		webDriver.clickInFrame(gestionPagosBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -69,7 +70,7 @@ public class HomeSiniestrosPage extends PageObject {
 
 	public HomeSiniestrosPage openAltaEvento() {
 		debugBegin();
-		webDriver.doubleClickInFrame(altaEventoBtn, menuFrame);
+		webDriver.clickInFrame(altaEventoBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -77,7 +78,7 @@ public class HomeSiniestrosPage extends PageObject {
 
 	public HomeSiniestrosPage openGestionEventos() {
 		debugBegin();
-		webDriver.doubleClickInFrame(gestionEventosBtn, menuFrame);
+		webDriver.clickInFrame(gestionEventosBtn, menuFrame);
 		debugEnd();
 
 		return this;

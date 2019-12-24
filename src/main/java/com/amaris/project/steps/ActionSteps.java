@@ -596,13 +596,13 @@ public class ActionSteps extends InteractionObject {
 				.completarMinimos(numPoliza);
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.continuarAltaSiniestro();
+				.clickContinuar();
 
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
 				.datosMinOcurrencia(numPoliza);
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.continuarAltaSiniestro();
+				.clickContinuar();
 
 			new ImplicadoAseguradoSiniestrosPage(userS)
 				.aperturaSinietro();
@@ -2726,7 +2726,7 @@ public class ActionSteps extends InteractionObject {
 				// getTestVar(Constants.TIPO_CAUSA_COD), gremio);
 				.altaRellenarDatos("Descripción test para realizar un alta de siniestro", getTestVar(Constants.OTROS_IMPLICADOS), getTestVar(Constants.ENCARGO));
 
-			debugInfo("AQUI ES ALTA RELLENAR DATOS CAUSA");
+			debugInfo("Alta rellenar datos causa");
 			userS.getWebDriver().waitWithDriver(10000);
 
 			// Si el csv contempla la opción de guardar en medio del alta
@@ -2780,7 +2780,7 @@ public class ActionSteps extends InteractionObject {
 
 			// Comprobamos si se requiere añadir un implicado extra
 			if(getTestVar(Constants.OTROS_IMPLICADOS) != null && !getTestVar(Constants.OTROS_IMPLICADOS).isEmpty()) {
-				debugInfo("COMPROBAMOS SI SE REQUIERE AÑADIR UN IMPLICADO EXTRA");
+				debugInfo("Comprobamos si se requiere añadir un implicado extra");
 				new OtrosImplicadosAltaSiniestrosPage(userS)
 					.clickNuevoImplicado();
 				new OtrosImplicadosDatosSiniestrosPage(userS)
@@ -2797,7 +2797,7 @@ public class ActionSteps extends InteractionObject {
 
 			// Comprobamos si se requiere añadir un encargo
 			if(getTestVar(Constants.ENCARGO) != null && !getTestVar(Constants.ENCARGO).isEmpty()) {
-				debugInfo("COMPROBAMOS SI SE REQUIERE UN ENCARGO");
+				debugInfo("Comprobamos si se requiere encargo");
 				new EncargoAltaSiniestrosPage(userS)
 					.clickNuevoEncargo();
 
@@ -2811,7 +2811,7 @@ public class ActionSteps extends InteractionObject {
 			}
 
 			// Página de confirmación
-			debugInfo("CONFIRMAMOS SINIESTRO");
+			debugInfo("Confirmamos Siniestro");
 			new ConfirmacionSiniestrosPage(userS)
 				.confirmarSiniestroOK();
 
@@ -3199,7 +3199,7 @@ public class ActionSteps extends InteractionObject {
 			.openGestionSiniestros();
 
 		new GestionBuscadorSiniestrosPage(userS)
-			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
+			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO)); // TIPO_POLIZA
 
 		new GestionSiniestrosPage(userS)
 			.reservasYExpecativas()

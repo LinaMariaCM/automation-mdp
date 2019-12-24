@@ -133,7 +133,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		}
 
 		if((getTestVar(Constants.RESERVA_ESPECIFICA) != null && !getTestVar(Constants.RESERVA_ESPECIFICA).isEmpty())
-			|| webDriver.getText(reservaInicialInput).equals("0,00")) {
+			|| webDriver.getTextInFrame(reservaInicialInput, cuerpoFrame).equals("0,00")) {
 			String reserva = "150";
 
 			webDriver.clickInFrame(modificarReservaBtn, cuerpoFrame);

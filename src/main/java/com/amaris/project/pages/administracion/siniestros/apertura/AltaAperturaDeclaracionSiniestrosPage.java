@@ -200,7 +200,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		// if(emailDeclarante.isEmpty()) webDriver.appendTextInFrame(txtEmail, cuerpoFrame, "prueba_sin_mail@esto.es");
 		// else webDriver.appendTextInFrame(txtEmail, cuerpoFrame, emailDeclarante);
 
-		if(numeroTelefono != null) {
+		if(numeroTelefono != null && !numeroTelefono.isEmpty()) {
 			debugInfo("El número del declarante es: " + numeroTelefono);
 			webDriver.setTextInFrame(telefonoInput, cuerpoFrame, numeroTelefono);
 		}
@@ -951,7 +951,6 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		webDriver.exitFrame();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ROL);
-
 		webDriver.acceptAlert();
 
 		debugEnd();

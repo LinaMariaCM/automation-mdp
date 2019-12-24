@@ -92,12 +92,10 @@ public class GestionCarpetaSiniestrosPage extends PageObject {
 			if(webDriver.isClickableInFrame(listEncargo, cuerpoFrame)) {
 				List<WebElement> listaPagos = webDriver.getElementsInFrame(listEncargo, cuerpoFrame);
 				debugInfo("Contiene: " + listaPagos.size());
-				debugInfo("Despues de la lista");
 
 				for(int i = 0; i < listaPagos.size(); i++) {
-					debugInfo("Hay encargos");
-
-					debugInfo("Estado: " + listaPagos.get(i).getText());
+					debugInfo("Estado: " + webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame));
+					
 					if(!webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame).equals("Cerrado")) {
 						check = true;
 						debugInfo("Encargos Pendiente: " + check);
