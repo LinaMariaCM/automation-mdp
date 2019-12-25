@@ -24,7 +24,6 @@ public class ModificarValidacionSiniestrosPage extends PageObject {
 	// region methods
 
 	public ModificarValidacionSiniestrosPage validar() {
-
 		debugBegin();
 
 		// System.out.println("nombre1 -> " + webDriver.getText(nombreAnterior));

@@ -13,7 +13,7 @@ public class HomeSiniestrosPage extends PageObject {
 	// region WebElements
 	private By menuFrame = By.id("leftFrame");
 	private By topFrame = By.id("topFrame");
-	private By mainFrame = By.id("mainFrame");
+	private By cuerpoFrame = By.id("mainFrame");
 
 	private By aperturaAltaBtn = By.id("jt2");
 	private By aperturaModificarBtn = By.id("jt3");
@@ -24,7 +24,7 @@ public class HomeSiniestrosPage extends PageObject {
 	private By gestionEventosBtn = By.id("jt9");
 
 	// private By nPoliza = By.xpath("/html/body/table/tbody/tr/td[1]/table/tbody/tr[1]/td[1]");
-	private By nPoliza = By.cssSelector("form[name='formDatos'] table table td:first-of-type");
+	private By numPolizaTxt = By.cssSelector("form[name='formDatos'] table table td:first-of-type");
 	private By causa = By.xpath("/html/body/table/tbody/tr/td[1]/table/tbody/tr[1]/td[4]");
 
 	// endregion
@@ -87,18 +87,13 @@ public class HomeSiniestrosPage extends PageObject {
 	public HomeSiniestrosPage compararCampos() {
 		debugBegin();
 
-		// TODO Comprobar si hace falta metodos InFrame
-		String numPoliza = webDriver.getText(nPoliza).substring(20);
+		String numPoliza = webDriver.getTextInFrame(numPolizaTxt, cuerpoFrame);
+		numPoliza = numPoliza.substring(numPoliza.indexOf('/') + 1);
+
+		debugInfo("Poliza esperada: " + getTestVar(Constants.NUM_POLIZA));
+		debugInfo("Poliza real: " + numPoliza);
 
 		Assert.assertTrue(numPoliza.equals(getTestVar(Constants.NUM_POLIZA)), "Comparar campos: el número de póliza coincide.");
-
-		debugInfo("Poliza csv: " + getTestVar(Constants.NUM_POLIZA));
-		debugInfo("Poliza numPoliza: " + webDriver.getText(nPoliza));
-		debugInfo("Poliza subString: " + numPoliza);
-
-		int testAAA = numPoliza.compareTo(getTestVar(Constants.NUM_POLIZA));
-		debugInfo("Result compare to: " + testAAA);
-
 		// TODO añadir campos adicionales
 
 		debugEnd();

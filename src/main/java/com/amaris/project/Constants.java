@@ -646,4 +646,6 @@ public class Constants {
 	public static final String PRECIO_COMPLETO_BEFORE = "precio_completo_before";
 	public static final String PRECIO_PLUS_AFTER = "precio_plus_after";
 	public static final String PRECIO_PLUS_BEFORE = "precio_plus_before";
+	
+	public static final String COMENTARIO_ANOTACION = "comentario_anotacion";
 }// END

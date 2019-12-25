@@ -15,7 +15,7 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 	private By modalFrame = By.id("capaIframe");
 	private By anotacionesBtn = By.cssSelector("#enlaceDialogo > span");
-	private By anotacionesNuevoBtn = By.cssSelector("#cabApunteDialogo0 > span");
+	private By anotacionesNuevoBtn = By.cssSelector("[data-target='capaApunteDialogo0'] > span");
 
 	// #### DATOS DEL ASEGURADO ####
 	private By seleccionAseguradoDrpDwn = By.id("seleccionAsegurado");
@@ -131,7 +131,7 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	public ImplicadoAseguradoSiniestrosPage capturaDatosSiniestro() {
 		debugBegin();
 
-		String textoClausulaEspecial = webDriver.getTextInFrame(clausulaEspecialInput, cuerpoFrame).trim();
+		String textoClausulaEspecial = webDriver.getTextInFrame(By.xpath("//*[contains(text(), '" + Constants.ALERTA_POLIZA_CLAUSULAS_ESPECIALES + "')]"), cuerpoFrame).trim();
 
 		boolean checkAvisoHaceTresMeses = textoClausulaEspecial.equalsIgnoreCase(Constants.ALERTA_POLIZA_CLAUSULAS_ESPECIALES);
 
@@ -154,8 +154,10 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitWithDriver(5000);
+		
 		webDriver.click(anotacionesNuevoBtn);
 		webDriver.click(grabarAnotacionBtn);
+		
 		webDriver.exitFrame();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TITULO_ANOTACION);

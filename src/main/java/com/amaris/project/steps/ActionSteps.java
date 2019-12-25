@@ -6,6 +6,7 @@ import com.amaris.automation.model.testing.objects.InteractionObject;
 import com.amaris.automation.model.utils.ArrayUtils;
 import com.amaris.automation.model.utils.FileUtils;
 import com.amaris.automation.model.utils.InitUtils;
+import com.amaris.automation.model.utils.StringUtils;
 import com.amaris.automation.model.webdriver.DriverHelper;
 
 import java.net.URISyntaxException;
@@ -2505,7 +2506,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 
 		new GestionSiniestrosPage(userS)
-			.goToComunicacion();
+			.goToDiario();
 
 		new ComunicacionSiniestrosPage(userS)
 			.nuevaAnotacion();
@@ -3115,7 +3116,6 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void modificar_siniestro_datos() {
-
 		new InnovaHomePage(userS)
 			.openSiniestros();
 
@@ -3132,7 +3132,7 @@ public class ActionSteps extends InteractionObject {
 			.comprobarPaginaModificacion();
 
 		new AltaAperturaOcurrenciaSiniestrosPage(userS)
-			.modificarDescripcion(getTestVar(Constants.DESCRIPCION_SINIESTRO));
+			.modificarDescripcion(getTestVar(Constants.DESCRIPCION_SINIESTRO) + StringUtils.getRandomLetterChain(4));
 
 		new ValidacionExcepcionesReglasPage(userS)
 			.comprobarPaginaModificacion();
@@ -3453,7 +3453,7 @@ public class ActionSteps extends InteractionObject {
 			.escribirTelefonoSegundoImplicado()
 			.emailImplicadoFalloVacio()
 			.emailImplicadoFalloFormatoIncorrecto()
-			.setDisponibilidadEmail(true)
+			.setDisponibilidadEmail(false)
 			.ibanImplicadoFalloVacio()
 			.escribirIbanImplicado("4543")
 			.bancoImplicadoFalloVacio()

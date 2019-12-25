@@ -2871,13 +2871,13 @@ public class DriverHelper {
 		logger.begin();
 
 		if(desktop && driverType.equals(AutomationConstants.WEB)) {
-			WebElement webElement = waitForElementToBePresent(waitElement);
+			waitForElementToBePresent(waitElement);
 
-			if(!isClickable(webElement) || !isOnScreen(webElement)) {
-				scrollToElement(webElement);
+			if(!isClickable(waitElement) || !isOnScreen(waitElement)) {
+				scrollToElement(waitElement);
 			}
 
-			waitForElementToBeClickable(webElement);
+			waitForElementToBeClickable(driver.findElement(waitElement));
 		} else {
 			scrollToElement(waitElement);
 		}

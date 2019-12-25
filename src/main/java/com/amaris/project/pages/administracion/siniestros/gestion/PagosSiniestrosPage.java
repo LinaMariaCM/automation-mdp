@@ -70,9 +70,9 @@ public class PagosSiniestrosPage extends PageObject {
 	// Tipo perceptor
 	private By perceptorDrpDwn = By.cssSelector("#tipoPerceptor");
 	// Participantes expediente
-	private By flecha1Btn = By.cssSelector("tr.even td:nth-child(2) span");
+	private By flecha1Btn = By.cssSelector("[id*='PE'][style*='block'] span");
 	// Figuras de la poliza
-	private By flecha2Btn = By.cssSelector("table.grid.narrowBox tr.odd span");
+	//private By flecha2Btn = By.cssSelector("table.grid.narrowBox tr.odd span");
 	// Empresas profesionales
 	private By empresaColaboradora = By.cssSelector("#idPerceptor");
 	// Compañia contrataria
@@ -211,9 +211,6 @@ public class PagosSiniestrosPage extends PageObject {
 	// comprobar si tiene pagos
 	private By listaPagosTxt = By.cssSelector("table.grid:nth-child(1) > tbody:nth-child(1) tr[valign='top'] td:nth-child(9)");
 
-	private By tipoPerceptorDrpDwn = By.cssSelector("#tipoPerceptor");
-	private By tipoPerceptorOption = By.cssSelector("#tipoPerceptor > option");
-
 	// información de pago en lista
 
 	private By infoIdPagoLista = By.cssSelector("#capaBloque1Desplegable2 > table > tbody > tr.odd > td:nth-child(1) > strong");
@@ -254,7 +251,7 @@ public class PagosSiniestrosPage extends PageObject {
 	// private By volverListaPagos = By.cssSelector("div.menuNav.menuNavPosAbsolute.menuNavPosFixed > div > ul >
 	// li.rightList > a");
 	private By volverListaPagosBtn = By.cssSelector("div.menuNav.menuNavPosAbsolute > div > ul > li > a > span.retorno");
-	private By desplegarCarpetasBtn = By.cssSelector("a#cabeceraBloqueDesplegable1");
+	private By desplegarCarpetasBtn = By.cssSelector("a#cabeceraBloque1Desplegable1");
 	// endregion
 
 	public PagosSiniestrosPage(UserStory userS) {
@@ -299,7 +296,7 @@ public class PagosSiniestrosPage extends PageObject {
 	public PagosSiniestrosPage seleccionarTipoDePerceptor() {
 		debugBegin();
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(tipoPerceptorDrpDwn, tipoPerceptorOption, cuerpoFrame, "value", "PE40");
+		webDriver.clickElementFromDropDownByAttributeInFrame(perceptorDrpDwn, cuerpoFrame, "value", "PE40");
 		webDriver.waitWithDriver(8000);
 
 		webDriver.clickInFrame(flecha1Btn, cuerpoFrame);
@@ -313,7 +310,7 @@ public class PagosSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickElementFromDropDownByIndexInFrame(perceptorDrpDwn, cuerpoFrame, 1);
-		webDriver.clickInFrame(flecha2Btn, cuerpoFrame);
+		webDriver.clickInFrame(flecha1Btn, cuerpoFrame);
 
 		debugEnd();
 
@@ -417,7 +414,13 @@ public class PagosSiniestrosPage extends PageObject {
 	public PagosSiniestrosPage datosPerceptor() {
 		debugBegin();
 
-		webDriver.clickElementFromDropDownByIndexInFrame(medioPagoDrpDwn, cuerpoFrame, 4);
+		int opcion = 4;
+		
+		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
+			opcion = 3;
+		}
+		
+		webDriver.clickElementFromDropDownByIndexInFrame(medioPagoDrpDwn, cuerpoFrame, opcion);
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
@@ -706,13 +709,14 @@ public class PagosSiniestrosPage extends PageObject {
 		}
 
 		webDriver.clickInFrame(volverListaPagosBtn, cuerpoFrame);
+		webDriver.clickInFrame(accederPagosBtn, leftFrame);
 
 		webDriver.waitWithDriver(4000);
 		webDriver.clickInFrame(desplegarCarpetasBtn, cuerpoFrame);
 
-		String ppagoTabla = webDriver.getTextInFrame(primerPagoTablaTxt, cuerpoFrame).trim();
+		String planPagoTabla = webDriver.getTextInFrame(primerPagoTablaTxt, cuerpoFrame).trim();
 
-		boolean checkPlanPagoTabla = ppagoTabla.contains("120,00€");
+		boolean checkPlanPagoTabla = planPagoTabla.contains("120,00€");
 		Assert.assertTrue(checkPlanPagoTabla, "COMPARAR CAMPOS : El primer pago se lista en la tabla de pagos");
 
 		debugEnd();

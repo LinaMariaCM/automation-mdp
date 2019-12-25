@@ -210,10 +210,11 @@ public class BloqueSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(bloqueBtn, leftFrame);
+		webDriver.waitWithDriver(3000);
 
 		String codigoTransicionado = webDriver.getTextInFrame(bloqueTransicionadoTxt, cuerpoFrame).trim();
 
-		boolean checkTransicionado = codigoTransicionado.equals(getTestVar("11"));
+		boolean checkTransicionado = codigoTransicionado.equals("11");
 		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino NO es 11, tal como se introdujo en la prueba");
 
 		debugEnd();

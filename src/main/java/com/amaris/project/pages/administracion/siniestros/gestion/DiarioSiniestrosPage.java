@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import com.amaris.project.steps.*;
 import java.util.List;
 
@@ -134,17 +135,16 @@ public class DiarioSiniestrosPage extends PageObject {
 	public DiarioSiniestrosPage comprobarAnotacion() {
 		debugBegin();
 
-		String mensaje = "Ipsum";
-
 		debugInfo("Comprobando mensaje de anotación...");
 
-		if(webDriver.getTextInFrame(listadoMovimientosSiniestroTxt, cuerpoFrame).contains(mensaje)) {
-			debugInfo("OK , mensaje de anotación CORRECTO.");
+		if(webDriver.isPresentInFrame(By.xpath("//textarea[text()='"+ getTestVar(Constants.COMENTARIO_ANOTACION) + "']"), cuerpoFrame)) {
+			debugInfo("OK, mensaje de anotación CORRECTO.");
 		} else {
-			debugError("KO , mensaje de anotación ERRÓNEO.");
+			debugError("KO, mensaje de anotación ERRÓNEO.");
 		}
 
 		debugEnd();
+		
 		return this;
 	}
 

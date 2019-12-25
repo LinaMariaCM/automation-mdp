@@ -97,16 +97,16 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 	// private By checkNoEmail = By.id("emailnodisp");
 	private By riesgoAseguradoBtn = By.cssSelector("#seccionDatosPersonaContacto > div.sis-col-80 > div > label > input");
 
-	private By tipoViaDrpDwn = By.id("tipovia");
-	private By viaInput = By.id("calle");
-	private By numeroInput = By.id("numero");
-	private By pisoInput = By.id("label37");
-	private By puertaInput = By.id("label380");
-	private By codPostalInput = By.id("cp");
-	private By poblacionInput = By.id("poblacion");
-	private By provinciaDrpDwn = By.id("provincia");
-	private By grabarBtn = By.id("buttonRecord");
-	private By btnCancelar = By.id("buttonCancel");
+	private By tipoViaDrpDwn = By.cssSelector("#tipovia");
+	private By viaInput = By.cssSelector("#calle");
+	private By numeroInput = By.cssSelector("#numero");
+	private By pisoInput = By.cssSelector("#label37");
+	private By puertaInput = By.cssSelector("#label380");
+	private By codPostalInput = By.cssSelector("#cp");
+	private By poblacionInput = By.cssSelector("#poblacion");
+	private By provinciaDrpDwn = By.cssSelector("#provincia");
+	private By grabarBtn = By.cssSelector("#buttonRecord");
+	private By cancelarBtn = By.cssSelector("#buttonCancel");
 	private By haceTresMesesTxt = By.cssSelector(".grid.wideBox tr:nth-child(2) > td:nth-child(2) ");
 	// endregion
 
@@ -943,9 +943,11 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 		webDriver.clickInFrame(personaContactoBtn, cuerpoFrame);
 
+		webDriver.waitWithDriver(5000);
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitWithDriver(5000);
+
 		webDriver.click(grabarBtn);
 
 		webDriver.exitFrame();

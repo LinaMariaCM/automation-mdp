@@ -38,7 +38,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 	public ConfirmacionSiniestrosPage confirmarSiniestroOK() {
 		debugBegin();
 
-		webDriver.waitWithDriver(6000);
+		webDriver.waitWithDriver(5000);
 		debugInfo("=====================================");
 		debugInfo("Tenga un poco de paciencia por favor.");
 		debugInfo("Esto puede tardar unos segundos |||^^ ...");
@@ -46,7 +46,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 		debugInfo("###########################");
 		debugInfo("# Mensaje de confirmacion #");
 		debugInfo("###########################");
-		webDriver.waitWithDriver(16000);
+		webDriver.waitWithDriver(5000);
 		
 		if(webDriver.isPresentInFrame(correctoTxt, cuerpoFrame)) {
 			debugInfo("Mensaje: " + webDriver.getTextInFrame(correctoTxt, cuerpoFrame));
@@ -55,7 +55,6 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 			debugInfo("Expediente generado: " + webDriver.getTextInFrame(expedienteTxt, cuerpoFrame));
 			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame).substring(26, 34));
 			setTestVar(Constants.ANYO_SINIESTRO, webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame).substring(21, 25));
-			// webDriver.waitWithDriver(8000);
 		} else {
 			debugError("Se ha producido un error.");
 		}
@@ -68,20 +67,20 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 	public ConfirmacionSiniestrosPage check() {
 		debugBegin();
 
-		debugInfo("###########################\n");
-		debugInfo("# Mensaje de confirmacion #\n");
+		debugInfo("###########################");
+		debugInfo("# Mensaje de confirmacion #");
 		debugInfo("###########################");
 
 		webDriver.waitWithDriver(5000);
 
 		// Need refactor By elements
 		if(webDriver.isPresentInFrame(correctoTxt, cuerpoFrame)) {
-			debugInfo("- mensaje: " + webDriver.getTextInFrame(correctoTxt, cuerpoFrame) + "\n");
-			debugInfo("- " + webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame) + "\n");
+			debugInfo("Mensaje: " + webDriver.getTextInFrame(correctoTxt, cuerpoFrame));
+			debugInfo(webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame));
 
 			setTestVar(Constants.NUMERO_SINIESTRO, webDriver.getTextInFrame(nSiniestroTxt, cuerpoFrame));
 
-			debugInfo("- Expediente generado: " + webDriver.getTextInFrame(expedienteTxt, cuerpoFrame));
+			debugInfo("Expediente generado: " + webDriver.getTextInFrame(expedienteTxt, cuerpoFrame));
 		} else {
 			debugInfo("Se ha producido un error.");
 		}
@@ -94,7 +93,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 
 	public ConfirmacionSiniestrosPage tramitarSiniestro() {
 		debugBegin();
-		webDriver.click(tramitarSiniestroBtn);
+		webDriver.clickInFrame(tramitarSiniestroBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

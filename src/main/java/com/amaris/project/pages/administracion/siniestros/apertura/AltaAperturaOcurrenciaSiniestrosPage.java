@@ -168,7 +168,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		webDriver.clickElementFromDropDownByAttributeInFrame(grupoCausasDrpDwn, grupoCausasOption, cuerpoFrame, "value", "GC25");
 
 		webDriver.waitWithDriver(6000);
-		debugInfo("El grupo causa específica es: " + getTestVar(Constants.TIPO_CAUSA_MAC) + " , con código: " + getTestVar(Constants.TIPO_CAUSA_MAC_COD));
+		debugInfo("El grupo causa específica es: " + getTestVar(Constants.TIPO_CAUSA_MAC) + ", con código: " + getTestVar(Constants.TIPO_CAUSA_MAC_COD));
 		webDriver.clickElementFromDropDownByAttributeInFrame(tiposCausasDrpDwn, tipoCausasOption, cuerpoFrame, "value", getTestVar(Constants.TIPO_CAUSA_MAC_COD));
 
 		// if(webDriver.isOnScreen(comboGremio)) {
@@ -313,8 +313,12 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	public AltaAperturaOcurrenciaSiniestrosPage modificarDescripcion(String descripcion) {
 		debugBegin();
+		
+		setTestVar(Constants.DESCRIPCION_SINIESTRO, descripcion); 
+		
 		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, descripcion);
 		webDriver.clickInFrame(verificarBtn, cuerpoFrame);
+		
 		debugEnd();
 
 		return this;

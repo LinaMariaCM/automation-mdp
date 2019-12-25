@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 
 public class ComunicacionSiniestrosPage extends PageObject {
 
@@ -11,7 +12,7 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	private By leftFrame = By.cssSelector("#leftFrame");
 	private By capaIframe = By.cssSelector("#capaIframe");
 
-	private By comunicacionBtn = By.cssSelector("#jt6");
+	private By comunicacionBtn = By.cssSelector("[href*='codmenu=SINI_COMUNICACION']");
 
 	private By nuevaComunicacionBtn = By.cssSelector("#tr0 a.si-arrow-right");
 
@@ -66,7 +67,7 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	private By tituloNuevaAnotacionBtn = By.cssSelector("div.sis-col-100:nth-child(1) > div:nth-child(2) > select:nth-child(1)");
 	private By comentarioNuevaAnotacionBtn = By.cssSelector("#comentario");
 	private By ConfidencialidadAnotacion = By.cssSelector("div.sis-col-100:nth-child(5) > div:nth-child(2) > select:nth-child(1)");
-	private By grabarAnotacion = By.cssSelector("#botonContinuar2");
+	private By grabarAnotacionBtn = By.cssSelector("#botonContinuar2");
 	private By confidencialAnotacionDropDwn = By.cssSelector("div.sis-col-100:nth-child(5) > div:nth-child(2) > select:nth-child(1)");
 	private By cancelarAnotacionBtn = By.cssSelector("#botonCancelar");
 	// END REGION
@@ -78,7 +79,7 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	public ComunicacionSiniestrosPage nuevaComunicacion() {
 		debugBegin();
 
-		webDriver.clickInFrame(comunicacionBtn, cuerpoFrame);
+		webDriver.clickInFrame(comunicacionBtn, leftFrame);
 
 		webDriver.clickInFrame(nuevaComunicacionBtn, cuerpoFrame);
 
@@ -124,15 +125,25 @@ public class ComunicacionSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(altaAnotacionBtn, cuerpoFrame);
-		webDriver.clickInFrame(anyadirNuevaAnotacionBtn, capaIframe);
+		
+		webDriver.waitWithDriver(3000);
+		
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(capaIframe);
+		
+		webDriver.click(anyadirNuevaAnotacionBtn);
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(tituloNuevaAnotacionBtn, capaIframe, "value", "Otros");
+		webDriver.clickElementFromDropDownByAttribute(tituloNuevaAnotacionBtn, "value", "Otros");
 
-		webDriver.setTextInFrame(comentarioNuevaAnotacionBtn, capaIframe, "Ipsum sum, Lorem lorem, Factum factum.");
+		setTestVar(Constants.COMENTARIO_ANOTACION, "Ipsum sum, Lorem lorem, Factum factum.");
+		debugInfo("Comentario: " + getTestVar(Constants.COMENTARIO_ANOTACION));
+		webDriver.setText(comentarioNuevaAnotacionBtn, getTestVar(Constants.COMENTARIO_ANOTACION));
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(confidencialAnotacionDropDwn, capaIframe, "value", "VIGLOBAL");
+		webDriver.clickElementFromDropDownByAttribute(confidencialAnotacionDropDwn, "value", "VIGLOBAL");
 
-		webDriver.clickInFrame(cancelarAnotacionBtn, capaIframe);
+		webDriver.click(grabarAnotacionBtn);
+		
+		webDriver.exitFrame();
 
 		debugEnd();
 

@@ -122,7 +122,7 @@ public class AgendaSiniestrosPage extends PageObject {
 		debugInfo("Nueva tarea");
 
 		String titulo = "Nueva tareas automatica" + StringUtils.getRandomLetterChain(5);
-		if(getTestVar(Constants.TAREA_TITULO) != null || getTestVar(Constants.TAREA_TITULO).isEmpty()) {
+		if(getTestVar(Constants.TAREA_TITULO) != null && !getTestVar(Constants.TAREA_TITULO).isEmpty()) {
 			titulo = getTestVar(Constants.TAREA_TITULO);
 		} else {
 			setTestVar(Constants.TAREA_TITULO, titulo);
