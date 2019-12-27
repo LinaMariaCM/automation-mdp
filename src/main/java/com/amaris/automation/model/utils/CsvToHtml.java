@@ -859,6 +859,8 @@ public class CsvToHtml {
 	protected void copyImage(String fileName, File originPath, File destinationPath) {
 		InputStream in = null;
 
+		destinationPath.mkdirs();
+		
 		try(OutputStream out = new FileOutputStream(new File(destinationPath, fileName))) {
 			in = new FileInputStream(new File(originPath, fileName));
 
@@ -895,10 +897,10 @@ public class CsvToHtml {
 
 			filesNeeded.add("info");
 
-			destinationPath.mkdirs();
-
-			for(String fileName : originPath.list()) {
-				copyImage(fileName, originPath, destinationPath);
+			for(String fileName : originPath.list()) {				
+				if(ArrayUtils.stringInArray(filesNeeded.toArray(new String[0]), fileName.substring(0, fileName.indexOf('.')))) {
+					copyImage(fileName, originPath, destinationPath);
+				}
 			}
 		}
 	}
