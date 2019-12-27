@@ -25,7 +25,7 @@ public class GestionFraudePage extends PageObject {
 	private By consultar = By.cssSelector("div.cpdatos li:nth-child(1) > a");
 	private By modificar = By.cssSelector("div.cpdatos li:nth-child(2) > a");
 	private By eliminar = By.cssSelector("div.cpdatos li:nth-child(3) > a");
-	private By guardar = By.cssSelector("div #botonGuardar");
+	private By guardarBtn = By.cssSelector("div #botonGuardar");
 
 	// gestion
 	private By estado = By.cssSelector("#FRAU_ESTADO");
@@ -41,6 +41,6 @@ public class GestionFraudePage extends PageObject {
 	private By fechaResolu = By.cssSelector("#FRAU_FECHRESO");
 
 	// verificacion
-	private By grabar = By.cssSelector("#botonGrabar");
+	private By grabarBtn = By.cssSelector("#botonGrabar");
 
 }

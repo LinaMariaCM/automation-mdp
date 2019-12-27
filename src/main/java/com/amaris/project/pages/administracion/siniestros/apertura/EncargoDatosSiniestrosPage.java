@@ -3,9 +3,6 @@ package com.amaris.project.pages.administracion.siniestros.apertura;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.amaris.automation.model.utils.DateUtils;
@@ -15,26 +12,24 @@ import org.openqa.selenium.By;
 
 public class EncargoDatosSiniestrosPage extends PageObject {
 
-	DateFormat fOcurrencia = new SimpleDateFormat("dd/MM/yyyy");
-
 	// region WebElement
 	private By cuerpoFrame = By.id("mainFrame");
 
 	// #### DATOS DEL ASEGURADO ####
 	private By btnAnotaciones = By.cssSelector("#enlaceDialogo > span");
 	private By btnVolver = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
-	private By btnGrabar = By.id("botonGrabar");
-	private By comboTipoColaborador = By.id("tipoEspe");
-	private By comboTipoColaboradorElemento = By.cssSelector("#tipoEspe > option");
+	private By grabarBtn = By.id("botonGrabar");
+	private By tipoColaboradorDrpDwn = By.id("tipoEspe");
+	private By tipoColaboradorOption = By.cssSelector("#tipoEspe > option");
 
-	private By comboTipoEncargo = By.id("selectEncargo");
+	private By tipoEncargoDrpDwn = By.id("selectEncargo");
 	private By comboTipoEncargoElemento = By.cssSelector("#selectEncargo > option");
 
-	private By comboSubtipoEncargo = By.cssSelector("#selectAgrupacion > option");
-	private By txtFechaEncargo = By.id("fechenca");
-	private By txtDetalles = By.id("comentario");
+	private By subtipoEncargoDrpDwn = By.cssSelector("#selectAgrupacion");
+	private By fechaEncargoInput = By.id("fechenca");
+	private By detallesInput = By.id("comentario");
 
-	private By btnAperturaSiniestro = By.cssSelector("#formDatos #botonera #botonContinuar");
+	private By aperturaSiniestroBtn = By.cssSelector("#formDatos #botonera #botonContinuar");
 	private By btnValidarYContinuar = By.id("botonContinuar");
 
 	private By anyadirNuevoEncargoBtn = By.cssSelector("[onclick*='addEncargo()']");
@@ -48,18 +43,16 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	public EncargoDatosSiniestrosPage seleccionarTipoEncargo(String colaborador, String tipoEncargo, String subtipoEncargo) {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, comboTipoColaboradorElemento, "value", colaborador);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoColaboradorDrpDwn, cuerpoFrame, "value", colaborador);
 		// webDriver.clickElementFromDropDownByIndex(comboTipoColaborador, 2);
 		webDriver.waitWithDriver(6000);
 		// webDriver.clickElementFromDropDownByAttribute(comboTipoColaborador, comboTipoColaboradorElemento, "value", colaborador);
-		webDriver.clickElementFromDropDownByAttribute(comboTipoEncargo, "value", tipoEncargo);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoEncargoDrpDwn, cuerpoFrame, "value", tipoEncargo);
 		// webDriver.clickElementFromDropDownByIndex(comboTipoEncargo, 1);
 		webDriver.waitWithDriver(6000);
-		webDriver.clickElementFromDropDownByAttribute(comboSubtipoEncargo, "value", subtipoEncargo);
+		webDriver.clickElementFromDropDownByAttributeInFrame(subtipoEncargoDrpDwn, cuerpoFrame, "value", subtipoEncargo);
 		//webDriver.clickElementFromDropDownByIndex(comboSubtipoEncargo, 2);
 
-		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -67,10 +60,10 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage seleccionarDatosEncargo(Date fechaEncargo, String detalles) {
 		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.appendText(txtFechaEncargo, fOcurrencia.format(fechaEncargo));
-		webDriver.appendText(txtDetalles, detalles);
-		webDriver.exitFrame();
+		
+		webDriver.appendTextInFrame(fechaEncargoInput, cuerpoFrame, DateUtils.dateToString(fechaEncargo));
+		webDriver.appendTextInFrame(detallesInput, cuerpoFrame, detalles);
+
 		debugEnd();
 
 		return this;
@@ -78,19 +71,18 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage clickGrabar() {
 		debugBegin();
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
 	}
 
 	//--------------------------------------RETENCIONES-------------------------------------------------------
-
 	public EncargoDatosSiniestrosPage anyadirEncargoFalloVacio() {
 		debugBegin();
 
 		webDriver.waitWithDriver(3000);
-		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
+		webDriver.clickInFrame(aperturaSiniestroBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_ENCARGO);
 		webDriver.acceptAlert();
@@ -104,7 +96,7 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage tipoColaboradorFalloVacio() {
 		debugBegin();
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EXISTE_TIPO_SUBTIPO_CARPETA);
 		webDriver.acceptAlert();
@@ -124,16 +116,17 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	public EncargoDatosSiniestrosPage seleccionarTipoColaborador(String opcion) {
 		debugBegin();
 
+		// TODO Cambiar a atributo
 		switch(opcion) {
 			case "Seleccionar":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTipoColaborador, cuerpoFrame, 0);
+				webDriver.clickElementFromDropDownByIndexInFrame(tipoColaboradorDrpDwn, cuerpoFrame, 0);
 				break;
 			default:
 			case "Defensa jurídica":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTipoColaborador, cuerpoFrame, 1);
+				webDriver.clickElementFromDropDownByIndexInFrame(tipoColaboradorDrpDwn, cuerpoFrame, 1);
 				break;
 			case "Perito general":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTipoColaborador, cuerpoFrame, 2);
+				webDriver.clickElementFromDropDownByIndexInFrame(tipoColaboradorDrpDwn, cuerpoFrame, 2);
 				break;
 		}
 
@@ -144,7 +137,7 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage tipoEncargoFalloVacio() {
 		debugBegin();
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_ENCARGO);
 		webDriver.acceptAlert();
@@ -161,13 +154,14 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	public EncargoDatosSiniestrosPage seleccionarTipoEncargo(String opcion) {
 		debugBegin();
 
+		// TODO Cambiar a atributo
 		switch(opcion) {
 			case "Seleccionar":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTipoEncargo, cuerpoFrame, 0);
+				webDriver.clickElementFromDropDownByIndexInFrame(tipoEncargoDrpDwn, cuerpoFrame, 0);
 				break;
 			default:
 			case "Defensa jurídica":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTipoEncargo, cuerpoFrame, 1);
+				webDriver.clickElementFromDropDownByIndexInFrame(tipoEncargoDrpDwn, cuerpoFrame, 1);
 				break;
 		}
 
@@ -178,7 +172,7 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage subtipoEncargoFalloVacio() {
 		debugBegin();
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUBTIPO_ENCARGO);
 		webDriver.acceptAlert();
@@ -195,16 +189,17 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 	public EncargoDatosSiniestrosPage seleccionarSubtipoEncargo(String opcion) {
 		debugBegin();
 
+		// TODO Cambiar a atributo
 		switch(opcion) {
 			case "Seleccionar":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboSubtipoEncargo, cuerpoFrame, 0);
+				webDriver.clickElementFromDropDownByIndexInFrame(subtipoEncargoDrpDwn, cuerpoFrame, 0);
 				break;
 			default:
 			case "Defensa y reclamación":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboSubtipoEncargo, cuerpoFrame, 1);
+				webDriver.clickElementFromDropDownByIndexInFrame(subtipoEncargoDrpDwn, cuerpoFrame, 1);
 				break;
 			case "Impago de cuotas comunitarias":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboSubtipoEncargo, cuerpoFrame, 2);
+				webDriver.clickElementFromDropDownByIndexInFrame(subtipoEncargoDrpDwn, cuerpoFrame, 2);
 				break;
 		}
 
@@ -215,8 +210,9 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage fechaEncargoFalloVacio() {
 		debugBegin();
-		webDriver.clearTextInFrame(txtFechaEncargo, cuerpoFrame);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		
+		webDriver.clearTextInFrame(fechaEncargoInput, cuerpoFrame);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ENCARGO);
 		webDriver.acceptAlert();
@@ -228,8 +224,9 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 	public EncargoDatosSiniestrosPage fechaEncargoFormatoIncorrecto() {
 		debugBegin();
-		webDriver.setTextInFrame(txtFechaEncargo, cuerpoFrame, "12/if/201p");
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
+		
+		webDriver.setTextInFrame(fechaEncargoInput, cuerpoFrame, "12/if/201p");
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ENCARGO);
 		webDriver.acceptAlert();
@@ -244,9 +241,9 @@ public class EncargoDatosSiniestrosPage extends PageObject {
 
 		String datoFechaHoy = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 
-		webDriver.setTextInFrame(txtFechaEncargo, cuerpoFrame, datoFechaHoy);
-		webDriver.clickInFrame(btnGrabar, cuerpoFrame);
-		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
+		webDriver.setTextInFrame(fechaEncargoInput, cuerpoFrame, datoFechaHoy);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
+		webDriver.clickInFrame(aperturaSiniestroBtn, cuerpoFrame);
 
 		debugEnd();
 

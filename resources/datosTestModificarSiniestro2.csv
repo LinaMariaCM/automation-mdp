@@ -1,4 +1,4 @@
-cceso;usuario;tipo_poliza;numero_poliza;numero_siniestro;fecha_siniestro;dec_nombre;dec_prim_apellido;dec_seg_apellido;dec_telefono;dec_email;descripcion_siniestro;grupo_causa;grupo_causa_cod;tipo_causa;tipo_causa_cod
+acceso;usuario;tipo_poliza;numero_poliza;numero_siniestro;fecha_siniestro;dec_nombre;dec_prim_apellido;dec_seg_apellido;dec_telefono;dec_email;descripcion_siniestro;grupo_causa;grupo_causa_cod;tipo_causa;tipo_causa_cod
 Innova;eperez;MEC;510005904;4083157;2019;NOMBREMOD12;PRIAPELLIDOMOD;SEGAPELLIDOMOD;660000001;modificadoOK@mail.com;Nueva descripción de siniestro. Modificación siniestro completada con exito;INCENDIO;GC01;1009 CAIDA RAYO;TC001009
 Innova;eperez;MTS;500527220;4083195;2019;NOMBREMOD23;PRIAPELLIDOMOD;SEGAPELLIDOMOD;660000001;modificadoOK@mail.com;Nueva descripción de siniestro. Modificación siniestro completada con exito;AGUA;GC02;2018 INUNDACION;TC002018
 Innova;eperez;MTS;200208236;4083196;2019;NOMBREMOD34;PRIAPELLIDOMOD;SEGAPELLIDOMOD;660000001;modificadoOK@mail.com;Nueva descripción de siniestro. Modificación siniestro completada con exito;FENÓMENOS ATMOSFERICOS;GC19;11006 NIEVE;TC011006

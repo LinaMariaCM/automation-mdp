@@ -9,7 +9,7 @@ public class PrecioValidacionExcepcionesReglasPage extends PageObject {
 
 	// region webelements
 	private By cuerpoFrame = By.name("cuerpo");
-	private By btnContinuar = By.xpath(".//*[text()='Continuar']");
+	private By continuarBtn = By.xpath(".//*[text()='Continuar']");
 	// endregion
 
 	public PrecioValidacionExcepcionesReglasPage(UserStory userS) {
@@ -17,9 +17,9 @@ public class PrecioValidacionExcepcionesReglasPage extends PageObject {
 	}
 
 	// region methods
-	public PrecioValidacionExcepcionesReglasPage ClickOnContinuar() {
+	public PrecioValidacionExcepcionesReglasPage clickContinuar() {
 		debugBegin();
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

@@ -10,8 +10,8 @@ public class AvisoSistemaPage extends PageObject {
 
 	// region webelements
 	private By cuerpoFrame = By.name("cuerpo");
-	private By btnContinuar = By.xpath(".//*[text()='Volver']");
-	private By msgAvisoPlantasAlto = By.xpath("./html/body/table");
+	private By continuarBtn = By.xpath(".//*[text()='Volver']");
+	private By msgAvisoPlantasAltoTxt = By.xpath("./html/body/table");
 	// endregion
 
 	public AvisoSistemaPage(UserStory userS) {
@@ -22,23 +22,17 @@ public class AvisoSistemaPage extends PageObject {
 	public AvisoSistemaPage checkmsgAvisoPlantasAlto() {
 		debugBegin();
 
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		String mensaje = this.webDriver.getText(this.msgAvisoPlantasAlto);
+		String mensaje = this.webDriver.getTextInFrame(msgAvisoPlantasAltoTxt, cuerpoFrame);
 		Assert.assertTrue(mensaje.contains("Dado que el número de plantas en alto (plantas) > 20, el proyecto debe ser revisado por compañía."));
-		this.webDriver.exitFrame();
 
 		debugEnd();
 
 		return this;
 	}
 
-	public AvisoSistemaPage clikOnVolver() {
+	public AvisoSistemaPage clikVolver() {
 		debugBegin();
-
-		this.webDriver.switchToFrame(this.cuerpoFrame);
-		this.webDriver.click(this.btnContinuar);
-		this.webDriver.exitFrame();
-
+		this.webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

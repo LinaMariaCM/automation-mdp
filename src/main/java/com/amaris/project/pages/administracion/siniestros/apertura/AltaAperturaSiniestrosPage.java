@@ -15,41 +15,41 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	private By topFrame = By.id("topFrame");
 	private By mainFrame = By.id("mainFrame");
 
-	private By rdbtnNumPoliza = By.id("filtro1");
-	private By rdbtnNombreTomador = By.id("filtro2");
-	private By rdbtnNIF = By.id("filtro3");
+	private By numPolizaBtn = By.id("filtro1");
+	private By nombreTomadorBtn = By.id("filtro2");
+	private By nifBtn = By.id("filtro3");
 	private By rdbtnDireccion = By.id("filtro4");
-	private By rdbtnPolProcedencia = By.id("filtro5");
-	private By rdbtnOtros = By.id("filtro6");
+	private By polizaProcedenciaBtn = By.id("filtro5");
+	private By otrosBtn = By.id("filtro6");
 
-	private By btnContinuar = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(12) > a > span");
-	private By btnBuscar = By.name("botonBuscar");
-	private By comboProducto = By.id("producto_poliza");
+	private By continuarBtn = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(12) > a > span");
+	private By buscarBtn = By.name("botonBuscar");
+	private By productoDrpDwn = By.id("producto_poliza");
 
-	private By txtNumPoliza = By.id("polizsec");
-	private By rdbtnEmpiezaPor = By.id("empiezapor");
-	private By rdbtnContiene = By.id("contiene");
-	private By txtNombre = By.id("nombpcom");
-	private By txtNifDocumento = By.id("numedocu");
+	private By numPolizaInput = By.id("polizsec");
+	private By empiezaPorBtn = By.id("empiezapor");
+	private By contieneBtn = By.id("contiene");
+	private By nombreInput = By.id("nombpcom");
+	private By nifDocumentoInput = By.id("numedocu");
 	private By txtProvincia = By.id("BUSC_EDIF_PROVINCIA");
 	private By txtPoblacion = By.id("BUSC_EDIF_POBLACION");
 	private By txtVia = By.id("BUSC_EDIF_VIA");
 	private By txtNumVia = By.id("BUSC_EDIF_NUMVIA");
 	private By txtRestoVia = By.id("BUSC_EDIF_RESTVIA");
 	private By txtCodigoPostal = By.id("BUSC_EDIF_POSTCOD");
-	private By txtPolProcedencia = By.id("poliproce");
-	private By txtFechaDesde = By.id("desde");
-	private By txtFechaHasta = By.id("hasta");
+	private By polizaProcedenciaInput = By.id("poliproce");
+	private By fechaDesdeInput = By.id("desde");
+	private By fechaHastaInput = By.id("hasta");
 
-	private By comboEstado = By.id("estado");
-	private By comboLineaNegocio = By.id("producto");
-	private By txtCodMediador = By.id("codMediador");
+	private By estadoDrpDwn = By.id("estado");
+	private By lineaNegocioDrpDwn = By.id("producto");
+	private By codigoMediadorInput = By.id("codMediador");
 	private By comboIntervalo = By.id("intervalo");
 	private By comboPaginas = By.id("paginas");
 
-	private By polizas50 = By.cssSelector(".lnkViewAllResults");
+	private By polizas50Btn = By.cssSelector(".lnkViewAllResults");
 
-	private By selectPoliza = By.cssSelector(".si-button2.si-arrow-right");
+	private By selectPolizaBtn = By.cssSelector(".si-button2.si-arrow-right");
 	// private By selectPoliza = By.cssSelector("#capaAjax > table > tbody > tr:nth-child("+
 	// Integer.toString((int)((Math.random()*51))) +") > td:nth-child(12) > a > span");
 
@@ -62,7 +62,7 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscar50Polizas() {
 		debugBegin();
 
-		webDriver.clickInFrame(polizas50, mainFrame);
+		webDriver.clickInFrame(polizas50Btn, mainFrame);
 		ActionSteps.waitForIt(userS.getWebDriver());
 
 		debugEnd();
@@ -73,9 +73,9 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscarPorNumPoliza(String numPoliza) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbtnNumPoliza, mainFrame);
-		webDriver.setTextInFrame(txtNumPoliza, mainFrame, numPoliza);
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickInFrame(numPolizaBtn, mainFrame);
+		webDriver.setTextInFrame(numPolizaInput, mainFrame, numPoliza);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -85,11 +85,11 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscarPorNumPoliza(String codigoProducto, String numPoliza) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbtnNumPoliza, mainFrame);
+		webDriver.clickInFrame(numPolizaBtn, mainFrame);
 		// webDriver.clickElementFromDropDownByAttribute(comboProducto, "value", codigoProducto);
-		webDriver.clickElementFromDropDownByIndexInFrame(comboProducto, mainFrame, 0);
-		webDriver.setTextInFrame(txtNumPoliza, mainFrame, numPoliza);
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickElementFromDropDownByIndexInFrame(productoDrpDwn, mainFrame, 0);
+		webDriver.setTextInFrame(numPolizaInput, mainFrame, numPoliza);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 		
 		ActionSteps.waitForIt(userS.getWebDriver());
 
@@ -101,10 +101,10 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscarPorNombreTomador(String nombreTomador) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbtnNombreTomador, mainFrame);
-		webDriver.clickInFrame(rdbtnEmpiezaPor, mainFrame);
-		webDriver.setTextInFrame(txtNombre, mainFrame, nombreTomador);
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickInFrame(nombreTomadorBtn, mainFrame);
+		webDriver.clickInFrame(empiezaPorBtn, mainFrame);
+		webDriver.setTextInFrame(nombreInput, mainFrame, nombreTomador);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -114,10 +114,10 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscarContieneNombreTomador(String nombreTomador) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbtnNombreTomador, mainFrame);
-		webDriver.clickInFrame(rdbtnContiene, mainFrame);
-		webDriver.setTextInFrame(txtNombre, mainFrame, nombreTomador);
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickInFrame(nombreTomadorBtn, mainFrame);
+		webDriver.clickInFrame(contieneBtn, mainFrame);
+		webDriver.setTextInFrame(nombreInput, mainFrame, nombreTomador);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -127,9 +127,9 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscarPorNIF(String nif) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbtnNIF, mainFrame);
-		webDriver.setTextInFrame(txtNifDocumento, mainFrame, nif);
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickInFrame(nifBtn, mainFrame);
+		webDriver.setTextInFrame(nifDocumentoInput, mainFrame, nif);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -139,9 +139,9 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscarPolizaProcedencia(String numPoliza) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbtnPolProcedencia, mainFrame);
-		webDriver.setTextInFrame(txtPolProcedencia, mainFrame, numPoliza);
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickInFrame(polizaProcedenciaBtn, mainFrame);
+		webDriver.setTextInFrame(polizaProcedenciaInput, mainFrame, numPoliza);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -151,18 +151,18 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscarOtros(String desde, String hasta, String estado, String lineaNegocio, String mediador) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbtnOtros, mainFrame);
+		webDriver.clickInFrame(otrosBtn, mainFrame);
 
-		webDriver.setTextInFrame(txtFechaDesde, mainFrame, desde);
-		webDriver.setTextInFrame(txtFechaHasta, mainFrame, hasta);
+		webDriver.setTextInFrame(fechaDesdeInput, mainFrame, desde);
+		webDriver.setTextInFrame(fechaHastaInput, mainFrame, hasta);
 
 		// Estados: V = vigor, A =Anulada, F = Vencida
-		webDriver.clickElementFromDropDownByAttributeInFrame(comboEstado, mainFrame, "value", estado);
+		webDriver.clickElementFromDropDownByAttributeInFrame(estadoDrpDwn, mainFrame, "value", estado);
 		// Lineas Negocio 920, 510, 660, 640, 500
-		webDriver.clickElementFromDropDownByAttributeInFrame(comboLineaNegocio, mainFrame, "value", lineaNegocio);
-		webDriver.setTextInFrame(txtCodMediador, mainFrame, mediador);
+		webDriver.clickElementFromDropDownByAttributeInFrame(lineaNegocioDrpDwn, mainFrame, "value", lineaNegocio);
+		webDriver.setTextInFrame(codigoMediadorInput, mainFrame, mediador);
 
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -173,13 +173,13 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage buscarOtros(String desde, String hasta, String lineaNegocio) {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbtnOtros, mainFrame);
-		webDriver.setTextInFrame(txtFechaDesde, mainFrame, desde);
-		webDriver.setTextInFrame(txtFechaHasta, mainFrame, hasta);
+		webDriver.clickInFrame(otrosBtn, mainFrame);
+		webDriver.setTextInFrame(fechaDesdeInput, mainFrame, desde);
+		webDriver.setTextInFrame(fechaHastaInput, mainFrame, hasta);
 		// Ramos 920, 510, 660, 640, 500
-		webDriver.clickElementFromDropDownByAttributeInFrame(comboLineaNegocio, mainFrame, "value", lineaNegocio);
+		webDriver.clickElementFromDropDownByAttributeInFrame(lineaNegocioDrpDwn, mainFrame, "value", lineaNegocio);
 
-		webDriver.clickInFrame(btnBuscar, mainFrame);
+		webDriver.clickInFrame(buscarBtn, mainFrame);
 
 		debugEnd();
 
@@ -190,7 +190,7 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage continuarPrimeraPoliza() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnContinuar, mainFrame);
+		webDriver.clickInFrame(continuarBtn, mainFrame);
 
 		debugEnd();
 
@@ -200,15 +200,11 @@ public class AltaAperturaSiniestrosPage extends PageObject {
 	public AltaAperturaSiniestrosPage continuarRandomPoliza() {
 		debugBegin();
 
-		List<WebElement> listaPolizas = webDriver.getElementsInFrame(selectPoliza, mainFrame);
+		List<WebElement> listaPolizas = webDriver.getElementsInFrame(selectPolizaBtn, mainFrame);
 
 		webDriver.waitWithDriver(3000);
 
 		webDriver.clickInFrame(listaPolizas.get((int) (Math.random() * listaPolizas.size())), mainFrame);
-
-		System.out.println(selectPoliza);
-
-		// webDriver.clickInFrame(selectPoliza, mainFrame);
 
 		debugEnd();
 

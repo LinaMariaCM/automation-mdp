@@ -3,7 +3,6 @@ package com.amaris.project.pages.productos;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,54 +15,50 @@ import org.testng.Assert;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.utils.DownloadLinkHelper;
 import com.google.common.io.Files;
 
 public class MensajeConfirmacionPage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By cuerpoFrame = By.name("cuerpo");
-	private By imprimirCopiaTomador = By.cssSelector("#form1 > table.grid.narrowBox > tbody > tr:nth-child(3) > td:nth-child(3) > a > img");
+	private By imprimirCopiaTomadorBtn = By.cssSelector("#form1 > table.grid.narrowBox > tbody > tr:nth-child(3) > td:nth-child(3) > a > img");
 
-	private By rowWithDocument = By.xpath(".//tr[td//*[@alt='Imprimir']]");
+	private By documentRow = By.xpath(".//tr[td//*[@alt='Imprimir']]");
 
-	String xpathRowLinkDownloadFilter = ".//td[3]/a";
-	String xpathRowLinkDescriptionFilter = ".//td[2]";
+	private By linkDownloadRow = By.xpath(".//td[3]/a");
+	private By linkDescriptionRow = By.xpath(".//td[2]");
 	// endregion
 
 	public MensajeConfirmacionPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region methods
-	public MensajeConfirmacionPage DownlodadDocumentsToFolder(String path) {
+	// region Methods
+	public MensajeConfirmacionPage downlodadDocumentsToFolder(String path) {
 		debugBegin();
 
 		List<DownloadLinkHelper> downloads = getDownloadLinksAndNames();
 
 		File reportFolder = new File(userS.getReportPath());
-
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-mm-dd_hh-mm-ss");
-		String dateTime = LocalDateTime.now().format(formatter);
-
+		String dateTime = DateUtils.getTodayDate("yyyy-mm-dd_hh-mm-ss");
 		String folderName = "/Poliza_" + getTestVar(Constants.NUM_POLIZA) + "_Documentos_Suplemento" + dateTime;
 
 		new File(path + '/' + folderName).mkdirs();
 		File destinationFolder = new File(path + '/' + folderName);
 
 		downloads.stream().forEach(p -> {
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.doubleClick(p.getDownloadLink());
-			webDriver.exitFrame();
+			webDriver.doubleClickInFrame(p.getDownloadLink(), cuerpoFrame);
 
-			if(CheckIfFilesInFolderHaveBeenDownloaded(reportFolder)) {
+			if(checkIfFilesInFolderHaveBeenDownloaded(reportFolder)) {
 				try {
-					String[] extensions = { "pdf"};
-					Collection<File> files = FileUtils.listFiles(reportFolder, extensions, true);
+					Collection<File> files = FileUtils.listFiles(reportFolder, new String[]{ "pdf"}, true);
 
 					Files.move(files.iterator().next(), new File(destinationFolder.getAbsolutePath() + '/' + p.getDescription() + ".pdf"));
-					webDriver.closeWindow(webDriver.getMainWindowHandle());
+
+					webDriver.closeWindow();
 				} catch(IOException e) {
 					debugError("Ha habido un error al mover el archivo descargado a la carpeta de destino: " + e);
 				}
@@ -80,20 +75,16 @@ public class MensajeConfirmacionPage extends PageObject {
 
 		List<DownloadLinkHelper> downloads = new ArrayList<>();
 
-		webDriver.switchToFrame(cuerpoFrame);
-
-		webDriver.getElements(rowWithDocument).stream()
-			.forEach(p -> downloads.add(new DownloadLinkHelper(p.findElement(By.xpath(xpathRowLinkDescriptionFilter)).getText(),
-				p.findElement(By.xpath(xpathRowLinkDownloadFilter)))));
-
-		webDriver.exitFrame();
+		webDriver.getElementsInFrame(documentRow, cuerpoFrame).stream()
+			.forEach(p -> downloads.add(new DownloadLinkHelper(p.findElement(linkDescriptionRow).getText(),
+				p.findElement(linkDownloadRow))));
 
 		debugEnd();
 
 		return downloads;
 	}
 
-	public boolean CheckIfFilesInFolderHaveBeenDownloaded(File tempFolder) {
+	public boolean checkIfFilesInFolderHaveBeenDownloaded(File tempFolder) {
 		debugBegin();
 
 		boolean result = false;
@@ -116,12 +107,10 @@ public class MensajeConfirmacionPage extends PageObject {
 		return result;
 	}
 
-	public MensajeConfirmacionPage CheckIfPageHasLoadedCorrectly() {
+	public MensajeConfirmacionPage checkIfPageHasLoadedCorrectly() {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
-		Assert.assertTrue(webDriver.getElements(rowWithDocument).size() > 2, "La pagina con el listado de documentos no ha cargado correctamente");
-		webDriver.exitFrame();
+		Assert.assertTrue(webDriver.getElementsInFrame(documentRow, cuerpoFrame).size() > 2, "La pagina con el listado de documentos no ha cargado correctamente");
 
 		debugEnd();
 
@@ -132,7 +121,7 @@ public class MensajeConfirmacionPage extends PageObject {
 	public MensajeConfirmacionPage searchTextInCopiaTomadorPDF() {
 		debugBegin();
 
-		webDriver.clickInFrame(imprimirCopiaTomador, cuerpoFrame);
+		webDriver.clickInFrame(imprimirCopiaTomadorBtn, cuerpoFrame);
 		// Pending code that searches for text.
 
 		debugEnd();

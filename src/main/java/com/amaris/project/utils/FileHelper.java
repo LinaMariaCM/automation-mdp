@@ -57,7 +57,7 @@ public class FileHelper {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
 
-	public static void uploadFIle(String fileNameAndPath) {
+	public static void uploadFile(String fileNameAndPath) {
 		setClipboardData(fileNameAndPath);
 		// native key strokes for CTRL, V and ENTER keys
 

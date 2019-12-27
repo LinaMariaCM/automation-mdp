@@ -3,6 +3,7 @@ package test;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
+import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.CheckSteps;
 import com.amaris.project.steps.DataSteps;
@@ -35,7 +36,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -72,7 +73,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -107,7 +108,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -144,7 +145,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -178,7 +179,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -215,7 +216,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", Constants.FICHERO_NUM_VIA);
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -252,7 +253,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -286,7 +287,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -321,7 +322,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -354,7 +355,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -389,7 +390,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
@@ -424,7 +425,7 @@ public class MacTest extends TestObject {
 		System.out.println("Scenario: " + userS.getScenario());
 		System.out.println("++++++++++++++++++++++++++++++++");
 
-		userS.addDMData("datosMac" + ActionSteps.getDayOfWeek() + ".csv", "fichero_numero_via");
+		userS.addDMData("datosMac" + DateUtils.getDayOfWeek() + ".csv", "fichero_numero_via");
 
 		userS.testActions(() -> {
 			dataSteps.el_documento_aleatoreo_inquilino();
