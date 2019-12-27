@@ -15,7 +15,7 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 	private By modalFrame = By.id("capaIframe");
 	private By anotacionesBtn = By.cssSelector("#enlaceDialogo > span");
-	private By anotacionesNuevoBtn = By.cssSelector("[data-target='capaApunteDialogo0'] > span");
+	private By anotacionesNuevoBtn = By.cssSelector("#cabApunteDialogo0");
 
 	// #### DATOS DEL ASEGURADO ####
 	private By seleccionAseguradoDrpDwn = By.id("seleccionAsegurado");
@@ -151,6 +151,7 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 
 		webDriver.clickInFrame(anotacionesBtn, cuerpoFrame);
 		
+		webDriver.waitWithDriver(3000);
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitWithDriver(5000);

@@ -8,7 +8,7 @@ import com.amaris.project.steps.ActionSteps;
 public class ValidacionExcepcionesReglasPage extends PageObject {
 
 	// region webelements
-	private By cuerpoFrame = By.name("cuerpo");
+	private By cuerpoFrame = By.id("mainFrame");
 
 	private By continuarBtn = By.cssSelector("#botonContinuar");
 	private By tituloTxt = By.xpath("//*[@id='formDatos']/div[3]");
@@ -30,8 +30,9 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	public String comprobarNombrePagina() {
 		debugBegin();
 
-		String titulo = "No vencontrado";
+		String titulo = "No encontrado";
 		ActionSteps.waitForIt(webDriver);
+		
 		if(webDriver.isPresentInFrame(tituloTxt, cuerpoFrame)) {
 			titulo = webDriver.getTextInFrame(tituloTxt, cuerpoFrame);
 		}

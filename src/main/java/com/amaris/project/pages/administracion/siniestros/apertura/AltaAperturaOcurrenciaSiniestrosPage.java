@@ -314,6 +314,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage modificarDescripcion(String descripcion) {
 		debugBegin();
 		
+		debugInfo("Descripcion: " + descripcion);
 		setTestVar(Constants.DESCRIPCION_SINIESTRO, descripcion); 
 		
 		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, descripcion);

@@ -306,7 +306,8 @@ public class GestionSiniestrosPage extends PageObject {
 		double expReparable = (double) Math.round((Math.random() * 10) * 100d) / 100d;
 		double expGastos = (double) Math.round((Math.random() * 10) * 100d) / 100d;
 
-		setTestVar(EXPECTATIVA_TOTAL, Double.toString(expIndemnizable + expReparable + expGastos).replace(".", ","));
+		setTestVar(EXPECTATIVA_TOTAL, Double.toString((double) 
+			Math.round((expIndemnizable + expReparable + expGastos* 100d) / 100d)).replace(".", ","));
 
 		debugInfo("Desplegar menú acciones de carpeta");
 		webDriver.clickInFrame(listaCarpetaBtn, cuerpoFrame);
@@ -369,7 +370,8 @@ public class GestionSiniestrosPage extends PageObject {
 		double resReparable = (double) Math.round((Math.random() * 10) * 100d) / 100d;
 		double resGastos = (double) Math.round((Math.random() * 10) * 100d) / 100d;
 
-		setTestVar(RESERVA_TOTAL, Double.toString(resIndemnizable + resReparable + resGastos).replace(".", ","));
+		setTestVar(RESERVA_TOTAL, Double.toString((double) 
+			Math.round((resIndemnizable + resReparable + resGastos* 100d) / 100d)).replace(".", ","));
 
 		debugInfo("Desplegar menú acciones de carpeta");
 		webDriver.clickInFrame(listaCarpetaBtn, cuerpoFrame);

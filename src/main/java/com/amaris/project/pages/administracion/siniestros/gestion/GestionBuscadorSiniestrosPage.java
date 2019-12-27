@@ -88,9 +88,8 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 	public GestionBuscadorSiniestrosPage buscarPorNumeroPoliza(String numPoliza) {
 		debugBegin();
 		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
-		debugInfo("ha dado click");
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(numeroPolizaBtn);
+
+		webDriver.clickInFrame(numeroPolizaBtn, cuerpoFrame);
 		/*
 		 * System.out.println("Ramo de póliza - " + numPoliza.substring(0,3)); if (numPoliza.substring(0,3) == "510"){
 		 * webDriver.clickElementChildByAttribute(opProduct,"value", "510"); System.out.println("poliza de 510"); } //
@@ -105,16 +104,14 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		 * "640");}
 		 */
 
-		webDriver.clickElementFromDropDownByIndex(tipoProductoPolizaDrpDwn, 0);
+		//webDriver.clickElementFromDropDownByIndexInFrame(tipoProductoPolizaDrpDwn, cuerpoFrame, 0);
 
-		webDriver.setText(numeroPolizaInput, numPoliza);
-		webDriver.waitForPageToLoad();
-		webDriver.waitForElementToBeClickable(buscarBtn);
-		webDriver.click(buscarBtn);
+		webDriver.setTextInFrame(numeroPolizaInput, cuerpoFrame, numPoliza);
+		
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.click(continuarBtn);
-		webDriver.exitFrame();
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 

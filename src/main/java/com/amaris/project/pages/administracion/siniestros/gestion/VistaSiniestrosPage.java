@@ -4,6 +4,8 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.ActionSteps;
 
+import java.awt.Toolkit;
+
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -164,14 +166,29 @@ public class VistaSiniestrosPage extends PageObject {
 		String nuevosValores = "";
 
 		while(webDriver.isPresent(valoresNuevosList[n])) {
-			nuevosValores += " " + webDriver.getText(valoresNuevosList[n]);
+			nuevosValores += ", " + webDriver.getText(valoresNuevosList[n]);
 			n++;
 		}
 
+		debugInfo("Nuevos valores: " + nuevosValores);
+		debugInfo("Nombre: " + nombre);
+		debugInfo("Primer Apellido: " + apellidoPri);
+		debugInfo("Segundo Apellido: " + apellidoSeg);
+		debugInfo("Telefono: " + telefono);
+		debugInfo("Email: " + email);
+		
 		Assert.assertTrue((nuevosValores.contains(nombre) && nuevosValores.contains(apellidoPri) && nuevosValores.contains(apellidoSeg) && nuevosValores.contains(telefono)
-			&& nuevosValores.contains(email)), "Los datos modificados se muestran correctamente en el historial");
+			&& nuevosValores.contains(email)), "Los datos modificados NO se muestran correctamente en el historial");
 
-		Assert.assertTrue(webDriver.getText(descripcionNuevaTxt).contains(descripcion), "Modificación siniestro completada con exito");
+		String descripcionReal = webDriver.getText(By.xpath("//*[text()='" + descripcion + "']"));
+		
+		debugInfo("Descripcion real: " + descripcionReal);
+		debugInfo("Descripcion esperada: " + descripcion);
+		
+		Toolkit.getDefaultToolkit().beep();
+		webDriver.waitWithDriver(10000);
+		
+		Assert.assertTrue(descripcionReal.contains(descripcion), "Modificación siniestro NO completada con exito");
 
 		webDriver.exitFrame();
 
