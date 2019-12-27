@@ -2700,8 +2700,7 @@ public class ActionSteps extends InteractionObject {
 				debugInfo("La póliza a la cual pertenece el siniestro es de tipo MAC, procedemos a modificar las causas para poder realizar pagos");
 				new ConfirmacionSiniestrosPage(userS)
 					.volverAHomeMutua();
-
-				modifico_causas_siniestro_MAC();
+					modifico_causas_siniestro_MAC();
 			}
 
 			// Accedemos a siniestros desde Gestión On Line
