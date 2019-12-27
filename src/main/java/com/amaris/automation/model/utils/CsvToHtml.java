@@ -266,6 +266,10 @@ public class CsvToHtml {
 		for(int i = 0; i < columnOrder.size(); i++) {
 			String testVariable = columnOrder.get(i);
 
+			if(testVariable.isEmpty()) {
+				testVariable = "default";
+			}
+
 			int successes = columnResults.get(columnOrder.get(i))[0];
 			int failures = columnResults.get(columnOrder.get(i))[1];
 
@@ -301,6 +305,10 @@ public class CsvToHtml {
 		for(int i = 0; i < columnOrder.size(); i++) {
 			String testVariable = columnOrder.get(i);
 
+			if(testVariable.isEmpty()) {
+				testVariable = "default";
+			}
+
 			int successes = columnResults.get(columnOrder.get(i))[0];
 			int failures = columnResults.get(columnOrder.get(i))[1];
 
@@ -333,10 +341,12 @@ public class CsvToHtml {
 			.addAttribute("class", "boxes cases");
 
 		for(int j = 0; j < relevantColumns; j++) {
-			caseVariables.addChild(new HtmlElement("div")
-				.addAttribute("class", "box case")
-				.setContent(translateOrFormat(dataMatrix[0][j]) + ": "
-					+ translateOrFormat(dataMatrix[index][j])));
+			if(dataMatrix[index][j] != null && !dataMatrix[index][j].isEmpty()) {
+				caseVariables.addChild(new HtmlElement("div")
+					.addAttribute("class", "box case")
+					.setContent(translateOrFormat(dataMatrix[0][j]) + ": "
+						+ translateOrFormat(dataMatrix[index][j])));
+			}
 		}
 
 		table.addChildAt(new HtmlElement("thead")
@@ -473,11 +483,17 @@ public class CsvToHtml {
 			variableData = createTableByIndex(testStats.get(dataMatrix[0][i]), columnCasesOrder.get(dataMatrix[0][i]), dataMatrix[0][i]);
 		}
 
-		return new HtmlElement("div")
+		HtmlElement result =  new HtmlElement("div")
 			.addAttribute("class", "column bg-white")
 			.addAttribute("name", dataMatrix[0][i])
 			.addChild("h2", "", translateOrFormat(dataMatrix[0][i]))
 			.addChild(variableData);
+		
+		if(columnCasesOrder.get(dataMatrix[0][i]).isEmpty()) {
+			result =  new HtmlElement("");
+		}
+		
+		return result;
 	}
 
 	protected HtmlElement modifyAccordionContent(HtmlElement accordionContent, String timeStamp, String testCase, int relevantColumns) {
@@ -519,12 +535,28 @@ public class CsvToHtml {
 	}
 
 	protected void addRelevantTables(HtmlElement accordionContent, int relevantColumns) {
+		accordionContent.addChild("div", "class=\"columns-wrapper\"");
+		
+		if(relevantColumns > 1) {
+			accordionContent.addChild("div", "class=\"columns-wrapper\"");
+		}
+		
 		for(int i = 0; i < relevantColumns; i++) {
-			if(i == 0 || i == 1) {
-				accordionContent.addChild("div", "class=\"columns-wrapper\"");
-			}
+			int panelIndex = 0;
+			int sizeLeft = accordionContent.getChild(0).getChildren().size();
+			int sizeRight = accordionContent.getChild(1).getChildren().size();
 
-			accordionContent.getChild(i % 2).addChild(createTable(i));
+			if(sizeRight < sizeLeft) {	
+				panelIndex = 1;
+			}
+			
+			if(!columnCasesOrder.get(dataMatrix[0][i]).isEmpty()) {
+				accordionContent.getChild(panelIndex).addChild(createTable(i));
+			}
+		}
+		
+		if(relevantColumns > 1 && accordionContent.getChild(1).getChildren().isEmpty()) {
+			accordionContent.removeChildAt(1);
 		}
 	}
 
@@ -612,7 +644,7 @@ public class CsvToHtml {
 			matrixBuilder.append(result + "]");
 		}
 
-		matrixBuilder.append("];\n\n");
+		matrixBuilder.append("];\n");
 
 		return matrixBuilder;
 	}
@@ -644,7 +676,7 @@ public class CsvToHtml {
 			if(dataMatrix != null) {
 				int auxRelevantColumns = updateRelevantColumns(relevantColumns[i]);
 
-				matrixBuilder = createScriptMatrix(auxRelevantColumns);
+				matrixBuilder.append(createScriptMatrix(auxRelevantColumns));
 			}
 
 			if(testCases.length > 1) {
@@ -690,7 +722,7 @@ public class CsvToHtml {
 		htmlNode.getChildByTag("body").addChild(new HtmlElement("script")
 			.addAttribute("type", "text/javascript")
 			.setContent(matrixBuilder.toString()
-				+ "var els = document.querySelectorAll('.selectable');\n"
+				+ "\nvar els = document.querySelectorAll('.selectable');\n"
 				+ "for(var i = 0; i < els.length; i++) {\n"
 				+ "\tels[i].addEventListener('click', function() {\n"
 				+ "\t\tclassName = this.getAttribute('class');\n\n"
