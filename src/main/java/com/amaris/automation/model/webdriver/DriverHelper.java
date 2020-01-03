@@ -1626,8 +1626,20 @@ public class DriverHelper {
 		logger.end();
 	}
 
+	public void doubleClickInFrame(By by, By frame) {
+		switchToFrame(frame);
+		doubleClick(by);
+		exitFrame();
+	}
+
 	public void doubleClick(By by) {
 		doubleClick(driver.findElement(by));
+	}
+
+	public void doubleClickInFrame(WebElement element, By frame) {
+		switchToFrame(frame);
+		doubleClick(element);
+		exitFrame();
 	}
 
 	public void doubleClick(WebElement element) {
@@ -1639,12 +1651,6 @@ public class DriverHelper {
 		waitForLoadToComplete();
 		takeScreenshotWithCondition();
 		logger.end();
-	}
-
-	public void doubleClickInFrame(By by, By frame) {
-		switchToFrame(frame);
-		doubleClick(by);
-		exitFrame();
 	}
 
 	/**
@@ -1932,12 +1938,14 @@ public class DriverHelper {
 
 	public void clickElementFromDropDownByText(By dropDown, String value) {
 		logger.begin();
+		
 		waitForElementToBeClickable(dropDown);
 
 		Select select = new Select(driver.findElement(dropDown));
 		select.selectByVisibleText(value);
 
 		waitForLoadToComplete();
+		
 		logger.end();
 	}
 
@@ -1949,45 +1957,54 @@ public class DriverHelper {
 
 	public void clickElementFromDropDownByAttribute(By elementToClick, By elementList, String attribute, String value) {
 		logger.begin();
+		
 		click(elementToClick);
-
 		clickElementFromListByAttribute(elementList, attribute, value);
 
-		waitForLoadToComplete();
 		logger.end();
+	}
+
+	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By elementList, By frame, String attribute, String value) {
+		switchToFrame(frame);
+		clickElementFromDropDownByAttribute(containingElement, elementList, attribute, value);
+		exitFrame();
 	}
 
 	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By frame, String attribute, String value) {
 		switchToFrame(frame);
-		clickElementFromDropDownByAttribute(containingElement, containingElement, attribute, value);
+		clickElementFromDropDownByAttribute(containingElement, attribute, value);
 		exitFrame();
 	}
 
 	public void clickElementFromDropDownByAttribute(By containingElement, String attribute, String value) {
-		clickElementFromDropDownByAttribute(containingElement, containingElement, attribute, value);
+		click(containingElement);
+		clickElementChildByAttribute(containingElement, attribute, value);
+	}
+
+	public void clickElementFromDropDownByIndexInFrame(By elementToClick, By elementList, By frame, int index) {
+		switchToFrame(frame);
+
+		clickElementFromDropDownByIndex(elementToClick, elementList, index);
+
+		exitFrame();
 	}
 
 	public void clickElementFromDropDownByIndex(By elementToClick, By elementList, int index) {
 		click(elementToClick);
-
 		clickElementChildByIndex(elementList, index);
-
-		waitForLoadToComplete();
 	}
 
 	public void clickElementFromDropDownByIndex(By elementContainer, int index) {
-		clickElementFromDropDownByIndex(elementContainer, elementContainer, index);
+		click(elementContainer);
+		clickElementChildByIndex(elementContainer, index);
 	}
 
 	public void clickElementFromDropDownByIndexInFrame(By elementToClick, By frame, int index) {
 		switchToFrame(frame);
 
-		click(elementToClick);
-		clickElementChildByIndex(elementToClick, index);
+		clickElementFromDropDownByIndex(elementToClick, index);
 
 		exitFrame();
-
-		waitForLoadToComplete();
 	}
 
 	public WebElement getElementFromListByText(By elementList, String text) {
@@ -2065,10 +2082,7 @@ public class DriverHelper {
 		logger.begin();
 		WebElement el = getElementFromListByAttribute(elementList, attribute, value);
 
-		if(el != null) click(el);
-		else {
-			logger.info("No child elements found on " + elementList);
-		}
+		click(el);
 
 		waitForLoadToComplete();
 		logger.end();
@@ -2236,10 +2250,7 @@ public class DriverHelper {
 
 		WebElement el = getElementChildByAttribute(elementList, attribute, value);
 
-		if(el != null) click(el);
-		else {
-			logger.info("No child elements found on " + elementList);
-		}
+		click(el);
 
 		waitForLoadToComplete();
 		logger.end();
@@ -2443,7 +2454,9 @@ public class DriverHelper {
 			AppiumDriver<WebElement> appDriver = ((AppiumDriver<WebElement>) driver);
 			appDriver.switchTo().frame(driver.findElement(by));
 		} else {
-			driver.switchTo().frame(driver.findElement(by));
+			new WebDriverWait(driver, 3)
+				.pollingEvery(Duration.ofMillis(500))
+				.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(by));
 		}
 		
 		waitForLoadToComplete();
@@ -2523,6 +2536,12 @@ public class DriverHelper {
 		}
 
 		logger.end();
+	}
+	
+	public void scrollToBottomInFrame(By frame) {
+		switchToFrame(frame);
+		scrollToBottom();
+		exitFrame();
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -2693,6 +2712,10 @@ public class DriverHelper {
 					.until((ExpectedCondition<Boolean>) wd -> "complete".equals(((JavascriptExecutor) wd).executeScript("return !document ? false : !document.readyState ? false : document.readyState;")));
 			} catch(JavascriptException e) {
 				logger.error("Exception waiting for page to load" + (e.getMessage() == null ? "" : ": " + e.getMessage()));
+			} catch(WebDriverException e) {
+				if(e.getMessage() == null || !e.getMessage().contains("Cannot find context with specified id")) {
+					throw e;
+				}
 			}
 		}
 
@@ -2848,13 +2871,13 @@ public class DriverHelper {
 		logger.begin();
 
 		if(desktop && driverType.equals(AutomationConstants.WEB)) {
-			WebElement webElement = waitForElementToBePresent(waitElement);
+			waitForElementToBePresent(waitElement);
 
-			if(!isClickable(webElement) || !isOnScreen(webElement)) {
-				scrollToElement(webElement);
+			if(!isClickable(waitElement) || !isOnScreen(waitElement)) {
+				scrollToElement(waitElement);
 			}
 
-			waitForElementToBeClickable(webElement);
+			waitForElementToBeClickable(driver.findElement(waitElement));
 		} else {
 			scrollToElement(waitElement);
 		}
@@ -2919,11 +2942,6 @@ public class DriverHelper {
 	}
 
 	// endregion
-
-	public boolean isEnabled(By by) {
-		return driver.findElement(by).isEnabled();
-	}
-
 	public Dimension getWindowSize() {
 		Dimension size;
 
@@ -3030,18 +3048,44 @@ public class DriverHelper {
 		}
 	}
 
-	public boolean isSelectedInFrame(By webElement, By frame) {
+	public boolean isEnabledInFrame(By by, By frame) {
+		switchToFrame(frame);
+		boolean result = isEnabled(by);
+		exitFrame();
+		
+		return result;
+	}
+
+
+	public boolean isEnabled(By by) {
+		return driver.findElement(by).isEnabled();
+	}
+
+
+	public boolean isSelectedInFrame(By by, By frame) {
 		boolean result = false;
 
 		switchToFrame(frame);
-		result = isSelected(webElement);
+		result = isSelected(by);
 		exitFrame();
 
 		return result;
 	}
 
-	public boolean isSelected(By webElement) {
-		return driver.findElement(webElement).isSelected();
+	public boolean isSelected(By by) {
+		return isSelected(driver.findElement(by));
+	}
+
+	public boolean isSelected(WebElement webElement) {
+		return webElement.isSelected();
+	}
+
+	public boolean isOnScreenInFrame(By by, By frame) {
+		switchToFrame(frame);
+		boolean result = isOnScreen(by, -1); 
+		exitFrame();
+		
+		return result;
 	}
 
 	public boolean isOnScreen(By by) {
@@ -3066,6 +3110,14 @@ public class DriverHelper {
 				+ (e.getMessage() != null && !e.getMessage().isEmpty() ? ": " + e.getMessage() : ""));
 		}
 
+		return result;
+	}
+
+	public boolean isOnScreenInFrame(WebElement webElement, By frame) {
+		switchToFrame(frame);
+		boolean result = isOnScreen(webElement, -1); 
+		exitFrame();
+		
 		return result;
 	}
 
@@ -3301,6 +3353,10 @@ public class DriverHelper {
 		});
 
 		logger.end();
+	}
+
+	public void closeWindow() {
+		closeWindow(getMainWindowHandle());
 	}
 
 	public void closeWindow(String windowHandle) {

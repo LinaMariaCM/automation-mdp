@@ -15,10 +15,10 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 	private By modalFrame = By.id("capaIframe");
 	private By anotacionesBtn = By.cssSelector("#enlaceDialogo > span");
-	private By anotacionesNuevoBtn = By.cssSelector("#cabApunteDialogo0 > span");
+	private By anotacionesNuevoBtn = By.cssSelector("#cabApunteDialogo0");
 
 	// #### DATOS DEL ASEGURADO ####
-	private By comboSeleccionAsegurado = By.id("seleccionAsegurado");
+	private By seleccionAseguradoDrpDwn = By.id("seleccionAsegurado");
 	private By comboSeleccionAseguradoElemento = By.cssSelector("#seleccionAsegurado > option");
 	private By txtNombreAsegurado = By.id("nombre");
 	private By txtApellido1Asegurado = By.id("apellido1");
@@ -26,7 +26,7 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	private By comboTipoDocumento = By.id("tipodocu");
 	private By txtNumeroDocumento = By.id("numedocu");
 
-	private By txtTelefono1 = By.id("telefono1");
+	private By telefono1Input = By.id("telefono1");
 	private By txtTelefono2 = By.id("telefono2");
 	private By comboSexo = By.id("sexocon");
 	private By txtEmail = By.id("email");
@@ -45,15 +45,15 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	private By txtSucursal = By.cssSelector("#datosAsegurado > div.sis-frame-bg > div:nth-child(28) > div.box-field.flexibleField > input");
 	private By txtDC = By.cssSelector("#datosAsegurado > div.sis-frame-bg > div:nth-child(29) > div.box-field.flexibleField > input");
 	private By txtNumeroCuenta = By.cssSelector("#datosAsegurado > div.sis-frame-bg > div:nth-child(30) > div.box-field.flexibleField > input");
-	private By btnGuardarSalir = By.id("botonGuardar");
-	private By btnAperturaSiniestro = By.cssSelector("#formDatos #botonera #botonContinuar");
-	private By btnValidarYContinuar = By.id("botonContinuar");
-	private By btnContinuar = By.id("botonContinuar");
-	private By btnGrabarAnotacion = By.id("botonContinuar2");
-	private By btnCerrarAnotaciones = By.id("botonCancelar");
+	private By guardarSalirBtn = By.id("botonGuardar");
+	private By aperturaSiniestroBtn = By.cssSelector("#formDatos #botonera #botonContinuar");
+	private By validarYContinuarBtn = By.id("botonContinuar");
+	private By continuarBtn = By.id("botonContinuar");
+	private By grabarAnotacionBtn = By.id("botonContinuar2");
+	private By cerrarAnotacionesBtn = By.id("botonCancelar");
 
-	private By txtTituloAnotacion = By.id("titulo");
-	private By txtClausulaEspecial = By.cssSelector(".grid.wideBox tr:nth-child(2) > td:nth-child(2)");
+	private By tituloAnotacionInput = By.id("titulo");
+	private By clausulaEspecialInput = By.cssSelector(".grid.wideBox tr:nth-child(2) > td:nth-child(2)");
 	// endregion
 
 	public ImplicadoAseguradoSiniestrosPage(UserStory userS) {
@@ -63,7 +63,7 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	// region Methods
 	public ImplicadoAseguradoSiniestrosPage aperturaSinietro() {
 		debugBegin();
-		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
+		webDriver.clickInFrame(aperturaSiniestroBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 
@@ -79,10 +79,10 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 		// System.out.println("Validamos cosas");
 		// }
 
-		debugInfo("Texto boton: " + webDriver.getTextInFrame(btnAperturaSiniestro, cuerpoFrame));
+		debugInfo("Texto boton: " + webDriver.getTextInFrame(aperturaSiniestroBtn, cuerpoFrame));
 		webDriver.waitWithDriver(3000);
 
-		webDriver.clickInFrame(btnAperturaSiniestro, cuerpoFrame);
+		webDriver.clickInFrame(aperturaSiniestroBtn, cuerpoFrame);
 
 		webDriver.waitWithDriver(5000);
 
@@ -92,20 +92,18 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	}
 
 	public ImplicadoAseguradoSiniestrosPage seleccionarImplicado() {
-
 		debugBegin();
-		debugInfo("Seleccionamos implicado....");
-		webDriver.switchToFrame(cuerpoFrame);
-		System.out.println("...y el elegido es: " + webDriver.getText(webDriver.getElementChildByIndex(comboSeleccionAsegurado, 1)));
-		webDriver.clickElementChildByIndex(comboSeleccionAsegurado, 1);
+		
+		//debugInfo("Seleccionamos implicado: " + webDriver.getElementChildByIndexInFrame(seleccionAseguradoDrpDwn, cuerpoFrame, 1).getText());
+		webDriver.clickElementChildByIndexInFrame(seleccionAseguradoDrpDwn, cuerpoFrame, 1);
 
-		if((!webDriver.getText(txtTelefono1).startsWith("(") || !webDriver.getText(txtTelefono1).startsWith("+") || webDriver.getText(txtTelefono1).length() < 9)) {
-			debugInfo("Número de teléfono 1 mal puesto :" + webDriver.getText(txtTelefono1));
-			webDriver.setText(txtTelefono1, "961234567");
+		if((!webDriver.getTextInFrame(telefono1Input, cuerpoFrame).startsWith("(") || !webDriver.getTextInFrame(telefono1Input, cuerpoFrame).startsWith("+") 
+			|| webDriver.getTextInFrame(telefono1Input, cuerpoFrame).length() < 9)) {
+			debugInfo("Número de teléfono 1 mal puesto: " + webDriver.getTextInFrame(telefono1Input, cuerpoFrame));
+			webDriver.setTextInFrame(telefono1Input, cuerpoFrame, "961234567");
 			debugInfo("Se sustituye por: 961234567");
-
 		}
-		webDriver.exitFrame();
+
 		debugEnd();
 
 		return this;
@@ -113,15 +111,16 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 
 	public ImplicadoAseguradoSiniestrosPage continuar() {
 		debugBegin();
-		// por si el telefono está mal.
-		String numeroBien = "";
-		if(webDriver.getText(txtTelefono1).startsWith("+")) {
-			numeroBien = webDriver.getText(txtTelefono1).substring(3);
 
-			webDriver.setText(txtTelefono1, numeroBien);
+		String numeroBien = "";
+		
+		if(webDriver.getText(telefono1Input).startsWith("+")) {
+			numeroBien = webDriver.getText(telefono1Input).substring(3);
+
+			webDriver.setText(telefono1Input, numeroBien);
 		}
 
-		webDriver.clickInFrame(btnValidarYContinuar, cuerpoFrame);
+		webDriver.clickInFrame(validarYContinuarBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 		debugEnd();
 
@@ -129,11 +128,10 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	}
 
 	//------------------------RETENCIONES-------------------------------------------
-
 	public ImplicadoAseguradoSiniestrosPage capturaDatosSiniestro() {
 		debugBegin();
 
-		String textoClausulaEspecial = webDriver.getTextInFrame(txtClausulaEspecial, cuerpoFrame).trim();
+		String textoClausulaEspecial = webDriver.getTextInFrame(By.xpath("//*[contains(text(), '" + Constants.ALERTA_POLIZA_CLAUSULAS_ESPECIALES + "')]"), cuerpoFrame).trim();
 
 		boolean checkAvisoHaceTresMeses = textoClausulaEspecial.equalsIgnoreCase(Constants.ALERTA_POLIZA_CLAUSULAS_ESPECIALES);
 
@@ -141,7 +139,7 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 		debugInfo("Mensaje real: " + textoClausulaEspecial);
 
 		Assert.assertTrue(checkAvisoHaceTresMeses, "COMPARAR CAMPOS : alerta NO se muestra");
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -151,12 +149,16 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 	public ImplicadoAseguradoSiniestrosPage anotacionesImplicadoTituloFalloVacio() {
 		debugBegin();
 
+		webDriver.clickInFrame(anotacionesBtn, cuerpoFrame);
+		
+		webDriver.waitWithDriver(3000);
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(anotacionesBtn);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitWithDriver(5000);
+		
 		webDriver.click(anotacionesNuevoBtn);
-		webDriver.click(btnGrabarAnotacion);
+		webDriver.click(grabarAnotacionBtn);
+		
 		webDriver.exitFrame();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TITULO_ANOTACION);
@@ -172,12 +174,13 @@ public class ImplicadoAseguradoSiniestrosPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.setText(txtTituloAnotacion, "Esto es una anotación.");
-		webDriver.click(btnGrabarAnotacion);
+		webDriver.setText(tituloAnotacionInput, "Esto es una anotación.");
+		webDriver.click(grabarAnotacionBtn);
 		webDriver.waitWithDriver(3000);
-		webDriver.click(btnCerrarAnotaciones);
+		webDriver.click(cerrarAnotacionesBtn);
 		webDriver.exitFrame();
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 

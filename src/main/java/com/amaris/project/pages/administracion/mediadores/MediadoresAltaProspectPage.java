@@ -10,11 +10,10 @@ import com.amaris.project.Constants;
 
 public class MediadoresAltaProspectPage extends PageObject {
 
-	// region webelements
-	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
+	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
+
 
 	private By nivelEstructuraCombo = By.cssSelector("#MEDI_NIVEESTR");
 	private By tipoProspectCombo = By.cssSelector("#MEDI_TIPOPROS");
@@ -25,6 +24,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 	private By idiomaCombo = By.cssSelector("#MEDI_IDIOMA");
 	private By telefonoUnoInput = By.cssSelector("#MEDI_TELEFONO1");
 	private By ejecutivoComercialCombo = By.cssSelector("#MEDI_EJECCOME");
+
 
 	private By provinciaInput = By.cssSelector("#ALTACLIE_PROVINCIA_ARVATO");
 	private By poblacionInput = By.cssSelector("#ALTACLIE_POBLACION_ARVATO");
@@ -38,6 +38,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 	private By provinciaCombo = By.cssSelector("html > body > ul:nth-of-type(1) > li > a");
 	private By poblacionCombo = By.cssSelector("html > body > ul:nth-of-type(2) > li > a");
 	private By viaCombo = By.cssSelector("html > body > ul:nth-of-type(3) > li > a");
+
 	// endregion
 
 	public MediadoresAltaProspectPage(UserStory userS) {
@@ -90,7 +91,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 	public MediadoresAltaProspectPage selectTipoProspect() {
 		debugBegin();
+
 		webDriver.appendTextInFrame(tipoProspectCombo, mainFrame, getTestVar(Constants.TIPO_PROSPECT));
+
 		debugEnd();
 
 		return this;
@@ -98,7 +101,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 	public MediadoresAltaProspectPage writeNumeroRegistroDGS() {
 		debugBegin();
+
 		webDriver.appendTextInFrame(numRegistroDgsInput, mainFrame, generateRandomDgsNumber());
+
 		debugEnd();
 
 		return this;
@@ -106,7 +111,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 	public MediadoresAltaProspectPage selectActividadPrincipal() {
 		debugBegin();
+
 		webDriver.appendTextInFrame(actividadPrincipalCombo, mainFrame, getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
+
 		debugEnd();
 
 		return this;
@@ -130,7 +137,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 	public MediadoresAltaProspectPage writeTelefonoUno() {
 		debugBegin();
+
 		webDriver.appendTextInFrame(telefonoUnoInput, mainFrame, getTestVar(Constants.TLF_PRINCIPAL));
+
 		debugEnd();
 
 		return this;
@@ -138,7 +147,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 	public MediadoresAltaProspectPage selectIdioma() {
 		debugBegin();
+
 		webDriver.appendTextInFrame(idiomaCombo, mainFrame, getTestVar(Constants.IDIOMA));
+
 		debugEnd();
 
 		return this;
@@ -146,7 +157,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 	public MediadoresAltaProspectPage selectEjecutivoComercial() {
 		debugBegin();
+
 		webDriver.appendTextInFrame(ejecutivoComercialCombo, mainFrame, getTestVar(Constants.EJECUTIVO_COMERCIAL));
+
 		debugEnd();
 
 		return this;
@@ -166,7 +179,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.switchToFrame(mainFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.appendText(provinciaInput, getTestVar(Constants.PROVINCIA));
+
 		webDriver.waitForElementToBeClickable(provinciaCombo);
+
 		webDriver.tabulateElement(provinciaInput);
 		webDriver.exitFrame();
 		debugEnd();
@@ -180,7 +195,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.switchToFrame(mainFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.appendText(poblacionInput, getTestVar(Constants.POBLACION));
+
 		webDriver.waitForElementToBeClickable(poblacionCombo);
+
 		webDriver.tabulateElement(poblacionInput);
 		webDriver.exitFrame();
 
@@ -195,7 +212,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.switchToFrame(mainFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.appendText(viaInput, getTestVar(Constants.NOMBRE_VIA));
+
 		webDriver.waitForElementToBeClickable(viaCombo);
+
 		webDriver.tabulateElement(viaInput);
 		webDriver.exitFrame();
 

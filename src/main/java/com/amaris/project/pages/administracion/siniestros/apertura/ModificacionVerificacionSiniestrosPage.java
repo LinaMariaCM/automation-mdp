@@ -13,18 +13,17 @@ public class ModificacionVerificacionSiniestrosPage extends PageObject {
 
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 
-	private By causaAnterior = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(2) > td:nth-child(2)");
-	private By causaNueva = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(2) > td:nth-child(3)");
+	private By causaAnteriorTxt = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(2) > td:nth-child(2)");
+	private By causaNuevaTxt = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(2) > td:nth-child(3)");
 
-	private By rentaAnterior = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(3) > td:nth-child(2)");
-	private By rentaNueva = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(3) > td:nth-child(3)");
+	private By rentaAnteriorTxt = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(3) > td:nth-child(2)");
+	private By rentaNuevaTxt = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(3) > td:nth-child(3)");
 
-	private By fechaDemandaDes = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(4) > td:nth-child(3)");
-	private By fechaSolicitudAvanceRenta = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(5) > td:nth-child(3)");
+	private By fechaDemandaDesTxt = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(4) > td:nth-child(3)");
+	private By fechaSolicitudAvanceRentaTxt = By.cssSelector("#formDatos > table.grid.narrowBox tr:nth-child(5) > td:nth-child(3)");
 
-	private By btnGrabarCambio = By.cssSelector("#botonGrabar");
-
-	// End Region
+	private By grabarCambioBtn = By.cssSelector("#botonGrabar");
+	// endregion
 
 	// REGION Methods
 
@@ -36,18 +35,18 @@ public class ModificacionVerificacionSiniestrosPage extends PageObject {
 	public ModificacionVerificacionSiniestrosPage mostrarCambios() {
 		debugBegin();
 		debugInfo("Se procede a mostrar los cambios producidos en el siniestro...");
-		webDriver.switchToFrame(cuerpoFrame);
-		System.out.println("========================");
-		System.out.println("Causa anterior: " + webDriver.getText(causaAnterior));
-		System.out.println("Causa ACTUAL: " + webDriver.getText(causaNueva));
-		System.out.println("------------------");
-		System.out.println("Renta anterior: " + webDriver.getText(rentaAnterior));
-		System.out.println("Renta ACTUAL: " + webDriver.getText(rentaNueva));
-		System.out.println("------------------");
-		System.out.println("Fecha interposición demanda desahucio: " + webDriver.getText(fechaDemandaDes));
-		System.out.println("Fecha solicitud avance renta: " + webDriver.getText(fechaSolicitudAvanceRenta));
-		System.out.println("------------------");
-		webDriver.exitFrame();
+
+		debugInfo("========================");
+		debugInfo("Causa anterior: " + webDriver.getTextInFrame(causaAnteriorTxt, cuerpoFrame));
+		debugInfo("Causa ACTUAL: " + webDriver.getTextInFrame(causaNuevaTxt, cuerpoFrame));
+		debugInfo("------------------");
+		debugInfo("Renta anterior: " + webDriver.getTextInFrame(rentaAnteriorTxt, cuerpoFrame));
+		debugInfo("Renta ACTUAL: " + webDriver.getTextInFrame(rentaNuevaTxt, cuerpoFrame));
+		debugInfo("------------------");
+		debugInfo("Fecha interposición demanda desahucio: " + webDriver.getTextInFrame(fechaDemandaDesTxt, cuerpoFrame));
+		debugInfo("Fecha solicitud avance renta: " + webDriver.getTextInFrame(fechaSolicitudAvanceRentaTxt, cuerpoFrame));
+		debugInfo("------------------");
+
 		debugEnd();
 		return this;
 	}
@@ -55,10 +54,9 @@ public class ModificacionVerificacionSiniestrosPage extends PageObject {
 	public ModificacionVerificacionSiniestrosPage grabarCambios() {
 		debugBegin();
 		debugInfo("Grabando cambios...");
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(btnGrabarCambio);
-		webDriver.exitFrame();
+		webDriver.clickInFrame(grabarCambioBtn, cuerpoFrame);
 		debugEnd();
+		
 		return this;
 	}
 

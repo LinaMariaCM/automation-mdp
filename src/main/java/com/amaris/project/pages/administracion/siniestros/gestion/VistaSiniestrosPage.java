@@ -4,6 +4,8 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.ActionSteps;
 
+import java.awt.Toolkit;
+
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -26,7 +28,7 @@ public class VistaSiniestrosPage extends PageObject {
 	// private By estadoSiniestroInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) >
 	// td:nth-of-type(2)");
 
-	private By estadoSiniestroInfo = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(2)");
+	private By estadoSiniestroInfoTxt = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(2)");
 
 	private By mediadorInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(1)");
 	private By fechaCierreSiniestro = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(5) > td:nth-of-type(2)");
@@ -39,18 +41,18 @@ public class VistaSiniestrosPage extends PageObject {
 
 	private By causaSin = By.cssSelector("body > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td:nth-child(1)");
 
-	private By vistaSiniestro = By.cssSelector("#jt3");
+	private By vistaSiniestroBtn = By.cssSelector("#jt3");
 
-	private By cerrarSiniestro = By.cssSelector("li:nth-child(1) span");
-	private By modifiDatos = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(3) span");
-	private By modificarAlta = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(1) > a > span");
+	private By cerrarSiniestroBtn = By.cssSelector("li:nth-child(1) span");
+	private By modifiDatosBtn = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(3) span");
+	private By modificarAltaBtn = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(1) > a > span");
 	private By altaAnotacion = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li:nth-child(5) span");
 
 	// Pestañas
 	private By datoEco = By.cssSelector("#pes1");
 	private By poliRecibo = By.cssSelector("#pes2");
 	private By otrosSinies = By.cssSelector("#pes3");
-	private By historico = By.cssSelector("#pes4");
+	private By historicoBtn = By.cssSelector("#pes4");
 	private By carpeta = By.cssSelector("#pes5");
 	private By consultaSinies = By.cssSelector("#pes6");
 	private By clasulas = By.cssSelector("#pes7");
@@ -62,7 +64,7 @@ public class VistaSiniestrosPage extends PageObject {
 	private By reclamacion = By.cssSelector("#RECLAMACION");
 
 	// Historico
-	private By accederHistorico1 = By.cssSelector("#formPestania > table > tbody > tr.odd > td:nth-child(5) > a > span");
+	private By accederHistorico1Btn = By.cssSelector("#formPestania > table > tbody > tr.odd > td:nth-child(5) > a > span");
 	private By historico1 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(2) > td:nth-child(3)");
 	private By historico2 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(3) > td:nth-child(3)");
 	private By historico3 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(4) > td:nth-child(3)");
@@ -72,16 +74,15 @@ public class VistaSiniestrosPage extends PageObject {
 	private By historico7 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(8) > td:nth-child(3)");
 	private By historico8 = By.cssSelector("#formDatos > table:nth-child(4) > tbody > tr:nth-child(9) > td:nth-child(3)");
 
-	private By descripcionNueva = By.cssSelector("#formDatos > table:nth-child(7) > tbody > tr.odd > td:nth-child(3)");
+	private By descripcionNuevaTxt = By.cssSelector("#formDatos > table:nth-child(7) > tbody > tr.odd > td:nth-child(3)");
 
-	private By listaValoresNuevos[] = { historico1, historico2, historico3, historico4, historico5, historico6, historico7, historico8};
+	private By valoresNuevosList[] = { historico1, historico2, historico3, historico4, historico5, historico6, historico7, historico8};
 
-	// cierre
+	// Cierre
+	private By motivoDrpDwn = By.cssSelector("#motivoCierre");
+	private By motivoOption = By.cssSelector("#motivoCierre > option");
 
-	private By motivo = By.cssSelector("#motivoCierre");
-	private By motivoElemento = By.cssSelector("#motivoCierre > option");
-
-	private By grabar = By.cssSelector("#botonGrabar");
+	private By grabarBtn = By.cssSelector("#botonGrabar");
 
 	private By estadoSiniestro = By.cssSelector(("form[name='formDatos'] table table > tbody > tr:nth-of-type(4) > td:nth-of-type(2)"));
 
@@ -89,7 +90,7 @@ public class VistaSiniestrosPage extends PageObject {
 		super(userS);
 	}
 
-	public VistaSiniestrosPage cierre_siniestro(Boolean pagos, Boolean encargos, Boolean tareas) {
+	public VistaSiniestrosPage cierreSiniestro(Boolean pagos, Boolean encargos, Boolean tareas) {
 		debugBegin();
 
 		// System.out.println("El estado del siniestro es: " + webDriver.getTextInFrame(estadoSiniestro, cuerpoFrame));
@@ -98,35 +99,32 @@ public class VistaSiniestrosPage extends PageObject {
 
 		// } else {
 
-		// if (pagos == false && encargos == false && tareas == false){
-		if(pagos == false && encargos == false) {
-			webDriver.clickInFrame(vistaSiniestro, leftFrame);
+		if(!pagos && !encargos) {
+			webDriver.clickInFrame(vistaSiniestroBtn, leftFrame);
 			ActionSteps.waitForIt(webDriver);
-			debugInfo("estoy en vista");
-			// webDriver.exitFrame();
-			//
-			webDriver.clickInFrame(cerrarSiniestro, cuerpoFrame);
 
-			debugInfo("ha hecho click");
+			debugInfo("Vista");
+			webDriver.clickInFrame(cerrarSiniestroBtn, cuerpoFrame);
+
+			webDriver.waitWithDriver(8000);
 			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.waitWithDriver(3000);
 			webDriver.switchToFrame(capaIframe);
-			// ActionSteps.waitForIt(webDriver);
-			webDriver.waitWithDriver(5000);
-			webDriver.clickElementFromDropDownByAttribute(motivo, motivoElemento, "value", "PRSC");
-			// webDriver.clickElementChildByAttribute(motivo, "value", "PRSC");
-			debugInfo("ha hecho click motivo");
-			webDriver.click(grabar);
-			// webDriver.exitFrame();
+
+			webDriver.clickElementFromDropDownByAttribute(motivoDrpDwn, motivoOption, "value", "PRSC");
+
+			webDriver.click(grabarBtn);
+
 			webDriver.exitFrame();
 		} else {
 			debugInfo("Hay tareas pendientes.");
-			// }
 		}
+
 		debugInfo("Comprobamos estado de Siniestro: ");
 		webDriver.waitWithDriver(3000);
-		System.out.println(webDriver.getTextInFrame(estadoSiniestroInfo, cuerpoFrame));
+		debugInfo("Estado siniestro: " + webDriver.getTextInFrame(estadoSiniestroInfoTxt, cuerpoFrame));
+
 		debugEnd();
+
 		return this;
 
 	}
@@ -135,62 +133,71 @@ public class VistaSiniestrosPage extends PageObject {
 		debugBegin();
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(vistaSiniestro, leftFrame);
+		webDriver.clickInFrame(vistaSiniestroBtn, leftFrame);
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(modifiDatos, cuerpoFrame);
+		webDriver.clickInFrame(modifiDatosBtn, cuerpoFrame);
 
 		debugEnd();
+
 		return this;
 	}
-	
+
 	public VistaSiniestrosPage modificarAltaSiniestro() {
 		debugBegin();
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(vistaSiniestro, leftFrame);
+		webDriver.clickInFrame(vistaSiniestroBtn, leftFrame);
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(modificarAlta, cuerpoFrame);
+		webDriver.clickInFrame(modificarAltaBtn, cuerpoFrame);
 
 		debugEnd();
+
 		return this;
 	}
-	
 
 	public VistaSiniestrosPage mapeoHistoricoModificarDatos(String nombre, String apellidoPri, String apellidoSeg, String telefono, String email, String descripcion) {
-		// public VistaSiniestroPage mapeoHistoricoModificarDatos(){
 		debugBegin();
 
 		ActionSteps.waitForIt(webDriver);
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(capaIframe);
 
-		String nuevosValores = "";
 		int n = 0;
-		while(webDriver.isPresent(listaValoresNuevos[n])) {
-			nuevosValores = nuevosValores + " " + webDriver.getText(listaValoresNuevos[n]);
+		String nuevosValores = "";
+
+		while(webDriver.isPresent(valoresNuevosList[n])) {
+			nuevosValores += ", " + webDriver.getText(valoresNuevosList[n]);
 			n++;
 		}
 
-		/*
-		 * System.out.println(nuevosValores);
-		 * 
-		 * if(nuevosValores.contains(nombre))System.out.println("nombre OK"); else {
-		 * System.out.println("Algo ha ido regular: "); System.out.println(nombre); }
-		 */
-
+		debugInfo("Nuevos valores: " + nuevosValores);
+		debugInfo("Nombre: " + nombre);
+		debugInfo("Primer Apellido: " + apellidoPri);
+		debugInfo("Segundo Apellido: " + apellidoSeg);
+		debugInfo("Telefono: " + telefono);
+		debugInfo("Email: " + email);
+		
 		Assert.assertTrue((nuevosValores.contains(nombre) && nuevosValores.contains(apellidoPri) && nuevosValores.contains(apellidoSeg) && nuevosValores.contains(telefono)
-			&& nuevosValores.contains(email)), "Los datos modificados se muestran correctamente en el historial");
+			&& nuevosValores.contains(email)), "Los datos modificados NO se muestran correctamente en el historial");
 
-		Assert.assertTrue(webDriver.getText(descripcionNueva).contains(descripcion), "Modificación siniestro completada con exito");
+		String descripcionReal = webDriver.getText(By.xpath("//*[text()='" + descripcion + "']"));
+		
+		debugInfo("Descripcion real: " + descripcionReal);
+		debugInfo("Descripcion esperada: " + descripcion);
+		
+		Toolkit.getDefaultToolkit().beep();
+		webDriver.waitWithDriver(10000);
+		
+		Assert.assertTrue(descripcionReal.contains(descripcion), "Modificación siniestro NO completada con exito");
 
 		webDriver.exitFrame();
-		webDriver.exitFrame();
+
 		debugEnd();
+
 		return this;
 	}
 
 	public VistaSiniestrosPage mapeoHistoricoModificarCausa(String grupoCausa, String tipoCausa) {
-		// public VistaSiniestroPage mapeoHistoricoModificarDatos(){
 		debugBegin();
 
 		ActionSteps.waitForIt(webDriver);
@@ -199,8 +206,8 @@ public class VistaSiniestrosPage extends PageObject {
 
 		String nuevosValores = "";
 		int n = 0;
-		while(webDriver.isPresent(listaValoresNuevos[n])) {
-			nuevosValores = nuevosValores + " " + webDriver.getText(listaValoresNuevos[n]);
+		while(webDriver.isPresent(valoresNuevosList[n])) {
+			nuevosValores = nuevosValores + " " + webDriver.getText(valoresNuevosList[n]);
 			n++;
 		}
 
@@ -214,8 +221,9 @@ public class VistaSiniestrosPage extends PageObject {
 		Assert.assertTrue((nuevosValores.contains(grupoCausa) && nuevosValores.contains(tipoCausa)), "Los datos modificados se muestran correctamente en el historial");
 
 		webDriver.exitFrame();
-		webDriver.exitFrame();
+
 		debugEnd();
+
 		return this;
 	}
 
@@ -223,18 +231,16 @@ public class VistaSiniestrosPage extends PageObject {
 		debugBegin();
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(vistaSiniestro, leftFrame);
+		webDriver.clickInFrame(vistaSiniestroBtn, leftFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.switchToFrame(cuerpoFrame);
-
-		webDriver.click(historico);
+		webDriver.clickInFrame(historicoBtn, cuerpoFrame);
+		
 		ActionSteps.waitForIt(webDriver);
-		webDriver.click(historico);
+		webDriver.clickInFrame(historicoBtn, cuerpoFrame);
+		
 		ActionSteps.waitForIt(webDriver);
-		webDriver.click(accederHistorico1);
-
-		webDriver.exitFrame();
+		webDriver.clickInFrame(accederHistorico1Btn, cuerpoFrame);
 
 		debugEnd();
 		return this;

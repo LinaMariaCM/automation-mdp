@@ -6,14 +6,11 @@ import com.amaris.automation.model.testing.objects.InteractionObject;
 import com.amaris.automation.model.utils.ArrayUtils;
 import com.amaris.automation.model.utils.FileUtils;
 import com.amaris.automation.model.utils.InitUtils;
+import com.amaris.automation.model.utils.StringUtils;
 import com.amaris.automation.model.webdriver.DriverHelper;
 
 import java.net.URISyntaxException;
-import java.time.LocalDate;
-import java.time.format.TextStyle;
 import java.util.Date;
-import java.util.Locale;
-
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
@@ -69,12 +66,12 @@ import com.amaris.project.pages.productos.PrecioPage;
 import com.amaris.project.pages.productos.PrecioPorModalidadPage;
 import com.amaris.project.pages.productos.TomadorYAseguradoPage;
 import com.amaris.project.pages.productos.UbicacionRiesgoPage;
-import com.amaris.project.pages.productos.mac.ContratacionPage_MAC;
-import com.amaris.project.pages.productos.mac.DocumentacionPage_MAC;
-import com.amaris.project.pages.productos.mac.InmueblePage_MAC;
-import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMAC;
-import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMAC;
-import com.amaris.project.pages.productos.mac.TomadorYAseguradoPage_MAC;
+import com.amaris.project.pages.productos.mac.ContratacionPageMac;
+import com.amaris.project.pages.productos.mac.DocumentacionPageMac;
+import com.amaris.project.pages.productos.mac.InmueblePageMac;
+import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac;
+import com.amaris.project.pages.productos.mac.TomadorYAseguradoPageMac;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 import com.google.common.base.Splitter;
 import com.google.common.collect.Iterables;
@@ -83,10 +80,6 @@ public class ActionSteps extends InteractionObject {
 
 	public ActionSteps(UserStory userStory) {
 		super(userStory);
-	}
-
-	public static String getDayOfWeek() {
-		return LocalDate.now().getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.US);
 	}
 
 	public void login(String accessType, String user) {
@@ -231,14 +224,14 @@ public class ActionSteps extends InteractionObject {
 			openSimulationMec();
 			new AsignarMediadorPage(userS)
 				.seleccionarMediadorPorCodigo(mediador)
-				.clickOnContinuarButton();
+				.clickContinuar();
 		}
 
 		// The testId variable has been set here because the FillTomadorData
 		// from DatosBasicosTomadorPage requires it. Not sure if this is the
 		// proper usage.
 		new UbicacionRiesgoPage(userS)
-			.fillInmuebleAndClickOnContinue();
+			.fillInmuebleAndClickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
@@ -255,24 +248,26 @@ public class ActionSteps extends InteractionObject {
 
 		// Revisar si el paso de parámetros es el adecuado
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-			.clickOnContinuarAndValidate();
+			.clickContinuarAndValidate();
 
 		new PrecioPage(userS)
-			.clickOnConvertirAProjecto();
+			.clickConvertirAProjecto();
 
 		new DatosBasicosTomadorPage(userS)
 			.fillTomadorData(getScenarioVar(Constants.TOMADOR))
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new PrecioPorModalidadPage(userS)
 			// .executeActionsInPrecioPorModalidadPage();
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ClausulasPage(userS)
-			.activateclausesAndClickOnContinue();
+			.activarClausulas()
+			.completarClausulaHipotecaria()
+			.clickContinuar();
 
 		// new DatosBasicosTomadorPage(userS)
 		// .fillTomadorData(getScenarioVar("tomador"))
@@ -293,13 +288,17 @@ public class ActionSteps extends InteractionObject {
 		new TomadorYAseguradoPage(userS)
 			.addDatosTomador()
 			.addDatosTomadorDiferenteAsegurado()
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new DocumentacionPage(userS)
 			.subirFichero();
 
 		new DatosBancariosPage(userS)
-			.introducirFormaPagoYPulsarContratar();
+			.fillPaymentMethod(getTestVar(Constants.MEDIO_PAGO))
+			.clickGuardar()
+			.getProjectCodeNumberAndClickOnAceptarButton()
+			.aceptarCondicionesLegales()
+			.clickContratarAndGetPolizaNumber();
 
 		// new DataSteps(userS).imprimir_informacion_del_proyecto();
 		userS.getWebDriver().quit();
@@ -308,7 +307,11 @@ public class ActionSteps extends InteractionObject {
 			.subirFichero();
 
 		new DatosBancariosPage(userS)
-			.introducirFormaPagoYPulsarContratar();
+			.fillPaymentMethod(getTestVar(Constants.MEDIO_PAGO))
+			.clickGuardar()
+			.getProjectCodeNumberAndClickOnAceptarButton()
+			.aceptarCondicionesLegales()
+			.clickContratarAndGetPolizaNumber();
 
 		userS.getWebDriver().quit();
 
@@ -337,16 +340,18 @@ public class ActionSteps extends InteractionObject {
 		String mediador = getScenarioVar(Constants.MEDIADOR);
 		if(loginAccess.equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
 			new AsignarMediadorPage(userS)
-				.selectMediadorMACAndClickOnContinuar();
+				.selectMediadorMACAndClickContinuar();
 		} else if(loginAccess.equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.SeleccionarMediadorMACPorCodigo(mediador)
-				.clickOnContinuarButton();
+				.seleccionarMediadorMACPorCodigo(mediador)
+				.clickContinuar();
 		}
 
 		// Precio
-		new PrecioPorModalidadPageMAC(userS)
-			.executeActionsInPrecioPorModalidadPage();
+		new PrecioPorModalidadPageMac(userS)
+			.completarRentaMensualAlquiler()
+			.completarGarantiasBasicas()
+			.clickConvertirAProyecto();
 
 		// SCS Precio
 		// PrecioPorModalidadPage_MAC precioPorModalidadPage_MAC = new
@@ -354,7 +359,7 @@ public class ActionSteps extends InteractionObject {
 		// precioPorModalidadPage_MAC.executeActionsInPrecioPorModalidadPage();
 
 		// Inquilinos
-		new InquilinosAvalistasPageMAC(userS).executeActionsInInquilinosAvalistasPage();
+		new InquilinosAvalistasPageMac(userS).executeActionsInInquilinosAvalistasPage();
 
 		// SCS Inquilinos
 		// InquilinosAvalistasPage_MAC inquilinosAvalistasPage_MAC = new
@@ -391,7 +396,7 @@ public class ActionSteps extends InteractionObject {
 	public void enviar_el_proyecto_a_la_compania() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMAC(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.enviarACompania();
 
 		debugEnd();
@@ -434,13 +439,24 @@ public class ActionSteps extends InteractionObject {
 				.modificarProjecto();
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorMACAndClickOnContinuar();
+				.selectMediadorMACAndClickContinuar();
 		}
 
-		new PrecioPorModalidadPageMAC(userS).clickContinuar();
-		new InquilinosAvalistasPageMAC(userS).clickContinuar();
+		new PrecioPorModalidadPageMac(userS).clickContinuar();
+		new InquilinosAvalistasPageMac(userS).clickContinuar();
+
 		// Completar paso Contratación
-		new ContratacionPage_MAC(userS).ExecuteActionsInContratacionPage();
+		new TomadorYAseguradoPageMac(userS)
+			.addDatosTomadorAsegurado();
+
+		new InmueblePageMac(userS)
+			.addInmuebleByAddress();
+
+		new DocumentacionPageMac(userS)
+			.addDocumentContratacion();
+
+		new ContratacionPageMac(userS)
+			.seleccionarCheckYContratar();
 
 		// loginAcess = getScenarioVar(Constants.ACCESO);
 		// if
@@ -557,7 +573,7 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		new ClientePage(userS)
-			.anadirMarcaNegativa();
+			.anyadirMarcaNegativa();
 
 		debugEnd();
 	}
@@ -581,13 +597,13 @@ public class ActionSteps extends InteractionObject {
 				.completarMinimos(numPoliza);
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.continuarAltaSiniestro();
+				.clickContinuar();
 
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
 				.datosMinOcurrencia(numPoliza);
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.continuarAltaSiniestro();
+				.clickContinuar();
 
 			new ImplicadoAseguradoSiniestrosPage(userS)
 				.aperturaSinietro();
@@ -663,7 +679,7 @@ public class ActionSteps extends InteractionObject {
 			// Validamos cosas
 			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
 				new ValidacionExcepcionesReglasPage(userS)
-					.clickOnContinuarButton();
+					.clickContinuar();
 			}
 
 			// Completamos el apartado de Ocurrencia
@@ -699,7 +715,7 @@ public class ActionSteps extends InteractionObject {
 
 			// Validamos más cosas
 			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
-				new ValidacionExcepcionesReglasPage(userS).clickOnContinuarButton();
+				new ValidacionExcepcionesReglasPage(userS).clickContinuar();
 			}
 
 			// Completamos el apartado de Implicado asegurado
@@ -783,7 +799,7 @@ public class ActionSteps extends InteractionObject {
 				.altaObservaciones("TEST Automatico apertura siniestro")
 				.clickEnviar()
 				.checkYaExisteSiniestro()
-				.comprobarOK();
+				.comprobarOk();
 		}
 
 		if(acceso.equals(Constants.LoginAccessInnova)) {
@@ -812,7 +828,7 @@ public class ActionSteps extends InteractionObject {
 	// MAC: SE INFORMA DE QUE LA POLIZA NO SE PUEDE EMITIR
 	public void se_informa_de_que_la_poliza_no_se_puede_emitir() {
 		// Compropar el estado
-		Assert.assertTrue(new ContratacionPage_MAC(userS).checkPolizaError());
+		Assert.assertTrue(new ContratacionPageMac(userS).checkPolizaError());
 	}
 
 	// MAC: MODIFICAR INGRESOS
@@ -822,7 +838,7 @@ public class ActionSteps extends InteractionObject {
 
 	// MAC AÑADIR AVALISTA
 	public void anyado_avalista() {
-		new InquilinosAvalistasPageMAC(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.addDatosAval()
 			.anyadirDocumentacionAval()
 			.validacionViabilidadInquilino();
@@ -865,46 +881,48 @@ public class ActionSteps extends InteractionObject {
 		crear_proyecto_MAC();
 
 		if(loginAccess.equals(Constants.LoginAccessInnova)) {
-			new AsignarMediadorPage(userS).selectMediadorMACAndClickOnContinuar();
+			new AsignarMediadorPage(userS).selectMediadorMACAndClickContinuar();
 		}
 
 		// SCS Precio
-		new PrecioPorModalidadPageMAC(userS)
-			.executeActionsInPrecioPorModalidadPage();
+		new PrecioPorModalidadPageMac(userS)
+			.completarRentaMensualAlquiler()
+			.completarGarantiasBasicas()
+			.clickConvertirAProyecto();
 
 		// SCS Inquilinos
-		new InquilinosAvalistasPageMAC(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.executeActionsInInquilinosAvalistasPage();
 	}
 
 	public void completo_el_proceso_de_contratacion_MAC_sin_autorizacion() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMAC(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.clickContinuar();
 
-		new TomadorYAseguradoPage_MAC(userS)
-			.executeActionsInTomadorYAseguradoPage();
+		new TomadorYAseguradoPageMac(userS)
+			.addDatosTomadorAsegurado();
 
-		new InmueblePage_MAC(userS)
-			.executeActionsInInmueblePage();
+		new InmueblePageMac(userS)
+			.addInmuebleByAddress();
 
-		new DocumentacionPage_MAC(userS)
+		new DocumentacionPageMac(userS)
 			.addDocumentContratacion();
 
-		new ContratacionPage_MAC(userS)
+		new ContratacionPageMac(userS)
 			.seleccionarCheckYContratar();
 
 		debugEnd();
 	}
 
 	public void la_renta_mensual_es() {
-		new PrecioPorModalidadPageMAC(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.completarRentaMensualAlquiler();
 	}
 
 	public void la_suma_asegurada_de_impago_alquiler_es() {
-		new PrecioPorModalidadPageMAC(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.seleccionarImpagoAlquiler();
 	}
 
@@ -924,11 +942,11 @@ public class ActionSteps extends InteractionObject {
 			new AsignarMediadorPage(userS)
 				.terminaProcesando()
 				.seleccionarMediadorPorCodigo(mediador)
-				.clickOnContinuarButton();
+				.clickContinuar();
 		}
 
 		new UbicacionRiesgoPage(userS)
-			.fillInmuebleAndClickOnContinue()
+			.fillInmuebleAndClickContinuar()
 			.waitProcesando();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
@@ -936,11 +954,13 @@ public class ActionSteps extends InteractionObject {
 			.waitProcesando();
 
 		new DetallesRiesgoPage(userS)
-			.completarDatosEnDetallesRiesgoMinimos()
+			.completarDatosRiesgoMinimos();
+		new DetallesRiesgoPage(userS)
+			.clickContinuar()
 			.waitProcesando();
 
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-			.clickOnContinuarAndValidate()
+			.clickContinuarAndValidate()
 			.waitProcesando();
 
 		// new PrecioPage(userS).clickOnConvertirAProjecto().waitProcesando();
@@ -951,14 +971,22 @@ public class ActionSteps extends InteractionObject {
 			.waitProcesando();
 
 		new PrecioPorModalidadPage(userS)
-			.executeActionsInPrecioPorModalidadPage()
+			.seleccionarModalidad()
+			.completarCoberturaPorMaquinaria()
+			.completarCoberturasEmpleados()
+			.completarCoberturasEnergiaSolar()
+			.completarFranquiciaVoluntaria()
+			.completarOQuitarDescuentoRecargo()
+			.clickContinuar()
 			.waitProcesando();
 
 		new ValidacionExcepcionesReglasPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ClausulasPage(userS)
-			.activateclausesAndClickOnContinue();
+			.activarClausulas()
+			.completarClausulaHipotecaria()
+			.clickContinuar();
 
 		/*
 		 * new TomadorYAseguradoPage(userS) .AddDatosTomador() .AddDatosTomadorDiferenteAsegurado() .clickOnContinuar();
@@ -993,17 +1021,19 @@ public class ActionSteps extends InteractionObject {
 			new AsignarMediadorPage(userS)
 				.terminaProcesando()
 				.seleccionarMediadorPorCodigo(mediador)
-				.clickOnContinuarButton();
+				.clickContinuar();
 		}
 
 		new UbicacionRiesgoPage(userS)
-			.fillInmuebleAndClickOnContinue();
+			.fillInmuebleAndClickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
 
 		new DetallesRiesgoPage(userS)
-			.completarDatosEnDetallesRiesgoMinimos();
+			.completarDatosRiesgoMinimos();
+		new DetallesRiesgoPage(userS)
+			.clickContinuar();
 
 		debugEnd();
 	}
@@ -1024,33 +1054,40 @@ public class ActionSteps extends InteractionObject {
 
 			new AsignarMediadorPage(userS)
 				.seleccionarMediadorPorCodigo(mediador)
-				.clickOnContinuarButton();
+				.clickContinuar();
 		}
 
 		new UbicacionRiesgoPage(userS)
 			.addInmueble(getScenarioVar(Constants.INMUEBLE));
 
 		new UbicacionRiesgoPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
 
 		new DetallesRiesgoPage(userS)
-			.completarDatosEnDetallesRiesgo();
+			.completarDatosRiesgo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-			.clickOnContinuarAndValidate();
+			.clickContinuarAndValidate();
 
 		new PrecioPage(userS)
-			.clickOnConvertirAProjecto();
+			.clickConvertirAProjecto();
 
 		new DatosBasicosTomadorPage(userS)
 			.fillTomadorData(userS.getScenarioVar(Constants.TOMADOR))
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new PrecioPorModalidadPage(userS)
-			.executeActionsInPrecioPorModalidadPage();
+			.seleccionarModalidad()
+			.completarCoberturaPorMaquinaria()
+			.completarCoberturasEmpleados()
+			.completarCoberturasEnergiaSolar()
+			.completarFranquiciaVoluntaria()
+			.completarOQuitarDescuentoRecargo()
+			.clickContinuar();
 
 		debugEnd();
 	}
@@ -1064,21 +1101,21 @@ public class ActionSteps extends InteractionObject {
 
 		if(loginAcess.equals(Constants.LoginAccessGestionLine) && mediador != null && !mediador.equals("640")) {
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 		} else if(loginAcess.equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
 				.seleccionarMediadorPorCodigo(mediador)
-				.clickOnContinuarButton();
+				.clickContinuar();
 		}
 
 		new UbicacionRiesgoPage(userS)
 			.addInmueble(userS.getTestVar(Constants.INMUEBLE));
 		new UbicacionRiesgoPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new DetallesRiesgoPage(userS)
 			.completarDatosRiesgo()
-			.clickOnContinuar();
+			.clickContinuar();
 
 		debugEnd();
 	}
@@ -1116,39 +1153,42 @@ public class ActionSteps extends InteractionObject {
 			.modificarProjecto();
 
 		new AsignarMediadorPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new UbicacionRiesgoPage(userS)
 			.closeAvisoSistemaPopup()
 			.modifyReferenciaCatastral()
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
 
 		new DetallesRiesgoPage(userS)
-			.modificarDatosEnDetallesRiesgo();
+			.checkAvisoGarajes()
+			.getCapitales()
+			.modificarDatosRiesgo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new DatosBasicosTomadorPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new PrecioPorModalidadPage(userS)
 			.seleccionarModalidad()
-			.clickOnContinuar();
+			.clickContinuar();
 
-		// validacionExcepcionesReglasPage.clickOnContinuarButton();
+		// validacionExcepcionesReglasPage.clickContinuar();
 
 		new ClausulasPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new TomadorYAseguradoPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new DatosBancariosPage(userS)
-			.clickOnGuardar();
+			.clickGuardar();
 
 		// new DataSteps(userS).imprimir_informacion_del_proyecto();
 		userS.getWebDriver().quit();
@@ -1184,12 +1224,12 @@ public class ActionSteps extends InteractionObject {
 			openSimulationMec();
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 
 			new UbicacionRiesgoPage(userS)
 				.addInmuebleByAddress();
 			new UbicacionRiesgoPage(userS)
-				.clickOnContinuar();
+				.clickContinuar();
 
 			/**
 			 * ValidacionesExcepcionesReglasUbicacionRiesgoPage validacionesExcepcionesReglasUbicacionRiesgo = new
@@ -1217,59 +1257,70 @@ public class ActionSteps extends InteractionObject {
 			.addSuplementoGeneral();
 
 		new AsignarMediadorPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new UbicacionRiesgoPage(userS)
 			.editInmuebleAndExcluirGarajesYLocales()
 			.editCalidadConstruccion()
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
 
 		new DetallesRiesgoPage(userS)
-			.modificarDatosEnDetallesRiesgo();
+			.checkAvisoGarajes()
+			.getCapitales()
+			.modificarDatosRiesgo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-			.clickOnContinuarAndValidate();
+			.clickContinuarAndValidate();
 
 		new DatosBasicosTomadorPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new PrecioPorModalidadPage(userS)
-			.executeActionsInPrecioPorModalidadPage();
+			.seleccionarModalidad()
+			.completarCoberturaPorMaquinaria()
+			.completarCoberturasEmpleados()
+			.completarCoberturasEnergiaSolar()
+			.completarFranquiciaVoluntaria()
+			.completarOQuitarDescuentoRecargo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ClausulasPage(userS)
-			.activateclausesAndClickOnContinue();
+			.activarClausulas()
+			.completarClausulaHipotecaria()
+			.clickContinuar();
 
 		new TomadorYAseguradoPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 	}
 
 	public void agrego_el_motivo_suplemento(String motivoSuplemento) {
 		MotivosSuplementoHelper.addMotivoSuplemento(motivoSuplemento, true, userS);
 
 		new ConfirmarPage(userS)
-			// .ActivateMotivosSuplementoAndClickOnContinuar();
+			// .ActivateMotivosSuplementoAndClickContinuar();
 			.activateMotivosSuplemento();
 	}
 
 	public void emito_el_suplemento() {
 		new ConfirmarPage(userS)
 			// .ActivateMotivosSuplemento();
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasConfirmarPoliza(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new DatosBancariosPage(userS)
-			.clickOnEmitirSuplemento();
+			.clickEmitirSuplemento();
 	}
 
 	public void emito_un_suplemento_general_con_motivo(String motivoSuplemento) {
@@ -1281,52 +1332,63 @@ public class ActionSteps extends InteractionObject {
 			.addSuplementoGeneral();
 
 		new AsignarMediadorPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new UbicacionRiesgoPage(userS)
 			.editInmuebleAndExcluirGarajesYLocales()
 			.editCalidadConstruccion()
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
 
 		new DetallesRiesgoPage(userS)
-			.modificarDatosEnDetallesRiesgo();
+			.checkAvisoGarajes()
+			.getCapitales()
+			.modificarDatosRiesgo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-			.clickOnContinuarAndValidate();
+			.clickContinuarAndValidate();
 
 		new DatosBasicosTomadorPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new PrecioPorModalidadPage(userS)
-			.executeActionsInPrecioPorModalidadPage();
+			.seleccionarModalidad()
+			.completarCoberturaPorMaquinaria()
+			.completarCoberturasEmpleados()
+			.completarCoberturasEnergiaSolar()
+			.completarFranquiciaVoluntaria()
+			.completarOQuitarDescuentoRecargo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ClausulasPage(userS)
-			.activateclausesAndClickOnContinue();
+			.activarClausulas()
+			.completarClausulaHipotecaria()
+			.clickContinuar();
 
 		new TomadorYAseguradoPage(userS)
-			.clickOnContinuar();
+			.clickContinuar();
 
 		MotivosSuplementoHelper.addMotivoSuplemento(motivoSuplemento, true, userS);
 
 		new ConfirmarPage(userS)
-			.activateMotivosSuplementoAndClickOnContinuar();
+			.activateMotivosSuplementoAndClickContinuar();
 
 		new ValidacionExcepcionesReglasConfirmarPoliza(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		// DocumentacionPage documentacionPage = new DocumentacionPage(userS);
 		// documentacionPage.SubirFichero();
 		new DatosBancariosPage(userS)
-			.clickOnEmitirSuplemento();
+			.clickEmitirSuplemento();
 		// MensajeConfirmacionPage mensajeConfirmacionPage = new MensajeConfirmacionPage(userS);
 		// mensajeConfirmacionPage.CheckIfPageHasLoadedCorrectly();
 	}
@@ -1336,42 +1398,56 @@ public class ActionSteps extends InteractionObject {
 		crear_simulacion();
 
 		new AsignarMediadorPage(userS)
-			.selectMediadorAndClickOnContinuar();
+			.selectMediadorAndClickContinuar();
 
 		new UbicacionRiesgoPage(userS)
-			.fillInmuebleAndClickOnContinue();
+			.fillInmuebleAndClickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
 
 		new DetallesRiesgoPage(userS)
-			.completarDatosEnDetallesRiesgo();
+			.completarDatosRiesgo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-			.clickOnContinuarAndValidate();
+			.clickContinuarAndValidate();
 
 		new PrecioPage(userS)
-			.clickOnConvertirAProjecto();
+			.clickConvertirAProjecto();
 
 		new DatosBasicosTomadorPage(userS)
-			.executeActionsInPageTomadorYAseguradoPage(getScenarioVar(Constants.TOMADOR));
+			.fillTomadorData(getScenarioVar(Constants.TOMADOR))
+			.clickContinuar();
 
 		new PrecioPorModalidadPage(userS)
-			.executeActionsInPrecioPorModalidadPage();
+			.seleccionarModalidad()
+			.completarCoberturaPorMaquinaria()
+			.completarCoberturasEmpleados()
+			.completarCoberturasEnergiaSolar()
+			.completarFranquiciaVoluntaria()
+			.completarOQuitarDescuentoRecargo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ClausulasPage(userS)
-			.activateclausesAndClickOnContinue();
+			.activarClausulas()
+			.completarClausulaHipotecaria()
+			.clickContinuar();
 
 		new TomadorYAseguradoPage(userS)
 			.addDatosTomador()
 			.addDatosTomadorDiferenteAsegurado()
-			.clickOnContinuar();
+			.clickContinuar();
 
 		new DatosBancariosPage(userS)
-			.introducirFormaPagoYPulsarContratar();
+			.fillPaymentMethod(getTestVar(Constants.MEDIO_PAGO))
+			.clickGuardar()
+			.getProjectCodeNumberAndClickOnAceptarButton()
+			.aceptarCondicionesLegales()
+			.clickContratarAndGetPolizaNumber();
 
 		new DataSteps(userS)
 			.imprimir_informacion_del_proyecto();
@@ -1395,41 +1471,47 @@ public class ActionSteps extends InteractionObject {
 				.modificarProjecto();
 
 			new AsignarMediadorPage(userS)
-				.clickOnContinuarButton();
+				.clickContinuar();
 
 			new UbicacionRiesgoPage(userS)
 				.closeAvisoSistemaPopup()
 				.modifyReferenciaCatastral()
-				.clickOnContinuar();
+				.clickContinuar();
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				// .executeActionsInPageDetallesRiesgoPage();
-				.modificarDatosEnDetallesRiesgo();
+				.checkAvisoGarajes()
+				.getCapitales()
+				.modificarDatosRiesgo()
+				.clickContinuar();
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
+				.clickContinuar();
 
 			new DatosBasicosTomadorPage(userS)
-				.clickOnContinuar();
+				.clickContinuar();
 
 			new PrecioPorModalidadPage(userS)
 				.seleccionarModalidad()
-				.clickOnContinuar();
+				.clickContinuar();
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
-				.clickOnContinuarButton();
+				.clickContinuar();
 
 			new ClausulasPage(userS)
-				.clickOnContinuar();
+				.clickContinuar();
 
 			new TomadorYAseguradoPage(userS)
-				.clickOnContinuar();
+				.clickContinuar();
 
 			new DatosBancariosPage(userS)
-				.modificarFormaPagoYPulsarContratar();
+				.fillPaymentMethod(getTestVar(Constants.CAMBIO_MEDIO_PAGO))
+				.clickGuardar()
+				.getProjectCodeNumberAndClickOnAceptarButton()
+				.aceptarCondicionesLegales()
+				.clickContratarAndGetPolizaNumber();
 
 			new DataSteps(userS)
 				.imprimir_informacion_del_proyecto();
@@ -1456,51 +1538,63 @@ public class ActionSteps extends InteractionObject {
 
 			if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
 				new AsignarMediadorPage(userS)
-					.selectMediadorAndClickOnContinuar();
+					.selectMediadorAndClickContinuar();
 			} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 				new AsignarMediadorPage(userS)
 					.seleccionarMediadorPorCodigo(mediador)
-					.clickOnContinuarButton();
+					.clickContinuar();
 			}
 
 			new UbicacionRiesgoPage(userS)
-				.fillInmuebleAndClickOnContinue();
+				.fillInmuebleAndClickContinuar();
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				// .executeActionsInPageDetallesRiesgoPage();
-				.completarDatosEnDetallesRiesgo();
+				.completarDatosRiesgo()
+				.clickContinuar();
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-				.clickOnContinuarAndValidate();
+				.clickContinuarAndValidate();
 
 			new PrecioPage(userS)
-				.clickOnConvertirAProjecto();
+				.clickConvertirAProjecto();
 
 			new DatosBasicosTomadorPage(userS)
 				.fillTomadorData(getScenarioVar(Constants.TOMADOR))
-				.clickOnContinuar();
+				.clickContinuar();
 
 			new PrecioPorModalidadPage(userS)
-				.executeActionsInPrecioPorModalidadPage();
+				.seleccionarModalidad()
+				.completarCoberturaPorMaquinaria()
+				.completarCoberturasEmpleados()
+				.completarCoberturasEnergiaSolar()
+				.completarFranquiciaVoluntaria()
+				.completarOQuitarDescuentoRecargo()
+				.clickContinuar();
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
+				.clickContinuar();
 
 			new ClausulasPage(userS)
-				.activateclausesAndClickOnContinue();
+				.activarClausulas()
+				.completarClausulaHipotecaria()
+				.clickContinuar();
 
 			new TomadorYAseguradoPage(userS)
 				.addDatosTomador()
 				.addDatosTomadorDiferenteAsegurado()
-				.clickOnContinuar();
+				.clickContinuar();
 			new DocumentacionPage(userS)
 				.subirFichero();
 
 			new DatosBancariosPage(userS)
-				.introducirFormaPagoYPulsarContratar();
+				.fillPaymentMethod(getTestVar(Constants.MEDIO_PAGO))
+				.clickGuardar()
+				.getProjectCodeNumberAndClickOnAceptarButton()
+				.aceptarCondicionesLegales()
+				.clickContratarAndGetPolizaNumber();
 
 			new DataSteps(userS)
 				.imprimir_informacion_del_proyecto();
@@ -1527,49 +1621,59 @@ public class ActionSteps extends InteractionObject {
 
 			if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
 				new AsignarMediadorPage(userS)
-					.selectMediadorAndClickOnContinuar();
+					.selectMediadorAndClickContinuar();
 			} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 				new AsignarMediadorPage(userS)
 					.seleccionarMediadorPorCodigo(mediador)
-					.clickOnContinuarButton();
+					.clickContinuar();
 			}
 
 			new UbicacionRiesgoPage(userS)
-				.fillInmuebleAndClickOnContinue();
+				.fillInmuebleAndClickContinuar();
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				// .executeActionsInPageDetallesRiesgoPage();
-				.completarDatosEnDetallesRiesgo();
+				.completarDatosRiesgo()
+				.clickContinuar();
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
 				.clickOnContinuar();
 
 			new PrecioPage(userS)
-				.clickOnConvertirAProjecto();
+				.clickConvertirAProjecto();
 
 			new DatosBasicosTomadorPage(userS)
 				.fillTomadorData(getScenarioVar(Constants.TOMADOR))
-				.clickOnContinuar();
+				.clickContinuar();
 
 			new PrecioPorModalidadPage(userS)
-				.executeActionsInPrecioPorModalidadPage();
+				.seleccionarModalidad()
+				.completarCoberturaPorMaquinaria()
+				.completarCoberturasEmpleados()
+				.completarCoberturasEnergiaSolar()
+				.completarFranquiciaVoluntaria()
+				.completarOQuitarDescuentoRecargo()
+				.clickContinuar();
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
+				.clickContinuar();
 
 			new ClausulasPage(userS)
-				.activateclausesAndClickOnContinue();
+				.activarClausulas()
+				.completarClausulaHipotecaria()
+				.clickContinuar();
 
 			new TomadorYAseguradoPage(userS)
 				.addDatosTomador()
 				.addDatosTomadorDiferenteAsegurado()
-				.clickOnContinuar();
+				.clickContinuar();
 
 			new DatosBancariosPage(userS)
-				.introducirFormaPagoYPulsarGuardar();
+				.fillPaymentMethod(getTestVar(Constants.MEDIO_PAGO))
+				.clickGuardar()
+				.getProjectCodeNumberAndClickOnAceptarButton();
 
 			new DataSteps(userS)
 				.imprimir_informacion_del_proyecto();
@@ -1589,17 +1693,18 @@ public class ActionSteps extends InteractionObject {
 			crear_simulacion();
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 
 			new UbicacionRiesgoPage(userS)
-				.fillInmuebleAndClickOnContinue();
+				.fillInmuebleAndClickContinuar();
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				// .ExecuteActionsInPageDetallesRiesgoPageWithoutClickinOnContinue();
-				.completarDatosEnDetallesRiesgoSinContinuar();
+				.checkAvisoGarajes()
+				.getCapitales()
+				.completarDatosRiesgo();
 		}
 	}
 
@@ -1614,16 +1719,18 @@ public class ActionSteps extends InteractionObject {
 			crear_proyecto_MEC();
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 
 			new UbicacionRiesgoPage(userS)
-				.fillInmuebleAndClickOnContinue();
+				.fillInmuebleAndClickContinuar();
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				.completarDatosEnDetallesRiesgoSinContinuar();
+				.checkAvisoGarajes()
+				.getCapitales()
+				.completarDatosRiesgo();
 		}
 	}
 
@@ -1638,22 +1745,23 @@ public class ActionSteps extends InteractionObject {
 			crear_simulacion();
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 
 			new UbicacionRiesgoPage(userS)
-				.fillInmuebleAndClickOnContinue();
+				.fillInmuebleAndClickContinuar();
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				.completarDatosEnDetallesRiesgo();
+				.completarDatosRiesgo()
+				.clickContinuar();
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-				.clickOnContinuarAndValidate();
+				.clickContinuarAndValidate();
 
 			new PrecioPage(userS)
-				.clickOnConvertirAProjecto();
+				.clickConvertirAProjecto();
 		}
 	}
 
@@ -1668,19 +1776,20 @@ public class ActionSteps extends InteractionObject {
 			crear_proyecto_MEC();
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 
 			new UbicacionRiesgoPage(userS)
-				.fillInmuebleAndClickOnContinue();
+				.fillInmuebleAndClickContinuar();
 
 			new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 				.isUbicacionRiesgoUtilizada();
 
 			new DetallesRiesgoPage(userS)
-				.completarDatosEnDetallesRiesgo();
+				.completarDatosRiesgo()
+				.clickContinuar();
 
 			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
-				.clickOnContinuarAndValidate();
+				.clickContinuarAndValidate();
 			// PrecioPage precioPage = new PrecioPage(userS);
 			// precioPage.clickOConvertirAProjecto();
 		}
@@ -1688,7 +1797,8 @@ public class ActionSteps extends InteractionObject {
 
 	public void continuo_en_datos_básicos_del_tomador() throws Exception {
 		new DatosBasicosTomadorPage(userS)
-			.executeActionsInPageTomadorYAseguradoPage(getScenarioVar(Constants.TOMADOR));
+			.fillTomadorData(getScenarioVar(Constants.TOMADOR))
+			.clickContinuar();
 	}
 
 	public void lo_consulto_en_el_buscador_de_polizas_usando_el_acceso_y_el_usuario(String loginAcess, String user) {
@@ -1711,8 +1821,10 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		new DetallesRiesgoPage(userS)
-			.completarDatosEnDetallesRiesgoSinContinuar()
-			.clickOnContinuar();
+			.checkAvisoGarajes()
+			.getCapitales()
+			.completarDatosRiesgo()
+			.clickContinuar();
 
 		debugEnd();
 	}
@@ -1731,7 +1843,7 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		new MensajeConfirmacionPage(userS)
-			.DownlodadDocumentsToFolder(filesPath);
+			.downlodadDocumentsToFolder(filesPath);
 
 		debugEnd();
 	}
@@ -1752,7 +1864,7 @@ public class ActionSteps extends InteractionObject {
 	public void envio_el_proyecto_a__la_compania() {
 		debugBegin();
 
-		new InquilinosAvalistasPageMAC(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.enviarACompania();
 		// userS.getWebDriver().quit();
 		debugEnd();
@@ -1770,25 +1882,25 @@ public class ActionSteps extends InteractionObject {
 
 		if(loginAcess.equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.selectMediadorMACAndClickOnContinuar();
+				.selectMediadorMACAndClickContinuar();
 		}
 
-		new PrecioPorModalidadPageMAC(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.clickContinuar();
-		new InquilinosAvalistasPageMAC(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.clickContinuar();
 
 		// Rellenar datos de contratacion, pagina 3
-		new TomadorYAseguradoPage_MAC(userS)
-			.executeActionsInTomadorYAseguradoPage();
+		new TomadorYAseguradoPageMac(userS)
+			.addDatosTomadorAsegurado();
 
-		new InmueblePage_MAC(userS)
-			.executeActionsInInmueblePage();
+		new InmueblePageMac(userS)
+			.addInmuebleByAddress();
 
-		new DocumentacionPage_MAC(userS)
+		new DocumentacionPageMac(userS)
 			.addDocumentContratacion();
 
-		new ContratacionPage_MAC(userS)
+		new ContratacionPageMac(userS)
 			.seleccionarCheckYContratar();
 	}
 
@@ -1801,20 +1913,22 @@ public class ActionSteps extends InteractionObject {
 
 		// Asignar mediador
 		new AsignarMediadorPage(userS)
-			.selectMediadorMACAndClickOnContinuar();
+			.selectMediadorMACAndClickContinuar();
 
 		// SCS Precio
-		new PrecioPorModalidadPageMAC(userS)
-			.executeActionsInPrecioPorModalidadPage();
+		new PrecioPorModalidadPageMac(userS)
+			.completarRentaMensualAlquiler()
+			.completarGarantiasBasicas()
+			.clickConvertirAProyecto();
 
 		// SCS Inquilinos
-		new InquilinosAvalistasPageMAC(userS)
-			.executeActionsInInquilinosAvalistasPageSinDocumentacion();
+		new InquilinosAvalistasPageMac(userS)
+			.addDatosInquilino();
 		// inquilinosAvalistasPage_MAC.ValidacionViabilidadInquilino();
 	}
 
 	public void valido_el_proyecto() {
-		new InquilinosAvalistasPageMAC(userS)
+		new InquilinosAvalistasPageMac(userS)
 			.validacionViabilidadInquilino();
 	}
 
@@ -1848,7 +1962,7 @@ public class ActionSteps extends InteractionObject {
 			.createNewProject();
 
 		new AsignarMediadorPage(userS)
-			.selectMediadorAndClickOnContinuar();
+			.selectMediadorAndClickContinuar();
 
 		new UbicacionRiesgoPage(userS)
 			.iterarEdificiosPorDirecciones(getScenarioVar(Constants.FICHERO));
@@ -1875,7 +1989,7 @@ public class ActionSteps extends InteractionObject {
 			.createNewProject();
 
 		new AsignarMediadorPage(userS)
-			.selectMediadorAndClickOnContinuar();
+			.selectMediadorAndClickContinuar();
 
 		debugInfo("Nombre fichero en action steps: " + getScenarioVar(Constants.FICHERO));
 		new UbicacionRiesgoPage(userS)
@@ -1947,7 +2061,7 @@ public class ActionSteps extends InteractionObject {
 			// tCData.setDireccionCodigoPostal(codigoPostal.length() == 4 ? "0" + codigoPostal : codigoPostal);
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 
 			try {
 				if(!new UbicacionRiesgoPage(userS).fillInmuebleAndGetAvailability()) {
@@ -1967,12 +2081,16 @@ public class ActionSteps extends InteractionObject {
 				new UbicacionRiesgoPage(userS)
 					.closeNotification();
 				new UbicacionRiesgoPage(userS)
-					.clickOnContinuar();
+					.clickContinuar();
 
-				new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS).isUbicacionRiesgoUtilizada();
+				new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
+					.isUbicacionRiesgoUtilizada();
 
-				String anyoConstruccion = new DetallesRiesgoPage(userS).completarDatosRiesgoMinimos();
-				new DetallesRiesgoPage(userS).clickOnContinuar();
+				String anyoConstruccion = new DetallesRiesgoPage(userS)
+						.completarDatosRiesgoMinimos();
+				
+				new DetallesRiesgoPage(userS)
+					.clickContinuar();
 
 				new PrecioPorModalidadPage(userS)
 					// precioPorModalidadPage.modificarRC("600.000,00");
@@ -1984,9 +2102,9 @@ public class ActionSteps extends InteractionObject {
 				String precioTotal = new PrecioPorModalidadPage(userS).getPrecioTotal();
 
 				new PrecioPorModalidadPage(userS)
-					.clickOnGuardar();
+					.clickGuardar();
 
-				String numSimulacion = new PrecioPorModalidadPage(userS).getNumSimulacion();
+				String numSimulacion = new PrecioPorModalidadPage(userS).getNumeroSimulacion();
 
 				datosAltoValor = setValuesDataSetByID(datosAltoValor, "prima_total", i, precioTotal);
 				datosAltoValor = setValuesDataSetByID(datosAltoValor, "anyo_antiguedad", i, anyoConstruccion);
@@ -1995,7 +2113,7 @@ public class ActionSteps extends InteractionObject {
 				appendMatrixToCsvFile(fileName + " (modificado).csv", datosAltoValor);
 
 				new PrecioPorModalidadPage(userS)
-					.clickOnCancelar();
+					.clickCancelar();
 			} catch(Exception e) {
 				logText += "Comprobacion de datos no contemplada para la direccion " + address + "\n";
 				writeFile(fileName + " (log file).txt", logText);
@@ -2038,7 +2156,7 @@ public class ActionSteps extends InteractionObject {
 				.modificarProjecto();
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 
 			new UbicacionRiesgoPage(userS)
 				.clickOnGuardar()
@@ -2093,7 +2211,7 @@ public class ActionSteps extends InteractionObject {
 			setScenarioVar(Constants.CODIGO_POSTAL, codigoPostal != null && codigoPostal.length() == 4 ? "0" + codigoPostal : codigoPostal);
 
 			AsignarMediadorPage asignarMediadorPage = new AsignarMediadorPage(userS);
-			asignarMediadorPage.selectMediadorAndClickOnContinuar();
+			asignarMediadorPage.selectMediadorAndClickContinuar();
 			try {
 				if(!new UbicacionRiesgoPage(userS).fillInmuebleAndGetAvailability()) {
 					logText += "Mas de una referencia catastral encontrada para la direccion " + address + "\n";
@@ -2112,7 +2230,7 @@ public class ActionSteps extends InteractionObject {
 				new UbicacionRiesgoPage(userS)
 					.closeNotification();
 				new UbicacionRiesgoPage(userS)
-					.clickOnContinuar();
+					.clickContinuar();
 
 				new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 					.isUbicacionRiesgoUtilizada();
@@ -2125,14 +2243,14 @@ public class ActionSteps extends InteractionObject {
 				String capitalContenido = new DetallesRiesgoPage(userS).getCapitalContenido();
 
 				new DetallesRiesgoPage(userS)
-					.clickOnContinuar();
+					.clickContinuar();
 
 				String precioComplet = new PrecioPorModalidadPage(userS).getPrecioTotal();
 				String precioBasic = new PrecioPorModalidadPage(userS).getPrecioBasic();
 				String precioPlus = new PrecioPorModalidadPage(userS).getPrecioPlus();
 
 				new PrecioPorModalidadPage(userS)
-					.clickOnGuardar();
+					.clickGuardar();
 
 				// TODO Convertir a proyecto seguir los pasos Terminar de crear la poliza
 				// escribir los datos: numeroProyecto, precios antes de proyecto, precios despues de proyecto
@@ -2192,11 +2310,11 @@ public class ActionSteps extends InteractionObject {
 			setScenarioVar(Constants.REFERENCIA_CATASTRAL, getValuesDataSetByID(datosAltoValor, "ref_catastral", i));
 
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 
 			try {
 				new UbicacionRiesgoPage(userS)
-					.fillInmuebleAndClickOnContinue();
+					.fillInmuebleAndClickContinuar();
 				// ubicacionRiesgoPage.closeNotification();
 				// ubicacionRiesgoPage.clickOnContinuar();
 
@@ -2206,31 +2324,37 @@ public class ActionSteps extends InteractionObject {
 					.completarDatosRiesgoMinimos(); // Enter values madera and deshabitación.
 
 				new DetallesRiesgoPage(userS).enterAnyoConstruccionMoreThan50()
-					.clickOnContinuar();
+					.clickContinuar();
 
 				new ValidacionExcepcionesReglasPage(userS)
-					.clickOnContinuarButton();
+					.clickContinuar();
 
 				new DatosBasicosTomadorPage(userS)
 					.fillStaticTomadorData()
-					.clickOnContinuar();
+					.clickContinuar();
 
 				new PrecioPorModalidadPage(userS)
-					.clickOnContinuar();
+					.clickContinuar();
 
 				new ValidacionExcepcionesReglasPage(userS)
-					.clickOnContinuarButton();
+					.clickContinuar();
 
 				new ClausulasPage(userS)
-					.clickOnContinuar();
+					.clickContinuar();
 
 				new TomadorYAseguradoPage(userS)
 					.addStaticDatosTomador()
 					// tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
-					.clickOnContinuar();
+					.clickContinuar();
 
 				new DatosBancariosPage(userS)
-					.introducirFormaPagoYPulsarSolicitarPeritacion();
+					.fillStaticIban();
+				new DatosBancariosPage(userS)
+					.clickGuardar()
+					.getProjectCodeNumberAndClickOnAceptarButton()
+					.aceptarCondicionesLegales()
+					.clickSolicitarPeritacion()
+					.enterDataSolicitudServicioTecnico();
 				// new DataSteps(userS).imprimir_informacion_del_proyecto();
 				// userS.getWebDriver().quit();
 
@@ -2238,11 +2362,11 @@ public class ActionSteps extends InteractionObject {
 				String[] PeritajeList = Iterables.toArray(PeritajeIterator, String.class);
 
 				logText += "Solicitud peritaje concluida para referencia catastral " + getValuesDataSetByID(datosAltoValor, "ref_catastral", i)
-					+ " (Proyecto: " + new DatosBancariosPage(userS).getProjectNumber() + ", " + "Referencia solicitud: " + PeritajeList[7] + ")" + "\n";
+					+ " (Proyecto: " + getTestVar(Constants.NUMERO_PROYECTO) + ", " + "Referencia solicitud: " + PeritajeList[7] + ")" + "\n";
 				writeFile(fileName + " (log file).txt", logText);
 
 				debugInfo("Solicitud verificación OK.  Ref. catastral: " + getValuesDataSetByID(datosAltoValor, "ref_catastral", i) + " (Proyecto: "
-					+ new DatosBancariosPage(userS).getProjectNumber() + ", " + "Referencia solicitud: " + PeritajeList[7] + ")" + "\n");
+					+ getTestVar(Constants.NUMERO_PROYECTO) + ", " + "Referencia solicitud: " + PeritajeList[7] + ")" + "\n");
 
 				new InnovaHomePage(userS)
 					.openInnovaHome()
@@ -2356,7 +2480,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 
 		new GestionSiniestrosPage(userS)
-			.comunicacion();
+			.goToComunicacion();
 
 		new ComunicacionSiniestrosPage(userS)
 			.nuevaComunicacion();
@@ -2365,7 +2489,7 @@ public class ActionSteps extends InteractionObject {
 
 	public void compruebo_comunicacion_siniestro() {
 		new GestionSiniestrosPage(userS)
-			.diario();
+			.goToDiario();
 
 		new DiarioSiniestrosPage(userS)
 			.comprobarComunicacion();
@@ -2382,7 +2506,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 
 		new GestionSiniestrosPage(userS)
-			.comunicacion();
+			.goToDiario();
 
 		new ComunicacionSiniestrosPage(userS)
 			.nuevaAnotacion();
@@ -2390,7 +2514,7 @@ public class ActionSteps extends InteractionObject {
 
 	public void compruebo_anotacion_siniestro() {
 		new GestionSiniestrosPage(userS)
-			.diario();
+			.goToDiario();
 
 		new DiarioSiniestrosPage(userS)
 			.comprobarAnotacion();
@@ -2439,13 +2563,13 @@ public class ActionSteps extends InteractionObject {
 				setScenarioVar(Constants.REFERENCIA_CATASTRAL, getValuesDataSetByID(datosAltoValor, Constants.REFERENCIA_CATASTRAL, i));
 
 				new AsignarMediadorPage(userS)
-					.selectMediadorAndClickOnContinuar(getValuesDataSetByID(datosAltoValorMedCoa, "Codigo_Coaseguro", j));
+					.selectMediadorAndClickContinuar(getValuesDataSetByID(datosAltoValorMedCoa, "Codigo_Coaseguro", j));
 
 				try {
 					new UbicacionRiesgoPage(userS)
-						.fillInmuebleAndClickOnContinue();
+						.fillInmuebleAndClickContinuar();
 					// ubicacionRiesgoPage.closeNotification();
-					// ubicacionRiesgoPage.clickOnContinuar();
+					// ubicacionRiesgoPage.clickContinuar();
 
 					new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 						.isUbicacionRiesgoUtilizada();
@@ -2454,28 +2578,28 @@ public class ActionSteps extends InteractionObject {
 						.completarDatosRiesgoMinimos(); // Enter values madera and deshabitación.
 					// .enterAnyoConstruccionMoreThan50();
 					new DetallesRiesgoPage(userS)
-						.clickOnContinuar();
+						.clickContinuar();
 
 					new ValidacionExcepcionesReglasPage(userS)
-						.clickOnContinuarButton();
+						.clickContinuar();
 					new DatosBasicosTomadorPage(userS)
 						.fillStaticTomadorData()
-						.clickOnContinuar();
+						.clickContinuar();
 
 					new PrecioPorModalidadPage(userS)
-						.clickOnContinuar();
+						.clickContinuar();
 					// ValidacionExcepcionesReglasPage validacionExcepcionesReglasPage = new
 					// ValidacionExcepcionesReglasPage(userS);
 					new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
-						.clickOnContinuarButton();
+						.clickContinuar();
 
 					new ClausulasPage(userS)
-						.clickOnContinuar();
+						.clickContinuar();
 
 					new TomadorYAseguradoPage(userS)
 						.addStaticDatosTomador()
 						// tomadorYAseguradoPage.AddDatosTomadorDiferenteAsegurado();
-						.clickOnContinuar();
+						.clickContinuar();
 
 					// datosBancariosPage.introducirFormaPagoYPulsarSolicitarPeritacion();
 					// new DataSteps(userS).imprimir_informacion_del_proyecto();
@@ -2486,11 +2610,11 @@ public class ActionSteps extends InteractionObject {
 					// String[] PeritajeList = Iterables.toArray(PeritajeIterator, String.class);
 
 					logText += "Solicitud peritaje concluida para referencia catastral " + getValuesDataSetByID(datosAltoValor, "ref_catastral", i)
-						+ " (Proyecto: " + new DatosBancariosPage(userS).getProjectNumber() + ")" + "\n";
+						+ " (Proyecto: " + getTestVar(Constants.NUMERO_PROYECTO) + ")" + "\n";
 					writeFile(fileName + " (log file).txt", logText);
 
 					debugInfo("Solicitud verificación OK.  Ref. catastral: "
-						+ getValuesDataSetByID(datosAltoValor, "ref_catastral", i) + " (Proyecto: " + new DatosBancariosPage(userS).getProjectNumber() + ")" + "\n");
+						+ getValuesDataSetByID(datosAltoValor, "ref_catastral", i) + " (Proyecto: " + getTestVar(Constants.NUMERO_PROYECTO) + ")" + "\n");
 
 					new InnovaHomePage(userS)
 						.openInnovaHome()
@@ -2528,7 +2652,7 @@ public class ActionSteps extends InteractionObject {
 			new HomeSiniestrosPage(userS)
 				.openAperturaAlta();
 
-			debugInfo("NUM POLIZA: " + getTestVar(Constants.NUM_POLIZA));
+			debugInfo("Numero poliza: " + getTestVar(Constants.NUM_POLIZA));
 			if(getTestVar(Constants.NUM_POLIZA) == null || getTestVar(Constants.NUM_POLIZA).isEmpty()) {
 				// De no haber póliza se tomará una al azar de las últimas 50
 				new AltaAperturaSiniestrosPage(userS)
@@ -2568,7 +2692,7 @@ public class ActionSteps extends InteractionObject {
 			if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaSinAsistencia()
-					.clickContinuarSinAsistencia();
+					.clickContinuar();
 			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaConAsistencia(getTestVar(Constants.ASISTENCIA), getTestVar(Constants.ASISTENCIA_URGENTE), getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS), getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS), getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA), getTestVar(Constants.ASISTENCIA_REF_EXTERNA))
@@ -2576,12 +2700,12 @@ public class ActionSteps extends InteractionObject {
 			} else if(new AltaAperturaDeclaracionSiniestrosPage(userS).posibilidadAsistencia()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaSinAsistencia()
-					.clickContinuarSinAsistencia();
+					.clickContinuar();
 			}
 
 			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
 				new ValidacionExcepcionesReglasPage(userS)
-					.clickOnContinuarButton();
+					.clickContinuar();
 			}
 
 			// 2.Ocurrencia
@@ -2603,7 +2727,7 @@ public class ActionSteps extends InteractionObject {
 				// getTestVar(Constants.TIPO_CAUSA_COD), gremio);
 				.altaRellenarDatos("Descripción test para realizar un alta de siniestro", getTestVar(Constants.OTROS_IMPLICADOS), getTestVar(Constants.ENCARGO));
 
-			debugInfo("AQUI ES ALTA RELLENAR DATOS CAUSA");
+			debugInfo("Alta rellenar datos causa");
 			userS.getWebDriver().waitWithDriver(10000);
 
 			// Si el csv contempla la opción de guardar en medio del alta
@@ -2613,7 +2737,7 @@ public class ActionSteps extends InteractionObject {
 					.clickGuardarSalir();
 
 				new GestionSiniestrosPage(userS)
-					.logo();
+					.clickLogo();
 
 				new InnovaHomePage(userS)
 					.openSiniestros();
@@ -2625,11 +2749,11 @@ public class ActionSteps extends InteractionObject {
 					.modificarAltaSiniestro();
 
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
-					.clickContinuarSinAsistencia();
+					.clickContinuar();
 
 				if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
 					new ValidacionExcepcionesReglasPage(userS)
-						.clickOnContinuarButton();
+						.clickContinuar();
 				}
 
 			}
@@ -2642,7 +2766,7 @@ public class ActionSteps extends InteractionObject {
 				userS.getWebDriver().waitWithDriver(10000);
 
 				new ValidacionExcepcionesReglasPage(userS)
-					.clickOnContinuarButton();
+					.clickContinuar();
 			}
 
 			// Completamos el apartado de Implicado asegurado
@@ -2657,7 +2781,7 @@ public class ActionSteps extends InteractionObject {
 
 			// Comprobamos si se requiere añadir un implicado extra
 			if(getTestVar(Constants.OTROS_IMPLICADOS) != null && !getTestVar(Constants.OTROS_IMPLICADOS).isEmpty()) {
-				debugInfo("COMPROBAMOS SI SE REQUIERE AÑADIR UN IMPLICADO EXTRA");
+				debugInfo("Comprobamos si se requiere añadir un implicado extra");
 				new OtrosImplicadosAltaSiniestrosPage(userS)
 					.clickNuevoImplicado();
 				new OtrosImplicadosDatosSiniestrosPage(userS)
@@ -2674,7 +2798,7 @@ public class ActionSteps extends InteractionObject {
 
 			// Comprobamos si se requiere añadir un encargo
 			if(getTestVar(Constants.ENCARGO) != null && !getTestVar(Constants.ENCARGO).isEmpty()) {
-				debugInfo("COMPROBAMOS SI SE REQUIERE UN ENCARGO");
+				debugInfo("Comprobamos si se requiere encargo");
 				new EncargoAltaSiniestrosPage(userS)
 					.clickNuevoEncargo();
 
@@ -2688,7 +2812,7 @@ public class ActionSteps extends InteractionObject {
 			}
 
 			// Página de confirmación
-			debugInfo("CONFIRMAMOS SINIESTRO");
+			debugInfo("Confirmamos Siniestro");
 			new ConfirmacionSiniestrosPage(userS)
 				.confirmarSiniestroOK();
 
@@ -2742,7 +2866,7 @@ public class ActionSteps extends InteractionObject {
 				.altaObservaciones("TEST Automatico apertura siniestro")
 				.clickEnviar()
 				.checkYaExisteSiniestro()
-				.comprobarOK();
+				.comprobarOk();
 
 			new ConfirmacionSiniestrosPage(userS)
 				.confirmarSiniestroOK();
@@ -2799,10 +2923,10 @@ public class ActionSteps extends InteractionObject {
 		debugInfo("Tareas bool: " + tareas);
 
 		new GestionSiniestrosPage(userS)
-			.vista();
+			.goToVista();
 
 		new VistaSiniestrosPage(userS)
-			.cierre_siniestro(pagos, encargos, tareas);
+			.cierreSiniestro(pagos, encargos, tareas);
 
 		// webDriver.waitWithDriver(2000);
 		debugEnd();
@@ -2909,7 +3033,7 @@ public class ActionSteps extends InteractionObject {
 			.verificacion()
 			.emitirPlanPagosMAC("", "", "120")
 			.verificacion()
-			.comprobarPlanPagosMAC();
+			.comprobarPlanPagosMac();
 
 		debugInfo("test completado con éxito");
 		debugEnd();
@@ -2958,7 +3082,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
 		new GestionSiniestrosPage(userS)
-			.diario();
+			.goToDiario();
 
 		// comprobar si estadop reconsiderado
 		Assert.assertTrue(new DiarioSiniestrosPage(userS).comprobar_siniestro_reconsiderado());
@@ -2988,11 +3112,10 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 
 		new AgendaSiniestrosPage(userS)
-			.nueva_tarea();
+			.nuevaTarea();
 	}
 
 	public void modificar_siniestro_datos() {
-
 		new InnovaHomePage(userS)
 			.openSiniestros();
 
@@ -3003,13 +3126,14 @@ public class ActionSteps extends InteractionObject {
 			.modificarSiniestro();
 
 		new AltaAperturaDeclaracionSiniestrosPage(userS)
-			.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
+			.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), 
+				getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
 
 		new ValidacionExcepcionesReglasPage(userS)
 			.comprobarPaginaModificacion();
 
 		new AltaAperturaOcurrenciaSiniestrosPage(userS)
-			.modificarDescripcion(getTestVar(Constants.DESCRIPCION_SINIESTRO));
+			.modificarDescripcion(getTestVar(Constants.DESCRIPCION_SINIESTRO) + StringUtils.getRandomLetterChain(4));
 
 		new ValidacionExcepcionesReglasPage(userS)
 			.comprobarPaginaModificacion();
@@ -3022,7 +3146,8 @@ public class ActionSteps extends InteractionObject {
 
 		new VistaSiniestrosPage(userS)
 			.irVistaSiniestroHistorico()
-			.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
+			.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), 
+				getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
 	}
 
 	public void modificar_siniestro_causa() {
@@ -3076,7 +3201,7 @@ public class ActionSteps extends InteractionObject {
 			.openGestionSiniestros();
 
 		new GestionBuscadorSiniestrosPage(userS)
-			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.TIPO_POLIZA));
+			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO)); // TIPO_POLIZA
 
 		new GestionSiniestrosPage(userS)
 			.reservasYExpecativas()
@@ -3107,9 +3232,9 @@ public class ActionSteps extends InteractionObject {
 
 	public void compruebo_carpeta_y_encargos() {
 		new GestionSiniestrosPage(userS)
-			.gestionDeCarpetas();
+			.goToGestionDeCarpetas();
 
-		if(new GestionCarpetaSiniestrosPage(userS).comprobar_tipo_carpeta()) {
+		if(new GestionCarpetaSiniestrosPage(userS).comprobarTipoCarpeta()) {
 			debugInfo("ATENCIÓN	tipo carpeta IMAS.");
 		}
 
@@ -3126,7 +3251,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
 		new GestionSiniestrosPage(userS)
-			.vista();
+			.goToVista();
 
 		new VistaSiniestrosPage(userS)
 			.modificarSiniestro();
@@ -3137,7 +3262,7 @@ public class ActionSteps extends InteractionObject {
 
 		if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
 			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
+				.clickContinuar();
 		}
 
 		// 2.Ocurrencia
@@ -3149,7 +3274,7 @@ public class ActionSteps extends InteractionObject {
 			userS.getWebDriver().waitWithDriver(10000);
 
 			new ValidacionExcepcionesReglasPage(userS)
-				.clickOnContinuarButton();
+				.clickContinuar();
 		}
 
 		// Aceptamos el apartado de Implicado asegurado
@@ -3189,7 +3314,7 @@ public class ActionSteps extends InteractionObject {
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
 		new GestionSiniestrosPage(userS)
-			.diario();
+			.goToDiario();
 
 		new DiarioSiniestrosPage(userS)
 			.mostrarInfoGeneral()
@@ -3200,31 +3325,31 @@ public class ActionSteps extends InteractionObject {
 
 	public void compruebo_siniestro_cerrado() {
 		debugBegin();
-		
+
 		new InnovaHomePage(userS)
 			.openSiniestros();
-		
+
 		new GestionBuscadorSiniestrosPage(userS)
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
-		
+
 		new GestionSiniestrosPage(userS)
 			.comprobarSiniestroCerrado();
-		
+
 		debugEnd();
 	}
 
 	public void compruebo_siniestro_reaperturado() {
 		debugBegin();
-		
+
 		new InnovaHomePage(userS)
 			.openSiniestros();
-		
+
 		new GestionBuscadorSiniestrosPage(userS)
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
-		
+
 		new GestionSiniestrosPage(userS)
 			.comprobarSiniestroReaperturadoOk();
-		
+
 		debugEnd();
 	}
 
@@ -3233,7 +3358,7 @@ public class ActionSteps extends InteractionObject {
 
 		new InnovaHomePage(userS)
 			.openSiniestros();
-		
+
 		new HomeSiniestrosPage(userS)
 			.openAperturaAlta();
 
@@ -3265,7 +3390,7 @@ public class ActionSteps extends InteractionObject {
 			.fechaOcurrenciaFalloPosteriorHoy()
 			.fechaOcurrenciaFalloAnteriorFechaVigenciaPoliza()
 			.fechaOcurrenciaHoy()
-			.personaContactoFalloAñadir()
+			.personaContactoFalloAnyadir()
 			.rolPersonaContactoFalloVacio()
 			.seleccionarRolPersonaContacto()
 			.nombrePersonaContactoFalloVacio()
@@ -3365,19 +3490,19 @@ public class ActionSteps extends InteractionObject {
 
 	public void desbloqueo_pago() {
 		debugBegin();
-		
+
 		new InnovaHomePage(userS)
 			.openSiniestros();
-		
+
 		new HomeSiniestrosPage(userS)
 			.openGestionSiniestros();
-		
+
 		new GestionBuscadorSiniestrosPage(userS)
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
-		
+
 		new GestionSiniestrosPage(userS)
-			.pagos();
-		
+			.goToPagos();
+
 		new PagosSiniestrosPage(userS)
 			.desbloquearPago();
 

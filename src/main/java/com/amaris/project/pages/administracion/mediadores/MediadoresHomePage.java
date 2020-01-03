@@ -12,6 +12,7 @@ public class MediadoresHomePage extends PageObject {
 	private By mainFrame = By.cssSelector("#mainFrame");
 
 
+
 	private By gestionMediadoresBtn = By.cssSelector("a[id='jt1']");
 	private By traspasoCarteraBtn = By.cssSelector("a[id='jt2']");
 	private By importarMarcasBtn = By.cssSelector("a[id='jt3']");

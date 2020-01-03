@@ -8,9 +8,9 @@ import com.amaris.automation.model.testing.objects.PageObject;
 
 public class GestionPolizasDocumentosPage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By cuerpoFrame = By.name("cuerpo");
-	private By lblSuplementoCreationConfirmationMessage = By.xpath(".//*[contains(text(),'Suplemento de póliza') and contains(text(),'ha sido emitido correctamente.')]");
+	private By suplementoCreationConfirmationMessageTxt = By.xpath(".//*[contains(text(),'Suplemento de póliza') and contains(text(),'ha sido emitido correctamente.')]");
 	// endregion
 
 	public GestionPolizasDocumentosPage(UserStory userS) {
@@ -18,9 +18,10 @@ public class GestionPolizasDocumentosPage extends PageObject {
 	}
 
 	// region Methods
-	public GestionPolizasDocumentosPage CheckConfirmationMessage() {
+	public GestionPolizasDocumentosPage checkConfirmationMessage() {
 		// isDisplayed
-		Assert.assertTrue(webDriver.isPresent(lblSuplementoCreationConfirmationMessage), "El mensaje de confirmación de que el suplemento se ha emitido correctamente no ha aparecido");
+		Assert.assertTrue(webDriver.isPresentInFrame(suplementoCreationConfirmationMessageTxt, cuerpoFrame), 
+			"El mensaje de confirmación de que el suplemento se ha emitido correctamente no ha aparecido");
 
 		return this;
 	}

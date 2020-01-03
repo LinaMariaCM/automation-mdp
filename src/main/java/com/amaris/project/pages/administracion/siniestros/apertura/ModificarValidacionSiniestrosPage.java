@@ -13,7 +13,7 @@ public class ModificarValidacionSiniestrosPage extends PageObject {
 	private By nombreAnterior = By.cssSelector("#formDatos > table:nth-child(3) > tbody > tr:nth-child(2) > td:nth-child(2)");
 	private By nombreNuevo = By.cssSelector("#formDatos > table:nth-child(3) > tbody > tr:nth-child(2) > td:nth-child(3)");
 
-	private By botonGrabar = By.id("botonGrabar");
+	private By grabarBtn = By.id("botonGrabar");
 
 	// endregion
 
@@ -24,17 +24,12 @@ public class ModificarValidacionSiniestrosPage extends PageObject {
 	// region methods
 
 	public ModificarValidacionSiniestrosPage validar() {
-
 		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
 
 		// System.out.println("nombre1 -> " + webDriver.getText(nombreAnterior));
 		// System.out.println("nombre2 -> " + webDriver.getText(nombreNuevo));/
 
-		webDriver.click(botonGrabar);
-
-		webDriver.exitFrame();
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		debugEnd();
 

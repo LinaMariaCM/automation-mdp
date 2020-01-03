@@ -2,12 +2,9 @@ package com.amaris.project.pages.administracion.siniestros.apertura;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
@@ -38,44 +35,44 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	private By buttonGoogleMaps = By.id("dirMaps");
 
 	// #### CAUSAS ####
-	private By grupoCausasAccidentes = By.cssSelector("#GRUCAUSA > option:nth-child(2)");
-	private By grupoCausasElemento = By.cssSelector("#GRUCAUSA > option");
-	private By tipoCausasAccidentes = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
-	private By tipoCausasElemento = By.cssSelector("#TIPOCAUS > option");
-	private By comboGrupoCausas = By.id("GRUCAUSA");
-	private By comboTiposCausas = By.id("TIPOCAUS");
-	private By gremioCausasElemento = By.cssSelector("#CODGREMIO > option");
-	private By comboGremio = By.id("CODGREMIO");
+	private By grupoCausasAccidentesBtn = By.cssSelector("#GRUCAUSA > option:nth-child(2)");
+	private By grupoCausasOption = By.cssSelector("#GRUCAUSA > option");
+	private By tipoCausasAccidentesBtn = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
+	private By tipoCausasOption = By.cssSelector("#TIPOCAUS > option");
+	private By grupoCausasDrpDwn = By.id("GRUCAUSA");
+	private By tiposCausasDrpDwn = By.id("TIPOCAUS");
+	private By gremioCausasOption = By.cssSelector("#CODGREMIO > option");
+	private By gremioDrpDwn = By.id("CODGREMIO");
 
-	private By reservaInicial = By.id("RESEINIC");
-	private By modificarReserva = By.cssSelector("#datosCausa > div.sis-frame-bg > table.tableForm > tbody > tr.paraOcultar > td > span:nth-child(4) > input");
-	private By btnGrabarModificarReserva = By.id("buttonRecord");
+	private By reservaInicialInput = By.id("RESEINIC");
+	private By modificarReservaBtn = By.cssSelector("#datosCausa > div.sis-frame-bg > table.tableForm > tbody > tr.paraOcultar > td > span:nth-child(4) > input");
+	private By grabarModificarReservaBtn = By.id("buttonRecord");
 	private By btnCancelarModificarReserva = By.id("buttonCancel");
 
 	// #### DATOS DE LA OCURRENCIA ####
-	private By txtDescripcionSiniestro = By.id("version");
-	private By rdbtnImplicadosSi = By.id("implicadosSi");
-	private By rdbtnImplicadosNo = By.id("implicadosNo");
-	private By rdbtnEncargoSi = By.id("encargoSi");
-	private By rdbtnEncargoNo = By.id("encargoNo");
-	private By btnGuardarSalir = By.id("botonGuardar");
-	private By btnContinuar = By.id("botonContinuar");
+	private By descripcionSiniestroInput = By.id("version");
+	private By implicadosSiBtn = By.id("implicadosSi");
+	private By implicadosNoBtn = By.id("implicadosNo");
+	private By encargoSiBtn = By.id("encargoSi");
+	private By encargoNoBtn = By.id("encargoNo");
+	private By guardarSalirBtn = By.id("botonGuardar");
+	private By continuarBtn = By.id("botonContinuar");
 	private By descripOcu = By.id("version");
-	private By btnVerificar = By.id("botonVerificar");
+	private By verificarBtn = By.id("botonVerificar");
 
 	// ### DATOS ADICIONALES DE LA OCURRENCIA PARA CAUSAS ESPECIFICAS DE MAC ###
 
-	private By renta = By.cssSelector("#nombdato_RENTA_1"); // Renta
+	private By rentaInput = By.cssSelector("#nombdato_RENTA_1"); // Renta
 	private By suministro = By.cssSelector("#nombdato_SUMMI_1"); // Suministro
-	private By fechaDemanda = By.cssSelector("#nombdato_FECHINDEM_1"); // *Fecha interposición demanda desahucio
+	private By fechaDemandaInput = By.cssSelector("#nombdato_FECHINDEM_1"); // *Fecha interposición demanda desahucio
 	private By fechaReclamacion = By.cssSelector("#nombdato_FECHINDRC_1"); // Fecha interposición demanda reclamación
 	private By fechaEntregaLlaves = By.cssSelector("#nombdato_FECHENLLA_1"); // Fecha entrega llaves
 	private By fechaLanzamiento = By.cssSelector("#nombdato_FECHLANZA_1"); // Fecha lanzamiento
 	private By fechaSentencia = By.cssSelector("#nombdato_FECHSENTE_1"); // Fecha sentencia
-	private By fechaSolicitudAvanceRenta = By.cssSelector("#nombdato_FECHSOAREN_1"); // *Fecha solicitud avance renta
+	private By fechaSolicitudAvanceRentaInput = By.cssSelector("#nombdato_FECHSOAREN_1"); // *Fecha solicitud avance renta
 	
 	//GUARDAR Y SALIR
-	private By mensajeSiniestroProvisional = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
+	private By mensajeSiniestroProvisionalTxt = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
 
 	private By mensajeAvisoTxt = By.cssSelector(".grid.wideBox tr:nth-child(2) > td:nth-child(2)");
 	// endregion
@@ -97,8 +94,8 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public AltaAperturaOcurrenciaSiniestrosPage altaOtroLugarOcurrencia(String tipoVia, String calle, String numero, String portal, String escalera, String piso, String puerta, String cp,
-		String poblacion, String provincia) {
+	public AltaAperturaOcurrenciaSiniestrosPage altaOtroLugarOcurrencia(String tipoVia, String calle, String numero, 
+		String portal, String escalera, String piso, String puerta, String cp, String poblacion, String provincia) {
 		debugBegin();
 
 		webDriver.clickElementFromDropDownByIndexInFrame(comboLugarOcurrencia, cuerpoFrame, 1);
@@ -124,83 +121,73 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.waitWithDriver(8000);
-		webDriver.switchToFrame(cuerpoFrame);
-		// webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 2);
-		// webDriver.clickElementFromDropDownByAttributeInFrame(comboGrupoCausas, cuerpoFrame, "value", "GC02");
-
-		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", grupoCausa);
+		webDriver.clickElementFromDropDownByAttributeInFrame(grupoCausasDrpDwn, grupoCausasOption, cuerpoFrame, "value", grupoCausa);
 
 		webDriver.waitWithDriver(5000);
-
-		// webDriver.clickElementFromDropDownByIndex(comboTiposCausa, 2);
-		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", tipoCausa);
-
-		// COMENTADO Antonia webDriver.clickElementFromDropDownByAttribute(tipoCausasElemento, "value", tipoCausa);
-
-		// TODO cambiar por VALUE
+		webDriver.clickElementFromDropDownByAttributeInFrame(tiposCausasDrpDwn, tipoCausasOption, cuerpoFrame, "value", tipoCausa);
 		webDriver.waitWithDriver(5000);
 
-		if(webDriver.isOnScreen(comboGremio)) {
-			// webDriver.clickElementFromDropDownByIndex(comboGremio, 3);
-			webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, gremioCausasElemento, "title", gremioCausa);
+		if(gremioCausa != null && !gremioCausa.isEmpty() && webDriver.isOnScreenInFrame(gremioDrpDwn, cuerpoFrame)) {
+			// TODO Comprobar tiposCausasDrpDwn deberia de ser gremioDrpDwn?
+			webDriver.clickElementFromDropDownByAttributeInFrame(tiposCausasDrpDwn, gremioCausasOption, cuerpoFrame, "title", gremioCausa);
 		}
 
-		// si es necesario modificar la reserva a un valor específico, se lee desde csv
 		if((getTestVar(Constants.RESERVA_ESPECIFICA) != null && !getTestVar(Constants.RESERVA_ESPECIFICA).isEmpty())
-			|| webDriver.getText(reservaInicial).equals("0,00")) {
+			|| webDriver.getTextInFrame(reservaInicialInput, cuerpoFrame).equals("0,00")) {
 			String reserva = "150";
 
-			webDriver.click(modificarReserva);
+			webDriver.clickInFrame(modificarReservaBtn, cuerpoFrame);
 
 			if(getTestVar(Constants.RESERVA_ESPECIFICA) != null && !getTestVar(Constants.RESERVA_ESPECIFICA).isEmpty()) {
 				reserva = getTestVar(Constants.RESERVA_ESPECIFICA);
 			}
 
-			debugInfo("MODIFICAMOS LAS RESERVAS A: " + reserva);
-			webDriver.switchToFrame(capaIframe);
-			webDriver.waitWithDriver(5000);
-			webDriver.setText(reservaInicial, reserva);
-			webDriver.click(btnGrabarModificarReserva);
-			webDriver.exitFrame();
+			debugInfo("Modificamos las reservas a: " + reserva);
 			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(capaIframe);
+			
+			webDriver.waitWithDriver(5000);
+			webDriver.setText(reservaInicialInput, reserva);
+			webDriver.click(grabarModificarReservaBtn);
+			
+			webDriver.exitFrame();
 		}
 
-		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
 	}
 
+	// TODO Unir con altaSeleccionarCausas
 	public AltaAperturaOcurrenciaSiniestrosPage modificarCausasEspecificasMAC() {
 		debugBegin();
+		
 		debugInfo("Seleccionamos causas específicas para siniestro MAC");
-		webDriver.switchToFrame(cuerpoFrame);
 
 		webDriver.waitWithDriver(6000);
-		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", "GC25");
+		webDriver.clickElementFromDropDownByAttributeInFrame(grupoCausasDrpDwn, grupoCausasOption, cuerpoFrame, "value", "GC25");
 
 		webDriver.waitWithDriver(6000);
-		debugInfo("El grupo causa específica es: " + getTestVar(Constants.TIPO_CAUSA_MAC) + " , con código: " + getTestVar(Constants.TIPO_CAUSA_MAC_COD));
-		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", getTestVar(Constants.TIPO_CAUSA_MAC_COD));
+		debugInfo("El grupo causa específica es: " + getTestVar(Constants.TIPO_CAUSA_MAC) + ", con código: " + getTestVar(Constants.TIPO_CAUSA_MAC_COD));
+		webDriver.clickElementFromDropDownByAttributeInFrame(tiposCausasDrpDwn, tipoCausasOption, cuerpoFrame, "value", getTestVar(Constants.TIPO_CAUSA_MAC_COD));
 
 		// if(webDriver.isOnScreen(comboGremio)) {
 		// webDriver.clickElementFromDropDownByAttribute(comboGremio, gremioCausasElemento, "title", gremioCausa);
 		// }
 
 		// Datos Adicionales
+		webDriver.setTextInFrame(rentaInput, cuerpoFrame, "120");
 
-		webDriver.setText(renta, "120");
-
-		DateFormat fechaDeHoy = new SimpleDateFormat("dd/MM/yyyy");
-
-		webDriver.appendText(fechaDemanda, fechaDeHoy.format(new Date()));
+		webDriver.appendTextInFrame(fechaDemandaInput, cuerpoFrame, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
 		webDriver.waitWithDriver(3000);
+		
 		// TODO rellenar el resto de fechas opcionales
 
-		webDriver.appendText(fechaSolicitudAvanceRenta, fechaDeHoy.format(new Date()));
+		webDriver.appendTextInFrame(fechaSolicitudAvanceRentaInput, cuerpoFrame, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
 
-		webDriver.exitFrame();
+		
 		debugEnd();
+		
 		return this;
 	}
 
@@ -210,25 +197,28 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		if(descripcion != null && descripcion.isEmpty()) {
 			descripcion = "No se ha pasado pasado descripción por csv, se procede a rellenar descripción en modo automático : equipo TaaS";
 		}
+		
 		debugInfo("La descripción del siniestro es: " + descripcion);
+		
 		webDriver.waitWithDriver(3000);
-		webDriver.appendTextInFrame(txtDescripcionSiniestro, cuerpoFrame, descripcion);
+		webDriver.appendTextInFrame(descripcionSiniestroInput, cuerpoFrame, descripcion);
 		webDriver.waitWithDriver(3000);
+		
 		if(implicadosExisten != null && !implicadosExisten.isEmpty()) {
-
-			webDriver.clickInFrame(rdbtnImplicadosSi, cuerpoFrame);
+			webDriver.clickInFrame(implicadosSiBtn, cuerpoFrame);
 		} else {
-			webDriver.clickInFrame(rdbtnImplicadosNo, cuerpoFrame);
+			webDriver.clickInFrame(implicadosNoBtn, cuerpoFrame);
 		}
 
 		if(encargo != null && !encargo.isEmpty()) {
-			webDriver.clickInFrame(rdbtnEncargoSi, cuerpoFrame);
-			System.out.println("Hay encargo y clicko de verdad en el botón Encargos");
+			webDriver.clickInFrame(encargoSiBtn, cuerpoFrame);
+			debugInfo("Hay encargo y hago clic en el botón Encargos");
 		} else {
-			webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
+			webDriver.clickInFrame(encargoNoBtn, cuerpoFrame);
 		}
 
-		webDriver.waitWithDriver(2000);// espera para que haga clic en el botón continuar
+		webDriver.waitWithDriver(2000);
+		
 		debugEnd();
 
 		return this;
@@ -236,21 +226,28 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	
 	public AltaAperturaOcurrenciaSiniestrosPage clickGuardarSalir() {
 		debugBegin();
+		
 		debugInfo("Procedemos a Guardar y Salir durante el alta de un siniestro.");
-		System.out.println("######################################################");
-		webDriver.clickInFrame(btnGuardarSalir, cuerpoFrame);
+		debugInfo("######################################################");
+		
+		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
 		webDriver.acceptAlert();
+		
 		webDriver.waitWithDriver(6000);
-		String mensajeSiniProv = webDriver.getTextInFrame(mensajeSiniestroProvisional, cuerpoFrame);
+		
+		String mensajeSiniProv = webDriver.getTextInFrame(mensajeSiniestroProvisionalTxt, cuerpoFrame);
 		String numSinProv = mensajeSiniProv.substring(61, 67);
 		String anyoSinProv = mensajeSiniProv.substring(56, 60);
-		System.out.println("- Número siniestro provisional: " + numSinProv);
-		System.out.println("- Año siniestro provisional: "+ anyoSinProv);
+		
+		debugInfo("- Número siniestro provisional: " + numSinProv);
+		debugInfo("- Año siniestro provisional: "+ anyoSinProv);
+		
 		setTestVar(Constants.SINIESTRO_PROVISIONAL, numSinProv);
 		setTestVar(Constants.ANYO_SINIESTRO, anyoSinProv);
-		System.out.println("- Número siniestro provisional: " + getTestVar(Constants.SINIESTRO_PROVISIONAL));
-		System.out.println("- Año siniestro provisional: "+  getTestVar(Constants.ANYO_SINIESTRO));
-		System.out.println(mensajeSiniProv);				
+		
+		debugInfo("- Número siniestro provisional: " + getTestVar(Constants.SINIESTRO_PROVISIONAL));
+		debugInfo("- Año siniestro provisional: "+  getTestVar(Constants.ANYO_SINIESTRO));
+		debugInfo(mensajeSiniProv);				
 		
 		debugEnd();
 
@@ -259,7 +256,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	public AltaAperturaOcurrenciaSiniestrosPage clickContinuar() {
 		debugBegin();
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -295,17 +292,18 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		debugInfo("# Rellena los datos mínimos de una ocurrencia para que pase la prueba. #");
 		debugInfo("########################################################################");
 
-		webDriver.clickInFrame(grupoCausasAccidentes, cuerpoFrame);
-		webDriver.clickInFrame(tipoCausasAccidentes, cuerpoFrame);
+		webDriver.clickInFrame(grupoCausasAccidentesBtn, cuerpoFrame);
+		webDriver.clickInFrame(tipoCausasAccidentesBtn, cuerpoFrame);
 
-		ActionSteps.waitForIt(webDriver, txtDescripcionSiniestro);
+		ActionSteps.waitForIt(webDriver, descripcionSiniestroInput);
+		
 		webDriver.waitWithDriver(3000);
-		webDriver.appendTextInFrame(txtDescripcionSiniestro, cuerpoFrame, pulp);
+		webDriver.appendTextInFrame(descripcionSiniestroInput, cuerpoFrame, pulp);
 		webDriver.waitWithDriver(3000);
 
-		webDriver.clickInFrame(rdbtnImplicadosNo, cuerpoFrame);
-		webDriver.clickInFrame(rdbtnEncargoNo, cuerpoFrame);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(implicadosNoBtn, cuerpoFrame);
+		webDriver.clickInFrame(encargoNoBtn, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 
 		debugEnd();
@@ -314,41 +312,35 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	}
 
 	public AltaAperturaOcurrenciaSiniestrosPage modificarDescripcion(String descripcion) {
-		// public SiniestrosAltaAperturaOcurrenciaPage modificarDescripcion(){
-
 		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
-
-		webDriver.waitForPageToLoad();
-		webDriver.setText(txtDescripcionSiniestro, descripcion);
-		webDriver.click(btnVerificar);
+		
+		debugInfo("Descripcion: " + descripcion);
+		setTestVar(Constants.DESCRIPCION_SINIESTRO, descripcion); 
+		
+		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, descripcion);
+		webDriver.clickInFrame(verificarBtn, cuerpoFrame);
+		
 		debugEnd();
-
-		webDriver.exitFrame();
 
 		return this;
 	}
 
 	public AltaAperturaOcurrenciaSiniestrosPage modificarCausa(String grupoCausa, String tipoCausa) {
-		// public SiniestrosAltaAperturaOcurrenciaPage modificarDescripcion(){
-
 		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-
-		webDriver.waitForPageToLoad();
-		System.out.println("La página ha cargado. Procedemos a moificar los datos de causa.");
+		
+		debugInfo("La página ha cargado. Procedemos a moificar los datos de causa.");
 		webDriver.waitWithDriver(2000);
-		webDriver.clickElementFromDropDownByAttribute(comboGrupoCausas, grupoCausasElemento, "value", grupoCausa);
+		webDriver.clickElementFromDropDownByAttributeInFrame(grupoCausasDrpDwn, grupoCausasOption, cuerpoFrame, "value", grupoCausa);
 		webDriver.waitWithDriver(5000);
-		webDriver.clickElementFromDropDownByAttribute(comboTiposCausas, tipoCausasElemento, "value", tipoCausa);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tiposCausasDrpDwn, tipoCausasOption, cuerpoFrame, "value", tipoCausa);
 		webDriver.waitWithDriver(3000);
-		if(webDriver.isOnScreen(comboGremio)) {
-			webDriver.clickElementFromDropDownByIndex(comboGremio, 3);
+		
+		if(webDriver.isOnScreenInFrame(gremioDrpDwn, cuerpoFrame)) {
+			webDriver.clickElementFromDropDownByIndexInFrame(gremioDrpDwn, cuerpoFrame, 3);
 		}
-		webDriver.click(btnVerificar);
-
-		webDriver.exitFrame();
+		
+		webDriver.clickInFrame(verificarBtn, cuerpoFrame);
+		
 		debugEnd();
 
 		return this;
@@ -357,9 +349,9 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	// -----------------------------------------RETENCIONES---------------------------------------------------------------------
 
 	//---------------------------CAUSA-------------------------------------------------
-
 	public AltaAperturaOcurrenciaSiniestrosPage comprobarAvisos() {
 		webDriver.waitWithDriver(5000);
+		
 		if(webDriver.isPresentInFrame(mensajeAvisoTxt, cuerpoFrame)) {
 			String aviso = webDriver.getTextInFrame(mensajeAvisoTxt, cuerpoFrame);
 
@@ -375,9 +367,11 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.waitWithDriver(5000);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DESCRIPCION_SINIESTRO_CARACTERES);
 		webDriver.acceptAlert();
+		
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_GRUPO_CAUSAS);
 		webDriver.acceptAlert();
 
@@ -392,49 +386,51 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	public AltaAperturaOcurrenciaSiniestrosPage seleccionarGrupoCausa(String opcion) {
 		debugBegin();
+		
+		// TODO Cambiar a atributo
 		switch(opcion) {
 			case "Seleccionar":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 0);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 0);
 				break;
 			case "Accidentes":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 1);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 1);
 				break;
 			default:
 			case "Agua":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 2);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 2);
 				break;
 			case "Asistencia complementaria":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 3);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 3);
 				break;
 			case "Daños eléctricos":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 4);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 4);
 				break;
 			case "Defensa y reclamación":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 5);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 5);
 				break;
 			case "Fenómenos Atmosféricos":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 6);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 6);
 				break;
 			case "Incendio":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 7);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 7);
 				break;
 			case "Jardines":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 8);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 8);
 				break;
 			case "R.C.General":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 9);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 9);
 				break;
 			case "Riesgos Extensivos":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 10);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 10);
 				break;
 			case "Robo":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 11);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 11);
 				break;
 			case "Rotura Cristales":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 12);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 12);
 				break;
 			case "Varios":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboGrupoCausas, cuerpoFrame, 13);
+				webDriver.clickElementFromDropDownByIndexInFrame(grupoCausasDrpDwn, cuerpoFrame, 13);
 				break;
 		}
 
@@ -446,9 +442,11 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage tipoCausaFalloVacio() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DESCRIPCION_SINIESTRO_CARACTERES);
 		webDriver.acceptAlert();
+		
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CAUSAS);
 		webDriver.acceptAlert();
 
@@ -463,85 +461,87 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	public AltaAperturaOcurrenciaSiniestrosPage seleccionarTipoCausa(String opcion) {
 		debugBegin();
+		
+		// TODO Cambiar a atributo
 		switch(opcion) {
 			case "Seleccionar":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 0);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 0);
 				break;
 			case "2000 AGUA":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 1);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 1);
 				break;
 			default:
 			case "2001 BAJANTE GENERAL":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 2);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 2);
 				break;
 			case "2002 MONTANTES/ACOMETIDAS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 3);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 3);
 				break;
 			case "2003 GRIFOS COMUNITARIOS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 4);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 4);
 				break;
 			case "2004 DESAGÜES PRIVADOS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 5);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 5);
 				break;
 			case "2005 CONDUCCIONES PRIVADAS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 6);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 6);
 				break;
 			case "2006 GRIFOS PRIVADOS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 7);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 7);
 				break;
 			case "2007 CALEFACCION":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 8);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 8);
 				break;
 			case "2009 FILTRACIONES CUBIERTA":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 9);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 9);
 				break;
 			case "2010 CONDUCCIÓN VISTA SIN DAÑOS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 10);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 10);
 				break;
 			case "2011 CONDUCCION SUBTERRANEA":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 11);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 11);
 				break;
 			case "2012 CONDENSACIONES":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 12);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 12);
 				break;
 			case "2014 FILTRACIONES ALICATADO":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 13);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 13);
 				break;
 			case "2015 FILTRACIONES FACHADAS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 14);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 14);
 				break;
 			case "2016 PISCINAS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 15);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 15);
 				break;
 			case "2017 DAÑOS POR AGUA (OBRAS)":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 16);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 16);
 				break;
 			case "2018 INUNDACION":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 17);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 17);
 				break;
 			case "2019 ATASCOS CON DAÑOS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 18);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 18);
 				break;
 			case "2020 EXCESO DE AGUA":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 19);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 19);
 				break;
 			case "2021 AGUA EDIFICIO COLINDANTE":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 20);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 20);
 				break;
 			case "2022 AGUAS PORTERÍA":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 21);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 21);
 				break;
 			case "2023 BAJANTE PLUVIAL":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 22);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 22);
 				break;
 			case "2029 ATASCO SIN DAÑOS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 23);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 23);
 				break;
 			case "2030 ATASCOS CON DAÑOS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 24);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 24);
 				break;
 			case "2031 ATASCO SIN DAÑOS":
-				webDriver.clickElementFromDropDownByIndexInFrame(comboTiposCausas, cuerpoFrame, 25);
+				webDriver.clickElementFromDropDownByIndexInFrame(tiposCausasDrpDwn, cuerpoFrame, 25);
 				break;
 		}
 
@@ -553,9 +553,11 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage descripcionSiniestroFalloVacio() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DESCRIPCION_SINIESTRO_CARACTERES);
 		webDriver.acceptAlert();
+		
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DESCRIPCION_SINIESTRO);
 		webDriver.acceptAlert();
 
@@ -567,11 +569,12 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage descripcionSiniestroFalloMinimoCaracteres() {
 		debugBegin();
 
-		webDriver.appendTextInFrame(txtDescripcionSiniestro, cuerpoFrame, "El siniestro");
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.appendTextInFrame(descripcionSiniestroInput, cuerpoFrame, "El siniestro");
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DESCRIPCION_SINIESTRO_CARACTERES);
 		webDriver.acceptAlert();
+		
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EXISTEN_IMPLICADOS);
 		webDriver.acceptAlert();
 
@@ -582,7 +585,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	public AltaAperturaOcurrenciaSiniestrosPage escribirDescripcionSiniestro() {
 		debugBegin();
-		webDriver.setTextInFrame(txtDescripcionSiniestro, cuerpoFrame, "El siniestro ha ocurrido en el domicilio.");
+		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, "El siniestro ha ocurrido en el domicilio.");
 		debugEnd();
 
 		return this;
@@ -591,7 +594,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage existenImplicadosFalloVacio() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EXISTEN_IMPLICADOS);
 		webDriver.acceptAlert();
@@ -603,7 +606,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	public AltaAperturaOcurrenciaSiniestrosPage seleccionarExistenImplicados() {
 		debugBegin();
-		webDriver.clickInFrame(rdbtnImplicadosSi, cuerpoFrame);
+		webDriver.clickInFrame(implicadosSiBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -612,7 +615,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage necesitaEncargoFalloVacio() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NECESITA_ENCARGO);
 		webDriver.acceptAlert();
@@ -624,8 +627,8 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	public AltaAperturaOcurrenciaSiniestrosPage seleccionarNecesitaEncargo() {
 		debugBegin();
-		webDriver.clickInFrame(rdbtnEncargoSi, cuerpoFrame);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(encargoSiBtn, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

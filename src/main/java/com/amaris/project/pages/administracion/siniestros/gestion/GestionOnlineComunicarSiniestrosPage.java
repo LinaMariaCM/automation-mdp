@@ -15,15 +15,15 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 	private By mainFrame = By.cssSelector("#mainFrame");
 	private By contenidoFrame = By.cssSelector("[name='iframe']");
 
-	private By txtPoliza = By.cssSelector("#numpol");
-	private By txtFechaSiniestro = By.cssSelector("#fsin");
-	private By drpdwnCausa = By.cssSelector("#selcausa");
-	private By txtDescripcionSiniestro = By.cssSelector("#causa");
-	private By txtCosteAprox = By.cssSelector("#coste");
-	private By drpdwnRol = By.cssSelector("#selrol_1");
-	private By txtContactoNombre = By.cssSelector("#contnombre_1");
-	private By txtContactoApellido1 = By.cssSelector("#contapellido_1");
-	private By txtContactoTelefono1 = By.cssSelector("#conttel_1");
+	private By polizaInput = By.cssSelector("#numpol");
+	private By fechaSiniestroInput = By.cssSelector("#fsin");
+	private By causaInput = By.cssSelector("#selcausa");
+	private By descripcionSiniestroInput = By.cssSelector("#causa");
+	private By costeAproxInput = By.cssSelector("#coste");
+	private By rolInput = By.cssSelector("#selrol_1");
+	private By contactoNombreInput = By.cssSelector("#contnombre_1");
+	private By contactoApellido1Input = By.cssSelector("#contapellido_1");
+	private By contactoTelefono1Input = By.cssSelector("#conttel_1");
 	// endregion
 
 	GestionOnlineComunicarSiniestrosPage(UserStory userS) {
@@ -33,7 +33,7 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 	// region methods
 	public GestionOnlineComunicarSiniestrosPage writeNumeroPoliza(String numPoliza) {
 		debugBegin();
-		webDriver.appendTextInFrame(txtPoliza, contenidoFrame, numPoliza);
+		webDriver.appendTextInFrame(polizaInput, contenidoFrame, numPoliza);
 		debugEnd();
 
 		return this;
@@ -41,7 +41,7 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 
 	public GestionOnlineComunicarSiniestrosPage selectFechaSiniestro(String fechaSiniestro) {
 		debugBegin();
-		webDriver.appendTextInFrame(txtFechaSiniestro, contenidoFrame, fechaSiniestro);
+		webDriver.appendTextInFrame(fechaSiniestroInput, contenidoFrame, fechaSiniestro);
 		debugEnd();
 
 		return this;
@@ -49,7 +49,7 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 
 	public GestionOnlineComunicarSiniestrosPage selectCausa(String causa) {
 		debugBegin();
-		webDriver.appendTextInFrame(drpdwnCausa, contenidoFrame, causa);
+		webDriver.appendTextInFrame(causaInput, contenidoFrame, causa);
 		debugEnd();
 
 		return this;
@@ -57,7 +57,7 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 
 	public GestionOnlineComunicarSiniestrosPage writeDescripcionSiniestro(String descripcion) {
 		debugBegin();
-		webDriver.appendTextInFrame(txtDescripcionSiniestro, contenidoFrame, descripcion);
+		webDriver.appendTextInFrame(descripcionSiniestroInput, contenidoFrame, descripcion);
 		debugEnd();
 
 		return this;
@@ -65,7 +65,7 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 
 	public GestionOnlineComunicarSiniestrosPage selectRolPersonaContacto(String rolPersonaContacto) {
 		debugBegin();
-		webDriver.appendTextInFrame(drpdwnRol, contenidoFrame, rolPersonaContacto);
+		webDriver.appendTextInFrame(rolInput, contenidoFrame, rolPersonaContacto);
 		debugEnd();
 
 		return this;
@@ -73,7 +73,7 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 
 	public GestionOnlineComunicarSiniestrosPage writeNombrePersonaContacto(String nombrePersonaContacto) {
 		debugBegin();
-		webDriver.appendTextInFrame(txtContactoNombre, contenidoFrame, nombrePersonaContacto);
+		webDriver.appendTextInFrame(contactoNombreInput, contenidoFrame, nombrePersonaContacto);
 		debugEnd();
 
 		return this;
@@ -81,7 +81,7 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 
 	public GestionOnlineComunicarSiniestrosPage writePrimerApellidoPersonaContacto(String apellido1PersonaContacto) {
 		debugBegin();
-		webDriver.appendTextInFrame(txtContactoApellido1, contenidoFrame, apellido1PersonaContacto);
+		webDriver.appendTextInFrame(contactoApellido1Input, contenidoFrame, apellido1PersonaContacto);
 		debugEnd();
 
 		return this;
@@ -89,7 +89,7 @@ public class GestionOnlineComunicarSiniestrosPage extends PageObject {
 
 	public GestionOnlineComunicarSiniestrosPage writeTelefonoPersonaContacto(String tlf1PersonaContacto) {
 		debugBegin();
-		webDriver.appendTextInFrame(txtContactoTelefono1, contenidoFrame, tlf1PersonaContacto);
+		webDriver.appendTextInFrame(contactoTelefono1Input, contenidoFrame, tlf1PersonaContacto);
 		debugEnd();
 
 		return this;
