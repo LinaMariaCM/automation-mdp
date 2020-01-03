@@ -4,7 +4,7 @@ import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.InteractionObject;
 import com.amaris.project.Constants;
-import com.amaris.project.pages.administracion.mediadores.AsignarMediadorPage;
+import com.amaris.project.pages.productos.mac.AsignarMediadorPage;
 import com.amaris.project.pages.comun.ValidacionExcepcionesReglasDetallesRiesgoPage;
 import com.amaris.project.pages.comun.ValidacionExcepcionesReglasPage;
 import com.amaris.project.pages.comun.ValidacionesExcepcionesReglasUbicacionRiesgoPage;
