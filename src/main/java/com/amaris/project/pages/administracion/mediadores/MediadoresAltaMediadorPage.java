@@ -49,17 +49,17 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	private By direccionIgualFiscalBtn = By.cssSelector("#ALTAMEDI_IGUFISC");
 	private By nombreComercialInput = By.cssSelector("#ALTAMEDI_OTRONOMB");
 
-	private By tieneOficinasNo = By.cssSelector("#ALTAMEDI_OFINO");
-	private By colaboradresExternosNo = By.cssSelector("#ALTAMEDI_TRABAJANO");
-	private By softwareGestionNo = By.cssSelector("#ALTAMEDI_SOFTNO");
-	private By companiasPrincipales = By.cssSelector("#ALTAMEDI_COMPPRIN");
+	private By tieneOficinasNoBtn = By.cssSelector("#ALTAMEDI_OFINO");
+	private By colaboradresExternosNoBtn = By.cssSelector("#ALTAMEDI_TRABAJANO");
+	private By softwareGestionNoBtn = By.cssSelector("#ALTAMEDI_SOFTNO");
+	private By companiasPrincipalesInput = By.cssSelector("#ALTAMEDI_COMPPRIN");
 
 	private By continuarBtn = By.cssSelector("#botonContinuar1");
 	private By grabarBtn = By.cssSelector("#botonGrabar1");
 	private By provinciaCombo = By.cssSelector("body > ul:nth-child(4)");
 	private By poblacionCombo = By.cssSelector("body > ul:nth-child(5)");
 	private By viaCombo = By.cssSelector("body > ul:nth-child(6)");
-	private By anyadirNuevaDireccion = By.cssSelector("#capaDireccionesPaso2 > div > div.floatright.peq > a");
+	private By anyadirNuevaDireccionBtn = By.cssSelector("#capaDireccionesPaso2 > div > div.floatright.peq > a");
 
 
 	// Datos transaccionales page elements.
