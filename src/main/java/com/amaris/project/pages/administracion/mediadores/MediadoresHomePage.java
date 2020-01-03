@@ -11,22 +11,28 @@ public class MediadoresHomePage extends PageObject {
 	private By topFrame = By.cssSelector("#topFrame");
 	private By mainFrame = By.cssSelector("#mainFrame");
 
-	private By btnAltaProspect = By.xpath(".//*[contains(@title,'Prospect')]");
-	private By btnAltaMediador = By.xpath(".//*[contains(@title,'Mediador  ')]");
-	private By btnMatrices = By.xpath(".//*[contains(@title,'Matrices')]");
-	private By btnArboles = By.xpath(".//*[contains(@title,'Árboles')]");
-	private By btnEnvio = By.xpath(".//*[contains(@title,'Envío')]");
-	private By btnRecepcion = By.xpath(".//*[contains(@title,'Recepción')");
-	// endregion
 
-	public MediadoresHomePage(UserStory userS) {
-		super(userS);
-	}
+	private By gestionMediadoresBtn = By.cssSelector("a[id='jt1']");
+	private By traspasoCarteraBtn = By.cssSelector("a[id='jt2']");
+	private By importarMarcasBtn = By.cssSelector("a[id='jt3']");
+
+	private By altaBtn = By.cssSelector("a[id='jt4']");
+	private By altaProspectBtn = By.cssSelector("a[id='jt5']");
+	private By altaMediadorBtn = By.cssSelector("a[id='jt6']");
+
+	private By comisionesSobrecomisionesBtn = By.cssSelector("a[id='jt7']");
+	private By matricesBtn = By.cssSelector("a[id='jt8']");
+	private By arbolesBtn = By.cssSelector("a[id='jt9']");
+
+	private By DgsBtn = By.cssSelector("a[id='jt10']");
+	private By envioBtn = By.cssSelector("a[id='jt11']");
+	private By recepcionBtn = By.cssSelector("a[id='jt12']");
+
 
 	// region methods
 	public MediadoresHomePage openAltaProspect() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnAltaProspect, menuFrame);
+		webDriver.doubleClickInFrame(altaProspectBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -34,7 +40,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openAltaMediador() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnAltaMediador, menuFrame);
+		webDriver.doubleClickInFrame(altaMediadorBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -42,7 +48,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openMatrices() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnMatrices, menuFrame);
+		webDriver.doubleClickInFrame(matricesBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -50,7 +56,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openArboles() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnArboles, menuFrame);
+		webDriver.doubleClickInFrame(arbolesBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -58,7 +64,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openEnvio() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnEnvio, menuFrame);
+		webDriver.doubleClickInFrame(envioBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -66,7 +72,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openRecepcion() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnRecepcion, menuFrame);
+		webDriver.doubleClickInFrame(recepcionBtn, menuFrame);
 		debugEnd();
 
 		return this;
