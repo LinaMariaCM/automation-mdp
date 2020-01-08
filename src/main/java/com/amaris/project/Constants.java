@@ -662,6 +662,8 @@ public class Constants {
 	public static final String ALERTA_CUANTAS_FINCAS_MEDIADORES = "El campo ¿CUÁNTAS? no se ha rellenado correctamente.";
 	public static final String ALERTA_TIPO_RETRIBUCION_MEDIADORES = "El campo TIPO RETRIBUCIÓN es un campo obligatorio.";
 	public static final String ALERTA_CODIGO_IBAN_MEDIADORES = "El campo CÓDIGO IBAN es un campo obligatorio y no puede estar en blanco.";
+	// DGS
+	public static final String ALERTA_FECHA_INSCRIPCION_MEDIADORES_RECEPCION = "Fecha inscripción obligatoria";
 
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
