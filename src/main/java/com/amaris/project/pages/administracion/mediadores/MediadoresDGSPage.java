@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class MediadoresDGSPage extends PageObject {
 
 	// region WebElements
-	private By mainFrame = By.id("mainFrame");
+	private By menuFrame = By.id("mainFrame");
 	private By modalFrame = By.id("leftFrame");
 
 	private By notificarDGSBtn = By.id("BUSENVIO");
@@ -41,7 +41,7 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage clickActualizar() {
 
 		debugBegin();
-		webDriver.clickInFrame(actualizarBtn, mainFrame);
+		webDriver.clickInFrame(actualizarBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -50,7 +50,7 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage clickBuscar() {
 
 		debugBegin();
-		webDriver.clickInFrame(buscarBtn, mainFrame);
+		webDriver.clickInFrame(buscarBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -58,10 +58,10 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage clickEnviarDGS() {
 
 		debugBegin();
-		webDriver.clickInFrame(enviarDGSBtn, mainFrame);
+		webDriver.clickInFrame(enviarDGSBtn, menuFrame);
 		debugEnd();
 
 		return this;
 	}
-	
+
 }

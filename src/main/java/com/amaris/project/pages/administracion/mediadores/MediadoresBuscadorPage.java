@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class MediadoresBuscadorPage extends PageObject {
 
 	// region WebElements
-	private By mainFrame = By.id("mainFrame");
+	private By menuFrame = By.id("mainFrame");
 	private By modalFrame = By.id("leftFrame");
 
 	private By nombreRazonSocialComercialInput = By.id("BUSMED_NOMBCOME");
@@ -59,7 +59,7 @@ public class MediadoresBuscadorPage extends PageObject {
 	private By mediadoresBtn = By.id("filtro3");
 
 	private By exportarResultadosBtn = By.cssSelector("ul[class='topnav'] a[href^='#']");
-	private  By buscarBtn= By.cssSelector("input[name='botonBuscar']");
+	private By buscarBtn= By.cssSelector("input[name='botonBuscar']");
 	//private By buscarBtn = By.name("botonBuscar");
 
 	// endregion
@@ -71,7 +71,7 @@ public class MediadoresBuscadorPage extends PageObject {
 	public MediadoresBuscadorPage clickExportarResultados() {
 
 		debugBegin();
-		webDriver.clickInFrame(exportarResultadosBtn, mainFrame);
+		webDriver.clickInFrame(exportarResultadosBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -80,7 +80,7 @@ public class MediadoresBuscadorPage extends PageObject {
 	public MediadoresBuscadorPage clickBuscar() {
 
 		debugBegin();
-		webDriver.clickInFrame(buscarBtn, mainFrame);
+		webDriver.clickInFrame(buscarBtn, menuFrame);
 		debugEnd();
 
 		return this;
