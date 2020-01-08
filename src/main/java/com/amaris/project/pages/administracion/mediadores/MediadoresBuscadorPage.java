@@ -2,7 +2,11 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.pages.administracion.siniestros.apertura.AltaAperturaOcurrenciaSiniestrosPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class MediadoresBuscadorPage extends PageObject {
 
@@ -58,18 +62,28 @@ public class MediadoresBuscadorPage extends PageObject {
 	private By avanzadoBtn = By.id("filtro2");
 	private By mediadoresBtn = By.id("filtro3");
 
-	private By exportarResultadosBtn = By.cssSelector("ul[class='topnav'] a[href^='#']");
-	private By buscarBtn= By.cssSelector("input[name='botonBuscar']");
-	//private By buscarBtn = By.name("botonBuscar");
+	//Buscador avanzado
+	private By direccionComercialInput = By.id("BUSMED_NOMCALLE");
+	private By contactoResponsableIntermediarioInput = By.id("BUSMED_PERSCONT");
+	private By gestorPersonalizadoCombo = By.id("BUSMED_GESTPERS");
+	private By clavePasarelaInput = By.id("BUSMED_CODIPROS");
+	private By agrupadorCombo = By.id("BUSMED_AGRUPADR");
+	private By clasificacionContableCombo = By.id("BUSMED_CLASCONT");
+	private By actividadPrincipalCombo= By.id("BUSMED_ACTPRINC");
+	private By tramitadorConvencionalCombo= By.id("BUSMED_TRAMSINI");
+	private By tramitadorAsistenciaCombo= By.id("BUSMED_TRAMASIS");
 
+	private By exportarResultadosBtn = By.cssSelector("ul[class='topnav'] a[href^='#']");
+	private By buscarBtn = By.name("botonBuscar");
 	// endregion
+
+	private By listaBuscador = By.cssSelector("tr[id*='bloque']");
 
 	public MediadoresBuscadorPage(UserStory userS) {
 		super(userS);
 	}
 
 	public MediadoresBuscadorPage clickExportarResultados() {
-
 		debugBegin();
 		webDriver.clickInFrame(exportarResultadosBtn, menuFrame);
 		debugEnd();
@@ -78,7 +92,6 @@ public class MediadoresBuscadorPage extends PageObject {
 	}
 
 	public MediadoresBuscadorPage clickBuscar() {
-
 		debugBegin();
 		webDriver.clickInFrame(buscarBtn, menuFrame);
 		debugEnd();
@@ -86,6 +99,29 @@ public class MediadoresBuscadorPage extends PageObject {
 		return this;
 	}
 
+	// Seleccionar casilla en la tabla
+	// Leer texto en la tabla
+	// Acceder a mas acciones
 
+/*
+	public MediadoresBuscadorPage buscarMediadorEstadoPendienteEnvioDGS() {
+		debugBegin();
+		webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, menuFrame);
+		webDriver.clickInFrame(estadoActivoRestringidoBtn,menuFrame);
+		webDriver.clickInFrame(estadoActivoBtn,menuFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.clickInFrame(buscarBtn,menuFrame);
+		debugEnd();
 
+		return this;
+	}
+*/
+	public MediadoresBuscadorPage accederElementosTabla() {
+
+	List<WebElement> tabla = webDriver.getElementsInFrame(listaBuscador, menuFrame);
+	debugInfo("La lista es:" + tabla);
+	//String codigoMediador = tabla.get(3);
+
+		return this;
+	}
 }

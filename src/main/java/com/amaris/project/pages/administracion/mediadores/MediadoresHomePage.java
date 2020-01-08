@@ -11,8 +11,6 @@ public class MediadoresHomePage extends PageObject {
 	private By topFrame = By.id("topFrame");
 	private By mainFrame = By.id("mainFrame");
 
-
-
 	private By gestionMediadoresBtn = By.id("jt1");
 	private By traspasoCarteraBtn = By.id("jt2");
 	private By importarMarcasBtn = By.id("jt3");
@@ -25,12 +23,35 @@ public class MediadoresHomePage extends PageObject {
 	private By matricesBtn = By.id("jt8");
 	private By arbolesBtn = By.id("jt9");
 
-	private By DgsBtn = By.id("jt10");
+	private By dgsBtn = By.id("jt10");
 	private By envioBtn = By.id("jt11");
 	private By recepcionBtn = By.id("jt12");
 
-
 	// region methods
+	public MediadoresHomePage openGestionMediadores() {
+		debugBegin();
+		webDriver.doubleClickInFrame(gestionMediadoresBtn, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openTraspasoCartera() {
+		debugBegin();
+		webDriver.doubleClickInFrame(traspasoCarteraBtn, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openImportarMarca() {
+		debugBegin();
+		webDriver.doubleClickInFrame(importarMarcasBtn, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
 	public MediadoresHomePage openAltaProspect() {
 		debugBegin();
 		webDriver.doubleClickInFrame(altaProspectBtn, menuFrame);
