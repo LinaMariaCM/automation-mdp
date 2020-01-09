@@ -12,14 +12,12 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	private By mainFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 
-
 	private By nivelEstructuraCombo = By.cssSelector("#MEDI_NIVEESTR");
 	private By actividadPrincipalCombo = By.cssSelector("#MEDI_ACTIPRIN");
 	private By contactoResponsableInput = By.cssSelector("#MEDI_PERSCONT");
 	private By idiomaCombo = By.cssSelector("#MEDI_IDIOMA");
 	private By telefonoUnoInput = By.cssSelector("#MEDI_TELEFONO1");
 	private By ejecutivoComercialCombo = By.cssSelector("#MEDI_EJECCOME");
-
 
 	private By provinciaInput = By.cssSelector("#ALTACLIE_PROVINCIA_ARVATO");
 	private By poblacionInput = By.cssSelector("#ALTACLIE_POBLACION_ARVATO");
@@ -60,7 +58,6 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	private By poblacionCombo = By.cssSelector("body > ul:nth-child(5)");
 	private By viaCombo = By.cssSelector("body > ul:nth-child(6)");
 	private By anyadirNuevaDireccionBtn = By.cssSelector("#capaDireccionesPaso2 > div > div.floatright.peq > a");
-
 
 	// Datos transaccionales page elements.
 	private By codigoIbanInput = By.cssSelector("#COMODIN_CADENA");

@@ -11,45 +11,45 @@ import com.amaris.project.Constants;
 public class MediadoresAltaProspectPage extends PageObject {
 
 	// region WebElements
-	private By mainFrame = By.id("mainFrame");
-	private By modalFrame = By.id("capaIframe");
+	private By mainFrame = By.cssSelector("#mainFrame");
+	private By modalFrame = By.cssSelector("#capaIframe");
 
-	private By nivelEstructuraCombo = By.id("MEDI_NIVEESTR");
-	private By tipoProspectCombo = By.id("MEDI_TIPOPROS");
-	private By numRegistroDgsInput = By.id("MEDI_REGISDGS");
-	private By actividadPrincipalCombo = By.id("MEDI_ACTIPRIN");
-	private By nombreComercialProspectInput = By.id("MEDI_NOMBCOME");
-	private By contactoResponsableInput = By.id("MEDI_PERSCONT");
-	private By idiomaCombo = By.id("MEDI_IDIOMA");
-	private By telefonoUnoInput = By.id("MEDI_TELEFONO1");
-	private By ejecutivoComercialCombo = By.id("MEDI_EJECCOME");
+	private By nivelEstructuraCombo = By.cssSelector("#MEDI_NIVEESTR");
+	private By tipoProspectCombo = By.cssSelector("#MEDI_TIPOPROS");
+	private By numRegistroDgsInput = By.cssSelector("#MEDI_REGISDGS");
+	private By actividadPrincipalCombo = By.cssSelector("#MEDI_ACTIPRIN");
+	private By nombreComercialProspectInput = By.cssSelector("#MEDI_NOMBCOME");
+	private By contactoResponsableInput = By.cssSelector("#MEDI_PERSCONT");
+	private By idiomaCombo = By.cssSelector("#MEDI_IDIOMA");
+	private By telefonoUnoInput = By.cssSelector("#MEDI_TELEFONO1");
+	private By ejecutivoComercialCombo = By.cssSelector("#MEDI_EJECCOME");
 
-	private By asignarDomicilioBtn = By.id("BOTON_DOMIMEDI");
-	private By provinciaInput = By.id("ALTACLIE_PROVINCIA_ARVATO");
-	private By poblacionInput = By.id("ALTACLIE_POBLACION_ARVATO");
-	private By nombreViaInput = By.id("ALTACLIE_NOMVIA_ARVATO");
+	private By asignarDomicilioBtn = By.cssSelector("#BOTON_DOMIMEDI");
+	private By provinciaInput = By.cssSelector("#ALTACLIE_PROVINCIA_ARVATO");
+	private By poblacionInput = By.cssSelector("#ALTACLIE_POBLACION_ARVATO");
+	private By nombreViaInput = By.cssSelector("#ALTACLIE_NOMVIA_ARVATO");
 	private By provinciaCombo = By.cssSelector("html > body > ul:nth-of-type(1) > li > a");
 	private By poblacionCombo = By.cssSelector("html > body > ul:nth-of-type(2) > li > a");
 	private By nombreViaCombo = By.cssSelector("html > body > ul:nth-of-type(3) > li > a");
-	private By codigoPostalInput = By.id("ALTACLIE_CODPOST_ARVATO");
-	private By borrarCamposDireccionBtn = By.id("BOTON_BORRADOM");
-	private By aceptarDomicilioBtn = By.id("BOTON_ACEPTAR");
-	private By cancelarDomicilioBtn = By.id("BOTON_CANCELAR");
-	private By comprobarDireccionDomicilioBtn = By.id("BOTON_NORMADOM");
+	private By codigoPostalInput = By.cssSelector("#ALTACLIE_CODPOST_ARVATO");
+	private By borrarCamposDireccionBtn = By.cssSelector("#BOTON_BORRADOM");
+	private By aceptarDomicilioBtn = By.cssSelector("#BOTON_ACEPTAR");
+	private By cancelarDomicilioBtn = By.cssSelector("#BOTON_CANCELAR");
+	private By comprobarDireccionDomicilioBtn = By.cssSelector("#BOTON_NORMADOM");
 
 	private By nuevoMediadorBtn = By.cssSelector("#capaMediadores > div.titulo > div > a");
-	private By codigoNuevoMediadorInput = By.id("MEDI_CODIMEDI");
+	private By codigoNuevoMediadorInput = By.cssSelector("#MEDI_CODIMEDI");
 	private By confirmarNuevoMediadorBtn = By.cssSelector("table > tbody > tr:nth-child(1) > td:nth-child(3) > a");
-	private By cerrarNuevoMediadorBtn = By.id("buttonClose");
+	private By cerrarNuevoMediadorBtn = By.cssSelector("#buttonClose");
 
 	private By anyadirNuevoMedioContactoBtn = By.cssSelector("#capaMediosContacto > div > div.floatright.peq > a");
-	private By tipoContactoCombo = By.id("MEDI_CONTPROS");
-	private By contactoTelefonoInput = By.id("MEDI_CONTACTO");
-	private By grabarNuevoMedioContactoBtn = By.id("buttonRecord");
-	private By cancelarNuevoMedioContactoBtn = By.id("buttonCancel");
+	private By tipoContactoCombo = By.cssSelector("#MEDI_CONTPROS");
+	private By contactoTelefonoInput = By.cssSelector("#MEDI_CONTACTO");
+	private By grabarNuevoMedioContactoBtn = By.cssSelector("#buttonRecord");
+	private By cancelarNuevoMedioContactoBtn = By.cssSelector("#buttonCancel");
 
-	private By cancelarNuevoProspectBtn = By.id("botonCancelar1");
-	private By grabarBtn = By.id("botonGrabar");
+	private By cancelarNuevoProspectBtn = By.cssSelector("#botonCancelar1");
+	private By grabarBtn = By.cssSelector("#botonGrabar");
 	// endregion
 
 	public MediadoresAltaProspectPage(UserStory userS) {

@@ -11,37 +11,38 @@ import java.util.stream.Collectors;
 public class MediadoresDGSPage extends PageObject {
 
 	// region WebElements
-	private By menuFrame = By.id("mainFrame");
-	private By modalFrame = By.id("leftFrame");
+	private By menuFrame = By.cssSelector("#mainFrame");
+	private By modalFrame = By.cssSelector("#leftFrame");
 
-	private By notificarDGSBtn = By.id("BUSENVIO");
-	private By descartarNotificarDGSBtn = By.id("BUSENVIO2");
-	private By tipoMediadorAgenteExclusivoBtn = By.id("TIPOMEDI");
-	private By tipoMediadorAuxiliarBtn = By.id("TIPOMEDI2");
+	private By notificarDGSBtn = By.cssSelector("#BUSENVIO");
+	private By descartarNotificarDGSBtn = By.cssSelector("#BUSENVIO2");
+	private By tipoMediadorAgenteExclusivoBtn = By.cssSelector("#TIPOMEDI");
+	private By tipoMediadorAuxiliarBtn = By.cssSelector("#TIPOMEDI2");
 
-	private By actualizarInformacionEnvioBtn = By.id("BUSRECEP");
-	private By actualizarMediadoresEnvioBtn = By.id("BUSRECEP2");
-	private By numeroEnvioInternoBtn = By.id("BUSC");
-	private By numeroExpedienteBtn = By.id("BUSC2");
-	private By numeroRegistroBtn = By.id("BUSC3");
-	private By numeroTasasBtn = By.id("BUSC4");
+	private By actualizarInformacionEnvioBtn = By.cssSelector("#BUSRECEP");
+	private By actualizarMediadoresEnvioBtn = By.cssSelector("#BUSRECEP2");
+	private By numeroEnvioInternoBtn = By.cssSelector("#BUSC");
+	private By numeroExpedienteBtn = By.cssSelector("#BUSC2");
+	private By numeroRegistroBtn = By.cssSelector("#BUSC3");
+	private By numeroTasasBtn = By.cssSelector("#BUSC4");
 
-	private By numeroBuscadoInput = By.id("NUMERO");
-	private By numeroReferenciaInput = By.id("ALTAMEDI_NUMEXPED");
-	private By fechaReferenciaInput = By.id("ALTAMEDI_FCREGSTR");
-	private By numeroRegistroInput = By.id("ALTAMEDI_NUMRGSTR");
-	private By numeroPagoTasasInput = By.id("ALTAMEDI_NUMTASA");
-	private By fechaInscripcionInput = By.id("ALTAMEDI_FEINSDGS");
-	private By respuestaDGSCombo = By.name("accion_0");
-	private By codigoEntidadInput = By.id("entidad1");
+	private By numeroBuscadoInput = By.cssSelector("#NUMERO");
+	private By numeroReferenciaInput = By.cssSelector("#ALTAMEDI_NUMEXPED");
+	private By fechaReferenciaInput = By.cssSelector("#ALTAMEDI_FCREGSTR");
+	private By numeroRegistroInput = By.cssSelector("#ALTAMEDI_NUMRGSTR");
+	private By numeroPagoTasasInput = By.cssSelector("#ALTAMEDI_NUMTASA");
+	private By fechaInscripcionInput = By.cssSelector("#ALTAMEDI_FEINSDGS");
+	private By respuestaDGSCombo = By.cssSelector("#tr1 > td:nth-child(2) > select");
+	private By codigoEntidadInput = By.cssSelector("#entidad1");
 
 	private By buscarBtn= By.cssSelector("input[name='botonBuscar']");
-	private By enviarDGSBtn = By.id("BOTON_ENVIDGS");
-	private By actualizarBtn= By.id("BOTON_ACTUALIZAR");
+	private By enviarDGSBtn = By.cssSelector("#BOTON_ENVIDGS");
+	private By actualizarBtn= By.cssSelector("#BOTON_ACTUALIZAR");
+	private By descartarDGSBtn= By.cssSelector("#BOTON_DESCDGS");
 
-	private By xmlBtn = By.id("BUSCADGS_XML");
-	private By excelBtn = By.id("BUSCADGS_XLS");
-	private By volverBtn = By.id("BUSCADGS_BACK");
+	private By xmlBtn = By.cssSelector("#BUSCADGS_XML");
+	private By excelBtn = By.cssSelector("#BUSCADGS_XLS");
+	private By volverBtn = By.cssSelector("#BUSCADGS_BACK");
 	// endregion
 
 	public MediadoresDGSPage(UserStory userS) {
@@ -93,6 +94,16 @@ public class MediadoresDGSPage extends PageObject {
 
 		return this;
 	}
+
+	public MediadoresDGSPage clickDescartarDGS() {
+		debugBegin();
+		webDriver.clickInFrame(descartarDGSBtn, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+
 
 	// Seleccionar casilla en la tabla
 	//Leer texto en la tabla
