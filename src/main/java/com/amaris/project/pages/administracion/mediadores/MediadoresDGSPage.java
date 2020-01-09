@@ -35,7 +35,7 @@ public class MediadoresDGSPage extends PageObject {
 	private By respuestaDGSCombo = By.cssSelector("#tr1 > td:nth-child(2) > select");
 	private By codigoEntidadInput = By.cssSelector("#entidad1");
 
-	private By buscarBtn= By.cssSelector("input[name='botonBuscar']");
+	private By buscarBtn= By.cssSelector("#cajabuscador > tbody > tr > td.marcofnd > input");
 	private By enviarDGSBtn = By.cssSelector("#BOTON_ENVIDGS");
 	private By actualizarBtn= By.cssSelector("#BOTON_ACTUALIZAR");
 	private By descartarDGSBtn= By.cssSelector("#BOTON_DESCDGS");
