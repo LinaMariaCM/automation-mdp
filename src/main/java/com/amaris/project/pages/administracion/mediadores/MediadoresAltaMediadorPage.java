@@ -11,6 +11,8 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	// region WebElements
 	private By mainFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
+	private By menuFrame = By.cssSelector("#leftFrame");
+	private By topFrame = By.cssSelector("#topFrame");
 
 	private By nivelEstructuraCombo = By.cssSelector("#MEDI_NIVEESTR");
 	private By actividadPrincipalCombo = By.cssSelector("#MEDI_ACTIPRIN");
