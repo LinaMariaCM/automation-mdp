@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class MediadoresAltaContactoPage extends PageObject {
 
-	private By mainFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
@@ -81,8 +81,8 @@ public class MediadoresAltaContactoPage extends PageObject {
 	private By publiImagenMedBtn = By.id("ALTAMEDI_USOIMAGEN");
 
 	//---Controles de la pagina---------------------
-	private By cancelarDescripcionBtn = By.id("botonCancelar1");
-	private By guardarDescripcionBtn = By.id("botonGrabar1");
+	private By cancelarGeneralBtn = By.id("botonCancelar1");
+	private By guardarBtn = By.id("botonGrabar1");
 	private By continuarBtn = By.id("botonContinuar1");
 
 	////// ELEMENTOS LISTADOS PERO QUE REALMENTE NO INTERVIENEN EN LOS STEPS DEL TEST todavía
@@ -98,4 +98,51 @@ public class MediadoresAltaContactoPage extends PageObject {
 	CON COLABORADOR HA ASIGNADO EL SUPERIOR DE MANERA AUTOMÁTICA */
 
 	public MediadoresAltaContactoPage(UserStory userS) { super(userS); }
+
+	public MediadoresAltaContactoPage clickGuardarYSalir()
+	{
+		debugBegin();
+		webDriver.clickInFrame(guardarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaContactoPage clickCancelarGeneral()
+	{
+		debugBegin();
+		webDriver.clickInFrame(cancelarGeneralBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaContactoPage clickContinuar()
+	{
+		debugBegin();
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaContactoPage clickCancelar()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(cancelarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaContactoPage clickGrabar()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
 }

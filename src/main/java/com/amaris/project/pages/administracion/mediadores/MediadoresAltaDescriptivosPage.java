@@ -6,9 +6,9 @@ import org.openqa.selenium.By;
 
 public class MediadoresAltaDescriptivosPage extends PageObject {
 
-	//------------ Datos básicos -----------
+	//------------ Datos básicos --------------------
 
-	private By mainFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
@@ -44,7 +44,7 @@ public class MediadoresAltaDescriptivosPage extends PageObject {
 	private By grabarAgrupadorBtn = By.cssSelector("#buttonRecord");
 	private By cancelarAgrupadorBtn = By.cssSelector("#buttonCancel");
 
-	//------------ Datos adicionales -----------
+	//------------ Datos adicionales -----------------------
 
 	private By medEdadCombo = By.id("ALTAMEDI_ANYONACAPROX");
 	private By medEstudiosCombo = By.id("ALTAMEDI_NIVEESTU");
@@ -80,5 +80,92 @@ public class MediadoresAltaDescriptivosPage extends PageObject {
 	public MediadoresAltaDescriptivosPage(UserStory userS) {
 		super(userS);
 	}
+
+	public MediadoresAltaDescriptivosPage clickCancelar()
+	{
+		debugBegin();
+		webDriver.clickInFrame(cancelarDescripcionBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDescriptivosPage clickGuardarYSalir()
+	{
+		debugBegin();
+		webDriver.clickInFrame(guardarDescripcionBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDescriptivosPage clickContinuar()
+	{
+		debugBegin();
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDescriptivosPage clickGrabar()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDescriptivosPage clickGrabarAgrupador()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(grabarAgrupadorBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDescriptivosPage clickCancelarAgrupador()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(cancelarAgrupadorBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDescriptivosPage clickNuevoProspectRelacionado()
+	{
+		debugBegin();
+		webDriver.clickInFrame(nuevoProspectAbrirModalBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDescriptivosPage clickConfirmarProspectRelacionado()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(confirmarProspectBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDescriptivosPage clickCerrarProspectRelacionado()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(cerrarNuevoProspectModalBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
 
 }

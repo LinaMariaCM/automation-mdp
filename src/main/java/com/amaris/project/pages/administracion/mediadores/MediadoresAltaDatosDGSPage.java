@@ -23,12 +23,12 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By ramoCombo = By.id("ALTAMEDI_RAMODGS");
 	private By productoInput = By.id("ALTAMEDI_PRODUCTO");
 
-	private By grabarBtn = By.id("buttonRecord");
-	private By cancelarBtn = By.id("buttonCancel");
+	private By grabarRamoBtn = By.id("buttonRecord");
+	private By cancelarRamoBtn = By.id("buttonCancel");
 
 	//-----------------------------LPS-DE----------------------
 	private By estdoLPSInput = By.id("ALTAMEDI_ESTADOLPS");
-	private By codigoRegimenActuacion = By.id("ALTAMEDI_CODREGACT");
+	private By codigoRegimenActuacionCombo = By.id("ALTAMEDI_CODREGACT");
 
 	private By identifiRepreseInput = By.id("ALTAMEDI_IDRELP");
 	private By razonSocialRepreInput = By.id("ALTAMEDI_RAZSORECLP");
@@ -42,10 +42,45 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By poblacionSucuInput = By.id("ALTAMEDI_POBSULP");
 
 	//-----------Controles de pagina---------------------------
-	private By cancelarDescripcionBtn = By.id("botonCancelar1");
-	private By guardarDescripcionBtn = By.id("botonGrabar1");
+	private By cancelarBtn = By.id("botonCancelar1");
+	private By guardarBtn = By.id("botonGrabar1");
 
 	public MediadoresAltaDatosDGSPage(UserStory userS) {
 		super(userS);
 	}
+
+	public MediadoresAltaDatosDGSPage clickCancelar()
+	{
+		debugBegin();
+		webDriver.clickInFrame(cancelarBtn, mainFrame);
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDGSPage clickGuardar()
+	{
+		debugBegin();
+		webDriver.clickInFrame(guardarBtn, mainFrame);
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDGSPage clickCancelarRamo()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(cancelarRamoBtn, mainFrame);
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDGSPage clickGrabarrRamo()
+	{
+		debugBegin();
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickInFrame(grabarRamoBtn, mainFrame);
+		debugEnd();
+		return this;
+	}
+
 }

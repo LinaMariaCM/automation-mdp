@@ -12,6 +12,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By topFrame = By.cssSelector("#topFrame");
 
 //---------Datos de negocio--------------------------
+
 	private By tipoRetribucionCombo = By.id("ALTAMEDI_TIPRETRI");
 
 	private By facturasBtn = By.id("ALTAMEDI_EMIFACT");
@@ -29,12 +30,14 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By cta2Input = By.id("COMODIN_CADENA_5");
 
 //----------------Configuracion liquidacion---------------------
+
 	private By retencionesBtn = By.id("ALTAMEDI_RETPARAPP");
 	private By liquidacionParcialBtn = By.id("ALTAMEDI_PELIQPAR");
 	private By pagoSinLiquidacionBtn = By.id("ALTAMEDI_PASINLIQ");
 	private By limiteConcesionesInput = By.id("ALTAMEDI_LIMCOMIS");
 
 //-------------------------Configuración gestion de recibos-----------
+
 	private By permisoImpresionRecibosBtn = By.id("ALTAMEDI_PERIMPREC");
 	private By accionImpagoCombo = By.id("ALTAMEDI_ULTACIMP");
 	private By permitirDevueltosBancariosCombo = By.id("ALTAMEDI_PEGESDEVBAN");
@@ -44,6 +47,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By numDiasPasoImpagoInput = By.id("ALTAMEDI_NDPASIMP");
 
 //------------------------Acceso operativas-------------
+
 	private By accesoRecibosBtn = By.id("ALTAMEDI_ACCRECIB");
 	private By pagoDomiciliacionBtn = By.id("ALTAMEDI_PAGDOMBAND");
 	private By accesoCuentaMediadorBtn = By.id("ALTAMEDI_ACCCUMED");
@@ -51,6 +55,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By accesoFicherosNODOMBtn = By.id("ALTAMEDI_ACCFICCNDM");
 
 //----------------Envio documentacion------------------------------
+
 	private By mandatoSEPABtn = By.id("ALTAMEDI_GENMSEPA");
 	private By liquidacionesBtn = By.id("ALTAMEDI_LIQUIDAC");
 	private By cartasRenovacionTomadorBtn = By.id("ALTAMEDI_CARRENTOM");
@@ -59,6 +64,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By listadoPendientesBtn = By.id("ALTAMEDI_LISPENDI");
 
 	//------------------------Valoracion financiera----------------
+
 	private By clasificacionFinancieraCombo = By.id("ALTAMEDI_CLASCONT");
 	private By nuevaFechaFiscalInput = By.id("ALTAMEDI_FECHALFI");
 	private By nivelControlCombo = By.id("ALTAMEDI_NIVECONT");
