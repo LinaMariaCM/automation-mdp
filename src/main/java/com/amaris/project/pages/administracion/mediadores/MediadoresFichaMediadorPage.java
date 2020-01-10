@@ -60,11 +60,10 @@ public class MediadoresFichaMediadorPage extends PageObject {
 	private By buscarArbolSubcomiBtn = By.cssSelector("body > form > div.contentBox.wideBox > div.marcofnd > table > tbody > tr:nth-child(9) > td:nth-child(3) > input");
 
 	//Contactos
-
 	private By anyadirNuevoContacBtn = By.cssSelector("#cabMedioContacto");
 	private By fechaDescendenteBtn = By.cssSelector("#descendenteContactos");
 	private By fechaAscendenteBtn = By.cssSelector("#ascendenteContactos");
-	
+
 	//Situacion
 	private By situacionCambiosBtn = By.cssSelector("#situacion");
 
