@@ -2,7 +2,6 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
-import com.amaris.project.pages.administracion.siniestros.apertura.AltaAperturaOcurrenciaSiniestrosPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -11,7 +10,7 @@ import java.util.List;
 public class MediadoresBuscadorPage extends PageObject {
 
 	// region WebElements
-	private By menuFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#leftFrame");
 
 	private By nombreRazonSocialComercialInput = By.cssSelector("#BUSMED_NOMBCOME");
@@ -85,7 +84,7 @@ public class MediadoresBuscadorPage extends PageObject {
 
 	public MediadoresBuscadorPage clickExportarResultados() {
 		debugBegin();
-		webDriver.clickInFrame(exportarResultadosBtn, menuFrame);
+		webDriver.clickInFrame(exportarResultadosBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -93,7 +92,7 @@ public class MediadoresBuscadorPage extends PageObject {
 
 	public MediadoresBuscadorPage clickBuscar() {
 		debugBegin();
-		webDriver.clickInFrame(buscarBtn, menuFrame);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -118,7 +117,7 @@ public class MediadoresBuscadorPage extends PageObject {
 */
 	public MediadoresBuscadorPage accederElementosTabla() {
 
-	List<WebElement> tabla = webDriver.getElementsInFrame(listaBuscador, menuFrame);
+	List<WebElement> tabla = webDriver.getElementsInFrame(listaBuscador, cuerpoFrame);
 	debugInfo("La lista es:" + tabla);
 	//String codigoMediador = tabla.get(3);
 

@@ -3,15 +3,11 @@ package com.amaris.project.pages.administracion.mediadores;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class MediadoresDGSPage extends PageObject {
 
 	// region WebElements
-	private By menuFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#leftFrame");
 
 	private By notificarDGSBtn = By.cssSelector("#BUSENVIO");
@@ -51,21 +47,21 @@ public class MediadoresDGSPage extends PageObject {
 
 	public MediadoresDGSPage clickActualizar() {
 		debugBegin();
-		webDriver.clickInFrame(actualizarBtn, menuFrame);
+		webDriver.clickInFrame(actualizarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
 	}
 	public MediadoresDGSPage clickBuscar() {
 		debugBegin();
-		webDriver.clickInFrame(buscarBtn, menuFrame);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
 	}
 	public MediadoresDGSPage clickEnviarDGS() {
 		debugBegin();
-		webDriver.clickInFrame(enviarDGSBtn, menuFrame);
+		webDriver.clickInFrame(enviarDGSBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -73,7 +69,7 @@ public class MediadoresDGSPage extends PageObject {
 
 	public MediadoresDGSPage clickXML() {
 		debugBegin();
-		webDriver.clickInFrame(xmlBtn, menuFrame);
+		webDriver.clickInFrame(xmlBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -81,7 +77,7 @@ public class MediadoresDGSPage extends PageObject {
 
 	public MediadoresDGSPage clickExcel() {
 		debugBegin();
-		webDriver.clickInFrame(excelBtn, menuFrame);
+		webDriver.clickInFrame(excelBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -89,7 +85,7 @@ public class MediadoresDGSPage extends PageObject {
 
 	public MediadoresDGSPage clickVolver() {
 		debugBegin();
-		webDriver.clickInFrame(volverBtn, menuFrame);
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -97,7 +93,7 @@ public class MediadoresDGSPage extends PageObject {
 
 	public MediadoresDGSPage clickDescartarDGS() {
 		debugBegin();
-		webDriver.clickInFrame(descartarDGSBtn, menuFrame);
+		webDriver.clickInFrame(descartarDGSBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

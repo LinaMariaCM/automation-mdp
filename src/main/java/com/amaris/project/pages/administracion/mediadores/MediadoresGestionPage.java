@@ -7,7 +7,7 @@ import org.openqa.selenium.By;
 public class MediadoresGestionPage extends PageObject {
 
 	// region webelements
-	private By mainFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
@@ -75,7 +75,7 @@ public class MediadoresGestionPage extends PageObject {
 	// region methods
 	public String getContenidoTituloPagina() {
 		debugBegin();
-		String contenido = webDriver.getTextInFrame(tituloPaginaTxt, mainFrame);
+		String contenido = webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame);
 		debugEnd();
 
 		return contenido;

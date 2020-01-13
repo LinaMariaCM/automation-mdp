@@ -9,7 +9,7 @@ import com.amaris.project.Constants;
 public class MediadoresAltaMediadorPage extends PageObject {
 
 	// region WebElements
-	private By mainFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
@@ -111,7 +111,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 		// Datos transaccionales" page.
 		writeCuentaBancaria();
-		webDriver.clickInFrame(grabarBtn, mainFrame);
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -121,7 +121,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage selectNivelEstructura() {
 		debugBegin();
 
-		webDriver.clickElementFromDropDownByTextInFrame(nivelEstructuraCombo, mainFrame, getTestVar(Constants.NIVEL_ESTRUCTURA));
+		webDriver.clickElementFromDropDownByTextInFrame(nivelEstructuraCombo, cuerpoFrame, getTestVar(Constants.NIVEL_ESTRUCTURA));
 
 		debugEnd();
 
@@ -131,7 +131,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage selectEjecutivoComercial() {
 		debugBegin();
 
-		webDriver.clickElementFromDropDownByTextInFrame(ejecutivoComercialCombo, mainFrame, getTestVar(Constants.EJECUTIVO_COMERCIAL));
+		webDriver.clickElementFromDropDownByTextInFrame(ejecutivoComercialCombo, cuerpoFrame, getTestVar(Constants.EJECUTIVO_COMERCIAL));
 
 		debugEnd();
 
@@ -141,7 +141,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage selectTipoMediador() {
 		debugBegin();
 
-		webDriver.clickElementFromDropDownByTextInFrame(tipoMediadorCombo, mainFrame, getTestVar(Constants.TIPO_MEDIADOR));
+		webDriver.clickElementFromDropDownByTextInFrame(tipoMediadorCombo, cuerpoFrame, getTestVar(Constants.TIPO_MEDIADOR));
 
 		debugEnd();
 
@@ -150,7 +150,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage selectTipoDocumento() {
 		debugBegin();
-		webDriver.clickElementFromDropDownByTextInFrame(tipoDocumentoCombo, mainFrame, getTestVar(Constants.TIPO_DOCUMENTO));
+		webDriver.clickElementFromDropDownByTextInFrame(tipoDocumentoCombo, cuerpoFrame, getTestVar(Constants.TIPO_DOCUMENTO));
 		debugEnd();
 
 		return this;
@@ -162,7 +162,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		if(getTestVar(Constants.TIPO_DOCUMENTO) != null
 			&& getTestVar(Constants.TIPO_DOCUMENTO).equals(Constants.NIF)) {
 			setTestVar(Constants.DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
-			webDriver.appendTextInFrame(numeroDocumentoInput, mainFrame, getTestVar(Constants.DOCUMENTO_MEDIADOR));
+			webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, getTestVar(Constants.DOCUMENTO_MEDIADOR));
 		}
 
 		debugEnd();
@@ -175,14 +175,14 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 		if(getTestVar(Constants.TIPO_DOCUMENTO) != null
 			&& getTestVar(Constants.TIPO_DOCUMENTO).equals(Constants.NIF)) {
-			webDriver.appendTextInFrame(nombreFiscalInput, mainFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
+			webDriver.appendTextInFrame(nombreFiscalInput, cuerpoFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
 		}
 		// When NIF or NIE, also shows surname fields. Second surname only mandatory for NIF.
 		else {
 
-			webDriver.appendTextInFrame(nombreFiscalInput, mainFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
-			webDriver.appendTextInFrame(primerApellidoInput, mainFrame, getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR));
-			webDriver.appendTextInFrame(segundoApellidoInput, mainFrame, getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
+			webDriver.appendTextInFrame(nombreFiscalInput, cuerpoFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
+			webDriver.appendTextInFrame(primerApellidoInput, cuerpoFrame, getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR));
+			webDriver.appendTextInFrame(segundoApellidoInput, cuerpoFrame, getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
 		}
 
 		debugEnd();
@@ -195,7 +195,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 		if(getTestVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Igual que el fiscal")) {
 			// Cuando nombre comercial es igual al fiscal, solo hay que marcar el radio button.
-			webDriver.clickInFrame(nombreComercialIgualFiscalBtn, mainFrame);
+			webDriver.clickInFrame(nombreComercialIgualFiscalBtn, cuerpoFrame);
 		}
 
 		if(getTestVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Diferente que el fiscal")) {
@@ -203,8 +203,8 @@ public class MediadoresAltaMediadorPage extends PageObject {
 			// hay que marcar el radio button y completar el nombre
 			// comercial (by default it is
 			// the same as the nombre fiscal).
-			webDriver.clickInFrame(nombreComercialDiferenteFiscalBtn, mainFrame);
-			webDriver.appendTextInFrame(nombreComercialInput, mainFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
+			webDriver.clickInFrame(nombreComercialDiferenteFiscalBtn, cuerpoFrame);
+			webDriver.appendTextInFrame(nombreComercialInput, cuerpoFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
 		}
 
 		debugEnd();
@@ -214,7 +214,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage selectActividadPrincipal() {
 		debugBegin();
-		webDriver.clickElementFromDropDownByTextInFrame(actividadPrincipalCombo, mainFrame, getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
+		webDriver.clickElementFromDropDownByTextInFrame(actividadPrincipalCombo, cuerpoFrame, getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
 		debugEnd();
 
 		return this;
@@ -222,7 +222,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage selectIdioma() {
 		debugBegin();
-		webDriver.clickElementFromDropDownByTextInFrame(idiomaCombo, mainFrame, getTestVar(Constants.IDIOMA));
+		webDriver.clickElementFromDropDownByTextInFrame(idiomaCombo, cuerpoFrame, getTestVar(Constants.IDIOMA));
 		debugEnd();
 
 		return this;
@@ -234,7 +234,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		// "Agente vinculado", "BS Exclusivo", "BS Vinculado", o "Corredor".
 		if(getTestVar(Constants.TIPO_MEDIADOR) != null && getTestVar(Constants.TIPO_MEDIADOR).equals("Agente vinculado")
 			|| getTestVar(Constants.TIPO_MEDIADOR).equals("BS Exclusivo") || getTestVar(Constants.TIPO_MEDIADOR).equals("Corredor")) {
-			webDriver.appendTextInFrame(numRegistroDGSInput, mainFrame, getTestVar(Constants.DGS));
+			webDriver.appendTextInFrame(numRegistroDGSInput, cuerpoFrame, getTestVar(Constants.DGS));
 		}
 
 		debugEnd();
@@ -244,7 +244,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage selectTieneOficinas() {
 		debugBegin();
-		webDriver.clickInFrame(tieneOficinasNoBtn, mainFrame);
+		webDriver.clickInFrame(tieneOficinasNoBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -252,7 +252,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage selectColaboradoresExternos() {
 		debugBegin();
-		webDriver.clickInFrame(colaboradresExternosNoBtn, mainFrame);
+		webDriver.clickInFrame(colaboradresExternosNoBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -260,7 +260,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage selectSoftwareGestion() {
 		debugBegin();
-		webDriver.clickInFrame(softwareGestionNoBtn, mainFrame);
+		webDriver.clickInFrame(softwareGestionNoBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -268,7 +268,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage clickContinuar() {
 		debugBegin();
-		webDriver.clickInFrame(continuarBtn, mainFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -276,7 +276,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage writeContactoResponsable() {
 		debugBegin();
-		webDriver.appendTextInFrame(contactoResponsableInput, mainFrame, getTestVar(Constants.CONTACTO_RESPONSABLE));
+		webDriver.appendTextInFrame(contactoResponsableInput, cuerpoFrame, getTestVar(Constants.CONTACTO_RESPONSABLE));
 		debugEnd();
 
 		return this;
@@ -284,7 +284,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage writeCargoResponsable() {
 		debugBegin();
-		webDriver.appendTextInFrame(cargoResponsableInput, mainFrame, getTestVar(Constants.CARGO_RESPONSABLE));
+		webDriver.appendTextInFrame(cargoResponsableInput, cuerpoFrame, getTestVar(Constants.CARGO_RESPONSABLE));
 		debugEnd();
 
 		return this;
@@ -292,7 +292,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage writeTelefonoUno() {
 		debugBegin();
-		webDriver.appendTextInFrame(telefonoUnoInput, mainFrame, getTestVar(Constants.TLF_PRINCIPAL));
+		webDriver.appendTextInFrame(telefonoUnoInput, cuerpoFrame, getTestVar(Constants.TLF_PRINCIPAL));
 		debugEnd();
 
 		return this;
@@ -300,7 +300,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage writeEmailPrincipal() {
 		debugBegin();
-		webDriver.appendTextInFrame(emailPrincipalInput, mainFrame, getTestVar(Constants.EMAIL_PRINCIPAL));
+		webDriver.appendTextInFrame(emailPrincipalInput, cuerpoFrame, getTestVar(Constants.EMAIL_PRINCIPAL));
 		debugEnd();
 
 		return this;
@@ -309,9 +309,9 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage addDireccionComercial() {
 		debugBegin();
 
-		webDriver.clickInFrame(anyadirNuevaDireccionBtn, mainFrame);
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
 
-		webDriver.switchToFrame(mainFrame);
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.clickElementFromDropDownByText(tipoDomicilioCombo, "Comercial");
 		webDriver.appendText(provinciaInput, getTestVar(Constants.PROVINCIA));
@@ -335,9 +335,9 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage addDireccionFiscal() {
 		debugBegin();
 
-		webDriver.clickInFrame(anyadirNuevaDireccionBtn, mainFrame);
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
 
-		webDriver.switchToFrame(mainFrame);
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.clickElementFromDropDownByText(tipoDomicilioCombo, "Fiscal");
 		webDriver.appendText(provinciaInput, getTestVar(Constants.PROVINCIA));
@@ -361,9 +361,9 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage addDireccionPostalProduccion() {
 		debugBegin();
 
-		webDriver.clickInFrame(anyadirNuevaDireccionBtn, mainFrame);
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
 
-		webDriver.switchToFrame(mainFrame);
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.clickElementFromDropDownByText(tipoDomicilioCombo, "Postal producción");
 		webDriver.click(direccionIgualFiscalBtn); // Click radio button "Igual a la fiscal".
@@ -378,8 +378,8 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage addDireccionPostalRecibos() {
 		debugBegin();
 
-		webDriver.clickInFrame(anyadirNuevaDireccionBtn, mainFrame);
-		webDriver.switchToFrame(mainFrame);
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.clickElementFromDropDownByText(tipoDomicilioCombo, "Postal recibos");
 		webDriver.click(direccionIgualFiscalBtn); // Click radio button "Igual a la fiscal".
@@ -395,8 +395,8 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage addDireccionPostalSiniestros() {
 		debugBegin();
 
-		webDriver.clickInFrame(anyadirNuevaDireccionBtn, mainFrame);
-		webDriver.switchToFrame(mainFrame);
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.clickElementFromDropDownByText(tipoDomicilioCombo, "Postal siniestros");
 		webDriver.click(direccionIgualFiscalBtn); // Click radio button "Igual a la fiscal".
@@ -410,7 +410,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 	public MediadoresAltaMediadorPage addCompaniasPrincipales() {
 		debugBegin();
-		webDriver.appendTextInFrame(companiasPrincipalesInput, mainFrame, "Texto de las compañías principales");
+		webDriver.appendTextInFrame(companiasPrincipalesInput, cuerpoFrame, "Texto de las compañías principales");
 		debugEnd();
 
 		return this;
@@ -419,12 +419,12 @@ public class MediadoresAltaMediadorPage extends PageObject {
 	public MediadoresAltaMediadorPage writeCuentaBancaria() {
 		debugBegin();
 
-		webDriver.appendTextInFrame(codigoIbanInput, mainFrame, "ES03");
-		webDriver.appendTextInFrame(bancoInput, mainFrame, "2100");
-		webDriver.appendTextInFrame(sucursalInput, mainFrame, "1234");
-		webDriver.appendTextInFrame(dcInput, mainFrame, "5612");
-		webDriver.appendTextInFrame(cta1Input, mainFrame, "3456");
-		webDriver.appendTextInFrame(cta2Input, mainFrame, "7890");
+		webDriver.appendTextInFrame(codigoIbanInput, cuerpoFrame, "ES03");
+		webDriver.appendTextInFrame(bancoInput, cuerpoFrame, "2100");
+		webDriver.appendTextInFrame(sucursalInput, cuerpoFrame, "1234");
+		webDriver.appendTextInFrame(dcInput, cuerpoFrame, "5612");
+		webDriver.appendTextInFrame(cta1Input, cuerpoFrame, "3456");
+		webDriver.appendTextInFrame(cta2Input, cuerpoFrame, "7890");
 
 		debugEnd();
 

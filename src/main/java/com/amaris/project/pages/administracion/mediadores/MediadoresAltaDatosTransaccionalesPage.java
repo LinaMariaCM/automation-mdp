@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 
-	private By mainFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");

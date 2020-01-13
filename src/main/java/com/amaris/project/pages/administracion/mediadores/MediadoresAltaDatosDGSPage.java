@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class MediadoresAltaDatosDGSPage extends PageObject {
 
-	private By mainFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
@@ -52,7 +52,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	public MediadoresAltaDatosDGSPage clickCancelar()
 	{
 		debugBegin();
-		webDriver.clickInFrame(cancelarBtn, mainFrame);
+		webDriver.clickInFrame(cancelarBtn, cuerpoFrame);
 		debugEnd();
 		return this;
 	}
@@ -60,7 +60,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	public MediadoresAltaDatosDGSPage clickGuardar()
 	{
 		debugBegin();
-		webDriver.clickInFrame(guardarBtn, mainFrame);
+		webDriver.clickInFrame(guardarBtn, cuerpoFrame);
 		debugEnd();
 		return this;
 	}
@@ -69,7 +69,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	{
 		debugBegin();
 		webDriver.switchToFrame(modalFrame);
-		webDriver.clickInFrame(cancelarRamoBtn, mainFrame);
+		webDriver.clickInFrame(cancelarRamoBtn, cuerpoFrame);
 		debugEnd();
 		return this;
 	}
@@ -78,7 +78,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	{
 		debugBegin();
 		webDriver.switchToFrame(modalFrame);
-		webDriver.clickInFrame(grabarRamoBtn, mainFrame);
+		webDriver.clickInFrame(grabarRamoBtn, cuerpoFrame);
 		debugEnd();
 		return this;
 	}

@@ -9,7 +9,7 @@ public class MediadoresHomePage extends PageObject {
 	// region webelements
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
-	private By mainFrame = By.cssSelector("#mainFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 
 	private By gestionMediadoresBtn = By.cssSelector("#jt1");
 	private By traspasoCarteraBtn = By.cssSelector("#jt2");
