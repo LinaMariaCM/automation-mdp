@@ -83,4 +83,11 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
+	public MediadoresAltaDatosDGSPage clickAnyadirNuevoRamo()
+	{
+		debugBegin();
+		webDriver.clickInFrame(anyadirNuevoRamoBtn, cuerpoFrame);
+		debugEnd();
+		return this;
+	}
 }

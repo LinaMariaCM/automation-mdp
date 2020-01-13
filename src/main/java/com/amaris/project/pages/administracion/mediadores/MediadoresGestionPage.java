@@ -2,6 +2,7 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
 
 public class MediadoresGestionPage extends PageObject {
@@ -80,5 +81,14 @@ public class MediadoresGestionPage extends PageObject {
 
 		return contenido;
 	}
+
+	public MediadoresGestionPage clickAnyadirNuevoContacto() {
+		debugBegin();
+		webDriver.clickInFrame(anyadirNuevoContacBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
 	// endregion
 }
