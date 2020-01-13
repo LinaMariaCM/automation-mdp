@@ -63,8 +63,8 @@ public class MediadoresGestionPage extends PageObject {
 	private By fechaDescendenteBtn = By.cssSelector("#descendenteContactos");
 	private By fechaAscendenteBtn = By.cssSelector("#ascendenteContactos");
 
-	//Situacion
-	private By situacionCambiosBtn = By.cssSelector("#situacion");
+	//Cambio
+	private By situacionCambiosCombo = By.cssSelector("#situacion");
 
 	// endregion
 
