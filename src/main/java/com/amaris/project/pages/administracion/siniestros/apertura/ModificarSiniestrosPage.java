@@ -1,5 +1,6 @@
 package com.amaris.project.pages.administracion.siniestros.apertura;
 
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
@@ -15,57 +16,57 @@ public class ModificarSiniestrosPage extends PageObject {
 	private By modificar = By.cssSelector("#jt3");
 
 	// Buscador
-	private By btnNoSiniestro = By.cssSelector("#filtro1");
-	private By btnNoPoliza = By.cssSelector("#filtro2");
-	private By btnNoRecibo = By.cssSelector("#filtro3");
-	private By btnAsegurado = By.cssSelector("#filtro4");
-	private By btnFechaOcurrencia = By.cssSelector("#filtro6");
-	private By btnFechaAlta = By.cssSelector("#filtro7");
-	private By btnCausa = By.cssSelector("#filtro8");
-	private By btnOtros = By.cssSelector("#filtro9");
+	private By numeroSiniestroBtn = By.cssSelector("#filtro1");
+	private By numeroPolizaBtn = By.cssSelector("#filtro2");
+	private By numeroReciboBtn = By.cssSelector("#filtro3");
+	private By aseguradoBtn = By.cssSelector("#filtro4");
+	private By fechaOcurrenciaBtn = By.cssSelector("#filtro6");
+	private By fechaAltaBtn = By.cssSelector("#filtro7");
+	private By causaBtn = By.cssSelector("#filtro8");
+	private By otrosBtn = By.cssSelector("#filtro9");
 
 	// Opcion Numero Siniestro
-	private By tipoProductoSini = By.cssSelector("#prodsini");
-	private By txtAno = By.cssSelector("#seriesin");
-	private By txtNoSiniestro = By.cssSelector("#numesini");
+	private By tipoProductoSiniDrpDwn = By.cssSelector("#prodsini");
+	private By anyoInput = By.cssSelector("#seriesin");
+	private By numeroSiniestroInput = By.cssSelector("#numesini");
 
 	// Opcion Numero Poliza
-	private By tipoProductoPoliza = By.cssSelector("#producto");
-	private By txtNoPoliza = By.cssSelector("#polizsec");
+	private By tipoProductoPolizaDrpDwn = By.cssSelector("#producto");
+	private By numeroPolizaInput = By.cssSelector("#polizsec");
 
 	// Opcion Numero recibo
-	private By txtNoRecibo1 = By.cssSelector("#recibann");
-	private By txtNoRecibo2 = By.cssSelector("#recibsec");
+	private By numeroRecibo1Input = By.cssSelector("#recibann");
+	private By numeroRecibo2Input = By.cssSelector("#recibsec");
 
 	// Opcion Asegurado
-	private By txtNodocumento = By.cssSelector("#numedocu");
-	private By txtNombre = By.cssSelector("#nombpcom");
-	private By btnEmpieza = By.cssSelector("#nombpcom");
-	private By btnContiene = By.cssSelector("#contiene");
+	private By numeroDocumentoInput = By.cssSelector("#numedocu");
+	private By nombreInput = By.cssSelector("#nombpcom");
+	private By empiezaBtn = By.cssSelector("#nombpcom");
+	private By contieneBtn = By.cssSelector("#contiene");
 
 	// Opcion fecha ocurrencia
-	private By fechaDesde = By.cssSelector("#desde");
-	private By fechaHasta = By.cssSelector("#hasta");
+	private By fechaDesdeInput = By.cssSelector("#desde");
+	private By fechaHastaInput = By.cssSelector("#hasta");
 
 	// Opcion fecha alta
-	private By fechaAltaDesde = By.cssSelector("#altadesde");
-	private By fechaAltaHasta = By.cssSelector("#altahasta");
+	private By fechaAltaDesdeInput = By.cssSelector("#altadesde");
+	private By fechaAltaHastaInput = By.cssSelector("#altahasta");
 
 	// Opcion tipo causa
-	private By fechaCausaDesde = By.cssSelector("#fechDesde");
-	private By fechaCausaHasta = By.cssSelector("#fechHasta");
-	private By codigoCausa = By.cssSelector("#name4");
+	private By fechaCausaDesdeInput = By.cssSelector("#fechDesde");
+	private By fechaCausaHastaInput = By.cssSelector("#fechHasta");
+	private By codigoCausaInput = By.cssSelector("#name4");
 
 	// Opcion Otros
-	private By fechaOtrosDesde = By.cssSelector("#fdesde");
-	private By fechaOtrosHasta = By.cssSelector("#fhasta");
-	private By estadoPoliza = By.cssSelector("#estado");
+	private By fechaOtrosDesdeInput = By.cssSelector("#fdesde");
+	private By fechaOtrosHastaInput = By.cssSelector("#fhasta");
+	private By estadoPolizaDrpDwn = By.cssSelector("#estado");
 	private By negocio = By.cssSelector("#productoSini");
-	private By mediador = By.cssSelector("#codMediador");
+	private By mediadorInput = By.cssSelector("#codMediador");
 
-	private By btnBuscar = By.cssSelector("#botonBuscar");
+	private By buscarBtn = By.cssSelector("#botonBuscar");
 
-	private By btnContinuar = By.cssSelector("#capaAjax tr.odd span");
+	private By continuarBtn = By.cssSelector("#capaAjax tr.odd span");
 
 	// Declaracion
 	private By consultPoliza = By.cssSelector("#enlacePoliza");
@@ -145,15 +146,17 @@ public class ModificarSiniestrosPage extends PageObject {
 	public ModificarSiniestrosPage buscarPorNumeroPoliza(String numPoliza, String negocio) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnNoPoliza, cuerpoFrame);
-		if(negocio == "MEC") {
-			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+		webDriver.clickInFrame(numeroPolizaBtn, cuerpoFrame);
+		
+		if(negocio.equals(Constants.MEC)) {
+			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPolizaDrpDwn, cuerpoFrame, "value", "510");
 		}
-		webDriver.appendTextInFrame(txtNoPoliza, cuerpoFrame, numPoliza);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		
+		webDriver.appendTextInFrame(numeroPolizaInput, cuerpoFrame, numPoliza);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -163,16 +166,18 @@ public class ModificarSiniestrosPage extends PageObject {
 	public ModificarSiniestrosPage buscarPorNumeroSiniestro(String siniestro, int index, String anio, String negocio) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnNoSiniestro, cuerpoFrame);
-		if(negocio == "MEC") {
-			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoSini, cuerpoFrame, "value", "510");
+		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);
+		
+		if(negocio.equals(Constants.MEC)) {
+			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoSiniDrpDwn, cuerpoFrame, "value", "510");
 		}
-		webDriver.appendTextInFrame(txtAno, cuerpoFrame, anio);
-		webDriver.appendTextInFrame(txtNoSiniestro, cuerpoFrame, siniestro);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		
+		webDriver.appendTextInFrame(anyoInput, cuerpoFrame, anio);
+		webDriver.appendTextInFrame(numeroSiniestroInput, cuerpoFrame, siniestro);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -182,13 +187,13 @@ public class ModificarSiniestrosPage extends PageObject {
 	public ModificarSiniestrosPage buscarPorRecibo(String recibo1, String recibo2) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnNoRecibo, cuerpoFrame);
-		webDriver.appendTextInFrame(txtNoRecibo1, cuerpoFrame, recibo1);
-		webDriver.appendTextInFrame(txtNoRecibo2, cuerpoFrame, recibo2);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(numeroReciboBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(numeroRecibo1Input, cuerpoFrame, recibo1);
+		webDriver.appendTextInFrame(numeroRecibo2Input, cuerpoFrame, recibo2);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -198,18 +203,20 @@ public class ModificarSiniestrosPage extends PageObject {
 	public ModificarSiniestrosPage buscarPorAsegurado(String asegurador, String opNombre, String nombre, String documento) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnAsegurado, cuerpoFrame);
-		webDriver.appendTextInFrame(txtNodocumento, cuerpoFrame, documento);
+		webDriver.clickInFrame(aseguradoBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, documento);
+		
 		if(opNombre == "contiene") {
-			webDriver.clickInFrame(btnContiene, cuerpoFrame);
+			webDriver.clickInFrame(contieneBtn, cuerpoFrame);
 		} else {
-			webDriver.clickInFrame(btnEmpieza, cuerpoFrame);
+			webDriver.clickInFrame(empiezaBtn, cuerpoFrame);
 		}
-		webDriver.appendTextInFrame(txtNombre, cuerpoFrame, nombre);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		
+		webDriver.appendTextInFrame(nombreInput, cuerpoFrame, nombre);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -219,13 +226,13 @@ public class ModificarSiniestrosPage extends PageObject {
 	public ModificarSiniestrosPage buscarPorOcurrencia(String fDesde, String fHasta) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnFechaOcurrencia, cuerpoFrame);
-		webDriver.appendTextInFrame(fechaDesde, cuerpoFrame, fDesde);
-		webDriver.appendTextInFrame(fechaHasta, cuerpoFrame, fHasta);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(fechaOcurrenciaBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaDesdeInput, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaHastaInput, cuerpoFrame, fHasta);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -235,13 +242,13 @@ public class ModificarSiniestrosPage extends PageObject {
 	public ModificarSiniestrosPage buscarPorAlta(String fDesde, String fHasta) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnFechaAlta, cuerpoFrame);
-		webDriver.appendTextInFrame(fechaAltaDesde, cuerpoFrame, fDesde);
-		webDriver.appendTextInFrame(fechaAltaHasta, cuerpoFrame, fHasta);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(fechaAltaBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaAltaDesdeInput, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaAltaHastaInput, cuerpoFrame, fHasta);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -251,14 +258,14 @@ public class ModificarSiniestrosPage extends PageObject {
 	public ModificarSiniestrosPage buscarPorCausa(String fDesde, String fHasta, String nombre) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnCausa, cuerpoFrame);
-		webDriver.appendTextInFrame(fechaCausaDesde, cuerpoFrame, fDesde);
-		webDriver.appendTextInFrame(fechaCausaHasta, cuerpoFrame, fHasta);
-		webDriver.appendTextInFrame(codigoCausa, cuerpoFrame, nombre);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(causaBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaCausaDesdeInput, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaCausaHastaInput, cuerpoFrame, fHasta);
+		webDriver.appendTextInFrame(codigoCausaInput, cuerpoFrame, nombre);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -268,18 +275,20 @@ public class ModificarSiniestrosPage extends PageObject {
 	public ModificarSiniestrosPage buscarPorOtros(String fDesde, String fHasta, String codMediador, String negocio) {
 		debugBegin();
 
-		webDriver.clickInFrame(btnOtros, cuerpoFrame);
-		webDriver.appendTextInFrame(fechaOtrosDesde, cuerpoFrame, fDesde);
-		webDriver.appendTextInFrame(fechaOtrosHasta, cuerpoFrame, fHasta);
-		if(negocio == "MEC") {
-			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPoliza, cuerpoFrame, "value", "510");
+		webDriver.clickInFrame(otrosBtn, cuerpoFrame);
+		webDriver.appendTextInFrame(fechaOtrosDesdeInput, cuerpoFrame, fDesde);
+		webDriver.appendTextInFrame(fechaOtrosHastaInput, cuerpoFrame, fHasta);
+		
+		if(negocio.equals(Constants.MEC)) {
+			webDriver.clickElementFromDropDownByAttributeInFrame(tipoProductoPolizaDrpDwn, cuerpoFrame, "value", "510");
 		}
-		webDriver.clickElementFromDropDownByAttributeInFrame(estadoPoliza, cuerpoFrame, "value", "V");
-		webDriver.appendTextInFrame(mediador, cuerpoFrame, codMediador);
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		
+		webDriver.clickElementFromDropDownByAttributeInFrame(estadoPolizaDrpDwn, cuerpoFrame, "value", "V");
+		webDriver.appendTextInFrame(mediadorInput, cuerpoFrame, codMediador);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 

@@ -6,5 +6,5 @@ import org.openqa.selenium.WebDriver;
 
 public interface IBrowserObject {
 
-	public WebDriver createWebDriverAndStartBrowser() throws IOException;
+	WebDriver createWebDriverAndStartBrowser() throws IOException;
 }

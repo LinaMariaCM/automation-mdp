@@ -17,7 +17,7 @@ import com.amaris.project.pages.productos.PrecioPage;
 import com.amaris.project.pages.productos.PrecioPorModalidadPage;
 import com.amaris.project.pages.productos.TomadorYAseguradoPage;
 import com.amaris.project.pages.productos.UbicacionRiesgoPage;
-import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMAC;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac;
 import com.amaris.project.utils.ClausulasHelper;
 import com.amaris.project.utils.MotivosSuplementoHelper;
 
@@ -72,7 +72,7 @@ public class DataSteps extends InteractionObject {
 	}
 
 	public void con_el_número_de_poliza() {
-		setTestVar(Constants.NUM_POLIZA, new DatosBancariosPage(userS).GetPolizaNumber());
+		setTestVar(Constants.NUM_POLIZA, new DatosBancariosPage(userS).getPolizaNumber());
 	}
 
 	public void se_modifica_el_año_de_rehabiliación_integral_a(Integer anyoRehabilitacionIntegral) {
@@ -169,48 +169,59 @@ public class DataSteps extends InteractionObject {
 		String mediador = getScenarioVar(Constants.MEDIADOR);
 		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine) && !mediador.equals("640")) {
 			new AsignarMediadorPage(userS)
-				.selectMediadorAndClickOnContinuar();
+				.selectMediadorAndClickContinuar();
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.SeleccionarMediadorPorCodigo(getScenarioVar(Constants.ACCESO))
-				.clickOnContinuarButton();
+				.seleccionarMediadorPorCodigo(getScenarioVar(Constants.ACCESO))
+				.clickContinuar();
 		}
 
 		new UbicacionRiesgoPage(userS)
-			.fillInmuebleAndClickOnContinue();
+			.fillInmuebleAndClickContinuar();
 
 		new ValidacionesExcepcionesReglasUbicacionRiesgoPage(userS)
 			.isUbicacionRiesgoUtilizada();
 
 		new DetallesRiesgoPage(userS)
-			.completarDatosEnDetallesRiesgo();
+			.completarDatosRiesgo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
 			.clickOnContinuar();
 
 		new PrecioPage(userS)
-			.ClickOnConvertirAProjecto();
+			.clickConvertirAProjecto();
 
 		new DatosBasicosTomadorPage(userS)
-			.FillTomadorData(getScenarioVar(Constants.TOMADOR))
-			.clickOnContinuar();
+			.fillTomadorData(getScenarioVar(Constants.TOMADOR))
+			.clickContinuar();
 
 		new PrecioPorModalidadPage(userS)
-			.ExecuteActionsInPrecioPorModalidadPage();
+			.seleccionarModalidad()
+			.completarCoberturaPorMaquinaria()
+			.completarCoberturasEmpleados()
+			.completarCoberturasEnergiaSolar()
+			.completarFranquiciaVoluntaria()
+			.completarOQuitarDescuentoRecargo()
+			.clickContinuar();
 
 		new ValidacionExcepcionesReglasPage(userS)
-			.clickOnContinuarButton();
+			.clickContinuar();
 
 		new ClausulasPage(userS)
-			.ActivateclausesAndClickOnContinue();
+			.activarClausulas()
+			.completarClausulaHipotecaria()
+			.clickContinuar();
 
 		new TomadorYAseguradoPage(userS)
-			.AddDatosTomador()
-			.AddDatosTomadorDiferenteAsegurado()
-			.clickOnContinuar();
+			.addDatosTomador()
+			.addDatosTomadorDiferenteAsegurado()
+			.clickContinuar();
 
 		new DatosBancariosPage(userS)
-			.introducirFormaPagoYPulsarGuardar();
+			.fillPaymentMethod(getTestVar(Constants.MEDIO_PAGO))
+			.clickGuardar()
+			.getProjectCodeNumberAndClickOnAceptarButton();
 
 		imprimir_informacion_del_proyecto();
 
@@ -225,11 +236,11 @@ public class DataSteps extends InteractionObject {
 				.openContratarMutuaAlquilerConfort();
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
 			new AsignarMediadorPage(userS)
-				.SelectMediadorMACAndClickOnContinuar();
+				.selectMediadorMACAndClickContinuar();
 		}
 
 		// Seleccionar modalidad en Precio page
-		new PrecioPorModalidadPageMAC(userS)
+		new PrecioPorModalidadPageMac(userS)
 			.selectModalidad();
 	}
 

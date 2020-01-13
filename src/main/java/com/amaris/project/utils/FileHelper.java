@@ -47,8 +47,7 @@ public class FileHelper {
 			&& currentDateTimeDownload.plusSeconds(timeout).isAfter(LocalDateTime.now())
 			&& finishedFiles.size() == 0);
 
-		if(FileUtils.listFiles(tempFolder, new String[]{ "crdownload"}, false).isEmpty()) { return true; }
-		return false;
+		return FileUtils.listFiles(tempFolder, new String[]{ "crdownload" }, false).isEmpty();
 	}
 
 	// For UpLoad
@@ -58,7 +57,7 @@ public class FileHelper {
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
 
-	public static void uploadFIle(String fileNameAndPath) {
+	public static void uploadFile(String fileNameAndPath) {
 		setClipboardData(fileNameAndPath);
 		// native key strokes for CTRL, V and ENTER keys
 

@@ -1,118 +1,95 @@
 package com.amaris.project.pages.productos;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Locale;
-
 import org.testng.Assert;
 
 import org.openqa.selenium.By;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 
 public class DetallesRiesgoPage extends PageObject {
 
-	private Locale locale = new Locale("es", "ES");
-
-	// region webelements
+	// region WebElements
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 
-	private By edificioMaderaCmb = By.id("edifConstruccionMadera");
-	private By noMadera = By.cssSelector("#edifConstruccionMadera > option[label ~= 'No']");
-	private By deshabitacion = By.id("deshabilitacion");
-	private By deshabitacion75 = By.cssSelector("#deshabilitacion > option:nth-of-type(2)");
-	private By firstOptionEdifMad = By.cssSelector("#edifConstruccionMadera > option:first-child");
+	private By edificioMaderaDrpDwn = By.id("edifConstruccionMadera");
+	private By noMaderaBtn = By.cssSelector("#edifConstruccionMadera > option[label ~= 'No']");
+	private By deshabitacionBtn = By.id("deshabilitacion");
+	private By deshabitacion75Btn = By.cssSelector("#deshabilitacion > option:nth-of-type(2)");
+	private By firstOptionEdifMadOption = By.cssSelector("#edifConstruccionMadera > option:first-child");
 
-	private By cmbDeshabilitacion = By.cssSelector("#deshabilitacion > option");
-	private By deshabilitacion = By.cssSelector("#deshabilitacion");
+	private By deshabilitacionDrpDwn = By.cssSelector("#deshabilitacion > option");
 
-	private By btnContinuar = By.xpath(".//*[contains(text(),'Continuar')]");
+	private By continuarBtn = By.xpath(".//*[contains(text(),'Continuar')]");
 
-	private By txtM2Viviendas = By.cssSelector("#m2Viviendas");
-	private By txtM2Oficinas = By.cssSelector("#m2Oficinas");
-	private By txtM2Garajes = By.cssSelector("#m2Garajes");
-	private By txtM2ZonasAjardinadas = By.cssSelector("#m2ZonasAjardinadas");
+	private By m2ViviendasInput = By.cssSelector("#m2Viviendas");
+	private By m2OficinasInput = By.cssSelector("#m2Oficinas");
+	private By m2GarajesInput = By.cssSelector("#m2Garajes");
+	private By m2ZonasAjardinadasInput = By.cssSelector("#m2ZonasAjardinadas");
 
-	private By txtNoViviendas = By.name("numViviendas");
-	private By txtNumeroPlantasAlto = By.name("numPlantasAlto");
-	private By txtNumeroPlantasSotano = By.name("numPlantasSotano");
-	private By txtNumeroEdificios = By.cssSelector("#numEdificios");
-	private By txtNumeroLocales = By.name("numLocales");
-	private By txtAnyoConstruccion = By.cssSelector("#anyoConstruccion");
+	private By numeroViviendasInput = By.name("numViviendas");
+	private By numeroPlantasAltoInput = By.name("numPlantasAlto");
+	private By numeroPlantasSotanoInput = By.name("numPlantasSotano");
+	private By numeroEdificiosInput = By.cssSelector("#numEdificios");
+	private By numeroLocalesInput = By.name("numLocales");
+	private By anyoConstruccionInput = By.cssSelector("#anyoConstruccion");
 
-	private By btnAnadirActividadComercial = By.xpath(".//*[text()='Añadir actividad comercial']");
-	private By btnAnadir = By.xpath(".//*[text()='Añadir']");
-	private By txtActividadDescripcion = By.xpath(".//*[@ng-model='actividad.descripcion']");
-	private By txtActividadM2 = By.xpath(".//*[@ng-model='actividad.m2']");
-	private By txtActividadPorcentaje = By.xpath(".//*[@ng-model='actividad.porcentaje']");
-	private By txtM2Locales = By.xpath(".//*[@ng-model='dr.moduloDetallesRiesgo.m2locales']");
+	private By capitalContinenteTotalAseguradoTxt = By.cssSelector("#capitalContinenteTotalAsegurado");
+	private By capitalContenidoTxt = By.cssSelector("#capitalContenido");
+	private By capitalContinenteInput = By.cssSelector("#capitalContinente");
 
-	private By btnGuardarActividadesComerciales = By.xpath(".//*[text()='Guardar' and @ng-disabled='formActividadesComerciales.$invalid']");
+	private By gasolineraMenos50MBtn = By.cssSelector("#edifGasolineraMenos50m");
+	private By calefaccionCentralAguaCalienteCentralizadaBtn = By.cssSelector("#edifCalefaccionCentral");
+	private By depositoCombustibleBtn = By.cssSelector("#edifDepositoCombustible");
+	private By anyoRehabAguasInput = By.cssSelector("#anyoRehabAguasCom");
+	private By nivelRehabAguasDrpDwn = By.cssSelector("#nivelRehabAguasCom");
+	private By anyoRehabIntegralInput = By.cssSelector("#anyoRehabIntegral");
+	private By m2ContruidosTotalesInput = By.cssSelector("#m2ConstruidosTotales");
 
-	private By txtCapitalContinenteTotalAsegurado = By.cssSelector("#capitalContinenteTotalAsegurado");
-	private By txtCapitalContenido = By.cssSelector("#capitalContenido");
-	private By txtCapitalContinente = By.cssSelector("#capitalContinente");
+	private By avisoGarajesTxt = By.xpath(".//*[text()='Los datos de superficies (m']");
 
-	private By btnCamposObligatiosModalWindowAceptar = By.xpath(".//*[text()='No se han rellenado los campos obligatorios.']/../../../..//button[text()='Aceptar']");
-
-	private By chkGasolineraMenos50M = By.cssSelector("#edifGasolineraMenos50m");
-	private By chkCalefaccionCentralAguaCalienteCentralizada = By.cssSelector("#edifCalefaccionCentral");
-	private By chkDepositoCombustible = By.cssSelector("#edifDepositoCombustible");
-	private By txtAnyoRehabAguas = By.cssSelector("#anyoRehabAguasCom");
-	private By cmbNivelRehabAguas = By.cssSelector("#nivelRehabAguasCom");
-	private By txtAnyoRehabIntegral = By.cssSelector("#anyoRehabIntegral");
-	private By txtM2ContruidosTotales = By.cssSelector("#m2ConstruidosTotales");
-
-	private By lblAvisoGarajes = By.xpath(".//*[text()='Los datos de superficies (m']");
-	private List<By> lblAvisoGarajesList;
-
-	private By btnAceptar = By.xpath(".//*[@id='modalErrores']//*[text()='Aceptar']");
+	private By aceptarBtn = By.xpath(".//*[@id='modalErrores']//*[text()='Aceptar']");
 	private By txtM2Trasteros = By.cssSelector("#m2Trasteros");
-	private By txtNumPlantasBajoRasante = By.cssSelector("#numPlantasSotano");
 	private By txtNumPlazasGaraje = By.cssSelector("#numPlazasGarajes");
-	private By avisoNoTieneRefCatastral = By
+	private By avisoNoTieneRefCatastralTxt = By
 		.xpath(".//*[text()='El edificio no tiene referencia catastral, intente ubicar el riesgo de nuevo o introduzca los datos de superficies y año de construcción.']/../../../..//button[text()='Aceptar']");
 
-	private By btnConvertir = By.cssSelector("[ng-bind-html*='com_convertirProyecto']");
-	private By btnConvertirAProyecto = By.cssSelector("button[ng-click*='convertToProject']");
-	private By msgAvisoSistema = By.cssSelector("table.wideBox strong");
-	private By procesando = By.cssSelector("#procesando");
+	private By convertirBtn = By.cssSelector("[ng-bind-html*='com_convertirProyecto']");
+	private By convertirAProyectoBtn = By.cssSelector("button[ng-click*='convertToProject']");
+	private By msgAvisoSistemaTxt = By.cssSelector("table.wideBox strong");
+	private By procesandoModal = By.cssSelector("#procesando");
 	// endregion
 
 	public DetallesRiesgoPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region methods
+	// region Methods
+	public DetallesRiesgoPage waitProcesando() {
+		debugBegin();
 
-	public DetallesRiesgoPage waitProcesando() throws Exception {
-
-		System.out.println("Espero a ver procesando...");
+		debugInfo("Se espera al mensaje \"procesando\"");
 		webDriver.waitWithDriver(7000);
 
-		while(this.webDriver.isPresent(procesando)) {
-			System.out.println("Lo veo");
+		while(this.webDriver.isPresent(procesandoModal)) {
+			debugInfo("Se muestra mensaje \"procesando\"");
 			webDriver.waitWithDriver(1500);
 		}
 
-		System.out.println("No veo procesando...");
-
-		// System.out.println("Esperando a angular...");
-		// this.webDriver.waitForAngular();
+		debugEnd();
 
 		return this;
 	}
 
-	public DetallesRiesgoPage clickOnConvertirProyectoDos() throws Exception {
+	public DetallesRiesgoPage clickConvertirProyectoDos() {
 		debugBegin();
 
 		webDriver.waitWithDriver(4000);
-		webDriver.clickInFrame(btnConvertirAProyecto, cuerpoFrame);
+		webDriver.clickInFrame(convertirAProyectoBtn, cuerpoFrame);
 
-		if(webDriver.isPresentInFrame(msgAvisoSistema, cuerpoFrame)) {
-			debugInfo("*** Excepción general al convertir a proyecto.");
+		if(webDriver.isPresentInFrame(msgAvisoSistemaTxt, cuerpoFrame)) {
+			debugInfo("Excepción general al convertir a proyecto.");
 		}
 
 		debugEnd();
@@ -120,106 +97,15 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage executeActionsInPageDetallesRiesgoPage() throws Exception {
+	public DetallesRiesgoPage clickConvertirProyecto() {
 		debugBegin();
 
-		CheckAvisoGarajes();
-		GetCapitales();
-		completarDatosRiesgo();
-		ModificarDatosRiesgo();
-		clickOnContinuar();
-
-		debugEnd();
-
-		return this;
-	}
-
-	public DetallesRiesgoPage completarDatosEnDetallesRiesgo() throws Exception {
-		debugBegin();
-
-		// CheckAvisoGarajes();
-		// GetCapitales();
-		completarDatosRiesgo();
-		clickOnContinuar();
-
-		debugEnd();
-
-		return this;
-	}
-
-	public void clickOnConvertirProyecto() throws Exception {
-		debugBegin();
-		System.out.println("TOKEN A");
-		this.webDriver.scrollToBottom();
-		System.out.println("TOKEN B");
-		this.webDriver.waitWithDriver(16000);
-		System.out.println("TOKEN C");
-		this.webDriver.clickInFrame(this.btnConvertir, this.cuerpoFrame);
-		// this.webDriver.waitForElementToBeClickableAndClick(this.btnConvertir);
-		System.out.println("TOKEN D");
+		this.webDriver.scrollToBottomInFrame(cuerpoFrame);
 		this.webDriver.waitWithDriver(8000);
-		System.out.println("TOKEN E");
-		debugEnd();
-	}
 
-	public DetallesRiesgoPage completarDatosEnDetallesRiesgoMinimos() throws Exception {
-		debugBegin();
+		this.webDriver.clickInFrame(convertirBtn, cuerpoFrame);
 
-		// CheckAvisoGarajes();
-		// GetCapitales();
-		completarDatosRiesgoMinimos();
-		clickOnContinuar();
-		// clickOnConvertirProyectoDos();
-
-		debugEnd();
-
-		return this;
-	}
-
-	public DetallesRiesgoPage modificarDatosEnDetallesRiesgo() {
-		debugBegin();
-
-		CheckAvisoGarajes();
-		GetCapitales();
-		ModificarDatosRiesgo();
-		clickOnContinuar();
-
-		debugEnd();
-
-		return this;
-	}
-
-	public DetallesRiesgoPage ExecuteActionsInPageDetallesRiesgoPageWithoutClickinOnContinue() throws Exception {
-		debugBegin();
-
-		CheckAvisoGarajes();
-		GetCapitales();
-		completarDatosRiesgo();
-		ModificarDatosRiesgo();
-
-		debugEnd();
-
-		return this;
-	}
-
-	public DetallesRiesgoPage completarDatosEnDetallesRiesgoSinContinuar() throws Exception {
-		debugBegin();
-
-		CheckAvisoGarajes();
-		GetCapitales();
-		completarDatosRiesgo();
-
-		debugEnd();
-
-		return this;
-	}
-
-	public DetallesRiesgoPage modificarDatosEnDetallesRiesgoSinContinuar() {
-		debugBegin();
-
-		CheckAvisoGarajes();
-		GetCapitales();
-		ModificarDatosRiesgo();
+		this.webDriver.waitWithDriver(8000);
 
 		debugEnd();
 
@@ -257,8 +143,8 @@ public class DetallesRiesgoPage extends PageObject {
 		// webDriver.clickElementFromDropDownByText(cmbEdificioMadera,
 		// getTestVar("edificioMadera"));
 
-		webDriver.clickInFrame(edificioMaderaCmb, cuerpoFrame);
-		webDriver.clickInFrame(noMadera, cuerpoFrame);
+		webDriver.clickInFrame(edificioMaderaDrpDwn, cuerpoFrame);
+		webDriver.clickInFrame(noMaderaBtn, cuerpoFrame);
 		webDriver.waitWithDriver(4000);
 
 		// String deshabilitacion =
@@ -273,21 +159,17 @@ public class DetallesRiesgoPage extends PageObject {
 		// && !deshabilitacion.equals("")) { throw new Exception("El valor del
 		// campo deshabilitación no es blanco al entrar en la página"); }
 
-		webDriver.clickInFrame(deshabitacion, cuerpoFrame);
+		webDriver.clickInFrame(deshabitacionBtn, cuerpoFrame);
 		webDriver.waitWithDriver(4000);
-		webDriver.clickInFrame(deshabitacion75, cuerpoFrame);
+		webDriver.clickInFrame(deshabitacion75Btn, cuerpoFrame);
 		webDriver.waitWithDriver(4000);
 		// value = webDriver.getText(txtAnyoConstruccion);
 
 		/* AÑO DE CONSTRUCCION Y REHABILITACIONES */
-		webDriver.scrollToElementInFrame(txtAnyoConstruccion, cuerpoFrame);
-		webDriver.waitWithDriver(1000);
-		webDriver.clearTextInFrame(txtAnyoConstruccion, cuerpoFrame);
-		webDriver.appendTextInFrame(txtAnyoConstruccion, cuerpoFrame, "2000");
-		webDriver.waitWithDriver(1000);
+		webDriver.setTextInFrame(anyoConstruccionInput, cuerpoFrame, "2000");
 
 		/* SUPERFICIES */
-		value = webDriver.getTextInFrame(this.txtAnyoConstruccion, cuerpoFrame);
+		value = webDriver.getTextInFrame(anyoConstruccionInput, cuerpoFrame);
 
 		webDriver.waitWithDriver(3000);
 
@@ -297,32 +179,31 @@ public class DetallesRiesgoPage extends PageObject {
 	}
 
 	public String getCapitalContinente() {
-		return webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame);
+		return webDriver.getTextInFrame(capitalContinenteInput, cuerpoFrame);
 	}
 
 	public String getCapitalContenido() {
-		return webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame);
+		return webDriver.getTextInFrame(capitalContenidoTxt, cuerpoFrame);
 	}
 
 	public String getCapitalContinenteTotalAsegurado() {
-		return webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame);
+		return webDriver.getTextInFrame(capitalContinenteTotalAseguradoTxt, cuerpoFrame);
 	}
 
 	public DetallesRiesgoPage completarDatosRiesgo() throws Exception {
 		debugBegin();
 
 		// webDriver.clickElementFromDropDownByIndexInFrame(edifConstruccionMadera, cuerpoFrame, 1);
-		webDriver.clickInFrame(firstOptionEdifMad, cuerpoFrame);
+		webDriver.clickInFrame(firstOptionEdifMadOption, cuerpoFrame);
 
 		// webDriver.clickElementFromDropDownByIndexInFrame(edifConstruccionMadera, cuerpoFrame, 1);
 
-		webDriver.clickInFrame(cmbDeshabilitacion, cuerpoFrame);
+		webDriver.clickInFrame(deshabilitacionDrpDwn, cuerpoFrame);
 
 		// webDriver.switchToFrame(cuerpoFrame);
 
 		// if (testDataM.getCapitalContinente() != null)
-		if(getTestVar(Constants.CAPITAL_CONTINENTE) != null) {
-
+		if(getTestVar(Constants.CAPITAL_CONTINENTE) != null && !getTestVar(Constants.CAPITAL_CONTINENTE).isEmpty()) {
 			// if(Boolean.parseBoolean(getTestVar("capitalContinenteVariacion"))) {
 			// Double capitalContinenteModified =
 			// nf.parse(webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame)).doubleValue()
@@ -342,7 +223,7 @@ public class DetallesRiesgoPage extends PageObject {
 			// } else {
 			// webDriver.appendTextInFrame(txtCapitalContinente, cuerpoFrame,
 			// String.valueOf(getConfigVar("CapitalContinente")));
-			webDriver.appendTextInFrame(txtCapitalContinente, cuerpoFrame, getTestVar(Constants.CAPITAL_CONTINENTE));
+			webDriver.appendTextInFrame(capitalContinenteInput, cuerpoFrame, getTestVar(Constants.CAPITAL_CONTINENTE));
 			// webDriver.tabulateElementInFrame(txtCapitalContinente, cuerpoFrame);
 			// testDataM.setCapitalContinente(nf.parse(webDriver.getTextInFrame(txtCapitalContinente,
 			// cuerpoFrame)));
@@ -365,136 +246,144 @@ public class DetallesRiesgoPage extends PageObject {
 		// setTestVar("CapitalContenido", "capitalContenidoModified");
 		// }
 
-		String edificioMadera = webDriver.getTextInFrame(edificioMaderaCmb, cuerpoFrame);
+		String edificioMadera = webDriver.getTextInFrame(edificioMaderaDrpDwn, cuerpoFrame);
 
 		if(getTestVar(Constants.CONSTRUIDO_MADERA) != null && !getTestVar(Constants.CONSTRUIDO_MADERA).isEmpty()
 			&& !edificioMadera.equals(getTestVar(Constants.CONSTRUIDO_MADERA))) {
-			webDriver.clickElementFromDropDownByTextInFrame(edificioMaderaCmb, cuerpoFrame, getTestVar(Constants.CONSTRUIDO_MADERA));
+			webDriver.clickElementFromDropDownByTextInFrame(edificioMaderaDrpDwn, cuerpoFrame, getTestVar(Constants.CONSTRUIDO_MADERA));
 		} else if((getTestVar(Constants.CONSTRUIDO_MADERA) == null || getTestVar(Constants.CONSTRUIDO_MADERA).isEmpty())
 			&& !edificioMadera.isEmpty()) { throw new Exception("El valor del campo porcentaje edificio madera no es blanco al entrar en la página"); }
+
 		webDriver.waitWithDriver(2000);
 
 		String deshabitacionDatos = getTestVar(Constants.DESHABITACION);
-		String deshabilitacionWeb = webDriver.getTextInFrame(cmbDeshabilitacion, cuerpoFrame);
+		String deshabilitacionWeb = webDriver.getTextInFrame(deshabilitacionDrpDwn, cuerpoFrame);
 
 		if(deshabitacionDatos != null && !deshabitacionDatos.isEmpty() && !deshabilitacionWeb.equals(deshabitacionDatos)) {
-			webDriver.clickElementFromDropDownByTextInFrame(cmbDeshabilitacion, cuerpoFrame, getTestVar(Constants.DESHABITACION));
+			webDriver.clickElementFromDropDownByTextInFrame(deshabilitacionDrpDwn, cuerpoFrame, getTestVar(Constants.DESHABITACION));
 		} else if((deshabitacionDatos == null || deshabitacionDatos.isEmpty())
 			&& !deshabilitacionWeb.isEmpty()) { throw new Exception("El valor del campo deshabilitación no es blanco al entrar en la página"); }
 
-		String m2ContruidosTotales = webDriver.getTextInFrame(txtM2ContruidosTotales, cuerpoFrame);
-		if(m2ContruidosTotales.equals("") && getTestVar(Constants.M2_CONSTRUIDOS) != null) {
-			webDriver.appendTextInFrame(txtM2ContruidosTotales, cuerpoFrame, getTestVar(Constants.M2_CONSTRUIDOS));
+		String m2ContruidosTotales = webDriver.getTextInFrame(m2ContruidosTotalesInput, cuerpoFrame);
+		if(m2ContruidosTotales.isEmpty() && getTestVar(Constants.M2_CONSTRUIDOS) != null && !getTestVar(Constants.M2_CONSTRUIDOS).isEmpty()) {
+			webDriver.appendTextInFrame(m2ContruidosTotalesInput, cuerpoFrame, getTestVar(Constants.M2_CONSTRUIDOS));
 		}
 
-		String anyoConstruccion = webDriver.getTextInFrame(txtAnyoConstruccion, cuerpoFrame);
+		String anyoConstruccion = webDriver.getTextInFrame(anyoConstruccionInput, cuerpoFrame);
 
 		if(getTestVar(Constants.ANYO_CONSTRUIDO) != null && getTestVar(Constants.ANYO_CONSTRUIDO).equals(Constants.MayorDe50)) {
-			int year = Integer.parseInt(DateTimeFormatter.ofPattern("yyyy").format(LocalDate.now()));
+			int year = Integer.parseInt(DateUtils.getTodayDate("yyyy"));
 
-			webDriver.appendTextInFrame(txtAnyoConstruccion, cuerpoFrame, String.valueOf(year - 51));
+			webDriver.appendTextInFrame(anyoConstruccionInput, cuerpoFrame, String.valueOf(year - 51));
 		} else if(getTestVar(Constants.ANYO_CONSTRUIDO) != null && !anyoConstruccion.equals(getTestVar(Constants.ANYO_CONSTRUIDO))) {
-			int year = Integer.parseInt(DateTimeFormatter.ofPattern("yyyy").format(LocalDate.now()));
+			int year = Integer.parseInt(DateUtils.getTodayDate("yyyy"));
 
-			webDriver.appendTextInFrame(txtAnyoConstruccion, cuerpoFrame, String.valueOf(year - 49));
+			webDriver.appendTextInFrame(anyoConstruccionInput, cuerpoFrame, String.valueOf(year - 49));
 		}
 
-		String anyoRehabAguas = getTestVar(Constants.ANYO_REHAB_AGUAS) == null ? ""
-			: getTestVar(Constants.ANYO_REHAB_AGUAS);
+		String anyoRehabAguas = getTestVar(Constants.ANYO_REHAB_AGUAS) == null ? "" : getTestVar(Constants.ANYO_REHAB_AGUAS);
 
-		if(anyoRehabAguas.equals(String.valueOf(webDriver.getTextInFrame(txtAnyoConstruccion, cuerpoFrame)))
+		if(anyoRehabAguas.equals(webDriver.getTextInFrame(anyoConstruccionInput, cuerpoFrame))
 			&& getTestVar(Constants.NIVEL_REHAB_AGUAS) != null) {
-			int year = Integer.parseInt(webDriver.getTextInFrame(txtAnyoConstruccion, cuerpoFrame));
-			webDriver.appendTextInFrame(txtAnyoRehabAguas, cuerpoFrame, String.valueOf(year + 1));
-			webDriver
-				.clickElementFromDropDownByTextInFrame(cmbNivelRehabAguas, cuerpoFrame, getTestVar(anyoRehabAguas));
+			int year = Integer.parseInt(webDriver.getTextInFrame(anyoConstruccionInput, cuerpoFrame));
+
+			webDriver.appendTextInFrame(anyoRehabAguasInput, cuerpoFrame, String.valueOf(year + 1));
+			webDriver.clickElementFromDropDownByTextInFrame(nivelRehabAguasDrpDwn, cuerpoFrame, anyoRehabAguas);
 		}
 
-		String anyoRehabIntegral = getTestVar(Constants.ANYO_REHAB_INTEGRAL);
-
-		if(anyoRehabIntegral != null) {
-			webDriver.appendTextInFrame(txtAnyoRehabIntegral, cuerpoFrame, anyoRehabIntegral);
+		if(getTestVar(Constants.ANYO_REHAB_INTEGRAL) != null) {
+			webDriver.appendTextInFrame(anyoRehabIntegralInput, cuerpoFrame, getTestVar(Constants.ANYO_REHAB_INTEGRAL));
 		}
 
-		String m2Viviendas = webDriver.getTextInFrame(txtM2Viviendas, cuerpoFrame);
+		String m2Viviendas = webDriver.getTextInFrame(m2ViviendasInput, cuerpoFrame);
 
 		if(getTestVar(Constants.M2_VIVIENDAS) != null && !m2Viviendas.equals(getTestVar(Constants.M2_VIVIENDAS))) {
-			GetCapitales();
+			getCapitales();
 
-			GetValuesBefore();
+			getValuesBefore();
 
-			webDriver.appendTextInFrame(txtM2Viviendas, cuerpoFrame, getTestVar(Constants.M2_VIVIENDAS));
-			webDriver.tabulateElementInFrame(txtM2Viviendas, cuerpoFrame);
+			webDriver.appendTextInFrame(m2ViviendasInput, cuerpoFrame, getTestVar(Constants.M2_VIVIENDAS));
+			webDriver.tabulateElementInFrame(m2ViviendasInput, cuerpoFrame);
 
-			GetValuesAfter();
-			CompareValues(Constants.NotEqual, " variar el valor de m2 viviendas");
+			getValuesAfter();
+			compareValues(Constants.NotEqual, " variar el valor de m2 viviendas");
 		}
 
-		String m2Garajes = webDriver.getTextInFrame(txtM2Garajes, cuerpoFrame);
+		String m2Garajes = webDriver.getTextInFrame(m2GarajesInput, cuerpoFrame);
 
-		if(!m2Garajes.equals(getTestVar(Constants.M2_GARAJES)) && getTestVar(Constants.M2_GARAJES) != null) {
-			GetValuesBefore();
-			webDriver.appendTextInFrame(txtM2Garajes, cuerpoFrame, getTestVar(Constants.M2_GARAJES));
-			webDriver.tabulateElementInFrame(txtM2Garajes, cuerpoFrame);
-			GetValuesAfter();
-			CompareValues(Constants.NotEqual, " variar el valor de m2 garajes");
+		if(getTestVar(Constants.M2_GARAJES) != null && !m2Garajes.equals(getTestVar(Constants.M2_GARAJES))) {
+			getValuesBefore();
+
+			webDriver.appendTextInFrame(m2GarajesInput, cuerpoFrame, getTestVar(Constants.M2_GARAJES));
+			webDriver.tabulateElementInFrame(m2GarajesInput, cuerpoFrame);
+
+			getValuesAfter();
+
+			compareValues(Constants.NotEqual, " variar el valor de m2 garajes");
 		}
 
-		String m2Oficinas = webDriver.getTextInFrame(txtM2Oficinas, cuerpoFrame);
+		String m2Oficinas = webDriver.getTextInFrame(m2OficinasInput, cuerpoFrame);
 
-		if(!m2Oficinas.equals(getTestVar(Constants.M2_OFICINAS)) && getTestVar(Constants.M2_OFICINAS) != null) {
-			GetValuesBefore();
-			webDriver.appendTextInFrame(txtM2Oficinas, cuerpoFrame, getTestVar(Constants.M2_OFICINAS));
-			webDriver.tabulateElementInFrame(txtM2Oficinas, cuerpoFrame);
-			GetValuesAfter();
-			CompareValues(Constants.NotEqual, " variar el valor de m2 oficinas");
+		if(getTestVar(Constants.M2_OFICINAS) != null && !m2Oficinas.equals(getTestVar(Constants.M2_OFICINAS))) {
+			getValuesBefore();
+
+			webDriver.appendTextInFrame(m2OficinasInput, cuerpoFrame, getTestVar(Constants.M2_OFICINAS));
+			webDriver.tabulateElementInFrame(m2OficinasInput, cuerpoFrame);
+
+			getValuesAfter();
+
+			compareValues(Constants.NotEqual, " variar el valor de m2 oficinas");
 		}
 
-		String m2ZonasAjardinadas = webDriver.getTextInFrame(txtM2ZonasAjardinadas, cuerpoFrame);
+		String m2ZonasAjardinadas = webDriver.getTextInFrame(m2ZonasAjardinadasInput, cuerpoFrame);
 
-		if(!m2ZonasAjardinadas.equals(getTestVar(Constants.M2_ZONAS_AJARDINADAS)) && getTestVar(Constants.M2_ZONAS_AJARDINADAS) != null) {
-			webDriver.appendTextInFrame(txtM2ZonasAjardinadas, cuerpoFrame, getTestVar(Constants.M2_ZONAS_AJARDINADAS));
-			webDriver.tabulateElementInFrame(txtM2ZonasAjardinadas, cuerpoFrame);
-			GetValuesAfter();
-			CompareValues(Constants.NotEqual, " variar el valor de m2 zonas ajardinadas");
+		if(getTestVar(Constants.M2_ZONAS_AJARDINADAS) != null && !m2ZonasAjardinadas.equals(getTestVar(Constants.M2_ZONAS_AJARDINADAS))) {
+			webDriver.appendTextInFrame(m2ZonasAjardinadasInput, cuerpoFrame, getTestVar(Constants.M2_ZONAS_AJARDINADAS));
+			webDriver.tabulateElementInFrame(m2ZonasAjardinadasInput, cuerpoFrame);
+
+			getValuesAfter();
+
+			compareValues(Constants.NotEqual, " variar el valor de m2 zonas ajardinadas");
 		}
 
-		String numeroViviendas = webDriver.getTextInFrame(txtNoViviendas, cuerpoFrame);
+		String numeroViviendas = webDriver.getTextInFrame(numeroViviendasInput, cuerpoFrame);
+
 		if(getTestVar(Constants.NUM_VIVIENDAS) != null && !numeroViviendas.equals(getTestVar(Constants.NUM_VIVIENDAS))) {
-			webDriver.appendTextInFrame(txtNoViviendas, cuerpoFrame, getTestVar(Constants.NUM_VIVIENDAS));
+			webDriver.appendTextInFrame(numeroViviendasInput, cuerpoFrame, getTestVar(Constants.NUM_VIVIENDAS));
 		}
 
-		String numeroPlantasALto = webDriver.getTextInFrame(txtNumeroPlantasAlto, cuerpoFrame);
-		if(!numeroPlantasALto.equals(getTestVar(Constants.NUM_PLANTAS_ALTO)) && getTestVar(Constants.NUM_PLANTAS_ALTO) != null) {
-			webDriver.appendTextInFrame(txtNumeroPlantasAlto, cuerpoFrame, getTestVar(Constants.NUM_PLANTAS_ALTO));
+		String numeroPlantasAlto = webDriver.getTextInFrame(numeroPlantasAltoInput, cuerpoFrame);
+
+		if(getTestVar(Constants.NUM_PLANTAS_ALTO) != null && !numeroPlantasAlto.equals(getTestVar(Constants.NUM_PLANTAS_ALTO))) {
+			webDriver.appendTextInFrame(numeroPlantasAltoInput, cuerpoFrame, getTestVar(Constants.NUM_PLANTAS_ALTO));
 		}
 
-		String numeroPlantasSotano = webDriver.getTextInFrame(txtNumeroPlantasSotano, cuerpoFrame);
-		if(!numeroPlantasSotano.equals(getTestVar(Constants.NUM_PLANTAS_SOTANO)) && getTestVar(Constants.NUM_PLANTAS_SOTANO) != null) {
-			webDriver.appendTextInFrame(txtNumeroPlantasSotano, cuerpoFrame, getTestVar(Constants.NUM_PLANTAS_SOTANO));
+		String numeroPlantasSotano = webDriver.getTextInFrame(numeroPlantasSotanoInput, cuerpoFrame);
+
+		if(getTestVar(Constants.NUM_PLANTAS_SOTANO) != null && !numeroPlantasSotano.equals(getTestVar(Constants.NUM_PLANTAS_SOTANO))) {
+			webDriver.appendTextInFrame(numeroPlantasSotanoInput, cuerpoFrame, getTestVar(Constants.NUM_PLANTAS_SOTANO));
 		}
 
-		String numeroEdificios = webDriver.getTextInFrame(txtNumeroEdificios, cuerpoFrame);
-		if(!numeroEdificios.equals(getTestVar(Constants.NUM_EDIFICIOS)) && getTestVar(Constants.NUM_EDIFICIOS) != null) {
-			webDriver.appendTextInFrame(txtNumeroEdificios, cuerpoFrame, getTestVar(Constants.NUM_EDIFICIOS));
+		String numeroEdificios = webDriver.getTextInFrame(numeroEdificiosInput, cuerpoFrame);
+
+		if(getTestVar(Constants.NUM_EDIFICIOS) != null && !numeroEdificios.equals(getTestVar(Constants.NUM_EDIFICIOS))) {
+			webDriver.appendTextInFrame(numeroEdificiosInput, cuerpoFrame, getTestVar(Constants.NUM_EDIFICIOS));
 		}
 
 		if(Boolean.parseBoolean(getTestVar(Constants.GASOLINERA_MENOS_50M))) {
-			webDriver.clickInFrame(chkGasolineraMenos50M, cuerpoFrame);
+			webDriver.clickInFrame(gasolineraMenos50MBtn, cuerpoFrame);
 		}
 
 		if(Boolean.parseBoolean(getTestVar(Constants.CALEFACCION_CENTRAL))
-			&& !webDriver.isSelected(chkCalefaccionCentralAguaCalienteCentralizada)) {
-			webDriver.clickInFrame(chkCalefaccionCentralAguaCalienteCentralizada, cuerpoFrame);
+			&& !webDriver.isSelectedInFrame(calefaccionCentralAguaCalienteCentralizadaBtn, cuerpoFrame)) {
+			webDriver.clickInFrame(calefaccionCentralAguaCalienteCentralizadaBtn, cuerpoFrame);
 		}
 
 		if(Boolean.parseBoolean(getTestVar(Constants.DEPOSITO_COMBUSTIBLE))) {
-			webDriver.clickInFrame(chkDepositoCombustible, cuerpoFrame);
+			webDriver.clickInFrame(depositoCombustibleBtn, cuerpoFrame);
 		}
 
-		webDriver.clickInFrame(txtCapitalContinente, cuerpoFrame);
-		// webDriver.exitFrame();
-		// ModificarDatosActividadComercial();
+		webDriver.clickInFrame(capitalContinenteInput, cuerpoFrame);
 
 		debugEnd();
 
@@ -504,123 +393,116 @@ public class DetallesRiesgoPage extends PageObject {
 	// This function modifies the values of the fields located in the page. All the values are
 	// modified if they are different than the ones present
 	// in the object TestCasse Data inside the values whose variables start with Modified.
-	public DetallesRiesgoPage ModificarDatosRiesgo() {
+	public DetallesRiesgoPage modificarDatosRiesgo() {
 		debugBegin();
 
 		// Modify Año rehabilitación de aguas comunitarias
-		String anyoRehabAguas = webDriver.getTextInFrame(txtAnyoRehabAguas, cuerpoFrame);
-		String anyoConstruccion = webDriver.getTextInFrame(txtAnyoConstruccion, cuerpoFrame);
+		String anyoRehabAguas = webDriver.getTextInFrame(anyoRehabAguasInput, cuerpoFrame);
+		String anyoConstruccion = webDriver.getTextInFrame(anyoConstruccionInput, cuerpoFrame);
 
 		if(getTestVar(Constants.NIVEL_REHAB_AGUAS) != null) {
 			if(anyoRehabAguas.isEmpty()) {
-				webDriver.appendTextInFrame(txtAnyoRehabAguas, cuerpoFrame, String.valueOf(Integer.parseInt(anyoConstruccion) + 1));
-				webDriver.clickElementFromDropDownByTextInFrame(cmbNivelRehabAguas, cuerpoFrame, getTestVar(Constants.NIVEL_REHAB_AGUAS));
-				setTestVar(Constants.ANYO_REHAB_CONSTRUCCIONES, webDriver.getTextInFrame(txtAnyoRehabAguas, cuerpoFrame));
+				webDriver.appendTextInFrame(anyoRehabAguasInput, cuerpoFrame, String.valueOf(Integer.parseInt(anyoConstruccion) + 1));
+				webDriver.clickElementFromDropDownByTextInFrame(nivelRehabAguasDrpDwn, cuerpoFrame, getTestVar(Constants.NIVEL_REHAB_AGUAS));
+
+				setTestVar(Constants.ANYO_REHAB_CONSTRUCCIONES, webDriver.getTextInFrame(anyoRehabAguasInput, cuerpoFrame));
 			} else {
 				// If Año rehabilitación de aguas comunitarias is already present,
-				// then input Año rehabilitación de aguas comunitarias
-				// + 1. Required if we want to execute this test in the same week, before database reset.
-				webDriver.appendText(txtAnyoRehabAguas, String.valueOf(Integer.parseInt(anyoRehabAguas) + 1));
-				webDriver.clickElementFromDropDownByTextInFrame(cmbNivelRehabAguas, cuerpoFrame, getTestVar(Constants.NIVEL_REHAB_AGUAS));
-				setTestVar(Constants.ANYO_REHAB_CONSTRUCCIONES, webDriver.getTextInFrame(txtAnyoRehabAguas, cuerpoFrame));
+				// then input Año rehabilitación de aguas comunitarias + 1.
+				// Required if we want to execute this test in the same week, before database reset.
+				webDriver.appendText(anyoRehabAguasInput, String.valueOf(Integer.parseInt(anyoRehabAguas) + 1));
+				webDriver.clickElementFromDropDownByTextInFrame(nivelRehabAguasDrpDwn, cuerpoFrame, getTestVar(Constants.NIVEL_REHAB_AGUAS));
+
+				setTestVar(Constants.ANYO_REHAB_CONSTRUCCIONES, webDriver.getTextInFrame(anyoRehabAguasInput, cuerpoFrame));
 			}
 		}
 
-		String numeroEdificios = webDriver.getTextInFrame(txtNumeroEdificios, cuerpoFrame);
-		if(!numeroEdificios.equals(getTestVar(Constants.CAMBIO_NUM_EDIFICIOS)) && getTestVar(Constants.CAMBIO_NUM_EDIFICIOS) != null) {
-			webDriver.appendTextInFrame(txtNumeroEdificios, cuerpoFrame, getTestVar(Constants.CAMBIO_NUM_EDIFICIOS));
+		String numeroEdificios = webDriver.getTextInFrame(numeroEdificiosInput, cuerpoFrame);
+		if(getTestVar(Constants.CAMBIO_NUM_EDIFICIOS) != null && !numeroEdificios.equals(getTestVar(Constants.CAMBIO_NUM_EDIFICIOS))) {
+			webDriver.appendTextInFrame(numeroEdificiosInput, cuerpoFrame, getTestVar(Constants.CAMBIO_NUM_EDIFICIOS));
 		}
 
-		String numeroViviendas = webDriver.getTextInFrame(txtNoViviendas, cuerpoFrame);
-		if(!numeroViviendas.equals(getTestVar(Constants.CAMBIO_NUM_VIVIENDAS)) && getTestVar(Constants.CAMBIO_NUM_VIVIENDAS) != null) {
-			webDriver.appendTextInFrame(txtNoViviendas, cuerpoFrame, getTestVar(Constants.CAMBIO_NUM_VIVIENDAS));
+		String numeroViviendas = webDriver.getTextInFrame(numeroViviendasInput, cuerpoFrame);
+		if(getTestVar(Constants.CAMBIO_NUM_VIVIENDAS) != null && !numeroViviendas.equals(getTestVar(Constants.CAMBIO_NUM_VIVIENDAS))) {
+			webDriver.appendTextInFrame(numeroViviendasInput, cuerpoFrame, getTestVar(Constants.CAMBIO_NUM_VIVIENDAS));
 		}
 
-		String numeroLocales = webDriver.getTextInFrame(txtNumeroLocales, cuerpoFrame);
-		if(!numeroLocales.equals(getTestVar(Constants.CAMBIO_NUM_LOCALES)) && getTestVar(Constants.CAMBIO_NUM_LOCALES) != null) {
-			webDriver.appendTextInFrame(txtNumeroLocales, cuerpoFrame, getTestVar(Constants.CAMBIO_NUM_LOCALES));
+		String numeroLocales = webDriver.getTextInFrame(numeroLocalesInput, cuerpoFrame);
+		if(getTestVar(Constants.CAMBIO_NUM_LOCALES) != null && !numeroLocales.equals(getTestVar(Constants.CAMBIO_NUM_LOCALES))) {
+			webDriver.appendTextInFrame(numeroLocalesInput, cuerpoFrame, getTestVar(Constants.CAMBIO_NUM_LOCALES));
 		}
 
-		String m2ContruidosTotales = webDriver.getTextInFrame(txtM2ContruidosTotales, cuerpoFrame);
-		if(m2ContruidosTotales.equals(-1)) {
-			webDriver.appendTextInFrame(txtM2ContruidosTotales, cuerpoFrame, getTestVar(Constants.M2_CONSTRUIDOS));
+		// TODO Comprobar el .equals('-1') puede que no sea correcto
+		String m2ContruidosTotales = webDriver.getTextInFrame(m2ContruidosTotalesInput, cuerpoFrame);
+		if(getTestVar(Constants.M2_CONSTRUIDOS) != null && m2ContruidosTotales.equals("-1")) {
+			webDriver.appendTextInFrame(m2ContruidosTotalesInput, cuerpoFrame, getTestVar(Constants.M2_CONSTRUIDOS));
 		}
 
-		String m2Viviendas = webDriver.getTextInFrame(txtM2Viviendas, cuerpoFrame);
-		if(!m2Viviendas.equals(getTestVar(Constants.CAMBIO_M2_VIVIENDAS)) && getTestVar(Constants.CAMBIO_M2_VIVIENDAS) != null) {
-			GetValuesBefore();
-			webDriver.appendTextInFrame(txtM2Viviendas, cuerpoFrame, getTestVar(Constants.CAMBIO_M2_VIVIENDAS));
-			webDriver.tabulateElementInFrame(txtM2Viviendas, cuerpoFrame);
-			GetValuesAfter();
-			CompareValues(Constants.NotEqual, " variar el valor de m2 viviendas");
-			setTestVar(Constants.M2_CONSTRUIDOS, webDriver.getTextInFrame(txtM2ContruidosTotales, cuerpoFrame));
+		String m2Viviendas = webDriver.getTextInFrame(m2ViviendasInput, cuerpoFrame);
+		if(getTestVar(Constants.CAMBIO_M2_VIVIENDAS) != null && !m2Viviendas.equals(getTestVar(Constants.CAMBIO_M2_VIVIENDAS))) {
+			getValuesBefore();
+
+			webDriver.appendTextInFrame(m2ViviendasInput, cuerpoFrame, getTestVar(Constants.CAMBIO_M2_VIVIENDAS));
+			webDriver.tabulateElementInFrame(m2ViviendasInput, cuerpoFrame);
+
+			getValuesAfter();
+
+			compareValues(Constants.NotEqual, " variar el valor de m2 viviendas");
+
+			setTestVar(Constants.M2_CONSTRUIDOS, webDriver.getTextInFrame(m2ContruidosTotalesInput, cuerpoFrame));
 		}
 
-		String m2Garajes = webDriver.getTextInFrame(txtM2Viviendas, cuerpoFrame);
-		if(!m2Garajes.equals(getTestVar(Constants.CAMBIO_M2_GARAJES)) && getTestVar(Constants.CAMBIO_M2_GARAJES) != null) {
-			GetValuesBefore();
-			webDriver.appendTextInFrame(txtM2Garajes, cuerpoFrame, getTestVar(Constants.CAMBIO_M2_GARAJES));
-			webDriver.tabulateElementInFrame(txtM2Garajes, cuerpoFrame);
-			GetValuesAfter();
-			CompareValues(Constants.NotEqual, " variar el valor de m2 viviendas");
+		String m2Garajes = webDriver.getTextInFrame(m2ViviendasInput, cuerpoFrame);
+		if(getTestVar(Constants.CAMBIO_M2_GARAJES) != null && !m2Garajes.equals(getTestVar(Constants.CAMBIO_M2_GARAJES))) {
+			getValuesBefore();
+
+			webDriver.appendTextInFrame(m2GarajesInput, cuerpoFrame, getTestVar(Constants.CAMBIO_M2_GARAJES));
+			webDriver.tabulateElementInFrame(m2GarajesInput, cuerpoFrame);
+
+			getValuesAfter();
+
+			compareValues(Constants.NotEqual, " variar el valor de m2 viviendas");
 		}
 
-		String m2Oficinas = webDriver.getTextInFrame(txtM2Oficinas, cuerpoFrame);
-		if(!m2Oficinas.equals(getTestVar(Constants.CAMBIO_M2_OFICINAS)) && getTestVar(Constants.CAMBIO_M2_OFICINAS) != null) {
-			GetValuesBefore();
-			webDriver.appendTextInFrame(txtM2Oficinas, cuerpoFrame, getTestVar(Constants.CAMBIO_M2_OFICINAS));
-			webDriver.tabulateElementInFrame(txtM2Oficinas, cuerpoFrame);
-			GetValuesAfter();
-			CompareValues(Constants.NotEqual, " variar el valor de m2 oficinas");
+		String m2Oficinas = webDriver.getTextInFrame(m2OficinasInput, cuerpoFrame);
+		if(getTestVar(Constants.CAMBIO_M2_OFICINAS) != null && !m2Oficinas.equals(getTestVar(Constants.CAMBIO_M2_OFICINAS))) {
+			getValuesBefore();
+
+			webDriver.appendTextInFrame(m2OficinasInput, cuerpoFrame, getTestVar(Constants.CAMBIO_M2_OFICINAS));
+			webDriver.tabulateElementInFrame(m2OficinasInput, cuerpoFrame);
+
+			getValuesAfter();
+
+			compareValues(Constants.NotEqual, " variar el valor de m2 oficinas");
 		}
 
-		String m2ZonasAjardinadas = webDriver.getTextInFrame(txtM2ZonasAjardinadas, cuerpoFrame);
-		if(!m2ZonasAjardinadas.equals(getTestVar(Constants.CAMBIO_M2_ZONAS_AJARDINADAS)) && getTestVar(Constants.CAMBIO_M2_ZONAS_AJARDINADAS) != null) {
-			GetValuesBefore();
-			webDriver.appendTextInFrame(txtM2ZonasAjardinadas, cuerpoFrame, getTestVar(Constants.CAMBIO_M2_ZONAS_AJARDINADAS));
-			webDriver.tabulateElementInFrame(txtM2ZonasAjardinadas, cuerpoFrame);
-			GetValuesAfter();
-			CompareValues(Constants.NotEqual, " variar el valor de m2 zonas ajardinadas");
+		String m2ZonasAjardinadas = webDriver.getTextInFrame(m2ZonasAjardinadasInput, cuerpoFrame);
+		if(getTestVar(Constants.CAMBIO_M2_ZONAS_AJARDINADAS) != null && !m2ZonasAjardinadas.equals(getTestVar(Constants.CAMBIO_M2_ZONAS_AJARDINADAS))) {
+			getValuesBefore();
+
+			webDriver.appendTextInFrame(m2ZonasAjardinadasInput, cuerpoFrame, getTestVar(Constants.CAMBIO_M2_ZONAS_AJARDINADAS));
+			webDriver.tabulateElementInFrame(m2ZonasAjardinadasInput, cuerpoFrame);
+
+			getValuesAfter();
+
+			compareValues(Constants.NotEqual, " variar el valor de m2 zonas ajardinadas");
 		}
 
-		// ModificarDatosActividadComercial();
 		debugEnd();
 
 		return this;
 	}
 
-	// private DetallesRiesgoPage ModificarDatosActividadComercial()
-	// {
-	// logger.debug("BEGIN - ModificarDatosActividadComercial");
-	//
-	// webDriver.SwitchToFrame(cuerpoFrame);
-	// String m2ActividadComercial = webDriver.getText(txtM2Locales);
-	// if (Integer.valueOf(m2ActividadComercial.replace(".", "")) > 0)
-	// {
-	// webDriver.ClickOnWebElement(btnAnadirActividadComercial);
-	// webDriver.ClickOnWebElement(btnAnadir);
-	// webDriver.SendValueToWebElement(txtActividadDescripcion,
-	// MutuaPropietariosConstants.ActividadComercialDescripcion);
-	// webDriver.SendValueToWebElement(txtActividadPorcentaje,
-	// MutuaPropietariosConstants.ActividadComercialOPorcentaje);
-	// webDriver.SendValueToWebElement(txtActividadM2,
-	// m2ActividadComercial);
-	// webDriver.ClickOnWebElement(btnGuardarActividadesComerciales);
-	// }
-	// webDriver.exitFrame();
-	// logger.debug("END - ModificarDatosActividadComercial");
-	// }
-
-	private DetallesRiesgoPage GetCapitales() {
+	public DetallesRiesgoPage getCapitales() {
 		debugBegin();
 
 		webDriver.waitWithDriver(2000);
 
-		if(!webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame).isEmpty()) {
-			webDriver.scrollToBottom();
-			setTestVar(Constants.CAPITAL_TOTAL, webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame));
-			setTestVar(Constants.CAPITAL_CONTENIDO, webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame));
-			setTestVar(Constants.CAPITAL_CONTINENTE, webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame));
+		if(!webDriver.getTextInFrame(capitalContinenteTotalAseguradoTxt, cuerpoFrame).isEmpty()) {
+			webDriver.scrollToBottomInFrame(cuerpoFrame);
+			setTestVar(Constants.CAPITAL_TOTAL, webDriver.getTextInFrame(capitalContinenteTotalAseguradoTxt, cuerpoFrame));
+			setTestVar(Constants.CAPITAL_CONTENIDO, webDriver.getTextInFrame(capitalContenidoTxt, cuerpoFrame));
+			setTestVar(Constants.CAPITAL_CONTINENTE, webDriver.getTextInFrame(capitalContinenteInput, cuerpoFrame));
 		}
 
 		debugEnd();
@@ -628,33 +510,7 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	// private boolean IsCapitalesVaried()
-	// {
-	// logger.debug("BEGIN - IsCapitalesVaried");
-	// Double CapitalTotalAseguradoSavedValue = CapitalTotalAsegurado;
-	// Double CapitalContenidoSavedValue = CapitalContenido;
-	// Double CapitalContinenteSavedValue = CapitalContinente;
-	//
-	// Double CapitalTotalAseguradoTemp =
-	// nf.parse(webDriver.getText(txtCapitalContinenteTotalAsegurado)).doubleValue();
-	// Double CapitalContenidoTemp =
-	// nf.parse(webDriver.getText(txtCapitalContenido)).doubleValue();
-	// Double CapitalContinenteTemp =
-	// nf.parse(webDriver.getText(txtCapitalContinente)).doubleValue();
-	//
-	// logger.debug("END - IsCapitalesVaried");
-	//
-	// if (CapitalTotalAseguradoSavedValue == CapitalTotalAseguradoTemp &&
-	// CapitalContenidoSavedValue
-	// == CapitalContenidoTemp
-	// && CapitalContinenteSavedValue == CapitalContinenteTemp)
-	// {
-	// return true;
-	// }
-	// return false;
-	// }
-
-	private DetallesRiesgoPage CheckForInfraseguroOrSupraSeguro() {
+	public DetallesRiesgoPage checkForInfraseguroOrSupraSeguro() {
 		debugBegin();
 
 		// Double CapitalTotalAsegurado = nf
@@ -663,7 +519,7 @@ public class DetallesRiesgoPage extends PageObject {
 		// Double CapitalContenido =
 		// nf.parse(webDriver.getText(txtCapitalContenido))
 		// .doubleValue();
-		Double capitalContiente = Double.parseDouble(webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame));
+		Double capitalContiente = Double.parseDouble(webDriver.getTextInFrame(capitalContinenteInput, cuerpoFrame));
 
 		if(capitalContiente > Double.parseDouble(getTestVar(Constants.CAPITAL_CONTINENTE))) {
 			setTestVar(Constants.INFRA_SEGURO, "true");
@@ -676,7 +532,7 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage clickOnContinuar() {
+	public DetallesRiesgoPage clickContinuar() {
 		debugBegin();
 		// CheckForInfraseguroOrSupraSeguro();
 		// cuerpoFrame.click();
@@ -685,7 +541,7 @@ public class DetallesRiesgoPage extends PageObject {
 
 		webDriver.waitWithDriver(8000);
 
-		webDriver.clickInFrame(btnContinuar, cuerpoFrame);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		webDriver.waitWithDriver(8000);
 
@@ -721,25 +577,25 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage GetValuesBefore() {
-		if(!webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame).isEmpty()) {
-			setTestVar(Constants.CAPITAL_CONTENIDO_ANTES, webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame));
-			setTestVar(Constants.CAPITAL_CONTINENTE_ANTES, webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame));
-			setTestVar(Constants.CAPITAL_TOTAL_ANTES, webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame));
+	public DetallesRiesgoPage getValuesBefore() {
+		if(!webDriver.getTextInFrame(capitalContinenteTotalAseguradoTxt, cuerpoFrame).isEmpty()) {
+			setTestVar(Constants.CAPITAL_CONTENIDO_ANTES, webDriver.getTextInFrame(capitalContenidoTxt, cuerpoFrame));
+			setTestVar(Constants.CAPITAL_CONTINENTE_ANTES, webDriver.getTextInFrame(capitalContinenteInput, cuerpoFrame));
+			setTestVar(Constants.CAPITAL_TOTAL_ANTES, webDriver.getTextInFrame(capitalContinenteTotalAseguradoTxt, cuerpoFrame));
 		}
 
 		return this;
 	}
 
-	public DetallesRiesgoPage GetValuesAfter() {
-		setTestVar(Constants.CAPITAL_CONTENIDO_DESPUES, webDriver.getTextInFrame(txtCapitalContenido, cuerpoFrame));
-		setTestVar(Constants.CAPITAL_CONTINENTE_DESPUES, webDriver.getTextInFrame(txtCapitalContinente, cuerpoFrame));
-		setTestVar(Constants.CAPITAL_TOTAL_DESPUES, webDriver.getTextInFrame(txtCapitalContinenteTotalAsegurado, cuerpoFrame));
+	public DetallesRiesgoPage getValuesAfter() {
+		setTestVar(Constants.CAPITAL_CONTENIDO_DESPUES, webDriver.getTextInFrame(capitalContenidoTxt, cuerpoFrame));
+		setTestVar(Constants.CAPITAL_CONTINENTE_DESPUES, webDriver.getTextInFrame(capitalContinenteInput, cuerpoFrame));
+		setTestVar(Constants.CAPITAL_TOTAL_DESPUES, webDriver.getTextInFrame(capitalContinenteTotalAseguradoTxt, cuerpoFrame));
 
 		return this;
 	}
 
-	public DetallesRiesgoPage CompareValues(String comparisonType, String modification) {
+	public DetallesRiesgoPage compareValues(String comparisonType, String modification) {
 		Double capitalContenidoBefore = Double.parseDouble(getTestVar(Constants.CAPITAL_CONTENIDO_ANTES));
 		Double capitalContenidoAfter = Double.parseDouble(getTestVar(Constants.CAPITAL_CONTENIDO_DESPUES));
 		Double capitalContinenteBefore = Double.parseDouble(getTestVar(Constants.CAPITAL_CONTINENTE_ANTES));
@@ -749,7 +605,6 @@ public class DetallesRiesgoPage extends PageObject {
 
 		switch(comparisonType) {
 			case Constants.NotEqual:
-
 				if(capitalContenidoBefore == capitalContenidoAfter
 					|| capitalContinenteBefore == capitalContinenteAfter
 					|| capitalTotalBefore == capitalTotalAfter) {
@@ -775,15 +630,15 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage CheckAvisoGarajes() {
+	public DetallesRiesgoPage checkAvisoGarajes() {
 		debugBegin();
 
 		if(Boolean.parseBoolean(getTestVar(Constants.ASEGURAR_UNICAMENTE_GARAJES))) {
-			if(webDriver.getElements(lblAvisoGarajes).size() != 1) {
+			if(webDriver.getElementsInFrame(avisoGarajesTxt, cuerpoFrame).size() != 1) {
 				setTestVar(Constants.SIN_MENSAJE_AVISO_GARAJES, "true");
 			}
 
-			webDriver.clickInFrame(btnAceptar, cuerpoFrame);
+			webDriver.clickInFrame(aceptarBtn, cuerpoFrame);
 		}
 
 		debugEnd();
@@ -791,11 +646,11 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage CheckAvisoNoTieneRefCatastral() {
+	public DetallesRiesgoPage checkAvisoNoTieneRefCatastral() {
 		debugBegin();
 
-		if(webDriver.isPresentInFrame(avisoNoTieneRefCatastral, cuerpoFrame)) {
-			webDriver.clickInFrame(btnAceptar, cuerpoFrame);
+		if(webDriver.isPresentInFrame(avisoNoTieneRefCatastralTxt, cuerpoFrame)) {
+			webDriver.clickInFrame(aceptarBtn, cuerpoFrame);
 		}
 
 		debugEnd();
@@ -803,7 +658,7 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public DetallesRiesgoPage CheckAvisoGarajesWithException() {
+	public DetallesRiesgoPage checkAvisoGarajesWithException() {
 		debugBegin();
 
 		if(Boolean.parseBoolean(getTestVar(Constants.ASEGURAR_UNICAMENTE_GARAJES))
@@ -816,40 +671,38 @@ public class DetallesRiesgoPage extends PageObject {
 		return this;
 	}
 
-	public boolean IsFieldEnabled(String fieldName) {
+	public boolean isFieldEnabled(String fieldName) {
 		boolean result = false;
-
-		webDriver.switchToFrame(cuerpoFrame);
 
 		switch(fieldName) {
 			case "M2 Trasteros":
-				if(webDriver.isEnabled(txtM2Trasteros)) {
+				if(webDriver.isEnabledInFrame(txtM2Trasteros, cuerpoFrame)) {
 					result = true;
 				}
 
 				break;
 			case "No plantas bajo rasante":
-				if(webDriver.isEnabled(txtNumeroPlantasSotano)) {
+				if(webDriver.isEnabledInFrame(numeroPlantasSotanoInput, cuerpoFrame)) {
 					result = true;
 				}
 
 				break;
 			case "No plantas en alto":
-				if(webDriver.isEnabled(txtNumeroPlantasAlto)) {
+				if(webDriver.isEnabledInFrame(numeroPlantasAltoInput, cuerpoFrame)) {
 					result = true;
 				}
 
 				break;
 			case "M2 Garajes":
 				// isDisplayed
-				if(webDriver.isPresent(txtM2Garajes)) {
+				if(webDriver.isEnabledInFrame(m2GarajesInput, cuerpoFrame)) {
 					result = true;
 				}
 
 				break;
 			case "No Plazas de garaje":
 				// isDisplayed
-				if(webDriver.isPresent(txtNumPlazasGaraje)) {
+				if(webDriver.isEnabledInFrame(txtNumPlazasGaraje, cuerpoFrame)) {
 					result = true;
 				}
 
@@ -857,15 +710,13 @@ public class DetallesRiesgoPage extends PageObject {
 			default:
 		}
 
-		webDriver.exitFrame();
-
 		return result;
 	}
 
 	public DetallesRiesgoPage enterAnyoConstruccionMoreThan50() {
-		int year = Integer.parseInt(DateTimeFormatter.ofPattern("yyyy").format(LocalDate.now()));
+		int year = Integer.parseInt(DateUtils.getTodayDate("yyyy"));
 
-		webDriver.appendTextInFrame(txtAnyoConstruccion, cuerpoFrame, String.valueOf(year - 51));
+		webDriver.appendTextInFrame(anyoConstruccionInput, cuerpoFrame, String.valueOf(year - 51));
 
 		return this;
 	}

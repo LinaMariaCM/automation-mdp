@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 
 public class ComunicacionSiniestrosPage extends PageObject {
 
@@ -12,14 +13,14 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	private By capaIframe = By.cssSelector("#capaIframe");
 	private By textoFrame = By.cssSelector("#mce_0_ifr");
 
-	private By comunicacion = By.cssSelector("#jt6");
+	private By comunicacionBtn = By.cssSelector("[href*='codmenu=SINI_COMUNICACION']");
 
 	private By nuevaComuni = By.cssSelector("#tr0 a.si-arrow-right");
 	//#tr0 > td:nth-child(4) > a
 
-	private By altaAnotacion = By.cssSelector("li.js-action:nth-child(1) > a:nth-child(1");
+	private By altaAnotacionBtn = By.cssSelector("li.js-action:nth-child(1) > a:nth-child(1");
 
-	private By anyadirNuevaAnotacion = By.cssSelector(".js-toggleblockparam");
+	private By anyadirNuevaAnotacionBtn = By.cssSelector(".js-toggleblockparam");
 
 	// 1.Medio de envío alta comunicacion
 	private By medioEnvio = By.cssSelector("#medio");
@@ -31,24 +32,23 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	private By destino = By.cssSelector("#desti");
 	private By destinoElemento = By.cssSelector("#desti > option");
 
-	// datos medio de envio
-	private By nombre = By.cssSelector("#nombre");
-	private By email = By.id("email");
+	// Datos medio de envio
+	private By nombreInput = By.cssSelector("#nombre");
+	private By emailInput = By.id("email");
 
 	private By via = By.cssSelector("#tipovia");
 	private By domicilio = By.cssSelector("#domicilio");
 	private By numero = By.cssSelector("#numdomi");
 	private By cp = By.cssSelector("#cp");
 
-	// nuevos destinatarios
+	// Nuevos destinatarios
 	private By nombreNuevo = By.id("nombreNew");
 	private By emailNuevo = By.id("mailNew");
 	private By btnAnyadirNuevo = By.cssSelector(".secondButton");
 
-	private By continuar = By.cssSelector("input.mainButton");
+	private By continuarBtn = By.cssSelector("input.mainButton");
 
-	// cumplimentacion
-
+	// Cumplimentacion
 	private By asunto = By.cssSelector("#email");
 	private By modelo = By.cssSelector("#dcarplan");
 	private By modificarSi = By.cssSelector("#modiConteSi");
@@ -57,11 +57,10 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	private By check = By.cssSelector("#check_Doc_0"); // el numero final del selector indica la final que esta
 														// disponible
 	private By lupa = By.cssSelector("tr.odd span"); // es la lupa de la primera fila
-	private By enviar = By.cssSelector("#botonContinuar");
+	private By enviarBtn = By.cssSelector("#botonContinuar");
 
 	// 2.Cumplimentación
 	// Medio de envío
-
 	private By AsuntoMail = By.cssSelector("#email");
 	private By ModeloMail = By.id("dcarplan");
 
@@ -69,20 +68,17 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	private By rdsButtonModificarNo = By.id("modiConteNo");
 
 	// Contenido de la carta
-
-	private By contenidoCarta = By.id("tinymce");
+	private By contenidoCartaInput = By.id("tinymce");
 
 	// Añadir nueva anotacion
-	private By tituloNuevaAnotacion = By.cssSelector("div.sis-col-100:nth-child(1) > div:nth-child(2) > select:nth-child(1)");
-	private By comentarioNuevaAnotacion = By.cssSelector("#comentario");
+	private By tituloNuevaAnotacionBtn = By.cssSelector("div.sis-col-100:nth-child(1) > div:nth-child(2) > select:nth-child(1)");
+	private By comentarioNuevaAnotacionBtn = By.cssSelector("#comentario");
 	private By ConfidencialidadAnotacion = By.cssSelector("div.sis-col-100:nth-child(5) > div:nth-child(2) > select:nth-child(1)");
-	private By grabarAnotacion = By.cssSelector("#botonContinuar2");
-	private By confidencialAnotacion = By.cssSelector("div.sis-col-100:nth-child(5) > div:nth-child(2) > select:nth-child(1)");
-	private By btnCancelarAnotacion = By.cssSelector("#botonCancelar");
-
+	private By grabarAnotacionBtn = By.cssSelector("#botonContinuar2");
+	private By confidencialAnotacionDropDwn = By.cssSelector("div.sis-col-100:nth-child(5) > div:nth-child(2) > select:nth-child(1)");
+	private By cancelarAnotacionBtn = By.cssSelector("#botonCancelar");
 	// END REGION
 
-	// Constructor
 	public ComunicacionSiniestrosPage(UserStory userS) {
 		super(userS);
 	}
@@ -122,8 +118,7 @@ public class ComunicacionSiniestrosPage extends PageObject {
 		
 		// 2.Cumplimentación
 
-		// Medio de envío
-		// Autorrellenado
+		// Medio de envío Autorrellenado
 
 		// Contenido de la carta
 		webDriver.setTextInFrame(contenidoCarta, textoFrame, "Yo he visto cosas que vosotros no creeríais." +
@@ -134,27 +129,36 @@ public class ComunicacionSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(enviar, cuerpoFrame);
 		//webDriver.exitFrame();		
 		debugEnd();
+
 		return this;
 	}
 
 	public ComunicacionSiniestrosPage nuevaAnotacion() {
 		debugBegin();
 
-		webDriver.clickInFrame(altaAnotacion, cuerpoFrame);
+		webDriver.clickInFrame(altaAnotacionBtn, cuerpoFrame);
+		
+		webDriver.waitWithDriver(3000);
+		
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(capaIframe);
+		
+		webDriver.click(anyadirNuevaAnotacionBtn);
 
-		webDriver.clickInFrame(anyadirNuevaAnotacion, capaIframe);
+		webDriver.clickElementFromDropDownByAttribute(tituloNuevaAnotacionBtn, "value", "Otros");
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(tituloNuevaAnotacion, capaIframe, "value", "Otros");
+		setTestVar(Constants.COMENTARIO_ANOTACION, "Ipsum sum, Lorem lorem, Factum factum.");
+		debugInfo("Comentario: " + getTestVar(Constants.COMENTARIO_ANOTACION));
+		webDriver.setText(comentarioNuevaAnotacionBtn, getTestVar(Constants.COMENTARIO_ANOTACION));
 
-		webDriver.setTextInFrame(comentarioNuevaAnotacion, capaIframe, "Ipsum sum, Lorem lorem, Factum factum.");
+		webDriver.clickElementFromDropDownByAttribute(confidencialAnotacionDropDwn, "value", "VIGLOBAL");
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(confidencialAnotacion, capaIframe, "value", "VIGLOBAL");
-
-		webDriver.clickInFrame(btnCancelarAnotacion, capaIframe);
+		webDriver.click(grabarAnotacionBtn);
+		
+		webDriver.exitFrame();
 
 		debugEnd();
+
 		return this;
 	}
-
-	// END
-}
+} // END

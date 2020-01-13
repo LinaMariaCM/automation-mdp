@@ -5,49 +5,49 @@ import java.io.IOException;
 
 public interface IApplicationAccessHelper {
 
-	public void CreateProject();
+	void CreateProject();
 
-	public void CreateSimulation();
+	void CreateSimulation();
 
-	public void login(
+	void login(
 		String userId, String password) throws Exception;
 
-	public void OpenMutuaEdificioConfort() throws AWTException, InterruptedException, IOException;
+	void OpenMutuaEdificioConfort() throws AWTException, InterruptedException, IOException;
 
-	public void OpenMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException;
+	void OpenMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException;
 
-	public void openGestionCotizaciones() throws AWTException, InterruptedException, IOException;
+	void openGestionCotizaciones() throws AWTException, InterruptedException, IOException;
 
-	public void searchCotizacion(
+	void searchCotizacion(
 		String cotizacion) throws AWTException, InterruptedException, IOException;
 
-	public void OpenGestionPolizas();
+	void OpenGestionPolizas();
 
-	public void SearchPolizaByPolizaNumber(
+	void SearchPolizaByPolizaNumber(
 		String poliza);
 
-	public void SearchPolizaByNifNie(
+	void SearchPolizaByNifNie(
 		String nifNie);
 
-	public void LoginAndCreateProjectMEC(
+	void LoginAndCreateProjectMEC(
 		String userId, String password) throws Exception;
 
-	public void LoginAndCreateProjectMAC(
+	void LoginAndCreateProjectMAC(
 		String userId, String password) throws Exception;
 
-	public void LoginAndCreateSimulation(
+	void LoginAndCreateSimulation(
 		String userId, String password) throws Exception;
 
-	public void loginAndSearchCotizacion(
+	void loginAndSearchCotizacion(
 		String userId, String password, String cotizacion) throws Exception;
 
-	public void LoginAndSearchAutorizacion(
+	void LoginAndSearchAutorizacion(
 		String userId, String password) throws Exception;
 
-	public void LoginAndSearchPolizaByPolizaNumber(
+	void LoginAndSearchPolizaByPolizaNumber(
 		String userId, String password, String poliza) throws Exception;
 
-	public void LoginAndSearchPolizaByNifNie(
+	void LoginAndSearchPolizaByNifNie(
 		String userId, String password, String nifNie) throws Exception;
 
 	// static IApplicationAccessHelper initialize(

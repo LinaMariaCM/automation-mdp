@@ -12,13 +12,13 @@ public class OtrosImplicadosAltaSiniestrosPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 
 	// #### DATOS DEL ASEGURADO ####
-	private By btnAnotaciones = By.cssSelector("#enlaceDialogo > span");
-	private By btnAnadirNuevoImplicado = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(4) > a > span");
-	private By btnVolverAlBuscador = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
-	private By btnGuardarSalir = By.id("botonGuardar");
-	private By btnContinuar = By.id("botonContinuar");
-	private By btnModificar = By.cssSelector("#listaImplicados > table.grid.narrowBox > tbody > tr.odd > td:nth-child(5) > a > span");
-	private By btnBorrar = By.cssSelector("##listaImplicados > table.grid.narrowBox > tbody > tr.odd > td:nth-child(6) > a > span");
+	private By anotacionesBtn = By.cssSelector("#enlaceDialogo > span");
+	private By anyadirNuevoImplicadoBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(4) > a > span");
+	private By volverAlBuscadorBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li.rightList > a > span");
+	private By guardarSalirBtn = By.id("botonGuardar");
+	private By continuarBtn = By.id("botonContinuar");
+	private By modificarBtn = By.cssSelector("#listaImplicados > table.grid.narrowBox > tbody > tr.odd > td:nth-child(5) > a > span");
+	private By borrarBtn = By.cssSelector("##listaImplicados > table.grid.narrowBox > tbody > tr.odd > td:nth-child(6) > a > span");
 	// endregion
 
 	public OtrosImplicadosAltaSiniestrosPage(UserStory userS) {
@@ -28,10 +28,9 @@ public class OtrosImplicadosAltaSiniestrosPage extends PageObject {
 	// region Methods
 	public OtrosImplicadosAltaSiniestrosPage clickNuevoImplicado() {
 		debugBegin();
-		webDriver.waitWithDriver(5000);
-		// webDriver.clickInFrame(btnContinuar, cuerpoFrame);
-		webDriver.waitWithDriver(9000);
-		webDriver.clickInFrame(btnAnadirNuevoImplicado, cuerpoFrame);
+		
+		webDriver.waitWithDriver(10000);
+		webDriver.clickInFrame(anyadirNuevoImplicadoBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 
 		debugEnd();
@@ -41,7 +40,7 @@ public class OtrosImplicadosAltaSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosAltaSiniestrosPage clickContinuar() {
 		debugBegin();
-		webDriver.click(btnContinuar);
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -49,7 +48,7 @@ public class OtrosImplicadosAltaSiniestrosPage extends PageObject {
 
 	public OtrosImplicadosAltaSiniestrosPage clickGuardarSalir() {
 		debugBegin();
-		webDriver.click(btnGuardarSalir);
+		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

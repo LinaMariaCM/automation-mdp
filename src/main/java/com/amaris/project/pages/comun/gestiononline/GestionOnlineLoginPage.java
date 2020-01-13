@@ -6,31 +6,28 @@ import com.amaris.automation.model.testing.objects.PageObject;
 
 public class GestionOnlineLoginPage extends PageObject {
 
-	// region webelements
-	private By txtUserId = By.id("username");
-	private By txtPassword = By.id("password");
-	private By btnEntrar = By.cssSelector("button.btn.btn-primary");
-	private By btnAceptar = By.cssSelector("#ca_banner > div.accept");
+	// region WebElements
+	private By userIdInput = By.id("username");
+	private By passwordInput = By.id("password");
+	private By entrarBtn = By.cssSelector("button.btn.btn-primary");
+	private By aceptarBtn = By.cssSelector("#ca_banner > div.accept");
 	// endregion
 
 	public GestionOnlineLoginPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region methods
-
+	// region Methods
 	public GestionOnlineLoginPage login(String userId, String password) {
 		debugBegin();
 
-		// Enter username and password
-		webDriver.appendText(txtUserId, userId);
+		webDriver.appendText(userIdInput, userId);
+		webDriver.appendText(passwordInput, password);
+		
+		webDriver.click(entrarBtn);
 
-		webDriver.appendText(txtPassword, password);
-		webDriver.click(btnEntrar);
-
-		// Accept cookies popup
-		webDriver.click(btnAceptar);
-		// webDriver.setWaitForAngular(true);
+		webDriver.click(aceptarBtn);
+		
 		debugEnd();
 
 		return this;

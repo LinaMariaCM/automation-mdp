@@ -1,8 +1,5 @@
 package com.amaris.project.utils;
 
-import java.awt.AWTException;
-import java.io.IOException;
-
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.pages.comun.innova.InnovaHomePage;
@@ -88,7 +85,7 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 	}
 
 	@Override
-	public void OpenMutuaEdificioConfort() throws AWTException, InterruptedException {
+	public void OpenMutuaEdificioConfort() {
 		this.innovaHomePage.openMutuaEdificioConfort();
 	}
 
@@ -105,7 +102,7 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 
 	@Override
 	public void OpenGestionPolizas() {
-		this.innovaHomePage.OpenGestionPolizas();
+		this.innovaHomePage.openGestionPolizas();
 	}
 
 	@Override
@@ -168,7 +165,7 @@ public class InnovaApplicationAccessHelper extends PageObject implements IApplic
 	}
 
 	@Override
-	public void OpenMutuaAlquilerConfort() throws AWTException, InterruptedException, IOException {
+	public void OpenMutuaAlquilerConfort() {
 		this.innovaHomePage.OpenMutuaAlquilerConfort();
 
 	}

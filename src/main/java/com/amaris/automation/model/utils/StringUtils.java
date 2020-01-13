@@ -82,7 +82,7 @@ public class StringUtils {
 	public static String snakeCaseToNatural(String snakeCaseText) {
 		String result = snakeCaseText;
 
-		if(!result.isEmpty()) {
+		if(result != null && !result.isEmpty()) {
 			result = result.substring(0, 1).toUpperCase() + snakeCaseText.substring(1).toLowerCase().replace("_", " ");
 		}
 

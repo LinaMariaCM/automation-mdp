@@ -17,9 +17,9 @@ import com.amaris.project.pages.productos.GestionCotizacionesBuscadorPage;
 import com.amaris.project.pages.productos.GestionPolizasBuscadorPage;
 import com.amaris.project.pages.productos.GestionPolizasConsultarPage;
 import com.amaris.project.pages.productos.MensajeConfirmacionPage;
-import com.amaris.project.pages.productos.mac.ContratacionPage_MAC;
-import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMAC;
-import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMAC;
+import com.amaris.project.pages.productos.mac.ContratacionPageMac;
+import com.amaris.project.pages.productos.mac.InquilinosAvalistasPageMac;
+import com.amaris.project.pages.productos.mac.PrecioPorModalidadPageMac;
 
 public class CheckSteps extends InteractionObject {
 
@@ -58,24 +58,25 @@ public class CheckSteps extends InteractionObject {
 		// TODO Agregar la comprobacion de resultado de busqueda en la ficha cliente
 	}
 
-	public void el_resultado_es_que_el_projecto_se_crea_correctamente() throws Exception {
+	public void el_resultado_es_que_el_projecto_se_crea_correctamente() {
 		if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessInnova)) {
-			// For the time being we check that the policy appears correctly in Innov@, but this should be changed to
-			// check the policy in GO.
-			new ActionSteps(userS).login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
+			// For the time being we check that the policy appears correctly in Innov@, 
+			// but this should be changed to check the policy in GO.
+			new ActionSteps(userS)
+				.login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
 		} else if(getScenarioVar(Constants.ACCESO).equals(Constants.LoginAccessGestionLine)) {
-			// Here we check if the policy created in GO appears correctly in Innov@
-			// Login
-			new ActionSteps(userS).login(getScenarioVar(Constants.CAMBIO_ACCESO), getScenarioVar(Constants.USUARIO));
+			// Here we check if the policy created in GO appears correctly in Innov@ Login
+			new ActionSteps(userS)
+				.login(getScenarioVar(Constants.CAMBIO_ACCESO), getScenarioVar(Constants.USUARIO));
 		}
 
-		new InnovaHomePage(userS).OpenGestionPolizas();
+		new InnovaHomePage(userS).openGestionPolizas();
 
 		new GestionPolizasBuscadorPage(userS)
 			.buscarPorNumeroPoliza(getScenarioVar(Constants.NUM_POLIZA))
-			.ConsultarPoliza();
+			.consultarPoliza();
 
-		new GestionPolizasConsultarPage(userS).CheckPolizaNumber();
+		new GestionPolizasConsultarPage(userS).checkPolizaNumber();
 	}
 
 	public void el_valor_de_los_capitales_varia() {
@@ -84,7 +85,7 @@ public class CheckSteps extends InteractionObject {
 	}
 
 	public void el_resultado_es_que_el_proyecto_se_crea_correctamente() {
-		Assert.assertTrue(new ContratacionPage_MAC(userS).checkPolizaCreada());
+		Assert.assertTrue(new ContratacionPageMac(userS).checkPolizaCreada());
 	}
 
 	public void sale_un_aviso_si_el_precio_no_cambia() {
@@ -102,57 +103,66 @@ public class CheckSteps extends InteractionObject {
 
 	public void aparece_aviso(String aviso) throws Exception {
 		boolean check = false;
-		ValidacionExcepcionesReglasDetallesRiesgoPage validacionDetallesRiesgoPage = new ValidacionExcepcionesReglasDetallesRiesgoPage(userS);
 
 		switch(aviso) {
 			case Constants.AvisoPeritajeAntiguead:
-				check = validacionDetallesRiesgoPage.CheckAvisoPeritajeConstructionYearGreaterThan50();
+				check = new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoPeritajeConstructionYearGreaterThan50();
 				break;
 			case Constants.AvisoPeritajePlantasSotano:
-				check = validacionDetallesRiesgoPage.CheckAvisoPeritajePlantasSotano();
+				check = new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoPeritajePlantasSotano();
 				break;
 			case Constants.AvisoPeritajeCapitalContinente:
-				check = validacionDetallesRiesgoPage.CheckAvisoPeritajeCapitalContinenteGreaterThan15000000();
+				check = new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoPeritajeCapitalContinenteGreaterThan15000000();
 				break;
 			case Constants.AvisoPlantasSotanoGreaterThan10:
-				check = validacionDetallesRiesgoPage.CheckAvisoPlantasSotanoMoreThan10();
+				check = new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoPlantasSotanoMoreThan10();
 				break;
 			case Constants.AvisoRiesgoAgravado:
-				check = validacionDetallesRiesgoPage.CheckAvisoRiesgoAgravado();
+				check = new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoRiesgoAgravado();
 				break;
 			case Constants.AvisoComunidadesEnTramite:
-				validacionDetallesRiesgoPage.CheckAvisoComuniadesEnTramite();
+				new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoComuniadesEnTramite();
 				break;
 			case Constants.AvisoPlantasAltoGreaterThan20:
-				validacionDetallesRiesgoPage.CheckAvisoPlantasAlto();
+				new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoPlantasAlto();
 				break;
 			case Constants.AvisoModificacionAnyoContruccionGherkin:
-				validacionDetallesRiesgoPage.CheckAvisoConstructionYearWithException();
+				new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoConstructionYearWithException();
 				break;
 			case Constants.AvisoModificacionRehabilitacionIntegral:
-				validacionDetallesRiesgoPage.CheckAvisoRehabilitacionIntegralWithException();
+				new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+					.checkAvisoRehabilitacionIntegralWithException();
 				break;
 			case Constants.AvisoGarajes:
 				new DetallesRiesgoPage(userS)
-					.CheckAvisoGarajesWithException();
+					.checkAvisoGarajesWithException();
 				break;
 			default:
 				throw new Exception(Constants.AvisoNoContemplado);
 		}
 
 		if(check) {
-			validacionDetallesRiesgoPage.CheckAviso(aviso);
+			new ValidacionExcepcionesReglasDetallesRiesgoPage(userS)
+				.checkAviso(aviso);
 		}
 	}
 
 	public void la_cotizacion_se_actualiza_correctamente() {
 		new MensajeConfirmacionPage(userS)
-			.CheckIfPageHasLoadedCorrectly();
+			.checkIfPageHasLoadedCorrectly();
 	}
 
 	public void la_copia_tomador_deberia_tener_los_nuevos_datos() {
 		new MensajeConfirmacionPage(userS)
-			.CheckIfPageHasLoadedCorrectly()
+			.checkIfPageHasLoadedCorrectly()
 			.searchTextInCopiaTomadorPDF();
 	}
 
@@ -163,74 +173,90 @@ public class CheckSteps extends InteractionObject {
 	}
 
 	public void la_poliza_muestra_en_la_pestanya(String toBeChecked, String tab) throws Exception {
-		new InnovaHomePage(userS).OpenGestionPolizas();
+		new InnovaHomePage(userS)
+			.openGestionPolizas();
 
 		new GestionPolizasBuscadorPage(userS)
 			.buscarPorNumeroPoliza(getScenarioVar(Constants.NUM_POLIZA))
-			.ConsultarPoliza();
-
-		GestionPolizasConsultarPage gestionPolizasConsultarPage = new GestionPolizasConsultarPage(userS);
+			.consultarPoliza();
 
 		switch(toBeChecked) {
 			case Constants.PolizaDetailConstructionYear:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailConstructionYear, getScenarioVar(Constants.ANYO_CONSTRUIDO));
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailConstructionYear, getScenarioVar(Constants.ANYO_CONSTRUIDO));
 				break;
 			case Constants.PolizaDetailCapitalContinente:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailCapitalContinente, getScenarioVar(Constants.CAPITAL_CONTINENTE));
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailCapitalContinente, getScenarioVar(Constants.CAPITAL_CONTINENTE));
 				break;
 			case Constants.PolizaDetailCapitalContenido:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailCapitalContenido, getScenarioVar(Constants.CAPITAL_CONTENIDO));
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailCapitalContenido, getScenarioVar(Constants.CAPITAL_CONTENIDO));
 				break;
 			case Constants.PolizaDetailNuevaClausulaHipotecaria:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabClausulas, Constants.PolizaDetailNuevaClausulaHipotecaria, Constants.DescuentoRecargoNotSpecified);
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabClausulas, Constants.PolizaDetailNuevaClausulaHipotecaria, Constants.DescuentoRecargoNotSpecified);
 				break;
 			case Constants.PolizaDetailLocalesExcluidos:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailLocalesExcluidos, Constants.DescuentoRecargoNotSpecified);
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailLocalesExcluidos, Constants.DescuentoRecargoNotSpecified);
 				break;
 			case Constants.PolizaDetailDepositoCombustible:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailDepositoCombustible, Constants.DescuentoRecargoNotSpecified);
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailDepositoCombustible, Constants.DescuentoRecargoNotSpecified);
 				break;
 			case Constants.PolizaDetailCalefaccionCentral:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailCalefaccionCentral, Constants.DescuentoRecargoNotSpecified);
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailCalefaccionCentral, Constants.DescuentoRecargoNotSpecified);
 				break;
 			case Constants.PolizaDetailPlacaSolar:
-				gestionPolizasConsultarPage
-					.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailPlacaSolar, getScenarioVar(Constants.COBERTURA_ENERGIA_SOLAR_VALOR) + " €");
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailPlacaSolar, getScenarioVar(Constants.COBERTURA_ENERGIA_SOLAR_VALOR) + " €");
 				break;
 			case Constants.PolizaDetailMaquinaria:
-				gestionPolizasConsultarPage
-					.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailMaquinaria, getScenarioVar(Constants.COBERTURA_MAQUINA_VALOR) + " €");
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailMaquinaria, getScenarioVar(Constants.COBERTURA_MAQUINA_VALOR) + " €");
 				break;
 			case Constants.PolizaDetailNoRecargo:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailNoRecargo, null);
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailNoRecargo, null);
 				break;
 			case Constants.PolizaDetailRecargo:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailNoRecargo, Constants.PolizaDetailDescuentoValue);
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailNoRecargo, Constants.PolizaDetailDescuentoValue);
 				break;
 			case Constants.PolizaDetailNoDescuento:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailNoDescuento, null);
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailNoDescuento, null);
 				break;
 			case Constants.PolizaDetailDescuento:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailDescuentoValue, Constants.PorcentajeDescuentoRecargo);
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailDescuento, Constants.TipoDescuento);
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailDescuentoValue, Constants.PorcentajeDescuentoRecargo)
+					.checkValueInTab(Constants.PolizaDetailTabImportes, Constants.PolizaDetailDescuento, Constants.TipoDescuento);
 				break;
 			case Constants.PolizaDetailClausula:
-				gestionPolizasConsultarPage.CheckClausulas();
+				new GestionPolizasConsultarPage(userS)
+					.checkClausulas();
 				break;
 			case Constants.PolizaDetailM2ConstruidosTotales:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailM2ConstruidosTotales, getTestVar(Constants.M2_CONSTRUIDOS));
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailM2ConstruidosTotales, getTestVar(Constants.M2_CONSTRUIDOS));
 				break;
 			case Constants.PolizaDetailYearAndRehabilitationLevel:
-				gestionPolizasConsultarPage.CheckAnyoAndNivelRehabilitacion();
+				new GestionPolizasConsultarPage(userS)
+					.checkAnyoAndNivelRehabilitacion();
 				break;
 			case Constants.PolizaDetailYearRehabilitacionIntegral:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailYearRehabilitacionIntegral, getTestVar(Constants.M2_CONSTRUIDOS));
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailYearRehabilitacionIntegral, getTestVar(Constants.M2_CONSTRUIDOS));
 				break;
 			case Constants.PolizaDetailCalidadConstruccion:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailCalidadConstruccion, getTestVar(Constants.CALIDAD_CONSTRUCCION));
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailCalidadConstruccion, getTestVar(Constants.CALIDAD_CONSTRUCCION));
 				break;
 			case Constants.PolizaDetailFranquiciaVoluntaria:
-				gestionPolizasConsultarPage.CheckValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailFranquiciaVoluntaria, getTestVar(Constants.FRANQUICIA_VOLUNTARIA));
+				new GestionPolizasConsultarPage(userS)
+					.checkValueInTab(Constants.PolizaDetailTabDetallesRiesgo, Constants.PolizaDetailFranquiciaVoluntaria, getTestVar(Constants.FRANQUICIA_VOLUNTARIA));
 				break;
 			default:
 				throw new Exception(String.format("El checqueo para %s no se ha implementado", toBeChecked));
@@ -240,16 +266,16 @@ public class CheckSteps extends InteractionObject {
 	public void esta_habilitado_el_campo(String fieldValue) {
 		DetallesRiesgoPage detallesRiesgoPage = new DetallesRiesgoPage(userS);
 
-		Assert.assertTrue(detallesRiesgoPage.IsFieldEnabled(fieldValue), String.format("El campo %s no está habilitado", fieldValue));
+		Assert.assertTrue(detallesRiesgoPage.isFieldEnabled(fieldValue), String.format("El campo %s no está habilitado", fieldValue));
 	}
 
 	public void el_proyecto_MAC_se_deniega() {
-		Assert.assertTrue(new InquilinosAvalistasPageMAC(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new InquilinosAvalistasPageMac(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Se ha denegado la emisión del proyecto")));
 	}
 
 	public void el_proyecto_MAC_se_acepta() {
-		Assert.assertTrue(new InquilinosAvalistasPageMAC(userS).recuperarTextoMensajeValidacionOK()
+		Assert.assertTrue(new InquilinosAvalistasPageMac(userS).recuperarTextoMensajeValidacionOK()
 			.contains("El proyecto deberá ser revisado por compañía, debe adjuntar los documentos obligatorios del estudio de viabilidad, por favor cuando termine todas las gestiones no olvide pulsar el botón Enviar a Compañía. Puede continuar al siguiente paso, para seguir rellenando el resto de campos de la cotización, pero no podrá emitirla."));
 	}
 
@@ -263,26 +289,18 @@ public class CheckSteps extends InteractionObject {
 	}
 
 	public void se_puede_autorizar_usando_el_acceso_Innova_y_usuario(String loginAcess, String user) throws Exception {
-		// Enviar el proyecto
-		InquilinosAvalistasPageMAC inquilinosAvalistasPage_MAC = new InquilinosAvalistasPageMAC(userS);
-		inquilinosAvalistasPage_MAC.enviarACompania();
+		new InquilinosAvalistasPageMac(userS)
+			.enviarACompania();
 
-		// Cerrar el navegador
 		userS.getWebDriver().quit();
 
-		// Login
-		// userS.initializeVariables(
-		// getValuesDataSet(userS.getTestCaseData().gethMapDataSet(), loginAcess, userS.getTestCaseData().getTestID()));
-		// userS.applicationAccessHelper.LoginAndSearchAutorizacion(
-		// getValuesDataSet(userS.getTestCaseData().gethMapDataSet(), user, userS.getTestCaseData().getTestID()),
-		// userS.getProperties().passwordComun);
-
 		debugInfo("Valor accesoAuth: " + getScenarioVar(Constants.ACCESO_AUTORIZADO));
-
-		new ActionSteps(userS).login(getScenarioVar(Constants.ACCESO_AUTORIZADO), getScenarioVar(Constants.USUARIO_AUTORIZADO));
+		new ActionSteps(userS)
+			.login(getScenarioVar(Constants.ACCESO_AUTORIZADO), getScenarioVar(Constants.USUARIO_AUTORIZADO));
 
 		// Abrir la busqueda de autorizaciones
-		new InnovaHomePage(userS).OpenGestionAutorizaciones();
+		new InnovaHomePage(userS)
+			.openGestionAutorizaciones();
 
 		String resultadoAutorizacion = new GestionAutorizacionesPage(userS)
 			.buscarAutorizaciones("Proceso de cotización", "Pendiente de autorizar", getTestVar(Constants.NUM_COTIZACION))
@@ -306,7 +324,7 @@ public class CheckSteps extends InteractionObject {
 				+ getScenarioVar(Constants.SEGUNDO_APELLIDO_MEDIADOR))
 					.toUpperCase();
 
-			debugInfo("*** Nombre comercial" + nombreComercial);
+			debugInfo("Nombre comercial: " + nombreComercial);
 			Assert.assertTrue(new MediadoresFichaMediadorPage(userS).getContenidoTituloPagina()
 				.contains(nombreComercial));
 		} else if(getScenarioVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Diferente que el fiscal")) {
@@ -319,18 +337,18 @@ public class CheckSteps extends InteractionObject {
 
 	public void deberia_aparecer_error_rebasada_la_renta_máxima_permitida() {
 		// Comprobar que sale el error correspondiente
-		Assert.assertTrue(new PrecioPorModalidadPageMAC(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new PrecioPorModalidadPageMac(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Rebasada la renta máxima permitida de 3.000,00 €")));
 	}
 
 	public void deberia_aparecer_error_situacion_reasegurado() {
 		// Comprobar que sale el error correspondiente
-		Assert.assertTrue(new PrecioPorModalidadPageMAC(userS).recuperarTextoMensajeError()
+		Assert.assertTrue(new PrecioPorModalidadPageMac(userS).recuperarTextoMensajeError()
 			.contains(String.format("¡Error! Situación de reaseguro no es posible la contratación")));
 	}
 
 	public void no_deberia_estar_habilitado_convertir_a_proyecto() {
 		// Comprobar que se queda deshabilitado Convertir a proyecto
-		Assert.assertFalse(new PrecioPorModalidadPageMAC(userS).checkConvertirAProyectoIsPresent());
+		Assert.assertFalse(new PrecioPorModalidadPageMac(userS).checkConvertirAProyectoIsPresent());
 	}
 }

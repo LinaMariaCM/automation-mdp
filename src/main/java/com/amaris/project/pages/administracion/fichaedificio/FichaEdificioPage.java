@@ -12,54 +12,51 @@ import com.amaris.project.Constants;
 
 public class FichaEdificioPage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By cuerpoFrame = By.name("cuerpo");
 	private By menuFrame = By.cssSelector("#leftFrame");
 
-	private By fichaEdificioLink = By.xpath(".//*[text()='Ficha Edificio']");;
+	private By fichaEdificioBtn = By.xpath(".//*[text()='Ficha Edificio']");
 
-	private By rdbDireccion = By.cssSelector("#filtro1");
-	private By rdbRefCatastral = By.cssSelector("#filtro2");
-	private By rdbProyecto = By.cssSelector("#filtro3");
-	private By rdbPoliza = By.cssSelector("#filtro4");
-	private By rdbMediador = By.cssSelector("#filtro5");
-	private By rdbEstado = By.cssSelector("#filtro6");
+	private By direccionBtn = By.cssSelector("#filtro1");
+	private By refCatastralBtn = By.cssSelector("#filtro2");
+	private By proyectoBtn = By.cssSelector("#filtro3");
+	private By polizaBtn = By.cssSelector("#filtro4");
+	private By mediadorBtn = By.cssSelector("#filtro5");
+	private By estadoBtn = By.cssSelector("#filtro6");
 
-	private By txtRefCatastral = By.cssSelector("#BUSC_EDIF_CATASTRO");
-	private By txtProyecto = By.cssSelector("#BUSC_EDIF_PROYECTO");
-	private By txtPoliza = By.cssSelector("#BUSC_EDIF_POLIZA");
-	private By txtMediador = By.cssSelector("#BUSC_EDIF_MEDIADOR");
-	private By cmbEstado = By.cssSelector("#BUSC_EDIF_ESTADO");
-	private By txtProvincia = By.cssSelector("#BUSC_EDIF_PROVINCIA");
-	private By txtPoblacion = By.cssSelector("#BUSC_EDIF_POBLACION");
-	private By txtVia = By.cssSelector("#BUSC_EDIF_VIA");
-	private By txtPostCod = By.cssSelector("#BUSC_EDIF_POSTCOD");
-	private By txtNumVia = By.cssSelector("#BUSC_EDIF_NUMVIA");
-	private By compFormPag = By.cssSelector("#formularioPaginacion");
+	private By refCatastralInput = By.cssSelector("#BUSC_EDIF_CATASTRO");
+	private By proyectoInput = By.cssSelector("#BUSC_EDIF_PROYECTO");
+	private By polizaInput = By.cssSelector("#BUSC_EDIF_POLIZA");
+	private By mediadorInput = By.cssSelector("#BUSC_EDIF_MEDIADOR");
+	private By estadoDrpDwn = By.cssSelector("#BUSC_EDIF_ESTADO");
+	private By provinciaInput = By.cssSelector("#BUSC_EDIF_PROVINCIA");
+	private By poblacionInput = By.cssSelector("#BUSC_EDIF_POBLACION");
+	private By viaInput = By.cssSelector("#BUSC_EDIF_VIA");
+	private By postCodInput = By.cssSelector("#BUSC_EDIF_POSTCOD");
+	private By numViaInput = By.cssSelector("#BUSC_EDIF_NUMVIA");
 
-	private By menuDropdown = By.cssSelector("ul.ui-autocomplete.ui-menu.ui-widget.ui-widget-content.ui-corner-all");
-
-	private By menuItem1 = By.xpath("/html/body/ul[1]/li/a");
-	private By menuItem2 = By.xpath("/html/body/ul[2]/li/a");
-	private By menuItem3 = By.xpath("/html/body/ul[3]/li/a");
+	private By menuItem1Btn = By.xpath("/html/body/ul[1]/li/a");
+	private By menuItem2Btn = By.xpath("/html/body/ul[2]/li/a");
+	private By menuItem3Btn = By.xpath("/html/body/ul[3]/li/a");
 
 	private By resultadoBusqueda = By.cssSelector("table.grid.anchuraCajas");
 	private By barraResultados = By.cssSelector("td.headGrid");
 
-	private By refCatResultado = By.xpath("//*[@id='tr1']/td[4]");
+	private By refCatResultadoTxt = By.xpath("//*[@id='tr1']/td[4]");
 
-	private By btnBuscar = By.cssSelector("[name=''botonBuscar]");
+	private By buscarBtn = By.cssSelector("[name=''botonBuscar]");
 	private By btnContinuar = By.xpath("//*[@id='tr1']/td[6]");
 
-	private By lblDireccion = By.xpath(".//*[text()='Dirección: ']");
-	private By lblMediador = By.xpath(".//*[text()='Mediador: ']");
-	private By lblDatosMediador = By.xpath(".//*[text()='Datos Mediador: ']");
-	private By lblNumViviendas = By.xpath(".//*[text()='Nº Viviendas: '");
-	private By lblAntiguedad = By.xpath(".//*[text()='Antigüedad del edificio: ']");
-	private By lblSuperficie = By.xpath(".//*[text()='Superficie construida(m2): ']");
+	private By direccionTxt = By.xpath(".//*[text()='Dirección: ']");
+	private By mediadorTxt = By.xpath(".//*[text()='Mediador: ']");
+	private By datosMediadorTxt = By.xpath(".//*[text()='Datos Mediador: ']");
+	private By numViviendasTxt = By.xpath(".//*[text()='Nº Viviendas: '");
+	private By antiguedadTxt = By.xpath(".//*[text()='Antigüedad del edificio: ']");
+	private By superficieTxt = By.xpath(".//*[text()='Superficie construida(m2): ']");
 
-	private By tabResumen = By.cssSelector("#pes0");
-	private By tabPolizas = By.cssSelector("#pes1");
+	private By resumenTab = By.cssSelector("#pes0");
+	private By polizasTab = By.cssSelector("#pes1");
 	// endregion
 
 	public FichaEdificioPage(UserStory userS) {
@@ -70,8 +67,7 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage accederAlBuscadorEdificios() {
 		debugBegin();
 
-		webDriver.moveToElementInFrame(fichaEdificioLink, menuFrame);
-		webDriver.doubleClickInFrame(fichaEdificioLink, menuFrame);
+		webDriver.doubleClickInFrame(fichaEdificioBtn, menuFrame);
 		webDriver.waitForAngular();
 
 		debugEnd();
@@ -94,20 +90,17 @@ public class FichaEdificioPage extends PageObject {
 
 		// Iterate by number of lines
 		for(int i = 0; i < tablaHash.size(); i++) {
-			// Print iteration process percentage
 			printLogProcessPercentage("Iterations - ", i, tablaHash.size());
 
-			// Fill referencia_catastral
-			webDriver.appendTextInFrame(txtRefCatastral, cuerpoFrame, tablaHash.get(i + "").get("ref_catastral"));
+			webDriver.appendTextInFrame(refCatastralInput, cuerpoFrame, tablaHash.get(i + "").get("ref_catastral"));
 
-			// Search
-			webDriver.clickInFrame(btnBuscar, cuerpoFrame);
-			// Wait result
+			webDriver.clickInFrame(buscarBtn, cuerpoFrame);
+
 			webDriver.waitForAngular();
 			webDriver.waitForElementToBeClickableInFrame(barraResultados, cuerpoFrame);
 
-			if(webDriver.getTextInFrame(refCatResultado, cuerpoFrame)
-				.equals(webDriver.getTextInFrame(txtRefCatastral, cuerpoFrame))) {
+			if(webDriver.getTextInFrame(refCatResultadoTxt, cuerpoFrame)
+				.equals(webDriver.getTextInFrame(refCatastralInput, cuerpoFrame))) {
 				debugInfo("Referencia catastral encontrada");
 			} else {
 				debugInfo("Referencia catastral no encontrada");
@@ -130,68 +123,63 @@ public class FichaEdificioPage extends PageObject {
 		// Iterate by number of lines
 		for(int i = 0; i < tablaHash.size(); i++) {
 			boolean dropDownPresent = true;
+
 			String address = tablaHash.get(i + "").get("provincia") + " " + tablaHash.get(i + "").get("poblacion") + " "
 				+ tablaHash.get(i + "").get("direccion") + " " + tablaHash.get(i + "").get("numero");
 
 			// If text in field "provincia" is not equals to the provincia(i) value
-			if(!webDriver.getTextInFrame(txtProvincia, cuerpoFrame).contains(tablaHash.get(i + "").get("provincia"))) {
+			if(!webDriver.getTextInFrame(provinciaInput, cuerpoFrame).contains(tablaHash.get(i + "").get("provincia"))) {
 				// Fill provincia
-				webDriver.appendTextInFrame(txtProvincia, cuerpoFrame, tablaHash.get(i + "").get("provincia"));
-				dropDownPresent = webDriver.isPresentInFrame(menuItem1, cuerpoFrame);
+				webDriver.appendTextInFrame(provinciaInput, cuerpoFrame, tablaHash.get(i + "").get("provincia"));
+				dropDownPresent = webDriver.isPresentInFrame(menuItem1Btn, cuerpoFrame);
 
 				if(!dropDownPresent) {
 					debugInfo("Nombre de provincia no encontrado en el dropdown\n" + address);
 				} else {
-					webDriver.clickInFrame(menuItem1, cuerpoFrame);
+					webDriver.clickInFrame(menuItem1Btn, cuerpoFrame);
 				}
 			}
 
 			// If text in field "poblacion" is not equals to the poblacion(i) value
-			if(dropDownPresent && !webDriver.getTextInFrame(txtPoblacion, cuerpoFrame)
+			if(dropDownPresent && !webDriver.getTextInFrame(poblacionInput, cuerpoFrame)
 				.contains(tablaHash.get(i + "").get("poblacion"))) {
 				// Fill poblacion
-				webDriver.appendTextInFrame(txtPoblacion, cuerpoFrame, tablaHash.get(i + "").get("poblacion"));
-				dropDownPresent = webDriver.isPresentInFrame(menuItem2, cuerpoFrame);
+				webDriver.appendTextInFrame(poblacionInput, cuerpoFrame, tablaHash.get(i + "").get("poblacion"));
+				dropDownPresent = webDriver.isPresentInFrame(menuItem2Btn, cuerpoFrame);
 
 				if(!dropDownPresent) {
 					debugInfo("Nombre de población no encontrado en el dropdown\n" + address);
 				} else {
-					webDriver.clickInFrame(menuItem1, cuerpoFrame);
+					webDriver.clickInFrame(menuItem1Btn, cuerpoFrame);
 				}
 			}
 
-			// If text in field "direccion" is not equals to the direccion(i) value
-			if(dropDownPresent
-				&& !webDriver.getTextInFrame(txtVia, cuerpoFrame).contains(tablaHash.get(i + "").get("direccion"))) {
-				// Fill direccion
-				webDriver.appendTextInFrame(txtVia, cuerpoFrame, tablaHash.get(i + "").get("direccion"));
+			if(dropDownPresent && !webDriver.getTextInFrame(viaInput, cuerpoFrame).contains(tablaHash.get(i + "").get("direccion"))) {
+				webDriver.appendTextInFrame(viaInput, cuerpoFrame, tablaHash.get(i + "").get("direccion"));
 
-				dropDownPresent = webDriver.isPresentInFrame(menuItem3, cuerpoFrame);
+				dropDownPresent = webDriver.isPresentInFrame(menuItem3Btn, cuerpoFrame);
 
 				if(!dropDownPresent) {
 					debugInfo("Nombre de vía no encontrado en el dropdown\n" + address);
 				} else {
-					webDriver.clickInFrame(menuItem1, cuerpoFrame);
+					webDriver.clickInFrame(menuItem1Btn, cuerpoFrame);
 				}
 			}
 
-			// Fill numero
-			if(webDriver.isPresentInFrame(txtNumVia, cuerpoFrame)) {
-				webDriver.appendTextInFrame(txtNumVia, cuerpoFrame, tablaHash.get(i + "").get("numero"));
+			if(webDriver.isPresentInFrame(numViaInput, cuerpoFrame)) {
+				webDriver.appendTextInFrame(numViaInput, cuerpoFrame, tablaHash.get(i + "").get("numero"));
 			}
 
-			// Fill codigo postal
-			if(webDriver.isPresentInFrame(txtPostCod, cuerpoFrame)) {
+			if(webDriver.isPresentInFrame(postCodInput, cuerpoFrame)) {
 				String codigoPostal = tablaHash.get(i + "").get("codigo_postal");
-				webDriver.appendTextInFrame(txtPostCod, cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
+
+				webDriver.appendTextInFrame(postCodInput, cuerpoFrame, codigoPostal.length() == 5 ? codigoPostal : "0" + codigoPostal);
 			}
 
 			if(dropDownPresent) {
 				try {
-					// Search
-					webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+					webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
-					// Wait result
 					debugInfo(webDriver.isPresentInFrame(resultadoBusqueda, cuerpoFrame) ? "Dirección normalizada"
 						: "Direccion no encontrada\n" + address);
 					webDriver.waitForElementToBeClickableInFrame(resultadoBusqueda, cuerpoFrame);
@@ -228,22 +216,22 @@ public class FichaEdificioPage extends PageObject {
 
 		switch(getTestVar(Constants.FILTRO_BUSCADOR_EDIFICIO)) {
 			case Constants.FILTRO_BUSCADOR_DIRECCION:
-				webDriver.clickInFrame(rdbDireccion, cuerpoFrame);
+				webDriver.clickInFrame(direccionBtn, cuerpoFrame);
 				break;
 			case Constants.FILTRO_BUSCADOR_CATASTRAL:
-				webDriver.clickInFrame(rdbRefCatastral, cuerpoFrame);
+				webDriver.clickInFrame(refCatastralBtn, cuerpoFrame);
 				break;
 			case Constants.FILTRO_BUSCADOR_PROYECTO:
-				webDriver.clickInFrame(rdbProyecto, cuerpoFrame);
+				webDriver.clickInFrame(proyectoBtn, cuerpoFrame);
 				break;
 			case Constants.FILTRO_BUSCADOR_POLIZA:
-				webDriver.clickInFrame(rdbPoliza, cuerpoFrame);
+				webDriver.clickInFrame(polizaBtn, cuerpoFrame);
 				break;
 			case Constants.FILTRO_BUSCADOR_MEDIADOR:
-				webDriver.clickInFrame(rdbMediador, cuerpoFrame);
+				webDriver.clickInFrame(mediadorBtn, cuerpoFrame);
 				break;
 			case Constants.FILTRO_BUSCADOR_ESTADO:
-				webDriver.clickInFrame(rdbEstado, cuerpoFrame);
+				webDriver.clickInFrame(estadoBtn, cuerpoFrame);
 				break;
 			default:
 		}
@@ -280,7 +268,7 @@ public class FichaEdificioPage extends PageObject {
 				break;
 		}
 
-		webDriver.clickInFrame(btnBuscar, cuerpoFrame);
+		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
 
 		debugEnd();
 
@@ -290,8 +278,8 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage buscarEdificioRefCatastral() {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbRefCatastral, cuerpoFrame);
-		webDriver.setTextInFrame(txtRefCatastral, cuerpoFrame, getTestVar(Constants.REFERENCIA_CATASTRAL));
+		webDriver.clickInFrame(refCatastralBtn, cuerpoFrame);
+		webDriver.setTextInFrame(refCatastralInput, cuerpoFrame, getTestVar(Constants.REFERENCIA_CATASTRAL));
 
 		debugEnd();
 
@@ -301,8 +289,8 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage buscarEdificioProyecto() {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbProyecto, cuerpoFrame);
-		webDriver.setTextInFrame(txtProyecto, cuerpoFrame, getTestVar(Constants.PROYECTO));
+		webDriver.clickInFrame(proyectoBtn, cuerpoFrame);
+		webDriver.setTextInFrame(proyectoInput, cuerpoFrame, getTestVar(Constants.PROYECTO));
 
 		debugEnd();
 
@@ -312,8 +300,8 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage buscarEdificioPoliza() {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbPoliza, cuerpoFrame);
-		webDriver.setTextInFrame(txtPoliza, cuerpoFrame, getTestVar(Constants.NUM_POLIZA));
+		webDriver.clickInFrame(polizaBtn, cuerpoFrame);
+		webDriver.setTextInFrame(polizaInput, cuerpoFrame, getTestVar(Constants.NUM_POLIZA));
 
 		debugEnd();
 
@@ -323,8 +311,8 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage buscarEdificioMediador() {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbMediador, cuerpoFrame);
-		webDriver.setTextInFrame(txtMediador, cuerpoFrame, getTestVar(Constants.MEDIADOR));
+		webDriver.clickInFrame(mediadorBtn, cuerpoFrame);
+		webDriver.setTextInFrame(mediadorInput, cuerpoFrame, getTestVar(Constants.MEDIADOR));
 
 		debugEnd();
 
@@ -334,7 +322,7 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage buscarEdificioDireccion() {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbDireccion, cuerpoFrame);
+		webDriver.clickInFrame(direccionBtn, cuerpoFrame);
 
 		fillEdificioDireccion();
 
@@ -353,26 +341,26 @@ public class FichaEdificioPage extends PageObject {
 		debugBegin();
 
 		if(provincia != null) {
-			webDriver.appendTextInFrame(txtProvincia, cuerpoFrame, provincia);
-			webDriver.clickInFrame(menuItem1, cuerpoFrame);
+			webDriver.appendTextInFrame(provinciaInput, cuerpoFrame, provincia);
+			webDriver.clickInFrame(menuItem1Btn, cuerpoFrame);
 		}
 
 		if(poblacion != null) {
-			webDriver.appendTextInFrame(txtPoblacion, cuerpoFrame, poblacion);
-			webDriver.clickInFrame(menuItem2, cuerpoFrame);
+			webDriver.appendTextInFrame(poblacionInput, cuerpoFrame, poblacion);
+			webDriver.clickInFrame(menuItem2Btn, cuerpoFrame);
 		}
 
 		if(nombreVia != null) {
-			webDriver.appendTextInFrame(txtVia, cuerpoFrame, nombreVia);
-			webDriver.clickInFrame(menuItem3, cuerpoFrame);
+			webDriver.appendTextInFrame(viaInput, cuerpoFrame, nombreVia);
+			webDriver.clickInFrame(menuItem3Btn, cuerpoFrame);
 		}
 
 		if(numVia != null) {
-			webDriver.appendTextInFrame(txtNumVia, cuerpoFrame, numVia);
+			webDriver.appendTextInFrame(numViaInput, cuerpoFrame, numVia);
 		}
 
 		if(codigoPostal != null) {
-			webDriver.appendTextInFrame(txtPostCod, cuerpoFrame, codigoPostal);
+			webDriver.appendTextInFrame(postCodInput, cuerpoFrame, codigoPostal);
 		}
 
 		debugEnd();
@@ -383,8 +371,8 @@ public class FichaEdificioPage extends PageObject {
 	public FichaEdificioPage buscarEdificioEstado() {
 		debugBegin();
 
-		webDriver.clickInFrame(rdbEstado, cuerpoFrame);
-		webDriver.clickElementFromDropDownByTextInFrame(cmbEstado, cuerpoFrame, getTestVar(Constants.ESTADO_EDIFICIO));
+		webDriver.clickInFrame(estadoBtn, cuerpoFrame);
+		webDriver.clickElementFromDropDownByTextInFrame(estadoDrpDwn, cuerpoFrame, getTestVar(Constants.ESTADO_EDIFICIO));
 
 		debugEnd();
 
@@ -394,8 +382,10 @@ public class FichaEdificioPage extends PageObject {
 	public boolean checkResultadoDireccion() {
 		debugBegin();
 
-		boolean result = checkResultadoDireccion(webDriver.getTextInFrame(txtPoblacion, cuerpoFrame), webDriver.getTextInFrame(txtVia, cuerpoFrame), webDriver
-			.getTextInFrame(txtNumVia, cuerpoFrame), null, null);
+		boolean result = checkResultadoDireccion(
+			webDriver.getTextInFrame(poblacionInput, cuerpoFrame), 
+			webDriver.getTextInFrame(viaInput, cuerpoFrame), 
+			webDriver.getTextInFrame(numViaInput, cuerpoFrame), null, null);
 
 		debugEnd();
 
@@ -444,15 +434,14 @@ public class FichaEdificioPage extends PageObject {
 
 	public boolean checkCabeceraFicha() {
 		debugBegin();
-		boolean check = false;
 
-		// TODO Pero esto que es? Refactorizar
-		check = webDriver.isPresentInFrame(lblDireccion, cuerpoFrame);
-		check = webDriver.isPresentInFrame(lblMediador, cuerpoFrame);
-		check = webDriver.isPresentInFrame(lblDatosMediador, cuerpoFrame);
-		check = webDriver.isPresentInFrame(lblNumViviendas, cuerpoFrame);
-		check = webDriver.isPresentInFrame(lblAntiguedad, cuerpoFrame);
-		check = webDriver.isPresentInFrame(lblSuperficie, cuerpoFrame);
+		boolean check = webDriver.isPresentInFrame(direccionTxt, cuerpoFrame);
+
+		check = check && webDriver.isPresentInFrame(mediadorTxt, cuerpoFrame);
+		check = check && webDriver.isPresentInFrame(datosMediadorTxt, cuerpoFrame);
+		check = check && webDriver.isPresentInFrame(numViviendasTxt, cuerpoFrame);
+		check = check && webDriver.isPresentInFrame(antiguedadTxt, cuerpoFrame);
+		check = check && webDriver.isPresentInFrame(superficieTxt, cuerpoFrame);
 
 		debugEnd();
 
@@ -461,9 +450,10 @@ public class FichaEdificioPage extends PageObject {
 
 	public boolean checkPestanaResumenVisible() {
 		debugBegin();
+
 		boolean check = false;
 
-		check = webDriver.isPresentInFrame(tabResumen, cuerpoFrame);
+		check = webDriver.isPresentInFrame(resumenTab, cuerpoFrame);
 
 		debugEnd();
 
@@ -472,9 +462,10 @@ public class FichaEdificioPage extends PageObject {
 
 	public boolean checkPestanaPolizasVisible() {
 		debugBegin();
+
 		boolean check = false;
 
-		check = webDriver.isPresentInFrame(tabPolizas, cuerpoFrame);
+		check = webDriver.isPresentInFrame(polizasTab, cuerpoFrame);
 
 		debugEnd();
 

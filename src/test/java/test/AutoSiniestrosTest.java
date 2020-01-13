@@ -4,7 +4,7 @@ import org.testng.annotations.AfterSuite;
 import com.amaris.automation.model.testing.objects.TestObject;
 
 
-public class autoSiniestrosTest extends TestObject{
+public class AutoSiniestrosTest extends TestObject{
 
 //TODO Alta Siniestro	
 

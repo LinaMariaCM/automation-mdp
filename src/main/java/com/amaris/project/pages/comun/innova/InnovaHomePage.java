@@ -6,33 +6,32 @@ import com.amaris.automation.model.testing.objects.PageObject;
 
 public class InnovaHomePage extends PageObject {
 
-	// region webelements
+	// region WebElements
 	private By leftFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
 	private By mainFrame = By.cssSelector("#mainFrame");
-	private By logoMutua = By.cssSelector("#logo");
+	private By logoMutuaBtn = By.cssSelector("#logo");
 
-	private By btnMutuaEdificioConfort = By.xpath(".//*[normalize-space(text())='Mutua edificio confort']");
-	private By btnMutuaAlquilerConfort = By.cssSelector("a[href*='codmenu=510']");
-	private By btnGestionProjectosSimulaciones = By.cssSelector("a[href*='codmenu=GESTION_COTIZACIONES']");
+	private By mutuaEdificioConfortBtn = By.xpath(".//*[normalize-space(text())='Mutua edificio confort']");
+	private By mutuaAlquilerConfortBtn = By.cssSelector("a[href*='codmenu=510']");
+	private By gestionProjectosSimulacionesBtn = By.cssSelector("a[href*='codmenu=GESTION_COTIZACIONES']");
 
-	private By btnSiniestros = By.xpath(".//*[text()='Siniestros']");
-	private By btnMediadores = By.xpath(".//*[contains(text(),'Mediadores')]");
-	private By btnNuevoProjecto = By.xpath(".//*[normalize-space(text())='Nuevo proyecto']");
-	private By btnNuevaSimulacion = By.xpath(".//*[normalize-space(text())='Nueva Simulación']");
-	private By btnMenuPrincipal = By.cssSelector("#boton1");
-	private By btnMapaSitio = By.xpath(".//*[contains(text(),'Mapa del sitio')]");
+	private By siniestrosBtn = By.xpath(".//*[text()='Siniestros']");
+	private By mediadoresBtn = By.xpath(".//*[contains(text(),'Mediadores')]");
+	private By nuevoProjectoBtn = By.xpath(".//*[normalize-space(text())='Nuevo proyecto']");
+	private By nuevaSimulacionBtn = By.xpath(".//*[normalize-space(text())='Nueva Simulación']");
+	private By menuPrincipalBtn = By.cssSelector("#boton1");
+	private By mapaSitioBtn = By.xpath(".//*[contains(text(),'Mapa del sitio')]");
 
-	private By btnGestionProjectoSimulacion = By.xpath(".//*[text()='Gestión de proyecto/simulación']");
-	private By btnGestionCotizaciones = By.xpath(".//*[text()='Gestión de cotizaciones']");
-	private By btnGestionPolizas = By.xpath(".//*[@title='Gestión de pólizas']");
-	private By btnGestionPolizasMenu = By.cssSelector("a[href*='codmenu=GESTIONDPOLIZAS']");
-	private By btnGestionAutorizaciones = By.cssSelector("[title*='Gestión de autorizaciones']");
+	private By gestionProjectoSimulacionBtn = By.xpath(".//*[text()='Gestión de proyecto/simulación']");
+	private By gestionCotizacionesBtn = By.xpath(".//*[text()='Gestión de cotizaciones']");
+	private By gestionPolizasBtn = By.xpath(".//*[@title='Gestión de pólizas']");
+	private By gestionPolizasMenuBtn = By.cssSelector("a[href*='codmenu=GESTIONDPOLIZAS']");
+	private By gestionAutorizacionesBtn = By.cssSelector("[title*='Gestión de autorizaciones']");
 
-	private By btnMenuMEC = By.cssSelector("#boton2");
-	private By btnMHC = By.cssSelector("a[href*='codmenu=660']");
-	private By gestionPagos = By.cssSelector("[title = 'Gestión de pagos de siniestros  ']");
-
+	private By menuMecBtn = By.cssSelector("#boton2");
+	private By mhcBtn = By.cssSelector("a[href*='codmenu=660']");
+	private By gestionPagosBtn = By.cssSelector("[title = 'Gestión de pagos de siniestros  ']");
 	// endregion
 
 	public InnovaHomePage(UserStory userS) {
@@ -42,7 +41,7 @@ public class InnovaHomePage extends PageObject {
 	// region methods
 	public InnovaHomePage createNewProject() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnNuevoProjecto, leftFrame);
+		webDriver.clickInFrame(nuevoProjectoBtn, leftFrame);
 		debugEnd();
 
 		return this;
@@ -50,7 +49,7 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openNewSimulationMec() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnNuevaSimulacion, leftFrame);
+		webDriver.clickInFrame(nuevaSimulacionBtn, leftFrame);
 		debugEnd();
 
 		return this;
@@ -58,9 +57,7 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openMutuaEdificioConfort() {
 		debugBegin();
-		webDriver.moveToElementInFrame(btnMutuaEdificioConfort, leftFrame);
-		webDriver.doubleClickInFrame(btnMutuaEdificioConfort, leftFrame);
-		// webDriver.waitForPageLoadWithAngular();
+		webDriver.clickInFrame(mutuaEdificioConfortBtn, leftFrame);
 		debugEnd();
 
 		return this;
@@ -68,9 +65,7 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage OpenMutuaAlquilerConfort() {
 		debugBegin();
-		webDriver.moveToElementInFrame(btnMutuaAlquilerConfort, leftFrame);
-		webDriver.doubleClickInFrame(btnMutuaAlquilerConfort, leftFrame);
-		// webDriver.waitForPageLoadWithAngular();
+		webDriver.clickInFrame(mutuaAlquilerConfortBtn, leftFrame);
 		debugEnd();
 
 		return this;
@@ -80,30 +75,29 @@ public class InnovaHomePage extends PageObject {
 		debugBegin();
 
 		// TODO Codigo original usaba doble clicks, comprobar si hace falta
-		webDriver.clickInFrame(btnMapaSitio, topFrame);
-		webDriver.clickInFrame(btnGestionCotizaciones, mainFrame);
+		webDriver.clickInFrame(mapaSitioBtn, topFrame);
+		webDriver.clickInFrame(gestionCotizacionesBtn, mainFrame);
 
 		debugEnd();
 
 		return this;
 	}
 
-	public InnovaHomePage OpenGestionPolizas() {
+	public InnovaHomePage openGestionPolizas() {
 		debugBegin();
 
-		webDriver.clickInFrame(btnMapaSitio, topFrame);
-		webDriver.clickInFrame(btnGestionPolizas, mainFrame);
+		webDriver.clickInFrame(mapaSitioBtn, topFrame);
+		webDriver.clickInFrame(gestionPolizasBtn, mainFrame);
 
 		debugEnd();
 
 		return this;
 	}
 
-	public InnovaHomePage OpenGestionAutorizaciones() {
+	public InnovaHomePage openGestionAutorizaciones() {
 		debugBegin();
 
-		webDriver.scrollToElementInFrame(btnGestionAutorizaciones, leftFrame);
-		webDriver.clickInFrame(btnGestionAutorizaciones, leftFrame);
+		webDriver.clickInFrame(gestionAutorizacionesBtn, leftFrame);
 
 		debugEnd();
 
@@ -112,7 +106,7 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openMenuMEC() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnMenuMEC, leftFrame);
+		webDriver.clickInFrame(menuMecBtn, leftFrame);
 		debugEnd();
 
 		return this;
@@ -121,10 +115,7 @@ public class InnovaHomePage extends PageObject {
 	public InnovaHomePage openInnovaHome() {
 		debugBegin();
 
-		// TODO Comprobar si el codigo comentado hace falta
-		// webDriver.doubleClickInFrame(btnMenuPrincipal, menuFrame);
-		// webDriver.moveToElementInFrameWithJavaScript(btnMenuPrincipal, menuFrame);
-		webDriver.clickInFrame(btnMenuPrincipal, leftFrame);
+		webDriver.clickInFrame(menuPrincipalBtn, leftFrame);
 		debugEnd();
 
 		return this;
@@ -132,13 +123,16 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openSiniestros() {
 		debugBegin();
-
-		if(webDriver.isPresentInFrame(logoMutua, topFrame)) {
-			webDriver.clickInFrame(logoMutua, topFrame);
+		
+		webDriver.waitWithDriver(8000);
+		
+		if(webDriver.isPresentInFrame(logoMutuaBtn, topFrame)) {
+			webDriver.clickInFrame(logoMutuaBtn, topFrame);
 			webDriver.waitWithDriver(3000);
 		}
 
-		webDriver.clickInFrame(btnSiniestros, leftFrame);
+		webDriver.clickInFrame(siniestrosBtn, leftFrame);
+		
 		debugEnd();
 
 		return this;
@@ -146,7 +140,7 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openMediadores() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnMediadores, leftFrame);
+		webDriver.clickInFrame(mediadoresBtn, leftFrame);
 		debugEnd();
 
 		return this;
@@ -154,7 +148,7 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openMHC() {
 		debugBegin();
-		webDriver.doubleClickInFrame(btnMHC, leftFrame);
+		webDriver.clickInFrame(mhcBtn, leftFrame);
 		debugEnd();
 
 		return this;
@@ -162,7 +156,7 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openGestionPagos() {
 		debugBegin();
-		webDriver.doubleClickInFrame(gestionPagos, leftFrame);
+		webDriver.clickInFrame(gestionPagosBtn, leftFrame);
 		debugEnd();
 
 		return this;

@@ -10,9 +10,9 @@ public class InnovaLoginPage extends PageObject {
 	// region webelements
 	private By menuFrame = By.cssSelector("#leftFrame");
 
-	private By txtUserId = By.cssSelector("#usuario");
-	private By txtPassword = By.cssSelector("#clave");
-	private By btnEnter = By.cssSelector("#botonEntrar");
+	private By userIdInput = By.cssSelector("#usuario");
+	private By passwordInput = By.cssSelector("#clave");
+	private By enterBtn = By.cssSelector("#botonEntrar");
 	// endregion
 
 	public InnovaLoginPage(UserStory userS) {
@@ -24,9 +24,9 @@ public class InnovaLoginPage extends PageObject {
 	public InnovaLoginPage login(String userId, String password) {
 		debugBegin();
 
-		webDriver.appendText(txtUserId, userId);
-		webDriver.appendText(txtPassword, password);
-		webDriver.click(btnEnter);
+		webDriver.appendText(userIdInput, userId);
+		webDriver.appendText(passwordInput, password);
+		webDriver.click(enterBtn);
 
 		Assert.assertTrue(webDriver.isClickable(menuFrame), "La aplicación no ha hecho el login correctamente");
 

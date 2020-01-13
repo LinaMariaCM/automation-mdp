@@ -34,7 +34,6 @@ public class SiniestrosTest3 extends TestObject {
 		suiteM.setRelevantColumn(testCase, 12);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
@@ -71,7 +70,6 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
@@ -104,7 +102,6 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
@@ -139,15 +136,12 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 
 			steps.alta_siniestro_simple();
-
 			steps.realizo_pago_simple();
 
 			steps.cierre_siniestro();
-
 			steps.reapertura_siniestro();
 
 			return null;
@@ -169,15 +163,12 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 
 			steps.alta_siniestro_simple();
-
 			steps.tramito_siniestro_tras_alta();
 
 			steps.compruebo_que_datos_han_viajado(); // TODO añadir más campos
-
 			steps.compruebo_carpeta_y_encargos();
 
 			return null;
@@ -200,7 +191,6 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 
 			steps.comunico_siniestro();
@@ -226,7 +216,6 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 
 			steps.anyado_anotacion_siniestro();
@@ -274,11 +263,10 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
-			// TODO
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-
 			steps.nueva_tarea_siniestros();
+			
+			// TODO
 
 			// steps.compruebo_tarea_siniestro();
 
@@ -329,7 +317,6 @@ public class SiniestrosTest3 extends TestObject {
 		suiteM.setRelevantColumn(testCase, 13);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
@@ -365,8 +352,6 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
-			// TEST TIPO
 			steps.login("Innova", "Eperez");
 			System.out.println("Login OK. Empezando moficar siniestro Datos");
 			steps.modificar_siniestro_datos();
@@ -390,8 +375,6 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
-			// TEST TIPO
 			steps.login("Innova", "Eperez");
 			System.out.println("Login OK. Empezando moficar siniestro Causa");
 			// steps.modificar_siniestro_causa();
@@ -414,9 +397,9 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		suiteM.setRelevantColumn(testCase, 15);
+		
 		// TODO prueba de diario sinistros
 		userS.testActions(() -> {
-
 			// steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			// steps.alta_siniestro_simple();
 			// steps.cierro_navegador();
@@ -469,7 +452,6 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
@@ -496,7 +478,6 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
@@ -523,9 +504,8 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.retenciones_declaracion_apertura_siniestro_fechas();
+			steps.comprobar_casos_error_declaracion_apertura_siniestro();
 			steps.cierro_navegador();
 
 			return null;
@@ -546,6 +526,9 @@ public class SiniestrosTest3 extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
 
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.transicionar_bloques();
