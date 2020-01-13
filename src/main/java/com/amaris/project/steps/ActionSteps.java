@@ -2495,13 +2495,14 @@ public class ActionSteps extends InteractionObject {
 				.altaDatosDeclarante(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_PREFIJO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DECLARACION_EMAIL_NO_DISP));
 
 			// Añadimos datos de persona extra
-			// datosDeclaracion.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D",
-			// "", "666123123", "", "", "H", true, "prueba@esto.es", true, "", "", "", "", "", "", "", "");
+
 			datosDeclaracion
 				.datosPersonaExtra(getTestVar(Constants.CONTACTO_ROL), getTestVar(Constants.CONTACTO_NOMBRE), getTestVar(Constants.CONTACTO_PRIM_APELLIDO), getTestVar(Constants.CONTACTO_SEG_APELLIDO), getTestVar(Constants.CONTACTO_TIPO_DOCUMENTO), getTestVar(Constants.CONTACTO_N_DOCUMENTO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_UNO), getTestVar(Constants.CONTACTO_TELEFONO_UNO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_DOS), getTestVar(Constants.CONTACTO_TELEFONO_DOS), getTestVar(Constants.CONTACTO_SEXO), getTestVar(Constants.CONTACTO_EMAIL_NO_DISP), getTestVar(Constants.CONTACTO_EMAIL), getTestVar(Constants.CONTACTO_VIVE_EN_RIESGO), getTestVar(Constants.CONTACTO_DIR_TIPO_VIA), getTestVar(Constants.CONTACTO_DIR_CALLE), getTestVar(Constants.CONTACTO_DIR_NUMERO), getTestVar(Constants.CONTACTO_DIR_PISO), getTestVar(Constants.CONTACTO_DIR_PUERTA), getTestVar(Constants.CONTACTO_DIR_CP), getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
 			// Comprobamos si necesita asistencia
-
-			if(getTestVar(Constants.ASISTENCIA).isEmpty() || getTestVar(Constants.ASISTENCIA) == null) {
+			
+			debugInfo("Comprobamos el contenido de la constante ASISTENCIA: " + getTestVar(Constants.ASISTENCIA));
+			
+			if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				datosDeclaracion.altaSinAsistencia();
 				datosDeclaracion.clickContinuarSinAsistencia();
 			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) {
@@ -2518,11 +2519,12 @@ public class ActionSteps extends InteractionObject {
 			}
 
 			// Validamos cosas
+			debugInfo("Hasta aquí llegamos : pre-reglas de validación");
 			ValidacionExcepcionesReglasPage validarReglas = new ValidacionExcepcionesReglasPage(userS);
 			if(validarReglas.comprobarNombrePagina().contains("excepciones")) {
 				validarReglas.clickOnContinuarButton();
 			}
-
+			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			AltaAperturaOcurrenciaSiniestrosPage datosOcurrencia = new AltaAperturaOcurrenciaSiniestrosPage(userS);
 			datosOcurrencia.altaRiesgoAsegurado();
@@ -2543,7 +2545,7 @@ public class ActionSteps extends InteractionObject {
 			userS.getWebDriver().waitWithDriver(10000);
 			
 			// Si el csv contempla la opción de guardar en medio del alta
-			if(!getTestVar(Constants.GUARDAR_EN_ALTA).isEmpty()) {
+			if(getTestVar(Constants.GUARDAR_EN_ALTA) != null && !getTestVar(Constants.GUARDAR_EN_ALTA).isEmpty()) {
 				debugInfo("Seleccionada opción de guardado, se procede a guardar el siniestros provisional");
 				datosOcurrencia.clickGuardarSalir();
 				
@@ -2863,14 +2865,33 @@ public class ActionSteps extends InteractionObject {
 		bloqueSiniestro.transicionar_bloques();
 	}
 
-	public void nueva_tarea_siniestros() throws Exception {
+	public void nueva_tarea_siniestros() {
 
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		new AgendaSiniestrosPage(userS).nueva_tarea();
+		new AgendaSiniestrosPage(userS).comprobar_tareas_pendientes();
+		new GestionSiniestrosPage(userS).logo();
+	}
+	
+	
+	public void modifico_tarea_siniestros() {
 
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new AgendaSiniestrosPage(userS).detallesTarea(getTestVar(Constants.TAREA_TITULO));
+		new AgendaSiniestrosPage(userS).comprobar_tareas_pendientes();
+		new GestionSiniestrosPage(userS).logo();
 	}
 
+	public void cierro_tarea_siniestros() {
+
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		//new AgendaSiniestrosPage(userS).
+		new AgendaSiniestrosPage(userS).comprobarTareaCerrada();
+		new GestionSiniestrosPage(userS).logo();
+	}
 
 	public void modificar_siniestro_datos() throws Exception {
 		InnovaHomePage innovaHome = new InnovaHomePage(userS);

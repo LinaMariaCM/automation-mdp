@@ -109,7 +109,8 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		webDriver.waitForElementToBeClickable(btnBuscar);
 		webDriver.click(btnBuscar);
 
-		ActionSteps.waitForIt(webDriver);
+		//ActionSteps.waitForIt(webDriver);
+		webDriver.waitWithDriver(3000);
 		webDriver.click(btnContinuar);
 		webDriver.exitFrame();
 

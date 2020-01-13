@@ -207,6 +207,7 @@ public class GestionSiniestrosPage extends PageObject {
 
 	public GestionSiniestrosPage comunicacion() {
 		debugBegin();
+		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(comunicacion, leftFrame);
 		debugEnd();
 		return this;

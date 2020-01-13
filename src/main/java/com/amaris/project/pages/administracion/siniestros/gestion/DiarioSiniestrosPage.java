@@ -63,7 +63,7 @@ public class DiarioSiniestrosPage extends PageObject {
 
 	// Información de comunicación
 
-	private By listadoMovimientosSiniestro = By.cssSelector("tr.odd:nth-child(1) > td:nth-child(3) > p:nth-child(8)");
+	private By listadoMovimientosSiniestro = By.cssSelector("tr.odd:nth-child(1) > td:nth-child(3) > p");
 	private By filaListadoMovimientos = By.cssSelector("#tbldiario_wrapper > table > tbody tr");
 
 	public DiarioSiniestrosPage(UserStory userS) {
@@ -116,7 +116,7 @@ public class DiarioSiniestrosPage extends PageObject {
 		String mensaje = "Tannhäuser";
 
 		System.out.println("Comprobando mensaje de comunicación...");
-
+		webDriver.waitWithDriver(8000);
 		if(webDriver.getTextInFrame(listadoMovimientosSiniestro, cuerpoFrame).contains(mensaje)) System.out.println("OK , mensaje de comunicación CORRECTO.");
 		else System.out.println("KO , mensaje de comunicación ERRÓNEO.");
 

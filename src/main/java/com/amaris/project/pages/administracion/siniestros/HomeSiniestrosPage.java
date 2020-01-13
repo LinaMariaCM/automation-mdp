@@ -53,6 +53,7 @@ public class HomeSiniestrosPage extends PageObject {
 
 	public HomeSiniestrosPage openGestionSiniestros() {
 		debugBegin();
+		webDriver.waitWithDriver(3000);
 		webDriver.doubleClickInFrame(btnGestionSiniestros, menuFrame);
 		debugEnd();
 

@@ -1943,6 +1943,18 @@ public class DriverHelper {
 		exitFrame();
 	}
 
+	public void clickElementFromDropDownByAttributeInFrame(By elementToClick, By elementList, By frame, String attribute, String value) {
+		logger.begin();
+		switchToFrame(frame);
+		click(elementToClick);
+
+		clickElementFromListByAttribute(elementList, attribute, value);
+
+		waitForLoadToComplete();		
+		exitFrame();
+		logger.end();
+	}
+	
 	public void clickElementFromDropDownByAttribute(By containingElement, String attribute, String value) {
 		clickElementFromDropDownByAttribute(containingElement, containingElement, attribute, value);
 	}
