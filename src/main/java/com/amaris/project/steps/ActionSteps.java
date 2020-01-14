@@ -19,7 +19,7 @@ import com.amaris.project.pages.administracion.clientes.ClientePage;
 import com.amaris.project.pages.administracion.fichaedificio.FichaEdificioPage;
 import com.amaris.project.pages.administracion.gestionautorizaciones.GestionAutorizacionesPage;
 import com.amaris.project.pages.administracion.gestionpagos.GestionPagosPage;
-import com.amaris.project.pages.administracion.mediadores.AsignarMediadorPage;
+import com.amaris.project.pages.productos.mac.AsignarMediadorPage;
 import com.amaris.project.pages.administracion.mediadores.MediadoresAltaMediadorPage;
 import com.amaris.project.pages.administracion.mediadores.MediadoresAltaProspectPage;
 import com.amaris.project.pages.administracion.mediadores.MediadoresHomePage;

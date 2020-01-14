@@ -8,20 +8,50 @@ public class MediadoresHomePage extends PageObject {
 
 	// region webelements
 	private By menuFrame = By.cssSelector("#leftFrame");
+	private By topFrame = By.cssSelector("#topFrame");
+	private By cuerpoFrame = By.cssSelector("#mainFrame");
 
-	private By altaProspectBtn = By.xpath(".//*[contains(@title,'Prospect')]");
-	private By altaMediadorBtn = By.xpath(".//*[contains(@title,'Mediador  ')]");
-	private By matricesBtn = By.xpath(".//*[contains(@title,'Matrices')]");
-	private By arbolesBtn = By.xpath(".//*[contains(@title,'Árboles')]");
-	private By envioBtn = By.xpath(".//*[contains(@title,'Envío')]");
-	private By recepcionBtn = By.xpath(".//*[contains(@title,'Recepción')");
-	// endregion
+	private By gestionMediadoresBtn = By.cssSelector("#jt1");
+	private By traspasoCarteraBtn = By.cssSelector("#jt2");
+	private By importarMarcasBtn = By.cssSelector("#jt3");
 
-	public MediadoresHomePage(UserStory userS) {
-		super(userS);
-	}
+	private By altaBtn = By.cssSelector("#jt4");
+	private By altaProspectBtn = By.cssSelector("#jt5");
+	private By altaMediadorBtn = By.cssSelector("#jt6");
+
+	private By comisionesSobrecomisionesBtn = By.cssSelector("#jt7");
+	private By matricesBtn = By.cssSelector("#jt8");
+	private By arbolesBtn = By.cssSelector("#jt9");
+
+	private By dgsBtn = By.cssSelector("#jt10");
+	private By envioBtn = By.cssSelector("#jt11");
+	private By recepcionBtn = By.cssSelector("#jt12");
 
 	// region methods
+	public MediadoresHomePage openGestionMediadores() {
+		debugBegin();
+		webDriver.doubleClickInFrame(gestionMediadoresBtn, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openTraspasoCartera() {
+		debugBegin();
+		webDriver.doubleClickInFrame(traspasoCarteraBtn, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresHomePage openImportarMarca() {
+		debugBegin();
+		webDriver.doubleClickInFrame(importarMarcasBtn, menuFrame);
+		debugEnd();
+
+		return this;
+	}
+
 	public MediadoresHomePage openAltaProspect() {
 		debugBegin();
 		webDriver.doubleClickInFrame(altaProspectBtn, menuFrame);
