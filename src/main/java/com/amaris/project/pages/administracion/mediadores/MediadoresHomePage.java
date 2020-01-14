@@ -27,10 +27,14 @@ public class MediadoresHomePage extends PageObject {
 	private By envioBtn = By.cssSelector("#jt11");
 	private By recepcionBtn = By.cssSelector("#jt12");
 
+	public MediadoresHomePage(UserStory userS) {
+		super(userS);
+	}
+
 	// region methods
 	public MediadoresHomePage openGestionMediadores() {
 		debugBegin();
-		webDriver.doubleClickInFrame(gestionMediadoresBtn, menuFrame);
+		webDriver.clickInFrame(gestionMediadoresBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -38,7 +42,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openTraspasoCartera() {
 		debugBegin();
-		webDriver.doubleClickInFrame(traspasoCarteraBtn, menuFrame);
+		webDriver.clickInFrame(traspasoCarteraBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -46,7 +50,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openImportarMarca() {
 		debugBegin();
-		webDriver.doubleClickInFrame(importarMarcasBtn, menuFrame);
+		webDriver.clickInFrame(importarMarcasBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -54,7 +58,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openAltaProspect() {
 		debugBegin();
-		webDriver.doubleClickInFrame(altaProspectBtn, menuFrame);
+		webDriver.clickInFrame(altaProspectBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -62,7 +66,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openAltaMediador() {
 		debugBegin();
-		webDriver.doubleClickInFrame(altaMediadorBtn, menuFrame);
+		webDriver.clickInFrame(altaMediadorBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -70,7 +74,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openMatrices() {
 		debugBegin();
-		webDriver.doubleClickInFrame(matricesBtn, menuFrame);
+		webDriver.clickInFrame(matricesBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -78,7 +82,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openArboles() {
 		debugBegin();
-		webDriver.doubleClickInFrame(arbolesBtn, menuFrame);
+		webDriver.clickInFrame(arbolesBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -86,7 +90,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openEnvio() {
 		debugBegin();
-		webDriver.doubleClickInFrame(envioBtn, menuFrame);
+		webDriver.clickInFrame(envioBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -94,7 +98,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openRecepcion() {
 		debugBegin();
-		webDriver.doubleClickInFrame(recepcionBtn, menuFrame);
+		webDriver.clickInFrame(recepcionBtn, menuFrame);
 		debugEnd();
 
 		return this;
