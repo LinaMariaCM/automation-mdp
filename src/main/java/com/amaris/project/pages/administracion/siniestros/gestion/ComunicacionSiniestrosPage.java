@@ -104,8 +104,12 @@ public class ComunicacionSiniestrosPage extends PageObject {
 																									// números.
 
 		// Datos medio de envío
+
+
 		if(webDriver.isPresent(nombreInput)) {webDriver.setTextIfEmpty(nombreInput, "Anónimos Sociedad Anónima ");}
 		if(webDriver.isPresent(emailInput)) {webDriver.setTextIfEmpty(emailInput, "prueba@esto.es");}
+
+
 
 		// Nuevos destinatarios
 		// TODO En principio no son obligatorios, si bien en un futuro se pueden añadir.
@@ -127,7 +131,7 @@ public class ComunicacionSiniestrosPage extends PageObject {
 			"Todos esos momentos... se perderán, como lágrimas en la lluvia.");
 
 		webDriver.clickInFrame(enviarBtn, cuerpoFrame);
-		//webDriver.exitFrame();		
+
 		debugEnd();
 
 		return this;

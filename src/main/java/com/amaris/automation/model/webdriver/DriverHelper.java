@@ -1964,11 +1964,14 @@ public class DriverHelper {
 		logger.end();
 	}
 
-/*	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By elementList, By frame, String attribute, String value) {
-		switchToFrame(frame);
-		clickElementFromDropDownByAttribute(containingElement, elementList, attribute, value);
-		exitFrame();
-	}*/
+
+//	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By elementList, By frame, String attribute, String value) {
+//		switchToFrame(frame);
+//		clickElementFromDropDownByAttribute(containingElement, elementList, attribute, value);
+//		exitFrame();
+//	}
+
+
 
 	public void clickElementFromDropDownByAttributeInFrame(By containingElement, By frame, String attribute, String value) {
 		switchToFrame(frame);

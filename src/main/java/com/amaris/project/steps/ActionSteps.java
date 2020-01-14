@@ -2824,8 +2824,7 @@ public class ActionSteps extends InteractionObject {
 				debugInfo("La póliza a la cual pertenece el siniestro es de tipo MAC, procedemos a modificar las causas para poder realizar pagos");
 				new ConfirmacionSiniestrosPage(userS)
 					.volverAHomeMutua();
-
-				modifico_causas_siniestro_MAC();
+					modifico_causas_siniestro_MAC();
 			}
 
 			// Accedemos a siniestros desde Gestión On Line
@@ -3093,15 +3092,14 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	}
+
 	public void nueva_tarea_siniestros() {
 
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		new AgendaSiniestrosPage(userS).nuevaTarea();
-		//new AgendaSiniestrosPage(userS).nueva_tarea();
 		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
-		//new AgendaSiniestrosPage(userS).comprobar_tareas_pendientes();
-		//new GestionSiniestrosPage(userS).logo();
 		new GestionSiniestrosPage(userS).clickLogo();
 	}
 	
