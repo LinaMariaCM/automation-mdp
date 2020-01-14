@@ -13,6 +13,8 @@ public class MediadoresAltaProspectPage extends PageObject {
 	// region WebElements
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
+	private By menuFrame = By.cssSelector("#leftFrame");
+	private By topFrame = By.cssSelector("#topFrame");
 
 	private By nivelEstructuraCombo = By.cssSelector("#MEDI_NIVEESTR");
 	private By tipoProspectCombo = By.cssSelector("#MEDI_TIPOPROS");

@@ -8,7 +8,8 @@ public class MediadoresDGSPage extends PageObject {
 
 	// region WebElements
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
-	private By modalFrame = By.cssSelector("#leftFrame");
+	private By menuFrame = By.cssSelector("#leftFrame");
+	private By topFrame = By.cssSelector("#topFrame");
 
 	private By notificarDGSBtn = By.cssSelector("#BUSENVIO");
 	private By descartarNotificarDGSBtn = By.cssSelector("#BUSENVIO2");

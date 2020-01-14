@@ -11,6 +11,7 @@ public class MediadoresTraspasoCarteraPage extends PageObject{
 	//region WebElements
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By menuFrame = By.cssSelector("#leftFrame");
+	private By topFrame = By.cssSelector("#topFrame");
 
 	private By fechaEfectoInput = By.cssSelector("#TRAS_CAR_FECHA_EFECTO");
 	private By mediadorOrigenInput = By.cssSelector("#TRAS_CAR_MEDIADOR_ORIGEN");
