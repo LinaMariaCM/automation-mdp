@@ -31,11 +31,6 @@ public class MediadoresHomePage extends PageObject {
 		super(userS);
 	}
 
-	// region methods
-
-	public MediadoresHomePage(UserStory userS) {
-		super(userS);
-	}
 	
 
 	public MediadoresHomePage openGestionMediadores() {

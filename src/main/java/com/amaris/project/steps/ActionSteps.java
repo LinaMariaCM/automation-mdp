@@ -3089,10 +3089,14 @@ public class ActionSteps extends InteractionObject {
 
 	public void transicionar_bloques() {
 		debugBegin();
+		
+		//TODO 	comprobar por qué no está esta parte de código
+	
+		
 		debugEnd();
 	}
 
-	}
+
 
 	public void nueva_tarea_siniestros() {
 
