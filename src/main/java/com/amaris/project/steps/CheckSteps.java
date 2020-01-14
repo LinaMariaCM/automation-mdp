@@ -7,6 +7,7 @@ import com.amaris.automation.model.testing.objects.InteractionObject;
 import com.amaris.project.Constants;
 import com.amaris.project.pages.administracion.clientes.ClientePage;
 import com.amaris.project.pages.administracion.fichaedificio.FichaEdificioPage;
+import com.amaris.project.pages.administracion.mediadores.MediadoresGestionPage;
 import com.amaris.project.pages.administracion.gestionautorizaciones.GestionAutorizacionesPage;
 import com.amaris.project.pages.comun.ValidacionExcepcionesReglasDetallesRiesgoPage;
 import com.amaris.project.pages.comun.gestiononline.GestionOnlineHomePage;
@@ -312,7 +313,7 @@ public class CheckSteps extends InteractionObject {
 	public void datos_prospect_grabados_coinciden() {
 		String nombreComercial = getTestVar(Constants.NOMBRE_COMERCIAL_PROSPECT).toUpperCase();
 
-		Assert.assertTrue(new MediadoresFichaMediadorPage(userS).getContenidoTituloPagina()
+		Assert.assertTrue(new MediadoresGestionPage(userS).getContenidoTituloPagina()
 			.contains(nombreComercial));
 	}
 
@@ -324,12 +325,12 @@ public class CheckSteps extends InteractionObject {
 					.toUpperCase();
 
 			debugInfo("Nombre comercial: " + nombreComercial);
-			Assert.assertTrue(new MediadoresFichaMediadorPage(userS).getContenidoTituloPagina()
+			Assert.assertTrue(new MediadoresGestionPage(userS).getContenidoTituloPagina()
 				.contains(nombreComercial));
 		} else if(getScenarioVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Diferente que el fiscal")) {
 			String nombreComercial = getScenarioVar(Constants.NOMBRE_MEDIADOR).toUpperCase();
 
-			Assert.assertTrue(new MediadoresFichaMediadorPage(userS).getContenidoTituloPagina()
+			Assert.assertTrue(new MediadoresGestionPage(userS).getContenidoTituloPagina()
 				.contains(nombreComercial));
 		}
 	}

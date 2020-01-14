@@ -28,6 +28,11 @@ public class MediadoresHomePage extends PageObject {
 	private By recepcionBtn = By.cssSelector("#jt12");
 
 	// region methods
+	
+	public MediadoresHomePage(UserStory userS) {
+		super(userS);
+	}
+	
 	public MediadoresHomePage openGestionMediadores() {
 		debugBegin();
 		webDriver.doubleClickInFrame(gestionMediadoresBtn, menuFrame);
