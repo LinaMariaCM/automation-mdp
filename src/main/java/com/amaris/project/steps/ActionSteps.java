@@ -3092,8 +3092,6 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	}
-
 	public void nueva_tarea_siniestros() {
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -3555,4 +3553,5 @@ public class ActionSteps extends InteractionObject {
 
 		debugEnd();
 	}
+
 } // END

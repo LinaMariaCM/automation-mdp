@@ -147,19 +147,6 @@ public class FichaMediadorPage extends PageObject {
 	situacionMediadorTxt
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
 	//
 	public FichaMediadorPage clickAnyadirNuevoContacto() {
 		debugBegin();
