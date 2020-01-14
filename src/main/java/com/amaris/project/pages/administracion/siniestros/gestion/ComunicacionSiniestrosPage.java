@@ -11,19 +11,26 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 	private By leftFrame = By.cssSelector("#leftFrame");
 	private By capaIframe = By.cssSelector("#capaIframe");
+	private By textoFrame = By.cssSelector("#mce_0_ifr");
 
 	private By comunicacionBtn = By.cssSelector("[href*='codmenu=SINI_COMUNICACION']");
 
-	private By nuevaComunicacionBtn = By.cssSelector("#tr0 a.si-arrow-right");
+	private By nuevaComuni = By.cssSelector("#tr0 a.si-arrow-right");
+	//#tr0 > td:nth-child(4) > a
 
 	private By altaAnotacionBtn = By.cssSelector("li.js-action:nth-child(1) > a:nth-child(1");
 
 	private By anyadirNuevaAnotacionBtn = By.cssSelector(".js-toggleblockparam");
 
 	// 1.Medio de envío alta comunicacion
-	private By medioEnvioBtn = By.cssSelector("#medio");
-	private By privacidadBtn = By.cssSelector("#privi");
+	private By medioEnvio = By.cssSelector("#medio");
+	private By medioEnvioElemento = By.cssSelector("#medio > option");	//#medio > option:nth-child(2)
+
+	private By privacidad = By.cssSelector("#privi");
+	private By privacidadElemento = By.cssSelector("#privi > option");
+	
 	private By destino = By.cssSelector("#desti");
+	private By destinoElemento = By.cssSelector("#desti > option");
 
 	// Datos medio de envio
 	private By nombreInput = By.cssSelector("#nombre");
@@ -79,22 +86,26 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	public ComunicacionSiniestrosPage nuevaComunicacion() {
 		debugBegin();
 
-		webDriver.clickInFrame(comunicacionBtn, leftFrame);
-
-		webDriver.clickInFrame(nuevaComunicacionBtn, cuerpoFrame);
+		webDriver.waitWithDriver(6000);
+		webDriver.clickInFrame(comunicacion, leftFrame);
+		webDriver.waitWithDriver(6000);
+		webDriver.clickInFrame(nuevaComuni, cuerpoFrame);
 
 		// 1.Medio de envío
 		// Medio de envío
-		webDriver.clickElementFromDropDownByAttributeInFrame(medioEnvioBtn, cuerpoFrame, "value", "EMAIL");
-		webDriver.clickElementFromDropDownByAttributeInFrame(privacidadBtn, cuerpoFrame, "value", "");
-
-		// Destinatarios
-		// Sí, en esta lista el valor va por números.
-		webDriver.clickElementFromDropDownByAttributeInFrame(destino, cuerpoFrame, "value", "3");
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttribute(medioEnvio, medioEnvioElemento, "value", "EMAIL");
+		webDriver.waitWithDriver(2000);
+		webDriver.clickElementFromDropDownByAttribute(privacidad, privacidadElemento, "value", "VIGLOBAL");
+		webDriver.waitWithDriver(2000);
+		// Destinatarios		
+		webDriver.clickElementFromDropDownByAttribute(destino, destinoElemento, "value", "3"); // Sí, en esta lista
+		webDriver.waitWithDriver(2000);																				// el valor va por
+																									// números.
 
 		// Datos medio de envío
-		webDriver.setTextIfEmpty(nombreInput, "Anónimos Sociedad Anónima ");
-		webDriver.setTextIfEmpty(emailInput, "prueba@esto.es");
+		if(webDriver.isPresent(nombre)) {webDriver.setTextIfEmpty(nombre, "Anónimos Sociedad Anónima ");}
+		if(webDriver.isPresent(email)) {webDriver.setTextIfEmpty(email, "prueba@esto.es");}
 
 		// Nuevos destinatarios
 		// TODO En principio no son obligatorios, si bien en un futuro se pueden añadir.
@@ -102,20 +113,21 @@ public class ComunicacionSiniestrosPage extends PageObject {
 		// Figuras para ser destinatarios
 		// TODO No obligatorias, se pueden añadir más adelante.
 
-		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-
+		webDriver.click(continuar);
+		webDriver.waitWithDriver(4000);
+		
 		// 2.Cumplimentación
 
 		// Medio de envío Autorrellenado
 
 		// Contenido de la carta
-		webDriver.setTextInFrame(contenidoCartaInput, cuerpoFrame, "Yo he visto cosas que vosotros no creeríais." +
+		webDriver.setTextInFrame(contenidoCarta, textoFrame, "Yo he visto cosas que vosotros no creeríais." +
 			"Atacar naves en llamas más allá de Orion." +
 			"He visto rayos C brillar en la oscuridad cerca de la puerta de Tannhäuser." +
 			"Todos esos momentos... se perderán, como lágrimas en la lluvia.");
 
-		webDriver.clickInFrame(enviarBtn, cuerpoFrame);
-
+		webDriver.clickInFrame(enviar, cuerpoFrame);
+		//webDriver.exitFrame();		
 		debugEnd();
 
 		return this;

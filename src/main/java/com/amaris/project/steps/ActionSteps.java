@@ -19,7 +19,7 @@ import com.amaris.project.pages.administracion.clientes.ClientePage;
 import com.amaris.project.pages.administracion.fichaedificio.FichaEdificioPage;
 import com.amaris.project.pages.administracion.gestionautorizaciones.GestionAutorizacionesPage;
 import com.amaris.project.pages.administracion.gestionpagos.GestionPagosPage;
-import com.amaris.project.pages.administracion.mediadores.AsignarMediadorPage;
+import com.amaris.project.pages.productos.mac.AsignarMediadorPage;
 import com.amaris.project.pages.administracion.mediadores.MediadoresAltaMediadorPage;
 import com.amaris.project.pages.administracion.mediadores.MediadoresAltaProspectPage;
 import com.amaris.project.pages.administracion.mediadores.MediadoresHomePage;
@@ -2652,7 +2652,7 @@ public class ActionSteps extends InteractionObject {
 			new HomeSiniestrosPage(userS)
 				.openAperturaAlta();
 
-			debugInfo("NUM POLIZA: " + getTestVar(Constants.NUM_POLIZA));
+			debugInfo("Numero poliza: " + getTestVar(Constants.NUM_POLIZA));
 			if(getTestVar(Constants.NUM_POLIZA) == null || getTestVar(Constants.NUM_POLIZA).isEmpty()) {
 				// De no haber póliza se tomará una al azar de las últimas 50
 				new AltaAperturaSiniestrosPage(userS)
@@ -2707,7 +2707,7 @@ public class ActionSteps extends InteractionObject {
 				new ValidacionExcepcionesReglasPage(userS)
 					.clickContinuar();
 			}
-
+			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
 				.altaRiesgoAsegurado();
@@ -3090,29 +3090,34 @@ public class ActionSteps extends InteractionObject {
 	public void transicionar_bloques() {
 		debugBegin();
 
-		new InnovaHomePage(userS)
-			.openSiniestros();
-
-		new GestionBuscadorSiniestrosPage(userS)
-			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-
-		new BloqueSiniestrosPage(userS)
-			.transicionarBloqueCerrandoOrigen()
-			.verificarTransicionesCerrandoOrigen();
-
-		debugEnd();
-	}
-
 	public void nueva_tarea_siniestros() {
-		new InnovaHomePage(userS)
-			.openSiniestros();
 
-		new GestionBuscadorSiniestrosPage(userS)
-			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-
-		new AgendaSiniestrosPage(userS)
-			.nuevaTarea();
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new AgendaSiniestrosPage(userS).nueva_tarea();
+		new AgendaSiniestrosPage(userS).comprobar_tareas_pendientes();
+		new GestionSiniestrosPage(userS).logo();
 	}
+	
+	
+	public void modifico_tarea_siniestros() {
+
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new AgendaSiniestrosPage(userS).detallesTarea(getTestVar(Constants.TAREA_TITULO));
+		new AgendaSiniestrosPage(userS).comprobar_tareas_pendientes();
+		new GestionSiniestrosPage(userS).logo();
+	}
+
+	public void cierro_tarea_siniestros() {
+
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		//new AgendaSiniestrosPage(userS).
+		new AgendaSiniestrosPage(userS).comprobarTareaCerrada();
+		new GestionSiniestrosPage(userS).logo();
+	}
+
 
 	public void modificar_siniestro_datos() {
 		new InnovaHomePage(userS)
@@ -3125,7 +3130,8 @@ public class ActionSteps extends InteractionObject {
 			.modificarSiniestro();
 
 		new AltaAperturaDeclaracionSiniestrosPage(userS)
-			.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
+			.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), 
+				getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
 
 		new ValidacionExcepcionesReglasPage(userS)
 			.comprobarPaginaModificacion();
@@ -3144,7 +3150,8 @@ public class ActionSteps extends InteractionObject {
 
 		new VistaSiniestrosPage(userS)
 			.irVistaSiniestroHistorico()
-			.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
+			.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), 
+				getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
 	}
 
 	public void modificar_siniestro_causa() {

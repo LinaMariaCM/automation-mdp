@@ -8,7 +8,6 @@ import com.amaris.project.Constants;
 import com.amaris.project.pages.administracion.clientes.ClientePage;
 import com.amaris.project.pages.administracion.fichaedificio.FichaEdificioPage;
 import com.amaris.project.pages.administracion.gestionautorizaciones.GestionAutorizacionesPage;
-import com.amaris.project.pages.administracion.mediadores.MediadoresFichaMediadorPage;
 import com.amaris.project.pages.comun.ValidacionExcepcionesReglasDetallesRiesgoPage;
 import com.amaris.project.pages.comun.gestiononline.GestionOnlineHomePage;
 import com.amaris.project.pages.comun.innova.InnovaHomePage;

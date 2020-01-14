@@ -8,7 +8,7 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.automation.model.utils.FileUtils;
 import com.amaris.project.Constants;
-import com.amaris.project.pages.administracion.mediadores.AsignarMediadorPage;
+import com.amaris.project.pages.productos.mac.AsignarMediadorPage;
 import com.amaris.project.pages.comun.LoginPage;
 import com.amaris.project.pages.comun.innova.InnovaHomePage;
 

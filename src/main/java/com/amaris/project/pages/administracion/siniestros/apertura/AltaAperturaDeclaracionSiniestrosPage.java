@@ -342,11 +342,12 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
-		debugInfo("Comenzamos a rellenar campos de persona extra");
-		// TODO Cambiar a atributo y comprobar si funciona
-		webDriver.clickElementFromDropDownByIndex(rolDrpDwn, 8);
-		// webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
+		// webDriver.switchToFrame(cuerpoFrame);
+		// webDriver.switchToFrame(modalFrame);
 
+		webDriver.clickElementFromDropDownByAttribute(comboRol, comboRolElemento, "value", "NORIE");
+		// webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
+		
 		if(nombre != null && !nombre.isEmpty()) {
 			webDriver.setText(nombreInput, nombre);
 		} else {
@@ -388,7 +389,14 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 			debugInfo("No existe prefijo t1");
 		}
 
-		webDriver.setText(telefono1Input, telefono1);
+		if(telefono1 != null && !telefono1.isEmpty()) {
+			webDriver.setText(txtTelefono1, telefono1);
+		} else {
+			webDriver.setText(txtTelefono1, "961234567");
+			debugInfo("no existe teléfono 1");
+		}
+		
+		
 
 		if(prefijoTlf2 != null && !prefijoTlf2.isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(prefijo2DrpDwn, "value", prefijoTlf2);
@@ -397,63 +405,58 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		}
 
 		if(telefono2 != null && !telefono2.isEmpty()) {
-			webDriver.setText(telefono2Input, telefono2);
-		}
-
-		if(sexo != null && !sexo.isEmpty()) {
-			webDriver.clickElementFromListByAttribute(sexOption, "value", sexo);
-		}
-
-		webDriver.waitWithDriver(3000);
-
-		// TODO Comprobar algoritmo, si hay noEmail se deberia de ahcer click en el checkBox de noEmail?
-		if(noEmail != null && !noEmail.isEmpty()) {
-			email = "prueba@esto.es";
-		}
-
-		webDriver.setText(emailPersonaInput, email);
-
-		webDriver.waitWithDriver(3000);
-
-		if(riesgoAsegurado != null && !riesgoAsegurado.isEmpty()) {
-			webDriver.click(riesgoAseguradoBtn);
+			webDriver.setText(txtTelefono2, telefono2);
 		} else {
-			if(tipoVia != null && !tipoVia.isEmpty()) {
-				webDriver.clickElementFromDropDownByAttribute(tipoViaDrpDwn, "value", tipoVia);
+			debugInfo("No se dispone de telefono 2");
 			}
-
-			if(via != null && !via.isEmpty()) {
-				webDriver.setText(viaInput, via);
-			}
-
-			if(numero != null && !numero.isEmpty()) {
-				webDriver.setText(numeroInput, numero);
-			}
-
-			if(piso != null && !piso.isEmpty()) {
-				webDriver.setText(pisoInput, piso);
-			}
-
-			if(puerta != null && !puerta.isEmpty()) {
-				webDriver.setText(puertaInput, puerta);
-			}
-
-			if(cp != null && !cp.isEmpty()) {
-				webDriver.setText(codPostalInput, cp);
-			}
-
-			if(poblacion != null && !poblacion.isEmpty()) {
-				webDriver.setText(poblacionInput, poblacion);
-			}
-
-			if(provincia != null && !provincia.isEmpty()) {
-				webDriver.clickElementFromDropDownByAttribute(provinciaDrpDwn, "value", provincia);
-			}
+		
+		
+		// webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
+		if(sexo != null && !sexo.isEmpty()) {
+			webDriver.clickElementFromListByAttribute(comboSexo, "value", sexo);
+		} else { debugInfo("no se especifica sexo");
+			
 		}
 
-		webDriver.waitWithDriver(8000);
-		webDriver.click(grabarBtn);
-
+		webDriver.waitWithDriver(2000);
+		if(noEmail != null && !noEmail.isEmpty()) {
+			webDriver.setText(txtEmailPersona, "prueba@esto.es");
+			// webDriver.clickInFrame(checkNoEmail, modalFrame);
+			
+		} else {
+			
+			if( email!= null && !email.isEmpty()) {
+				webDriver.setText(txtEmailPersona, email);
+			} else {
+				webDriver.setText(txtEmailPersona, "prueba@esto.es");
+			}			
+			
+		}
+		debugInfo("completamos email");
+		
+		
+		webDriver.waitWithDriver(2000);
+		
+//		if(riesgoAsegurado != null && !riesgoAsegurado.isEmpty()) {
+			webDriver.click(checkRiesgoAsegurado);
+//		} else {
+//			// webDriver.clickElementFromDropDownByIndex(comboTipoVia, 1);
+//			if(tipoVia != null && !tipoVia.isEmpty()) webDriver.clickElementFromDropDownByAttribute(comboTipoVia, "value", tipoVia);
+//			if(via != null && !via.isEmpty()) webDriver.setText(txtVia, via);
+//			if(numero != null && !numero.isEmpty()) webDriver.setText(txtNumero, numero);
+//			if(piso != null && !piso.isEmpty()) webDriver.setText(txtPiso, piso);
+//			if(puerta != null && !puerta.isEmpty()) webDriver.setText(txtPuerta, puerta);
+//			if(cp != null && !cp.isEmpty()) webDriver.setText(txtCodPostal, cp);
+//			if(poblacion != null && !poblacion.isEmpty()) webDriver.setText(txtPoblacion, poblacion);
+//			// webDriver.clickElementFromDropDownByIndex(comboProvincia, 1);
+//			if(provincia != null && !provincia.isEmpty()) webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
+//		}
+		debugInfo("Completamos dirección de la persona extra (si vive en riesgo asegurado o no.)");
+		// webDriver.setText(txtEmail, "prueba@esto.es");
+		webDriver.waitWithDriver(2000);
+		webDriver.click(btnGrabar);
+		webDriver.waitWithDriver(2000);
+		debugInfo("Grabamos y salimos de la ventana");
 		webDriver.exitFrame();
 
 		debugEnd();

@@ -1,4 +1,4 @@
-package com.amaris.project.pages.administracion.mediadores;
+package com.amaris.project.pages.productos.mac;
 
 import org.openqa.selenium.By;
 import com.amaris.automation.model.testing.UserStory;

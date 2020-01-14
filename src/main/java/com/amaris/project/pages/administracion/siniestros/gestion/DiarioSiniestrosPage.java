@@ -63,8 +63,9 @@ public class DiarioSiniestrosPage extends PageObject {
 	private By emailInput = By.cssSelector("#email");
 
 	// Información de comunicación
-	private By listadoMovimientosSiniestroTxt = By.cssSelector("tr.odd:nth-child(1) > td:nth-child(3) > p:nth-child(8)");
-	private By listadoMovimientosRows = By.cssSelector("#tbldiario_wrapper > table > tbody tr");
+
+	private By listadoMovimientosSiniestro = By.cssSelector("tr.odd:nth-child(1) > td:nth-child(3) > p");
+	private By filaListadoMovimientos = By.cssSelector("#tbldiario_wrapper > table > tbody tr");
 
 	public DiarioSiniestrosPage(UserStory userS) {
 		super(userS);
