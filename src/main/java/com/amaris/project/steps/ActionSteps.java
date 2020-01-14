@@ -3089,10 +3089,9 @@ public class ActionSteps extends InteractionObject {
 
 	public void transicionar_bloques() {
 		debugBegin();
-		
-		//TODO 	comprobar por qué no está esta parte de código
-	
-		
+		new InnovaHomePage(userS).openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new BloqueSiniestrosPage(userS).transicionarBloqueCerrandoOrigen();
 		debugEnd();
 	}
 
