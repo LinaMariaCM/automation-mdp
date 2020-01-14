@@ -58,4 +58,116 @@ public class MediadoresAgendaPage extends PageObject {
 	public MediadoresAgendaPage(UserStory userS) {
 		super(userS);
 	}
+
+	public MediadoresAgendaPage clickVolverCalendario() {
+		debugBegin();
+		webDriver.clickInFrame(volverCalendarioBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickTareasFuturas() {
+		debugBegin();
+		webDriver.clickInFrame(tareasFuturasBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickCerrarLeyenda() {
+		debugBegin();
+		webDriver.clickInFrame(cerrarLeyendaBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickCerrarConfiguracionFiltro() {
+		debugBegin();
+		webDriver.clickInFrame(cerrarConfFiltrosBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickCerrarVistasElementos() {
+		debugBegin();
+		webDriver.clickInFrame(cerrarVistasElementBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickBuscarPlantillas() {
+		debugBegin();
+		webDriver.clickInFrame(buscarPlantillaBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickGrabarAnotacion() {
+		debugBegin();
+		webDriver.clickInFrame(grabarAnotacionBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickNuevaAnotacion() {
+		debugBegin();
+		webDriver.clickInFrame(nuevaAnotacionBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickNuevaTarea() {
+		debugBegin();
+		webDriver.clickInFrame(nuevaTareaBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickPlantillas() {
+		debugBegin();
+		webDriver.clickInFrame(plantillasBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickVistas() {
+		debugBegin();
+		webDriver.clickInFrame(vistasBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickLeyenda() {
+		debugBegin();
+		webDriver.clickInFrame(leyendaBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickFiltrar() {
+		debugBegin();
+		webDriver.clickInFrame(filtrarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAgendaPage clickAnotacion() {
+		debugBegin();
+		webDriver.clickInFrame(anotacionesBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
 }
