@@ -3089,13 +3089,16 @@ public class ActionSteps extends InteractionObject {
 
 	public void transicionar_bloques() {
 		debugBegin();
+
 	}
+
 	public void nueva_tarea_siniestros() {
 
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		new AgendaSiniestrosPage(userS).nuevaTarea();
 		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
+
 		new GestionSiniestrosPage(userS).clickLogo();
 	}
 	

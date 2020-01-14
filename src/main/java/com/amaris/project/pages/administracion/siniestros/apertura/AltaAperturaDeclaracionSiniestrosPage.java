@@ -81,7 +81,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	// #### DATOS PERSONA CONTACTO ####
 	private By rolDrpDwn = By.cssSelector("#rol");
-	private By elementoRol = By.cssSelector("#rol > option:nth-child");
+	private By elementoRol = By.cssSelector("#rol > option");
 	private By nombreInput = By.id("nombre");
 	private By apellido1Input = By.id("apellido1");
 	private By apellido2Input = By.id("apellido2");
@@ -346,8 +346,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		// webDriver.switchToFrame(modalFrame);
 
 		webDriver.clickElementFromDropDownByAttribute(rolDrpDwn, elementoRol, "value", "NORIE");
-		// webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
-		
+
 		if(nombre != null && !nombre.isEmpty()) {
 			webDriver.setText(nombreInput, nombre);
 		} else {
@@ -411,7 +410,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 			}
 		
 		
-		// webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
+		// webDriver.clickElementFromDropDownByIndex(sexOption, 1);
 		if(sexo != null && !sexo.isEmpty()) {
 			webDriver.clickElementFromListByAttribute(sexOption, "value", sexo);
 		} else { debugInfo("no se especifica sexo");
