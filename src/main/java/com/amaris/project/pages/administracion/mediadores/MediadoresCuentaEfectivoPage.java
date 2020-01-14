@@ -10,7 +10,7 @@ public class MediadoresCuentaEfectivoPage extends PageObject {
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
 
-	//----Seleccionar año------------
+	//----Seleccionar anyo------------
 	private By seleccionarAnyoBtn = By.cssSelector("#cabAnio");
 	private By selecionarAnyoCombo = By.cssSelector("#mescuenta");
 	private By quitarCriterioSeleccionBtn = By.cssSelector("#formBuscador > div > span > a");
@@ -24,7 +24,7 @@ public class MediadoresCuentaEfectivoPage extends PageObject {
 
 	//---------------Alta de movimiento--------------
 	private By altaMovimientoBtn = By.cssSelector("#cabAlta");
-	private By volverBtn = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li.rightList.js-action > a");
+	private By volverAltaMovBtn = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li.rightList.js-action > a");
 	private By fechaDatosInput = By.cssSelector("#fechmovi");
 	private By conceptoInput = By.cssSelector("#aux533");
 	private By descripcionInput = By.cssSelector("#descripcion");
@@ -45,6 +45,78 @@ public class MediadoresCuentaEfectivoPage extends PageObject {
 
 	public MediadoresCuentaEfectivoPage(UserStory userS) {
 		super(userS);
+	}
+
+	public MediadoresCuentaEfectivoPage clickSeleccionarAnyo() {
+		debugBegin();
+		webDriver.clickInFrame(seleccionarAnyoBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresCuentaEfectivoPage clickFiltrar() {
+		debugBegin();
+		webDriver.clickInFrame(filtrarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresCuentaEfectivoPage clickExportar() {
+		debugBegin();
+		webDriver.clickInFrame(exportarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresCuentaEfectivoPage clickAltaMovimiento() {
+		debugBegin();
+		webDriver.clickInFrame(altaMovimientoBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresCuentaEfectivoPage clickVolverAltaMovimiento() {
+		debugBegin();
+		webDriver.clickInFrame(volverAltaMovBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresCuentaEfectivoPage clickImportarMovimiento() {
+		debugBegin();
+		webDriver.clickInFrame(importarMovimientoBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresCuentaEfectivoPage clickMasAcciones() {
+		debugBegin();
+		webDriver.clickInFrame(masAccionesBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresCuentaEfectivoPage clickCalcularImportes() {
+		debugBegin();
+		webDriver.clickInFrame(calcularImportesBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresCuentaEfectivoPage clickGrabarCalcularImporte() {
+		debugBegin();
+		webDriver.clickInFrame(grabarCalcImporteBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
 	}
 
 }

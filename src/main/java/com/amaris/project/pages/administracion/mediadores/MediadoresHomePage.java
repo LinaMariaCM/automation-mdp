@@ -31,8 +31,7 @@ public class MediadoresHomePage extends PageObject {
 		super(userS);
 	}
 
-	
-
+	// region methods
 	public MediadoresHomePage openGestionMediadores() {
 		debugBegin();
 		webDriver.clickInFrame(gestionMediadoresBtn, menuFrame);
