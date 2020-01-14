@@ -77,12 +77,35 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 
 	//-----------Controles de pagina---------------------------
 
-	private By cancelarDescripcionBtn = By.id("botonCancelar1");
-	private By guardarDescripcionBtn = By.id("botonGrabar1");
+	private By cancelarBtn = By.id("botonCancelar1");
+	private By guardarBtn = By.id("botonGrabar1");
 	private By continuarBtn = By.id("botonContinuar1");
 
 	public MediadoresAltaDatosTransaccionalesPage(UserStory userS) {
 		super(userS);
 	}
 
+	public MediadoresAltaDatosTransaccionalesPage clickContiuar() {
+		debugBegin();
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosTransaccionalesPage clickGuardar() {
+		debugBegin();
+		webDriver.clickInFrame(guardarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosTransaccionalesPage clickCancelar() {
+		debugBegin();
+		webDriver.clickInFrame(cancelarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
 }

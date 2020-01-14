@@ -40,11 +40,71 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 	//-----------Controles de pagina---------------------------
 
-	private By cancelarDescripcionBtn = By.id("botonCancelar1");
-	private By guardarDescripcionBtn = By.id("botonGrabar1");
+	private By cancelarRelacionalesBtn = By.id("botonCancelar1");
+	private By guardarRelacionalesBtn = By.id("botonGrabar1");
 	private By continuarBtn = By.id("botonContinuar1");
 
 	public MediadoresAltaDatosRelacionalesPage(UserStory userS) {
 		super(userS);
+	}
+
+	public MediadoresAltaDatosRelacionalesPage clickCancelarDatosrelacionales() {
+		debugBegin();
+		webDriver.clickInFrame(cancelarRelacionalesBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosRelacionalesPage clickGuardarDatosRelacionales() {
+		debugBegin();
+		webDriver.clickInFrame(guardarRelacionalesBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosRelacionalesPage clickContiuarDatosRelacionales() {
+		debugBegin();
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosRelacionalesPage clickGrabar() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickInFrame(grabarBtn, modalFrame);
+		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosRelacionalesPage clickCancelar() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickInFrame(cancelarBtn, modalFrame);
+		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosRelacionalesPage clickAnyadirNuevoProducto() {
+		debugBegin();
+		webDriver.clickInFrame(medNuevoProductoBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosRelacionalesPage clickAnyadirNuevoBanco() {
+		debugBegin();
+		webDriver.clickInFrame(medNuevoBancoBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
 	}
 }
