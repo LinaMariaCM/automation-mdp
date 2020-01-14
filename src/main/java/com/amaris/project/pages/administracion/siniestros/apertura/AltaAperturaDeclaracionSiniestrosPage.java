@@ -345,7 +345,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		// webDriver.switchToFrame(cuerpoFrame);
 		// webDriver.switchToFrame(modalFrame);
 
-		webDriver.clickElementFromDropDownByAttribute(comboRol, comboRolElemento, "value", "NORIE");
+		webDriver.clickElementFromDropDownByAttribute(rolDrpDwn, elementoRol, "value", "NORIE");
 		// webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
 		
 		if(nombre != null && !nombre.isEmpty()) {
@@ -390,9 +390,9 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		}
 
 		if(telefono1 != null && !telefono1.isEmpty()) {
-			webDriver.setText(txtTelefono1, telefono1);
+			webDriver.setText(telefono1Input, telefono1);
 		} else {
-			webDriver.setText(txtTelefono1, "961234567");
+			webDriver.setText(telefono1Input, "961234567");
 			debugInfo("no existe teléfono 1");
 		}
 		
@@ -405,7 +405,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		}
 
 		if(telefono2 != null && !telefono2.isEmpty()) {
-			webDriver.setText(txtTelefono2, telefono2);
+			webDriver.setText(telefono2Input, telefono2);
 		} else {
 			debugInfo("No se dispone de telefono 2");
 			}
@@ -413,22 +413,22 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		
 		// webDriver.clickElementFromDropDownByIndex(comboSexo, 1);
 		if(sexo != null && !sexo.isEmpty()) {
-			webDriver.clickElementFromListByAttribute(comboSexo, "value", sexo);
+			webDriver.clickElementFromListByAttribute(sexOption, "value", sexo);
 		} else { debugInfo("no se especifica sexo");
 			
 		}
 
 		webDriver.waitWithDriver(2000);
 		if(noEmail != null && !noEmail.isEmpty()) {
-			webDriver.setText(txtEmailPersona, "prueba@esto.es");
+			webDriver.setText(emailPersonaInput, "prueba@esto.es");
 			// webDriver.clickInFrame(checkNoEmail, modalFrame);
 			
 		} else {
 			
 			if( email!= null && !email.isEmpty()) {
-				webDriver.setText(txtEmailPersona, email);
+				webDriver.setText(emailPersonaInput, email);
 			} else {
-				webDriver.setText(txtEmailPersona, "prueba@esto.es");
+				webDriver.setText(emailPersonaInput, "prueba@esto.es");
 			}			
 			
 		}
@@ -438,7 +438,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		webDriver.waitWithDriver(2000);
 		
 //		if(riesgoAsegurado != null && !riesgoAsegurado.isEmpty()) {
-			webDriver.click(checkRiesgoAsegurado);
+			webDriver.click(riesgoAseguradoBtn);
 //		} else {
 //			// webDriver.clickElementFromDropDownByIndex(comboTipoVia, 1);
 //			if(tipoVia != null && !tipoVia.isEmpty()) webDriver.clickElementFromDropDownByAttribute(comboTipoVia, "value", tipoVia);
@@ -454,7 +454,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		debugInfo("Completamos dirección de la persona extra (si vive en riesgo asegurado o no.)");
 		// webDriver.setText(txtEmail, "prueba@esto.es");
 		webDriver.waitWithDriver(2000);
-		webDriver.click(btnGrabar);
+		webDriver.click(grabarBtn);
 		webDriver.waitWithDriver(2000);
 		debugInfo("Grabamos y salimos de la ventana");
 		webDriver.exitFrame();

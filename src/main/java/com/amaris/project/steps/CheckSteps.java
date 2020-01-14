@@ -1,5 +1,6 @@
 package com.amaris.project.steps;
 
+import com.amaris.project.pages.administracion.mediadores.FichaMediadorPage;
 import org.testng.Assert;
 
 import com.amaris.automation.model.testing.UserStory;
@@ -312,7 +313,7 @@ public class CheckSteps extends InteractionObject {
 	public void datos_prospect_grabados_coinciden() {
 		String nombreComercial = getTestVar(Constants.NOMBRE_COMERCIAL_PROSPECT).toUpperCase();
 
-		Assert.assertTrue(new MediadoresFichaMediadorPage(userS).getContenidoTituloPagina()
+		Assert.assertTrue(new FichaMediadorPage(userS).getContenidoTituloPagina()
 			.contains(nombreComercial));
 	}
 
@@ -324,12 +325,12 @@ public class CheckSteps extends InteractionObject {
 					.toUpperCase();
 
 			debugInfo("Nombre comercial: " + nombreComercial);
-			Assert.assertTrue(new MediadoresFichaMediadorPage(userS).getContenidoTituloPagina()
+			Assert.assertTrue(new FichaMediadorPage(userS).getContenidoTituloPagina()
 				.contains(nombreComercial));
 		} else if(getScenarioVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Diferente que el fiscal")) {
 			String nombreComercial = getScenarioVar(Constants.NOMBRE_MEDIADOR).toUpperCase();
 
-			Assert.assertTrue(new MediadoresFichaMediadorPage(userS).getContenidoTituloPagina()
+			Assert.assertTrue(new FichaMediadorPage(userS).getContenidoTituloPagina()
 				.contains(nombreComercial));
 		}
 	}
