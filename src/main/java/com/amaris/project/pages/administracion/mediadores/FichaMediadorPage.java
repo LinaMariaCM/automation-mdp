@@ -7,7 +7,7 @@ import com.amaris.project.pages.administracion.siniestros.HomeSiniestrosPage;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
-public class MediadoresFichaMediadorPage extends PageObject {
+public class FichaMediadorPage extends PageObject {
 
 	// region webelements
 
@@ -94,7 +94,7 @@ public class MediadoresFichaMediadorPage extends PageObject {
 
 	// endregion
 
-	public MediadoresFichaMediadorPage(UserStory userS) {
+	public FichaMediadorPage(UserStory userS) {
 		super(userS);
 	}
 
@@ -109,10 +109,10 @@ public class MediadoresFichaMediadorPage extends PageObject {
 		return contenido;
 	}
 
-	public HomeSiniestrosPage compararCampos() {
+	public FichaMediadorPage compararCampos() {
 		debugBegin();
 
-		String numPoliza = webDriver.getTextInFrame(numPolizaTxt, cuerpoFrame);
+		String numPoliza = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame);
 		numPoliza = numPoliza.substring(numPoliza.indexOf('/') + 1);
 
 		debugInfo("Poliza esperada: " + getTestVar(Constants.NUM_POLIZA));
@@ -120,9 +120,7 @@ public class MediadoresFichaMediadorPage extends PageObject {
 
 		Assert.assertTrue(numPoliza.equals(getTestVar(Constants.NUM_POLIZA)), "Comparar campos: el número de póliza coincide.");
 		// TODO añadir campos adicionales
-
 		debugEnd();
-
 		return this;
 	}
 /*
@@ -160,7 +158,7 @@ public class MediadoresFichaMediadorPage extends PageObject {
 
 
 	//
-	public MediadoresFichaMediadorPage clickAnyadirNuevoContacto() {
+	public FichaMediadorPage clickAnyadirNuevoContacto() {
 		debugBegin();
 		webDriver.clickInFrame(anyadirNuevoContacBtn, cuerpoFrame);
 		debugEnd();

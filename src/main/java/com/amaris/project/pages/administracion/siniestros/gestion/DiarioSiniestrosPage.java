@@ -122,7 +122,7 @@ public class DiarioSiniestrosPage extends PageObject {
 		String mensaje = "Tannhäuser";
 
 		debugInfo("Comprobando mensaje de comunicación...");
-		if(webDriver.getTextInFrame(listadoMovimientosSiniestroTxt, cuerpoFrame).contains(mensaje)) {
+		if(webDriver.getTextInFrame(listadoMovimientosSiniestro, cuerpoFrame).contains(mensaje)) {
 			debugInfo("OK , mensaje de comunicación CORRECTO.");
 		} else {
 			debugError("KO , mensaje de comunicación ERRÓNEO.");
@@ -179,7 +179,7 @@ public class DiarioSiniestrosPage extends PageObject {
 		debugInfo("Información Listado de Movimientos desde Diario de Siniestro");
 		debugInfo("=============================================================");
 
-		List<WebElement> listaMovimientos = webDriver.getElementsInFrame(listadoMovimientosRows, cuerpoFrame);
+		List<WebElement> listaMovimientos = webDriver.getElementsInFrame(filaListadoMovimientos, cuerpoFrame);
 		boolean apertura = false, imas = false;
 
 		for(int i = 0; i < listaMovimientos.size(); i++) {

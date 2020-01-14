@@ -309,6 +309,7 @@ public class CheckSteps extends InteractionObject {
 		Assert.assertTrue(resultadoAutorizacion.contains("ha sido autorizada correctamente."));
 	}
 
+/* REVISAR SI ESTE CÓDIGO REALMENTE ES RELEVANTE
 	public void datos_prospect_grabados_coinciden() {
 		String nombreComercial = getTestVar(Constants.NOMBRE_COMERCIAL_PROSPECT).toUpperCase();
 
@@ -332,7 +333,7 @@ public class CheckSteps extends InteractionObject {
 			Assert.assertTrue(new MediadoresFichaMediadorPage(userS).getContenidoTituloPagina()
 				.contains(nombreComercial));
 		}
-	}
+	}*/
 
 	public void deberia_aparecer_error_rebasada_la_renta_máxima_permitida() {
 		// Comprobar que sale el error correspondiente

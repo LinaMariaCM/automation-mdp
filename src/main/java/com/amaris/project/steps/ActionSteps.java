@@ -3089,14 +3089,14 @@ public class ActionSteps extends InteractionObject {
 
 	public void transicionar_bloques() {
 		debugBegin();
-
+	}
 	public void nueva_tarea_siniestros() {
 
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		new AgendaSiniestrosPage(userS).nueva_tarea();
-		new AgendaSiniestrosPage(userS).comprobar_tareas_pendientes();
-		new GestionSiniestrosPage(userS).logo();
+		new AgendaSiniestrosPage(userS).nuevaTarea();
+		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
+		new GestionSiniestrosPage(userS).clickLogo();
 	}
 	
 	
@@ -3105,8 +3105,8 @@ public class ActionSteps extends InteractionObject {
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		new AgendaSiniestrosPage(userS).detallesTarea(getTestVar(Constants.TAREA_TITULO));
-		new AgendaSiniestrosPage(userS).comprobar_tareas_pendientes();
-		new GestionSiniestrosPage(userS).logo();
+		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
+		new GestionSiniestrosPage(userS).clickLogo();
 	}
 
 	public void cierro_tarea_siniestros() {
@@ -3115,7 +3115,7 @@ public class ActionSteps extends InteractionObject {
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		//new AgendaSiniestrosPage(userS).
 		new AgendaSiniestrosPage(userS).comprobarTareaCerrada();
-		new GestionSiniestrosPage(userS).logo();
+		new GestionSiniestrosPage(userS).clickLogo();
 	}
 
 

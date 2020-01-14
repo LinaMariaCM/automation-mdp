@@ -87,7 +87,7 @@ public class ComunicacionSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.waitWithDriver(6000);
-		webDriver.clickInFrame(comunicacion, leftFrame);
+		webDriver.clickInFrame(comunicacionBtn, leftFrame);
 		webDriver.waitWithDriver(6000);
 		webDriver.clickInFrame(nuevaComuni, cuerpoFrame);
 
@@ -104,8 +104,8 @@ public class ComunicacionSiniestrosPage extends PageObject {
 																									// números.
 
 		// Datos medio de envío
-		if(webDriver.isPresent(nombre)) {webDriver.setTextIfEmpty(nombre, "Anónimos Sociedad Anónima ");}
-		if(webDriver.isPresent(email)) {webDriver.setTextIfEmpty(email, "prueba@esto.es");}
+		if(webDriver.isPresent(nombreNuevo)) {webDriver.setTextIfEmpty(nombreNuevo, "Anónimos Sociedad Anónima ");}
+		if(webDriver.isPresent(AsuntoMail)) {webDriver.setTextIfEmpty(AsuntoMail, "prueba@esto.es");}
 
 		// Nuevos destinatarios
 		// TODO En principio no son obligatorios, si bien en un futuro se pueden añadir.
@@ -113,7 +113,7 @@ public class ComunicacionSiniestrosPage extends PageObject {
 		// Figuras para ser destinatarios
 		// TODO No obligatorias, se pueden añadir más adelante.
 
-		webDriver.click(continuar);
+		webDriver.click(continuarBtn);
 		webDriver.waitWithDriver(4000);
 		
 		// 2.Cumplimentación
@@ -121,13 +121,12 @@ public class ComunicacionSiniestrosPage extends PageObject {
 		// Medio de envío Autorrellenado
 
 		// Contenido de la carta
-		webDriver.setTextInFrame(contenidoCarta, textoFrame, "Yo he visto cosas que vosotros no creeríais." +
+		webDriver.setTextInFrame(contenidoCartaInput, textoFrame, "Yo he visto cosas que vosotros no creeríais." +
 			"Atacar naves en llamas más allá de Orion." +
 			"He visto rayos C brillar en la oscuridad cerca de la puerta de Tannhäuser." +
 			"Todos esos momentos... se perderán, como lágrimas en la lluvia.");
 
-		webDriver.clickInFrame(enviar, cuerpoFrame);
-		//webDriver.exitFrame();		
+		webDriver.clickInFrame(enviarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
