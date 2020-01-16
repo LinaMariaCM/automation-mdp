@@ -29,9 +29,12 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By segundoApellidoInput = By.cssSelector("#ALTAMEDI_APE2ALTC");
 	private By fechaNombramInput = By.cssSelector("#ALTAMEDI_FNOMBALTC");
 	private By sexoCombo = By.cssSelector("#ALTAMEDI_SEXOALTOCARGODGS");
+	private By sexoOption = By.cssSelector("#ALTAMEDI_SEXOALTOCARGODGS > option");
 	private By fechaCeseInput = By.cssSelector("#ALTAMEDI_FCESEALTCI");
 	private By estadoCombo = By.cssSelector("#ALTAMEDI_ESTALTC");
+	private By estadoOption = By.cssSelector("#ALTAMEDI_ESTALTC > option");
 	private By tipoCargoCombo = By.cssSelector("#ALTAMEDI_TIPCARGO");
+	private By tipoCargoOption = By.cssSelector("#ALTAMEDI_TIPCARGO > option");
 	private By profesionInput = By.cssSelector("#ALTAMEDI_PROFESION");
 	private By telefonoInput = By.cssSelector("#ALTAMEDI_TELFREPRE");
 	private By faxInput = By.cssSelector("#ALTAMEDI_FAXREPRE");
@@ -57,6 +60,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By fechaNombNuevSocioInput = By.cssSelector("#ALTAMEDI_FECHNOMB");
 	private By fechaCeseNuevSocioInput = By.cssSelector("#ALTAMEDI_FECHCESE");
 	private By estadoNuevSocioCombo = By.cssSelector("#ALTAMEDI_ESTSOCI");
+	private By estadoNuevSocioOption = By.cssSelector("#ALTAMEDI_ESTSOCI > option");
 	private By partCapitalNuevSocInput = By.cssSelector("#ALTAMEDI_PARTCAPI");
 	private By nombreNuevSocInput = By.cssSelector("#ALTAMEDI_NOMBSOCI");
 	private By priAppellNuevSocInput = By.cssSelector("#ALTAMEDI_APE1SOCI");
@@ -105,6 +109,68 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		super(userS);
 	}
 
+	 //---------Añadir datos generales--------------------
+	public MediadoresAltaDatosDGSPage anyadirDatosGenerales(String nombreRepre, String numRepre, String fechaIniContrato)
+	{
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setText(nombreRepresentanCifInput, nombreRepre);
+		webDriver.setText(numDocRepresentanCifInput, numRepre);
+		webDriver.setText(fechaIniContratoInput, fechaIniContrato);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDGSPage anyadirNuevoAltoCargo(String nombre, String primApell, String segApell, String sexo, String fechaNombramiento, String fechaCese, String estado, String tipoCargo, String profesion, String tel, String movil, String fax, String web)
+	{
+		debugBegin();
+		if(sexo.isEmpty()) sexo = "1";
+		if(estado.isEmpty()) estado = "1";
+		if(tipoCargo.isEmpty()) tipoCargo = "40";
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(anyadirAltoNuevoCargoBtn);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.setText(nombreInput, nombre);
+		webDriver.setText(primerApellidoInput, primApell);
+		webDriver.setText(segundoApellidoInput, segApell);
+		webDriver.clickElementFromDropDownByAttribute(sexoCombo, sexoOption, "value", sexo);
+		webDriver.setText(fechaNombramInput, fechaNombramiento);
+		webDriver.setText(fechaCeseInput, fechaCese);
+		webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption , "value", estado);
+		webDriver.clickElementFromDropDownByAttribute(tipoCargoCombo, tipoCargoOption , "value", tipoCargo);
+		webDriver.setText(profesionInput, profesion);
+		webDriver.setText(telefonoInput, tel);
+		webDriver.setText(faxInput, fax);
+		webDriver.setText(movilInput, movil);
+		webDriver.setText(paginaWebInput, web);
+		webDriver.click(grabarBtn);
+		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosDGSPage anyadirNuevoSocio(String numDoc, String fechaNombramiento, String fechaCese, String estado, String participacion)
+	{
+		debugBegin();
+		if(estado.isEmpty()) estado = "1";
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(anyadirNuevoSocioBtn);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.setText(numDocuNuevSocioInput, numDoc);
+		webDriver.setText(fechaNombNuevSocioInput, fechaNombramiento);
+		webDriver.setText(fechaCeseNuevSocioInput, fechaCese);
+		webDriver.clickElementFromDropDownByAttribute(estadoNuevSocioCombo, estadoNuevSocioOption , "value", estado);
+		webDriver.setText(partCapitalNuevSocInput, participacion);
+		webDriver.click(grabarBtn);
+		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
+
+ 	//------------Clicks botones -----------------------
 	public MediadoresAltaDatosDGSPage clickCancelar()
 	{
 		debugBegin();

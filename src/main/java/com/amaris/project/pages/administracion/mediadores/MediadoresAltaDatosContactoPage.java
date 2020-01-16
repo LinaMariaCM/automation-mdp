@@ -37,11 +37,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	private By direccionIgualComercialBtn = By.id("ALTAMEDI_IGUCOMER");
 	private By direccionDiferenteBtn = By.id("ALTAMEDI_DIFFISC");
 
-	private By direcionSuperiorNOComSIBtn	= By.id("ALTAMEDI_IGUCOMER");
-	private By direcionSuperiorNOComNOBtn	= By.id("ALTAMEDI_DIFFISC");
+	private By direccionSuperiorNOComSIBtn	= By.id("ALTAMEDI_IGUCOMER");
+	private By direccionSuperiorNOComNOBtn	= By.id("ALTAMEDI_DIFFISC");
 
-	private By direcionSuperiorSIBtn = By.id("ALTAMEDI_IGUPADSI");
-	private By direcionSuperiorNOBtn = By.id("ALTAMEDI_IGUPADNO");
+	private By direccionSuperiorSIBtn = By.id("ALTAMEDI_IGUPADSI");
+	private By direccionSuperiorNOBtn = By.id("ALTAMEDI_IGUPADNO");
 
 	//Controles de datos de domicilio
 	private By comprobarDireccionBtn = By.id("BOTON_NORMADOM");
@@ -335,5 +335,24 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
+	public MediadoresAltaDatosContactoPage clickDireccionSuperiorNO()
+	{
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickInFrame(direccionSuperiorNOBtn, modalFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosContactoPage clickDireccionSuperiorSI()
+	{
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickInFrame(direccionSuperiorSIBtn, modalFrame);
+		debugEnd();
+
+		return this;
+	}
 
 }

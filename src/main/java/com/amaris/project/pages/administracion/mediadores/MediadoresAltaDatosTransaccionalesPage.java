@@ -31,6 +31,13 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By cta1Input = By.id("COMODIN_CADENA_4");
 	private By cta2Input = By.id("COMODIN_CADENA_5");
 
+	private By codigoIbanLiqInput = By.cssSelector("#CCCOBRO_COMODIN_CADENA");
+	private By bancoLiqInput = By.cssSelector("#CCCOBRO_COMODIN_CADENA_1");
+	private By sucursalLiqInput = By.cssSelector("#CCCOBRO_COMODIN_CADENA_2");
+	private By dcLiqInput = By.cssSelector("#CCCOBRO_COMODIN_CADENA_3");
+	private By cta1LiqInput = By.cssSelector("#CCCOBRO_COMODIN_CADENA_4");
+	private By cta2LiqInput = By.cssSelector("#CCCOBRO_COMODIN_CADENA_5");
+
 //----------------Configuracion liquidacion---------------------
 
 	private By retencionesBtn = By.id("ALTAMEDI_RETPARAPP");

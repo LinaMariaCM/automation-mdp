@@ -28,6 +28,9 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	private By idiomaCombo = By.cssSelector("#MEDI_IDIOMA");
 	private By idiomaOption = By.cssSelector("#MEDI_IDIOMA > option");
 
+	private By sexoCombo = By.cssSelector("#ALTAMEDI_SEXOMEDIDGS");
+	private By sexoOption = By.cssSelector("#ALTAMEDI_SEXOMEDIDGS > option");
+
 	private By tipoDocumentoCombo = By.cssSelector("#ALTAMEDI_TIPODOCMED");
 	private By tipoDocumentoOption = By.cssSelector("#ALTAMEDI_TIPODOCMED > option");
 	private By numeroDocumentoInput = By.cssSelector("#ALTAMEDI_NUMDOC");
@@ -36,6 +39,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	private By segundoApellidoInput = By.id("ALTAMEDI_APE2FISC");
 	private By nombreComercialIgualFiscalBtn = By.id("ALTAMEDI_NOMCOIGU");
 	private By nombreComercialDiferenteFiscalBtn = By.id("ALTAMEDI_NOMCODIF");
+	private By nombreComercialInput = By.cssSelector("#ALTAMEDI_OTRONOMB");
 	private By referenciaExternaInput = By.id("ALTAMEDI_REFEXT");
 	private By numRegistroDGSInput = By.id ("ALTAMEDI_NREGDGS");
 	private By actividadPrincipalCombo = By.id("MEDI_ACTIPRIN");
@@ -95,12 +99,24 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	}
 
  	//-------------Añadir datos basicos---------------
-	public MediadoresAltaDatosDescriptivosPage anyadirDatosBasicos()
+	public MediadoresAltaDatosDescriptivosPage anyadirDatosBasicos(String idioma,String nombreFiscal, String primerApell, String segApell, String refExterna, String numRegDGS, String actividPrinci, String agrupPrinci, String numeroAgru)
 	{
 		debugBegin();
-
-		// metodos complejo
-
+		if(idioma.isEmpty()) idioma = "ESPA";
+		if(actividPrinci.isEmpty()) actividPrinci = "ABOG";
+		if(agrupPrinci.isEmpty()) agrupPrinci = "1";
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttribute(idiomaCombo, idiomaOption, "value", idioma);
+		webDriver.setText(nombreFiscalInput, nombreFiscal);
+		webDriver.setText(primerApellidoInput, primerApell);
+		webDriver.setText(segundoApellidoInput, segApell);
+		webDriver.click(nombreComercialIgualFiscalBtn);
+		webDriver.setText(referenciaExternaInput, refExterna);
+		webDriver.setText(numRegistroDGSInput, numRegDGS);
+		webDriver.clickElementFromDropDownByAttribute(actividadPrincipalCombo, actividadPrincipalOption, "value", actividPrinci);
+		webDriver.clickElementFromDropDownByAttribute(agrupPrincCombo, agrupPrincOption, "value", agrupPrinci);
+		webDriver.setText(agrupadorNumeroInput, numeroAgru);
+		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -142,6 +158,23 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		return this;
 	}
+
+	public MediadoresAltaDatosDescriptivosPage anyadirNuevoAgrupador(String agrupador, String numeroAgrupador)
+	{
+		debugBegin();
+		if(agrupador.isEmpty()) agrupador = "3040";
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(anyadirNuevoAgrupadorBtn);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByAttribute(agrupadorCombo, agrupadorOption, "value", agrupador);
+		webDriver.setText(agrupadorNumeroInput, numeroAgrupador);
+		webDriver.click(grabarAgrupadorBtn);
+		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
+
 	//-------------Clicks botones---------------
 	public MediadoresAltaDatosDescriptivosPage clickCerrarProspectRelacionado()
 	{
@@ -205,6 +238,24 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickInFrame(cancelarAgrupadorBtn, modalFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosDescriptivosPage clickNombreComercialDiferente()
+	{
+		debugBegin();
+		webDriver.clickInFrame(nombreComercialDiferenteFiscalBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosDescriptivosPage clickDisponeSoftwareSi()
+	{
+		debugBegin();
+		webDriver.clickInFrame(medSoftwareSIBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

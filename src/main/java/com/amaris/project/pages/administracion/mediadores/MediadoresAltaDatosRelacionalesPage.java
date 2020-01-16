@@ -53,8 +53,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		super(userS);
 	}
 
-	//REVISAR
- //---------------Añadir datos producto segun casos:----------------------------------
+ 	//---------------Añadir datos PRODUCTO segun casos:----------------------------------
 	// ramo --> Si  y finca --Si
 	// ramo --> No y finca --> Si
 	// ramo --> No y Finca --> No
@@ -102,7 +101,8 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 		return this;
 	}
-//----------------------Añadir nuevo producto ----------------------------
+
+	//----------------------Añadir nuevo producto ----------------------------
 	public MediadoresAltaDatosRelacionalesPage anyadirNuevoProducto(String producto, String companyiaPrincipal, String companyiaSecundaria) {
 		debugBegin();
 		if(producto.isEmpty()) producto = "COMU";
@@ -136,7 +136,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	}
 
 	//------------------Añadir datos nuevo banco---------------------------
-
 	public MediadoresAltaDatosRelacionalesPage anyadirNuevoBanco(String nombreBanco, String observacionesBanco) {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
@@ -152,7 +151,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	}
 
 	//------------------Añadir datos comentarios---------------------------
-
 	public MediadoresAltaDatosRelacionalesPage anyadirDatosComentarios(String valoracionDeleg) {
 		debugBegin();
 		if(valoracionDeleg.isEmpty()) valoracionDeleg = "1";
