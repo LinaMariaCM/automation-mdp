@@ -11,7 +11,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
 
-	//Datos generales
+	//--------------Datos generales-------------------------
 	private By contactoResponsableInput = By.id("MEDI_PERSCONT");
 	private By cargoResponsableInput = By.id("ALTAMEDI_CARGRESP");
 	private By telefonoPrincipalInput = By.id("MEDI_TELEFONO1");
@@ -53,7 +53,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	private By asignarDomicilioBtn = By.id("BOTON_DOMIMEDI");
 
 	//-------------Anyadir nueva red social -------------------------
-
 	private By nuevaRedSocialBtn = By.cssSelector("#capaRedesSociales > div > div.floatright.peq > a");
 	private By medTipoRRSSCombo = By.id("ALTAMEDI_TIPOREDS");
 	private By medTipoRRSSOption = By.cssSelector("#ALTAMEDI_TIPOREDS > option");
@@ -76,7 +75,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	private By medEmailContactoInput = By.id("ALTAMEDI_MAILCON");
 	private By medPreferenciaCombo = By.id("ALTAMEDI_PREFCOM");
 	private By medPreferenciaOption = By.cssSelector("#ALTAMEDI_PREFCOM > option");
-
 
 	//----------Controles de red social- contacto- medios de contacto-------
 	private By grabarBtn = By.id("buttonRecord");
