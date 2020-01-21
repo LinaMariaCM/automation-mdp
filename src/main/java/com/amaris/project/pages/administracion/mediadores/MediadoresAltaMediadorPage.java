@@ -85,7 +85,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		selectTipoDocumento();
 		writeNumeroDocumento();
 		writeNombreFiscalYApellidosMediador();
-		writeNombreComercialMediador();
+	//	writeNombreComercialMediador();
 		selectActividadPrincipal();
 		selectIdioma();
 		selectTieneOficinas();
@@ -190,7 +190,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaMediadorPage writeNombreComercialMediador() {
+/*	public MediadoresAltaMediadorPage writeNombreComercialMediador() {
 		debugBegin();
 
 		if(getTestVar(Constants.TIPO_NOMBRE_MEDIADOR).equals("Igual que el fiscal")) {
@@ -210,7 +210,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 		debugEnd();
 
 		return this;
-	}
+	}*/
 
 	public MediadoresAltaMediadorPage selectActividadPrincipal() {
 		debugBegin();
