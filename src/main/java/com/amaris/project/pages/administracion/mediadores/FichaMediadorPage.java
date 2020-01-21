@@ -9,7 +9,6 @@ import com.amaris.project.steps.ActionSteps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -25,6 +24,7 @@ public class FichaMediadorPage extends PageObject {
 	private By tituloPaginaTxt = By.cssSelector("h1.titulopagina");
 
 	//------------- Botones Pestañas -------------
+
 
 	private By visionGlobalBtn = By.linkText("Vision Global");
 	private By infoDescriptivaBtn = By.linkText("Info Descriptiva");
@@ -177,6 +177,228 @@ public class FichaMediadorPage extends PageObject {
 	// ---- Acceder a las pestañas de la ficha
 
 	public FichaMediadorPage clickVisionGlobal() {
+		debugBegin();
+		webDriver.clickInFrame(visionGlobalBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickinfoDescriptiva() {
+		debugBegin();
+		webDriver.clickInFrame(infoDescriptivaBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+	public FichaMediadorPage clickInfoContacto() {
+		debugBegin();
+		webDriver.clickInFrame(infoContactoBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickInfoRelacional() {
+		debugBegin();
+		webDriver.clickInFrame(infoRelacionalBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickInfoTransaccional() {
+		debugBegin();
+		webDriver.clickInFrame(infoTransaccionalBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickCondicionesNegocio(){
+		debugBegin();
+		webDriver.clickInFrame(condicionesNegocioBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickInfoCCM() {
+		debugBegin();
+		webDriver.clickInFrame(infoCCMBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickInfoDGS() {
+		debugBegin();
+		webDriver.clickInFrame(infoDGSBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+
+	// ---- Más acciones + Estados + Situaciones
+
+	public FichaMediadorPage clickMasAcciones() {
+		debugBegin();
+		webDriver.clickInFrame(masAccionesBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickSolicitarBaja() {
+		debugBegin();
+		webDriver.clickInFrame(solicitarBajaBtn,cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickSolicitarAlta() {
+		debugBegin();
+		webDriver.clickInFrame(solicitarAltaBtn,cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickConfirmarAlta() {
+		debugBegin();
+		webDriver.clickInFrame(confirmarAltaBtn,cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickEnviarValFinanciera() {
+		debugBegin();
+		webDriver.clickInFrame(enviaValoraFinancieraBtn,cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickEnviarRevisionFinanciera() {
+		debugBegin();
+		webDriver.clickInFrame(enviaRevisionFinancieraBtn,cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickEnviarResolucionFinanciera() {
+		debugBegin();
+		webDriver.clickInFrame(enviaResolucionFinancieraBtn,cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickAvanzarEstado() {
+		debugBegin();
+		webDriver.clickInFrame(avanzarEstadoBtn,cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickActivarMediador() {
+		debugBegin();
+		webDriver.clickInFrame(activarMediadorBtn,cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage añadirComentarioSituacion() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(comentarioSituacionTxt, modalFrame, "Comentario para añadir en el Pop up cuando se solicita cambio de estado o situación del mediador");
+		webDriver.waitWithDriver(3000);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage seleccionarResolucionFinanciera() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraCombo, modalFrame, "value", "ALAC");
+		webDriver.waitWithDriver(3000);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage comentarioResolucionFinanciera() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(enviaResolucionFinancieraTxt, modalFrame, "Comentario para añadir en el Pop up cuando se envía el resultado de la Resolución financiera");
+		webDriver.waitWithDriver(3000);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage añadirFechaFormOblig() {
+		debugBegin();
+		String datoFechaFormOblig = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(fFormObligatoria, modalFrame, datoFechaFormOblig);
+		webDriver.waitWithDriver(3000);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage añadirFechaEnvioContrato() {
+		debugBegin();
+		String datoFechaEnvioContrato = DateUtils.getModifiedDate(Calendar.DATE, -3, Constants.DATE_FORMAT);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(fEnvioContratoTxt, modalFrame, datoFechaEnvioContrato);
+		webDriver.waitWithDriver(3000);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage añadirFechaRecepcionContrato() {
+		debugBegin();
+		String datoFechaRecepcionContrato = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(fRecepcionContratoTxt, modalFrame, datoFechaRecepcionContrato);
+		webDriver.waitWithDriver(3000);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage grabarComentarioEstado() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickInFrame(grabarEstadoBtn,modalFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+
+	// ----------------------------------------------- MÉTODOS COMPLEJOS -----------------------------------------------
+	public String getContenidoTituloPagina() {
 		debugBegin();
 		webDriver.clickInFrame(visionGlobalBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);

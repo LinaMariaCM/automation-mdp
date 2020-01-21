@@ -100,15 +100,4 @@ public class MediadoresDGSPage extends PageObject {
 		return this;
 	}
 
-
-
-	// Seleccionar casilla en la tabla
-	//Leer texto en la tabla
-/*
-	public MediadoresDGSPage accederElementosTabla() {
-
-		return this;
-	}
- */
-
 }
