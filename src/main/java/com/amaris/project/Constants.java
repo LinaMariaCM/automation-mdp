@@ -256,7 +256,7 @@ public class Constants {
 	public static final String NOMBRE_MEDIADOR = "nombre_mediador";
 	public static final String PRIMER_APELLIDO_MEDIADOR = "primer_apellido_mediador";
 	public static final String SEGUNDO_APELLIDO_MEDIADOR = "segundo_apellido_mediador";
-	public static final String TIPO_NOMBRE_MEDIADOR = "tipo_nombre_mediador";
+	public static final String NOMBRE_MEDIADOR_COMERCIAL = "tipo_nombre_mediador";
 
 	public static final String TOMADOR = "tomador";
 	public static final String DNI_TOMADOR = "dni_tomador";
@@ -680,4 +680,8 @@ public class Constants {
 	public static final String PRECIO_PLUS_BEFORE = "precio_plus_before";
 	
 	public static final String COMENTARIO_ANOTACION = "comentario_anotacion";
+
+
+	public static final String NUMERO_DOCUMENTO_MEDIADOR = "num_doc_med";
+
 }// END
