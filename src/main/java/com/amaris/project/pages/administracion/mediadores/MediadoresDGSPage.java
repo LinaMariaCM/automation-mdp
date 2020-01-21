@@ -46,6 +46,8 @@ public class MediadoresDGSPage extends PageObject {
 		super(userS);
 	}
 
+
+	// -------------- Métodos sencillos Envío DGS --------------
 	public MediadoresDGSPage clickActualizar() {
 		debugBegin();
 		webDriver.clickInFrame(actualizarBtn, cuerpoFrame);
@@ -95,6 +97,25 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage clickDescartarDGS() {
 		debugBegin();
 		webDriver.clickInFrame(descartarDGSBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+
+	// -------------- Métodos sencillos Recepción DGS --------------
+
+	public MediadoresDGSPage clickActualizarInfoEnvio() {
+		debugBegin();
+		webDriver.clickInFrame(actualizarInformacionEnvioBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresDGSPage clickActualizarMediadorEnvio() {
+		debugBegin();
+		webDriver.clickInFrame(actualizarMediadoresEnvioBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
