@@ -3583,4 +3583,19 @@ public class ActionSteps extends InteractionObject {
 	debugEnd();
 
 	}
+
+
+	public void alta_datos_basicos_mediador(){
+		debugBegin();
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openAltaMediador();
+		new MediadoresAltaDatosDescriptivosPage (userS)
+			.altaIntermediarioDescriptivosBasicos()
+			.clickGuardarYSalir();
+	/*	new FichaMediadorPage(userS)
+			.comprobacionesVariadas();*/
+		debugEnd();
+	}
 } // END
