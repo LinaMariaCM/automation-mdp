@@ -11,6 +11,8 @@ import com.amaris.automation.model.webdriver.DriverHelper;
 
 import java.net.URISyntaxException;
 import java.util.Date;
+
+import com.amaris.project.pages.administracion.mediadores.*;
 import org.testng.Assert;
 import org.openqa.selenium.By;
 
@@ -20,9 +22,6 @@ import com.amaris.project.pages.administracion.fichaedificio.FichaEdificioPage;
 import com.amaris.project.pages.administracion.gestionautorizaciones.GestionAutorizacionesPage;
 import com.amaris.project.pages.administracion.gestionpagos.GestionPagosPage;
 import com.amaris.project.pages.productos.mac.AsignarMediadorPage;
-import com.amaris.project.pages.administracion.mediadores.MediadoresAltaMediadorPage;
-import com.amaris.project.pages.administracion.mediadores.MediadoresAltaProspectPage;
-import com.amaris.project.pages.administracion.mediadores.MediadoresHomePage;
 import com.amaris.project.pages.administracion.siniestros.HomeSiniestrosPage;
 import com.amaris.project.pages.administracion.siniestros.apertura.AltaAperturaDeclaracionSiniestrosPage;
 import com.amaris.project.pages.administracion.siniestros.apertura.AltaAperturaOcurrenciaSiniestrosPage;
@@ -3557,4 +3556,31 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+
+	public void comprobaciones_ficha_mediador() {
+		debugBegin();
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorPorId();
+		new FichaMediadorPage(userS)
+			.verificarCampoJerarquia();
+		debugInfo("la comprobación de nivel jerarquico se ha completado");
+		new FichaMediadorPage(userS)
+			.verificarCampoNombreComercial()
+			.solicitarAlta();
+		debugEnd();
+	}
+
+	public void obtener_nombres_direcciones_mediador(){
+	debugBegin();
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorPorId();
+		new FichaMediadorPage(userS)
+			.verificarDireccion();
+	debugEnd();
+
+	}
 } // END
