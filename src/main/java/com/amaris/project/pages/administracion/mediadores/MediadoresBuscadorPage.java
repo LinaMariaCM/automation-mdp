@@ -124,4 +124,16 @@ public class MediadoresBuscadorPage extends PageObject {
 
 		return this;
 	}
+
+
+	// método a revisar para buscar mediador por su ID - Antonia
+	public MediadoresBuscadorPage buscarMediadorPorId(){
+		debugBegin();
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121815");
+		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
+		clickBuscar();
+		webDriver.waitWithDriver(8000);
+		debugEnd();
+		return this;
+	}
 }
