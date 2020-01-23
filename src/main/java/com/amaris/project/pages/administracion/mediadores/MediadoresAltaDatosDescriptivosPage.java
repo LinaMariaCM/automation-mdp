@@ -296,11 +296,9 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage nombreFiscal() {
 		debugBegin();
-		if(webDriver.isPresent(nombreFiscalInput)) {
-			if(getTestVar(Constants.NOMBRE_MEDIADOR) != null && !getTestVar(Constants.NOMBRE_MEDIADOR).isEmpty()) {
+		if(webDriver.isPresent(nombreFiscalInput) && getTestVar(Constants.NOMBRE_MEDIADOR) != null && !getTestVar(Constants.NOMBRE_MEDIADOR).isEmpty()) {
 				webDriver.setTextInFrame(numeroDocumentoInput, cuerpoFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
 			}
-		}
 		debugEnd();
 		return this;
 	}
