@@ -68,30 +68,36 @@ public class MediadoresTest {
 		}).run();
 	}
 
-	@DataProvider(parallel = false)
+	@DataProvider(parallel = true)
 	public String[][] dataProviderMed03() {
-		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosVariablesMediadores.csv", "datosTestMediadores.csv");
+		String testCase = Constants.MEDIADORES_CASE + "03";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
 
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "dataProviderMed01")
+	@Test(dataProvider = "dataProviderMed03")
 	public void med03(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-
-		userS.setScenario(testCase + userS.getVar("test_id"));
-
 		ActionSteps steps = new ActionSteps(userS);
-		CheckSteps checkSteps = new CheckSteps(userS);
+
+		//CheckSteps checkSteps = new CheckSteps(userS);
 
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
+
 			steps.alta_datos_basicos_mediador();
 
 			return null;
 		}).run();
 	}
+
+
+
+
+
+
+
 
 
 	@AfterSuite

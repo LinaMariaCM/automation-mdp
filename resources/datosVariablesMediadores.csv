@@ -1,5 +1,5 @@
 test_id;nivel_estructura;tipo_prospect;tipo_mediador;tipo_documento;idioma;dgs;actividad_principal;nombre_comercial_prospect;tipo_nombre_comercial_mediador;nombre_comercial_mediador;contacto_responsable;cargo_responsable;nombre_fiscal_mediador;primer_apellido_mediador;segundo_apellido_mediador;tlf_principal;email_principal;ejecutivo_comercial
-Med01;Intermediario;Corredor-BS;;;;111;Otros;Med01;;;Med01;;;;;911111111;;0 – SIN INSPECTOR
+Med01;IINTE;Corredor-BS;;;;111;Otros;Med01;;;Med01;;;;;911111111;;0 – SIN INSPECTOR
 Med02;Intermediario;AAFF;;;;;Mediador de Seguros;Med02;;;Med02;;;;;911111112;;0 – SIN INSPECTOR
 Med03;Intermediario;Otros;;;;;Gestor Patrimonios;Med03;;;Med03;;;;;911111113;;0 – SIN INSPECTOR
 Med04;Oficina;Otros;;;;;Mediador de Seguros;Med04;;;Med04;;;;;911111114;;0 – SIN INSPECTOR

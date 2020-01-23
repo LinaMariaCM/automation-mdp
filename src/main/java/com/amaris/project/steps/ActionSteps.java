@@ -3592,7 +3592,7 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresHomePage(userS)
 			.openAltaMediador();
 		new MediadoresAltaDatosDescriptivosPage (userS)
-			.altaIntermediarioDescriptivosBasicos()
+			.altaIntermediarioDescriptivos()
 			.clickGuardarYSalir();
 	/*	new FichaMediadorPage(userS)
 			.comprobacionesVariadas();*/
