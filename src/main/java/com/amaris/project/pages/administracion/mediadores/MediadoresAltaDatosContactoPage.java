@@ -105,7 +105,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	public MediadoresAltaDatosContactoPage(UserStory userS) { super(userS); }
 
 	//---------------Rellenar datos Generales------------------------
-	public MediadoresAltaDatosContactoPage rellenarDatosGenerales(String contactoResp, String cargoRespo, String telPrincipal, String emailPrincipal)
+	public MediadoresAltaDatosContactoPage rellenarDatosGeneralesContacto(String contactoResp, String cargoRespo, String telPrincipal, String emailPrincipal)
 	{
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
