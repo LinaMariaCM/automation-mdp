@@ -275,6 +275,21 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage clickSolicitarAltaOficina() {
+		debugBegin();
+		webDriver.clickInFrame(altaOficinaBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickSolicitarAltaColaborador() {
+		debugBegin();
+		webDriver.clickInFrame(altaColaboradorBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
 	public FichaMediadorPage clickConfirmarAlta() {
 		debugBegin();
 		webDriver.clickInFrame(confirmarAltaBtn, cuerpoFrame);

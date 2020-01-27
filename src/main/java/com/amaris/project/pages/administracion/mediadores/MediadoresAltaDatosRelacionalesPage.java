@@ -2,6 +2,7 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
 
 public class MediadoresAltaDatosRelacionalesPage extends PageObject {
@@ -14,6 +15,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By especialistaRamoSIBtn = By.id("ALTAMEDI_ESPRAMOSI");
 	private By especialistaRamoNOBtn = By.id("ALTAMEDI_ESPRAMONO");
 	private By especialistaRamoCombo = By.id("ALTAMEDI_RAMO");
+	private By especialistaRamoOption = By.id("ALTAMEDI_RAMO > option");
 
 	private By adminFincasSIBtn = By.id("ALTAMEDI_FINCASSI");
 	private By adminFincasNOBtn = By.id("ALTAMEDI_FINCASNO");
@@ -74,6 +76,12 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(especialistaRamoSIBtn);
+
+		if(getTestVar(Constants.RAMO) != null && !getTestVar(Constants.RAMO).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getTestVar(Constants.RAMO));
+		} else {
+			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption , "value", "0");
+		}
 		webDriver.click(adminFincasNOBtn);
 		webDriver.exitFrame();
 		debugEnd();
@@ -85,6 +93,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(especialistaRamoNOBtn);
 		webDriver.click(adminFincasSIBtn);
+		webDriver.setText(adminFincasCuantasInput, "30");
 		webDriver.exitFrame();
 		debugEnd();
 
@@ -95,7 +104,13 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(especialistaRamoSIBtn);
+		if(getTestVar(Constants.RAMO) != null && !getTestVar(Constants.RAMO).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getTestVar(Constants.RAMO));
+		} else {
+			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption , "value", "0");
+		}
 		webDriver.click(adminFincasSIBtn);
+		webDriver.setText(adminFincasCuantasInput, "30");
 		webDriver.exitFrame();
 		debugEnd();
 
@@ -192,6 +207,17 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	public MediadoresAltaDatosRelacionalesPage clickContinuarDatosRelacionales() {
 		debugBegin();
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		debugEnd();
+
+		return this;
+	}
+
+
+	//---------------------MÉTODOS COMPLEJOS----------------------------------
+
+	public MediadoresAltaDatosRelacionalesPage altaOficinaDatosRelacionales() {
+		debugBegin();
+		anyadirDatosProductoConRamoConFinca();
 		debugEnd();
 
 		return this;

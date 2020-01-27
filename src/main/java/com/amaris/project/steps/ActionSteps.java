@@ -2703,10 +2703,10 @@ public class ActionSteps extends InteractionObject {
 			}
 
 			// comentados por Antonia el 24 01 del 2020
-		//	if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
-				new ValidacionExcepcionesReglasPage(userS)
-					.clickContinuar();
-		//	}
+			//	if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
+			new ValidacionExcepcionesReglasPage(userS)
+				.clickContinuar();
+			//	}
 			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
@@ -3613,5 +3613,49 @@ public class ActionSteps extends InteractionObject {
 			.clickGuardarYSalir();
 		new FichaMediadorPage(userS)
 			.verificarDireccion(); */
+	}
+
+	// Step de iryna para dar alta una oficina
+
+	public void alta_oficina_a_un_intermediario() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorPorIdEstadoAlta();
+		new FichaMediadorPage(userS)
+			.clickMasAcciones()
+			.clickSolicitarAltaOficina();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.altaOficinaDescriptivos()
+			.clickContinuar();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaOficinaDatosContacto();
+		// añadir lo de las direcciones
+		// .clickContinuar();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaOficinaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		// page de transaccionales
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.clickGuardar();
+		debugEnd();
+	}
+
+	public void alta_colaborador() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarOficinaPorIdEstadoAlta();
+		new FichaMediadorPage(userS)
+			.clickMasAcciones()
+			.clickSolicitarAltaColaborador();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.altaColaboradorDescriptivos()
+			.clickContinuar();
+		debugEnd();
 	}
 } // END

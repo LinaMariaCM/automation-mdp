@@ -2,6 +2,7 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
 
 public class MediadoresAltaDatosContactoPage extends PageObject {
@@ -258,7 +259,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-	//------------------Clicks botones---------------------------------
+	//------------------MÉTODOS SIMPLES---------------------------------
 	public MediadoresAltaDatosContactoPage clickBorrarCamposDireccion()
 	{
 		debugBegin();
@@ -352,6 +353,19 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.clickInFrame(direccionSuperiorSIBtn, modalFrame);
 		debugEnd();
 
+		return this;
+	}
+
+
+	//-------------------MÉTODOS COMPLEJOS--------------------------------------
+
+	public MediadoresAltaDatosContactoPage altaOficinaDatosContacto() {
+		debugBegin();
+		rellenarDatosGeneralesContacto("Contacto responsable", "Cargo responsable", "699999999", "email@gmail.com");
+
+		// FALTA añadir direcciones
+
+		debugEnd();
 		return this;
 	}
 
