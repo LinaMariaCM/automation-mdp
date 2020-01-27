@@ -379,12 +379,14 @@ public class Constants {
 	public static final String NOMBRE_COMERCIAL_PROSPECT = "nombre_comercial_prospect";
 	public static final String EJECUTIVO_COMERCIAL = "ejecutivo_comercial";
 	public static final String ACTIVIDAD_PRINCIPAL = "actividad_principal";
+	public static final String TIPO_COLABORADOR = "tipo_colaborador";
 	public static final String IDIOMA = "idioma";
 	public static final String DGS = "dgs";
 	public static final String EMAIL_PRINCIPAL = "email_principal";
 	public static final String TLF_PRINCIPAL = "tlf_principal";
 	public static final String CONTACTO_RESPONSABLE = "contacto_responsable";
 	public static final String CARGO_RESPONSABLE = "cargo_responsable";
+	public static final String RAMO="ramo";
 	public static final String RENTA_MENSUAL_ALQUILER = "renta_mensual_alquiler";
 	public static final String IMPAGO_ALQUILER = "impago_alquiler";
 	public static final String FRANQUICIA_MAC = "franquiciaMac";
