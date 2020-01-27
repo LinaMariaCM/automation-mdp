@@ -4,6 +4,8 @@ import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
+import com.amaris.project.pages.administracion.siniestros.apertura.AltaAperturaDeclaracionSiniestrosPage;
+import com.amaris.project.utils.ChecksUtils;
 import com.sun.tools.jxc.ap.Const;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -200,10 +202,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	public MediadoresAltaDatosDescriptivosPage clickGuardarYSalir() {
 		debugBegin();
 		webDriver.clickInFrame(guardarDescripcionBtn, cuerpoFrame);
-		// a borrar las siguientes líneas cuando este tooodo atado
-		webDriver.waitForElementToBePresentInFrame(tituloPaginaTxt, cuerpoFrame);
-		String datoAlta = webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame);
-		debugInfo("El mediador dado de alta es " + datoAlta);
 		debugEnd();
 
 		return this;
@@ -271,6 +269,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			debugInfo("nivel de estructura seleccionado");
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", getTestVar(Constants.TIPO_MEDIADOR));
 			//	webDriver.waitWithDriver(3000);
+
 			debugInfo("tipo de mediador seleccionado");
 			altaDatosBasicosComunes("9876543210");
 			debugInfo("datos básicos rellenados");
@@ -285,11 +284,13 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			debugInfo("nombre comercial introducido");
 			//		webDriver.waitWithDriver(3000);
 
-			//	webDriver.setTextInFrame(numRegistroDGSInput, cuerpoFrame, "9876543210");
 			webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
 			webDriver.waitWithDriver(3000);
 			clickDisponeSoftwareSi(); // de momento, valor predeterminado, evaluar en futuro si cambiarlo y tirar del CSV. Evaluar si añadir un boolean para gestionar cuando es Si y No.
 			debugInfo("cuenta con software de seguros");
+			nombreFiscalVacio();
+			debugInfo("Comprobar uso alertas");
+			nombreFiscal();
 			webDriver.waitWithDriver(3000);
 		}
 		debugEnd();
@@ -301,6 +302,19 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		if(webDriver.isPresentInFrame(nombreFiscalInput, cuerpoFrame) && getTestVar(Constants.NOMBRE_MEDIADOR) != null && !getTestVar(Constants.NOMBRE_MEDIADOR).isEmpty()) {
 			webDriver.setTextInFrame(nombreFiscalInput, cuerpoFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
 		}
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDescriptivosPage nombreFiscalVacio() {
+		debugBegin();
+
+		webDriver.clearTextInFrame(nombreFiscalInput, cuerpoFrame);
+		clickGuardarYSalir();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_FISCAL_MEDIADORES);
+		webDriver.acceptAlert();
+
 		debugEnd();
 		return this;
 	}
@@ -350,8 +364,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	public MediadoresAltaDatosDescriptivosPage tipoDocumentoApellidos() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
-		if(webDriver.isPresent(tipoDocumentoCombo)) {
-			if(getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
+			if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
 				webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
 				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
 				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
@@ -363,7 +376,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 					webDriver.setText(segundoApellidoInput, "segundoApell");
 				}
 			}
-		}
+
 		webDriver.exitFrame();
 
 		debugEnd();
