@@ -2086,8 +2086,8 @@ public class ActionSteps extends InteractionObject {
 					.isUbicacionRiesgoUtilizada();
 
 				String anyoConstruccion = new DetallesRiesgoPage(userS)
-						.completarDatosRiesgoMinimos();
-				
+					.completarDatosRiesgoMinimos();
+
 				new DetallesRiesgoPage(userS)
 					.clickContinuar();
 
@@ -2702,10 +2702,11 @@ public class ActionSteps extends InteractionObject {
 					.clickContinuar();
 			}
 
-			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
+			// comentados por Antonia el 24 01 del 2020
+		//	if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
 				new ValidacionExcepcionesReglasPage(userS)
 					.clickContinuar();
-			}
+		//	}
 			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
@@ -2823,7 +2824,7 @@ public class ActionSteps extends InteractionObject {
 				debugInfo("La póliza a la cual pertenece el siniestro es de tipo MAC, procedemos a modificar las causas para poder realizar pagos");
 				new ConfirmacionSiniestrosPage(userS)
 					.volverAHomeMutua();
-					modifico_causas_siniestro_MAC();
+				modifico_causas_siniestro_MAC();
 			}
 
 			// Accedemos a siniestros desde Gestión On Line
@@ -3090,7 +3091,11 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		new BloqueSiniestrosPage(userS).transicionarBloqueCerrandoOrigen();
+		new BloqueSiniestrosPage(userS)
+			.transicionarBloqueCerrandoOrigen()
+			.verificarTransicionesCerrandoOrigen()
+			.transicionarBloqueSinCerrarOrigen()
+			.verificarTransicionesSinCerrarOrigen();
 		debugEnd();
 	}
 
@@ -3102,8 +3107,7 @@ public class ActionSteps extends InteractionObject {
 		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
 		new GestionSiniestrosPage(userS).clickLogo();
 	}
-	
-	
+
 	public void modifico_tarea_siniestros() {
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -3122,7 +3126,6 @@ public class ActionSteps extends InteractionObject {
 		new GestionSiniestrosPage(userS).clickLogo();
 	}
 
-
 	public void modificar_siniestro_datos() {
 		new InnovaHomePage(userS)
 			.openSiniestros();
@@ -3134,7 +3137,7 @@ public class ActionSteps extends InteractionObject {
 			.modificarSiniestro();
 
 		new AltaAperturaDeclaracionSiniestrosPage(userS)
-			.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), 
+			.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO),
 				getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
 
 		new ValidacionExcepcionesReglasPage(userS)
@@ -3154,7 +3157,7 @@ public class ActionSteps extends InteractionObject {
 
 		new VistaSiniestrosPage(userS)
 			.irVistaSiniestroHistorico()
-			.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), 
+			.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO),
 				getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
 	}
 
@@ -3556,7 +3559,6 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-
 	public void comprobaciones_ficha_mediador() {
 		debugBegin();
 		new InnovaHomePage(userS)
@@ -3572,30 +3574,44 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void obtener_nombres_direcciones_mediador(){
-	debugBegin();
+	public void obtener_nombres_direcciones_mediador() {
+		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
 			.buscarMediadorPorId();
 		new FichaMediadorPage(userS)
 			.verificarDireccion();
-	debugEnd();
+		debugEnd();
 
 	}
 
-
-	public void alta_datos_basicos_mediador(){
+	public void alta_datos_basicos_mediador() {
 		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresHomePage(userS)
 			.openAltaMediador();
-		new MediadoresAltaDatosDescriptivosPage (userS)
+		new MediadoresAltaDatosDescriptivosPage(userS)
 			.altaIntermediarioDescriptivos()
-			.clickGuardarYSalir();
-	/*	new FichaMediadorPage(userS)
-			.comprobacionesVariadas();*/
+			.clickContinuar();
+	/*		.clickGuardarYSalir();
+		new FichaMediadorPage(userS)
+			.obtenerDatoAltaIntermediario();*/
+
 		debugEnd();
+	}
+
+	public void alta_datos_contacto_mediador() {
+		new MediadoresAltaDatosContactoPage(userS)
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com");
+		/*	.anyadirNuevaDireccionFiscal("FISC", )
+			.anyadirNuevaDireccionComercial("COME",)
+			.anyadirNuevaDireccionPostal("PPRO")
+			.anyadirNuevaDireccionRecibos("PREC")
+			.anyadirNuevaDireccionSiniestros("PSIN")
+			.clickGuardarYSalir();
+		new FichaMediadorPage(userS)
+			.verificarDireccion(); */
 	}
 } // END
