@@ -18,12 +18,14 @@ public class BloqueSiniestrosPage extends PageObject {
 
 	private By bloqueBtn = By.cssSelector("#jt7");
 	private By acciones = By.cssSelector("#capaFlecha12 a");
-	private By transicionarBtn = By.cssSelector("div.cpdatos a");
+	//private By transicionarBtn = By.cssSelector("div.cpdatos a");
+	private By transicionarBtn = By.linkText("Transicionar bloque");
 	private By codBloque = By.cssSelector("#bloque1tr1 > td:nth-child(2)");
 	private By listaBloque = By.cssSelector("table.grid.wideBox > tbody > tr[id*='bloque']");
 
 	// transicionar bloque
 	private By bloqueDestinoDrpDwn = By.cssSelector("#nuevaCarpeta");
+	private By bloqueDestinoOption = By.cssSelector("#nuevaCarpeta > option");
 	private By reserva = By.cssSelector("#reservas");
 	private By tarea_ori = By.cssSelector("#tareas_ori");
 	private By tarea_desti = By.cssSelector("#tareas_des");
@@ -86,7 +88,7 @@ public class BloqueSiniestrosPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(capaIframe);
 		webDriver.click(bloqueDestinoDrpDwn);
-		webDriver.clickElementChildByAttribute(bloqueDestinoDrpDwn, "value", "11");
+		webDriver.clickElementFromDropDownByAttribute(bloqueDestinoDrpDwn, bloqueDestinoOption, "value", "11");
 
 		debugInfo("Destino bloque");
 		if(webDriver.isClickable(errorTxt)) {
@@ -140,20 +142,20 @@ public class BloqueSiniestrosPage extends PageObject {
 			debugInfo("Click acciones");
 			webDriver.clickInFrame(By.cssSelector("#capaFlecha" + codigo + " a"), cuerpoFrame);
 
-			if(webDriver.isClickableInFrame(transicionarBtn, cuerpoFrame)) {
-				debugInfo("Contiene transiciona");
+		/*	if(webDriver.isClickableInFrame(transicionarBtn, cuerpoFrame)) {
+				debugInfo("Contiene transiciona");*/
 				webDriver.clickInFrame(transicionarBtn, cuerpoFrame);
 				webDriver.waitWithDriver(3000);
-			} else {
+		/*	} else {
 				debugInfo("No contiene transiciona");
 				webDriver.clickInFrame(By.cssSelector("#cabeceraBloqueDesplegable" + (i + 1)), cuerpoFrame);
-			}
+			}*/
 		}
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(capaIframe);
 		webDriver.click(bloqueDestinoDrpDwn);
-		webDriver.clickElementChildByAttribute(bloqueDestinoDrpDwn, "value", "31");
+		webDriver.clickElementFromDropDownByAttribute(bloqueDestinoDrpDwn, bloqueDestinoOption, "value", "31");
 
 		debugInfo("Destino bloque");
 		if(webDriver.isClickable(errorTxt)) {
