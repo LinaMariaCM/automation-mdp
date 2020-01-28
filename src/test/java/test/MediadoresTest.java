@@ -28,7 +28,7 @@ public class MediadoresTest {
 	@Test(dataProvider = "dataProviderMed01")
 	public void med01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		
+
 		userS.setScenario(testCase + userS.getVar("test_id"));
 
 		ActionSteps steps = new ActionSteps(userS);
@@ -41,7 +41,6 @@ public class MediadoresTest {
 			return null;
 		}).run();
 	}
-
 
 	@DataProvider(parallel = false)
 	public String[][] dataProviderMed02() {
@@ -92,14 +91,12 @@ public class MediadoresTest {
 		}).run();
 	}
 
-
-
 	// TEST DE IRYNA PARA DAR ALTA OFICINA A UN INTERMEDIARIO
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMed04() {
 		String testCase = Constants.MEDIADORES_CASE + "04";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_2.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_colabordor_csv_2.csv");
 
 		return casesMatrix;
 	}
@@ -123,7 +120,7 @@ public class MediadoresTest {
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMed05() {
 		String testCase = Constants.MEDIADORES_CASE + "05";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_2.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_colabordor_csv_2.csv");
 
 		return casesMatrix;
 	}
@@ -142,7 +139,6 @@ public class MediadoresTest {
 			return null;
 		}).run();
 	}
-
 
 	@AfterSuite
 	public void afterSuite() {

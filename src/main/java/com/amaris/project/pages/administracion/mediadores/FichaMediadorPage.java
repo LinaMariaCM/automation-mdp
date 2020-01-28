@@ -205,7 +205,17 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickInfoRelacional() {
 		debugBegin();
+		webDriver.waitWithDriver(8000);
 		webDriver.clickInFrame(infoRelacionalBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickModifMedInfoRelacional() {
+		debugBegin();
+		webDriver.clickInFrame(modificarMedRelacioBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 
@@ -368,7 +378,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage añadirFechaFormOblig() {
+	public FichaMediadorPage anyadirFechaFormOblig() {
 		debugBegin();
 		String datoFechaFormOblig = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);
@@ -379,7 +389,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage añadirFechaEnvioContrato() {
+	public FichaMediadorPage anyadirFechaEnvioContrato() {
 		debugBegin();
 		String datoFechaEnvioContrato = DateUtils.getModifiedDate(Calendar.DATE, -3, Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);
@@ -390,7 +400,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage añadirFechaRecepcionContrato() {
+	public FichaMediadorPage anyadirFechaRecepcionContrato() {
 		debugBegin();
 		String datoFechaRecepcionContrato = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);

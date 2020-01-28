@@ -3613,6 +3613,13 @@ public class ActionSteps extends InteractionObject {
 			.clickGuardarYSalir();
 		new FichaMediadorPage(userS)
 			.verificarDireccion(); */
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+
 	}
 
 	// Step de iryna para dar alta una oficina
@@ -3635,11 +3642,12 @@ public class ActionSteps extends InteractionObject {
 		// añadir lo de las direcciones
 		// .clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
-			.altaOficinaDatosRelacionales()
+			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
-		// page de transaccionales
 		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
+
 		debugEnd();
 	}
 
@@ -3656,6 +3664,18 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosDescriptivosPage(userS)
 			.altaColaboradorDescriptivos()
 			.clickContinuar();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaColaboradorDatosContacto()
+			//direcciones faLTA AÑADIR
+			.clickContinuar();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+
 		debugEnd();
 	}
+
 } // END

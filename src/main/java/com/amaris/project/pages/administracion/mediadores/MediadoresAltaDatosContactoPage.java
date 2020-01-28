@@ -369,4 +369,13 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
+	public MediadoresAltaDatosContactoPage altaColaboradorDatosContacto() {
+		debugBegin();
+		rellenarDatosGeneralesContacto("Contacto responsable", "Cargo responsable", "699999999", "email@gmail.com");
+
+		// FALTA añadir direcciones
+
+		debugEnd();
+		return this;
+	}
 }
