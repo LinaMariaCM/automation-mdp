@@ -375,19 +375,22 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage tipoDocumentoApellidos() {
 		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-			if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
-				webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
-				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
-				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 
-				if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
-					webDriver.setText(primerApellidoInput, "primerApell");
-				}
-				if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
-					webDriver.setText(segundoApellidoInput, "segundoApell");
-				}
+		webDriver.switchToFrame(cuerpoFrame);
+
+		if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
+			setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
+			webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+
+			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
+				webDriver.setText(primerApellidoInput, "primerApell");
 			}
+
+			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
+				webDriver.setText(segundoApellidoInput, "segundoApell");
+			}
+		}
 
 		webDriver.exitFrame();
 
@@ -398,17 +401,20 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	// metodo para alta oficina asociado a un intermediario
 	public MediadoresAltaDatosDescriptivosPage altaOficinaDescriptivos() {
 		debugBegin();
+
 		webDriver.switchToFrame(cuerpoFrame);
+
 		altaDatosBasicosComunes("9876543210");
 
 		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null && !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
 
 			webDriver.setTextInFrame(nombreComercialInput, getTestVar(Constants.NOMBRE_COMERCIAL), cuerpoFrame);
-		}
-		else {
+		} else {
 			webDriver.setTextInFrame(nombreComercialInput, "Med01", cuerpoFrame);
 		}
+
 		webDriver.exitFrame();
+
 		debugEnd();
 		return this;
 	}
@@ -428,7 +434,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		altaDatosBasicosComunes("9876543210");
 
-		if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")){
+		if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
 			nombreFiscal();
 			tipoDocumentoApellidos();
 			nombreComercial();
@@ -436,7 +442,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.setTextInFrame(nombreComercialInput, cuerpoFrame, getTestVar(Constants.NOMBRE_COMERCIAL));
 		}
 
- 		webDriver.waitWithDriver(3000);
+		webDriver.waitWithDriver(3000);
+
 		debugEnd();
 		return this;
 	}
