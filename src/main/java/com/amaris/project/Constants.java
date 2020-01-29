@@ -684,4 +684,27 @@ public class Constants {
 
 	public static final String NUMERO_DOCUMENTO_MEDIADOR = "num_doc_med";
 
+	// MEDIADORES DIRECCIONES
+	public static final String DIRECCION_FISC_PROVINCIA = "med_direccion_fisc_provincia";
+	public static final String DIRECCION_FISC_POBLACION = "med_direccion_fisc_poblacion";
+	public static final String DIRECCION_FISC_NombreVia = "med_direccion_fisc_nombrevia";
+	public static final String DIRECCION_FISC_NumVia = "med_direccion_fisc_numvia";
+	public static final String DIRECCION_COME_PROVINCIA = "med_direccion_come_provincia";
+	public static final String DIRECCION_COME_POBLACION = "med_direccion_come_poblacion";
+	public static final String DIRECCION_COME_NombreVia = "med_direccion_come_nombrevia";
+	public static final String DIRECCION_PPRO_PROVINCIA =  "med_direccion_ppro_provincia";
+	public static final String DIRECCION_PPRO_POBLACION = "med_direccion_ppro_poblacion";
+	public static final String DIRECCION_PPRO_NombreVia = "med_direccion_ppro_nombrevia";
+	public static final String DIRECCION_PREC_PROVINCIA =  "med_direccion_prec_provincia";
+	public static final String DIRECCION_PREC_POBLACION = "med_direccion_prec_poblacion";
+	public static final String DIRECCION_PREC_NombreVia = "med_direccion_prec_nombrevia";
+	public static final String DIRECCION_PSIN_PROVINCIA =  "med_direccion_psin_provincia";
+	public static final String DIRECCION_PSIN_POBLACION = "med_direccion_psin_poblacion";
+	public static final String DIRECCION_PSIN_NombreVia = "med_direccion_psin_nombrevia";
+	public static final String TIPO_DIRECCION_MED = "tipo_direccion_med";
+	public static final String DIR_IGUAL_A = "med_direccion_heradar";
+	public static final String TIPO_COLABORADOR = "tipo_colaborador";
+
+
+
 }// END
