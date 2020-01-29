@@ -2703,10 +2703,10 @@ public class ActionSteps extends InteractionObject {
 			}
 
 			// comentados por Antonia el 24 01 del 2020
-		//	if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
-				new ValidacionExcepcionesReglasPage(userS)
-					.clickContinuar();
-		//	}
+			//	if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
+			new ValidacionExcepcionesReglasPage(userS)
+				.clickContinuar();
+			//	}
 			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
@@ -3604,10 +3604,16 @@ public class ActionSteps extends InteractionObject {
 
 	public void alta_datos_contacto_mediador() {
 		new MediadoresAltaDatosContactoPage(userS)
-			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com");
-		/*	.anyadirNuevaDireccionFiscal("FISC", )
-			.anyadirNuevaDireccionComercial("COME",)
-			.anyadirNuevaDireccionPostal("PPRO")
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
+			.anyadirNuevaDireccionFiscal()
+			.anyadirNuevaDireccion("COME")
+			.anyadirNuevaDireccion("PPRO")
+			.anyadirNuevaDireccion("PREC")
+			.anyadirNuevaDireccion("PSIN")
+			.clickGuardarYSalir();
+		new FichaMediadorPage(userS)
+			.obtenerDatoAltaIntermediario();
+	/*		.anyadirNuevaDireccionPostal("PPRO")
 			.anyadirNuevaDireccionRecibos("PREC")
 			.anyadirNuevaDireccionSiniestros("PSIN")
 			.clickGuardarYSalir();
