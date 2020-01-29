@@ -3,6 +3,14 @@ package com.amaris.project.pages.administracion.mediadores;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MediadoresDGSPage extends PageObject {
 
@@ -120,5 +128,8 @@ public class MediadoresDGSPage extends PageObject {
 
 		return this;
 	}
+	By elemtosListaDGS = By.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > tr");
+
+	List<WebElement> listaDGS  = webDriver.getElementsInFrame(elemtosListaDGS, cuerpoFrame);
 
 }

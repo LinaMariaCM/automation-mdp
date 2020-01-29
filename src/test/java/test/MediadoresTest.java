@@ -28,7 +28,7 @@ public class MediadoresTest {
 	@Test(dataProvider = "dataProviderMed01")
 	public void med01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
-		
+
 		userS.setScenario(testCase + userS.getVar("test_id"));
 
 		ActionSteps steps = new ActionSteps(userS);
@@ -41,7 +41,6 @@ public class MediadoresTest {
 			return null;
 		}).run();
 	}
-
 
 	@DataProvider(parallel = false)
 	public String[][] dataProviderMed02() {
@@ -93,13 +92,54 @@ public class MediadoresTest {
 		}).run();
 	}
 
+	// TEST DE IRYNA PARA DAR ALTA OFICINA A UN INTERMEDIARIO
 
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMed04() {
+		String testCase = Constants.MEDIADORES_CASE + "04";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_colabordor_csv_2.csv");
 
+		return casesMatrix;
+	}
 
+	@Test(dataProvider = "dataProviderMed04")
+	public void med04(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
 
+		//CheckSteps checkSteps = new CheckSteps(userS);
 
+		userS.testActions(() -> {
+			steps.login("Innova", "eferrando");
+			steps.alta_oficina_a_un_intermediario();
 
+			return null;
+		}).run();
+	}
 
+	// TEST PARA DAR ALTA COLABORADOR
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMed05() {
+		String testCase = Constants.MEDIADORES_CASE + "05";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_colabordor_csv_2.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMed05")
+	public void med05(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		//CheckSteps checkSteps = new CheckSteps(userS);
+
+		userS.testActions(() -> {
+			steps.login("Innova", "eferrando");
+			steps.alta_colaborador();
+
+			return null;
+		}).run();
+	}
 
 	@AfterSuite
 	public void afterSuite() {

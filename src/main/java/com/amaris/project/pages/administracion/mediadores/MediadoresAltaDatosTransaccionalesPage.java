@@ -11,7 +11,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
 
-//---------Datos de negocio--------------------------
+	//---------Datos de negocio--------------------------
 
 	private By tipoRetribucionCombo = By.id("ALTAMEDI_TIPRETRI");
 	private By tipoRetribucionOption = By.cssSelector("#ALTAMEDI_TIPRETRI > option");
@@ -38,14 +38,14 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By cta1LiqInput = By.cssSelector("#CCCOBRO_COMODIN_CADENA_4");
 	private By cta2LiqInput = By.cssSelector("#CCCOBRO_COMODIN_CADENA_5");
 
-//----------------Configuracion liquidacion---------------------
+	//----------------Configuracion liquidacion---------------------
 
 	private By retencionesBtn = By.id("ALTAMEDI_RETPARAPP");
 	private By liquidacionParcialBtn = By.id("ALTAMEDI_PELIQPAR");
 	private By pagoSinLiquidacionBtn = By.id("ALTAMEDI_PASINLIQ");
 	private By limiteConcesionesInput = By.id("ALTAMEDI_LIMCOMIS");
 
-//-------------------------Configuración gestion de recibos-----------
+	//-------------------------Configuración gestion de recibos-----------
 
 	private By permisoImpresionRecibosBtn = By.id("ALTAMEDI_PERIMPREC");
 	private By accionImpagoCombo = By.id("ALTAMEDI_ULTACIMP");
@@ -56,7 +56,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By numeroReenviosAutomaticosCombo = By.id("ALTAMEDI_NREENAUT");
 	private By numDiasPasoImpagoInput = By.id("ALTAMEDI_NDPASIMP");
 
-//------------------------Acceso operativas-------------
+	//------------------------Acceso operativas-------------
 
 	private By accesoRecibosBtn = By.id("ALTAMEDI_ACCRECIB");
 	private By pagoDomiciliacionBtn = By.id("ALTAMEDI_PAGDOMBAND");
@@ -64,7 +64,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By accesoFicherosDMBtn = By.id("ALTAMEDI_ACCFICCDM");
 	private By accesoFicherosNODOMBtn = By.id("ALTAMEDI_ACCFICCNDM");
 
-//----------------Envio documentacion------------------------------
+	//----------------Envio documentacion------------------------------
 
 	private By mandatoSEPABtn = By.id("ALTAMEDI_GENMSEPA");
 	private By liquidacionesBtn = By.id("ALTAMEDI_LIQUIDAC");
@@ -96,14 +96,11 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	}
 
 	//-------------Añadir datos de negocio ---------------------
-	public MediadoresAltaDatosTransaccionalesPage anyadirDatosNegocio(String tipoRetribucion, String clasifNegocio , String iban, String banco, String sucursal, String dc, String cta1, String cta2)
-	{
+
+	public MediadoresAltaDatosTransaccionalesPage anyadirDatosBanco(String iban, String banco, String sucursal, String dc, String cta1, String cta2) {
 		debugBegin();
-		if(tipoRetribucion.isEmpty()) tipoRetribucion = "COMI";
-		if(clasifNegocio.isEmpty()) clasifNegocio = "1";
+
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttribute(tipoRetribucionCombo, tipoRetribucionOption , "value", tipoRetribucion);
-		webDriver.clickElementFromDropDownByAttribute(clasificarNegocioCombo, clasificarNegocioOption , "value", clasifNegocio);
 
 		webDriver.setText(codigoIbanInput, iban);
 		webDriver.setText(bancoInput, banco);
@@ -111,6 +108,25 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 		webDriver.setText(dcInput, dc);
 		webDriver.setText(cta1Input, cta1);
 		webDriver.setText(cta2Input, cta2);
+
+		webDriver.exitFrame();
+		debugEnd();
+
+		return this;
+	}
+
+	public MediadoresAltaDatosTransaccionalesPage anyadirDatosBancoLiquidaciones(String iban, String banco, String sucursal, String dc, String cta1, String cta2) {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+
+		webDriver.setText(codigoIbanLiqInput, iban);
+		webDriver.setText(bancoLiqInput, banco);
+		webDriver.setText(sucursalLiqInput, sucursal);
+		webDriver.setText(dcLiqInput, dc);
+		webDriver.setText(cta1LiqInput, cta1);
+		webDriver.setText(cta2LiqInput, cta2);
+
 		webDriver.exitFrame();
 		debugEnd();
 
@@ -118,12 +134,11 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	}
 
 	//------------Configuración gestión de recibos-------------------
-	public MediadoresAltaDatosTransaccionalesPage anyadirConfiguracionGestionrecibos(String ultAccionImpago)
-	{
+	public MediadoresAltaDatosTransaccionalesPage anyadirConfiguracionGestionrecibos(String ultAccionImpago) {
 		debugBegin();
 		if(ultAccionImpago.isEmpty()) ultAccionImpago = "NADA";
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttribute(accionImpagoCombo, accionImpagoOption , "value", ultAccionImpago);
+		webDriver.clickElementFromDropDownByAttribute(accionImpagoCombo, accionImpagoOption, "value", ultAccionImpago);
 		webDriver.exitFrame();
 		debugEnd();
 

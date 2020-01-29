@@ -2,7 +2,8 @@ package com.amaris.project;
 
 public class Constants {
 
-	private Constants() {}
+	private Constants() {
+	}
 
 	// Web page
 	public static final String CLIENT = "Mutua de Propietarios";
@@ -379,12 +380,16 @@ public class Constants {
 	public static final String NOMBRE_COMERCIAL_PROSPECT = "nombre_comercial_prospect";
 	public static final String EJECUTIVO_COMERCIAL = "ejecutivo_comercial";
 	public static final String ACTIVIDAD_PRINCIPAL = "actividad_principal";
+	public static final String TIPO_COLABORADOR = "tipo_colaborador";
 	public static final String IDIOMA = "idioma";
 	public static final String DGS = "dgs";
 	public static final String EMAIL_PRINCIPAL = "email_principal";
 	public static final String TLF_PRINCIPAL = "tlf_principal";
 	public static final String CONTACTO_RESPONSABLE = "contacto_responsable";
 	public static final String CARGO_RESPONSABLE = "cargo_responsable";
+	public static final String RAMO = "ramo";
+	public static final String NOMBRE_BANCO = "nombre_banco";
+	public static final String COMPANYIAS_PRINCIPALES = "companyias_principales";
 	public static final String RENTA_MENSUAL_ALQUILER = "renta_mensual_alquiler";
 	public static final String IMPAGO_ALQUILER = "impago_alquiler";
 	public static final String FRANQUICIA_MAC = "franquiciaMac";
@@ -435,7 +440,7 @@ public class Constants {
 	public static final String PERSONA_FISICA = "Física";
 	public static final String CAPITAL_16M = "16000000";
 	public static final String DATOS_RIESGO = "Datos de riesgo";
-	
+
 	public static final String NUMERO_PROYECTO = "numero_proyecto";
 
 	// Constantes para Siniestros
@@ -641,7 +646,7 @@ public class Constants {
 	public static final String ALERTA_NUMERO_DOCUMENTO_MEDIADORES = "El campo NÚMERO DOCUMENTO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_NOMBRE_FISCAL_MEDIADORES = "El campo NOMBRE FISCAL es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_PRIMER_APELLIDO_MEDIADORES = "El campo 1ER APELLIDO es un campo obligatorio y no puede estar en blanco.";
-	public static final String ALERTA_SEGUNDO_APELLIDO_MEDIADORES ="El campo 2º APELLIDO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_SEGUNDO_APELLIDO_MEDIADORES = "El campo 2º APELLIDO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_TIPO_MEDIADOR = "El campo TIPO MEDIADOR es un campo obligatorio.";
 	public static final String ALERTA_ACTIVIDAD_PRINCIPAL_MEDIADORES = "El campo ACTIVIDAD PRINCIPAL es un campo obligatorio.";
 	public static final String ALERTA_CONTACTO_RESPONSABLE_MEDIADORES = "El campo CONTACTO RESPONSABLE es un campo obligatorio y no puede estar en blanco.";
@@ -668,19 +673,18 @@ public class Constants {
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
 	public static final String TAREA_TITULO = "tarea_titulo";
-	
+
 	public static final String GUARDAR_EN_ALTA = "guardar_en_alta";
 	public static final String SINIESTRO_PROVISIONAL = "siniestro_provisional";
-	
+
 	public static final String PRECIO_BASICO_AFTER = "precio_basico_after";
 	public static final String PRECIO_BASICO_BEFORE = "precio_basico_before";
 	public static final String PRECIO_COMPLETO_AFTER = "precio_completo_after";
 	public static final String PRECIO_COMPLETO_BEFORE = "precio_completo_before";
 	public static final String PRECIO_PLUS_AFTER = "precio_plus_after";
 	public static final String PRECIO_PLUS_BEFORE = "precio_plus_before";
-	
-	public static final String COMENTARIO_ANOTACION = "comentario_anotacion";
 
+	public static final String COMENTARIO_ANOTACION = "comentario_anotacion";
 
 	public static final String NUMERO_DOCUMENTO_MEDIADOR = "num_doc_med";
 

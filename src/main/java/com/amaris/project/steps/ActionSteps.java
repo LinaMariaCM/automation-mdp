@@ -3619,5 +3619,69 @@ public class ActionSteps extends InteractionObject {
 			.clickGuardarYSalir();
 		new FichaMediadorPage(userS)
 			.verificarDireccion(); */
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+
 	}
+
+	// Step de iryna para dar alta una oficina
+
+	public void alta_oficina_a_un_intermediario() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorPorIdEstadoAlta();
+		new FichaMediadorPage(userS)
+			.clickMasAcciones()
+			.clickSolicitarAltaOficina();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.altaOficinaDescriptivos()
+			.clickContinuar();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaOficinaDatosContacto();
+		// añadir lo de las direcciones
+		// .clickContinuar();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+
+		debugEnd();
+	}
+
+	public void alta_colaborador() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarOficinaPorIdEstadoAlta();
+		new FichaMediadorPage(userS)
+			.clickMasAcciones()
+			.clickSolicitarAltaColaborador();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.altaColaboradorDescriptivos()
+			.clickContinuar();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaColaboradorDatosContacto()
+			//direcciones faLTA AÑADIR
+			.clickContinuar();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+
+		debugEnd();
+	}
+
 } // END

@@ -31,7 +31,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	private By mediadorPadreOficinaInput = By.cssSelector("#ALTAMEDI_MEDPADRE");
 	private By estrColabOficinaPadreInput = By.cssSelector("#ALTAMEDI_OFIPADRE");
 	private By seleccionarOficinaPadreBtn = By.cssSelector("#capaTipoColaborador > table:nth-child(2) > tbody > tr > td:nth-child(3) > div > a");
-	private By estrColabTipoCombo = By.cssSelector("#ALTAMEDI_TIPOCOLA");
+	//private By estrColabTipoCombo = By.cssSelector("#ALTAMEDI_TIPOCOLA");
+	private By estrColabTipoCombo = By.id("ALTAMEDI_TIPOCOLA");
 	private By estrColabTipoOption = By.cssSelector("#ALTAMEDI_TIPOCOLA > option");
 
 	private By idiomaCombo = By.cssSelector("#MEDI_IDIOMA");
@@ -49,7 +50,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	private By segundoApellidoInput = By.id("ALTAMEDI_APE2FISC");
 	private By nombreComercialIgualFiscalBtn = By.id("ALTAMEDI_NOMCOIGU");
 	private By nombreComercialDiferenteFiscalBtn = By.id("ALTAMEDI_NOMCODIF");
-	private By nombreComercialInput = By.cssSelector("#ALTAMEDI_OTRONOMB");
+	private By nombreComercialInput = By.cssSelector("#ALTAMEDI_NOMBRECOM");
+	private By nombreComercialADInput = By.cssSelector("#ALTAMEDI_OTRONOMB");
 	private By referenciaExternaInput = By.id("ALTAMEDI_REFEXT");
 	private By numRegistroDGSInput = By.id("ALTAMEDI_NREGDGS");
 	private By actividadPrincipalCombo = By.id("MEDI_ACTIPRIN");
@@ -245,7 +247,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage clickNombreComercialDiferente() {
 		debugBegin();
-		webDriver.clickInFrame(nombreComercialDiferenteFiscalBtn, cuerpoFrame);
+		webDriver.click(nombreComercialDiferenteFiscalBtn);
 		debugEnd();
 
 		return this;
@@ -306,9 +308,14 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage nombreFiscal() {
 		debugBegin();
+
 		if(webDriver.isPresentInFrame(nombreFiscalInput, cuerpoFrame) && getTestVar(Constants.NOMBRE_MEDIADOR) != null && !getTestVar(Constants.NOMBRE_MEDIADOR).isEmpty()) {
 			webDriver.setTextInFrame(nombreFiscalInput, cuerpoFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
+		} else {
+			webDriver.setTextInFrame(nombreFiscalInput, "Nombre", cuerpoFrame);// quitar cuando CSV implementado
+			debugInfo("Ha rellenado nombre fiscal.");
 		}
+
 		debugEnd();
 		return this;
 	}
@@ -336,11 +343,11 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.clickElementFromDropDownByAttribute(idiomaCombo, idiomaOption, "value", "ESPA");
 		}
 
-		if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL) != null && !getTestVar(Constants.ACTIVIDAD_PRINCIPAL).isEmpty()) {
+		if(webDriver.isPresent(actividadPrincipalCombo) && getTestVar(Constants.ACTIVIDAD_PRINCIPAL) != null && !getTestVar(Constants.ACTIVIDAD_PRINCIPAL).isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(actividadPrincipalCombo, actividadPrincipalOption, "value", getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
-		} else {
+		} /*else {
 			webDriver.clickElementFromDropDownByAttribute(actividadPrincipalCombo, actividadPrincipalOption, "value", "ABOG");
-		}
+		} utilizar método cuando CSV se encuentra chachi*/
 
 		if(webDriver.isPresent(numRegistroDGSInput)) {
 			webDriver.setText(numRegistroDGSInput, numRegDGS);
@@ -353,38 +360,96 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
 		debugBegin();
+
 		webDriver.switchToFrame(cuerpoFrame);
-		// si en el CSV no hay dato en el campo Nombre comercial, se activa la opción "Igual que fiscal", si hay un nombre en el CSV, se activa la opción "Diferente" y se añade el nombre
+		// si en el CSV no hay dato en el campo Nombre comercial, se activa la opción "Igual que fiscal",
+		// si hay un nombre en el CSV, se activa la opción "Diferente" y se añade el nombre
 		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null && !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
 			if(webDriver.isPresent(nombreComercialDiferenteFiscalBtn)) {
 				clickNombreComercialDiferente();
 			}
-			webDriver.setText(nombreComercialInput, getTestVar(Constants.NOMBRE_COMERCIAL));
+			webDriver.setText(nombreComercialADInput, getTestVar(Constants.NOMBRE_COMERCIAL));
 		} else {
 			webDriver.click(nombreComercialIgualFiscalBtn);
 		}
+
 		webDriver.exitFrame();
+
 		debugEnd();
+
 		return this;
 	}
 
 	public MediadoresAltaDatosDescriptivosPage tipoDocumentoApellidos() {
 		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-			if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
-				webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
-				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
-				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 
-				if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
-					webDriver.setText(primerApellidoInput, "primerApell");
-				}
-				if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
-					webDriver.setText(segundoApellidoInput, "segundoApell");
-				}
+		webDriver.switchToFrame(cuerpoFrame);
+
+		if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
+			setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
+			webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+
+			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
+				webDriver.setText(primerApellidoInput, "primerApell");
 			}
 
+			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
+				webDriver.setText(segundoApellidoInput, "segundoApell");
+			}
+		}
+
 		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}
+
+	// metodo para alta oficina asociado a un intermediario
+	public MediadoresAltaDatosDescriptivosPage altaOficinaDescriptivos() {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+
+		altaDatosBasicosComunes("9876543210");
+
+		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null && !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
+
+			webDriver.setTextInFrame(nombreComercialInput, getTestVar(Constants.NOMBRE_COMERCIAL), cuerpoFrame);
+		} else {
+			webDriver.setTextInFrame(nombreComercialInput, "Med01", cuerpoFrame);
+		}
+
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDescriptivosPage altaColaboradorDescriptivos() {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+
+		if(webDriver.isPresent(estrColabTipoCombo) && getTestVar(Constants.TIPO_COLABORADOR) != null && !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(estrColabTipoCombo, estrColabTipoOption, "value", getTestVar(Constants.TIPO_COLABORADOR));
+		} else {
+			webDriver.clickElementFromDropDownByAttribute(estrColabTipoCombo, estrColabTipoOption, "value", "AD");
+		}
+
+		webDriver.exitFrame();
+
+		altaDatosBasicosComunes("9876543210");
+
+		if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
+			nombreFiscal();
+			tipoDocumentoApellidos();
+			nombreComercial();
+		} else {
+			webDriver.setTextInFrame(nombreComercialInput, cuerpoFrame, getTestVar(Constants.NOMBRE_COMERCIAL));
+		}
+
+		webDriver.waitWithDriver(3000);
 
 		debugEnd();
 		return this;
