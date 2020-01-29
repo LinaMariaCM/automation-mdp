@@ -27,6 +27,9 @@ public class MediadoresHomePage extends PageObject {
 	private By envioBtn = By.cssSelector("#jt11");
 	private By recepcionBtn = By.cssSelector("#jt12");
 
+	private By codigoMediadorBuscadorInput = By.cssSelector("#BUSMED_CODIMEDI");
+
+
 	public MediadoresHomePage(UserStory userS) {
 		super(userS);
 	}
@@ -66,7 +69,8 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openAltaMediador() {
 		debugBegin();
-		webDriver.clickInFrame(altaMediadorBtn, menuFrame);
+		webDriver.waitForElementToBePresentInFrame(codigoMediadorBuscadorInput, cuerpoFrame);
+		webDriver.doubleClickInFrame(altaMediadorBtn, menuFrame);
 		debugEnd();
 
 		return this;
