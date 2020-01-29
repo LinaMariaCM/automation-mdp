@@ -141,6 +141,30 @@ public class MediadoresTest {
 		}).run();
 	}
 
+	//TEST alta propesct
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMed06() {
+		String testCase = Constants.MEDIADORES_CASE + "06";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_prospect_csv .csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMed05")
+	public void med06(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		//CheckSteps checkSteps = new CheckSteps(userS);
+
+		userS.testActions(() -> {
+			steps.login("Innova", "eferrando");
+			steps.alta_prospect();
+
+			return null;
+		}).run();
+	}
+
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();

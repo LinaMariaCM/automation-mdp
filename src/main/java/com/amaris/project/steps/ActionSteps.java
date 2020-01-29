@@ -2437,7 +2437,7 @@ public class ActionSteps extends InteractionObject {
 					.openAltaProspect();
 
 				new MediadoresAltaProspectPage(userS)
-					.executeActionsAltaProspectPage();
+					.alta_prospect();
 			} catch(Exception e) {}
 		}
 	}
@@ -2452,7 +2452,7 @@ public class ActionSteps extends InteractionObject {
 			.openAltaProspect();
 
 		new MediadoresAltaProspectPage(userS)
-			.executeActionsAltaProspectPage();
+			.alta_prospect();
 	}
 
 	public void doy_de_alta_mediador_usando_acceso_y_usuario(String loginAcess, String user) {
@@ -3680,6 +3680,19 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
+
+		debugEnd();
+	}
+
+	public void alta_prospect() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openAltaProspect();
+		new MediadoresAltaProspectPage(userS)
+			.alta_prospect();
 
 		debugEnd();
 	}
