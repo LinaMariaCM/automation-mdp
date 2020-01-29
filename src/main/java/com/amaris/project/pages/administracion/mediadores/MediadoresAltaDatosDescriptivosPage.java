@@ -9,6 +9,7 @@ import com.amaris.project.utils.ChecksUtils;
 import com.sun.tools.jxc.ap.Const;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import com.amaris.project.pages.administracion.mediadores.MediadoresHomePage;
 
 import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 
@@ -262,13 +263,15 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage altaIntermediarioDescriptivos() {
 		debugBegin();
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+	//	if(webDriver.isPresentInFrame(nivelEstructuraCombo, cuerpoFrame) &&
+			if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+			webDriver.waitForElementToBePresentInFrame(nivelEstructuraCombo, cuerpoFrame);
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getTestVar(Constants.NIVEL_ESTRUCTURA));
-			//	webDriver.waitWithDriver(3000);
+			webDriver.waitWithDriver(3000);
 			debugInfo("nivel de estructura seleccionado");
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", getTestVar(Constants.TIPO_MEDIADOR));
-			//	webDriver.waitWithDriver(3000);
+			webDriver.waitWithDriver(3000);
 
 			debugInfo("tipo de mediador seleccionado");
 			altaDatosBasicosComunes("9876543210");
@@ -288,11 +291,15 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 			clickDisponeSoftwareSi(); // de momento, valor predeterminado, evaluar en futuro si cambiarlo y tirar del CSV. Evaluar si añadir un boolean para gestionar cuando es Si y No.
 			debugInfo("cuenta con software de seguros");
-			nombreFiscalVacio();
+		//	nombreFiscalVacio();
 			debugInfo("Comprobar uso alertas");
 			nombreFiscal();
 			webDriver.waitWithDriver(3000);
+	/*	}else{
+			MediadoresHomePage.openAltaMediador();*/
+
 		}
+
 		debugEnd();
 		return this;
 	}
