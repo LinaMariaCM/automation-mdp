@@ -70,7 +70,7 @@ public class MediadoresTest {
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMed03() {
-		String testCase = Constants.MEDIADORES_CASE + "03";
+		String testCase = Constants.MEDIADORES_CASE;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
 
 		return casesMatrix;
@@ -87,6 +87,7 @@ public class MediadoresTest {
 			steps.login("Innova", "eferrando");
 
 			steps.alta_datos_basicos_mediador();
+			steps.alta_datos_contacto_mediador();
 
 			return null;
 		}).run();
