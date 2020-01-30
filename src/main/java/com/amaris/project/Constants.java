@@ -641,28 +641,36 @@ public class Constants {
 	public static final String ALERTA_EXISTE_TIPO_SUBTIPO_CARPETA = "Ya existe un encargo de ese tipo/subtipo en esta carpeta.";
 
 	//MEDIADORES ALERTA DATOS DESCRIPTIVOS
-	public static final String ALERTA_NIVEL_ESTRUCTURA_MEDIADORES = "El campo NOMBRE COMERCIAL es un campo obligatorio.";
+	public static final String ALERTA_NIVEL_ESTRUCTURA_MEDIADORES = "El campo NIVEL ESTRUCTURA es un campo obligatorio.";
 	public static final String ALERTA_NOMBRE_COMERCIAL_MEDIADORES = "El campo NOMBRE COMERCIAL es un campo obligatorio.";
+	public static final String ALERTA_NOMBRE_COMERCIAL_2_MEDIADORES = "El campo NOMBRE COMERCIAL es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_EJECUTIVO_COMERCIAL_MEDIADORES = "El campo EJECUTIVO COMERCIAL es un campo obligatorio.";
+	public static final String ALERTA_TIPO_MEDIADOR = "El campo TIPO MEDIADOR es un campo obligatorio.";
 	public static final String ALERTA_IDIOMA_MEDIADORES = "El campo IDIOMA es un campo obligatorio.";
 	public static final String ALERTA_TIPO_DOCUMENTO_MEDIADORES = "El campo TIPO DOCUMENTO es un campo obligatorio. ";
 	public static final String ALERTA_NUMERO_DOCUMENTO_MEDIADORES = "El campo NÚMERO DOCUMENTO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_NUMERO_DOCUMENTO_1_MEDIADORES = "El número de documento no corresponde con el tipo de documento o no es correcto.";
 	public static final String ALERTA_NOMBRE_FISCAL_MEDIADORES = "El campo NOMBRE FISCAL es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_PRIMER_APELLIDO_MEDIADORES = "El campo 1ER APELLIDO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_SEGUNDO_APELLIDO_MEDIADORES = "El campo 2º APELLIDO es un campo obligatorio y no puede estar en blanco.";
-	public static final String ALERTA_TIPO_MEDIADOR = "El campo TIPO MEDIADOR es un campo obligatorio.";
+	public static final String SEXO_MEDIADOR = "El campo SEXO es un campo obligatorio.";
 	public static final String ALERTA_ACTIVIDAD_PRINCIPAL_MEDIADORES = "El campo ACTIVIDAD PRINCIPAL es un campo obligatorio.";
+	public static final String ALERTA_NUMERO_REGISTRO_DGS_MEDIADORES = "El campo CARGO N° REGISTRO DGSFP es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_DISPONE_SOFTWARE_MEDIADORES = "El campo ¿DISPONE DE SOFTWARE DE GESTIÓN DE SEGUROS? es un campo obligatorio.";
+
+	//MEDIADORES ALERTA DATOS DE CONTACTO
 	public static final String ALERTA_CONTACTO_RESPONSABLE_MEDIADORES = "El campo CONTACTO RESPONSABLE es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_CARGO_RESPONSABLE_MEDIADORES = "El campo CARGO RESPONSABLE es un campo obligatorio y no puede estar en blanco.";
-	//MEDIADORES ALERTA DATOS DE CONTACTO
 	public static final String ALERTA_TELEFONO_PRINCIPAL_MEDIADORES = "El campo TELÉFONO PRINCIPAL no se ha rellenado correctamente.";
 	public static final String ALERTA_EMAIL_PRINCIPAL_MEDIADORES = "El campo EMAIL PRINCIPAL no se ha rellenado correctamente.";
-	public static final String ALERTA_AÑADIR_DIRECCIONES_MEDIADORES = "Ha de introducir una dirección para cada tipo de domicilio.";
-	public static final String ALERTA_AÑADIR_DIRECCIONES_PROVINCIA_MEDIADORES = "Campo Provincia obligatorio";
-	public static final String ALERTA_AÑADIR_DIRECCIONES_POBLACION_MEDIADORES = "Campo Población obligatorio";
-	public static final String ALERTA_AÑADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES = "Campo Nombre de Vía obligatorio";
-	public static final String ALERTA_AÑADIR_DIRECCIONES_CODIGO_POSTAL_MEDIADORES = "Campo Codigo postal obligatorio.";
-	public static final String ALERTA_AÑADIR_DIRECCIONES_NOMBRE_VIA_NORMALIZADO_MEDIADORES = "El nombre de vía no ha sido normalizado";
+	public static final String ALERTA_ANYADIR_DIRECCIONES_MEDIADORES = "Ha de introducir una dirección para cada tipo de domicilio.";
+	public static final String ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES = "Campo Provincia obligatorio";
+	public static final String ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES = "Campo Población obligatorio";
+	public static final String ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES = "Campo Nombre de Vía obligatorio";
+	public static final String ALERTA_ANYADIR_DIRECCIONES_CODIGO_POSTAL_MEDIADORES = "Campo Codigo postal obligatorio.";
+	public static final String ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_NORMALIZADO_MEDIADORES = "El nombre de vía no ha sido normalizado";
+	public static final String ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES = "Tenga en cuenta que para colaboradores gestores o oficinas, el domicilio fiscal se recoge del nivel superior";
+	public static final String ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION = "Existe un colaborador con la misma dirección comercial";
 	public static final String ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES = "¿Estás seguro de querer eliminar la dirección?";
 
 	//MEDIADORES ALERTA DATOS RELACIONALES
@@ -670,8 +678,29 @@ public class Constants {
 	public static final String ALERTA_CUANTAS_FINCAS_MEDIADORES = "El campo ¿CUÁNTAS? no se ha rellenado correctamente.";
 	public static final String ALERTA_TIPO_RETRIBUCION_MEDIADORES = "El campo TIPO RETRIBUCIÓN es un campo obligatorio.";
 	public static final String ALERTA_CODIGO_IBAN_MEDIADORES = "El campo CÓDIGO IBAN es un campo obligatorio y no puede estar en blanco.";
+
 	// DGS
 	public static final String ALERTA_FECHA_INSCRIPCION_MEDIADORES_RECEPCION = "Fecha inscripción obligatoria.";
+	public static final String ALERTA_FECHA_INICIO_RELACION = "El campo FECHA INICIO RELACIÓN no se ha rellenado correctamente.";
+	public static final String ALERTA_TIPO_ENTIDAD_MEDIADORES = "El campo TIPO ENTIDAD es un campo obligatorio.";
+	public static final String ALERTA_INICIO_CONTRATO_MEDIADORES = "El campo FECHA INICIO CONTRATO no se ha rellenado correctamente.";
+	public static final String ALERTA_ENTIDAD_ALMENOS_RAMO = "Con el campo de entidad informado, tiene que informar al menos un ramo.";
+	public static final String ALERTA_PRODUCTO_MEDIADORES = "El campo PRODUCTO es un campo obligatorio y no puede estar en blanco.";
+
+	//OTRAS ALERTAS
+	public static final String ALERTA_COMENTARIO_ADICIONAL_MEDIADORES = "El campo COMENTARIO ADICIONAL es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_PERIODO_CREDITO_MEDIADORES = "Campo período de crédito es necesario para proceder con el cambio de estado del mediador.";
+	public static final String ALERTA_LIMITE_CREDITO_MEDIADORES = "Campo límite crédito es necesario para proceder con el cambio de estado del mediador.";
+	public static final String ALERTA_VALORACION_FINANCIERA_MEDIADORES = "El campo VALORACIÓN RESOLUCIÓN FINANCIERA es un campo obligatorio.";
+	public static final String ALERTA_COMENTARIO_FINANCIERA_MEDIADORES = "El campo COMENTARIO resolución financiera es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_FECHA_MEDIADORES = "La fecha de formación es obligatoria.";
+	public static final String ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES = "El campo FECHA ENVÍO CONTRATO no se ha rellenado correctamente.";
+	public static final String ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES = "El campo FECHA RECEPCIÓN DE CONTRATO no se ha rellenado correctamente.";
+	public static final String ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES = "La fecha de envío del contrato no puede ser superior a la de recepción del contrato";
+	public static final String ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES = "El campo COMPAÑIAS PRINCIPALES PARA LAS QUE TRABAJA O HA TRABAJADO resolución financiera es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES = "Es obligatorio seleccionar una entidad Bancaria.";
+	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO resolución financiera es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_TELEFONO_MEDIADORES = "El campo TELÉFONO no se ha rellenado correctamente.";
 
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
