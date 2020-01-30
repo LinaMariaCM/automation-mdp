@@ -3684,6 +3684,21 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	public void envio_recepcion_DGS() {
+		debugBegin();
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openEnvioDGS();
+		new MediadoresDGSPage(userS)
+			.envioMediadorDGS(); // averiguar cómo filtrar el CSV y cases: cuando ha de aparecer el paso
+		new MediadoresHomePage(userS)
+			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
+		new MediadoresDGSPage(userS)
+			.recepcionMediadoresDGS();
+			debugEnd();
+	}
+	
 	public void alta_prospect() {
 		debugBegin();
 
