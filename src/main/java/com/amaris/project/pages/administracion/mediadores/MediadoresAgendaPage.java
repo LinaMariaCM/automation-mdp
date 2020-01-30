@@ -2,7 +2,10 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.DateUtils;
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 public class MediadoresAgendaPage extends PageObject {
 
@@ -17,7 +20,9 @@ public class MediadoresAgendaPage extends PageObject {
 	private By tituloTareaInput = By.cssSelector("#titulo");
 	private By descripcionTareaBtn = By.cssSelector("#anotacion");
 	private By categoriaTareaCombo = By.cssSelector("#categoria");
+	private By categoriaTareaOpcion = By.cssSelector("#categoria > option");
 	private By prioridadTareaCombo = By.cssSelector("#priority");
+	private By prioridadTareaOption = By.cssSelector("#priority > option");
 	private By fechaFinTareaInput = By.cssSelector("#fechaler");
 	private By grabarAnotacionBtn = By.cssSelector("body > form > table > tbody > tr > td > input");
 
@@ -55,10 +60,14 @@ public class MediadoresAgendaPage extends PageObject {
 	//-----------Anotaciones----------
 	private By anotacionesBtn = By.cssSelector("#pesANOTACIONES");
 
+	//----Otros------------------------
+	private By mensajeConfirmacionTxt = By.cssSelector("#body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
+
 	public MediadoresAgendaPage(UserStory userS) {
 		super(userS);
 	}
 
+	//----------------------Métodos simples----------------------------------
 	public MediadoresAgendaPage clickVolverCalendario() {
 		debugBegin();
 		webDriver.clickInFrame(volverCalendarioBtn, cuerpoFrame);
@@ -170,4 +179,33 @@ public class MediadoresAgendaPage extends PageObject {
 
 		return this;
 	}
+
+	//-------------Metodos complejos-------------------------------
+
+	public MediadoresAgendaPage anyadirNuevaAnotacion(String titulo) {
+		debugBegin();
+
+		clickNuevaAnotacion();
+		clickNuevaTarea();
+
+		webDriver.setTextInFrame(tituloTareaInput, titulo, cuerpoFrame);
+		webDriver.setTextInFrame(descripcionTareaBtn, "Aqui hay una descripcion", cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(categoriaTareaCombo, categoriaTareaOpcion, cuerpoFrame, "value", "MEDIADORES");
+		webDriver.clickElementFromDropDownByAttributeInFrame(prioridadTareaCombo, prioridadTareaOption, cuerpoFrame, "value", "0");
+		webDriver.setTextInFrame(fechaFinTareaInput, DateUtils.getTodayDate(DateUtils.DATE_FORMAT), cuerpoFrame);
+		webDriver.clickInFrame(grabarAnotacionBtn, cuerpoFrame);
+
+		String alertaResultado = webDriver.getTextInFrame(mensajeConfirmacionTxt, cuerpoFrame).trim();
+		String alertaEsperada = "La tarea MEDIADORES - " + titulo + "se ha creado correctamente.";
+
+		debugInfo("Mensaje esperado: " + alertaEsperada);
+		debugInfo("Mensaje real: " + alertaResultado);
+
+		Assert.assertTrue(alertaResultado.equalsIgnoreCase(alertaEsperada), "Alerta no se muestra");
+
+		debugEnd();
+
+		return this;
+	}
+
 }

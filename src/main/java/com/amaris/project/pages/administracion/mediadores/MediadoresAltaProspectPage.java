@@ -59,27 +59,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 	}
 
 	// region methods
-	public MediadoresAltaProspectPage alta_prospect() {
-
-		debugBegin();
-		selectNivelEstructura();
-		selectTipoProspect();
-		selectActividadPrincipal();
-
-		if(getTestVar(Constants.TIPO_PROSPECT).equals("Corredor-BS")) {
-			writeNumeroRegistroDGS();
-		}
-		writeNombreComercialProspect();
-		writeContactoResponsable();
-		selectIdioma();
-		writeTelefonoUno();
-		selectEjecutivoComercial();
-		completarDatosDireccion();
-		clickBotonGrabar();
-		debugEnd();
-		return this;
-	}
-
+	//---------------Métodos simples-----------------------------------
 	public static String generadorRandomDgsNumero() {
 		return Integer.toString(new Random().nextInt(99999) + 11111);
 	}
@@ -226,6 +206,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return this;
 	}
 
+	//-----------Clicks en botones-----------------------------------
 	public MediadoresAltaProspectPage clickBotonComprobarDireccion() {
 		debugBegin();
 
@@ -346,6 +327,28 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.clickInFrame(cancelarNuevoProspectBtn, cuerpoFrame);
 		debugEnd();
 
+		return this;
+	}
+	//---------------------Métodos complejos-------------------------------
+
+	public MediadoresAltaProspectPage alta_prospect() {
+
+		debugBegin();
+		selectNivelEstructura();
+		selectTipoProspect();
+		selectActividadPrincipal();
+
+		if(getTestVar(Constants.TIPO_PROSPECT).equals("Corredor-BS")) {
+			writeNumeroRegistroDGS();
+		}
+		writeNombreComercialProspect();
+		writeContactoResponsable();
+		selectIdioma();
+		writeTelefonoUno();
+		selectEjecutivoComercial();
+		completarDatosDireccion();
+		clickBotonGrabar();
+		debugEnd();
 		return this;
 	}
 	// endregion

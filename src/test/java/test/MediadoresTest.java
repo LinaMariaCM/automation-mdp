@@ -150,7 +150,7 @@ public class MediadoresTest {
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "dataProviderMed05")
+	@Test(dataProvider = "dataProviderMed06")
 	public void med06(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
