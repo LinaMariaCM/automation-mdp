@@ -9,6 +9,7 @@ import com.amaris.project.steps.ActionSteps;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+
 import java.util.Calendar;
 import java.util.List;
 
@@ -24,7 +25,6 @@ public class FichaMediadorPage extends PageObject {
 	private By tituloPaginaTxt = By.cssSelector("h1.titulopagina");
 
 	//------------- Botones Pestañas -------------
-
 
 	private By visionGlobalBtn = By.linkText("Vision Global");
 	private By infoDescriptivaBtn = By.linkText("Info Descriptiva");
@@ -193,6 +193,7 @@ public class FichaMediadorPage extends PageObject {
 
 		return this;
 	}
+
 	public FichaMediadorPage clickInfoContacto() {
 		debugBegin();
 		webDriver.clickInFrame(infoContactoBtn, cuerpoFrame);
@@ -204,7 +205,17 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickInfoRelacional() {
 		debugBegin();
+		webDriver.waitWithDriver(8000);
 		webDriver.clickInFrame(infoRelacionalBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+
+		return this;
+	}
+
+	public FichaMediadorPage clickModifMedInfoRelacional() {
+		debugBegin();
+		webDriver.clickInFrame(modificarMedRelacioBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 
@@ -220,7 +231,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage clickCondicionesNegocio(){
+	public FichaMediadorPage clickCondicionesNegocio() {
 		debugBegin();
 		webDriver.clickInFrame(condicionesNegocioBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
@@ -247,7 +258,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-
 	// ---- Más acciones + Estados + Situaciones
 
 	public FichaMediadorPage clickMasAcciones() {
@@ -261,7 +271,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickSolicitarBaja() {
 		debugBegin();
-		webDriver.clickInFrame(solicitarBajaBtn,cuerpoFrame);
+		webDriver.clickInFrame(solicitarBajaBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -269,15 +279,30 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickSolicitarAlta() {
 		debugBegin();
-		webDriver.clickInFrame(solicitarAltaBtn,cuerpoFrame);
+		webDriver.clickInFrame(solicitarAltaBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
 	}
 
+	public FichaMediadorPage clickSolicitarAltaOficina() {
+		debugBegin();
+		webDriver.clickInFrame(altaOficinaBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage clickSolicitarAltaColaborador() {
+		debugBegin();
+		webDriver.clickInFrame(altaColaboradorBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
 	public FichaMediadorPage clickConfirmarAlta() {
 		debugBegin();
-		webDriver.clickInFrame(confirmarAltaBtn,cuerpoFrame);
+		webDriver.clickInFrame(confirmarAltaBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -285,7 +310,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickEnviarValFinanciera() {
 		debugBegin();
-		webDriver.clickInFrame(enviaValoraFinancieraBtn,cuerpoFrame);
+		webDriver.clickInFrame(enviaValoraFinancieraBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -293,7 +318,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickEnviarRevisionFinanciera() {
 		debugBegin();
-		webDriver.clickInFrame(enviaRevisionFinancieraBtn,cuerpoFrame);
+		webDriver.clickInFrame(enviaRevisionFinancieraBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -301,7 +326,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickEnviarResolucionFinanciera() {
 		debugBegin();
-		webDriver.clickInFrame(enviaResolucionFinancieraBtn,cuerpoFrame);
+		webDriver.clickInFrame(enviaResolucionFinancieraBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -309,7 +334,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickAvanzarEstado() {
 		debugBegin();
-		webDriver.clickInFrame(avanzarEstadoBtn,cuerpoFrame);
+		webDriver.clickInFrame(avanzarEstadoBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -317,7 +342,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickActivarMediador() {
 		debugBegin();
-		webDriver.clickInFrame(activarMediadorBtn,cuerpoFrame);
+		webDriver.clickInFrame(activarMediadorBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -353,7 +378,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage añadirFechaFormOblig() {
+	public FichaMediadorPage anyadirFechaFormOblig() {
 		debugBegin();
 		String datoFechaFormOblig = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);
@@ -364,7 +389,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage añadirFechaEnvioContrato() {
+	public FichaMediadorPage anyadirFechaEnvioContrato() {
 		debugBegin();
 		String datoFechaEnvioContrato = DateUtils.getModifiedDate(Calendar.DATE, -3, Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);
@@ -375,7 +400,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage añadirFechaRecepcionContrato() {
+	public FichaMediadorPage anyadirFechaRecepcionContrato() {
 		debugBegin();
 		String datoFechaRecepcionContrato = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);
@@ -389,13 +414,12 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage grabarComentarioEstado() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickInFrame(grabarEstadoBtn,modalFrame);
+		webDriver.clickInFrame(grabarEstadoBtn, modalFrame);
 		webDriver.waitWithDriver(3000);
 		webDriver.exitFrame();
 		debugEnd();
 		return this;
 	}
-
 
 	// ----------------------------------------------- MÉTODOS COMPLEJOS -----------------------------------------------
 	public String getContenidoTituloPagina() {
@@ -511,6 +535,16 @@ public class FichaMediadorPage extends PageObject {
 
 		}
 
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage obtenerDatoAltaIntermediario() {
+		debugBegin();
+		webDriver.waitWithDriver(4000);
+		webDriver.waitForElementToBePresentInFrame(tituloPaginaTxt, cuerpoFrame);
+		String datoAlta = webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame);
+		debugInfo("El mediador dado de alta es " + datoAlta);
 		debugEnd();
 		return this;
 	}

@@ -2086,8 +2086,8 @@ public class ActionSteps extends InteractionObject {
 					.isUbicacionRiesgoUtilizada();
 
 				String anyoConstruccion = new DetallesRiesgoPage(userS)
-						.completarDatosRiesgoMinimos();
-				
+					.completarDatosRiesgoMinimos();
+
 				new DetallesRiesgoPage(userS)
 					.clickContinuar();
 
@@ -2437,7 +2437,7 @@ public class ActionSteps extends InteractionObject {
 					.openAltaProspect();
 
 				new MediadoresAltaProspectPage(userS)
-					.executeActionsAltaProspectPage();
+					.alta_prospect();
 			} catch(Exception e) {}
 		}
 	}
@@ -2452,7 +2452,7 @@ public class ActionSteps extends InteractionObject {
 			.openAltaProspect();
 
 		new MediadoresAltaProspectPage(userS)
-			.executeActionsAltaProspectPage();
+			.alta_prospect();
 	}
 
 	public void doy_de_alta_mediador_usando_acceso_y_usuario(String loginAcess, String user) {
@@ -2702,10 +2702,11 @@ public class ActionSteps extends InteractionObject {
 					.clickContinuar();
 			}
 
-			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
-				new ValidacionExcepcionesReglasPage(userS)
-					.clickContinuar();
-			}
+			// comentados por Antonia el 24 01 del 2020
+			//	if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
+			new ValidacionExcepcionesReglasPage(userS)
+				.clickContinuar();
+			//	}
 			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
@@ -2823,7 +2824,7 @@ public class ActionSteps extends InteractionObject {
 				debugInfo("La póliza a la cual pertenece el siniestro es de tipo MAC, procedemos a modificar las causas para poder realizar pagos");
 				new ConfirmacionSiniestrosPage(userS)
 					.volverAHomeMutua();
-					modifico_causas_siniestro_MAC();
+				modifico_causas_siniestro_MAC();
 			}
 
 			// Accedemos a siniestros desde Gestión On Line
@@ -3090,7 +3091,11 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 		new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		new BloqueSiniestrosPage(userS).transicionarBloqueCerrandoOrigen();
+		new BloqueSiniestrosPage(userS)
+			.transicionarBloqueCerrandoOrigen()
+			.verificarTransicionesCerrandoOrigen()
+			.transicionarBloqueSinCerrarOrigen()
+			.verificarTransicionesSinCerrarOrigen();
 		debugEnd();
 	}
 
@@ -3102,8 +3107,7 @@ public class ActionSteps extends InteractionObject {
 		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
 		new GestionSiniestrosPage(userS).clickLogo();
 	}
-	
-	
+
 	public void modifico_tarea_siniestros() {
 
 		new InnovaHomePage(userS).openSiniestros();
@@ -3122,7 +3126,6 @@ public class ActionSteps extends InteractionObject {
 		new GestionSiniestrosPage(userS).clickLogo();
 	}
 
-
 	public void modificar_siniestro_datos() {
 		new InnovaHomePage(userS)
 			.openSiniestros();
@@ -3134,7 +3137,7 @@ public class ActionSteps extends InteractionObject {
 			.modificarSiniestro();
 
 		new AltaAperturaDeclaracionSiniestrosPage(userS)
-			.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), 
+			.modificarDatosSiniestro(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO),
 				getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL));
 
 		new ValidacionExcepcionesReglasPage(userS)
@@ -3154,7 +3157,7 @@ public class ActionSteps extends InteractionObject {
 
 		new VistaSiniestrosPage(userS)
 			.irVistaSiniestroHistorico()
-			.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), 
+			.mapeoHistoricoModificarDatos(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO),
 				getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DESCRIPCION_SINIESTRO));
 	}
 
@@ -3556,7 +3559,6 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-
 	public void comprobaciones_ficha_mediador() {
 		debugBegin();
 		new InnovaHomePage(userS)
@@ -3572,30 +3574,142 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void obtener_nombres_direcciones_mediador(){
-	debugBegin();
+	public void obtener_nombres_direcciones_mediador() {
+		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
 			.buscarMediadorPorId();
 		new FichaMediadorPage(userS)
 			.verificarDireccion();
-	debugEnd();
+		debugEnd();
 
 	}
 
-
-	public void alta_datos_basicos_mediador(){
+	public void alta_datos_basicos_mediador() {
 		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresHomePage(userS)
 			.openAltaMediador();
-		new MediadoresAltaDatosDescriptivosPage (userS)
+		new MediadoresAltaDatosDescriptivosPage(userS)
 			.altaIntermediarioDescriptivos()
-			.clickGuardarYSalir();
-	/*	new FichaMediadorPage(userS)
-			.comprobacionesVariadas();*/
+			.clickContinuar();
+	/*		.clickGuardarYSalir();
+		new FichaMediadorPage(userS)
+			.obtenerDatoAltaIntermediario();*/
+
 		debugEnd();
 	}
+
+	public void alta_datos_contacto_mediador() {
+		new MediadoresAltaDatosContactoPage(userS)
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
+			.anyadirNuevaDireccionFiscal()
+			.anyadirNuevaDireccion("COME")
+			.anyadirNuevaDireccion("PPRO")
+			.anyadirNuevaDireccion("PREC")
+			.anyadirNuevaDireccion("PSIN")
+			.clickGuardarYSalir();
+		new FichaMediadorPage(userS)
+			.obtenerDatoAltaIntermediario();
+	/*		.anyadirNuevaDireccionPostal("PPRO")
+			.anyadirNuevaDireccionRecibos("PREC")
+			.anyadirNuevaDireccionSiniestros("PSIN")
+			.clickGuardarYSalir();
+		new FichaMediadorPage(userS)
+			.verificarDireccion(); */
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+
+	}
+
+	// Step de iryna para dar alta una oficina
+
+	public void alta_oficina_a_un_intermediario() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorPorIdEstadoAlta();
+		new FichaMediadorPage(userS)
+			.clickMasAcciones()
+			.clickSolicitarAltaOficina();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.altaOficinaDescriptivos()
+			.clickContinuar();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaOficinaDatosContacto()
+		// añadir lo de las direcciones
+			 .clickContinuar();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+
+		debugEnd();
+	}
+
+	public void alta_colaborador() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarOficinaPorIdEstadoAlta();
+		new FichaMediadorPage(userS)
+			.clickMasAcciones()
+			.clickSolicitarAltaColaborador();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.altaColaboradorDescriptivos()
+			.clickContinuar();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaColaboradorDatosContacto()
+			//direcciones faLTA AÑADIR
+			.clickContinuar();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+
+		debugEnd();
+	}
+
+	public void envio_recepcion_DGS() {
+		debugBegin();
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openEnvioDGS();
+		new MediadoresDGSPage(userS)
+			.envioMediadorDGS(); // averiguar cómo filtrar el CSV y cases: cuando ha de aparecer el paso
+		new MediadoresHomePage(userS)
+			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
+		new MediadoresDGSPage(userS)
+			.recepcionMediadoresDGS();
+			debugEnd();
+	}
+	
+	public void alta_prospect() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openAltaProspect();
+		new MediadoresAltaProspectPage(userS)
+			.alta_prospect();
+
+		debugEnd();
+	}
+
 } // END

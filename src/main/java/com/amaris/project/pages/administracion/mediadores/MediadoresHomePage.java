@@ -27,6 +27,9 @@ public class MediadoresHomePage extends PageObject {
 	private By envioBtn = By.cssSelector("#jt11");
 	private By recepcionBtn = By.cssSelector("#jt12");
 
+	private By codigoMediadorBuscadorInput = By.cssSelector("#BUSMED_CODIMEDI");
+
+
 	public MediadoresHomePage(UserStory userS) {
 		super(userS);
 	}
@@ -66,7 +69,8 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openAltaMediador() {
 		debugBegin();
-		webDriver.clickInFrame(altaMediadorBtn, menuFrame);
+		webDriver.waitForElementToBePresentInFrame(codigoMediadorBuscadorInput, cuerpoFrame);
+		webDriver.doubleClickInFrame(altaMediadorBtn, menuFrame);
 		debugEnd();
 
 		return this;
@@ -88,17 +92,19 @@ public class MediadoresHomePage extends PageObject {
 		return this;
 	}
 
-	public MediadoresHomePage openEnvio() {
+	public MediadoresHomePage openEnvioDGS() {
 		debugBegin();
 		webDriver.clickInFrame(envioBtn, menuFrame);
+		webDriver.waitWithDriver(2000);
 		debugEnd();
 
 		return this;
 	}
 
-	public MediadoresHomePage openRecepcion() {
+	public MediadoresHomePage openRecepcionDGS() {
 		debugBegin();
 		webDriver.clickInFrame(recepcionBtn, menuFrame);
+		webDriver.waitWithDriver(2000);
 		debugEnd();
 
 		return this;
