@@ -380,7 +380,6 @@ public class Constants {
 	public static final String NOMBRE_COMERCIAL_PROSPECT = "nombre_comercial_prospect";
 	public static final String EJECUTIVO_COMERCIAL = "ejecutivo_comercial";
 	public static final String ACTIVIDAD_PRINCIPAL = "actividad_principal";
-	public static final String TIPO_COLABORADOR = "tipo_colaborador";
 	public static final String IDIOMA = "idioma";
 	public static final String DGS = "dgs";
 	public static final String EMAIL_PRINCIPAL = "email_principal";
