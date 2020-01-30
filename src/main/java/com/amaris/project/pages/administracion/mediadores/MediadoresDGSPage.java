@@ -170,7 +170,7 @@ public class MediadoresDGSPage extends PageObject {
 
 		//copiar referencia en "Nº de referencia:" + "Fecha referencia" poner fecha actual
 		webDriver.setText(numeroReferenciaInput, getTestVar(Constants.NUMERO_REF_DGS));
-		String datoFechaReferencia = DateUtils.getTodayDate(Calendar.DATE, Constants.DATE_FORMAT);
+		String datoFechaReferencia = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.setText(fechaReferenciaInput, datoFechaReferencia);
 		clickBuscar();
 
@@ -183,7 +183,7 @@ public class MediadoresDGSPage extends PageObject {
 		clickBuscar();
 
 		// Completar el campo "Fecha inscripción" con la fecha actual
-		String datoFechaInscripcion = DateUtils.getTodayDate(Calendar.DATE, Constants.DATE_FORMAT);
+		String datoFechaInscripcion = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.setText(fechaInscripcionInput, datoFechaInscripcion);
 		// método para localizar el mediador que nos interesa y comprobar que el mediador cuenta con la selección "Autorizado" en su desplegable "Respuesta DGS"
 		seleccionarMediadorRecepcionDGS("121800");
