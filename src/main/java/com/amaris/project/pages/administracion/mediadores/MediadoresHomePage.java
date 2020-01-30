@@ -92,17 +92,19 @@ public class MediadoresHomePage extends PageObject {
 		return this;
 	}
 
-	public MediadoresHomePage openEnvio() {
+	public MediadoresHomePage openEnvioDGS() {
 		debugBegin();
 		webDriver.clickInFrame(envioBtn, menuFrame);
+		webDriver.waitWithDriver(2000);
 		debugEnd();
 
 		return this;
 	}
 
-	public MediadoresHomePage openRecepcion() {
+	public MediadoresHomePage openRecepcionDGS() {
 		debugBegin();
 		webDriver.clickInFrame(recepcionBtn, menuFrame);
+		webDriver.waitWithDriver(2000);
 		debugEnd();
 
 		return this;
