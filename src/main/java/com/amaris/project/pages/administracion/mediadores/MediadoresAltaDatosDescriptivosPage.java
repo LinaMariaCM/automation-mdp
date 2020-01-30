@@ -265,8 +265,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage altaIntermediarioDescriptivos() {
 		debugBegin();
-	//	if(webDriver.isPresentInFrame(nivelEstructuraCombo, cuerpoFrame) &&
-			if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+		//	if(webDriver.isPresentInFrame(nivelEstructuraCombo, cuerpoFrame) &&
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 			webDriver.waitForElementToBePresentInFrame(nivelEstructuraCombo, cuerpoFrame);
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getTestVar(Constants.NIVEL_ESTRUCTURA));
@@ -293,7 +293,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 			clickDisponeSoftwareSi(); // de momento, valor predeterminado, evaluar en futuro si cambiarlo y tirar del CSV. Evaluar si añadir un boolean para gestionar cuando es Si y No.
 			debugInfo("cuenta con software de seguros");
-		//	nombreFiscalVacio();
+			//	nombreFiscalVacio();
 			debugInfo("Comprobar uso alertas");
 			nombreFiscal();
 			webDriver.waitWithDriver(3000);

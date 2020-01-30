@@ -557,7 +557,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-
 	//-------------------MÉTODOS COMPLEJOS--------------------------------------
 
 	public MediadoresAltaDatosContactoPage altaOficinaDatosContacto() {

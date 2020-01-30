@@ -2437,7 +2437,7 @@ public class ActionSteps extends InteractionObject {
 					.openAltaProspect();
 
 				new MediadoresAltaProspectPage(userS)
-					.executeActionsAltaProspectPage();
+					.alta_prospect();
 			} catch(Exception e) {}
 		}
 	}
@@ -2452,7 +2452,7 @@ public class ActionSteps extends InteractionObject {
 			.openAltaProspect();
 
 		new MediadoresAltaProspectPage(userS)
-			.executeActionsAltaProspectPage();
+			.alta_prospect();
 	}
 
 	public void doy_de_alta_mediador_usando_acceso_y_usuario(String loginAcess, String user) {
@@ -3696,6 +3696,19 @@ public class ActionSteps extends InteractionObject {
 			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
 		new MediadoresDGSPage(userS)
 			.recepcionMediadoresDGS();
+			debugEnd();
+	}
+	
+	public void alta_prospect() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openAltaProspect();
+		new MediadoresAltaProspectPage(userS)
+			.alta_prospect();
+
 		debugEnd();
 	}
 

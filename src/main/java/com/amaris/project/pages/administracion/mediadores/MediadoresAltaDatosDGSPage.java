@@ -1,7 +1,10 @@
 package com.amaris.project.pages.administracion.mediadores;
 
+import com.amaris.automation.model.helpers.DniGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.DateUtils;
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
 
 public class MediadoresAltaDatosDGSPage extends PageObject {
@@ -13,6 +16,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 	//-----------General---------------------------------
 	private By tipoDocRepresentCombo = By.cssSelector("#ALTAMEDI_DOCREPR");
+	private By tipoDocRepresentOption = By.cssSelector("#ALTAMEDI_DOCREPR > option");
 	private By numDocRepresentInput = By.cssSelector("#ALTAMEDI_NUMDOCREPR");
 	private By nombreRepresentInput = By.cssSelector("#ALTAMEDI_NOMBREPR");
 	private By primApellidoRepresentInput = By.cssSelector("#ALTAMEDI_APE1REPR");
@@ -23,6 +27,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	//------------------Altos cargos---------------------
 	private By anyadirAltoNuevoCargoBtn = By.cssSelector("#capaAltosCargos > div > div.floatright.peq > aN");
 	private By tipoDocumentoCombo = By.cssSelector("#ALTAMEDI_TIPDOCALTC");
+	private By tipoDocumentoOption = By.cssSelector("#ALTAMEDI_TIPDOCALTC > option");
 	private By numDocumentoInput = By.cssSelector("#ALTAMEDI_NUMDOCALTC");
 	private By nombreInput = By.cssSelector("#ALTAMEDI_NOMBALTC");
 	private By primerApellidoInput = By.cssSelector("#ALTAMEDI_APE1ALTC");
@@ -42,8 +47,10 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By movilInput = By.cssSelector("#ALTAMEDI_MOVILREPRE");
 	private By paginaWebInput = By.cssSelector("#ALTAMEDI_PAGWEBREPRE");
 
+	//para cuando eliges tipo documento cif en alto cargo
 	private By razonSocialInput = By.cssSelector("#ALTAMEDI_RAZSOCALTC");
 	private By tipoDocRepresentanCifCombo = By.cssSelector("#ALTAMEDI_TIPDOCREPRE");
+	private By tipoDocRepresentanCifOption = By.cssSelector("#ALTAMEDI_TIPDOCREPRE > option");
 	private By numDocRepresentanCifInput = By.cssSelector("#ALTAMEDI_NUMDOREPRE");
 	private By nombreRepresentanCifInput = By.cssSelector("#ALTAMEDI_NOMBREPRE");
 	private By priApellRepresentanCifInput = By.cssSelector("#ALTAMEDI_APE1REPRE");
@@ -109,70 +116,71 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		super(userS);
 	}
 
-	 //---------Añadir datos generales--------------------
-	public MediadoresAltaDatosDGSPage anyadirDatosGenerales(String nombreRepre, String numRepre, String fechaIniContrato)
-	{
+	//---------Añadir datos generales--------------------
+
+	public MediadoresAltaDatosDGSPage escribirNombreRepresentante(String nombre) {
+
 		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.setText(nombreRepresentanCifInput, nombreRepre);
-		webDriver.setText(numDocRepresentanCifInput, numRepre);
-		webDriver.setText(fechaIniContratoInput, fechaIniContrato);
-		webDriver.exitFrame();
+		webDriver.setText(nombreRepresentInput, nombre);
 		debugEnd();
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage anyadirNuevoAltoCargo(String nombre, String primApell, String segApell, String sexo, String fechaNombramiento, String fechaCese, String estado, String tipoCargo, String profesion, String tel, String movil, String fax, String web)
-	{
-		debugBegin();
-		if(sexo.isEmpty()) sexo = "1";
-		if(estado.isEmpty()) estado = "1";
-		if(tipoCargo.isEmpty()) tipoCargo = "40";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(anyadirAltoNuevoCargoBtn);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.setText(nombreInput, nombre);
-		webDriver.setText(primerApellidoInput, primApell);
-		webDriver.setText(segundoApellidoInput, segApell);
-		webDriver.clickElementFromDropDownByAttribute(sexoCombo, sexoOption, "value", sexo);
-		webDriver.setText(fechaNombramInput, fechaNombramiento);
-		webDriver.setText(fechaCeseInput, fechaCese);
-		webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption , "value", estado);
-		webDriver.clickElementFromDropDownByAttribute(tipoCargoCombo, tipoCargoOption , "value", tipoCargo);
-		webDriver.setText(profesionInput, profesion);
-		webDriver.setText(telefonoInput, tel);
-		webDriver.setText(faxInput, fax);
-		webDriver.setText(movilInput, movil);
-		webDriver.setText(paginaWebInput, web);
-		webDriver.click(grabarBtn);
-		webDriver.exitFrame();
-		debugEnd();
+	public MediadoresAltaDatosDGSPage tipoDocumentoRepresentante() {
 
+		debugBegin();
+		webDriver.clickElementFromDropDownByAttribute(tipoDocRepresentCombo, tipoDocRepresentOption, "value", getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE));
+		debugEnd();
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage anyadirNuevoSocio(String numDoc, String fechaNombramiento, String fechaCese, String estado, String participacion)
-	{
-		debugBegin();
-		if(estado.isEmpty()) estado = "1";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(anyadirNuevoSocioBtn);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.setText(numDocuNuevSocioInput, numDoc);
-		webDriver.setText(fechaNombNuevSocioInput, fechaNombramiento);
-		webDriver.setText(fechaCeseNuevSocioInput, fechaCese);
-		webDriver.clickElementFromDropDownByAttribute(estadoNuevSocioCombo, estadoNuevSocioOption , "value", estado);
-		webDriver.setText(partCapitalNuevSocInput, participacion);
-		webDriver.click(grabarBtn);
-		webDriver.exitFrame();
-		debugEnd();
+	public MediadoresAltaDatosDGSPage escribirNumeroDocumentoRepresentante() {
 
+		debugBegin();
+
+		if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE) != null && getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("CIF")) {
+
+			webDriver.setText(numDocRepresentInput, "R6991265G");
+
+		} else if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE) != null && getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
+			webDriver.setText(numDocRepresentInput, DniGeneratorHelper.generateNif());
+		} else {
+
+			webDriver.setText(numDocRepresentInput, "96195668P");
+		}
+
+		debugEnd();
 		return this;
 	}
 
- 	//------------Clicks botones -----------------------
-	public MediadoresAltaDatosDGSPage clickCancelar()
-	{
+	public MediadoresAltaDatosDGSPage escribirNumeroDocumentoAltoCargo() {
+
+		debugBegin();
+
+		if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO) != null && getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("CIF")) {
+
+			webDriver.setText(numDocumentoInput, "R6991265G");
+
+		} else if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO) != null && getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF")) {
+			webDriver.setText(numDocumentoInput, DniGeneratorHelper.generateNif());
+		} else {
+
+			webDriver.setText(numDocumentoInput, "96195668P");
+		}
+
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDGSPage escribirFechaIniRelacion() {
+		debugBegin();
+		webDriver.setText(fechaIniContratoInput, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
+		debugEnd();
+		return this;
+	}
+
+	//------------Clicks botones -----------------------
+	public MediadoresAltaDatosDGSPage clickCancelar() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickInFrame(cancelarBtn, modalFrame);
@@ -180,8 +188,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickGrabar()
-	{
+	public MediadoresAltaDatosDGSPage clickGrabar() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickInFrame(grabarBtn, modalFrame);
@@ -189,16 +196,28 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickGuardarYSalir()
-	{
+	public MediadoresAltaDatosDGSPage clickGuardarYSalir() {
 		debugBegin();
 		webDriver.clickInFrame(guardarYSalirBtn, cuerpoFrame);
 		debugEnd();
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickCancelarRamo()
-	{
+	public MediadoresAltaDatosDGSPage clickAnyadirNuevoSocio() {
+		debugBegin();
+		webDriver.clickInFrame(anyadirNuevoSocioBtn, cuerpoFrame);
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDGSPage clickAnyadirNuevoAltoCargo() {
+		debugBegin();
+		webDriver.click(anyadirAltoNuevoCargoBtn);
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDGSPage clickCancelarRamo() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickInFrame(cancelarRamoBtn, modalFrame);
@@ -206,8 +225,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickGrabarRamo()
-	{
+	public MediadoresAltaDatosDGSPage clickGrabarRamo() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickInFrame(grabarRamoBtn, modalFrame);
@@ -215,35 +233,118 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickAnyadirNuevoRamo()
-	{
+	public MediadoresAltaDatosDGSPage clickAnyadirNuevoRamo() {
 		debugBegin();
 		webDriver.clickInFrame(anyadirNuevoRamoBtn, cuerpoFrame);
 		debugEnd();
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickCancelarDGS()
-	{
+	public MediadoresAltaDatosDGSPage clickCancelarDGS() {
 		debugBegin();
 		webDriver.clickInFrame(cancelarGeneralBtn, cuerpoFrame);
 		debugEnd();
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickAnyadirNuevoSocio()
-	{
+	//-----------METODOS COMPLEJOS-------------------------------
+
+	public MediadoresAltaDatosDGSPage anyadirNuevoSocio(String numDoc, String fechaNombramiento, String fechaCese, String estado, String participacion) {
 		debugBegin();
-		webDriver.clickInFrame(anyadirNuevoSocioBtn, cuerpoFrame);
+
+		if(estado.isEmpty()) estado = "1";
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(anyadirNuevoSocioBtn);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.setText(numDocuNuevSocioInput, numDoc);
+		webDriver.setText(fechaNombNuevSocioInput, fechaNombramiento);
+		webDriver.setText(fechaCeseNuevSocioInput, fechaCese);
+		webDriver.clickElementFromDropDownByAttribute(estadoNuevSocioCombo, estadoNuevSocioOption, "value", estado);
+		webDriver.setText(partCapitalNuevSocInput, participacion);
+		webDriver.click(grabarBtn);
+		webDriver.exitFrame();
+
 		debugEnd();
+
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickAnyadirNuevoAltoCargo()
-	{
+	public MediadoresAltaDatosDGSPage anyadirDatosGenerales() {
 		debugBegin();
-		webDriver.clickInFrame(anyadirAltoNuevoCargoBtn, cuerpoFrame);
+
+		webDriver.switchToFrame(cuerpoFrame);
+
+		tipoDocumentoRepresentante();
+		escribirNumeroDocumentoRepresentante();
+		escribirNombreRepresentante("Nombre");
+
+		if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIE")) {
+			webDriver.setText(primApellidoRepresentInput, "primerApell");
+		}
+
+		if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
+			webDriver.setText(segApellidoRepresentInput, "segundoApell");
+		}
+
+		escribirFechaIniRelacion();
+		clickAnyadirNuevoAltoCargo();
+		anyadirNuevoAltoCargo();
+
+		clickGuardarYSalir();
+
 		debugEnd();
+		return this;
+
+	}
+
+	public MediadoresAltaDatosDGSPage anyadirNuevoAltoCargo() {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+
+		webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
+		escribirNumeroDocumentoAltoCargo();
+
+		if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIE")) {
+			webDriver.setText(nombreInput, "Nombre");
+			webDriver.setText(primerApellidoInput, "Primer Apellido");
+			webDriver.clickElementFromDropDownByAttribute(sexoCombo, sexoOption, "value", getTestVar(Constants.SEXO));
+
+		}
+
+		if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF")) {
+			webDriver.setText(segundoApellidoInput, "Segundo Apellido");
+		}
+
+		if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("CIF")) {
+
+			webDriver.setText(razonSocialInput, "Razon");
+			webDriver.clickElementFromDropDownByAttribute(tipoDocRepresentanCifCombo, tipoDocRepresentanCifOption, "value", getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF));
+			webDriver.setText(nombreRepresentanCifInput, "Nombre");
+
+			if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIF")) {
+				webDriver.setText(segApellRepresentanCifInput, "Segundo Apellido");
+			}
+
+			if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF) != null && getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIE")
+				|| getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("PAS")
+				|| getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIF")) {
+				webDriver.setText(priApellRepresentanCifInput, "Primer Apellido");
+			}
+		}
+
+		webDriver.setText(fechaNombramInput, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
+		webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "value", "1");
+		webDriver.clickElementFromDropDownByAttribute(tipoCargoCombo, tipoCargoOption, "value", "40");
+		webDriver.setText(profesionInput, "Profesion");
+
+		webDriver.click(grabarBtn);
+
+		webDriver.exitFrame();
+		debugEnd();
+
 		return this;
 	}
 }
+
