@@ -141,6 +141,31 @@ public class MediadoresTest {
 		}).run();
 	}
 
+
+	// TEST de ANTONIA PARA ENVIO Y RECEPCIÓN de DGS
+
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMed06() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMed06")
+	public void med06(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			steps.login("Innova", "eferrando");
+
+			steps.envio_recepcion_DGS();
+
+			return null;
+		}).run();
+	}
+
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
