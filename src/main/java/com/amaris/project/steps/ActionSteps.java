@@ -3644,9 +3644,9 @@ public class ActionSteps extends InteractionObject {
 			.altaOficinaDescriptivos()
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
-			.altaOficinaDatosContacto();
+			.altaOficinaDatosContacto()
 		// añadir lo de las direcciones
-		// .clickContinuar();
+			 .clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();

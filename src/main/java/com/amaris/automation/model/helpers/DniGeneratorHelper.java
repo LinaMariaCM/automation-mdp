@@ -4,7 +4,10 @@ import com.amaris.automation.model.utils.StringUtils;
 
 public class DniGeneratorHelper {
 
-	private static final char[] LETRAS_NIF = { 'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E' };
+	private static final char[] LETRAS_ASIGNACION = { 'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E' };
+
+	private DniGeneratorHelper() {
+	}
 
 	public static String generateNif() {
 		return generateNif(null);
@@ -18,7 +21,7 @@ public class DniGeneratorHelper {
 			String numeroDNI = String.valueOf(Math.random()).concat(seed);
 			String fullDNI = numeroDNI.substring(numeroDNI.length() - 8);
 
-			result = fullDNI + LETRAS_NIF[Integer.parseInt(fullDNI) % 23];
+			result = fullDNI + LETRAS_ASIGNACION[Integer.parseInt(fullDNI) % 23];
 		}
 
 		return result;
@@ -34,6 +37,32 @@ public class DniGeneratorHelper {
 		return result;
 	}
 
-	private DniGeneratorHelper() {
+	public static String generateNIE() {
+		return generateNIE(null);
 	}
+
+	public static String generateNIE(String seed) {
+		String result = null;
+		seed = seed == null ? "" : seed;
+
+		if(seed.isEmpty() || StringUtils.isNumber(seed)) {
+			String letra = "X";
+			String numeroNIE = String.valueOf(Math.random()).concat(seed);
+			numeroNIE = numeroNIE.substring(numeroNIE.length() - 7);
+
+			int valorPrimeraLetra = (int) Math.floor(Math.random() * 3);
+
+			if(valorPrimeraLetra == 1) {
+				letra = "Y";
+			} else if(valorPrimeraLetra == 2) {
+				letra = "Z";
+			}
+
+			result = letra + numeroNIE + LETRAS_ASIGNACION[
+				(Integer.parseInt(Integer.toString(valorPrimeraLetra) + numeroNIE)) % 23];
+		}
+
+		return result;
+	}
+	
 }
