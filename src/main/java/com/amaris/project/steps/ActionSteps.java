@@ -3606,10 +3606,10 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosContactoPage(userS)
 			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
 			.anyadirNuevaDireccionFiscal()
-			.anyadirNuevaDireccion("COME")
-			.anyadirNuevaDireccion("PPRO")
-			.anyadirNuevaDireccion("PREC")
-			.anyadirNuevaDireccion("PSIN")
+			.anyadirDireccionComercial()
+			.anyadirDireccionProduccion()
+			.anyadirDireccionRecibos()
+			.anyadirDireccionSiniestros()
 			.clickGuardarYSalir();
 		new FichaMediadorPage(userS)
 			.obtenerDatoAltaIntermediario();
