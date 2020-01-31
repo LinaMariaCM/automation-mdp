@@ -134,7 +134,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.click(anyadirNuevaDireccionBtn);
 		webDriver.waitWithDriver(4000);
 
-		webDriver.switchToFrame(cuerpoFrame);
+	//	webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
 		completarCampoProvincia(getTestVar(Constants.DIRECCION_FISC_PROVINCIA));
@@ -284,13 +284,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(direccionIgualFiscalBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		}*/
+		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
 	}
-
-
-
 
 	public MediadoresAltaDatosContactoPage anyadirDireccionProduccion() {
 		debugBegin();
@@ -331,6 +329,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			}
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		}
+		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -365,6 +364,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 				webDriver.click(direccionSuperiorSIBtn);
 				webDriver.click(aceptarDireccionBtn); //último añadido
 			}
+			webDriver.exitFrame();
 			debugEnd();
 
 			return this;
@@ -412,8 +412,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		}
 
 		webDriver.exitFrame();
-		webDriver.exitFrame();
-
 		debugEnd();
 
 		return this;
