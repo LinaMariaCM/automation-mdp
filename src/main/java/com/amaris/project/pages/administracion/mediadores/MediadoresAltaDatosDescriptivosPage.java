@@ -51,7 +51,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	private By nombreComercialIgualFiscalBtn = By.id("ALTAMEDI_NOMCOIGU");
 	private By nombreComercialDiferenteFiscalBtn = By.id("ALTAMEDI_NOMCODIF");
 	private By nombreComercialInput = By.cssSelector("#ALTAMEDI_NOMBRECOM");
-	private By nombreComercialADInput = By.cssSelector("#ALTAMEDI_OTRONOMB");
+	private By nombreComercialADInput = By.cssSelector("#capaOtroNombre > table > tbody > tr > td:nth-child(2) > input#ALTAMEDI_OTRONOMB");
 	private By referenciaExternaInput = By.id("ALTAMEDI_REFEXT");
 	private By numRegistroDGSInput = By.id("ALTAMEDI_NREGDGS");
 	private By actividadPrincipalCombo = By.id("MEDI_ACTIPRIN");
@@ -248,6 +248,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	public MediadoresAltaDatosDescriptivosPage clickNombreComercialDiferente() {
 		debugBegin();
 		webDriver.click(nombreComercialDiferenteFiscalBtn);
+		webDriver.waitWithDriver(2000);
 		debugEnd();
 
 		return this;
@@ -268,7 +269,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		//	if(webDriver.isPresentInFrame(nivelEstructuraCombo, cuerpoFrame) &&
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
-			webDriver.waitForElementToBePresentInFrame(nivelEstructuraCombo, cuerpoFrame);
+			//	webDriver.waitForElementToBePresentInFrame(nivelEstructuraCombo, cuerpoFrame);
+			webDriver.waitWithDriver(4000);
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getTestVar(Constants.NIVEL_ESTRUCTURA));
 			webDriver.waitWithDriver(3000);
 			debugInfo("nivel de estructura seleccionado");
@@ -288,16 +290,15 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			nombreComercial();
 			debugInfo("nombre comercial introducido");
 			//		webDriver.waitWithDriver(3000);
-
 			webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
 			webDriver.waitWithDriver(3000);
 			clickDisponeSoftwareSi(); // de momento, valor predeterminado, evaluar en futuro si cambiarlo y tirar del CSV. Evaluar si añadir un boolean para gestionar cuando es Si y No.
 			debugInfo("cuenta con software de seguros");
 			//	nombreFiscalVacio();
-			debugInfo("Comprobar uso alertas");
-			nombreFiscal();
+			//	debugInfo("Comprobar uso alertas");
+			//	nombreFiscal();
 			webDriver.waitWithDriver(3000);
-	/*	}else{
+		/*}else{
 			MediadoresHomePage.openAltaMediador();*/
 
 		}
@@ -364,11 +365,17 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		// si en el CSV no hay dato en el campo Nombre comercial, se activa la opción "Igual que fiscal",
 		// si hay un nombre en el CSV, se activa la opción "Diferente" y se añade el nombre
-		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null && !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
+		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null || !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
 			if(webDriver.isPresent(nombreComercialDiferenteFiscalBtn)) {
 				clickNombreComercialDiferente();
+				webDriver.waitWithDriver(2000);
 			}
-			webDriver.setText(nombreComercialADInput, getTestVar(Constants.NOMBRE_COMERCIAL));
+		//	webDriver.clearText(nombreComercialADInput);
+		//	webDriver.clearText(nombreComercialADInput);
+			webDriver.waitWithDriver(1000);
+		//	webDriver.appendText(nombreComercialADInput, getTestVar(Constants.NOMBRE_COMERCIAL).toString());
+			webDriver.setText(nombreComercialADInput, "Mediador");
+
 		} else {
 			webDriver.click(nombreComercialIgualFiscalBtn);
 		}

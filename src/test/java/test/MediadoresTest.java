@@ -70,7 +70,7 @@ public class MediadoresTest {
 		}).run();
 	}
 
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public String[][] dataProviderMed03() {
 		String testCase = Constants.MEDIADORES_CASE;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
