@@ -4,7 +4,6 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
-import com.amaris.project.pages.administracion.siniestros.apertura.ConfirmacionSiniestrosPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
