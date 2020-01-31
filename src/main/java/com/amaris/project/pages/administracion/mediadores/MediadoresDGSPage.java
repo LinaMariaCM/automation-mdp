@@ -173,7 +173,6 @@ public class MediadoresDGSPage extends PageObject {
 		webDriver.setText(fechaReferenciaInput, datoFechaReferencia);
 		clickBuscar();
 
-
 		//copiar referencia en "Número" + Actualizar mediadores envío + Número de envio interno activos (se queda activo)
 		// tras los primeros tests, revisar si se puede probar que los checks sean activos y entonces se haga clic en ellos
 		webDriver.click(actualizarMediadoresEnvioBtn);
@@ -215,7 +214,7 @@ public class MediadoresDGSPage extends PageObject {
 					.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(2) > select > option"), cuerpoFrame, "value", "autorizado");
 			}
 		}
-			debugEnd();
+		debugEnd();
 		return this;
 	}
 
