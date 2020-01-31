@@ -10,22 +10,28 @@ import com.amaris.project.Constants;
 
 public class MediadoresAltaProspectPage extends PageObject {
 
-	// region WebElements
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
 
+	//-------------Datos de prospect-------------------------
 	private By nivelEstructuraCombo = By.cssSelector("#MEDI_NIVEESTR");
+	private By nivelEstructuraOption = By.cssSelector("#MEDI_NIVEESTR > option");
 	private By tipoProspectCombo = By.cssSelector("#MEDI_TIPOPROS");
+	private By tipoProspectOption = By.cssSelector("#MEDI_TIPOPROS > option");
 	private By numRegistroDgsInput = By.cssSelector("#MEDI_REGISDGS");
 	private By actividadPrincipalCombo = By.cssSelector("#MEDI_ACTIPRIN");
+	private By actividadPrincipalOption = By.cssSelector("#MEDI_ACTIPRIN > option");
 	private By nombreComercialProspectInput = By.cssSelector("#MEDI_NOMBCOME");
 	private By contactoResponsableInput = By.cssSelector("#MEDI_PERSCONT");
 	private By idiomaCombo = By.cssSelector("#MEDI_IDIOMA");
+	private By idiomaOption = By.cssSelector("#MEDI_IDIOMA > option");
 	private By telefonoUnoInput = By.cssSelector("#MEDI_TELEFONO1");
 	private By ejecutivoComercialCombo = By.cssSelector("#MEDI_EJECCOME");
+	private By ejecutivoComercialOption = By.cssSelector("#MEDI_EJECCOME > option");
 
+	//-----------Datos de prospect asignar domicilio----------------
 	private By asignarDomicilioBtn = By.cssSelector("#BOTON_DOMIMEDI");
 	private By provinciaInput = By.cssSelector("#ALTACLIE_PROVINCIA_ARVATO");
 	private By poblacionInput = By.cssSelector("#ALTACLIE_POBLACION_ARVATO");
@@ -39,136 +45,133 @@ public class MediadoresAltaProspectPage extends PageObject {
 	private By cancelarDomicilioBtn = By.cssSelector("#BOTON_CANCELAR");
 	private By comprobarDireccionDomicilioBtn = By.cssSelector("#BOTON_NORMADOM");
 
+	//-----------Mediadores Relacionados--------------------------
 	private By nuevoMediadorBtn = By.cssSelector("#capaMediadores > div.titulo > div > a");
 	private By codigoNuevoMediadorInput = By.cssSelector("#MEDI_CODIMEDI");
 	private By confirmarNuevoMediadorBtn = By.cssSelector("table > tbody > tr:nth-child(1) > td:nth-child(3) > a");
 	private By cerrarNuevoMediadorBtn = By.cssSelector("#buttonClose");
 
+	//----------Medios de Contacto---------------------------------
 	private By anyadirNuevoMedioContactoBtn = By.cssSelector("#capaMediosContacto > div > div.floatright.peq > a");
 	private By tipoContactoCombo = By.cssSelector("#MEDI_CONTPROS");
 	private By contactoTelefonoInput = By.cssSelector("#MEDI_CONTACTO");
 	private By grabarNuevoMedioContactoBtn = By.cssSelector("#buttonRecord");
 	private By cancelarNuevoMedioContactoBtn = By.cssSelector("#buttonCancel");
 
+	//--------Controles de Paginas------------------------
 	private By cancelarNuevoProspectBtn = By.cssSelector("#botonCancelar1");
 	private By grabarBtn = By.cssSelector("#botonGrabar");
-	// endregion
 
 	public MediadoresAltaProspectPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region methods
 	//---------------Métodos simples-----------------------------------
-	public static String generadorRandomDgsNumero() {
-		return Integer.toString(new Random().nextInt(99999) + 11111);
-	}
-
-	public MediadoresAltaProspectPage completarDatosDireccion() {
-
-		clickBotonAsignarDomicilio();
-		selectProvincia();
-		selectPoblacion();
-		selectVia();
-		clickBotonComprobarDireccion();
-		clickBotonAceptarDireccion();
-
-		return this;
-	}
-
 	public MediadoresAltaProspectPage selectNivelEstructura() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(nivelEstructuraCombo, cuerpoFrame, getTestVar(Constants.NIVEL_ESTRUCTURA));
+		webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getTestVar(Constants.NIVEL_ESTRUCTURA));
 		debugEnd();
 
 		return this;
 	}
 
 	public MediadoresAltaProspectPage selectTipoProspect() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(tipoProspectCombo, cuerpoFrame, getTestVar(Constants.TIPO_PROSPECT));
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoProspectCombo, tipoProspectOption, cuerpoFrame, "value", getTestVar(Constants.TIPO_PROSPECT));
 		debugEnd();
 
 		return this;
 	}
 
-	public MediadoresAltaProspectPage writeNumeroRegistroDGS() {
+	public MediadoresAltaProspectPage escribirNumeroRegistroDGS() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(numRegistroDgsInput, cuerpoFrame, generadorRandomDgsNumero());
+		webDriver.setTextInFrame(numRegistroDgsInput, cuerpoFrame, generadorRandomDgsNumero());
 		debugEnd();
 
 		return this;
 	}
 
 	public MediadoresAltaProspectPage selectActividadPrincipal() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(actividadPrincipalCombo, cuerpoFrame, getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
+		webDriver.clickElementFromDropDownByAttributeInFrame(actividadPrincipalCombo, actividadPrincipalOption, cuerpoFrame, "value", getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
 		debugEnd();
 
 		return this;
 	}
 
-	public MediadoresAltaProspectPage writeNombreComercialProspect() {
+	public MediadoresAltaProspectPage escribirNombreComercialProspect() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(nombreComercialProspectInput, cuerpoFrame, getTestVar(Constants.NOMBRE_PROSPECT));
+		webDriver.setTextInFrame(nombreComercialProspectInput, cuerpoFrame, getTestVar(Constants.NOMBRE_PROSPECT));
 		debugEnd();
 
 		return this;
 	}
 
-	public MediadoresAltaProspectPage writeContactoResponsable() {
+	public MediadoresAltaProspectPage escribirContactoResponsable() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(contactoResponsableInput, cuerpoFrame, getTestVar(Constants.CONTACTO_RESPONSABLE));
+		webDriver.setTextInFrame(contactoResponsableInput, cuerpoFrame, getTestVar(Constants.CONTACTO_RESPONSABLE));
 		debugEnd();
 
 		return this;
 	}
 
-	public MediadoresAltaProspectPage writeTelefonoUno() {
+	public MediadoresAltaProspectPage escribirTelefonoUno() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(telefonoUnoInput, cuerpoFrame, getTestVar(Constants.TLF_PRINCIPAL));
+		webDriver.setTextInFrame(telefonoUnoInput, cuerpoFrame, getTestVar(Constants.TLF_PRINCIPAL));
 		debugEnd();
 
 		return this;
 	}
 
 	public MediadoresAltaProspectPage selectIdioma() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(idiomaCombo, cuerpoFrame, getTestVar(Constants.IDIOMA));
+		webDriver.clickElementFromDropDownByAttributeInFrame(idiomaCombo, idiomaOption, cuerpoFrame, "value", getTestVar(Constants.IDIOMA));
 		debugEnd();
 
 		return this;
 	}
 
 	public MediadoresAltaProspectPage selectEjecutivoComercial() {
+
 		debugBegin();
-		webDriver.appendTextInFrame(ejecutivoComercialCombo, cuerpoFrame, getTestVar(Constants.EJECUTIVO_COMERCIAL));
+		webDriver.clickElementFromDropDownByAttributeInFrame(ejecutivoComercialCombo, ejecutivoComercialOption, cuerpoFrame, "value", getTestVar(Constants.EJECUTIVO_COMERCIAL));
 		debugEnd();
 
 		return this;
 	}
 
 	public MediadoresAltaProspectPage clickBotonAsignarDomicilio() {
+
 		debugBegin();
 		webDriver.clickInFrame(asignarDomicilioBtn, cuerpoFrame);
+		webDriver.waitWithDriver(5000);
 		debugEnd();
 
 		return this;
 	}
 
 	public MediadoresAltaProspectPage selectProvincia() {
-		debugBegin();
 
+		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
+
 		webDriver.appendText(provinciaInput, getTestVar(Constants.PROVINCIA));
 
 		webDriver.waitForElementToBeClickable(provinciaCombo);
 
 		webDriver.tabulateElement(provinciaInput);
 		webDriver.exitFrame();
-		debugEnd();
 
+		debugEnd();
 		return this;
 	}
 
@@ -185,7 +188,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.exitFrame();
 
 		debugEnd();
-
 		return this;
 	}
 
@@ -202,7 +204,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.exitFrame();
 
 		debugEnd();
-
 		return this;
 	}
 
@@ -216,7 +217,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.exitFrame();
 
 		debugEnd();
-
 		return this;
 	}
 
@@ -329,27 +329,48 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 		return this;
 	}
-	//---------------------Métodos complejos-------------------------------
+	//---------------------MÉTODOS COMPLEJOS-------------------------------
 
-	public MediadoresAltaProspectPage alta_prospect() {
+	public static String generadorRandomDgsNumero() {
+
+		return Integer.toString(new Random().nextInt(99999) + 11111);
+	}
+
+	public MediadoresAltaProspectPage completarDatosDireccion() {
+		debugBegin();
+
+		clickBotonAsignarDomicilio();
+		selectProvincia();
+		selectPoblacion();
+		selectVia();
+		clickBotonComprobarDireccion();
+		clickBotonAceptarDireccion();
+
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaProspectPage altaProspectMediadores() {
 
 		debugBegin();
 		selectNivelEstructura();
 		selectTipoProspect();
-		selectActividadPrincipal();
 
-		if(getTestVar(Constants.TIPO_PROSPECT).equals("Corredor-BS")) {
-			writeNumeroRegistroDGS();
+		if(getTestVar(Constants.TIPO_PROSPECT).equalsIgnoreCase("COBS")) {
+			escribirNumeroRegistroDGS();
 		}
-		writeNombreComercialProspect();
-		writeContactoResponsable();
+
+		selectActividadPrincipal();
+		escribirNombreComercialProspect();
+		escribirContactoResponsable();
 		selectIdioma();
-		writeTelefonoUno();
+		escribirTelefonoUno();
 		selectEjecutivoComercial();
 		completarDatosDireccion();
 		clickBotonGrabar();
+
 		debugEnd();
 		return this;
 	}
-	// endregion
+
 }

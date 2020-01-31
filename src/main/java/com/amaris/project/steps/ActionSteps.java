@@ -2437,7 +2437,7 @@ public class ActionSteps extends InteractionObject {
 					.openAltaProspect();
 
 				new MediadoresAltaProspectPage(userS)
-					.alta_prospect();
+					.altaProspectMediadores();
 			} catch(Exception e) {}
 		}
 	}
@@ -2452,7 +2452,7 @@ public class ActionSteps extends InteractionObject {
 			.openAltaProspect();
 
 		new MediadoresAltaProspectPage(userS)
-			.alta_prospect();
+			.altaProspectMediadores();
 	}
 
 	public void doy_de_alta_mediador_usando_acceso_y_usuario(String loginAcess, String user) {
@@ -3707,7 +3707,7 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresHomePage(userS)
 			.openAltaProspect();
 		new MediadoresAltaProspectPage(userS)
-			.alta_prospect();
+			.altaProspectMediadores();
 
 		debugEnd();
 	}
