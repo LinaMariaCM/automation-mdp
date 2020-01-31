@@ -120,7 +120,7 @@ public class AgendaSiniestrosPage extends PageObject {
 		webDriver.clickInFrame(nuevaTareaBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 		debugInfo("Nueva tarea");
-
+		debugInfo(getTestVar(Constants.TAREA_TITULO));
 		String titulo = "Nueva tareas automatica" + StringUtils.getRandomLetterChain(5);
 		if(getTestVar(Constants.TAREA_TITULO) != null && !getTestVar(Constants.TAREA_TITULO).isEmpty()) {
 			titulo = getTestVar(Constants.TAREA_TITULO);

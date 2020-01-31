@@ -740,6 +740,176 @@ public class Constants {
 	public static final String TIPO_DIRECCION_MED = "tipo_direccion_med";
 	public static final String DIR_IGUAL_A = "med_direccion_heradar";
 	public static final String TIPO_COLABORADOR = "tipo_colaborador";
+	
+	// ENVÍO Y RECEPCIÓN DGA
 	public static final String NUMERO_REF_DGS = "numero_envio_dgs";
+
+	//CONSTANTES DE MEDIADORES
+
+	//Alta Mediadores
+
+	// #### Datos Básicos
+
+	public static final String CODIGO_MEDIADOR = "cod_mediador";
+	//public static final String NIVEL_ESTRUCTURA_ALT_MED = "nivel_estructura"; 
+	//public static final String EJECUTIVO_COMERCIAL_ALT_MED = "ejecutivo_comercial";
+	//public static final String IDIOMA_ALT_MED = "idioma";
+	//public static final String TIPO_DOCUMENTO_ALT_MED = "tipo_documento";
+	public static final String NUMERO_DOCUMENTO_ALT_MED = "num_doc";
+	public static final String NOMBRE_FISCAL_ALT_MED = "nombre_fiscal";
+	public static final String PRIMER_APELLIDO_ALT_MED = "primer_apellido";
+	public static final String SEGUNDO_APELLIDO_ALT_MED = "segundo_apellido";
+	public static final String REFERENCIA_EXERNA_ALT_MED = "referencia_externa";
+	//public static final String ACTIVIDAD_PRINCIPAL_ALT_MED = "actividad_principal";
+	public static final String AGRUPADOR_PRINCIPAL_ALT_MED = "agrupador_principal";
+	public static final String NUMERO_REGISTRO_DGSFP_ALT_MED = "num_registro_DGSFP";
+	public static final String NUMERO_ALT_MED = "numero";
+	public static final String OTROS_AGRUPADORES_ALT_MED = "otros_agrupadores";
+
+	// ### Datos adicionales
+	public static final String EDAD_ALT_MED = "edad";
+	public static final String NIVEL_AFINIDAD_TECNOLOGICA_ALT_MED = "nivel_afinidad_tec";
+	public static final String NIVEL_ESTUDIOS_ALT_MED = "nivel_estudios";
+	public static final String NUMERO_DE_EMPLEADOS_ALT_MED = "num_empleados";
+	public static final String TIENE_OFICINAS_ALT_MED = "tiene_oficinas";
+	public static final String TRABAJA_CON_EXTERNOS_ALT_MED = "trabaja_con_externos";
+	public static final String DISPONTE_DE_SOFTWARE_ALT_MED = "dispone_de_sftw";
+	public static final String DONDE_TRABAJA_ALT_MED = "donde_trabaja";
+
+	// ### Datos generales
+	public static final String CONTACTO_RESPONSABLE_ALT_MED = "contacto_responsable";
+	public static final String CARGO_RESPONSABLE_ALT_MED = "cargo_responsable";
+	public static final String TELEFONO_PRINCIPAL_ALT_MED = "telefono_principal";
+	public static final String FAX_ALT_MED = "fax";
+	public static final String COMUNICACION_IP_ALT_MED = "comunicacion_ip";
+	public static final String EMAIL_ALT_MED = "email";
+
+	// ### Direcciones
+	// ### ### Direccion comercial
+	public static final String TIPO_DOMICILIO_COMERCIAL_ALT_MED = "tipo_domicilio_com";
+	public static final String PAIS_COMERCIAL_ALT_MED = "pais_com";
+	public static final String POBLACION_COMERCIAL_ALT_MED = "poblacion_com";
+	public static final String PROVINCIA_COMERCIAL_ALT_MED = "provincia_com";
+	public static final String NOMBRE_VIA_COMERCIAL_ALT_MED = "nombre_via_com";
+	public static final String NUMERO_VIA_COMERCIAL_ALT_MED = "numero_via_com";
+	public static final String RESTO_VIA_COMERCIAL_ALT_MED = "resto_via_com";
+	public static final String TIPO_VIA_COMERCIAL_ALT_MED = "tipo_via_com";
+	public static final String CP_COMERCIAL_ALT_MED = "CP_com";
+	public static final String BLOQUE_COMERCIAL_ALT_MED = "bloque_com";
+	public static final String ESCALERA_COMERCIAL_ALT_MED = "escalera_com";
+	public static final String PISO_COMERCIAL_ALT_MED = "piso_com";
+	public static final String PUERTA_COMERCIAL_ALT_MED = "puerta_com";
+
+	// ### ### Direccion fiscal
+	public static final String TIPO_DOMICILIO_FISCAL_ALT_MED = "tipo_domicilio_fis";
+	public static final String PAIS_FISCAL_ALT_MED = "pais_fis";
+	public static final String POBLACION_FISCAL_ALT_MED = "poblacion_fis";
+	public static final String PROVINCIA_FISCAL_ALT_MED = "provincia_fis";
+	public static final String NOMBRE_FISCAL_VIA_ALT_MED = "nombre_via_fis";
+	public static final String NUMERO_FISCAL_VIA_ALT_MED = "numero_via_fis";
+	public static final String RESTO_VIA_FISCAL_ALT_MED = "resto_via_fis";
+	public static final String TIPO_VIA_FISCAL_ALT_MED = "tipo_via_fis";
+	public static final String CP_FISCAL_ALT_MED = "CP_fis";
+	public static final String BLOQUE_FISCAL_ALT_MED = "bloque_fis";
+	public static final String ESCALERA_FISCAL_ALT_MED = "escalera_fis";
+	public static final String PISO_FISCAL_ALT_MED = "piso_fis";
+	public static final String PUERTA_FISCAL_ALT_MED = "puerta_fis";
+
+	// ### ### Direccion Postal Produccion
+	public static final String TIPO_DOMICILIO_PRODUCCION_ALT_MED = "tipo_domicilio_pro";
+	public static final String PAIS_PRODUCCION_ALT_MED = "pais_pro";
+	public static final String POBLACION_PRODUCCION_ALT_MED = "poblacion_pro";
+	public static final String PROVINCIA_PRODUCCION_ALT_MED = "provincia_pro";
+	public static final String NOMBRE_PRODUCCION_VIA_ALT_MED = "nombre_via_pro";
+	public static final String NUMERO_PRODUCCION_VIA_ALT_MED = "numero_via_pro";
+	public static final String RESTO_VIA_PRODUCCION_ALT_MED = "resto_via_pro";
+	public static final String TIPO_VIA_PRODUCCION_ALT_MED = "tipo_via_pro";
+	public static final String CP_PRODUCCION_ALT_MED = "CP_pro";
+	public static final String BLOQUE_PRODUCCION_ALT_MED = "bloque_pro";
+	public static final String ESCALERA_PRODUCCION_ALT_MED = "escalera_pro";
+	public static final String PISO_PRODUCCION_ALT_MED = "piso_pro";
+	public static final String PUERTA_PRODUCCION_ALT_MED = "puerta_pro";
+
+	// ### ### Direccion Postal Recibos
+	public static final String TIPO_DOMICILIO_RECIBOS_ALT_MED = "tipo_domicilio_rec";
+	public static final String PAIS_RECIBOS_ALT_MED = "pais_rec";
+	public static final String POBLACION_RECIBOS_ALT_MED = "poblacion_rec";
+	public static final String PROVINCIA_RECIBOS_ALT_MED = "provincia_rec";
+	public static final String NOMBRE_RECIBOS_VIA_ALT_MED = "nombre_via_rec";
+	public static final String NUMERO_RECIBOS_VIA_ALT_MED = "numero_via_rec";
+	public static final String RESTO_VIA_RECIBOS_ALT_MED = "resto_via_rec";
+	public static final String TIPO_VIA_RECIBOS_ALT_MED = "tipo_via_rec";
+	public static final String CP_RECIBOS_ALT_MED = "CP_rec";
+	public static final String BLOQUE_RECIBOS_ALT_MED = "bloque_rec";
+	public static final String ESCALERA_RECIBOS_ALT_MED = "escalera_rec";
+	public static final String PISO_RECIBOS_ALT_MED = "piso_rec";
+	public static final String PUERTA_RECIBOS_ALT_MED = "puerta_rec";
+
+	// ### ### Direccion Postal Siniestros
+	public static final String TIPO_DOMICILIO_SINIESTROS_ALT_MED = "tipo_domicilio_sin";
+	public static final String PAIS_SINIESTROS_ALT_MED = "pais_sin";
+	public static final String POBLACION_SINIESTROS_ALT_MED = "poblacion_sin";
+	public static final String PROVINCIA_SINIESTROS_ALT_MED = "provincia_sin";
+	public static final String NOMBRE_SINIESTROS_VIA_ALT_MED = "nombre_via_sin";
+	public static final String NUMERO_SINIESTROS_VIA_ALT_MED = "numero_via_sin";
+	public static final String RESTO_VIA_SINIESTROS_ALT_MED = "resto_via_sin";
+	public static final String TIPO_VIA_SINIESTROS_ALT_MED = "tipo_via_sin";
+	public static final String CP_SINIESTROS_ALT_MED = "CP_sin";
+	public static final String BLOQUE_SINIESTROS_ALT_MED = "bloque_sin";
+	public static final String ESCALERA_SINIESTROS_ALT_MED = "escalera_sin";
+	public static final String PISO_SINIESTROS_ALT_MED = "piso_sin";
+	public static final String PUERTA_SINIESTROS_ALT_MED = "puerta_sin";
+
+	// ### Redes Sociales
+	public static final String TIPO_RED_SOCIAL_ALT_MED = "tipo_red";
+	public static final String DESCRIPCION_ALT_MED = "descripcion";
+
+	// ### Medios de Contacto
+	public static final String TIPO_CONTACTO_ALT_MED = "tipo_contacto";
+	public static final String CONTACTO_ALT_MED = "contacto";
+
+	// ### Medios por area
+	public static final String AREA_CONTACTO_ALT_MED = "area_cont";
+	public static final String NOMBRE_CONTACTO_ALT_MED = "nombre_cont";
+	public static final String CARGO_ALT_MED = "cargo_cont";
+	public static final String TELEFONO_CONTACTO_ALT_MED = "telefono_cont";
+	public static final String EMAIL_CONTACTO_ALT_MED = "email_cont";
+	public static final String PREFERENCIA_COMUNICACION_ALT_MED = "fax_cont";
+
+	// ### Marcas LOPD
+	public static final String PUBLICIDAD_A_MEDIADOR_ALT_MED = "publicidad_a_mediador";
+	public static final String PUBLICIDAD_A_MUTUALISTA_ALT_MED = "publicidad_a_mutualista";
+	public static final String USO_IMAGEN_MEDIADOR_ALT_MED = "uso_imagen_mediador";
+
+	// ### Productos
+	public static final String ESPECIALISTAS_EN_RAMO_ALT_MED = "especialista_en_ramo";
+	public static final String RAMO_ALT_MED = "ramo";
+	public static final String ADMINISTR_FINCAS_ALT_MED = "administra_fincas";
+	public static final String NUMERO_DE_FINCAS_QUE_ADMININISTRA = "num_fincas";
+
+	// ### Productos Añadir Nuevo
+	public static final String PRODUCTO_NUEVO_A_ANYADIR_ALT_MED = "prod_a_anyadir";
+	public static final String COMPANYIA_PRIN_NUEVO_A_ANYADIR_ALT_MED = "companyia_principal";
+	public static final String COMPANYIA_SEC_NUEVO_A_ANYADIR_ALT_MED = "companyia_principal";
+
+	// ### Datos Mediador
+	public static final String POTENCIAL_NP_ALT_MED = "potencial_NP";
+	public static final String AUTONOMO_EN_PROYECTOS_ALT_MED = "autonomo_en_proyectos";
+	public static final String COMPANYAS_TRABAJADO_ALT_MED = "companyias_trabajado";
+	public static final String VALORACION_DELEGADO_ALT_MED = "valoracion_del_delegado";
+
+	// ### Datos Mediador Añadir Banco
+	public static final String NOMBRE_BANCO_ALT_MED = "nombre_banco";
+	public static final String OBSERVACIONES_BANCO_ALT_MED = "observaciones_banco";
+
+	// ### Datos Negocio
+	public static final String TIPO_RETRIBUCION_ALT_MED = "tipo_retribucion";
+	public static final String EMISION_FACTURAS_ALT_MED = "emision_facturas";
+	public static final String POLIZAS_NO_CROSSELLING_ALT_MED = "polizas_no_crosselling";
+	public static final String LIQUIDAR_A_NIVEL_OFICINA_ALT_MED = "liquidar_a_nivel_oficina";
+	public static final String CONSOLIDAR_CUENTA_EN_CODIGO_PRINCIPAL_ALT_MED = "consolidar_cuenta_en_codigo_principal";
+	public static final String CLASIFICACION_VOLUMEN_NEGOCIO_ALT_MED = "clasificacion_volumen_negocio";
+	public static final String IBAN_PAGO_COMISIONES_ALT_MED = "iban_pago_comisiones";
+	public static final String IBAN_CARGO_RECIBOS_AUTOLIQUIDACIONES_ALT_MED = "iban_cargo_recibos_autoliquidaciones";
 
 }// END
