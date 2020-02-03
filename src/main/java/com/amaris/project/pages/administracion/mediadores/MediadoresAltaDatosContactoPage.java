@@ -3,7 +3,6 @@ package com.amaris.project.pages.administracion.mediadores;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
-import org.codehaus.groovy.ast.GenericsType;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -187,7 +186,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		}
 
-		else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 			// si es oficina o gestor, comprueba el copy de la dirección fiscal automáticamente heredada
 			String copyDireccionFiscalOficina = webDriver.getText(By.cssSelector("#capaDomicilio > table.tableForm > tbody > tr > th > strong")).trim();
 			debugInfo("El copy para la dirección fiscal de una oficina es: " + copyDireccionFiscalOficina);
@@ -295,20 +294,20 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(anyadirNuevaDireccionBtn);
-		webDriver.waitWithDriver(4000);
+		webDriver.waitWithDriver(8000);
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "PPRO");
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
 		if(getTestVar(Constants.DIRECCION_PPRO_PROVINCIA) != null || !getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty()) {
 			// hay datos para provincia + clic en "Direccion seleccionada != superior" y se selecciona diferente
-			webDriver.click(direccionSuperiorNOBtn);
+			//webDriver.click(direccionSuperiorNOBtn);
 			webDriver.waitWithDriver(1500);
 			webDriver.click(direccionDiferenteBtn);
 			webDriver.waitForElementToBePresent(provinciaInput);
 			completarCampoProvincia(getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).toString());
 			completarCampoPoblacion(getTestVar(Constants.DIRECCION_PPRO_POBLACION).toString());
-			completarCampoNombreVia(getTestVar(Constants.DIRECCION_PPRO_NombreVia).toString());
+			completarCampoNombreVia(getTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA).toString());
 			webDriver.waitWithDriver(2000);
 			webDriver.setText(numeroViaInput, "11");
 			webDriver.click(comprobarDireccionBtn);
@@ -330,6 +329,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			}
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		}
+
+		 */
 		webDriver.exitFrame();
 		debugEnd();
 
@@ -347,7 +348,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 			if(getTestVar(Constants.DIRECCION_PREC_PROVINCIA) != null && !getTestVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty()) {
 				// hay datos para provincia + clic en "Direccion seleccionada != superior" y se selecciona diferente
-				webDriver.click(direccionSuperiorNOBtn);
+				//webDriver.click(direccionSuperiorNOBtn);
 				webDriver.waitWithDriver(1500);
 				webDriver.click(direccionDiferenteBtn);
 				webDriver.waitForElementToBePresent(provinciaInput);
@@ -383,13 +384,13 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		if(getTestVar(Constants.DIRECCION_PSIN_PROVINCIA) != null || !getTestVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()) {
 			// hay datos para provincia + clic en "Direccion seleccionada != superior" y se selecciona diferente
-			webDriver.click(direccionSuperiorNOBtn);
+			//webDriver.click(direccionSuperiorNOBtn);
 			webDriver.waitWithDriver(1500);
 			webDriver.click(direccionDiferenteBtn);
 			webDriver.waitForElementToBePresent(provinciaInput);
 			completarCampoProvincia(getTestVar(Constants.DIRECCION_PSIN_PROVINCIA).toString());
 			completarCampoPoblacion(getTestVar(Constants.DIRECCION_PSIN_POBLACION).toString());
-			completarCampoNombreVia(getTestVar(Constants.DIRECCION_PSIN_NombreVia).toString());
+			completarCampoNombreVia(getTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA).toString());
 			webDriver.waitWithDriver(2000);
 			webDriver.setText(numeroViaInput, "11");
 			webDriver.click(comprobarDireccionBtn);
