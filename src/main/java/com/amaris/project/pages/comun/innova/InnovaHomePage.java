@@ -32,6 +32,7 @@ public class InnovaHomePage extends PageObject {
 	private By menuMecBtn = By.cssSelector("#boton2");
 	private By mhcBtn = By.cssSelector("a[href*='codmenu=660']");
 	private By gestionPagosBtn = By.cssSelector("[title = 'Gestión de pagos de siniestros  ']");
+	private By productoBtn = By.cssSelector("#jt1");
 	// endregion
 
 	public InnovaHomePage(UserStory userS) {
@@ -140,6 +141,9 @@ public class InnovaHomePage extends PageObject {
 
 	public InnovaHomePage openMediadores() {
 		debugBegin();
+
+		webDriver.clickInFrame(productoBtn, leftFrame);
+		webDriver.waitWithDriver(8000);
 		webDriver.clickInFrame(mediadoresBtn, leftFrame);
 		debugEnd();
 
