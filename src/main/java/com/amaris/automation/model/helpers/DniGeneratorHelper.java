@@ -66,7 +66,7 @@ public class DniGeneratorHelper {
 
 		return result;
 	}
-/* no esta terminado
+/* falta revisaar
 	public static String generateCIF(String seed) {
 		String result = null;
 		seed = seed == null ? "" : seed;
@@ -80,17 +80,37 @@ public class DniGeneratorHelper {
 			int aleatorio = (int) Math.random() * (organizacion.length);
 			String letraO = organizacion[aleatorio];
 
-			int valorAleatorioP = (int) Math.floor(Math.random() * (99) + 1);
-			if(valorAleatorioP >= 65 && valorAleatorioP <= 69)
+			int valorAleatorioP = 0;
+			do {
 				valorAleatorioP = (int) Math.floor(Math.random() * (99) + 1);
+			} while((valorAleatorioP >= 65 && valorAleatorioP <= 69 || valorAleatorioP >= 85 && valorAleatorioP <= 90));
 
+			if(valorAleatorioP < 10) {
+				Formatter letraP = new Formatter();
+				letraP.format("%08d", valorAleatorioP);
+			}
+			String letraC;
+			if(letraO.equalsIgnoreCase("K") ||
+				letraO.equalsIgnoreCase("P") || letraO.equalsIgnoreCase("Q") ||
+				letraO.equalsIgnoreCase("S")) {
+				letraC = organizacion[aleatorio];
+			} else {
+				letraC = String.valueOf(Math.floor(Math.random() * (9) + 1));
+			}
 
-
-			return result;
+			result = letraO + valorAleatorioP + numeroCIF + letraC;
 		}
 
- */
+		return result;
 	}
+
+	public static void main(String[] args) {
+
+		System.out.println();
+
+
+ */
+}
 
 
 
