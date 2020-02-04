@@ -3610,22 +3610,17 @@ public class ActionSteps extends InteractionObject {
 			.anyadirDireccionProduccion()
 			.anyadirDireccionRecibos()
 			.anyadirDireccionSiniestros()
-			.clickGuardarYSalir();
-		new FichaMediadorPage(userS)
-			.obtenerDatoAltaIntermediario();
-	/*		.anyadirNuevaDireccionPostal("PPRO")
-			.anyadirNuevaDireccionRecibos("PREC")
-			.anyadirNuevaDireccionSiniestros("PSIN")
-			.clickGuardarYSalir();
-		new FichaMediadorPage(userS)
-			.verificarDireccion(); */
+			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
-
+		new FichaMediadorPage(userS)
+			.obtenerIdMediador()
+			.anyadirIdMediador()
+			.verificarDireccion();
 	}
 
 	// Step de iryna para dar alta una oficina
@@ -3645,8 +3640,8 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
 			.altaOficinaDatosContacto()
-		// añadir lo de las direcciones
-			 .clickContinuar();
+			// añadir lo de las direcciones
+			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
@@ -3689,6 +3684,29 @@ public class ActionSteps extends InteractionObject {
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresHomePage(userS)
+			.openAltaMediador();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.altaIntermediarioDescriptivos()
+			.clickContinuar();
+		new MediadoresAltaDatosContactoPage(userS)
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
+			.anyadirNuevaDireccionFiscal()
+			.anyadirDireccionComercial()
+			.anyadirDireccionProduccion()
+			.anyadirDireccionRecibos()
+			.anyadirDireccionSiniestros()
+			.clickContinuar();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaDatosRelacionales()
+			.clickContinuarDatosRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
+			.clickGuardar();
+		new FichaMediadorPage(userS)
+			.obtenerIdMediador()
+			.anyadirIdMediador()
+			.clickBuscadorMediadores();
+		new MediadoresHomePage(userS)
 			.openEnvioDGS();
 		new MediadoresDGSPage(userS)
 			.envioMediadorDGS(); // averiguar cómo filtrar el CSV y cases: cuando ha de aparecer el paso
@@ -3696,9 +3714,9 @@ public class ActionSteps extends InteractionObject {
 			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
 		new MediadoresDGSPage(userS)
 			.recepcionMediadoresDGS();
-			debugEnd();
+		debugEnd();
 	}
-	
+
 	public void alta_prospect() {
 		debugBegin();
 
