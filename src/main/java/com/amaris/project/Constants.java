@@ -689,11 +689,13 @@ public class Constants {
 
 	//OTRAS ALERTAS
 	public static final String ALERTA_COMENTARIO_ADICIONAL_MEDIADORES = "El campo COMENTARIO ADICIONAL es un campo obligatorio y no puede estar en blanco.";
-	public static final String ALERTA_PERIODO_CREDITO_MEDIADORES = "Campo período de crédito es necesario para proceder con el cambio de estado del mediador.";
-	public static final String ALERTA_LIMITE_CREDITO_MEDIADORES = "Campo límite crédito es necesario para proceder con el cambio de estado del mediador.";
-	public static final String ALERTA_VALORACION_FINANCIERA_MEDIADORES = "El campo VALORACIÓN RESOLUCIÓN FINANCIERA es un campo obligatorio.";
-	public static final String ALERTA_COMENTARIO_FINANCIERA_MEDIADORES = "El campo COMENTARIO resolución financiera es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_OBSERVACION_COMERCIAL_MEDIADORES = "El campo OBSERVACION COMERCIAL es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_PERIODO_CREDITO_MEDIADORES = "Campo período crédito es necesario para proceder con el cambio de estado del mediador. Ya que es un campo obligatorio.";
+	public static final String ALERTA_LIMITE_CREDITO_MEDIADORES = "Campo límite crédito es necesario para proceder con el cambio de estado del mediador. Ya que es un campo obligatorio.";
+	public static final String ALERTA_VALORACION_FINANCIERA_MEDIADORES = "El campo VALORACIÓN REVISIÓN FINANCIERA es un campo obligatorio.";
+	public static final String ALERTA_COMENTARIO_FINANCIERA_MEDIADORES = "El campo COMENTARIO REVISIÓN FINANCIERA es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_FECHA_MEDIADORES = "La fecha de formación es obligatoria.";
+	public static final String ALERTA_FECHA_MEDIADORES_INCORRECTA = "El campo F.FORMACIÓN OBLIGATORIA no se ha rellenado correctamente.";
 	public static final String ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES = "El campo FECHA ENVÍO CONTRATO no se ha rellenado correctamente.";
 	public static final String ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES = "El campo FECHA RECEPCIÓN DE CONTRATO no se ha rellenado correctamente.";
 	public static final String ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES = "La fecha de envío del contrato no puede ser superior a la de recepción del contrato";
