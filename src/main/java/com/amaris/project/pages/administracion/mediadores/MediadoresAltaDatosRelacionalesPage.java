@@ -234,7 +234,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 			webDriver.setTextInFrame(compPrincipInput, "Compañia", cuerpoFrame);
 		}
 
-		anyadirNuevoBanco("Banco");
+		anyadirNuevoBanco("Nombre del banco");
 		debugEnd();
 
 		return this;
