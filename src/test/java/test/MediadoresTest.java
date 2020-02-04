@@ -158,7 +158,7 @@ public class MediadoresTest {
 
 	// TEST de ANTONIA PARA ENVIO Y RECEPCIÓN de DGS
 
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public String[][] dataProviderMed07() {
 		String testCase = Constants.MEDIADORES_CASE;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
