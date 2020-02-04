@@ -1,7 +1,7 @@
 package com.amaris.project.pages.administracion.mediadores;
 
 import org.openqa.selenium.By;
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
@@ -161,7 +161,7 @@ public class MediadoresAltaMediadorPage extends PageObject {
 
 		if(getTestVar(Constants.TIPO_DOCUMENTO) != null
 			&& getTestVar(Constants.TIPO_DOCUMENTO).equals(Constants.NIF)) {
-			setTestVar(Constants.DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
+			setTestVar(Constants.DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNif());
 			webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, getTestVar(Constants.DOCUMENTO_MEDIADOR));
 		}
 
