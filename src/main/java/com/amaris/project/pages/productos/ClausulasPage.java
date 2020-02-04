@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.utils.ClausulasHelper;
@@ -203,7 +203,7 @@ public class ClausulasPage extends PageObject {
 			
 			webDriver.clickElementFromDropDownByTextInFrame(tipoDocumentoDrpDwn, cuerpoFrame, Constants.NIF);
 			
-			webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, DniGeneratorHelper.generateNif());
+			webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, DocumentGeneratorHelper.generateNif());
 			webDriver.appendTextInFrame(nombreAseguradoInput, cuerpoFrame, Constants.ClausulaHipotecariaNombre);
 			webDriver.appendTextInFrame(apellido1AseguradoInput, cuerpoFrame, Constants.ClausulaHipotecariaApellido1);
 			webDriver.appendTextInFrame(apellido2AseguradoInput, cuerpoFrame, Constants.ClausulaHipotecariaApellido2);

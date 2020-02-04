@@ -1,7 +1,7 @@
 package com.amaris.project.pages.productos;
 
 import org.openqa.selenium.By;
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
@@ -187,7 +187,7 @@ public class TomadorYAseguradoPage extends PageObject {
 			webDriver.clickInFrame(addDataOfTheAseguradoPrincipalBtn, cuerpoFrame);
 			webDriver.clickElementFromDropDownByTextInFrame(aseguradoTipoDocumentoDrpDwn, cuerpoFrame, Constants.NIF);
 
-			setTestVar(Constants.DOCUMENTO_ASEGURADO, DniGeneratorHelper.generateNif());
+			setTestVar(Constants.DOCUMENTO_ASEGURADO, DocumentGeneratorHelper.generateNif());
 			webDriver.appendTextInFrame(aseguradoNumeroDocumentoInput, cuerpoFrame, getTestVar(Constants.DOCUMENTO_ASEGURADO));
 			webDriver.appendTextInFrame(aseguradoNombreInput, cuerpoFrame, getTestVar(Constants.NOMBRE_ASEGURADO));
 			webDriver.appendTextInFrame(aseguradoApellido1Input, cuerpoFrame, getTestVar(Constants.PRIMER_APELLIDO_ASEGURADO));

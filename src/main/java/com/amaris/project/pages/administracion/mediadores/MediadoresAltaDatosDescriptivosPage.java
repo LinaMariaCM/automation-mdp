@@ -1,17 +1,11 @@
 package com.amaris.project.pages.administracion.mediadores;
 
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
-import com.amaris.project.pages.administracion.siniestros.apertura.AltaAperturaDeclaracionSiniestrosPage;
 import com.amaris.project.utils.ChecksUtils;
-import com.sun.tools.jxc.ap.Const;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import com.amaris.project.pages.administracion.mediadores.MediadoresHomePage;
-
-import javax.xml.ws.wsaddressing.W3CEndpointReferenceBuilder;
 
 public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
@@ -394,7 +388,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
-			setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DniGeneratorHelper.generateNif());
+			setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNif());
 			webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 
 			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {

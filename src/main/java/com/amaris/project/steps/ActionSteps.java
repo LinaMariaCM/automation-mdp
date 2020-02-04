@@ -3645,8 +3645,8 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
 			.altaOficinaDatosContacto()
-		// añadir lo de las direcciones
-			 .clickContinuar();
+			// añadir lo de las direcciones
+			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
@@ -3696,9 +3696,9 @@ public class ActionSteps extends InteractionObject {
 			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
 		new MediadoresDGSPage(userS)
 			.recepcionMediadoresDGS();
-			debugEnd();
+		debugEnd();
 	}
-	
+
 	public void alta_prospect() {
 		debugBegin();
 
@@ -3708,6 +3708,24 @@ public class ActionSteps extends InteractionObject {
 			.openAltaProspect();
 		new MediadoresAltaProspectPage(userS)
 			.altaProspectMediadores();
+
+		debugEnd();
+	}
+
+	public void mediadores_cambios_estado_situacion() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorEstadoSituacion();
+		new FichaMediadorPage(userS)
+			.solicitarAlta()
+			.enviarValoracionFinanciera()
+			.enviarRevisionFinanciera()
+			.enviarResolucionFinanciera()
+			.confirmarAlta()
+			.formacionAvanzarEstado();
 
 		debugEnd();
 	}

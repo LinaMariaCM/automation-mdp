@@ -3,7 +3,7 @@ package com.amaris.project.pages.productos;
 
 import org.testng.Assert;
 import org.openqa.selenium.By;
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
@@ -103,7 +103,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 
 		webDriver.clickElementFromDropDownByTextInFrame(tipoDocumentoDrpDwn, cuerpoFrame, Constants.NIF);
 
-		setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
+		setTestVar(Constants.DNI_TOMADOR, DocumentGeneratorHelper.generateNif());
 
 		webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, getTestVar(Constants.DNI_TOMADOR));
 
@@ -141,7 +141,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 
 				webDriver.clickElementFromDropDownByTextInFrame(tipoDocumentoDrpDwn, cuerpoFrame, Constants.NIF);
 
-				setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
+				setTestVar(Constants.DNI_TOMADOR, DocumentGeneratorHelper.generateNif());
 
 				webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, getTestVar(Constants.DNI_TOMADOR));
 
@@ -163,7 +163,7 @@ public class DatosBasicosTomadorPage extends PageObject {
 			case Constants.ClienteExistente:
 				webDriver.clickElementFromDropDownByTextInFrame(tipoDocumentoDrpDwn, cuerpoFrame, Constants.NIF);
 
-				setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
+				setTestVar(Constants.DNI_TOMADOR, DocumentGeneratorHelper.generateNif());
 
 				webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, getTestVar(Constants.DNI_TOMADOR));
 				webDriver.clickInFrame(nombreTomadorInput, cuerpoFrame);

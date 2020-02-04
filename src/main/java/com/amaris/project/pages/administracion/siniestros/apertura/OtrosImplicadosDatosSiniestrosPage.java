@@ -1,6 +1,6 @@
 package com.amaris.project.pages.administracion.siniestros.apertura;
 
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
@@ -100,7 +100,7 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		if(numDocumento != null && !numDocumento.isEmpty()) {
 			webDriver.setTextInFrame(numeroDocumentoInput, cuerpoFrame, numDocumento);
 		} else {
-			webDriver.setTextInFrame(numeroDocumentoInput, cuerpoFrame, DniGeneratorHelper.generateNif());
+			webDriver.setTextInFrame(numeroDocumentoInput, cuerpoFrame, DocumentGeneratorHelper.generateNif());
 		}
 
 		if(telefono1 != null && !telefono1.isEmpty()) {
