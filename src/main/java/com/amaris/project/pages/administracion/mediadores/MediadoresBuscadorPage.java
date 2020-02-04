@@ -168,4 +168,22 @@ public class MediadoresBuscadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
+
+	//buscar por id mediador para probar estados y situaciones
+	public MediadoresBuscadorPage buscarMediadorEstadoSituacion(){
+		debugBegin();
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121530");
+		webDriver.clickInFrame(nivelEstructuraOficinaBtn, cuerpoFrame);
+		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.clickInFrame(estadoPendienteEnvioDGSBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoActivoRestringidoBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoActivoBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
+		clickBuscar();
+		webDriver.waitWithDriver(8000);
+		debugEnd();
+		return this;
+	}
 }
