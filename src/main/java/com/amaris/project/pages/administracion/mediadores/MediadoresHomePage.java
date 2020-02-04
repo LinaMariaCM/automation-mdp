@@ -94,6 +94,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openEnvioDGS() {
 		debugBegin();
+		webDriver.waitWithDriver(4000);
 		webDriver.clickInFrame(envioBtn, menuFrame);
 		webDriver.waitWithDriver(2000);
 		debugEnd();
@@ -103,6 +104,7 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openRecepcionDGS() {
 		debugBegin();
+		webDriver.waitWithDriver(4000);
 		webDriver.clickInFrame(recepcionBtn, menuFrame);
 		webDriver.waitWithDriver(2000);
 		debugEnd();
