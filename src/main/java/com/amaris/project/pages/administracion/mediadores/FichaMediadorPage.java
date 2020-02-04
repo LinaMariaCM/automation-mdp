@@ -204,7 +204,7 @@ public class FichaMediadorPage extends PageObject {
 
 	// ---- Acceder a las pestañas de la ficha
 
-	public FichaMediadorPage clickBuscadorMediadores(){
+	public FichaMediadorPage clickBuscadorMediadores() {
 		debugBegin();
 		webDriver.clickInFrame(buscadorMediadoresBtn, menuFrame);
 		debugInfo("Se hizo clic en el buscador de mediadores desde la ficha");
@@ -741,7 +741,7 @@ public class FichaMediadorPage extends PageObject {
 		webDriver.clickElementFromDropDownByAttributeInFrame(limiteCreditoCombo, limiteCreditoOption, cuerpoFrame, "value", "ESPE");
 		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
-debugEnd();
+		debugEnd();
 		return this;
 	}
 
@@ -755,7 +755,7 @@ debugEnd();
 			//	webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0,5).toString();
 			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
 			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
-		}else{
+		} else {
 			debugInfo("Ha habido un error al dat de alta el mediador");
 		}
 		debugEnd();
@@ -868,20 +868,17 @@ debugEnd();
 		return this;
 	}
 
-
-	public FichaMediadorPage anyadirIdMediador(){
+	public FichaMediadorPage anyadirIdMediador() {
 		debugBegin();
-			// a la string se le asigna el valor guardado en el CSV y constante
-			String idMedAlta;
-			idMedAlta = getTestVar(Constants.ID_MEDIADOR_ALTA);
-			debugInfo("ver si aparece la idMedAlta correctamente: "+ idMedAlta);
-			debugEnd();
+		// a la string se le asigna el valor guardado en el CSV y constante
+		String idMedAlta;
+		idMedAlta = getTestVar(Constants.ID_MEDIADOR_ALTA);
+		debugInfo("ver si aparece la idMedAlta correctamente: " + idMedAlta);
+		debugEnd();
 		return this;
 	}
 
 	/// falta realmente hacer uso de esteo dato?? anyadirIdMediador.idMedAlta
-
-
 
 	// endregion
 }
