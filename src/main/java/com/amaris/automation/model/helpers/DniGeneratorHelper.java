@@ -8,6 +8,10 @@ public class DniGeneratorHelper {
 
 	private static final char[] LETRAS_ASIGNACION = { 'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L', 'C', 'K', 'E' };
 
+	private static final String digitoControlCif = "JABCDEFGHI";
+	private static final  String cifLetra = "KPQRSNW";
+
+
 	private DniGeneratorHelper() {
 	}
 
@@ -66,50 +70,88 @@ public class DniGeneratorHelper {
 
 		return result;
 	}
-/* falta revisaar
+
+	public static String generateCIF() {
+		return generateCIF(null);
+	}
+
 	public static String generateCIF(String seed) {
+
 		String result = null;
+		String cif = null;
 		seed = seed == null ? "" : seed;
-		String[] organizacion = new String[]{ "A", "B", "C", "D", "E", "F", "G", "H", "K", "L", "M", "N", "P", "Q", "S" };
+		String[] organizacion = new String[]{ "A", "B", "C", "D", "E", "F", "G", "H", "J", "N", "P", "Q", "R", "S", "U", "V", "W"};
 
 		if(seed.isEmpty() || StringUtils.isNumber(seed)) {
 
-			String numeroCIF = String.valueOf(Math.random()).concat(seed);
-			numeroCIF = numeroCIF.substring(numeroCIF.length() - 5);
-
-			int aleatorio = (int) Math.random() * (organizacion.length);
+			int aleatorio = (int) Math.floor(Math.random() * organizacion.length);
 			String letraO = organizacion[aleatorio];
 
 			int valorAleatorioP = 0;
 			do {
-				valorAleatorioP = (int) Math.floor(Math.random() * (99) + 1);
+				valorAleatorioP = (int) Math.floor(Math.random() * 99 + 1);
 			} while((valorAleatorioP >= 65 && valorAleatorioP <= 69 || valorAleatorioP >= 85 && valorAleatorioP <= 90));
 
+			String numeroCIF = String.valueOf(Math.random()).concat(seed);
+			numeroCIF = numeroCIF.substring(numeroCIF.length() - 5);
+
+			String ceroExtra = "";
 			if(valorAleatorioP < 10) {
-				Formatter letraP = new Formatter();
-				letraP.format("%08d", valorAleatorioP);
-			}
-			String letraC;
-			if(letraO.equalsIgnoreCase("K") ||
-				letraO.equalsIgnoreCase("P") || letraO.equalsIgnoreCase("Q") ||
-				letraO.equalsIgnoreCase("S")) {
-				letraC = organizacion[aleatorio];
-			} else {
-				letraC = String.valueOf(Math.floor(Math.random() * (9) + 1));
+				ceroExtra = "0";
 			}
 
-			result = letraO + valorAleatorioP + numeroCIF + letraC;
+			result = letraO + ceroExtra + valorAleatorioP + numeroCIF;
+			cif = result + calculaDigitoControl(result);
 		}
 
-		return result;
+		return cif;
+	}
+	private static String calculaDigitoControl(String cif) {
+		String str = cif.substring(1, 8);
+		String cabecera = cif.substring(0, 1);
+		int sumaPar = 0;
+		int sumaImpar = 0;
+		int sumaTotal;
+
+		for (int i = 1; i < str.length(); i += 2) {
+			int aux = Integer.parseInt("" + str.charAt(i));
+			sumaPar += aux;
+		}
+
+		for (int i = 0; i < str.length(); i += 2) {
+			sumaImpar += posicionImpar("" + str.charAt(i));
+		}
+
+		sumaTotal = sumaPar + sumaImpar;
+		sumaTotal = 10 - (sumaTotal % 10);
+
+		if(sumaTotal==10){
+			sumaTotal=0;
+		}
+
+		if (cifLetra.contains(cabecera)) {
+			str = "" + digitoControlCif.charAt(sumaTotal);
+		} else {
+			str = "" + sumaTotal;
+		}
+
+		return str;
+	}
+
+	private static int posicionImpar(String str) {
+		int aux = Integer.parseInt(str);
+		aux = aux * 2;
+		aux = (aux / 10) + (aux % 10);
+
+		return aux;
 	}
 
 	public static void main(String[] args) {
+		System.out.println("El resulatdo es " + generateCIF());
+	}
 
-		System.out.println();
 
 
- */
 }
 
 
