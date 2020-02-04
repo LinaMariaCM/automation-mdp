@@ -742,7 +742,7 @@ public class Constants {
 	public static final String TIPO_DIRECCION_MED = "tipo_direccion_med";
 	public static final String DIR_IGUAL_A = "med_direccion_heradar";
 	public static final String TIPO_COLABORADOR = "tipo_colaborador";
-	
+
 	// ENVÍO Y RECEPCIÓN DGA
 	public static final String NUMERO_REF_DGS = "numero_envio_dgs";
 

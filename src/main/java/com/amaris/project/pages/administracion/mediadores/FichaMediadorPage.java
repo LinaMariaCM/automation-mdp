@@ -775,7 +775,8 @@ public class FichaMediadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
- 	// me quedado aqui
+
+	// me quedado aqui
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
 
