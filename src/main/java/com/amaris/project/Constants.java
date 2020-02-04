@@ -747,17 +747,17 @@ public class Constants {
 	public static final String NUMERO_REF_DGS = "numero_envio_dgs";
 
 	//CONSTANTES DE MEDIADORES
-
+	public static final String ID_MEDIADOR_ALTA = "id_mediador_alta";
 	//Alta Mediadores
 
 	// #### Datos Básicos
 
-	public static final String CODIGO_MEDIADOR = "cod_mediador";
+//	public static final String CODIGO_MEDIADOR = "cod_mediador";
 	//public static final String NIVEL_ESTRUCTURA_ALT_MED = "nivel_estructura"; 
 	//public static final String EJECUTIVO_COMERCIAL_ALT_MED = "ejecutivo_comercial";
 	//public static final String IDIOMA_ALT_MED = "idioma";
 	//public static final String TIPO_DOCUMENTO_ALT_MED = "tipo_documento";
-	public static final String NUMERO_DOCUMENTO_ALT_MED = "num_doc";
+	public static final String NUMERO_DOCUMENTO_ALT_MED = "num_doc"; // RETOMAR AQUÍ
 	public static final String NOMBRE_FISCAL_ALT_MED = "nombre_fiscal";
 	public static final String PRIMER_APELLIDO_ALT_MED = "primer_apellido";
 	public static final String SEGUNDO_APELLIDO_ALT_MED = "segundo_apellido";

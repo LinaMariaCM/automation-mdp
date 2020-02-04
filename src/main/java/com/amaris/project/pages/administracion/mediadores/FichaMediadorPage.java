@@ -22,7 +22,8 @@ public class FichaMediadorPage extends PageObject {
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
 
-	private By tituloPaginaTxt = By.cssSelector("h1.titulopagina");
+	private By tituloPaginaTxt = By.cssSelector("body.sis-body > h1.titulopagina");
+	private By buscadorMediadoresBtn = By.linkText(("Buscador mediadores").trim());
 
 	//------------- Botones Pestañas -------------
 
@@ -202,6 +203,15 @@ public class FichaMediadorPage extends PageObject {
 	// region methods
 
 	// ---- Acceder a las pestañas de la ficha
+
+	public FichaMediadorPage clickBuscadorMediadores(){
+		debugBegin();
+		webDriver.clickInFrame(buscadorMediadoresBtn, menuFrame);
+		debugInfo("Se hizo clic en el buscador de mediadores desde la ficha");
+		debugEnd();
+
+		return this;
+	}
 
 	public FichaMediadorPage clickVisionGlobal() {
 		debugBegin();
@@ -731,6 +741,23 @@ public class FichaMediadorPage extends PageObject {
 		webDriver.clickElementFromDropDownByAttributeInFrame(limiteCreditoCombo, limiteCreditoOption, cuerpoFrame, "value", "ESPE");
 		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
+debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage obtenerIdMediador() {
+		debugBegin();
+		webDriver.waitWithDriver(6000);
+
+		if(webDriver.isPresentInFrame(tituloPaginaTxt, cuerpoFrame)) {
+			debugInfo("Mensaje correcto: " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim());
+
+			//	webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0,5).toString();
+			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+		}else{
+			debugInfo("Ha habido un error al dat de alta el mediador");
+		}
 		debugEnd();
 		return this;
 	}
@@ -840,5 +867,21 @@ public class FichaMediadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
+
+
+	public FichaMediadorPage anyadirIdMediador(){
+		debugBegin();
+			// a la string se le asigna el valor guardado en el CSV y constante
+			String idMedAlta;
+			idMedAlta = getTestVar(Constants.ID_MEDIADOR_ALTA);
+			debugInfo("ver si aparece la idMedAlta correctamente: "+ idMedAlta);
+			debugEnd();
+		return this;
+	}
+
+	/// falta realmente hacer uso de esteo dato?? anyadirIdMediador.idMedAlta
+
+
+
 	// endregion
 }
