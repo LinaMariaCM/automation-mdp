@@ -3731,4 +3731,22 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	public void mediadores_cambios_estado_situacion() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorEstadoSituacion();
+		new FichaMediadorPage(userS)
+			.solicitarAlta()
+			.enviarValoracionFinanciera()
+			.enviarRevisionFinanciera()
+			.enviarResolucionFinanciera()
+			.confirmarAlta()
+			.formacionAvanzarEstado();
+
+		debugEnd();
+	}
+
 } // END

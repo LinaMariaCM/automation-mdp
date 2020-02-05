@@ -1,6 +1,6 @@
 package com.amaris.project.pages.productos.mac;
 
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import org.openqa.selenium.By;
@@ -52,7 +52,7 @@ public class TomadorYAseguradoPageMac extends PageObject {
 			seleccionarTipoPersona(Constants.PERSONA_FISICA);
 			seleccionarTipoDocumento(Constants.NIF);
 
-			setTestVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
+			setTestVar(Constants.DNI_TOMADOR, DocumentGeneratorHelper.generateNif());
 			webDriver.appendTextInFrame(tomadorDniInput, mainFrame, getTestVar(Constants.DNI_TOMADOR));
 			webDriver.appendTextInFrame(tomadorNombreInput, mainFrame, getScenarioVar(Constants.NOMBRE_TOMADOR));
 			webDriver.appendTextInFrame(tomadorPrimerApellidoInput, mainFrame, getScenarioVar(Constants.PRIMER_APELLIDO_TOMADOR));

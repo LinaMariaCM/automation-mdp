@@ -3,7 +3,7 @@ package com.amaris.project.pages.administracion.siniestros.apertura;
 import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.automation.model.utils.DateUtils;
@@ -377,7 +377,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		webDriver.waitWithDriver(3000);
 
 		if(documento == null || documento.isEmpty()) {
-			documento = DniGeneratorHelper.generateNif();
+			documento = DocumentGeneratorHelper.generateNif();
 		}
 
 		webDriver.setText(documentoInput, documento);
