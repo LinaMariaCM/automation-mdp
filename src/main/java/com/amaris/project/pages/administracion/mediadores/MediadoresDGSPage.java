@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import java.util.Calendar;
 import java.util.List;
 
 public class MediadoresDGSPage extends PageObject {
@@ -53,6 +52,7 @@ public class MediadoresDGSPage extends PageObject {
 
 	private By listaDGSE = By.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > tr[id*='tr']");
 	private By envioDGSCorrectoTxt = By.cssSelector("#bloque1 > table:nth-child(2) > tbody > tr > td > strong");
+
 	// endregion
 
 	public MediadoresDGSPage(UserStory userS) {
@@ -151,9 +151,18 @@ public class MediadoresDGSPage extends PageObject {
 		}
 		clickBuscar();
 		//	seleccionarMediadorEnvioDGS(getTestVar(Constants.ID_MEDIADOR_ALTA)); // ir a resultados mediante método para localizarlos y seleccionar el mediador que toca. Revisar si hay otra lógica para los auxiliares, prueba con AE
-		seleccionarMediadorEnvioDGS("2547");
+		seleccionarMediadorEnvioDGS(getSuiteVar(Constants.ID_MEDIADOR_ALTA));
 		clickEnviarDGS();
 		obtenerNumDGS();
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresDGSPage anyadirIdMediador() {
+		debugBegin();
+		// a la string se le asigna el valor guardado en el CSV y constante
+		String idMedAlta = getSuiteVar(Constants.ID_MEDIADOR_ALTA);
+		debugInfo("ver si aparece la idMedAlta correctamente: " + idMedAlta);
 		debugEnd();
 		return this;
 	}
@@ -164,38 +173,39 @@ public class MediadoresDGSPage extends PageObject {
 		// ir a recepción (reformular que esté en el HomePage de Mediadores)
 
 		// métodos para la recepcionDGS del mediador
-		webDriver.waitWithDriver(4000);
-		webDriver.switchToFrame(cuerpoFrame);
+	/*	webDriver.waitWithDriver(4000);
+		webDriver.switchToFrame(cuerpoFrame);*/
 		//copiar referencia en "Número" + Acualizar información de envió + Número de envio interno activos  (se queda activo)
 		// tras los primeros tests, revisar si se puede probar que los checks sean activos y entonces se haga clic en ellos
-		webDriver.click(actualizarInformacionEnvioBtn);
+	/*	webDriver.click(actualizarInformacionEnvioBtn);
 		webDriver.click(numeroEnvioInternoBtn);
 		//	webDriver.setText(numeroReferenciaInput, getTestVar(Constants.NUMERO_REF_DGS).toString());
-		webDriver.setText(numeroBuscadoInput, "20200204_160157");
-		webDriver.exitFrame();
+		webDriver.setText(numeroBuscadoInput, "20200205_113051");
+		webDriver.exitFrame(); -------------refactorizando*/
+		actualizaInfoEnvioEnRecepcionDGS(getScenarioVar(Constants.NUMERO_REF_DGS).toString());
 		clickBuscar();
-
-		webDriver.switchToFrame(cuerpoFrame);
+	/*	webDriver.switchToFrame(cuerpoFrame);
 		//copiar referencia en "Nº de referencia:" + "Fecha referencia" poner fecha actual
 		//	webDriver.setText(numeroReferenciaInput, getTestVar(Constants.NUMERO_REF_DGS).toString());
-		webDriver.setText(numeroReferenciaInput, "20200204_160157");
+		webDriver.setText(numeroReferenciaInput, "20200205_113051");
 		//		debugInfo("El número DGS es: " + getTestVar(Constants.NUMERO_REF_DGS));
 		String datoFechaReferencia = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.waitWithDriver(3000);
 		webDriver.setText(fechaReferenciaInput, datoFechaReferencia);
 		webDriver.exitFrame();
-		clickBuscar();
+		----refactorizando*/
+		actualizaInfoEnvioFechaRecepcionDGS(getScenarioVar(Constants.NUMERO_REF_DGS).toString());
 		clickActualizar();
-	//	clickBuscar();
 
 		//copiar referencia en "Número" + Actualizar mediadores envío + Número de envio interno activos (se queda activo)
 		// tras los primeros tests, revisar si se puede probar que los checks sean activos y entonces se haga clic en ellos
-		webDriver.switchToFrame(cuerpoFrame);
+	/*	webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(actualizarMediadoresEnvioBtn);
 		webDriver.click(numeroEnvioInternoBtn);
 		//	webDriver.setText(numeroReferenciaInput, getTestVar(Constants.NUMERO_REF_DGS)); // repasar funcionamiento porque en postpro, complet este campo deja de dar resultados
-		webDriver.setText(numeroReferenciaInput, "20200204_160157");
-		webDriver.exitFrame();
+		webDriver.setText(numeroBuscadoInput, "20200205_113051");
+		webDriver.exitFrame();*/
+		actualizarMedEnvioEnRecepcionDGS(getScenarioVar(Constants.NUMERO_REF_DGS).toString());
 		clickBuscar();
 
 		// Completar el campo "Fecha inscripción" con la fecha actual
@@ -204,11 +214,51 @@ public class MediadoresDGSPage extends PageObject {
 		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, datoFechaInscripcion);
 		// método para localizar el mediador que nos interesa y comprobar que el mediador cuenta con la selección "Autorizado" en su desplegable "Respuesta DGS"
 		//seleccionarMediadorRecepcionDGS(getTestVar(Constants.ID_MEDIADOR_ALTA).toString());
-		seleccionarMediadorRecepcionDGS("2547");
+		seleccionarMediadorRecepcionDGS(getSuiteVar(Constants.ID_MEDIADOR_ALTA));
 		clickActualizar();
 
 		debugInfo("finalizado el proceso para autorizar el DGS en 'Recepción DGS'");
 
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresDGSPage actualizaInfoEnvioFechaRecepcionDGS (String reInternaDGS) {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		//copiar referencia en "Nº de referencia:" + "Fecha referencia" poner fecha actual
+		//	webDriver.setText(numeroReferenciaInput, getTestVar(Constants.NUMERO_REF_DGS).toString());
+		webDriver.setText(numeroReferenciaInput, reInternaDGS);
+		//		debugInfo("El número DGS es: " + getTestVar(Constants.NUMERO_REF_DGS));
+		String datoFechaReferencia = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+		webDriver.waitWithDriver(3000);
+		webDriver.setText(fechaReferenciaInput, datoFechaReferencia);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresDGSPage actualizarMedEnvioEnRecepcionDGS(String reInternaDGS) {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.click(actualizarMediadoresEnvioBtn);
+		webDriver.click(numeroEnvioInternoBtn);
+		//	webDriver.setText(numeroReferenciaInput, getTestVar(Constants.NUMERO_REF_DGS)); // repasar funcionamiento porque en postpro, complet este campo deja de dar resultados
+		webDriver.setText(numeroBuscadoInput, reInternaDGS);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresDGSPage actualizaInfoEnvioEnRecepcionDGS(String reInternaDGS) {
+		webDriver.switchToFrame(cuerpoFrame);
+		//copiar referencia en "Número" + Acualizar información de envió + Número de envio interno activos  (se queda activo)
+		// tras los primeros tests, revisar si se puede probar que los checks sean activos y entonces se haga clic en ellos
+		webDriver.click(actualizarInformacionEnvioBtn);
+		webDriver.click(numeroEnvioInternoBtn);
+		//	webDriver.setText(numeroReferenciaInput, getTestVar(Constants.NUMERO_REF_DGS).toString());
+		webDriver.setText(numeroBuscadoInput, reInternaDGS);
+		webDriver.exitFrame();
 		debugEnd();
 		return this;
 	}
@@ -218,13 +268,15 @@ public class MediadoresDGSPage extends PageObject {
 
 		List<WebElement> obtenerListaEnvioDGS = webDriver.getElementsInFrame(listaDGSE, cuerpoFrame);
 		debugInfo("contiene " + obtenerListaEnvioDGS.size() + " mediadores en estado Envio DGS");
-		for(int i = 1; i < obtenerListaEnvioDGS.size(); i++) {
-			String obtenerIdMediador = webDriver.getTextInFrame(By
-				.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(5)"), cuerpoFrame).trim();
-			debugInfo("El Id del mediador es: " + obtenerIdMediador);
+
+		//for(int i = 0; i < obtenerListaEnvioDGS.size(); i++) {
+		String obtenerIdMediador = webDriver.getTextInFrame(By
+			.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr1 > td:nth-child(5)"), cuerpoFrame).trim().toString();
+		debugInfo("El Id del mediador es: " + obtenerIdMediador);
+
 		/*	String obtenerIdMediador = webDriver.getTextInFrame(By
-				.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(3)"), cuerpoFrame).trim();*/
-			debugInfo("El Id del mediador es: " + obtenerIdMediador);
+				.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(3)"), cuerpoFrame).trim();
+			debugInfo("El Id del mediador es: " + obtenerIdMediador);*/
 
 		/*	if(obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS)) {
 				boolean checkMediadorValue = obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS);
@@ -236,21 +288,23 @@ public class MediadoresDGSPage extends PageObject {
 					.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(2) > select > option"), cuerpoFrame, "value", "autorizado");
 			debugInfo("Se comprueba y hace clic en Autorizado del mediador. Test completado");
 			*/
-			if(obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS)) {
-				debugInfo("Se accede a los métodos de condición cuando se cumple");
-				boolean checkMediadorValue = obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS);
-				debugInfo("Comprobamos la id del mediador es: " + checkMediadorValue);
-				Assert.assertTrue(checkMediadorValue, "Comparar campos: la Id del mediador NO coincide");
+		if(obtenerIdMediador.equals(idMediadorAutorizaDGS)) {
+			debugInfo("Se accede a los métodos de condición cuando se cumple");
+			boolean checkMediadorValue = obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS);
+			debugInfo("Comprobamos la id del mediador es: " + checkMediadorValue);
+			Assert.assertTrue(checkMediadorValue, "Comparar campos: la Id del mediador NO coincide");
 
-				// comprobar desplegable "autorizado"
-				webDriver.clickElementChildByAttributeInFrame(By
-					.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(2) > select > option"), cuerpoFrame, "value", "autorizado");
+			// comprobar desplegable "autorizado"
+			if(checkMediadorValue == true) {
+				webDriver.clickElementFromDropDownByAttributeInFrame(By
+					.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr1 > td:nth-child(2) > select"), cuerpoFrame, "value", "autorizado");
 				debugInfo("Se comprueba y hace clic en Autorizado del mediador. Test completado");
-
-			}else{
-			debugInfo("El mediador cuya recepción se autoriza no se encuentra en la lista");
 			}
+
+		} else {
+			debugInfo("El mediador cuya recepción se autoriza no se encuentra en la lista");
 		}
+
 		debugEnd();
 		return this;
 	}
@@ -272,7 +326,8 @@ public class MediadoresDGSPage extends PageObject {
 				//	Assert.assertTrue(checkMediadorValue, "Comparar campos: la Id del mediador NO coincide");
 				webDriver.clickElementChildByAttributeInFrame(By
 					.cssSelector(
-						"#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(2)"), cuerpoFrame, "value", idMediadorAltaDGS); // > input quitado porque es child element
+						"#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1)
+							+ " > td:nth-child(2)"), cuerpoFrame, "value", idMediadorAltaDGS); // > input quitado porque es child element
 			}
 		}
 
@@ -290,7 +345,10 @@ public class MediadoresDGSPage extends PageObject {
 		} else {
 			debugError("Se ha producido un error al obtener el número de referencia DGS");
 		}*/
-		webDriver.getTextInFrame(envioDGSCorrectoTxt, cuerpoFrame).trim().substring(46, 61);
+		setScenarioVar(Constants.NUMERO_REF_DGS, webDriver.getTextInFrame(envioDGSCorrectoTxt, cuerpoFrame).trim().substring(46, 61));
+
+	//	webDriver.getTextInFrame(envioDGSCorrectoTxt, cuerpoFrame).trim().substring(46, 61);
+
 		debugInfo("Mensaje correcto: " + webDriver.getTextInFrame(envioDGSCorrectoTxt, cuerpoFrame).trim().substring(46, 61));
 		debugEnd();
 		return this;
