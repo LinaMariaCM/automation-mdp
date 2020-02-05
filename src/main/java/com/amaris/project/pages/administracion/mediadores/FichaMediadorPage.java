@@ -751,10 +751,9 @@ public class FichaMediadorPage extends PageObject {
 
 		if(webDriver.isPresentInFrame(tituloPaginaTxt, cuerpoFrame)) {
 			debugInfo("Mensaje correcto: " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim());
-
-			//	webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0,5).toString();
-			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+			setScenarioVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
 			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+			debugInfo("El mediador del campo  ID_MEDIADOR_ALTA es " + getSuiteVar(Constants.ID_MEDIADOR_ALTA));
 		} else {
 			debugInfo("Ha habido un error al dat de alta el mediador");
 		}
@@ -868,15 +867,14 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage anyadirIdMediador() {
+	/*public FichaMediadorPage anyadirIdMediador() {
 		debugBegin();
 		// a la string se le asigna el valor guardado en el CSV y constante
-		String idMedAlta;
-		idMedAlta = getTestVar(Constants.ID_MEDIADOR_ALTA);
+		String idMedAlta = getSuiteVar(Constants.ID_MEDIADOR_ALTA);
 		debugInfo("ver si aparece la idMedAlta correctamente: " + idMedAlta);
 		debugEnd();
 		return this;
-	}
+	}*/
 
 	/// falta realmente hacer uso de esteo dato?? anyadirIdMediador.idMedAlta
 
