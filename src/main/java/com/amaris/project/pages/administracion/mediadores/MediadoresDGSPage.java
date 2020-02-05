@@ -63,6 +63,7 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage clickActualizar() {
 		debugBegin();
 		webDriver.clickInFrame(actualizarBtn, cuerpoFrame);
+		webDriver.waitWithDriver(4000);
 		debugEnd();
 
 		return this;
@@ -182,9 +183,10 @@ public class MediadoresDGSPage extends PageObject {
 		String datoFechaReferencia = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.waitWithDriver(3000);
 		webDriver.setText(fechaReferenciaInput, datoFechaReferencia);
-		clickActualizar();
 		webDriver.exitFrame();
 		clickBuscar();
+		clickActualizar();
+	//	clickBuscar();
 
 		//copiar referencia en "Número" + Actualizar mediadores envío + Número de envio interno activos (se queda activo)
 		// tras los primeros tests, revisar si se puede probar que los checks sean activos y entonces se haga clic en ellos
@@ -217,14 +219,14 @@ public class MediadoresDGSPage extends PageObject {
 		List<WebElement> obtenerListaEnvioDGS = webDriver.getElementsInFrame(listaDGSE, cuerpoFrame);
 		debugInfo("contiene " + obtenerListaEnvioDGS.size() + " mediadores en estado Envio DGS");
 		for(int i = 1; i < obtenerListaEnvioDGS.size(); i++) {
-			/*String obtenerIdMediador = webDriver.getTextInFrame(By
-				.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(5)"), cuerpoFrame).trim();
-			debugInfo("El Id del mediador es: " + obtenerIdMediador);*/
 			String obtenerIdMediador = webDriver.getTextInFrame(By
-				.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(3)"), cuerpoFrame).trim();
+				.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(5)"), cuerpoFrame).trim();
+			debugInfo("El Id del mediador es: " + obtenerIdMediador);
+		/*	String obtenerIdMediador = webDriver.getTextInFrame(By
+				.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(3)"), cuerpoFrame).trim();*/
 			debugInfo("El Id del mediador es: " + obtenerIdMediador);
 
-			if(obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS)) {
+		/*	if(obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS)) {
 				boolean checkMediadorValue = obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS);
 				debugInfo("Comprobamos la id del mediador es: " + checkMediadorValue);
 				Assert.assertTrue(checkMediadorValue, "Comparar campos: la Id del mediador NO coincide");
@@ -232,6 +234,21 @@ public class MediadoresDGSPage extends PageObject {
 				// comprobar desplegable "autorizado"
 				webDriver.clickElementChildByAttributeInFrame(By
 					.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(2) > select > option"), cuerpoFrame, "value", "autorizado");
+			debugInfo("Se comprueba y hace clic en Autorizado del mediador. Test completado");
+			*/
+			if(obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS)) {
+				debugInfo("Se accede a los métodos de condición cuando se cumple");
+				boolean checkMediadorValue = obtenerIdMediador.equalsIgnoreCase(idMediadorAutorizaDGS);
+				debugInfo("Comprobamos la id del mediador es: " + checkMediadorValue);
+				Assert.assertTrue(checkMediadorValue, "Comparar campos: la Id del mediador NO coincide");
+
+				// comprobar desplegable "autorizado"
+				webDriver.clickElementChildByAttributeInFrame(By
+					.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr" + (i + 1) + " > td:nth-child(2) > select > option"), cuerpoFrame, "value", "autorizado");
+				debugInfo("Se comprueba y hace clic en Autorizado del mediador. Test completado");
+
+			}else{
+			debugInfo("El mediador cuya recepción se autoriza no se encuentra en la lista");
 			}
 		}
 		debugEnd();
