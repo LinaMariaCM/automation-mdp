@@ -173,7 +173,7 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.envio_recepcion_DGS();
+			steps.alta_interm_AE_completo();
 
 			return null;
 		}).run();
