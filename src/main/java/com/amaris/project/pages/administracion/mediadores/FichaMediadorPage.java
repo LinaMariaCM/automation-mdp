@@ -52,7 +52,7 @@ public class FichaMediadorPage extends PageObject {
 	private By solicitarAltaBtn = By.cssSelector("[onclick*='operacion=SOLIALTA']");
 	private By comentarioSituacionInput = By.cssSelector("body.modalContenido > #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table > tbody > tr:nth-child(2) > td > textarea");
 	private By observacionComercialInput = By.cssSelector("#GESMED_OBSECOME");
-	private By comentarioResolFinancInput = By.cssSelector("#formDatos > div.contentBox.anchuraCajas > div.marcofnd > table.narrowBox > tbody > tr:nth-child(2) > td");
+	private By comentarioResolFinancInput = By.cssSelector("body.modalContenido > #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table.narrowBox > tbody > tr:nth-child(2) > td > textarea");
 	private By rechazarAltaBtn = By.cssSelector("[onclick*='operacion=RECHMEDI]");
 	private By solicitarMasInformacionBtn = By.cssSelector("[onclick*='operacion=SOLIINFOINIC]");
 	private By confirmarAltaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
@@ -421,7 +421,7 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage comentarioResolFinanciera() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.setTextInFrame(comentarioResolFinancInput, modalFrame, "Comentario para añadir");
+		webDriver.setTextInFrame(comentarioResolFinancInput, modalFrame, "Comentario para añadir.");
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -875,8 +875,10 @@ public class FichaMediadorPage extends PageObject {
 			clickMasAcciones();
 			clickEnviarResolucionFinanciera();
 			webDriver.waitWithDriver(3000);
+
 			webDriver.switchToFrame(cuerpoFrame);
 			webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraCombo, enviaResolucionFinancieraOption, modalFrame, "value", "ALAC");
+
 			comentarioResolucionFinanciera();
 			grabarComentarioEstado();
 
@@ -898,13 +900,16 @@ public class FichaMediadorPage extends PageObject {
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 
 			comprobarSituacion(RESOLUCION_FINANCIERA);
+
 			clickMasAcciones();
 			clickConfirmarAlta();
 			webDriver.waitWithDriver(3000);
 			grabarComentarioEstado();
+
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
 			webDriver.waitWithDriver(5000);
+
 			webDriver.switchToFrame(cuerpoFrame);
 			webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraAltaCombo, enviaResolucionFinancieraAltaOption, modalFrame, "value", "ALAC");
 
@@ -912,8 +917,11 @@ public class FichaMediadorPage extends PageObject {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
-			comentarioResolFinanciera();
+			webDriver.waitWithDriver(3000);
+
+			anyadirComentarioSituacion();
 			grabarComentarioEstado();
+
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
 		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
@@ -922,12 +930,15 @@ public class FichaMediadorPage extends PageObject {
 			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
 			comprobarSituacion(SOLICITUD_ALTA);
+
 			clickMasAcciones();
 			clickConfirmarAlta();
 			webDriver.waitWithDriver(3000);
 			grabarComentarioEstado();
+
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
+
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
