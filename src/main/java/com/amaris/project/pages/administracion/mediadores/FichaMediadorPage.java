@@ -569,6 +569,8 @@ public class FichaMediadorPage extends PageObject {
 
 			//	webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0,5).toString();
 			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+			// anyadimos este set para podernos llevar la id_alta_mediador a la siguiente prueba
+			setSuiteVar("id_prospect_trans", webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
 			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
 		}else{
 			debugInfo("Ha habido un error al dat de alta el mediador");

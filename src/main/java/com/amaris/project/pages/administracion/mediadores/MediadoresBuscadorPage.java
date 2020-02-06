@@ -2,6 +2,8 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.project.Constants;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -130,6 +132,16 @@ public class MediadoresBuscadorPage extends PageObject {
 	public MediadoresBuscadorPage buscarMediadorPorId(){
 		debugBegin();
 		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121815");
+		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
+		clickBuscar();
+		webDriver.waitWithDriver(8000);
+		debugEnd();
+		return this;
+	}
+	//Búsqueda para comprobar el intercambio de datos
+	public MediadoresBuscadorPage buscarMediadorPorIdIntercambio(){
+		debugBegin();
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_MEDIADOR_ALTA));
 		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
 		clickBuscar();
 		webDriver.waitWithDriver(8000);
