@@ -182,7 +182,7 @@ public class MediadoresTest {
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMed11() {
 		String testCase = Constants.MEDIADORES_CASE + "11";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_colabordor_csv_2.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
 		return casesMatrix;
 	}
 
@@ -193,7 +193,7 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.mediadores_cambios_estado_situacion();
+			steps.mediadores_cambios_estado_situacion_AE();
 			return null;
 		}).run();
 	}

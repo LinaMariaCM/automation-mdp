@@ -35,9 +35,9 @@ public class FichaMediadorPage extends PageObject {
 	private By condicionesNegocioBtn = By.linkText(("Condiciones de negocio").trim());
 	private By infoHistoricaBtn = By.linkText(("Info Histórica").trim());
 	private By infoCCMBtn = By.cssSelector("#pes7");
-//	private By infoCCMBtn = By.cssSelector("[onclick*='subSecci=SEC_INFO_CCM']");
-//	private By infoCCMBtn = By.linkText(("Info CCM").trim());
-//	private By infoCCMBtn =  div.contentBoxTab.widthTabs > div > div.lineabase > div > ul > li:nth-child(8)
+	//	private By infoCCMBtn = By.cssSelector("[onclick*='subSecci=SEC_INFO_CCM']");
+	//	private By infoCCMBtn = By.linkText(("Info CCM").trim());
+	//	private By infoCCMBtn =  div.contentBoxTab.widthTabs > div > div.lineabase > div > ul > li:nth-child(8)
 	private By infoDGSBtn = By.linkText(("Info DGS").trim());
 	private By contactosBtn = By.cssSelector("[onclick*='subSecci=SEC_CONTACTOS']");
 	private By situacionesBtn = By.cssSelector("[onclick*='subSecci=SEC_SITUACIONES']");
@@ -52,7 +52,7 @@ public class FichaMediadorPage extends PageObject {
 	private By solicitarAltaBtn = By.cssSelector("[onclick*='operacion=SOLIALTA']");
 	private By comentarioSituacionInput = By.cssSelector("body.modalContenido > #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table > tbody > tr:nth-child(2) > td > textarea");
 	private By observacionComercialInput = By.cssSelector("#GESMED_OBSECOME");
-	private By comentarioResolFinancAltaInput = By.cssSelector("#GESMED_RESFCOME");
+	private By comentarioResolFinancInput = By.cssSelector("#formDatos > div.contentBox.anchuraCajas > div.marcofnd > table.narrowBox > tbody > tr:nth-child(2) > td");
 	private By rechazarAltaBtn = By.cssSelector("[onclick*='operacion=RECHMEDI]");
 	private By solicitarMasInformacionBtn = By.cssSelector("[onclick*='operacion=SOLIINFOINIC]");
 	private By confirmarAltaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
@@ -62,28 +62,22 @@ public class FichaMediadorPage extends PageObject {
 	private By enviaResolucionFinancieraCombo = By.cssSelector("#GESMED_REVFVALO");
 	private By enviaResolucionFinancieraOption = By.cssSelector("#GESMED_REVFVALO > option");
 	private By enviaResolucionFinancieraAltaCombo = By.cssSelector("#GESMED_RESFVALO");
-	private By enviaResolucionFinancieraAltaOption = By.cssSelector("#GESMED_RESFVALO");
+	private By enviaResolucionFinancieraAltaOption = By.cssSelector("#GESMED_RESFVALO > option");
 	private By enviaResolucionFinancieraInput = By.cssSelector("#GESMED_REVFCOME");
-	// alternativa sin probar por si falla el textarea	private By enviaResolucionFinancieraTxt = By.cssSelector("#formDatos > div.contentBox.anchuraCajas > div.marcofnd > table.narrowBox > tbody > tr:nth-child(2) > td > textarea"); o  name=comresfi
-	// alternativa para obtener desplegable #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table.anchuraCajas > tbody > tr > td > select > option     deñ select name="valresfi"
-	private By avanzarEstadoBtn = By.cssSelector("[onclic='operacion=AVANESTA']");
-	private By fFormObligatoria = By.cssSelector("#GESMED_FFOROBLIG");
+	private By avanzarEstadoBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(2) > a");
+	private By fFormObligatoriaTxt = By.cssSelector("body > table.wideBox > tbody > tr > td > p > strong");
+	private By fFormObligatoriaInput = By.cssSelector("#GESMED_FFOROBLIG");
 	private By periodoCreditoTxt = By.cssSelector("body > table.wideBox > tbody > tr > td > p > strong");
-	// alternativa private By fFormObligatoria = By.cssSelector("#formDatos > div.contentBox.anchuraCajas > div.marcofnd > table > tbody > tr:nth-child(2) > td > input"); o  name="feforobl"
-	private By activarMediadorBtn = By.cssSelector("[onclic='operacion=ACTIMEDI']");
-	private By fEnvioContratoTxt = By.cssSelector("#GESMED_FENVCONT");
-	//alternativas name="feenvcon" y #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table > tbody > tr:nth-child(2) > td:nth-child(2) > input
-	private By fRecepcionContratoTxt = By.cssSelector("#GESMED_FRECCONT");
-	// alternativa name="fereccon" y #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table > tbody > tr:nth-child(2) > td:nth-child(4) > input
-	private By solicitarBajaBtn = By.cssSelector("[onclick*='operacion=SOLIBAJA']");
+	private By activarMediadorBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(3) > a");
+	private By fEnvioContratoInput = By.cssSelector("#GESMED_FENVCONT");
+	private By fRecepcionContratoInput = By.cssSelector("#GESMED_FRECCONT");
+	private By solicitarBajaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(3) > a");
 	private By grabarEstadoBtn = By.cssSelector("#buttonRecord");
 	private By volverBtn = By.cssSelector("#Submit");
 	private By cancelarBtn = By.cssSelector("#buttonCancel");
 
 	private By altaOficinaBtn = By.cssSelector("[onclick*='CODIACCI=ALTAOFIC']");
-	// alternativa de alta oficina cuando es en AE activo restringido  #capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(5) > a
-	private By altaColaboradorBtn = By.cssSelector("[onclick*='CODIACCI=COLADOFI']");
-	// alternativa de alta colaborador  #capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a / + > span texto= Alta colaborador
+	private By altaColaboradorBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
 	private By solicitarMantenimientoBtn = By.cssSelector("[onclick*='operacion=SOLIMANT']");
 
 	//------------- Contenido del encabezado -------------
@@ -160,6 +154,10 @@ public class FichaMediadorPage extends PageObject {
 	// Pestaña Info CCM
 	private By periodoCredito = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(4) > td:nth-child(2)");
 	private By limiteCredito = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(5) > td:nth-child(4)");
+	private By periodoCreditoCombo = By.cssSelector("#ALTAMEDI_PERCREDI");
+	private By periodoCreditoOption = By.cssSelector("#ALTAMEDI_PERCREDI > option");
+	private By limiteCreditoCombo = By.cssSelector("#ALTAMEDI_LIMCREDI");
+	private By limiteCreditoOption = By.cssSelector("#ALTAMEDI_LIMCREDI > option");
 
 	// Pestaña Info DGS
 	private By fechaInicioContrato = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(1) > table > tbody > tr:nth-child(8) > td > table > tbody > tr > td");
@@ -176,16 +174,14 @@ public class FichaMediadorPage extends PageObject {
 	private By listaDirecciones = By
 		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr");
 
-	//Otros
-	private By periodoCreditoCombo = By.cssSelector("#ALTAMEDI_PERCREDI");
-	private By periodoCreditoOption = By.cssSelector("#ALTAMEDI_PERCREDI > option");
-	private By limiteCreditoCombo = By.cssSelector("#ALTAMEDI_LIMCREDI");
-	private By limiteCreditoOption = By.cssSelector("#ALTAMEDI_LIMCREDI > option");
+	// Control de pagina
 	private By guardarSalirBtn = By.cssSelector("#botonGrabar1");
+
 	// Pestaña Cambio
 	private By situacionCambiosCombo = By.cssSelector("#situacion");
+	private By cambioSituacionTxt = By.cssSelector("#formDatos > div.contentBox.anchuraCajas > div.marcofnd > p");
 
-	//--------     Constantes SITUACIONES-----------------------------//
+	//----------------Constantes SITUACIONES-----------------------------//
 	private static final String RESOLUCION_FINANCIERA = "Situación Resolución financiera";
 	private static final String ALTA_MEDIADOR = "Situación Alta mediador";
 	private static final String SOLICITUD_ALTA = "Situación Solicitud de alta";
@@ -193,9 +189,10 @@ public class FichaMediadorPage extends PageObject {
 	private static final String REVISION_FINANCIERA = "Situación Revisión financiera";
 
 	//--------------- Constantes ESTADOS------------------//
-
 	private static final String EN_TRAMITACION = "Estado En tramitación";
 	private static final String FORMACION = "Estado Formación";
+	private static final String ACTIVO_RESTRINGIDO = "Estado Activo restringido";
+	private static final String ACTIVO = "Estado Activo";
 
 	// endregion
 
@@ -421,10 +418,10 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage comentarioResolFinancieraAltaConfirmar() {
+	public FichaMediadorPage comentarioResolFinanciera() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.setTextInFrame(comentarioResolFinancAltaInput, modalFrame, "Comentario para añadir");
+		webDriver.setTextInFrame(comentarioResolFinancInput, modalFrame, "Comentario para añadir");
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -434,7 +431,7 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 		String datoFechaFormOblig = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.setTextInFrame(fFormObligatoria, modalFrame, datoFechaFormOblig);
+		webDriver.setTextInFrame(fFormObligatoriaInput, modalFrame, datoFechaFormOblig);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -444,7 +441,17 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 		String datoFechaEnvioContrato = DateUtils.getModifiedDate(Calendar.DATE, -3, Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.setTextInFrame(fEnvioContratoTxt, modalFrame, datoFechaEnvioContrato);
+		webDriver.setTextInFrame(fEnvioContratoInput, modalFrame, datoFechaEnvioContrato);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage anyadirFechaRecepcionContratoAntesEnvio() {
+		debugBegin();
+		String datoFechaRecepContrato = DateUtils.getModifiedDate(Calendar.DATE, -7, Constants.DATE_FORMAT);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(fRecepcionContratoInput, modalFrame, datoFechaRecepContrato);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -454,7 +461,7 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 		String datoFechaRecepcionContrato = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.setTextInFrame(fRecepcionContratoTxt, modalFrame, datoFechaRecepcionContrato);
+		webDriver.setTextInFrame(fRecepcionContratoInput, modalFrame, datoFechaRecepcionContrato);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
 		return this;
@@ -581,25 +588,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage anyadirDatosResolucionFinanciera() {
-		debugBegin();
-
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_VALORACION_FINANCIERA_MEDIADORES);
-		webDriver.acceptAlert();
-		webDriver.waitWithDriver(3000);
-
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraCombo, enviaResolucionFinancieraOption, modalFrame, "value", "ALAC");
-
-		grabarComentarioEstado();
-
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_FINANCIERA_MEDIADORES);
-		webDriver.acceptAlert();
-
-		debugEnd();
-		return this;
-	}
-
 	//---------------------ESTADOS + SITUACIONES MÉTODOS------------------------------
 
 	//COMPROBAR TEXTO DE ESTADO
@@ -632,11 +620,12 @@ public class FichaMediadorPage extends PageObject {
 		return checkSituacion;
 	}
 
+	//ALERTA SOBRE LA FECHA DE FORMACION
 	public boolean alertaSistemaFechaFormacion(String mensaje) {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
-		String fechaFormacion = webDriver.getTextInFrame(fFormObligatoria, modalFrame).trim();
+		String fechaFormacion = webDriver.getTextInFrame(fFormObligatoriaTxt, modalFrame).trim();
 		boolean checkFecha = fechaFormacion.equalsIgnoreCase(mensaje);
 
 		debugInfo("Mensaje esperado:" + mensaje);
@@ -647,7 +636,8 @@ public class FichaMediadorPage extends PageObject {
 		return checkFecha;
 	}
 
-	public boolean alertaSistemaPeriodoCredito(String mensaje) {
+	//ALERTA SOBRE PERDIODO DE CREDITO
+	public boolean alertaSistemaPeriodoLimiteCredito(String mensaje) {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
@@ -662,26 +652,94 @@ public class FichaMediadorPage extends PageObject {
 		return checkPeriodo;
 	}
 
+	//ALERTA SOBRE CAMBIO DE SITUACION PARA DAR DE BAJA
+	public boolean alertaCambioSituacion(String mensaje) {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		String cambioSituacion = webDriver.getTextInFrame(cambioSituacionTxt, modalFrame).trim();
+		boolean checkCambio = cambioSituacion.equalsIgnoreCase(mensaje);
+
+		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje real: " + cambioSituacion);
+
+		debugEnd();
+
+		return checkCambio;
+	}
+
+	//RELLENAR LA PARTE DE PERIODO DE CREDITO
+	public FichaMediadorPage anyadirPeriodoCredito() {
+		debugBegin();
+		clickInfoCCM();
+		webDriver.waitWithDriver(3000);
+		webDriver.clickInFrame(modificarMedCondiciNegBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.clickElementFromDropDownByAttributeInFrame(periodoCreditoCombo, periodoCreditoOption, cuerpoFrame, "value", "45");
+		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	//RELLENAR LA PARTE DE LIMITE DE CREDITO
+	public FichaMediadorPage anyadirLimiteCredito() {
+		debugBegin();
+		clickInfoCCM();
+		webDriver.waitWithDriver(3000);
+		webDriver.clickInFrame(modificarMedCondiciNegBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.clickElementFromDropDownByAttributeInFrame(limiteCreditoCombo, limiteCreditoOption, cuerpoFrame, "value", "ESPE");
+		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage anyadirDatosResolucionFinanciera() {
+		debugBegin();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_VALORACION_REVISION_FINANCIERA_MEDIADORES);
+		webDriver.acceptAlert();
+		webDriver.waitWithDriver(3000);
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraCombo, enviaResolucionFinancieraOption, modalFrame, "value", "ALAC");
+
+		grabarComentarioEstado();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		debugEnd();
+		return this;
+	}
+
+	//------------------EMPIEZAN ESTADOS--------------------------
 	public FichaMediadorPage solicitarAlta() {
 		debugBegin();
 
-		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
-		Assert.assertTrue(comprobarSituacion(ALTA_MEDIADOR), "La situacion no es correcta.");
+		if(!getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") || getTestVar(Constants.TIPO_MEDIADOR) != null
+			|| !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
-		webDriver.waitWithDriver(3000);
-		clickMasAcciones();
-		clickSolicitarAlta();
-		webDriver.waitWithDriver(3000);
+			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
+			Assert.assertTrue(comprobarSituacion(ALTA_MEDIADOR), "La situacion no es correcta.");
 
-		grabarComentarioEstado();
+			webDriver.waitWithDriver(3000);
+			clickMasAcciones();
+			clickSolicitarAlta();
+			webDriver.waitWithDriver(3000);
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES);
-		webDriver.acceptAlert();
+			grabarComentarioEstado();
 
-		anyadirComentarioSituacion();
-		grabarComentarioEstado();
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES);
+			webDriver.acceptAlert();
 
-		debugInfo("Solicitar alta se hizo con éxito o por lo menos recorrió");
+			anyadirComentarioSituacion();
+			grabarComentarioEstado();
+
+			debugInfo("Solicitar alta se hizo con éxito o por lo menos recorrió");
+		}
 
 		debugEnd();
 		return this;
@@ -690,22 +748,28 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarValoracionFinanciera() {
 		debugBegin();
 
-		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
-		Assert.assertTrue(comprobarSituacion(SOLICITUD_ALTA), "La situacion no es correcta.");
+		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
-		clickMasAcciones();
-		clickEnviarValFinanciera();
-		webDriver.waitWithDriver(3000);
+			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
+			Assert.assertTrue(comprobarSituacion(SOLICITUD_ALTA), "La situacion no es correcta.");
 
-		grabarComentarioEstado();
+			clickMasAcciones();
+			clickEnviarValFinanciera();
+			webDriver.waitWithDriver(3000);
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_OBSERVACION_COMERCIAL_MEDIADORES);
-		webDriver.acceptAlert();
+			grabarComentarioEstado();
 
-		anyadirObservacionComercial();
-		grabarComentarioEstado();
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_OBSERVACION_COMERCIAL_MEDIADORES);
+			webDriver.acceptAlert();
 
-		debugInfo("Enviar para valoración financiera se hizo con éxito o por lo menos recorrió");
+			anyadirObservacionComercial();
+			grabarComentarioEstado();
+
+			debugInfo("Enviar para valoración financiera se hizo con éxito o por lo menos recorrió");
+		}
 
 		debugEnd();
 		return this;
@@ -714,36 +778,29 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarRevisionFinanciera() {
 		debugBegin();
 
-		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
-		Assert.assertTrue(comprobarSituacion(INFORMACION_FINANCIERA), "La situacion no es correcta.");
+		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
-		clickMasAcciones();
-		clickEnviarRevisionFinanciera();
-		webDriver.waitWithDriver(3000);
+			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
+			Assert.assertTrue(comprobarSituacion(INFORMACION_FINANCIERA), "La situacion no es correcta.");
 
-		grabarComentarioEstado();
+			clickMasAcciones();
+			clickEnviarRevisionFinanciera();
+			webDriver.waitWithDriver(3000);
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES);
-		webDriver.acceptAlert();
+			grabarComentarioEstado();
 
-		anyadirComentarioSituacion();
-		grabarComentarioEstado();
-		debugInfo("Enviar para revisión financiera se hizo con éxito o por lo menos recorrió");
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES);
+			webDriver.acceptAlert();
 
-		debugEnd();
-		return this;
-	}
+			anyadirComentarioSituacion();
+			grabarComentarioEstado();
 
-	public FichaMediadorPage anyadirPeriodoLimiteCredito() {
-		debugBegin();
-		clickInfoCCM();
-		webDriver.waitWithDriver(3000);
-		webDriver.clickInFrame(modificarMedCondiciNegBtn, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
-		webDriver.clickElementFromDropDownByAttributeInFrame(periodoCreditoCombo, periodoCreditoOption, cuerpoFrame, "value", "45");
-		webDriver.clickElementFromDropDownByAttributeInFrame(limiteCreditoCombo, limiteCreditoOption, cuerpoFrame, "value", "ESPE");
-		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
+			debugInfo("Enviar para revisión financiera se hizo con éxito o por lo menos recorrió");
+		}
+
 		debugEnd();
 		return this;
 	}
@@ -760,6 +817,7 @@ public class FichaMediadorPage extends PageObject {
 		} else {
 			debugInfo("Ha habido un error al dat de alta el mediador");
 		}
+
 		debugEnd();
 		return this;
 	}
@@ -767,77 +825,60 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarResolucionFinanciera() {
 		debugBegin();
 
-		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
-		Assert.assertTrue(comprobarSituacion(REVISION_FINANCIERA), "La situacion no es correctA.");
+		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
-		clickMasAcciones();
-		clickEnviarResolucionFinanciera();
-		webDriver.waitWithDriver(3000);
+			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
+			Assert.assertTrue(comprobarSituacion(REVISION_FINANCIERA), "La situacion no es correctA.");
 
-		grabarComentarioEstado();
-
-		anyadirDatosResolucionFinanciera();
-		comentarioResolucionFinanciera();
-		grabarComentarioEstado();
-
-		Assert.assertTrue(alertaSistemaPeriodoCredito(Constants.ALERTA_PERIODO_CREDITO_MEDIADORES));
-		webDriver.waitWithDriver(3000);
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(volverBtn);
-		webDriver.click(cancelarBtn);
-		webDriver.exitFrame();
-
-		//--FALTA LA RETENCION DE LIMITE CREDITO----añadir en alta
-		anyadirPeriodoLimiteCredito();
-
-		clickMasAcciones();
-		clickEnviarResolucionFinanciera();
-		webDriver.waitWithDriver(3000);
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraCombo, enviaResolucionFinancieraOption, modalFrame, "value", "ALAC");
-		comentarioResolucionFinanciera();
-		grabarComentarioEstado();
-
-		debugInfo("Enviar para resolución financiera se hizo con éxito o por lo menos recorrió");
-
-		debugEnd();
-		return this;
-	}
-
-	// me quedado aqui
-	public FichaMediadorPage confirmarAlta() {
-		debugBegin();
-
-		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
-
-		if(comprobarSituacion(RESOLUCION_FINANCIERA)) {
 			clickMasAcciones();
-			clickConfirmarAlta();
+			clickEnviarResolucionFinanciera();
 			webDriver.waitWithDriver(3000);
+
 			grabarComentarioEstado();
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_VALORACION_FINANCIERA_MEDIADORES);
-			webDriver.acceptAlert();
+
+			anyadirDatosResolucionFinanciera();
+			comentarioResolucionFinanciera();
+			grabarComentarioEstado();
+
+			Assert.assertTrue(alertaSistemaPeriodoLimiteCredito(Constants.ALERTA_PERIODO_CREDITO_MEDIADORES));
 			webDriver.waitWithDriver(3000);
 			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraAltaCombo, enviaResolucionFinancieraAltaOption, modalFrame, "value", "ALAC");
+			webDriver.switchToFrame(modalFrame);
+			webDriver.click(volverBtn);
+			webDriver.click(cancelarBtn);
+			webDriver.exitFrame();
 
-			grabarComentarioEstado();
+			anyadirPeriodoCredito();
 
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_FINANCIERA_MEDIADORES);
-			webDriver.acceptAlert();
-			comentarioResolFinancieraAltaConfirmar();
-			grabarComentarioEstado();
-			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
-		} else if(comprobarSituacion(SOLICITUD_ALTA)) {
 			clickMasAcciones();
-			clickConfirmarAlta();
+			clickEnviarResolucionFinanciera();
 			webDriver.waitWithDriver(3000);
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraCombo, enviaResolucionFinancieraOption, modalFrame, "value", "ALAC");
+			comentarioResolucionFinanciera();
 			grabarComentarioEstado();
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_FINANCIERA_MEDIADORES);
-			webDriver.acceptAlert();
-			comentarioResolFinancieraAltaConfirmar();
+
+			Assert.assertTrue(alertaSistemaPeriodoLimiteCredito(Constants.ALERTA_LIMITE_CREDITO_MEDIADORES));
+			webDriver.waitWithDriver(3000);
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+			webDriver.click(volverBtn);
+			webDriver.click(cancelarBtn);
+			webDriver.exitFrame();
+
+			anyadirLimiteCredito();
+
+			clickMasAcciones();
+			clickEnviarResolucionFinanciera();
+			webDriver.waitWithDriver(3000);
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraCombo, enviaResolucionFinancieraOption, modalFrame, "value", "ALAC");
+			comentarioResolucionFinanciera();
 			grabarComentarioEstado();
+
 			debugInfo("Enviar para resolución financiera se hizo con éxito o por lo menos recorrió");
 		}
 
@@ -845,27 +886,187 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage confirmarAlta() {
+		debugBegin();
+
+		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+
+			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
+
+			comprobarSituacion(RESOLUCION_FINANCIERA);
+			clickMasAcciones();
+			clickConfirmarAlta();
+			webDriver.waitWithDriver(3000);
+			grabarComentarioEstado();
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES);
+			webDriver.acceptAlert();
+			webDriver.waitWithDriver(5000);
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraAltaCombo, enviaResolucionFinancieraAltaOption, modalFrame, "value", "ALAC");
+
+			grabarComentarioEstado();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES);
+			webDriver.acceptAlert();
+			comentarioResolFinanciera();
+			grabarComentarioEstado();
+			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
+
+		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AUXI") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("GEST") || getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") ||
+			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+
+			comprobarSituacion(SOLICITUD_ALTA);
+			clickMasAcciones();
+			clickConfirmarAlta();
+			webDriver.waitWithDriver(3000);
+			grabarComentarioEstado();
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES);
+			webDriver.acceptAlert();
+			anyadirComentarioSituacion();
+			grabarComentarioEstado();
+			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
+
+		}
+
+		debugEnd();
+
+		return this;
+	}
+
 	public FichaMediadorPage formacionAvanzarEstado() {
 		debugBegin();
 
-		Assert.assertTrue(comprobarEstado(FORMACION), "El estado no es correcto.");
+		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") ||
+			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
+			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() || getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR)
+			.isEmpty()) {
 
-		clickMasAcciones();
-		clickAvanzarEstado();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(grabarEstadoBtn);
-		webDriver.waitWithDriver(3000);
-		Assert.assertTrue(alertaSistemaFechaFormacion(Constants.ALERTA_FECHA_MEDIADORES));
-		webDriver.click(volverBtn);
-		webDriver.setText(fFormObligatoria, "fecha");
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_MEDIADORES_INCORRECTA);
-		webDriver.acceptAlert();
-		webDriver.exitFrame();
-		anyadirFechaFormOblig();
-		grabarComentarioEstado();
-		debugInfo("Avanzar estado se hizo con éxito o por lo menos recorrió");
+			Assert.assertTrue(comprobarEstado(FORMACION), "El estado no es correcto.");
 
+			clickMasAcciones();
+			clickAvanzarEstado();
+			grabarComentarioEstado();
+
+			Assert.assertTrue(alertaSistemaFechaFormacion(Constants.ALERTA_FECHA_MEDIADORES));
+			webDriver.waitWithDriver(3000);
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+			webDriver.click(volverBtn);
+			webDriver.waitWithDriver(3000);
+			webDriver.setText(fFormObligatoriaInput, "fecha");
+			webDriver.click(grabarEstadoBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_MEDIADORES_INCORRECTA);
+			webDriver.acceptAlert();
+			webDriver.waitWithDriver(5000);
+
+			webDriver.exitFrame();
+
+			anyadirFechaFormOblig();
+			grabarComentarioEstado();
+
+			debugInfo("Avanzar estado se hizo con éxito o por lo menos recorrió");
+		}
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage activarMediadorEstado() {
+		debugBegin();
+
+		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
+			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
+			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() ||
+			getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+
+			Assert.assertTrue(comprobarEstado(ACTIVO_RESTRINGIDO), "El estado no es correcto.");
+
+			clickMasAcciones();
+			clickActivarMediador();
+			webDriver.waitWithDriver(3000);
+			grabarComentarioEstado();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES);
+			webDriver.acceptAlert();
+			webDriver.waitWithDriver(3000);
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+			webDriver.setText(fEnvioContratoInput, "fecha");
+			webDriver.click(grabarEstadoBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES);
+			webDriver.acceptAlert();
+
+			webDriver.waitWithDriver(3000);
+			webDriver.exitFrame();
+
+			anyadirFechaEnvioContrato();
+			grabarComentarioEstado();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES);
+			webDriver.acceptAlert();
+			webDriver.waitWithDriver(3000);
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+			webDriver.setText(fRecepcionContratoInput, "fecha");
+			webDriver.click(grabarEstadoBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES);
+			webDriver.acceptAlert();
+
+			webDriver.exitFrame();
+
+			anyadirFechaRecepcionContratoAntesEnvio();
+			grabarComentarioEstado();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES);
+			webDriver.acceptAlert();
+
+			anyadirFechaRecepcionContrato();
+			grabarComentarioEstado();
+
+			debugInfo("Activar Mediador se hizo con éxito o por lo menos recorrió");
+		}
+		debugEnd();
+		return this;
+	}
+
+	// falta ver para ver mediadores
+	public FichaMediadorPage solicitarBaja() {
+		debugBegin();
+
+		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
+			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
+			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") ||
+			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() ||
+			getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+
+			Assert.assertTrue(comprobarEstado(ACTIVO), "El estado no es correcto.");
+
+			clickMasAcciones();
+			clickSolicitarBaja();
+			webDriver.waitWithDriver(3000);
+
+			Assert.assertTrue(alertaCambioSituacion(Constants.ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES));
+			grabarComentarioEstado();
+
+			debugInfo("Solicitar Baja se hizo con éxito o por lo menos recorrió");
+		}
 		debugEnd();
 		return this;
 	}
