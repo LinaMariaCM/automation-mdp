@@ -161,7 +161,8 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage anyadirIdMediador() {
 		debugBegin();
 		// a la string se le asigna el valor guardado en el CSV y constante
-		String idMedAlta = getSuiteVar(Constants.ID_MEDIADOR_ALTA);
+		String idMedAlta = getSuiteVar("id_mediador_alta");
+	//	String idMedAlta = getSuiteVar("id_mediador_alta");
 		debugInfo("ver si aparece la idMedAlta correctamente: " + idMedAlta);
 		debugEnd();
 		return this;
@@ -182,7 +183,7 @@ public class MediadoresDGSPage extends PageObject {
 		//	webDriver.setText(numeroReferenciaInput, getTestVar(Constants.NUMERO_REF_DGS).toString());
 		webDriver.setText(numeroBuscadoInput, "20200205_113051");
 		webDriver.exitFrame(); -------------refactorizando*/
-		actualizaInfoEnvioEnRecepcionDGS(getScenarioVar(Constants.NUMERO_REF_DGS).toString());
+		actualizaInfoEnvioEnRecepcionDGS(getScenarioVar(Constants.NUMERO_REF_DGS));// ver si mejor con o sin toString
 		clickBuscar();
 	/*	webDriver.switchToFrame(cuerpoFrame);
 		//copiar referencia en "Nº de referencia:" + "Fecha referencia" poner fecha actual
@@ -194,7 +195,7 @@ public class MediadoresDGSPage extends PageObject {
 		webDriver.setText(fechaReferenciaInput, datoFechaReferencia);
 		webDriver.exitFrame();
 		----refactorizando*/
-		actualizaInfoEnvioFechaRecepcionDGS(getScenarioVar(Constants.NUMERO_REF_DGS).toString());
+		actualizaInfoEnvioFechaRecepcionDGS(getScenarioVar(Constants.NUMERO_REF_DGS).toString()); // ver si mejor con o sin toString
 		clickActualizar();
 
 		//copiar referencia en "Número" + Actualizar mediadores envío + Número de envio interno activos (se queda activo)
@@ -337,7 +338,7 @@ public class MediadoresDGSPage extends PageObject {
 
 	public MediadoresDGSPage obtenerNumDGS() {
 		debugBegin();
-		webDriver.waitWithDriver(6000);
+		webDriver.waitWithDriver(10000);
 /*		if(webDriver.isPresentInFrame(envioDGSCorrectoTxt, cuerpoFrame)) {
 			debugInfo("Mensaje correcto: " + webDriver.getTextInFrame(envioDGSCorrectoTxt, cuerpoFrame));
 
@@ -345,7 +346,7 @@ public class MediadoresDGSPage extends PageObject {
 		} else {
 			debugError("Se ha producido un error al obtener el número de referencia DGS");
 		}*/
-		setScenarioVar(Constants.NUMERO_REF_DGS, webDriver.getTextInFrame(envioDGSCorrectoTxt, cuerpoFrame).trim().substring(46, 61));
+		setSuiteVar(Constants.NUMERO_REF_DGS, webDriver.getTextInFrame(envioDGSCorrectoTxt, cuerpoFrame).trim().substring(46, 61));
 
 	//	webDriver.getTextInFrame(envioDGSCorrectoTxt, cuerpoFrame).trim().substring(46, 61);
 
