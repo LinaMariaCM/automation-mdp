@@ -155,7 +155,7 @@ public class MediadoresBuscadorPage extends PageObject {
 
 	public MediadoresBuscadorPage buscarOficinaPorIdEstadoAlta() {
 		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "802179");
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121812");
 		webDriver.clickInFrame(nivelEstructuraIntermediarioBtn, cuerpoFrame);
 		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
@@ -168,10 +168,10 @@ public class MediadoresBuscadorPage extends PageObject {
 		return this;
 	}
 
-	//buscar por id mediador para probar estados y situaciones
-	public MediadoresBuscadorPage buscarMediadorEstadoSituacion() {
+	//buscar por id mediador para probar estados y situaciones para AE
+	/*public MediadoresBuscadorPage buscarMediadorEstadoSituacionAE() {
 		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121530");
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121567");
 		webDriver.clickInFrame(nivelEstructuraOficinaBtn, cuerpoFrame);
 		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
@@ -185,4 +185,5 @@ public class MediadoresBuscadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
+	*/
 }
