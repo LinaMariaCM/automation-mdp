@@ -27,16 +27,19 @@ public class FichaMediadorPage extends PageObject {
 
 	//------------- Botones Pestañas -------------
 
-	private By visionGlobalBtn = By.linkText("Vision Global");
-	private By infoDescriptivaBtn = By.linkText("Info Descriptiva");
-	private By infoContactoBtn = By.linkText("Info Contacto");
-	private By infoRelacionalBtn = By.linkText("Info Relacional");
-	private By infoTransaccionalBtn = By.linkText("Info Transaccional");
-	private By condicionesNegocioBtn = By.linkText("Condiciones de negocio");
-	private By infoHistoricaBtn = By.linkText("Info Histórica");
+	private By visionGlobalBtn = By.linkText(("Vision Global").trim());
+	private By infoDescriptivaBtn = By.linkText(("Info Descriptiva").trim());
+	private By infoContactoBtn = By.linkText(("Info Contacto").trim());
+	private By infoRelacionalBtn = By.linkText(("Info Relacional").trim());
+	private By infoTransaccionalBtn = By.linkText(("Info Transaccional").trim());
+	private By condicionesNegocioBtn = By.linkText(("Condiciones de negocio").trim());
+	private By infoHistoricaBtn = By.linkText(("Info Histórica").trim());
 	private By infoCCMBtn = By.cssSelector("#pes7");
-	private By infoDGSBtn = By.linkText("Info DGS");
-	private By contactosBtn = By.linkText("[onclick*='subSecci=SEC_CONTACTOS']");
+//	private By infoCCMBtn = By.cssSelector("[onclick*='subSecci=SEC_INFO_CCM']");
+//	private By infoCCMBtn = By.linkText(("Info CCM").trim());
+//	private By infoCCMBtn =  div.contentBoxTab.widthTabs > div > div.lineabase > div > ul > li:nth-child(8)
+	private By infoDGSBtn = By.linkText(("Info DGS").trim());
+	private By contactosBtn = By.cssSelector("[onclick*='subSecci=SEC_CONTACTOS']");
 	private By situacionesBtn = By.cssSelector("[onclick*='subSecci=SEC_SITUACIONES']");
 	private By cambiosBtn = By.cssSelector("[onclick*='subSecci=SEC_CAMBIOS']");
 	private By anotacionesBtn = By.cssSelector("[onclick*='subSecci=SEC_ANOTACIONES']");
@@ -279,6 +282,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickInfoCCM() {
 		debugBegin();
+		webDriver.waitWithDriver(4000);
 		webDriver.clickInFrame(infoCCMBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
@@ -724,7 +728,6 @@ public class FichaMediadorPage extends PageObject {
 
 		anyadirComentarioSituacion();
 		grabarComentarioEstado();
-
 		debugInfo("Enviar para revisión financiera se hizo con éxito o por lo menos recorrió");
 
 		debugEnd();
