@@ -34,7 +34,7 @@ public class FichaMediadorPage extends PageObject {
 	private By infoTransaccionalBtn = By.linkText(("Info Transaccional").trim());
 	private By condicionesNegocioBtn = By.linkText(("Condiciones de negocio").trim());
 	private By infoHistoricaBtn = By.linkText(("Info Histórica").trim());
-//	private By infoCCMBtn = By.cssSelector("#pes7");
+	//	private By infoCCMBtn = By.cssSelector("#pes7");
 	//	private By infoCCMBtn = By.cssSelector("[onclick*='subSecci=SEC_INFO_CCM']");
 	private By infoCCMBtn = By.linkText(("Info CCM").trim());
 	//	private By infoCCMBtn =  div.contentBoxTab.widthTabs > div > div.lineabase > div > ul > li:nth-child(8)
@@ -608,7 +608,7 @@ public class FichaMediadorPage extends PageObject {
 	//COMPROBAR TEXTO DE SITUACIÓN
 	public boolean comprobarSituacion(String situacion) {
 		debugBegin();
-
+		webDriver.waitWithDriver(3000);
 		String situacionAlta = webDriver.getTextInFrame(situacionMediadorTxt, cuerpoFrame).trim();
 		boolean checkSituacion = situacionAlta.equalsIgnoreCase(situacion);
 
@@ -813,16 +813,15 @@ public class FichaMediadorPage extends PageObject {
 
 		if(webDriver.isPresentInFrame(tituloPaginaTxt, cuerpoFrame)) {
 			debugInfo("Mensaje correcto: " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim());
-			//		setScenarioVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString()); pentdiente por borrar esta línea
+			//		setScenarioVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString()); pentdiente por borrar esta línea
 
-			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 			//con esta lina se obtiene el id para guardarlo en esta misma prueba
 
-			setSuiteVar("id_prospect_trans", webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+			setSuiteVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 			// en esta línea se guarda para reutilizararlo en otra
 
-			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
-
+			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 
 			debugInfo("El mediador del campo  ID_MEDIADOR_ALTA es " + getSuiteVar(Constants.ID_MEDIADOR_ALTA));
 		} else {
