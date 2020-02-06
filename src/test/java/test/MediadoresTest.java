@@ -179,25 +179,6 @@ public class MediadoresTest {
 		}).run();
 	}
 
-	@DataProvider(parallel = true)
-	public String[][] dataProviderMed11() {
-		String testCase = Constants.MEDIADORES_CASE + "11";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_colabordor_csv_2.csv");
-		return casesMatrix;
-	}
-
-	@Test(dataProvider = "dataProviderMed11")
-	public void med11(String testCase, String id) throws Exception {
-		UserStory userS = suiteM.createUserStory(testCase, id);
-		ActionSteps steps = new ActionSteps(userS);
-		// CheckSteps checkSteps = new CheckSteps(userS);
-		userS.testActions(() -> {
-			steps.login("Innova", "eferrando");
-			steps.mediadores_cambios_estado_situacion();
-			return null;
-		}).run();
-	}
-
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
