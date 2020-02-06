@@ -3731,20 +3731,38 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void mediadores_cambios_estado_situacion() {
+	public void mediadores_cambios_estado_situacion_AE() {
 		debugBegin();
 
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarMediadorEstadoSituacion();
+			.buscarMediadorEstadoSituacionAE();
 		new FichaMediadorPage(userS)
 			.solicitarAlta()
 			.enviarValoracionFinanciera()
 			.enviarRevisionFinanciera()
 			.enviarResolucionFinanciera()
 			.confirmarAlta()
-			.formacionAvanzarEstado();
+			.formacionAvanzarEstado()
+			//FALTAN LO DE DGS
+			.activarMediadorEstado()
+			.solicitarBaja();
+
+		debugEnd();
+	}
+
+	public void mediadores_cambios_estado_situacion_oficina() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorEstadoSituacionOficina();
+		new FichaMediadorPage(userS)
+			.solicitarAlta()
+			.confirmarAlta();
+			//.altaColaborador();
 
 		debugEnd();
 	}
