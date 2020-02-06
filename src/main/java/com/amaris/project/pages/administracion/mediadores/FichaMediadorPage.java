@@ -667,6 +667,7 @@ public class FichaMediadorPage extends PageObject {
 	//RELLENAR LA PARTE DE PERIODO DE CREDITO
 	public FichaMediadorPage anyadirPeriodoCredito() {
 		debugBegin();
+		clickMasAcciones();
 		clickInfoCCM();
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(modificarMedCondiciNegBtn, cuerpoFrame);
@@ -681,6 +682,7 @@ public class FichaMediadorPage extends PageObject {
 	//RELLENAR LA PARTE DE LIMITE DE CREDITO
 	public FichaMediadorPage anyadirLimiteCredito() {
 		debugBegin();
+		clickMasAcciones();
 		clickInfoCCM();
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(modificarMedCondiciNegBtn, cuerpoFrame);
