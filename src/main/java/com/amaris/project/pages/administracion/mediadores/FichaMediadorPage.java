@@ -193,6 +193,8 @@ public class FichaMediadorPage extends PageObject {
 	private static final String FORMACION = "Estado Formación";
 	private static final String ACTIVO_RESTRINGIDO = "Estado Activo restringido";
 	private static final String ACTIVO = "Estado Activo";
+	private static final String PENDIENTE_ENVIO_DGS = "Estado Pendiente envio DGS";
+
 
 	// endregion
 
@@ -991,6 +993,8 @@ public class FichaMediadorPage extends PageObject {
 
 			anyadirFechaFormOblig();
 			grabarComentarioEstado();
+
+			Assert.assertTrue(comprobarEstado(PENDIENTE_ENVIO_DGS), "El estado no es correcto.");
 
 			debugInfo("Avanzar estado se hizo con éxito o por lo menos recorrió");
 		}
