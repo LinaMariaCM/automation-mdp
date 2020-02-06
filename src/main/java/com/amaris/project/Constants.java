@@ -689,14 +689,20 @@ public class Constants {
 
 	//OTRAS ALERTAS
 	public static final String ALERTA_COMENTARIO_ADICIONAL_MEDIADORES = "El campo COMENTARIO ADICIONAL es un campo obligatorio y no puede estar en blanco.";
-	public static final String ALERTA_PERIODO_CREDITO_MEDIADORES = "Campo período de crédito es necesario para proceder con el cambio de estado del mediador.";
-	public static final String ALERTA_LIMITE_CREDITO_MEDIADORES = "Campo límite crédito es necesario para proceder con el cambio de estado del mediador.";
-	public static final String ALERTA_VALORACION_FINANCIERA_MEDIADORES = "El campo VALORACIÓN RESOLUCIÓN FINANCIERA es un campo obligatorio.";
-	public static final String ALERTA_COMENTARIO_FINANCIERA_MEDIADORES = "El campo COMENTARIO resolución financiera es un campo obligatorio y no puede estar en blanco.";
-	public static final String ALERTA_FECHA_MEDIADORES = "La fecha de formación es obligatoria.";
+	public static final String ALERTA_OBSERVACION_COMERCIAL_MEDIADORES = "El campo OBSERVACION COMERCIAL es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_PERIODO_CREDITO_MEDIADORES = "Campo período crédito es necesario para proceder con el cambio de estado del mediador. Ya que es un campo obligatorio.";
+	public static final String ALERTA_LIMITE_CREDITO_MEDIADORES = "Campo límite crédito es necesario para proceder con el cambio de estado del mediador. Ya que es un campo obligatorio.";
+	public static final String ALERTA_VALORACION_REVISION_FINANCIERA_MEDIADORES = "El campo VALORACIÓN REVISIÓN FINANCIERA es un campo obligatorio.";
+	public static final String ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES = "El campo COMENTARIO REVISIÓN FINANCIERA es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES = "El campo VALORACIÓN RESOLUCIÓN FINANCIERA es un campo obligatorio.";
+	public static final String ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES = "El campo COMENTARIO RESOLUCIÓN FINANCIERA es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_FECHA_MEDIADORES = "La fecha de formación es obligatoria";
+	public static final String ALERTA_FECHA_MEDIADORES_INCORRECTA = "El campo F. FORMACIÓN OBLIGATORIA no se ha rellenado correctamente.";
+	public static final String ALERTA_FECHA_ACTIVAR_MEDIADORES = "La fecha introducida es incorrecta.";
 	public static final String ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES = "El campo FECHA ENVÍO CONTRATO no se ha rellenado correctamente.";
 	public static final String ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES = "El campo FECHA RECEPCIÓN DE CONTRATO no se ha rellenado correctamente.";
-	public static final String ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES = "La fecha de envío del contrato no puede ser superior a la de recepción del contrato";
+	public static final String ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES = "La fecha de envío del contrato no puede ser superior a la de recepción del contrato.";
+	public static final String ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES = "Tenga en cuenta que al solicitar la baja de un mediador, éste no podrá emitir nueva producción y pasará a encontrarse en estado \"baja en trámite\"";
 	public static final String ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES = "El campo COMPAÑIAS PRINCIPALES PARA LAS QUE TRABAJA O HA TRABAJADO resolución financiera es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES = "Es obligatorio seleccionar una entidad Bancaria.";
 	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO resolución financiera es un campo obligatorio y no puede estar en blanco.";
@@ -740,7 +746,7 @@ public class Constants {
 	public static final String TIPO_DIRECCION_MED = "tipo_direccion_med";
 	public static final String DIR_IGUAL_A = "med_direccion_heradar";
 	public static final String TIPO_COLABORADOR = "tipo_colaborador";
-	
+
 	// ENVÍO Y RECEPCIÓN DGA
 	public static final String NUMERO_REF_DGS = "numero_envio_dgs";
 

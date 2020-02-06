@@ -71,9 +71,9 @@ public class MediadoresBuscadorPage extends PageObject {
 	private By clavePasarelaInput = By.cssSelector("#BUSMED_CODIPROS");
 	private By agrupadorCombo = By.cssSelector("#BUSMED_AGRUPADR");
 	private By clasificacionContableCombo = By.cssSelector("#BUSMED_CLASCONT");
-	private By actividadPrincipalCombo= By.cssSelector("#BUSMED_ACTPRINC");
-	private By tramitadorConvencionalCombo= By.cssSelector("#BUSMED_TRAMSINI");
-	private By tramitadorAsistenciaCombo= By.cssSelector("#BUSMED_TRAMASIS");
+	private By actividadPrincipalCombo = By.cssSelector("#BUSMED_ACTPRINC");
+	private By tramitadorConvencionalCombo = By.cssSelector("#BUSMED_TRAMSINI");
+	private By tramitadorAsistenciaCombo = By.cssSelector("#BUSMED_TRAMASIS");
 
 	private By exportarResultadosBtn = By.cssSelector("#formBarraAcciones > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(1) > a");
 	private By buscarBtn = By.cssSelector("#cajabuscador > tbody > tr:nth-child(2) > td.marcofnd > input");
@@ -105,31 +105,30 @@ public class MediadoresBuscadorPage extends PageObject {
 	// Leer texto en la tabla
 	// Acceder a mas acciones
 
-/*
-	public MediadoresBuscadorPage buscarMediadorEstadoPendienteEnvioDGS() {
-		debugBegin();
-		webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, menuFrame);
-		webDriver.clickInFrame(estadoActivoRestringidoBtn,menuFrame);
-		webDriver.clickInFrame(estadoActivoBtn,menuFrame);
-		webDriver.waitWithDriver(3000);
-		webDriver.clickInFrame(buscarBtn,menuFrame);
-		debugEnd();
+	/*
+		public MediadoresBuscadorPage buscarMediadorEstadoPendienteEnvioDGS() {
+			debugBegin();
+			webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, menuFrame);
+			webDriver.clickInFrame(estadoActivoRestringidoBtn,menuFrame);
+			webDriver.clickInFrame(estadoActivoBtn,menuFrame);
+			webDriver.waitWithDriver(3000);
+			webDriver.clickInFrame(buscarBtn,menuFrame);
+			debugEnd();
 
-		return this;
-	}
-*/
+			return this;
+		}
+	*/
 	public MediadoresBuscadorPage accederElementosTabla() {
 
-	List<WebElement> tabla = webDriver.getElementsInFrame(listaBuscador, cuerpoFrame);
-	debugInfo("La lista es:" + tabla);
-	//String codigoMediador = tabla.get(3);
+		List<WebElement> tabla = webDriver.getElementsInFrame(listaBuscador, cuerpoFrame);
+		debugInfo("La lista es:" + tabla);
+		//String codigoMediador = tabla.get(3);
 
 		return this;
 	}
 
-
 	// método a revisar para buscar mediador por su ID - Antonia
-	public MediadoresBuscadorPage buscarMediadorPorId(){
+	public MediadoresBuscadorPage buscarMediadorPorId() {
 		debugBegin();
 		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121815");
 		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
@@ -151,7 +150,7 @@ public class MediadoresBuscadorPage extends PageObject {
 
 	//METODO PROVISIONAL DE IRYNA PARA BUSCAR MEDIADOR INTERMEDIARIO  POR ID EN ESTADO DE ALTA
 
-	public MediadoresBuscadorPage buscarMediadorPorIdEstadoAlta(){
+	public MediadoresBuscadorPage buscarMediadorPorIdEstadoAlta() {
 		debugBegin();
 		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "2632");
 		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
@@ -166,9 +165,9 @@ public class MediadoresBuscadorPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresBuscadorPage buscarOficinaPorIdEstadoAlta(){
+	public MediadoresBuscadorPage buscarOficinaPorIdEstadoAlta() {
 		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "802179");
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121812");
 		webDriver.clickInFrame(nivelEstructuraIntermediarioBtn, cuerpoFrame);
 		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
@@ -180,4 +179,23 @@ public class MediadoresBuscadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
+
+	//buscar por id mediador para probar estados y situaciones para AE
+	public MediadoresBuscadorPage buscarMediadorEstadoSituacionAE() {
+		debugBegin();
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121819");
+		webDriver.clickInFrame(nivelEstructuraOficinaBtn, cuerpoFrame);
+		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.clickInFrame(estadoPendienteEnvioDGSBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoActivoRestringidoBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoActivoBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
+		clickBuscar();
+		webDriver.waitWithDriver(8000);
+		debugEnd();
+		return this;
+	}
+
 }

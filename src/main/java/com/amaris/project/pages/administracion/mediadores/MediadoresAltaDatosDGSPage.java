@@ -1,6 +1,6 @@
 package com.amaris.project.pages.administracion.mediadores;
 
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.automation.model.utils.DateUtils;
@@ -143,7 +143,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			webDriver.setText(numDocRepresentInput, "R6991265G");
 
 		} else if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE) != null && getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
-			webDriver.setText(numDocRepresentInput, DniGeneratorHelper.generateNif());
+			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateNif());
 		} else {
 
 			webDriver.setText(numDocRepresentInput, "96195668P");
@@ -162,7 +162,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			webDriver.setText(numDocumentoInput, "R6991265G");
 
 		} else if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO) != null && getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF")) {
-			webDriver.setText(numDocumentoInput, DniGeneratorHelper.generateNif());
+			webDriver.setText(numDocumentoInput, DocumentGeneratorHelper.generateNif());
 		} else {
 
 			webDriver.setText(numDocumentoInput, "96195668P");

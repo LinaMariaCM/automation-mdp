@@ -1,6 +1,6 @@
 package com.amaris.project.steps;
 
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.InteractionObject;
 import com.amaris.project.Constants;
@@ -60,7 +60,7 @@ public class DataSteps extends InteractionObject {
 	}
 
 	public void el_documento_tomador_es_aleatoreo() {
-		setScenarioVar(Constants.DNI_TOMADOR, DniGeneratorHelper.generateNif());
+		setScenarioVar(Constants.DNI_TOMADOR, DocumentGeneratorHelper.generateNif());
 	}
 
 	public void añado_los_teléfonos_del_tomador_y_los_horarios_de_atención() {
@@ -158,7 +158,7 @@ public class DataSteps extends InteractionObject {
 	}
 
 	public void el_documento_aleatoreo_inquilino() {
-		setScenarioVar(Constants.DOCUMENTO_INQUILINO, DniGeneratorHelper.generateNif());
+		setScenarioVar(Constants.DOCUMENTO_INQUILINO, DocumentGeneratorHelper.generateNif());
 	}
 
 	public void el_usuario_da_de_alta_un_proyecto_en_GO_y_lo_guarda_sin_contratar(String loginAcess, String user) throws Exception {

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.amaris.automation.model.helpers.DniGeneratorHelper;
+import com.amaris.automation.model.helpers.DocumentGeneratorHelper;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
@@ -202,7 +202,7 @@ public class PrecioPorModalidadPage extends PageObject {
 				webDriver.clickInFrame(anyadirAseguradoBtn, cuerpoFrame);
 
 				webDriver.clickElementFromDropDownByTextInFrame(tipoDocumentoDrpDwn, cuerpoFrame, Constants.NIF);
-				webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, DniGeneratorHelper.generateNif());
+				webDriver.appendTextInFrame(numeroDocumentoInput, cuerpoFrame, DocumentGeneratorHelper.generateNif());
 				webDriver.appendTextInFrame(empleadoNombreInput, cuerpoFrame, getScenarioVar(Constants.NOMBRE_EMPLEADO));
 				webDriver.appendTextInFrame(empleadoApellido1Input, cuerpoFrame, getScenarioVar(Constants.PRIMER_APELLIDO_EMPLEADO));
 				webDriver.appendTextInFrame(empleadoApellido2Input, cuerpoFrame, getScenarioVar(Constants.SEGUNDO_APELLIDO_EMPLEADO));
