@@ -817,7 +817,6 @@ public class FichaMediadorPage extends PageObject {
 		} else {
 			debugInfo("Ha habido un error al dat de alta el mediador");
 		}
-
 		debugEnd();
 		return this;
 	}
