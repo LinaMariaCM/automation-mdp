@@ -169,9 +169,9 @@ public class MediadoresBuscadorPage extends PageObject {
 	}
 
 	//buscar por id mediador para probar estados y situaciones para AE
-	/*public MediadoresBuscadorPage buscarMediadorEstadoSituacionAE() {
+	public MediadoresBuscadorPage buscarMediadorEstadoSituacionAE() {
 		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121567");
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121819");
 		webDriver.clickInFrame(nivelEstructuraOficinaBtn, cuerpoFrame);
 		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
@@ -185,5 +185,5 @@ public class MediadoresBuscadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
-	*/
+
 }

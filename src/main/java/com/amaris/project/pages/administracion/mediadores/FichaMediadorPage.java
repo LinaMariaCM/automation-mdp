@@ -171,14 +171,14 @@ public class FichaMediadorPage extends PageObject {
 	private By listaDirecciones = By
 		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr");
 
-	//Otros
+	// Control de pagina
 	private By guardarSalirBtn = By.cssSelector("#botonGrabar1");
 
 	// Pestaña Cambio
 	private By situacionCambiosCombo = By.cssSelector("#situacion");
 	private By cambioSituacionTxt = By.cssSelector("#formDatos > div.contentBox.anchuraCajas > div.marcofnd > p");
 
-	//--------     Constantes SITUACIONES-----------------------------//
+	//----------------Constantes SITUACIONES-----------------------------//
 	private static final String RESOLUCION_FINANCIERA = "Situación Resolución financiera";
 	private static final String ALTA_MEDIADOR = "Situación Alta mediador";
 	private static final String SOLICITUD_ALTA = "Situación Solicitud de alta";
