@@ -27,16 +27,19 @@ public class FichaMediadorPage extends PageObject {
 
 	//------------- Botones Pestañas -------------
 
-	private By visionGlobalBtn = By.linkText("Vision Global");
-	private By infoDescriptivaBtn = By.linkText("Info Descriptiva");
-	private By infoContactoBtn = By.linkText("Info Contacto");
-	private By infoRelacionalBtn = By.linkText("Info Relacional");
-	private By infoTransaccionalBtn = By.linkText("Info Transaccional");
-	private By condicionesNegocioBtn = By.linkText("Condiciones de negocio");
-	private By infoHistoricaBtn = By.linkText("Info Histórica");
+	private By visionGlobalBtn = By.linkText(("Vision Global").trim());
+	private By infoDescriptivaBtn = By.linkText(("Info Descriptiva").trim());
+	private By infoContactoBtn = By.linkText(("Info Contacto").trim());
+	private By infoRelacionalBtn = By.linkText(("Info Relacional").trim());
+	private By infoTransaccionalBtn = By.linkText(("Info Transaccional").trim());
+	private By condicionesNegocioBtn = By.linkText(("Condiciones de negocio").trim());
+	private By infoHistoricaBtn = By.linkText(("Info Histórica").trim());
 	private By infoCCMBtn = By.cssSelector("#pes7");
-	private By infoDGSBtn = By.linkText("Info DGS");
-	private By contactosBtn = By.linkText("[onclick*='subSecci=SEC_CONTACTOS']");
+	//	private By infoCCMBtn = By.cssSelector("[onclick*='subSecci=SEC_INFO_CCM']");
+	//	private By infoCCMBtn = By.linkText(("Info CCM").trim());
+	//	private By infoCCMBtn =  div.contentBoxTab.widthTabs > div > div.lineabase > div > ul > li:nth-child(8)
+	private By infoDGSBtn = By.linkText(("Info DGS").trim());
+	private By contactosBtn = By.cssSelector("[onclick*='subSecci=SEC_CONTACTOS']");
 	private By situacionesBtn = By.cssSelector("[onclick*='subSecci=SEC_SITUACIONES']");
 	private By cambiosBtn = By.cssSelector("[onclick*='subSecci=SEC_CAMBIOS']");
 	private By anotacionesBtn = By.cssSelector("[onclick*='subSecci=SEC_ANOTACIONES']");
@@ -276,6 +279,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickInfoCCM() {
 		debugBegin();
+		webDriver.waitWithDriver(4000);
 		webDriver.clickInFrame(infoCCMBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
@@ -809,14 +813,12 @@ public class FichaMediadorPage extends PageObject {
 
 		if(webDriver.isPresentInFrame(tituloPaginaTxt, cuerpoFrame)) {
 			debugInfo("Mensaje correcto: " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim());
-
-			//	webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0,5).toString();
-			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+			setScenarioVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
 			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 5).toString());
+			debugInfo("El mediador del campo  ID_MEDIADOR_ALTA es " + getSuiteVar(Constants.ID_MEDIADOR_ALTA));
 		} else {
 			debugInfo("Ha habido un error al dat de alta el mediador");
 		}
-
 		debugEnd();
 		return this;
 	}
@@ -1070,15 +1072,14 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage anyadirIdMediador() {
+	/*public FichaMediadorPage anyadirIdMediador() {
 		debugBegin();
 		// a la string se le asigna el valor guardado en el CSV y constante
-		String idMedAlta;
-		idMedAlta = getTestVar(Constants.ID_MEDIADOR_ALTA);
+		String idMedAlta = getSuiteVar(Constants.ID_MEDIADOR_ALTA);
 		debugInfo("ver si aparece la idMedAlta correctamente: " + idMedAlta);
 		debugEnd();
 		return this;
-	}
+	}*/
 
 	/// falta realmente hacer uso de esteo dato?? anyadirIdMediador.idMedAlta
 

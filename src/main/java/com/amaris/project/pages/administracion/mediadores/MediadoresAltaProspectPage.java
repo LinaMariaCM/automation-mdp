@@ -36,6 +36,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 	private By provinciaInput = By.cssSelector("#ALTACLIE_PROVINCIA_ARVATO");
 	private By poblacionInput = By.cssSelector("#ALTACLIE_POBLACION_ARVATO");
 	private By nombreViaInput = By.cssSelector("#ALTACLIE_NOMVIA_ARVATO");
+	private By numeroViaInput = By.cssSelector("#ALTACLIE_NUMVIA");
 	private By provinciaCombo = By.cssSelector("html > body > ul:nth-of-type(1) > li > a");
 	private By poblacionCombo = By.cssSelector("html > body > ul:nth-of-type(2) > li > a");
 	private By nombreViaCombo = By.cssSelector("html > body > ul:nth-of-type(3) > li > a");
@@ -199,13 +200,26 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.appendText(nombreViaInput, getTestVar(Constants.NOMBRE_VIA));
 
 		webDriver.waitForElementToBeClickable(nombreViaCombo);
-
+		
 		webDriver.tabulateElement(nombreViaInput);
 		webDriver.exitFrame();
 
 		debugEnd();
 		return this;
 	}
+	
+	public MediadoresAltaProspectPage selectnNumeroVia() {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.appendText(numeroViaInput, getTestVar(Constants.NUM_VIA));
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}
+	
 
 	//-----------Clicks en botones-----------------------------------
 	public MediadoresAltaProspectPage clickBotonComprobarDireccion() {
@@ -343,6 +357,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		selectProvincia();
 		selectPoblacion();
 		selectVia();
+		selectnNumeroVia();
 		clickBotonComprobarDireccion();
 		clickBotonAceptarDireccion();
 
@@ -368,6 +383,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		selectEjecutivoComercial();
 		completarDatosDireccion();
 		clickBotonGrabar();
+		
 
 		debugEnd();
 		return this;

@@ -2455,6 +2455,21 @@ public class ActionSteps extends InteractionObject {
 			.altaProspectMediadores();
 	}
 
+	public void doy_de_alta_prospect(){
+		
+		new InnovaHomePage(userS)
+			.openMediadores();
+
+		new MediadoresHomePage(userS)
+			.openAltaProspect();
+
+		new MediadoresAltaProspectPage(userS)
+			.altaProspectMediadores();
+		
+		new FichaMediadorPage(userS)
+			.obtenerIdMediador();
+	}
+	
 	public void doy_de_alta_mediador_usando_acceso_y_usuario(String loginAcess, String user) {
 		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
 
@@ -3585,6 +3600,18 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 
 	}
+	
+	public void obtener_nombres_direcciones_mediador_intercambio_datos() {
+		debugBegin();
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorPorIdIntercambio();
+		new FichaMediadorPage(userS)
+			.verificarDireccion();
+		debugEnd();
+
+	}
 
 	public void alta_datos_basicos_mediador() {
 		debugBegin();
@@ -3619,7 +3646,7 @@ public class ActionSteps extends InteractionObject {
 			.clickGuardar();
 		new FichaMediadorPage(userS)
 			.obtenerIdMediador()
-			.anyadirIdMediador()
+			//	.anyadirIdMediador()
 			.verificarDireccion();
 	}
 
@@ -3679,11 +3706,11 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void envio_recepcion_DGS() {
+	public void alta_interm_AE_completo() {
 		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
-	/*	new MediadoresHomePage(userS)
+		new MediadoresHomePage(userS)
 			.openAltaMediador();
 		new MediadoresAltaDatosDescriptivosPage(userS)
 			.altaIntermediarioDescriptivos()
@@ -3701,16 +3728,25 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
-			.clickGuardar();
+			.clickContiuar();
+		new MediadoresAltaDatosDGSPage(userS)
+			.anyadirFechaInicioRelacion();
+		//	.clickGuardar();
 		new FichaMediadorPage(userS)
+			//	.obtenerIdMediador()
+			.solicitarAlta()
+			.enviarValoracionFinanciera()
+			.enviarRevisionFinanciera()
+			.enviarResolucionFinanciera()
+			.confirmarAlta()
+			.formacionAvanzarEstado()
 			.obtenerIdMediador()
-			.anyadirIdMediador()
 			.clickBuscadorMediadores();
 		new MediadoresHomePage(userS)
 			.openEnvioDGS();
 		new MediadoresDGSPage(userS)
+			.anyadirIdMediador()
 			.envioMediadorDGS(); // averiguar cómo filtrar el CSV y cases: cuando ha de aparecer el paso
-			*/
 		new MediadoresHomePage(userS)
 			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
 		new MediadoresDGSPage(userS)

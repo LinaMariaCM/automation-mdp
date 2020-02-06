@@ -346,5 +346,22 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 		return this;
 	}
+
+	// definir en el método común de la page qué cuando aparece
+
+	public MediadoresAltaDatosDGSPage anyadirFechaInicioRelacion() {
+		debugBegin();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.waitWithDriver(4000);
+		webDriver.setText(fechaInicioRelacionInput, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
+		webDriver.click(guardarYSalirBtn);
+
+		webDriver.exitFrame();
+		webDriver.waitWithDriver(6000);
+		debugEnd();
+
+		return this;
+	}
 }
 
