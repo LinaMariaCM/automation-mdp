@@ -3738,7 +3738,7 @@ public class ActionSteps extends InteractionObject {
 			.enviarValoracionFinanciera()
 			.enviarRevisionFinanciera()
 			.enviarResolucionFinanciera()
-			.confirmarAlta()
+			.confirmarAlta() /// falla aquí, revissar flujo
 			.formacionAvanzarEstado()
 			.obtenerIdMediador()
 			.clickBuscadorMediadores();
