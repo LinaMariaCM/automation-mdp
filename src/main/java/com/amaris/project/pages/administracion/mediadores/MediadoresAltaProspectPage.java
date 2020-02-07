@@ -165,7 +165,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
-		webDriver.appendText(provinciaInput, getTestVar(Constants.PROVINCIA));
+		webDriver.appendText(provinciaInput, getTestVar(Constants.DIRECCION_FISC_PROVINCIA));
 
 		webDriver.waitForElementToBeClickable(provinciaCombo);
 
@@ -181,7 +181,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.appendText(poblacionInput, getTestVar(Constants.POBLACION));
+		webDriver.appendText(poblacionInput, getTestVar(Constants.DIRECCION_FISC_POBLACION));
 
 		webDriver.waitForElementToBeClickable(poblacionCombo);
 
@@ -197,7 +197,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.appendText(nombreViaInput, getTestVar(Constants.NOMBRE_VIA));
+		webDriver.appendText(nombreViaInput, getTestVar(Constants.DIRECCION_FISC_NombreVia));
 
 		webDriver.waitForElementToBeClickable(nombreViaCombo);
 		
@@ -213,7 +213,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.appendText(numeroViaInput, getTestVar(Constants.NUM_VIA));
+		webDriver.appendText(numeroViaInput, "11");
 		webDriver.exitFrame();
 
 		debugEnd();

@@ -153,6 +153,7 @@ public class MediadoresDGSPage extends PageObject {
 		//	seleccionarMediadorEnvioDGS(getTestVar(Constants.ID_MEDIADOR_ALTA)); // ir a resultados mediante método para localizarlos y seleccionar el mediador que toca. Revisar si hay otra lógica para los auxiliares, prueba con AE
 		seleccionarMediadorEnvioDGS(getSuiteVar(Constants.ID_MEDIADOR_ALTA));
 		clickEnviarDGS();
+		webDriver.waitWithDriver(12000);
 		obtenerNumDGS();
 		debugEnd();
 		return this;
