@@ -1,6 +1,6 @@
 image: nexus:8088/amarises/root
 variables:
-  TARGET_REPO: https://'tomislavdm':'Amaris@2017'@bitbucket.org/tomislavdm/mdpjenkins.git
+  TARGET_REPO: "https://'tomislavdm':'Amaris@2017'@bitbucket.org/tomislavdm/mdpjenkins.git"
 stages:
   - clone
 clone:
