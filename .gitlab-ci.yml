@@ -6,7 +6,7 @@ stages:
 clone:
   before_script:
     - apt-get update && apt-get install -y git
-	- git config --global user.email "bvamaris@gmail.com"
+    - git config --global user.email "bvamaris@gmail.com"
     - git config --global user.name "bvam"
   stage: clone
   script:
