@@ -79,7 +79,7 @@ public class FichaMediadorPage extends PageObject {
 
 	//------------- Contenido del encabezado -------------
 
-	private By nivelJerarquicoTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(1) > td:nth-child(1)");
+	private By nivelJerarquicoTxt = By.cssSelector("#capaCab .marcofnd.wideBox .wideBox td");
 	private By tipoMediadorTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(1)");
 	private By tipoColaboradorTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td");
 	private By ejecutivoComercialTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(2)");
@@ -191,7 +191,6 @@ public class FichaMediadorPage extends PageObject {
 	private static final String ACTIVO_RESTRINGIDO = "Estado Activo restringido";
 	private static final String ACTIVO = "Estado Activo";
 	private static final String PENDIENTE_ENVIO_DGS = "Estado Pendiente envio DGS";
-
 
 	// endregion
 
@@ -492,7 +491,7 @@ public class FichaMediadorPage extends PageObject {
 
 		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
 
-	//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
+		//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
 		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
 
 		debugEnd();
@@ -1093,6 +1092,47 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	// METODO PARA HACER COMPROBACIONES EN FICHA
+	public FichaMediadorPage comprobacionFicha() {
+		debugBegin();
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+
+			webDriver.waitWithDriver(8000);
+			String nivelJerarquicoInte = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
+
+			boolean intermediarioInte = getTestVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.INTE) &&
+				nivelJerarquicoInte.equals("Intermediario");
+
+			Assert.assertTrue(intermediarioInte, "Es incorrecto.");
+
+		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+
+			webDriver.waitWithDriver(9000);
+			String nivelJerarquicoOfic = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
+
+			boolean intermediarioOfic = getTestVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.OFIC) &&
+				nivelJerarquicoOfic.equals("Oficina");
+
+			Assert.assertTrue(intermediarioOfic, "Es incorrecto.");
+
+		} else if (getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+
+			webDriver.waitWithDriver(8000);
+			String nivelJerarquicoCola = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
+
+			boolean intermediarioCola = getTestVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.COLA) &&
+				nivelJerarquicoCola.equals("Colaborador");
+
+			Assert.assertTrue(intermediarioCola, "Es incorrecto.");
+		}
+
+		debugEnd();
+		return this;
+	}
+
 	/*public FichaMediadorPage anyadirIdMediador() {
 		debugBegin();
 		// a la string se le asigna el valor guardado en el CSV y constante
@@ -1103,33 +1143,6 @@ public class FichaMediadorPage extends PageObject {
 	}*/
 
 	/// falta realmente hacer uso de esteo dato?? anyadirIdMediador.idMedAlta
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 	// endregion
 }

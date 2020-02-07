@@ -2455,8 +2455,8 @@ public class ActionSteps extends InteractionObject {
 			.altaProspectMediadores();
 	}
 
-	public void doy_de_alta_prospect(){
-		
+	public void doy_de_alta_prospect() {
+
 		new InnovaHomePage(userS)
 			.openMediadores();
 
@@ -2465,11 +2465,11 @@ public class ActionSteps extends InteractionObject {
 
 		new MediadoresAltaProspectPage(userS)
 			.altaProspectMediadores();
-		
+
 		new FichaMediadorPage(userS)
 			.obtenerIdMediador();
 	}
-	
+
 	public void doy_de_alta_mediador_usando_acceso_y_usuario(String loginAcess, String user) {
 		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
 
@@ -3600,7 +3600,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 
 	}
-	
+
 	public void obtener_nombres_direcciones_mediador_intercambio_datos() {
 		debugBegin();
 		new InnovaHomePage(userS)
@@ -3788,5 +3788,17 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	// STEPS PARA HACER COMPROBACIONES EN LA FICHA
+	public void comprobacion_ficha() {
+		debugBegin();
 
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorFichaComprobacion();
+		new FichaMediadorPage(userS)
+			.comprobacionFicha();
+
+		debugEnd();
+	}
 } // END

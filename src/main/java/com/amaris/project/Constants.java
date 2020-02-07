@@ -187,8 +187,6 @@ public class Constants {
 	public static final String AvisoGarajesErrorMessage = "El mensaje Los datos de superficies (m2) son orientativos, por favor reviselos no ha aparecido";
 	public static final String AvisoGarajes = "Los datos de superficies (m2) son orientativos, por favor reviselos";
 
-	public static final String FECHA_OCURRENCIA_AVISOS = "El campo FECHA OCURRENCIA no se ha rellenado correctamente.";
-
 	public static final String PolizaDetailTabDetallesRiesgo = "Detalles Riesgo";
 	public static final String PolizaDetailTabClausulas = "Clausulas";
 	public static final String PolizaDetailTabImportes = "Importes";
@@ -375,7 +373,7 @@ public class Constants {
 
 	public static final String INGRESOS_INQUILINO_NUEVOS = "ingresos_inquilino_nuevos";
 
-	public static final String NIVEL_ESTRUCTURA = "nivel_estructura";
+	public static final String NIVEL_ESTRUCTURA = "nivel_estructura"; // almacena value
 	public static final String NOMBRE_COMERCIAL = "nombre_comercial";
 	public static final String NOMBRE_COMERCIAL_PROSPECT = "nombre_comercial_prospect";
 	public static final String EJECUTIVO_COMERCIAL = "ejecutivo_comercial";
@@ -702,7 +700,7 @@ public class Constants {
 	public static final String ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES = "El campo FECHA ENVÍO CONTRATO no se ha rellenado correctamente.";
 	public static final String ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES = "El campo FECHA RECEPCIÓN DE CONTRATO no se ha rellenado correctamente.";
 	public static final String ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES = "La fecha de envío del contrato no puede ser superior a la de recepción del contrato.";
-	public static final String ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES = "Tenga en cuenta que al solicitar la baja de un mediador, éste no podrá emitir nueva producción y pasará a encontrarse en estado \"baja en trámite\"";
+	public static final String ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES = "Tenga en cuenta que al solicitar la baja de un mediador, éste no podrá emitir nueva producción y pasará a encontrarse en estado \"baja en trámite\"F";
 	public static final String ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES = "El campo COMPAÑIAS PRINCIPALES PARA LAS QUE TRABAJA O HA TRABAJADO resolución financiera es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES = "Es obligatorio seleccionar una entidad Bancaria.";
 	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO resolución financiera es un campo obligatorio y no puede estar en blanco.";
@@ -757,7 +755,7 @@ public class Constants {
 	// #### Datos Básicos
 
 //	public static final String CODIGO_MEDIADOR = "cod_mediador";
-	//public static final String NIVEL_ESTRUCTURA_ALT_MED = "nivel_estructura"; 
+	public static final String NIVEL_ESTRUCTURA_ALT_MED = "nivel_estructura_alta_med"; // escrito en cristiano
 	//public static final String EJECUTIVO_COMERCIAL_ALT_MED = "ejecutivo_comercial";
 	//public static final String IDIOMA_ALT_MED = "idioma";
 	//public static final String TIPO_DOCUMENTO_ALT_MED = "tipo_documento";
@@ -788,7 +786,7 @@ public class Constants {
 	public static final String TELEFONO_PRINCIPAL_ALT_MED = "telefono_principal";
 	public static final String FAX_ALT_MED = "fax";
 	public static final String COMUNICACION_IP_ALT_MED = "comunicacion_ip";
-	public static final String EMAIL_ALT_MED = "email";
+	public static final String EMAIL_PRINCIPAL_ALT_MED = "email_principal";
 
 	// ### Direcciones
 	// ### ### Direccion comercial
@@ -889,7 +887,7 @@ public class Constants {
 
 	// ### Productos
 	public static final String ESPECIALISTAS_EN_RAMO_ALT_MED = "especialista_en_ramo";
-	public static final String RAMO_ALT_MED = "ramo";
+	public static final String RAMO_ALT_MED = "ramo_med";
 	public static final String ADMINISTR_FINCAS_ALT_MED = "administra_fincas";
 	public static final String NUMERO_DE_FINCAS_QUE_ADMININISTRA = "num_fincas";
 

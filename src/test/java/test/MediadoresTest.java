@@ -198,6 +198,25 @@ public class MediadoresTest {
 		}).run();
 	}
 
+	// TEST PARA HACER COMPROBACIONES EN LA FICHA
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMed20() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "prueba_comprobaciones_mediadores.csv");
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMed20")
+	public void med20(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		userS.testActions(() -> {
+			steps.login("Innova", "eferrando");
+			steps.comprobacion_ficha();
+			return null;
+		}).run();
+	}
+
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
