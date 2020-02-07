@@ -1,0 +1,11 @@
+variables:
+  TARGET_REPO: https://'tomislavdm':Amaris@2017@bitbucket.org/tomislavdm/mdpjenkins.git
+stages:
+  - clone
+clone:
+  stage: clone
+  script:
+    - git remote add remoterepo $TARGET_REPO
+    - git push remoterepo master
+only:
+    - master
