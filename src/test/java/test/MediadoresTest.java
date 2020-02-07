@@ -207,7 +207,7 @@ public class MediadoresTest {
 		userS.testActions(() -> {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_interm_AE_completo();
-			steps.alta_oficina_a_un_intermediario();
+		//	steps.alta_oficina_a_un_intermediario();
 			steps.completar_estados_dgs();
 			steps.alta_colaborador();
 			steps.completar_estados_dgs();
