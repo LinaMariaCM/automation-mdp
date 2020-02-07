@@ -3804,4 +3804,18 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	// STEPS PARA HACER COMPROBACIONES EN LA FICHA
+	public void comprobacion_ficha() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorFichaComprobacion();
+		new FichaMediadorPage(userS)
+			.comprobacionFicha();
+
+		debugEnd();
+	}
+
 } // END
