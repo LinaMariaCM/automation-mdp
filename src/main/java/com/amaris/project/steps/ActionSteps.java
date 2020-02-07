@@ -3655,10 +3655,10 @@ public class ActionSteps extends InteractionObject {
 	public void alta_oficina_a_un_intermediario() {
 		debugBegin();
 
-		new InnovaHomePage(userS)
+/*		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorIdEstadoAlta();
+			.buscarMediadorPorIdEstadoAlta(); */
 		new FichaMediadorPage(userS)
 			.clickMasAcciones()
 			.clickSolicitarAltaOficina();
@@ -3675,17 +3675,19 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
-
+		new FichaMediadorPage(userS)
+			.solicitarAlta()
+			.confirmarAlta();
 		debugEnd();
 	}
 
 	public void alta_colaborador() {
 		debugBegin();
 
-		new InnovaHomePage(userS)
+/*		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarOficinaPorIdEstadoAlta();
+			.buscarOficinaPorIdEstadoAlta();*/
 		new FichaMediadorPage(userS)
 			.clickMasAcciones()
 			.clickSolicitarAltaColaborador();
@@ -3702,7 +3704,11 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
-
+		new FichaMediadorPage(userS)
+			.obtenerIdMediador()
+			.solicitarAlta()
+			.confirmarAlta()
+			.formacionAvanzarEstado();
 		debugEnd();
 	}
 
@@ -3740,7 +3746,13 @@ public class ActionSteps extends InteractionObject {
 			.enviarResolucionFinanciera()
 			.confirmarAlta() /// falla aquí, revissar flujo
 			.formacionAvanzarEstado()
-			.obtenerIdMediador()
+			.obtenerIdMediador();
+		debugEnd();
+	}
+
+	public void completar_estados_dgs() {
+		debugBegin();
+		new FichaMediadorPage(userS)
 			.clickBuscadorMediadores();
 		new MediadoresHomePage(userS)
 			.openEnvioDGS();
@@ -3751,6 +3763,10 @@ public class ActionSteps extends InteractionObject {
 			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
 		new MediadoresDGSPage(userS)
 			.recepcionMediadoresDGS();
+		new FichaMediadorPage(userS)
+			.clickBuscadorMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarMediadorPorIdEstadoAlta();
 		debugEnd();
 	}
 
@@ -3801,4 +3817,5 @@ public class ActionSteps extends InteractionObject {
 
 		debugEnd();
 	}
+
 } // END

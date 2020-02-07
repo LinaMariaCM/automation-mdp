@@ -1,0 +1,14 @@
+image: nexus:8088/amarises/root
+variables:
+  TARGET_REPO: "https://'tomislavdm':'Amaris@2017'@bitbucket.org/tomislavdm/mdpjenkins.git"
+stages:
+  - clone
+clone:
+  before_script:
+    - apt-get update && apt-get install -y git
+  stage: clone
+  script:
+    - git remote add remoterepo $TARGET_REPO
+    - git push remoterepo master
+  only:
+    - master

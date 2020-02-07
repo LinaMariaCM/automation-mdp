@@ -759,18 +759,18 @@ public class Constants {
 	//public static final String EJECUTIVO_COMERCIAL_ALT_MED = "ejecutivo_comercial";
 	//public static final String IDIOMA_ALT_MED = "idioma";
 	//public static final String TIPO_DOCUMENTO_ALT_MED = "tipo_documento";
-	public static final String NUMERO_DOCUMENTO_ALT_MED = "num_doc"; // RETOMAR AQUÍ
-	public static final String NOMBRE_FISCAL_ALT_MED = "nombre_fiscal";
-	public static final String PRIMER_APELLIDO_ALT_MED = "primer_apellido";
-	public static final String SEGUNDO_APELLIDO_ALT_MED = "segundo_apellido";
+	public static final String NUMERO_DOCUMENTO_ALT_MED = "num_doc"; // plantear si almacenar este dato con suitevar para comprobaciones
+//	public static final String NOMBRE_FISCAL_ALT_MED = "nombre_fiscal"; ya se utiliza NOMBRE_MEDIADOR
+//	public static final String PRIMER_APELLIDO_ALT_MED = "primer_apellido";  String insertada directamente
+//	public static final String SEGUNDO_APELLIDO_ALT_MED = "segundo_apellido";  String insertada directamente
 	public static final String REFERENCIA_EXERNA_ALT_MED = "referencia_externa";
-	//public static final String ACTIVIDAD_PRINCIPAL_ALT_MED = "actividad_principal";
+	//public static final String ACTIVIDAD_PRINCIPAL_ALT_MED = "actividad_principal";  ya se utiliza
 	public static final String AGRUPADOR_PRINCIPAL_ALT_MED = "agrupador_principal";
-	public static final String NUMERO_REGISTRO_DGSFP_ALT_MED = "num_registro_DGSFP";
-	public static final String NUMERO_ALT_MED = "numero";
-	public static final String OTROS_AGRUPADORES_ALT_MED = "otros_agrupadores";
+	public static final String NUMERO_REGISTRO_DGSFP_ALT_MED = "num_registro_DGSFP"; // a pelo, es más útil de cara a las comprobaciones
+	public static final String NUMERO_ALT_MED = "numero"; // se utiliza la constante ID_MEDIADOR_ALTA = "id_mediador_alta"
+	public static final String OTROS_AGRUPADORES_ALT_MED = "otros_agrupadores"; // no está en uso
 
-	// ### Datos adicionales
+	// ### Datos adicionales - no están en uso
 	public static final String EDAD_ALT_MED = "edad";
 	public static final String NIVEL_AFINIDAD_TECNOLOGICA_ALT_MED = "nivel_afinidad_tec";
 	public static final String NIVEL_ESTUDIOS_ALT_MED = "nivel_estudios";
@@ -780,7 +780,7 @@ public class Constants {
 	public static final String DISPONTE_DE_SOFTWARE_ALT_MED = "dispone_de_sftw";
 	public static final String DONDE_TRABAJA_ALT_MED = "donde_trabaja";
 
-	// ### Datos generales
+	// ### Datos generales - a pelo todas
 	public static final String CONTACTO_RESPONSABLE_ALT_MED = "contacto_responsable";
 	public static final String CARGO_RESPONSABLE_ALT_MED = "cargo_responsable";
 	public static final String TELEFONO_PRINCIPAL_ALT_MED = "telefono_principal";
@@ -788,7 +788,7 @@ public class Constants {
 	public static final String COMUNICACION_IP_ALT_MED = "comunicacion_ip";
 	public static final String EMAIL_PRINCIPAL_ALT_MED = "email_principal";
 
-	// ### Direcciones
+	// ### Direcciones - hay otras en uso
 	// ### ### Direccion comercial
 	public static final String TIPO_DOMICILIO_COMERCIAL_ALT_MED = "tipo_domicilio_com";
 	public static final String PAIS_COMERCIAL_ALT_MED = "pais_com";
@@ -864,15 +864,15 @@ public class Constants {
 	public static final String PISO_SINIESTROS_ALT_MED = "piso_sin";
 	public static final String PUERTA_SINIESTROS_ALT_MED = "puerta_sin";
 
-	// ### Redes Sociales
+	// ### Redes Sociales - no está en uso
 	public static final String TIPO_RED_SOCIAL_ALT_MED = "tipo_red";
 	public static final String DESCRIPCION_ALT_MED = "descripcion";
 
-	// ### Medios de Contacto
+	// ### Medios de Contacto - no está en uso
 	public static final String TIPO_CONTACTO_ALT_MED = "tipo_contacto";
 	public static final String CONTACTO_ALT_MED = "contacto";
 
-	// ### Medios por area
+	// ### Medios por area - no está en uso
 	public static final String AREA_CONTACTO_ALT_MED = "area_cont";
 	public static final String NOMBRE_CONTACTO_ALT_MED = "nombre_cont";
 	public static final String CARGO_ALT_MED = "cargo_cont";
@@ -880,12 +880,12 @@ public class Constants {
 	public static final String EMAIL_CONTACTO_ALT_MED = "email_cont";
 	public static final String PREFERENCIA_COMUNICACION_ALT_MED = "fax_cont";
 
-	// ### Marcas LOPD
+	// ### Marcas LOPD - no está en uso
 	public static final String PUBLICIDAD_A_MEDIADOR_ALT_MED = "publicidad_a_mediador";
 	public static final String PUBLICIDAD_A_MUTUALISTA_ALT_MED = "publicidad_a_mutualista";
 	public static final String USO_IMAGEN_MEDIADOR_ALT_MED = "uso_imagen_mediador";
 
-	// ### Productos
+	// ### Productos - repasar qué hay en uso y qué constantes se repiten
 	public static final String ESPECIALISTAS_EN_RAMO_ALT_MED = "especialista_en_ramo";
 	public static final String RAMO_ALT_MED = "ramo_med";
 	public static final String ADMINISTR_FINCAS_ALT_MED = "administra_fincas";
