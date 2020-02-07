@@ -34,10 +34,7 @@ public class FichaMediadorPage extends PageObject {
 	private By infoTransaccionalBtn = By.linkText(("Info Transaccional").trim());
 	private By condicionesNegocioBtn = By.linkText(("Condiciones de negocio").trim());
 	private By infoHistoricaBtn = By.linkText(("Info Histórica").trim());
-	//	private By infoCCMBtn = By.cssSelector("#pes7");
-	//	private By infoCCMBtn = By.cssSelector("[onclick*='subSecci=SEC_INFO_CCM']");
 	private By infoCCMBtn = By.linkText(("Info CCM").trim());
-	//	private By infoCCMBtn =  div.contentBoxTab.widthTabs > div > div.lineabase > div > ul > li:nth-child(8)
 	private By infoDGSBtn = By.linkText(("Info DGS").trim());
 	private By contactosBtn = By.cssSelector("[onclick*='subSecci=SEC_CONTACTOS']");
 	private By situacionesBtn = By.cssSelector("[onclick*='subSecci=SEC_SITUACIONES']");
@@ -493,9 +490,9 @@ public class FichaMediadorPage extends PageObject {
 		String nivelJerarquico = (webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).trim());
 		System.out.println(nivelJerarquico);
 
-		//boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
+		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
 
-		boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
+	//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
 		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
 
 		debugEnd();
@@ -1106,6 +1103,33 @@ public class FichaMediadorPage extends PageObject {
 	}*/
 
 	/// falta realmente hacer uso de esteo dato?? anyadirIdMediador.idMedAlta
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// endregion
 }
