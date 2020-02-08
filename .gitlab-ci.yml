@@ -1,8 +1,13 @@
+image: nexus:8088/amarises/root
 variables:
-  TARGET_REPO: https://'tomislavdm':Amaris@2017@bitbucket.org/tomislavdm/mdpjenkins.git
+  TARGET_REPO: https://'bvam':'Lamiasuperpassword!'@bitbucket.org/bvam/testrepo2.git
 stages:
   - clone
 clone:
+  before_script:
+    - apt-get update && apt-get install -y git
+    - git config --global user.email "bvamaris@gmail.com"
+    - git config --global user.name "bvam"
   stage: clone
   script:
     - git remote add remoterepo $TARGET_REPO

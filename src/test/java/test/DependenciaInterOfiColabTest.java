@@ -20,7 +20,7 @@ public class DependenciaInterOfiColabTest extends TestObject{
 	@DataProvider(parallel = false)
 	public String[][] dataProviderIntercambioDatos01() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosVariablesMediadoresIntercambio.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
 
 		return casesMatrix;
 	}
