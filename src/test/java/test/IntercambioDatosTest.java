@@ -54,7 +54,7 @@ public class IntercambioDatosTest extends TestObject{
 		if(suiteM.getSuiteVar("id_prospect_trans") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
 			for(int i = 0; i < testData.size(); i++) {
-				testData.setValue(Integer.toString(i), "id_mediador_alta", suiteM.getSuiteVar("id_prospect_trans"));
+				testData.setValue(Integer.toString(i), "id_mediador_alta", suiteM.getSuiteVar("id_prospect_trans")); // id_mediador_alta dato nuevo, sustituye al dato antiguo id_prospect_trans
 			}
 		}
 		
