@@ -7,6 +7,8 @@ import com.amaris.project.Constants;
 import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 
+import java.util.Random;
+
 public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	//------------ Datos básicos --------------------
@@ -56,12 +58,14 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	private By otroAgrupSIBtn = By.id("ALTAMEDI_SI");
 	private By otroAgrupNOBtn = By.id("ALTAMEDI_NO");
 
+	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
 	private By anyadirNuevoAgrupadorBtn = By.cssSelector("#capaAgrupadores > div.titulo > div > a");
 	private By agrupadorCombo = By.cssSelector("#ALTAMEDI_AGRUPRIN");
 	private By agrupadorOption = By.cssSelector("#ALTAMEDI_AGRUPRIN > option");
 	private By agrupadorNumeroInput = By.cssSelector("#ALTAMEDI_NUMERO");
 	private By grabarAgrupadorBtn = By.cssSelector("#buttonRecord");
 	private By cancelarAgrupadorBtn = By.cssSelector("#buttonCancel");
+	private By modificarAgrupadorBtn = By.cssSelector("#capaAgrupadores > table > tbody > tr.odd > td:nth-child(4) > a.js-openModal");
 
 	//------------ Datos adicionales -----------------------
 
@@ -98,6 +102,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	private By guardarDescripcionBtn = By.id("botonGrabar1");
 	private By continuarBtn = By.id("botonContinuar1");
 	private By grabarBtn = By.id("botonGrabar1");
+	private By volverBtn = By.id("botonVolver");
 
 	public MediadoresAltaDatosDescriptivosPage(UserStory userS) {
 		super(userS);
@@ -364,10 +369,10 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 				clickNombreComercialDiferente();
 				webDriver.waitWithDriver(2000);
 			}
-		//	webDriver.clearText(nombreComercialADInput);
-		//	webDriver.clearText(nombreComercialADInput);
+			//	webDriver.clearText(nombreComercialADInput);
+			//	webDriver.clearText(nombreComercialADInput);
 			webDriver.waitWithDriver(1000);
-		//	webDriver.appendText(nombreComercialADInput, getTestVar(Constants.NOMBRE_COMERCIAL).toString());
+			//	webDriver.appendText(nombreComercialADInput, getTestVar(Constants.NOMBRE_COMERCIAL).toString());
 			webDriver.setText(nombreComercialADInput, "Mediador");
 
 		} else {
@@ -457,4 +462,184 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	}
 
 	// acaban los métodos complejos
+
+	//------------------------RETENCIONES---------------------------------
+
+	//Generador de Dgs numero
+	public static String generadorRandomDgsNumero() {
+
+		return Integer.toString(new Random().nextInt(99999) + 11111);
+	}
+
+	public boolean alertaSistemaDescriptivos(String mensaje) {
+		debugBegin();
+
+		String alerta = webDriver.getTextInFrame(avisoSistemaTxt, cuerpoFrame).trim();
+		boolean checkAlerta = alerta.equalsIgnoreCase(mensaje);
+
+		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje real: " + alerta);
+
+		debugEnd();
+
+		return checkAlerta;
+	}
+
+	//Retenciones completas de todos los campos que lleva la Page
+
+	public MediadoresAltaDatosDescriptivosPage retencionesAltaDescriptivos() {
+		debugBegin();
+
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NIVEL_ESTRUCTURA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "INTE");
+		clickContinuar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_MEDIADOR);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AD");
+		clickContinuar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EJECUTIVO_COMERCIAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(ejecutivoComercialCombo, ejecutivoComercialOption, cuerpoFrame, "value", "4000");
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_IDIOMA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(idiomaCombo, idiomaOption, cuerpoFrame, "value", "ESPA");
+		webDriver.waitWithDriver(3000);
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_DOCUMENTO_MEDIADORES);
+		webDriver.acceptAlert();
+		webDriver.waitWithDriver(3000);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoDocumentoCombo, tipoDocumentoOption, cuerpoFrame, "value", "NIF");
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_DOCUMENTO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(numeroDocumentoInput, "Numero docuemnto", cuerpoFrame);
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_FISCAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(nombreFiscalInput, "Nombre", cuerpoFrame);
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRIMER_APELLIDO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(primerApellidoInput, "Primer Apellido", cuerpoFrame);
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEGUNDO_APELLIDO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(segundoApellidoInput, "Segundo Apellido", cuerpoFrame);
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_COMERCIAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickInFrame(nombreComercialDiferenteFiscalBtn, cuerpoFrame);
+		webDriver.clearTextInFrame(nombreComercialADInput, cuerpoFrame);
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_COMERCIAL_2_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(nombreComercialADInput, "Nombre comercial", cuerpoFrame);
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ACTIVIDAD_PRINCIPAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(actividadPrincipalCombo, actividadPrincipalOption, cuerpoFrame, "value", "ABOG");
+
+		//agente exclusivo
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AE");
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEXO_MEDIADOR);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "1");
+
+		clickContinuar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DISPONE_SOFTWARE_MEDIADORES);
+		webDriver.acceptAlert();
+
+		clickDisponeSoftwareSi();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AV");
+		clickContinuar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_REGISTRO_DGS_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(numRegistroDGSInput, generadorRandomDgsNumero(), cuerpoFrame);
+		
+		clickContinuar();
+
+		alertaSistemaDescriptivos(Constants.ALERTA_NUMERO_DOCUMENTO_1_MEDIADORES);
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+		webDriver.setTextInFrame(numeroDocumentoInput, DocumentGeneratorHelper.generateNif(), cuerpoFrame);
+
+		//nivel estructura colaborador
+		webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "COLA");
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_OFICINA_PADRE_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(estrColabOficinaPadreInput, "700001", cuerpoFrame);
+		webDriver.waitWithDriver(5000);
+
+		clickContinuar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_COLABORADOR);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(estrColabTipoCombo, estrColabTipoOption, cuerpoFrame, "value", "AD");
+		webDriver.clickElementFromDropDownByAttributeInFrame(agrupPrincCombo, agrupPrincOption, cuerpoFrame, "value", "1");
+		webDriver.clickInFrame(otroAgrupSIBtn, cuerpoFrame);
+
+		clickContinuar();
+
+		alertaSistemaDescriptivos(Constants.ALERTA_OTRO_AGRUPADOR_MEDIADORES);
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+		//comprobar anyadir nuevo agrupador
+		webDriver.clickInFrame(anyadirNuevoAgrupadorBtn, cuerpoFrame);
+		clickGrabarAgrupador();
+		clickContinuar();
+
+		alertaSistemaDescriptivos(Constants.ALERTA_AGRUPADOR_MEDIADORES);
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+		webDriver.clickInFrame(modificarAgrupadorBtn, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(agrupadorCombo, agrupadorOption, modalFrame, "value", "1");
+		clickGrabarAgrupador();
+
+		clickContinuar();
+		alertaSistemaDescriptivos(Constants.ALERTA_AGRUPADOR_REPETIDO_MEDIADORES);
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+		webDriver.clickInFrame(modificarAgrupadorBtn, cuerpoFrame);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(agrupadorCombo, agrupadorOption, modalFrame, "value", "2");
+
+		clickGrabarAgrupador();
+
+		clickContinuar();
+
+		debugEnd();
+		return this;
+	}
 }
