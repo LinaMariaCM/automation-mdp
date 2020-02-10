@@ -3818,4 +3818,19 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	// STEPS PARA RETENCIONES
+	public void alta_retenciones_mediadores() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openAltaMediador();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.retencionesAltaDescriptivos();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaRetencionesContacto();
+		debugEnd();
+	}
+
 } // END
