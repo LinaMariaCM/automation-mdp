@@ -273,7 +273,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		}
 		// sin datos de provincia + oficina / colaborador --> hereda datos del nivel superios
 		else if(getTestVar(Constants.DIRECCION_COME_PROVINCIA) == null || getTestVar(Constants.DIRECCION_COME_PROVINCIA).isEmpty() || !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
-			|| getTestVar(Constants.DIR_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_IGUAL_A) == null) {
+			|| getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_FISCAL_IGUAL_A) == null) {
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.waitForElementToBePresent(aceptarDireccionBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
@@ -316,15 +316,15 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		// sin datos para la provincia + oficina / colaborador --> hereda datos del nivel superios
 		else if(getTestVar(Constants.DIRECCION_PPRO_PROVINCIA) == null || getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty() || !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
 			||
-			getTestVar(Constants.DIR_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_IGUAL_A) == null) {
+			getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_FISCAL_IGUAL_A) == null) {
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
-		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_IGUAL_A
+		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
 			webDriver.click(direccionSuperiorNOBtn);
-			if(getTestVar(Constants.DIR_IGUAL_A) != null || !getTestVar(Constants.DIR_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_IGUAL_A) == "PPRO_FISC") {
+			if(getTestVar(Constants.DIR_FISCAL_IGUAL_A) != null || !getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_FISCAL_IGUAL_A) == "PPRO_FISC") {
 				webDriver.click(direccionIgualFiscalBtn);
 			}
-			if(getTestVar(Constants.DIR_IGUAL_A) != null || !getTestVar(Constants.DIR_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_IGUAL_A) == "PPRO_COME") {
+			if(getTestVar(Constants.DIR_FISCAL_IGUAL_A) != null || !getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_FISCAL_IGUAL_A) == "PPRO_COME") {
 				webDriver.click(direccionIgualComercialBtn);
 			}
 			webDriver.click(aceptarDireccionBtn); //último añadido
@@ -396,17 +396,17 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(aceptarBtn);
 		}
 		// sin datos para la provincia + oficina / colaborador --> hereda datos del nivel superios
-		else if(getTestVar(Constants.DIRECCION_PSIN_PROVINCIA) == null || getTestVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty() || !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
-			||
-			getTestVar(Constants.DIR_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_IGUAL_A) == null) {
+		else if(getTestVar(Constants.DIRECCION_PSIN_PROVINCIA).equals(null) || getTestVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty() && !getTestVar(Constants.NIVEL_ESTRUCTURA)
+			.equalsIgnoreCase("INTE")
+			|| getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_FISCAL_IGUAL_A).equals(null)) { // ¿¿¿¿¿ FISCAL ????
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
-		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_IGUAL_A
+		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
 			webDriver.click(direccionSuperiorNOBtn);
-			if(getTestVar(Constants.DIR_IGUAL_A) != null && !getTestVar(Constants.DIR_IGUAL_A).isEmpty() && getTestVar(Constants.DIR_IGUAL_A) == "PSIN_FISC") {
+			if(getTestVar(Constants.DIR_SINIESTROS_IGUAL_A) != null || !getTestVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_SINIESTROS_IGUAL_A).equalsIgnoreCase("PSIN_FISC")) {
 				webDriver.click(direccionIgualFiscalBtn);
 			}
-			if(getTestVar(Constants.DIR_IGUAL_A) != null && !getTestVar(Constants.DIR_IGUAL_A).isEmpty() && getTestVar(Constants.DIR_IGUAL_A) == "PSIN_COME") {
+			else if(getTestVar(Constants.DIR_SINIESTROS_IGUAL_A) != null || !getTestVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_SINIESTROS_IGUAL_A).equalsIgnoreCase("PSIN_COME")) {
 				webDriver.click(direccionIgualComercialBtn);
 			}
 			webDriver.click(aceptarDireccionBtn); //último añadido
@@ -417,6 +417,9 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		return this;
 	}
+
+
+
 
 	public MediadoresAltaDatosContactoPage anyadirNuevaDireccionPostalIgualFiscal() {
 		debugBegin();
@@ -594,11 +597,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 	//-------------------MÉTODOS COMPLEJOS--------------------------------------
 
+	// REVISAR CON IRYNA
+
 	public MediadoresAltaDatosContactoPage altaOficinaDatosContacto() {
 		debugBegin();
-		rellenarDatosGeneralesContacto("Contacto responsable", "Cargo responsable", "699999999", "email@gmail.com");
-
-		// FALTA añadir direcciones
+		rellenarDatosGeneralesContacto("Contacto responsable", "Cargo responsable", "666999999", "email@gmail.com");
 
 		debugEnd();
 		return this;
