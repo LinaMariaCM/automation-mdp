@@ -5,7 +5,7 @@ clone:
   before_script:
     - apt-get update && apt-get install -y git
     - export TARGET_REPO='https://tomislavdm:Amaris@2017@bitbucket.org/tomislavdm/mdpjenkins.git'
-    - export ORIGIN_REPO='http://puppetmdp@192.168.1.104/qa-spain/automation-mdp.git'
+    - export ORIGIN_REPO='http://puppetmdp:puppetmdp@192.168.1.104/qa-spain/automation-mdp.git'
   stage: clone
   script:
     - cd /tmp
