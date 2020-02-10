@@ -31,7 +31,7 @@ public class IntercambioDatosTest extends TestObject{
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
-		suiteM.setRelevantColumn(testCase, 15);
+		suiteM.setRelevantColumn(testCase, 16);
 
 		userS.testActions(() -> {
 
