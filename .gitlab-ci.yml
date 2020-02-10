@@ -10,7 +10,7 @@ clone:
   script:
     - cd /tmp
     - git clone $ORIGIN_REPO
-    - cd /test
+    - cd test
     - git config --global user.email "bvamaris@gmail.com"
     - git config --global user.name "bvam"
     - git remote add remoterepo $TARGET_REPO
