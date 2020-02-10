@@ -705,6 +705,7 @@ public class Constants {
 	public static final String ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES = "Es obligatorio seleccionar una entidad Bancaria.";
 	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO resolución financiera es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_TELEFONO_MEDIADORES = "El campo TELÉFONO no se ha rellenado correctamente.";
+	public static final String ALERTA_MEDIADOR_NO_SELECCIONADO = "Debe seleccionar uno o varios mediadores para poder continuar.";
 
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
@@ -742,7 +743,12 @@ public class Constants {
 	public static final String DIRECCION_PSIN_POBLACION = "med_direccion_psin_poblacion";
 	public static final String DIRECCION_PSIN_NOMBRE_VIA = "med_direccion_psin_nombrevia";
 	public static final String TIPO_DIRECCION_MED = "tipo_direccion_med";
-	public static final String DIR_IGUAL_A = "med_direccion_heradar";
+	public static final String DIR_FISCAL_IGUAL_A = "med_dir_fiscal_heradar";
+	public static final String DIR_COMERCIAL_IGUAL_A = "med_dir_comercial_heradar";
+	public static final String DIR_PRODUCCION_IGUAL_A = "med_dir_produccion_heradar";
+	public static final String DIR_RECIBOS_IGUAL_A = "med_dir_recibos_heradar";
+	public static final String DIR_SINIESTROS_IGUAL_A = "med_dir_siniestros_heradar";
+
 	public static final String TIPO_COLABORADOR = "tipo_colaborador";
 
 	// ENVÍO Y RECEPCIÓN DGA
