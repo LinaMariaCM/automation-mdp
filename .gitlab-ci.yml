@@ -5,14 +5,14 @@ clone:
   before_script:
     - apt-get update && apt-get install -y git
     - export TARGET_REPO='https://bvam:Lamiasuperpassword1!@bitbucket.org/bvam/testrepo2.git'
-	- export ORIGIN_REPO='https://bvamaris:Lamiasuperpassword1!@bitbucket.org/bvamaris/test.git'
+    - export ORIGIN_REPO='https://bvamaris:Lamiasuperpassword1!@bitbucket.org/bvamaris/test.git'
   stage: clone
   script:
     - cd /tmp
     - git clone $ORIGIN_REPO
-	- cd /test
-	- git config --global user.email "bvamaris@gmail.com"
-	- git config --global user.name "bvam"
+    - cd /test
+    - git config --global user.email "bvamaris@gmail.com"
+    - git config --global user.name "bvam"
     - git remote add remoterepo $TARGET_REPO
     - git push remoterepo --force master
   only:
