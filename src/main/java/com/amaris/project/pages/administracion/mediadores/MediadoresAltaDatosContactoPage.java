@@ -113,6 +113,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	//---------------Rellenar datos Generales------------------------
 	public MediadoresAltaDatosContactoPage rellenarDatosGeneralesContacto(String contactoResp, String cargoRespo, String telPrincipal, String emailPrincipal) {
 		debugBegin();
+		webDriver.waitWithDriver(3000);
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.setText(contactoResponsableInput, contactoResp);
 		webDriver.setText(cargoResponsableInput, cargoRespo);
@@ -185,7 +186,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			debugInfo("Aceptada la dirección para añadirse a la lista");
 
 		}
-
+		webDriver.waitWithDriver(8000);
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 			// si es oficina o gestor, comprueba el copy de la dirección fiscal automáticamente heredada
 			String copyDireccionFiscalOficina = webDriver.getText(By.cssSelector("#capaDomicilio > table.tableForm > tbody > tr > th > strong")).trim();
