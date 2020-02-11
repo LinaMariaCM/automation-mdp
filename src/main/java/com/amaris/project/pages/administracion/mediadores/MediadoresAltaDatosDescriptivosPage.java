@@ -5,6 +5,7 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
 import com.amaris.project.utils.ChecksUtils;
+import com.sun.tools.jxc.ap.Const;
 import org.openqa.selenium.By;
 
 public class MediadoresAltaDatosDescriptivosPage extends PageObject {
@@ -286,7 +287,9 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 			webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
 			webDriver.waitWithDriver(3000);
-			clickDisponeSoftwareSi(); // de momento, valor predeterminado, evaluar en futuro si cambiarlo y tirar del CSV. Evaluar si añadir un boolean para gestionar cuando es Si y No.
+			if(webDriver.isPresentInFrame(medSoftwareNOBtn, cuerpoFrame) || webDriver.isPresentInFrame(medSoftwareSIBtn, cuerpoFrame)) {
+				disponibilidadSoftware();
+			}
 			debugInfo("cuenta con software de seguros");
 			webDriver.waitWithDriver(3000);
 		}
@@ -300,11 +303,10 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		if(webDriver.isPresentInFrame(nombreFiscalInput, cuerpoFrame) && getTestVar(Constants.NOMBRE_MEDIADOR) != null && !getTestVar(Constants.NOMBRE_MEDIADOR).isEmpty()) {
 			webDriver.setTextInFrame(nombreFiscalInput, cuerpoFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
-		} else {
-			webDriver.setTextInFrame(nombreFiscalInput, "Nombre", cuerpoFrame);// quitar cuando CSV implementado
 			debugInfo("Ha rellenado nombre fiscal.");
+		}else{
+			debugInfo("Ha habido un problema al añadir el nombre fiscal");
 		}
-
 		debugEnd();
 		return this;
 	}
@@ -351,19 +353,14 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
-		// si en el CSV no hay dato en el campo Nombre comercial, se activa la opción "Igual que fiscal",
-		// si hay un nombre en el CSV, se activa la opción "Diferente" y se añade el nombre
 		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null || !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
 			if(webDriver.isPresent(nombreComercialDiferenteFiscalBtn)) {
 				clickNombreComercialDiferente();
 				webDriver.waitWithDriver(2000);
 			}
-		//	webDriver.clearText(nombreComercialADInput);
-		//	webDriver.clearText(nombreComercialADInput);
-			webDriver.waitWithDriver(1000);
-		//	webDriver.appendText(nombreComercialADInput, getTestVar(Constants.NOMBRE_COMERCIAL).toString());
-			webDriver.setText(nombreComercialADInput, "Mediador");
-
+			webDriver.waitWithDriver(3000);
+			//	webDriver.setText(nombreComercialADInput, "Mediador"); descomentar si la siguiente línea  y método relacionado si el alta no funciona por su culpa
+			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL).toString());
 		} else {
 			webDriver.click(nombreComercialIgualFiscalBtn);
 		}
@@ -371,7 +368,13 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		webDriver.exitFrame();
 
 		debugEnd();
+		return this;
+	}
 
+	public MediadoresAltaDatosDescriptivosPage completarNombreComercial(String nomComercial) {
+		debugBegin();
+		webDriver.setText(nombreComercialADInput, nomComercial);
+		debugEnd();
 		return this;
 	}
 
@@ -445,6 +448,19 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		}
 
 		webDriver.waitWithDriver(3000);
+
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDescriptivosPage disponibilidadSoftware() {
+		debugBegin();
+		if(getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED) != null || !getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).isEmpty() || getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED)
+			.equalsIgnoreCase("TRUE")) {
+			clickDisponeSoftwareSi();
+		} else {
+			webDriver.clickInFrame(medSoftwareNOBtn, cuerpoFrame);
+		}
 
 		debugEnd();
 		return this;
