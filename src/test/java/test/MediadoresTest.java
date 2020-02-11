@@ -266,7 +266,7 @@ public class MediadoresTest {
 		ActionSteps steps = new ActionSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.alta_retenciones_mediadores();
+			steps.alta_retenciones_mediadores_intermediario();
 			return null;
 		}).run();
 	}
