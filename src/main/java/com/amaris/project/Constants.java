@@ -774,7 +774,9 @@ public class Constants {
 	public static final String AGRUPADOR_PRINCIPAL_ALT_MED = "agrupador_principal";
 	public static final String NUMERO_REGISTRO_DGSFP_ALT_MED = "num_registro_DGSFP"; // a pelo, es más útil de cara a las comprobaciones
 	public static final String NUMERO_ALT_MED = "numero"; // se utiliza la constante ID_MEDIADOR_ALTA = "id_mediador_alta"
-	public static final String OTROS_AGRUPADORES_ALT_MED = "otros_agrupadores"; // no está en uso
+	public static final String OTROS_AGRUPADORES_ALT_MED = "otros_agrupadores"; // no está en usoç
+	public static final String ID_INTE_PADRE = "id_int_padre"; // PENDIENTE método y prueba
+	public static final String ID_OFICINA_PADRE = "id_oficina_padre"; // PENDIENTE método y prueba
 
 	// ### Datos adicionales - no están en uso
 	public static final String EDAD_ALT_MED = "edad";
