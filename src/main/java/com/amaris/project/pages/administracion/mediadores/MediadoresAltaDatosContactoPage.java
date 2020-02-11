@@ -7,8 +7,6 @@ import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
-
-
 public class MediadoresAltaDatosContactoPage extends PageObject {
 
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
@@ -619,7 +617,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-
 	//---------------RETENCIONES PARA CAMPOS DE LA PAGE CONTACTOS------------------------
 
 	//ALERTA DE SISTEMA
@@ -637,9 +634,10 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return checkAlerta;
 	}
 
-	public MediadoresAltaDatosContactoPage altaRetencionesContacto() {
+	public MediadoresAltaDatosContactoPage altaRetencionesIntermediarioContacto() {
 		debugBegin();
 
+		webDriver.waitWithDriver(3000);
 		clickContinuar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_RESPONSABLE_MEDIADORES);
@@ -658,7 +656,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_PRINCIPAL_MEDIADORES);
 		webDriver.acceptAlert();
 
-		webDriver.setTextInFrame(telefonoPrincipalInput, cuerpoFrame, "Telefonno");
+		webDriver.setTextInFrame(telefonoPrincipalInput, cuerpoFrame, "Telefono");
 		clickContinuar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_PRINCIPAL_MEDIADORES);
@@ -670,16 +668,291 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EMAIL_PRINCIPAL_MEDIADORES);
 		webDriver.acceptAlert();
 
-		webDriver.setTextInFrame(emailPrincipalInput, cuerpoFrame, "esto es un email");
+		webDriver.setTextInFrame(emailPrincipalInput, cuerpoFrame, "Esto es un email.");
+
+		clickContinuar();
+
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EMAIL_PRINCIPAL_MEDIADORES);
 		webDriver.acceptAlert();
 
 		webDriver.setTextInFrame(emailPrincipalInput, cuerpoFrame, "email@gmail.com");
 
+		clickContinuar();
+
 		alertaSistemaContacto(Constants.ALERTA_ANYADIR_DIRECCIONES_MEDIADORES);
 		webDriver.clickInFrame(volverBtn, cuerpoFrame);
 
 		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+
+		//comercial
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "COME");
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickInFrame(comprobarDireccionBtn, modalFrame);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(provinciaInput);
+		completarCampoProvincia("BARCELONA");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(poblacionInput);
+		completarCampoPoblacion("Barcelona");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(viaInput);
+		completarCampoNombreVia("betania");
+
+		webDriver.click(comprobarDireccionBtn);
+		webDriver.click(aceptarBtn);
+
+		webDriver.exitFrame();
+
+		// fiscal
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "FISC");
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickInFrame(comprobarDireccionBtn, modalFrame);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(provinciaInput);
+		completarCampoProvincia("VALENCIA");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(poblacionInput);
+		completarCampoPoblacion("MISLATA");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(viaInput);
+		completarCampoNombreVia("GREG");
+
+		webDriver.click(comprobarDireccionBtn);
+		webDriver.click(aceptarBtn);
+
+		webDriver.exitFrame();
+
+		// postal produccion
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByAttribute(tipoDomicilioCombo, tipoDomicilioOption, "value", "PPRO");
+		webDriver.click(direccionDiferenteBtn);
+
+		webDriver.clearText(provinciaInput);
+		webDriver.clearText(poblacionInput);
+		webDriver.clearText(viaInput);
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(provinciaInput);
+		completarCampoProvincia("ALBACETE");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(poblacionInput);
+		completarCampoPoblacion("val");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(viaInput);
+		completarCampoNombreVia("val");
+
+		webDriver.click(comprobarDireccionBtn);
+		webDriver.click(aceptarBtn);
+
+		webDriver.exitFrame();
+
+		// postal recibos
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByAttribute(tipoDomicilioCombo, tipoDomicilioOption, "value", "PREC");
+		webDriver.click(direccionDiferenteBtn);
+
+		webDriver.clearText(provinciaInput);
+		webDriver.clearText(poblacionInput);
+		webDriver.clearText(viaInput);
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(provinciaInput);
+		completarCampoProvincia("ALBACETE");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(poblacionInput);
+		completarCampoPoblacion("val");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(viaInput);
+		completarCampoNombreVia("val");
+
+		webDriver.click(comprobarDireccionBtn);
+		webDriver.click(aceptarBtn);
+
+		webDriver.exitFrame();
+
+		// postal siniestro
+		webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.clickElementFromDropDownByAttribute(tipoDomicilioCombo, tipoDomicilioOption, "value", "PSIN");
+		webDriver.click(direccionDiferenteBtn);
+
+		webDriver.clearText(provinciaInput);
+		webDriver.clearText(poblacionInput);
+		webDriver.clearText(viaInput);
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(provinciaInput);
+		completarCampoProvincia("ALBACETE");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(poblacionInput);
+		completarCampoPoblacion("val");
+
+		webDriver.click(comprobarDireccionBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.waitForElementToBePresent(viaInput);
+		completarCampoNombreVia("val");
+
+		webDriver.click(comprobarDireccionBtn);
+		webDriver.click(aceptarBtn);
+
+		webDriver.exitFrame();
+
+		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
 		return this;

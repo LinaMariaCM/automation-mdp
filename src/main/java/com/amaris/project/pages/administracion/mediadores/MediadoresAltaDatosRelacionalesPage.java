@@ -3,6 +3,7 @@ package com.amaris.project.pages.administracion.mediadores;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
+import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 
 public class MediadoresAltaDatosRelacionalesPage extends PageObject {
@@ -46,6 +47,11 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 	private By grabarBtn = By.cssSelector("#buttonRecord");
 	private By cancelarBtn = By.cssSelector("#buttonCancel");
+	private By volverBtn = By.cssSelector("#botonVolver");
+
+
+	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
+
 
 	//-----------Controles de pagina---------------------------
 
@@ -197,7 +203,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosRelacionalesPage clickCancelarDatosrelacionales() {
+	public MediadoresAltaDatosRelacionalesPage clickCancelarDatosRelacionales() {
 		debugBegin();
 		webDriver.clickInFrame(cancelarRelacionalesBtn, cuerpoFrame);
 		debugEnd();
@@ -235,6 +241,80 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		}
 
 		anyadirNuevoBanco("Nombre del banco");
+		debugEnd();
+
+		return this;
+	}
+
+	//--------------RETENCIONES---------------------------------
+
+	public boolean alertaSistemaRelacionales(String mensaje) {
+		debugBegin();
+
+		String alerta = webDriver.getTextInFrame(avisoSistemaTxt, cuerpoFrame).trim();
+		boolean checkAlerta = alerta.equalsIgnoreCase(mensaje);
+
+		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje real: " + alerta);
+
+		debugEnd();
+
+		return checkAlerta;
+	}
+
+	// Alta intermediario
+	public MediadoresAltaDatosRelacionalesPage altaRetencionesIntermediarioRelacionales() {
+		debugBegin();
+
+		webDriver.clickInFrame(especialistaRamoSIBtn, cuerpoFrame);
+
+		clickContinuarDatosRelacionales();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(especialistaRamoCombo, especialistaRamoOption, cuerpoFrame, "value", "1");
+
+		webDriver.clickInFrame(adminFincasSIBtn, cuerpoFrame);
+
+		clickContinuarDatosRelacionales();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CUANTAS_FINCAS_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(adminFincasCuantasInput, cuerpoFrame, "10");
+
+		clickContinuarDatosRelacionales();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, "Principales");
+
+		clickContinuarDatosRelacionales();
+
+		alertaSistemaRelacionales(Constants.ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES);
+
+		webDriver.switchToFrame(cuerpoFrame);
+
+		webDriver.click(volverBtn);
+		webDriver.click(medNuevoBancoBtn);
+		webDriver.waitWithDriver(3000);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.click(grabarBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_BANCO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.setText(nombreBancoInput, "Banco");
+		webDriver.click(grabarBtn);
+
+		webDriver.exitFrame();
+
+		clickContinuarDatosRelacionales();
+
 		debugEnd();
 
 		return this;
