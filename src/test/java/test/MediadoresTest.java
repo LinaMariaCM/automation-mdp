@@ -180,7 +180,6 @@ public class MediadoresTest {
 		}).run();
 	}
 
-
 	// TEST de ANTONIA ALTA de TRES
 
 	@DataProvider(parallel = false)
@@ -188,16 +187,15 @@ public class MediadoresTest {
 		String testCase = Constants.MEDIADORES_CASE;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
 
-		if(suiteM.getSuiteVar("id_mediador_alta") != null) {
+	/*	if(suiteM.getSuiteVar("id_mediador_alta") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
 			for(int i = 0; i < testData.size(); i++) {
 				testData.setValue(Integer.toString(i), "id_mediador_alta", suiteM.getSuiteVar("id_prospect_trans"));
 			}
-		}
+		}*/
 
 		return casesMatrix;
 	}
-
 
 	@Test(dataProvider = "dataProviderMed08")
 	public void med08(String testCase, String id) throws Exception {
@@ -207,18 +205,16 @@ public class MediadoresTest {
 		userS.testActions(() -> {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_interm_AE_completo();
+			//	steps.alta_oficina_a_un_intermediario();
+			steps.completar_estados_dgs();
+		/*	steps.alta_colaborador();
+			steps.completar_estados_dgs();*/
+			steps.completar_alta_activo_restringido();
 			steps.alta_oficina_a_un_intermediario();
-			steps.completar_estados_dgs();
-			steps.alta_colaborador();
-			steps.completar_estados_dgs();
 
 			return null;
 		}).run();
 	}
-
-
-
-
 
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMed11() {

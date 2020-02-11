@@ -54,7 +54,10 @@ public class FichaMediadorPage extends PageObject {
 	private By solicitarMasInformacionBtn = By.cssSelector("[onclick*='operacion=SOLIINFOINIC]");
 	private By confirmarAltaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
 	private By enviaValoraFinancieraBtn = By.cssSelector("[onclick*='operacion=ENVVALFI']");
-	private By enviaRevisionFinancieraBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
+	//private By enviaRevisionFinancieraBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
+	//#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(2) > a
+	//lanzarAccion('ACCSMEDFICH', '121820', 'TDSERV0004I&servicio=GESTMEDI&operacion=ENVREVFI&codicombo=ACCSMEDFICH&swinidat=S~SWIFRAME=S~SWVENTANA=N~ALTODFRAME=400~ANCHODFRAME=750~SWPREGUNTA=N~PREGUNTA=~TITULO=Enviar para revision financiera~CODIACCI=MEREVFIN~SWTXUDT=N'); return false;
+	private By enviaRevisionFinancieraBtn = By.cssSelector("[onclick*='operacion=ENVREVFI']");
 	private By enviaResolucionFinancieraBtn = By.cssSelector("[onclick*='operacion=ENVRESFI']");
 	private By enviaResolucionFinancieraCombo = By.cssSelector("#GESMED_REVFVALO");
 	private By enviaResolucionFinancieraOption = By.cssSelector("#GESMED_REVFVALO > option");
@@ -469,7 +472,7 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickInFrame(grabarEstadoBtn, modalFrame);
-		webDriver.waitWithDriver(3000);
+		webDriver.waitWithDriver(5000);
 		debugEnd();
 		return this;
 	}
@@ -591,7 +594,8 @@ public class FichaMediadorPage extends PageObject {
 	//COMPROBAR TEXTO DE ESTADO
 	public boolean comprobarEstado(String estado) {
 		debugBegin();
-
+		webDriver.waitWithDriver(3000);
+	//	String estadoAlta = webDriver.getTextInFrame(By.cssSelector("<strong>Estado </strong>") + estadoMediadorTxt, cuerpoFrame).trim();
 		String estadoAlta = webDriver.getTextInFrame(estadoMediadorTxt, cuerpoFrame).trim();
 		boolean checkEstado = estadoAlta.equalsIgnoreCase(estado);
 
@@ -856,7 +860,7 @@ public class FichaMediadorPage extends PageObject {
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
-			Assert.assertTrue(comprobarSituacion(REVISION_FINANCIERA), "La situacion no es correctA.");
+			Assert.assertTrue(comprobarSituacion(REVISION_FINANCIERA), "La situacion no es correcta.");
 
 			clickMasAcciones();
 			clickEnviarResolucionFinanciera();
@@ -1109,6 +1113,14 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage comprobarEstadoActivo(){
+		debugBegin();
+		webDriver.waitWithDriver(4000);
+		Assert.assertTrue(comprobarEstado(ACTIVO), "El estado no es correcto.");
+		debugEnd();
+		return this;
+	}
+
 	// METODO PARA HACER COMPROBACIONES EN FICHA
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
@@ -1149,17 +1161,6 @@ public class FichaMediadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
-
-	/*public FichaMediadorPage anyadirIdMediador() {
-		debugBegin();
-		// a la string se le asigna el valor guardado en el CSV y constante
-		String idMedAlta = getSuiteVar(Constants.ID_MEDIADOR_ALTA);
-		debugInfo("ver si aparece la idMedAlta correctamente: " + idMedAlta);
-		debugEnd();
-		return this;
-	}*/
-
-	/// falta realmente hacer uso de esteo dato?? anyadirIdMediador.idMedAlta
 
 	// endregion
 }
