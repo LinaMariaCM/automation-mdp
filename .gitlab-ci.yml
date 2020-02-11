@@ -1,16 +1,19 @@
 image: nexus:8088/amarises/root
-variables:
-  TARGET_REPO: https://'bvam':'Lamiasuperpassword!'@bitbucket.org/bvam/testrepo2.git
 stages:
   - clone
 clone:
   before_script:
     - apt-get update && apt-get install -y git
-    - git config --global user.email "bvamaris@gmail.com"
-    - git config --global user.name "bvam"
+    - export TARGET_REPO='https://mirpigar:_emeris1992@bitbucket.org/mirpigar/mdpjenkins.git'
+    - export ORIGIN_REPO='http://puppetmdp:puppetmdp@192.168.1.104/qa-spain/automation-mdp.git'
   stage: clone
   script:
+    - cd /tmp
+    - git clone $ORIGIN_REPO
+    - cd automation-mdp
+    - git config --global user.email "mirko.pietrogarcia@amaris.com"
+    - git config --global user.name "puppetmdp"
     - git remote add remoterepo $TARGET_REPO
-    - git push remoterepo master
+    - git push remoterepo --force master
   only:
     - master
