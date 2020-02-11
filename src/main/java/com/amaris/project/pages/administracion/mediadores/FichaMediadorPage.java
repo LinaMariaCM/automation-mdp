@@ -816,10 +816,27 @@ public class FichaMediadorPage extends PageObject {
 			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 			//con esta lina se obtiene el id para guardarlo en esta misma prueba
 
-			setSuiteVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
-			// en esta línea se guarda para reutilizararlo en otra
-
 			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
+			
+			if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("INTE")){
+				setTestVar((Constants.ID_INTERMEDIARIO_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
+				debugInfo("Código de Intermediario obtenido");
+			}
+			else if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("OFI")){
+				setTestVar((Constants.ID_OFICINA_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
+				debugInfo("Código de Oficina obtenido");
+			}
+			else if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("COLAB")){
+				setTestVar((Constants.ID_COLABORADOR_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
+				debugInfo("Código de Colaborador obtenido");
+			}
+			else{
+				setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
+				debugInfo("Código de mediador obtenido");
+			}
+			
+			setSuiteVar(("cod_mediador_trans"), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
+			// en esta línea se guarda para reutilizararlo en otra
 
 			debugInfo("El mediador del campo  ID_MEDIADOR_ALTA es " + getSuiteVar(Constants.ID_MEDIADOR_ALTA));
 		} else {

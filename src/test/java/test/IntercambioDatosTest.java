@@ -51,10 +51,10 @@ public class IntercambioDatosTest extends TestObject{
 //			"datosTestMediadores.csv");
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosVariablesMediadoresIntercambio.csv");
 		
-		if(suiteM.getSuiteVar("id_prospect_trans") != null) {
+		if(suiteM.getSuiteVar("cod_mediador_trans") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
 			for(int i = 0; i < testData.size(); i++) {
-				testData.setValue(Integer.toString(i), "id_mediador_alta", suiteM.getSuiteVar("id_prospect_trans"));
+				testData.setValue(Integer.toString(i), "id_mediador_alta", suiteM.getSuiteVar("cod_mediador_trans"));
 			}
 		}
 		
