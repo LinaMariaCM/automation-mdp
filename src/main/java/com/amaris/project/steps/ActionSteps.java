@@ -3672,7 +3672,7 @@ public class ActionSteps extends InteractionObject {
 			.anyadirDireccionProduccion()
 			.anyadirDireccionRecibos()
 			.anyadirDireccionSiniestros()
-		//	.altaOficinaDatosContacto()
+			//	.altaOficinaDatosContacto()
 			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
@@ -3701,14 +3701,25 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
 			.altaColaboradorDatosContacto()
-			//direcciones faLTA AÑADIR
+			.anyadirNuevaDireccionFiscal()
+			.anyadirDireccionComercial()
+			.anyadirDireccionSiniestros()
 			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
-			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
-			.clickGuardar();
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
+
+		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
+			new MediadoresAltaDatosDGSPage(userS)
+				.anyadirFechaInicioRelacion()
+				.clickGuardarYSalirDGSAlta();
+		} else {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
+		}
+
 		new FichaMediadorPage(userS)
 			.obtenerIdMediador()
 			.solicitarAlta()
@@ -3738,11 +3749,16 @@ public class ActionSteps extends InteractionObject {
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
-			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
-			.clickContiuar();
-		new MediadoresAltaDatosDGSPage(userS)
-			.anyadirFechaInicioRelacion();
-		//	.clickGuardar();
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
+
+		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
+			new MediadoresAltaDatosDGSPage(userS)
+				.anyadirFechaInicioRelacion()
+				.clickGuardarYSalirDGSAlta();
+		} else {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
+		}
 		new FichaMediadorPage(userS)
 			//	.obtenerIdMediador()
 			.solicitarAlta()
@@ -3752,6 +3768,23 @@ public class ActionSteps extends InteractionObject {
 			.confirmarAlta()
 			.formacionAvanzarEstado()
 			.obtenerIdMediador();
+		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+			new FichaMediadorPage(userS)
+				.clickBuscadorMediadores();
+			new MediadoresHomePage(userS)
+				.openEnvioDGS();
+			new MediadoresDGSPage(userS)
+				.anyadirIdMediador()
+				.envioMediadorDGS(); // averiguar cómo filtrar el CSV y cases: cuando ha de aparecer el paso
+			new MediadoresHomePage(userS)
+				.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
+			new MediadoresDGSPage(userS)
+				.recepcionMediadoresDGS();
+			new MediadoresHomePage(userS)
+				.openGestionMediadores();
+			new MediadoresBuscadorPage(userS)
+				.buscarMediadorPorId();
+		}
 		debugEnd();
 	}
 
