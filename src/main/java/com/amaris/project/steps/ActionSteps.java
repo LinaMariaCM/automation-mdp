@@ -3783,6 +3783,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	//------ALTA PROSPECT--------
 	public void alta_prospect() {
 		debugBegin();
 
@@ -3817,7 +3818,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	// STEPS PARA HACER COMPROBACIONES EN LA FICHA
+	// STEPS PARA HACER COMPROBACIONES EN LA FICHA, SOLO HAY UN CASO, TERMINAR CASOS AL TENER CSV COMPLETO
 	public void comprobacion_ficha() {
 		debugBegin();
 
@@ -3828,6 +3829,27 @@ public class ActionSteps extends InteractionObject {
 		new FichaMediadorPage(userS)
 			.comprobacionFicha();
 
+		debugEnd();
+	}
+
+	// STEPS PARA RETENCIONES ALTA INTERMEDIARIOS, OFICINAS Y COLABORADORES
+	public void alta_retenciones_mediadores() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openAltaMediador();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.retencionesAltaDescriptivos();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaRetencionesContacto();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaRetencionesIntermediarioRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.retencionesAltaIntermediarioTrans();
+		new MediadoresAltaDatosDGSPage(userS)
+			.retencionesAltaIntermediarioDGS();
 		debugEnd();
 	}
 

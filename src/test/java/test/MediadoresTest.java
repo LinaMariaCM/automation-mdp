@@ -3,7 +3,6 @@ package test;
 //Circuito completo siniestros (convencional / especializado con perito)
 //--------------------------------------------------------------------------
 
-import com.amaris.automation.data.DataObject;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -185,7 +184,7 @@ public class MediadoresTest {
 	@DataProvider(parallel = false)
 	public String[][] dataProviderMed08() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadores.csv");
 
 	/*	if(suiteM.getSuiteVar("id_mediador_alta") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
@@ -254,9 +253,29 @@ public class MediadoresTest {
 		}).run();
 	}
 
+	// TEST PARA RETENCIONES ALTAS PARA INTERMEDIARIO, OFICINA Y COLABORADOR
+	@DataProvider(parallel = false)
+	public String[][] dataProviderMed21() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_altas_retenciones.csv");
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMed21")
+	public void med21(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		userS.testActions(() -> {
+			steps.login("Innova", "eferrando");
+			steps.alta_retenciones_mediadores();
+			return null;
+		}).run();
+	}
+
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
 	}
 
 }
+
