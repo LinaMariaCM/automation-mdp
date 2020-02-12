@@ -262,7 +262,8 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		return checkAlerta;
 	}
 
-	// Alta intermediario
+	//---------------------RETENCIONES--------------------
+
 	public MediadoresAltaDatosRelacionalesPage altaRetencionesIntermediarioRelacionales() {
 		debugBegin();
 

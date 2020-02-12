@@ -485,7 +485,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		return checkAlerta;
 	}
 
-	//Retenciones de intermediario
+	//--------------RETENCIONES----------------------------------
 
 	public MediadoresAltaDatosDescriptivosPage retencionesAltaIntermediarioDescriptivos() {
 		debugBegin();
@@ -517,17 +517,19 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(idiomaCombo, idiomaOption, cuerpoFrame, "value", "ESPA");
 		webDriver.waitWithDriver(3000);
+
 		clickContinuar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_DOCUMENTO_MEDIADORES);
 		webDriver.acceptAlert();
+
 		webDriver.waitWithDriver(3000);
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoDocumentoCombo, tipoDocumentoOption, cuerpoFrame, "value", "NIF");
+
 		clickContinuar();
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_DOCUMENTO_MEDIADORES);
 		webDriver.acceptAlert();
-
 
 		webDriver.setTextInFrame(numeroDocumentoInput, "Numero documento", cuerpoFrame);
 		webDriver.waitWithDriver(3000);
@@ -576,6 +578,33 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(actividadPrincipalCombo, actividadPrincipalOption, cuerpoFrame, "value", "ABOG");
 
+		//agente vinculado
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AV");
+
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_REGISTRO_DGS_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(numRegistroDGSInput, generadorRandomDgsNumero(), cuerpoFrame);
+
+		clickContinuar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DISPONE_SOFTWARE_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.waitWithDriver(3000);
+
+		clickDisponeSoftwareSi();
+
+		clickContinuar();
+
+		alertaSistemaDescriptivos(Constants.ALERTA_NUMERO_DOCUMENTO_1_MEDIADORES);
+
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+		webDriver.setTextInFrame(numeroDocumentoInput, DocumentGeneratorHelper.generateNif(), cuerpoFrame);
+
 		//agente exclusivo
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AE");
 		clickContinuar();
@@ -587,32 +616,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		clickContinuar();
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DISPONE_SOFTWARE_MEDIADORES);
-		webDriver.acceptAlert();
-
-		webDriver.waitWithDriver(3000);
-
-		clickDisponeSoftwareSi();
-
-		webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AV");
-
-		clickContinuar();
-
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_REGISTRO_DGS_MEDIADORES);
-		webDriver.acceptAlert();
-
-		webDriver.setTextInFrame(numRegistroDGSInput, generadorRandomDgsNumero(), cuerpoFrame);
-		
-		clickContinuar();
-
-		alertaSistemaDescriptivos(Constants.ALERTA_NUMERO_DOCUMENTO_1_MEDIADORES);
-
-		webDriver.clickInFrame(volverBtn, cuerpoFrame);
-
-		webDriver.setTextInFrame(numeroDocumentoInput, DocumentGeneratorHelper.generateNif(), cuerpoFrame);
-
-		clickContinuar();
-
 		debugEnd();
 		return this;
 	}
@@ -621,7 +624,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		debugBegin();
 
 		clickContinuar();
-
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "COLA");
 		clickContinuar();
@@ -650,8 +652,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		debugBegin();
 
 		clickContinuar();
-
-
 
 		debugEnd();
 		return this;
