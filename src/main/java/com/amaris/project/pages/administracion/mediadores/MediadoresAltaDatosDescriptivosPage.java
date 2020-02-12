@@ -285,7 +285,9 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			nombreComercial();
 			debugInfo("nombre comercial introducido");
 			webDriver.waitWithDriver(3000);
-			webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
+			if((Constants.TIPO_MEDIADOR).equals("AE") || (Constants.TIPO_MEDIADOR).equals("BSE")) {
+				webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
+			}
 			webDriver.waitWithDriver(3000);
 			if(webDriver.isPresentInFrame(medSoftwareNOBtn, cuerpoFrame) || webDriver.isPresentInFrame(medSoftwareSIBtn, cuerpoFrame)) {
 				disponibilidadSoftware();
@@ -327,7 +329,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	public MediadoresAltaDatosDescriptivosPage altaDatosBasicosComunes(String numRegDGS) {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttribute(ejecutivoComercialCombo, ejecutivoComercialOption, "value", Constants.EJECUTIVO_COMERCIAL);
+		webDriver.clickElementFromDropDownByAttribute(ejecutivoComercialCombo, ejecutivoComercialOption, "value", getTestVar(Constants.EJECUTIVO_COMERCIAL));
 		if(getTestVar(Constants.IDIOMA) != null && !getTestVar(Constants.IDIOMA).isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(idiomaCombo, idiomaOption, "value", getTestVar(Constants.IDIOMA));
 		} else {
