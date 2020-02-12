@@ -689,7 +689,7 @@ public class Constants {
 	public static final String ALERTA_FECHA_INICIO_RELACION = "El campo FECHA INICIO RELACIÓN no se ha rellenado correctamente.";
 	public static final String ALERTA_TIPO_ENTIDAD_MEDIADORES = "El campo TIPO ENTIDAD es un campo obligatorio.";
 	public static final String ALERTA_INICIO_CONTRATO_MEDIADORES = "El campo FECHA INICIO CONTRATO no se ha rellenado correctamente.";
-	public static final String ALERTA_ENTIDAD_ALMENOS_RAMO_MEDIADORES = "Con el campo de entidad informado, tiene que informar al menos un ramo.";
+	public static final String ALERTA_ENTIDAD_ALMENOS_RAMO_MEDIADORES = "Con el campo de entidad informado, tiene que informar almenos un ramo";
 	public static final String ALERTA_PRODUCTO_MEDIADORES = "El campo PRODUCTO es un campo obligatorio y no puede estar en blanco.";
 
 	//OTRAS ALERTAS
@@ -761,15 +761,15 @@ public class Constants {
 
 	// #### Datos Básicos
 
-//	public static final String CODIGO_MEDIADOR = "cod_mediador";
+	//	public static final String CODIGO_MEDIADOR = "cod_mediador";
 	public static final String NIVEL_ESTRUCTURA_ALT_MED = "nivel_estructura_alta_med"; // escrito en cristiano
 	//public static final String EJECUTIVO_COMERCIAL_ALT_MED = "ejecutivo_comercial";
 	//public static final String IDIOMA_ALT_MED = "idioma";
 	//public static final String TIPO_DOCUMENTO_ALT_MED = "tipo_documento";
 	public static final String NUMERO_DOCUMENTO_ALT_MED = "num_doc"; // plantear si almacenar este dato con suitevar para comprobaciones
-//	public static final String NOMBRE_FISCAL_ALT_MED = "nombre_fiscal"; ya se utiliza NOMBRE_MEDIADOR
-//	public static final String PRIMER_APELLIDO_ALT_MED = "primer_apellido";  String insertada directamente
-//	public static final String SEGUNDO_APELLIDO_ALT_MED = "segundo_apellido";  String insertada directamente
+	//	public static final String NOMBRE_FISCAL_ALT_MED = "nombre_fiscal"; ya se utiliza NOMBRE_MEDIADOR
+	//	public static final String PRIMER_APELLIDO_ALT_MED = "primer_apellido";  String insertada directamente
+	//	public static final String SEGUNDO_APELLIDO_ALT_MED = "segundo_apellido";  String insertada directamente
 	public static final String REFERENCIA_EXERNA_ALT_MED = "referencia_externa";
 	//public static final String ACTIVIDAD_PRINCIPAL_ALT_MED = "actividad_principal";  ya se utiliza
 	public static final String AGRUPADOR_PRINCIPAL_ALT_MED = "agrupador_principal";
