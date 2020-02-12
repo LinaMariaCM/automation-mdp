@@ -390,58 +390,64 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	public MediadoresAltaDatosDGSPage retencionesAltaIntermediarioDGS() {
 		debugBegin();
 
-		String datoFechaHoy = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+			if(getTestVar(Constants.TIPO_MEDIADOR) != null && !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()
+				&& getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 
-		clickGuardarYSalir();
+				String datoFechaHoy = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INICIO_RELACION);
-		webDriver.acceptAlert();
+				clickGuardarYSalir();
 
-		webDriver.setTextInFrame(fechaInicioRelacionInput, datoFechaHoy, cuerpoFrame);
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INICIO_RELACION);
+				webDriver.acceptAlert();
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(entidadAutorizaCombo, entidadAutorizaOption, cuerpoFrame, "value", "M0328");
+				webDriver.setTextInFrame(fechaInicioRelacionInput, datoFechaHoy, cuerpoFrame);
 
-		clickGuardarYSalir();
+				webDriver.clickElementFromDropDownByAttributeInFrame(entidadAutorizaCombo, entidadAutorizaOption, cuerpoFrame, "value", "M0328");
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_ENTIDAD_MEDIADORES);
-		webDriver.acceptAlert();
+				clickGuardarYSalir();
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(tipoEntidadCombo, tipoEntidadOption, cuerpoFrame, "value", "AUTO");
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_ENTIDAD_MEDIADORES);
+				webDriver.acceptAlert();
 
-		clickGuardarYSalir();
+				webDriver.clickElementFromDropDownByAttributeInFrame(tipoEntidadCombo, tipoEntidadOption, cuerpoFrame, "value", "AUTO");
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_INICIO_CONTRATO_MEDIADORES);
-		webDriver.acceptAlert();
+				clickGuardarYSalir();
 
-		webDriver.setTextInFrame(fechaIniContratoInput, datoFechaHoy, cuerpoFrame);
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_INICIO_CONTRATO_MEDIADORES);
+				webDriver.acceptAlert();
 
-		clickGuardarYSalir();
+				webDriver.setTextInFrame(fechaIniContratoInput, datoFechaHoy, cuerpoFrame);
 
-		alertaSistemaDGS(Constants.ALERTA_ENTIDAD_ALMENOS_RAMO_MEDIADORES);
-		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+				clickGuardarYSalir();
 
-		clickAnyadirNuevoRamo();
+				alertaSistemaDGS(Constants.ALERTA_ENTIDAD_ALMENOS_RAMO_MEDIADORES);
+				webDriver.clickInFrame(volverBtn, cuerpoFrame);
 
-		clickGrabarRamo();
+				clickAnyadirNuevoRamo();
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
-		webDriver.acceptAlert();
+				clickGrabarRamo();
 
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttributeInFrame(ramoCombo, ramoOption, modalFrame, "value", "1");
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
+				webDriver.acceptAlert();
 
-		clickGrabarRamo();
+				webDriver.switchToFrame(cuerpoFrame);
+				webDriver.clickElementFromDropDownByAttributeInFrame(ramoCombo, ramoOption, modalFrame, "value", "1");
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRODUCTO_MEDIADORES);
-		webDriver.acceptAlert();
+				clickGrabarRamo();
 
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.setTextInFrame(productoInput, "Producto", modalFrame);
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRODUCTO_MEDIADORES);
+				webDriver.acceptAlert();
 
-		clickGrabarRamo();
+				webDriver.switchToFrame(cuerpoFrame);
+				webDriver.setTextInFrame(productoInput, "Producto", modalFrame);
 
-		clickGuardarYSalir();
+				clickGrabarRamo();
 
+				clickGuardarYSalir();
+			}
+		}
 		debugEnd();
 
 		return this;
