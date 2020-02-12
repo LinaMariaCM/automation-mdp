@@ -387,6 +387,8 @@ public class Constants {
 	public static final String RAMO = "ramo";
 	public static final String NOMBRE_BANCO = "nombre_banco";
 	public static final String COMPANYIAS_PRINCIPALES = "companyias_principales";
+	public static final String ID_TESTRAIL = "id_testrail";
+
 	public static final String RENTA_MENSUAL_ALQUILER = "renta_mensual_alquiler";
 	public static final String IMPAGO_ALQUILER = "impago_alquiler";
 	public static final String FRANQUICIA_MAC = "franquiciaMac";
