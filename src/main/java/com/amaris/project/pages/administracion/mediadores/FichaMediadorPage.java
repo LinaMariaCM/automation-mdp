@@ -594,7 +594,7 @@ public class FichaMediadorPage extends PageObject {
 	//COMPROBAR TEXTO DE ESTADO
 	public boolean comprobarEstado(String estado) {
 		debugBegin();
-		webDriver.waitWithDriver(3000);
+		webDriver.waitWithDriver(6000);
 	//	String estadoAlta = webDriver.getTextInFrame(By.cssSelector("<strong>Estado </strong>") + estadoMediadorTxt, cuerpoFrame).trim();
 		String estadoAlta = webDriver.getTextInFrame(estadoMediadorTxt, cuerpoFrame).trim();
 		boolean checkEstado = estadoAlta.equalsIgnoreCase(estado);

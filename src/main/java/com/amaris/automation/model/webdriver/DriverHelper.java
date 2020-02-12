@@ -1986,7 +1986,7 @@ public class DriverHelper {
 
 		clickElementFromListByAttribute(elementList, attribute, value);
 
-		waitForLoadToComplete();		
+		//waitForLoadToComplete();		
 		exitFrame();
 		logger.end();
 	}
