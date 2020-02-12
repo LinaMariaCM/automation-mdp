@@ -20,7 +20,7 @@ public class DependenciaInterOfiColabTest extends TestObject{
 	@DataProvider(parallel = false)
 	public String[][] dataProviderIntercambioDatos01() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosVariablesMediadoresIntercambio.csv");
 
 		return casesMatrix;
 	}
@@ -30,7 +30,7 @@ public class DependenciaInterOfiColabTest extends TestObject{
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
-		suiteM.setRelevantColumn(testCase, 15);
+		suiteM.setRelevantColumn(testCase, 20);
 
 		userS.testActions(() -> {
 
@@ -49,10 +49,10 @@ public class DependenciaInterOfiColabTest extends TestObject{
 //			"datosTestMediadores.csv");
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosVariablesMediadoresIntercambio.csv");
 		
-		if(suiteM.getSuiteVar("id_prospect_trans") != null) {
+		if(suiteM.getSuiteVar("cod_mediador_trans") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
 			for(int i = 0; i < testData.size(); i++) {
-				testData.setValue(Integer.toString(i), "id_mediador_alta", suiteM.getSuiteVar("id_prospect_trans"));
+				testData.setValue(Integer.toString(i), "id_inter_ae", suiteM.getSuiteVar("cod_mediador_trans"));
 			}
 		}
 		
@@ -86,7 +86,7 @@ public class DependenciaInterOfiColabTest extends TestObject{
 		if(suiteM.getSuiteVar("id_prospect_trans") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
 			for(int i = 0; i < testData.size(); i++) {
-				testData.setValue(Integer.toString(i), "id_mediador_alta", suiteM.getSuiteVar("id_prospect_trans"));
+				testData.setValue(Integer.toString(i), "id_ofi_ae", suiteM.getSuiteVar("id_prospect_trans"));
 			}
 		}
 		

@@ -712,6 +712,7 @@ public class Constants {
 	public static final String ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES = "Es obligatorio seleccionar una entidad Bancaria";
 	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_TELEFONO_MEDIADORES = "El campo TELÉFONO no se ha rellenado correctamente.";
+	public static final String ALERTA_MEDIADOR_NO_SELECCIONADO = "Debe seleccionar uno o varios mediadores para poder continuar.";
 
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
@@ -749,7 +750,12 @@ public class Constants {
 	public static final String DIRECCION_PSIN_POBLACION = "med_direccion_psin_poblacion";
 	public static final String DIRECCION_PSIN_NOMBRE_VIA = "med_direccion_psin_nombrevia";
 	public static final String TIPO_DIRECCION_MED = "tipo_direccion_med";
-	public static final String DIR_IGUAL_A = "med_direccion_heradar";
+	public static final String DIR_FISCAL_IGUAL_A = "med_dir_fiscal_heradar";
+	public static final String DIR_COMERCIAL_IGUAL_A = "med_dir_comercial_heradar";
+	public static final String DIR_PRODUCCION_IGUAL_A = "med_dir_produccion_heradar";
+	public static final String DIR_RECIBOS_IGUAL_A = "med_dir_recibos_heradar";
+	public static final String DIR_SINIESTROS_IGUAL_A = "med_dir_siniestros_heradar";
+
 	public static final String TIPO_COLABORADOR = "tipo_colaborador";
 
 	// ENVÍO Y RECEPCIÓN DGA
@@ -775,7 +781,9 @@ public class Constants {
 	public static final String AGRUPADOR_PRINCIPAL_ALT_MED = "agrupador_principal";
 	public static final String NUMERO_REGISTRO_DGSFP_ALT_MED = "num_registro_DGSFP"; // a pelo, es más útil de cara a las comprobaciones
 	public static final String NUMERO_ALT_MED = "numero"; // se utiliza la constante ID_MEDIADOR_ALTA = "id_mediador_alta"
-	public static final String OTROS_AGRUPADORES_ALT_MED = "otros_agrupadores"; // no está en uso
+	public static final String OTROS_AGRUPADORES_ALT_MED = "otros_agrupadores"; // no está en usoç
+	public static final String ID_INTE_PADRE = "id_int_padre"; // PENDIENTE método y prueba
+	public static final String ID_OFICINA_PADRE = "id_oficina_padre"; // PENDIENTE método y prueba
 
 	// ### Datos adicionales - no están en uso
 	public static final String EDAD_ALT_MED = "edad";
@@ -923,4 +931,9 @@ public class Constants {
 	public static final String IBAN_PAGO_COMISIONES_ALT_MED = "iban_pago_comisiones";
 	public static final String IBAN_CARGO_RECIBOS_AUTOLIQUIDACIONES_ALT_MED = "iban_cargo_recibos_autoliquidaciones";
 
+	//Variables de dependencia
+	public static final String ID_INTERMEDIARIO_AE = "id_inter_ae";
+	public static final String ID_OFICINA_AE = "id_ofi_ae";
+	public static final String ID_COLABORADOR_AE = "id_colab_ae";
+		
 }// END

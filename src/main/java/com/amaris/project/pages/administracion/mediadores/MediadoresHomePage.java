@@ -106,7 +106,7 @@ public class MediadoresHomePage extends PageObject {
 		debugBegin();
 		webDriver.waitWithDriver(4000);
 		webDriver.clickInFrame(recepcionBtn, menuFrame);
-		webDriver.waitWithDriver(2000);
+		webDriver.waitWithDriver(4000);
 		debugEnd();
 
 		return this;

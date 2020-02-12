@@ -3667,7 +3667,12 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
 			.altaOficinaDatosContacto()
-			// añadir lo de las direcciones
+			.anyadirNuevaDireccionFiscal()
+			.anyadirDireccionComercial()
+			.anyadirDireccionProduccion()
+			.anyadirDireccionRecibos()
+			.anyadirDireccionSiniestros()
+		//	.altaOficinaDatosContacto()
 			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
@@ -3744,7 +3749,7 @@ public class ActionSteps extends InteractionObject {
 			.enviarValoracionFinanciera()
 			.enviarRevisionFinanciera()
 			.enviarResolucionFinanciera()
-			.confirmarAlta() /// falla aquí, revissar flujo
+			.confirmarAlta()
 			.formacionAvanzarEstado()
 			.obtenerIdMediador();
 		debugEnd();
@@ -3763,10 +3768,18 @@ public class ActionSteps extends InteractionObject {
 			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
 		new MediadoresDGSPage(userS)
 			.recepcionMediadoresDGS();
-		new FichaMediadorPage(userS)
-			.clickBuscadorMediadores();
+		new MediadoresHomePage(userS)
+			.openGestionMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorIdEstadoAlta();
+			.buscarMediadorPorId();
+		debugEnd();
+	}
+
+	public void completar_alta_activo_restringido() {
+		debugBegin();
+		new FichaMediadorPage(userS)
+			.clickActivarMediador()
+			.comprobarEstadoActivo();
 		debugEnd();
 	}
 

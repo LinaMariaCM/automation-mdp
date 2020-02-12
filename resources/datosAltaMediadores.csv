@@ -1,0 +1,21 @@
+acceso;usuario;id_testrail;nivel_estructura;tipo_prospect;tipo_mediador;tipo_colaborador;id_mediador_alta;tipo_documento;nombre_mediador;nombre_prospect;idioma;actividad_principal;nombre_comercial;ejecutivo_comercial;dispone_de_sftw;id_int_padre;id_oficina_padre;contacto_responsable;cargo_responsable;primer_apellido_mediador;segundo_apellido_mediador;ramo_med;tlf_principal;email_principal;med_dir_fiscal_heradar;med_direccion_fisc_provincia;med_direccion_fisc_poblacion;med_direccion_fisc_nombrevia;med_dir_comercial_heradar;med_direccion_come_provincia;med_direccion_come_poblacion;med_direccion_come_nombrevia;med_dir_produccion_heradar;med_direccion_ppro_provincia;med_direccion_ppro_poblacion;med_direccion_ppro_nombrevia;med_dir_recibos_heradar;med_direccion_prec_provincia;med_direccion_prec_poblacion;med_direccion_prec_nombrevia;med_dir_siniestros_heradar;med_direccion_psin_provincia;med_direccion_psin_poblacion;med_direccion_psin_nombrevia;numero_envio_dgs;companyias_principales
+Innova;eferrando;C245;INTE;;AD;;;NIF;Sleepwalking;;ESPA;MESE;Med01;4000;TRUE;;;Contacto 01;Cargo 01;Bringme;Thehorizon;;911111111;;;Barcelona;barcelona;londre;;barce;barcelona;valenci;;barce;barcelona;pallar;;barce;barcelona;verge;;barce;barcelona;josep;;
+Innova;eferrando;C264;OFIC;;;;;;;;CATA;ADFI;Med02;4001;;;;Contacto 02;Cargo 02;;;;911111122;;;;;;;barce;barcelona;murci;;barce;barcelona;pujad;;barce;barcelona;arag;;barce;barcelona;joan;;
+Innova;eferrando;C249;COLA;;;AUXI;;;;;CATA;ABOG;Med03;4003;;;;Contacto 03;Cargo 03;;;10;911111133;;;Barcelona;barcelona;castell;;barce;barcelona;alican;;barce;barcelona;badaj;;barce;barcelona;padilla;;barce;barcelona;sant;;Compañía principal abogado
+Innova;eferrando;C318;INTE;;AE;;;CIF;In this moment;;CATA;MESE;;4005;FALSE;;;Contacto 04;Cargo 04;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C250;INTE;;AE;;;NIF;Orion;;ESPA;ADFI;Med05;4000;FALSE;;;Contacto 05;Cargo 05;Cliff;Burton;;;;;Barcelona;barcelona;londre;;barce;barcelona;valenci;;barce;barcelona;pallar;;barce;barcelona;verge;;barce;barcelona;josep;;
+Innova;eferrando;C261;OFIC;;;;;;;;EUSK;OTRO;Med06;4007;;;;Contacto 06;Cargo 06;;;;;;;;;;;barce;barcelona;murci;;barce;barcelona;pujad;;barce;barcelona;arag;;barce;barcelona;joan;;
+Innova;eferrando;C316;COLA;;;AUXI;;;;;ESPA;MESE;Med07;4010;;;;Contacto 07;Cargo 07;;;;;;;Barcelona;barcelona;castell;;barce;barcelona;alican;;barce;barcelona;badaj;;barce;barcelona;padilla;;barce;barcelona;sant;;
+Innova;eferrando;C253;INTE;;AV;;;NIE;A7X;;CATA;API;;4011;TRUE;;;Contacto 08;Cargo 08;Exist;;;;;;Barcelona;barcelona;sant;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C352;OFIC;;;;;;;;DEUT;MESE;Med09;4000;;;;Contacto 09;Cargo 09;;;;;;;;;;;;;;;barce;Badalona;Carrer de Dos de Maig;;;;;;;;;;
+Innova;eferrando;C247;COLA;;;AD;;NIF;Foo;;ENGL;GEPA;Med10;4015;;;;Contacto 10;Cargo 10;Fighters;Neighbourhood;;;;;;;;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C256;INTE;;BSE;;;CIF;Ghost Macabre;;ESPA;MESE;Med11;4016;TRUE;;;Contacto 11;Cargo 11;;;;;;;girona;girona;Pujada Creu de Palau;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C353;OFIC;;;;;;;;CATA;GEPA;Med12;4019;;;;Contacto 12;Cargo 12;;;;;;;;;;;girona;Figueres;Carrer Muntaner;;;;;;;;;;;;;;
+Innova;eferrando;C317;COLA;;;AUXI;;;;;FRAN;API;Med13;4023;;;;Contacto 13;Cargo 13;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C259;INTE;;BSV;;;NIF;Pantera;;GALE;GEPA;Med14;4024;FALSE;;;Contacto 14;Cargo 14;Shedding;Skin;;;;;Zaragoza;Zaragoza;Calle de Somport;; Lleida; Lleida;Carrer Ramon y Cajal;;;;;;;;;;;;;;
+Innova;eferrando;C386;OFIC;;;;;;;;ESPA;ADFI;Med15;4027;;;;Contacto 15;Cargo 15;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C248;COLA;;;GEST;;;;;ESPA;MESE;Med16;4056;;;;Contacto 16;Cargo 16;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C262;INTE;;CORR;;;CIF;Ozzy Osborne;;ESPA;ABOG;;4067;TRUE;;;Contacto 17;Cargo 17;;;;;;;Valencia;Picanya;Carrer Torrent;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C246;OFIC;;;;;;;;ESPA;API;Med18;4000;;;;Contacto 18;Cargo 18;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Innova;eferrando;C315;COLA;;;AUXI;;;;;PRTG;MESE;Med19;4069;;;;Contacto 19;Cargo 19;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Innova;eferrando;;INTE;COBS;;;;;;Nombre;ESPA;ABOG;;4072;;;;contacto;;;;;699999999;;;valencia;mislata;gregorio;;;;;;;;;;;;;;;;;;
