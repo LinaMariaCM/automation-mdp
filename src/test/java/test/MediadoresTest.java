@@ -3,7 +3,6 @@ package test;
 //Circuito completo siniestros (convencional / especializado con perito)
 //--------------------------------------------------------------------------
 
-import com.amaris.automation.data.DataObject;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -254,11 +253,11 @@ public class MediadoresTest {
 		}).run();
 	}
 
-	// TEST PARA RETENCIONES
-	@DataProvider(parallel = true)
+	// TEST PARA RETENCIONES ALTAS PARA INTERMEDIARIO, OFICINA Y COLABORADOR
+	@DataProvider(parallel = false)
 	public String[][] dataProviderMed21() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "prueba_comprobaciones_mediadores.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_altas_retenciones.csv");
 		return casesMatrix;
 	}
 
@@ -268,7 +267,7 @@ public class MediadoresTest {
 		ActionSteps steps = new ActionSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.alta_retenciones_mediadores_intermediario();
+			steps.alta_retenciones_mediadores();
 			return null;
 		}).run();
 	}
