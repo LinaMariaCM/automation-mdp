@@ -69,8 +69,9 @@ public class MediadoresHomePage extends PageObject {
 
 	public MediadoresHomePage openAltaMediador() {
 		debugBegin();
-		webDriver.waitForElementToBePresentInFrame(codigoMediadorBuscadorInput, cuerpoFrame);
-		webDriver.doubleClickInFrame(altaMediadorBtn, menuFrame);
+	//	webDriver.waitForElementToBePresentInFrame(codigoMediadorBuscadorInput, cuerpoFrame);
+		webDriver.waitForElementToBePresentInFrame(altaMediadorBtn, menuFrame);
+		webDriver.clickInFrame(altaMediadorBtn, menuFrame);
 		debugEnd();
 
 		return this;
