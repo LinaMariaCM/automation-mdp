@@ -658,6 +658,8 @@ public class Constants {
 	public static final String ALERTA_NUMERO_REGISTRO_DGS_MEDIADORES = "El campo Nº REGISTRO DGSFP es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_DISPONE_SOFTWARE_MEDIADORES = "El campo ¿DISPONE DE SOFTWARE DE GESTIÓN DE SEGUROS? es un campo obligatorio.";
 	public static final String ALERTA_OFICINA_PADRE_MEDIADORES = "El campo OFICINA PADRE es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_MEDIADOR_PADRE_MEDIADORES = "El campo MEDIADOR PADRE es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_MEDIADOR_PADRE_MEDIADORES_INCORRECTO = "No puede dar de alta la oficina/colaborador ya que el mediador/oficina está en estado baja, baja en trámite, mantenimiento o está rechazado.";
 	public static final String ALERTA_OTRO_AGRUPADOR_MEDIADORES = "Si selecciona otros agrupadores es obligatorio introducir agrupadores";
 	public static final String ALERTA_AGRUPADOR_MEDIADORES = "Campo Agrupador obligatorio.";
 	public static final String ALERTA_AGRUPADOR_REPETIDO_MEDIADORES = "No pueden haber agrupadores repetidos";
@@ -676,6 +678,8 @@ public class Constants {
 	public static final String ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_NORMALIZADO_MEDIADORES = "El nombre de vía no ha sido normalizado";
 	public static final String ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES = "Tenga en cuenta que para colaboradores gestores o oficinas, el domicilio fiscal se recoge del nivel superior";
 	public static final String ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION = "Existe un colaborador con la misma dirección comercial";
+	public static final String ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL = "Existe una oficina con la misma dirección comercial";
+
 	public static final String ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES = "¿Estás seguro de querer eliminar la dirección?";
 
 	//MEDIADORES ALERTA DATOS RELACIONALES

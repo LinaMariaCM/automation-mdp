@@ -37,7 +37,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By compPrincipInput = By.id("ALTAMEDI_COMPPRIN");
 	private By compPrincipObligDisplay = By.cssSelector("#capaDatosMediador > div > div.marcofnd > table.wideBox > tbody > tr.flexibleField > th > label > span");
 
-
 	private By medNuevoBancoBtn = By.linkText("Añadir nuevo banco");
 	private By nombreBancoInput = By.cssSelector("#ALTAMEDI_NOMBANCO");
 	private By observacionesBancoInput = By.cssSelector("#ALTAMEDI_OBSBANCO");
@@ -49,9 +48,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By cancelarBtn = By.cssSelector("#buttonCancel");
 	private By volverBtn = By.cssSelector("#botonVolver");
 
-
 	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
-
 
 	//-----------Controles de pagina---------------------------
 
@@ -229,7 +226,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 	//---------------------MÉTODOS COMPLEJOS----------------------------------
 
-
 	public MediadoresAltaDatosRelacionalesPage altaDatosRelacionales() {
 		debugBegin();
 		anyadirDatosProductoConRamoConFinca();
@@ -267,55 +263,62 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	public MediadoresAltaDatosRelacionalesPage altaRetencionesIntermediarioRelacionales() {
 		debugBegin();
 
-		webDriver.clickInFrame(especialistaRamoSIBtn, cuerpoFrame);
 
-		clickContinuarDatosRelacionales();
+				webDriver.clickInFrame(especialistaRamoSIBtn, cuerpoFrame);
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
-		webDriver.acceptAlert();
+				clickContinuarDatosRelacionales();
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(especialistaRamoCombo, especialistaRamoOption, cuerpoFrame, "value", "1");
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
+				webDriver.acceptAlert();
 
-		webDriver.clickInFrame(adminFincasSIBtn, cuerpoFrame);
+				webDriver.clickElementFromDropDownByAttributeInFrame(especialistaRamoCombo, especialistaRamoOption, cuerpoFrame, "value", "1");
 
-		clickContinuarDatosRelacionales();
+				webDriver.clickInFrame(adminFincasSIBtn, cuerpoFrame);
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CUANTAS_FINCAS_MEDIADORES);
-		webDriver.acceptAlert();
+				clickContinuarDatosRelacionales();
 
-		webDriver.setTextInFrame(adminFincasCuantasInput, cuerpoFrame, "10");
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CUANTAS_FINCAS_MEDIADORES);
+				webDriver.acceptAlert();
 
-		clickContinuarDatosRelacionales();
+				webDriver.setTextInFrame(adminFincasCuantasInput, cuerpoFrame, "10");
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES);
-		webDriver.acceptAlert();
+				clickContinuarDatosRelacionales();
 
-		webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, "Principales");
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+			if(getTestVar(Constants.TIPO_MEDIADOR) != null && !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()
+				&& !getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 
-		clickContinuarDatosRelacionales();
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES);
+				webDriver.acceptAlert();
 
-		alertaSistemaRelacionales(Constants.ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES);
+				webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, "Principales");
 
-		webDriver.switchToFrame(cuerpoFrame);
+				clickContinuarDatosRelacionales();
 
-		webDriver.click(volverBtn);
-		webDriver.click(medNuevoBancoBtn);
-		webDriver.waitWithDriver(3000);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(grabarBtn);
+				alertaSistemaRelacionales(Constants.ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES);
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_BANCO_MEDIADORES);
-		webDriver.acceptAlert();
+				webDriver.switchToFrame(cuerpoFrame);
 
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.setText(nombreBancoInput, "Banco");
-		webDriver.click(grabarBtn);
+				webDriver.click(volverBtn);
+				webDriver.click(medNuevoBancoBtn);
+				webDriver.waitWithDriver(3000);
+				webDriver.switchToFrame(modalFrame);
+				webDriver.click(grabarBtn);
 
-		webDriver.exitFrame();
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_BANCO_MEDIADORES);
+				webDriver.acceptAlert();
 
-		clickContinuarDatosRelacionales();
+				webDriver.switchToFrame(cuerpoFrame);
+				webDriver.switchToFrame(modalFrame);
+				webDriver.setText(nombreBancoInput, "Banco");
+				webDriver.click(grabarBtn);
 
+				webDriver.exitFrame();
+
+				clickContinuarDatosRelacionales();
+			}
+		}
 		debugEnd();
 
 		return this;
