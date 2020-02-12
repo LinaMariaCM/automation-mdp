@@ -3,7 +3,10 @@ package com.amaris.project.pages.administracion.mediadores;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
+import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
+
+import javax.swing.undo.CannotUndoException;
 
 public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 
@@ -185,4 +188,101 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 
 		return this;
 	}
+
+	public MediadoresAltaDatosTransaccionalesPage retencionesAltaIntermediarioTrans() {
+		debugBegin();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoRetribucionCombo, tipoRetribucionOption, cuerpoFrame, "title", "Elegir");
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_RETRIBUCION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoRetribucionCombo, tipoRetribucionOption, cuerpoFrame, "value", "COMI");
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CODIGO_IBAN);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(codigoIbanInput, "ES03", cuerpoFrame);
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_BANCO);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(bancoInput, "2100", cuerpoFrame);
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUCURSAL);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(sucursalInput, "1234", cuerpoFrame);
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DC_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(dcInput, "5612", cuerpoFrame);
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(cta1Input, "3456", cuerpoFrame);
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(cta2Input, "7890", cuerpoFrame);
+
+		webDriver.clearTextInFrame(codigoIbanLiqInput, cuerpoFrame);
+		webDriver.clearTextInFrame(bancoLiqInput, cuerpoFrame);
+		webDriver.clearTextInFrame(sucursalLiqInput, cuerpoFrame);
+		webDriver.clearTextInFrame(dcLiqInput, cuerpoFrame);
+		webDriver.clearTextInFrame(cta1LiqInput, cuerpoFrame);
+		webDriver.clearTextInFrame(cta2LiqInput, cuerpoFrame);
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CODIGO_IBAN);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(codigoIbanLiqInput, cuerpoFrame, "ES03");
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_BANCO);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(bancoLiqInput, cuerpoFrame, "2100");
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUCURSAL);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(sucursalLiqInput, cuerpoFrame, "1234");
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DC_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(dcLiqInput, cuerpoFrame, "5612");
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(cta1LiqInput, cuerpoFrame, "3456");
+
+		clickGuardar();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(cta2LiqInput, cuerpoFrame, "7890");
+
+		clickContiuar();
+
+		debugEnd();
+		return this;
+	}
+
 }

@@ -254,9 +254,29 @@ public class MediadoresTest {
 		}).run();
 	}
 
+	// TEST PARA RETENCIONES
+	@DataProvider(parallel = true)
+	public String[][] dataProviderMed21() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "prueba_comprobaciones_mediadores.csv");
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMed21")
+	public void med21(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		userS.testActions(() -> {
+			steps.login("Innova", "eferrando");
+			steps.alta_retenciones_mediadores_intermediario();
+			return null;
+		}).run();
+	}
+
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
 	}
 
 }
+

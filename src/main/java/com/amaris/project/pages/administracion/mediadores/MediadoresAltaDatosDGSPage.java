@@ -5,6 +5,7 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
+import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 
 public class MediadoresAltaDatosDGSPage extends PageObject {
@@ -83,15 +84,21 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By capitalSocialInput = By.id("ALTAMEDI_CAPSOCI");
 	private By fechaInicioRelacionInput = By.id("ALTAMEDI_FEINIREL");
 	private By entidadAutorizaCombo = By.id("ALTAMEDI_ENTIDAD");
+	private By entidadAutorizaOption = By.cssSelector("#ALTAMEDI_ENTIDAD > option");
 
 	private By tipoEntidadCombo = By.id("ALTAMEDI_TIPOENTI");
+	private By tipoEntidadOption = By.cssSelector("#ALTAMEDI_TIPOENTI > option");
 
 	private By anyadirNuevoRamoBtn = By.cssSelector("#capaRamos > div.titulo > div > a");
 	private By ramoCombo = By.id("ALTAMEDI_RAMODGS");
+	private By ramoOption = By.cssSelector("#ALTAMEDI_RAMODGS > option");
 	private By productoInput = By.id("ALTAMEDI_PRODUCTO");
 
 	private By grabarRamoBtn = By.id("buttonRecord");
 	private By cancelarRamoBtn = By.id("buttonCancel");
+	private By volverBtn = By.id("botonVolver");
+
+	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
 
 	//-----------------------------LPS-DE----------------------
 	private By estdoLPSInput = By.id("ALTAMEDI_ESTADOLPS");
@@ -370,6 +377,83 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		webDriver.waitWithDriver(6000);
 
 		debugEnd();
+		
+		return this;
+	}
+
+	//-------------RETENCIONES--------------------------
+
+	public boolean alertaSistemaDGS(String mensaje) {
+		debugBegin();
+
+		String alerta = webDriver.getTextInFrame(avisoSistemaTxt, cuerpoFrame).trim();
+		boolean checkAlerta = alerta.equalsIgnoreCase(mensaje);
+
+		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje real: " + alerta);
+
+		debugEnd();
+
+		return checkAlerta;
+	}
+
+	public MediadoresAltaDatosDGSPage retencionesAltaIntermediarioDGS() {
+		debugBegin();
+
+		String datoFechaHoy = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+
+		clickGuardarYSalir();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INICIO_RELACION);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(fechaInicioRelacionInput, datoFechaHoy, cuerpoFrame);
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(entidadAutorizaCombo, entidadAutorizaOption, cuerpoFrame, "value", "M0328");
+
+		clickGuardarYSalir();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_ENTIDAD_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoEntidadCombo, tipoEntidadOption, cuerpoFrame, "value", "AUTO");
+
+		clickGuardarYSalir();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_INICIO_CONTRATO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(fechaIniContratoInput, datoFechaHoy, cuerpoFrame);
+
+		clickGuardarYSalir();
+
+		alertaSistemaDGS(Constants.ALERTA_ENTIDAD_ALMENOS_RAMO_MEDIADORES);
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+		clickAnyadirNuevoRamo();
+
+		clickGrabarRamo();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(ramoCombo, ramoOption, modalFrame, "value", "1");
+
+		clickGrabarRamo();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRODUCTO_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(productoInput, "Producto", modalFrame);
+
+		clickGrabarRamo();
+
+		clickGuardarYSalir();
+
+		debugEnd();
+
 		return this;
 	}
 }
