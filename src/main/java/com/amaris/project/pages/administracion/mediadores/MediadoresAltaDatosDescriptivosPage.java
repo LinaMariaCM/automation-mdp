@@ -306,7 +306,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage nombreFiscal() {
 		debugBegin();
-
+		webDriver.waitWithDriver(3200);
 		if(webDriver.isPresentInFrame(nombreFiscalInput, cuerpoFrame) && getTestVar(Constants.NOMBRE_MEDIADOR) != null && !getTestVar(Constants.NOMBRE_MEDIADOR).isEmpty()) {
 			webDriver.setTextInFrame(nombreFiscalInput, cuerpoFrame, getTestVar(Constants.NOMBRE_MEDIADOR));
 			debugInfo("Ha rellenado nombre fiscal.");
