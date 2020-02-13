@@ -31,8 +31,8 @@ public class MedAltasRelacionadasAntonia extends TestObject{
 
 		userS.testActions(() -> {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_interm_AE_completo();
-			
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
@@ -41,11 +41,11 @@ public class MedAltasRelacionadasAntonia extends TestObject{
 	public String[][] altasRelacionadasMed02() {
 		String testCase = Constants.MEDIADORES_CASE;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresOficina.csv");
-		
-		if(suiteM.getSuiteVar("cod_mediador_trans") != null) {
+
+		if(suiteM.getSuiteVar("id_mediador_alta") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
 			for(int i = 0; i < testData.size(); i++) {
-				testData.setValue(Integer.toString(i), "id_inter_ae", suiteM.getSuiteVar("cod_mediador_trans"));
+				testData.setValue(Integer.toString(i), "id_int_padre", suiteM.getSuiteVar("id_mediador_alta"));
 			}
 		}
 		
@@ -61,7 +61,8 @@ public class MedAltasRelacionadasAntonia extends TestObject{
 
 		userS.testActions(() -> {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_oficina_a_un_intermediario();
+			steps.alta_oficina();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
@@ -71,7 +72,7 @@ public class MedAltasRelacionadasAntonia extends TestObject{
 	public String[][] altasRelacionadasMed03 () {
 		String testCase = Constants.MEDIADORES_CASE;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresColaboradores.csv");
-		
+
 		if(suiteM.getSuiteVar("id_prospect_trans") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
 			for(int i = 0; i < testData.size(); i++) {

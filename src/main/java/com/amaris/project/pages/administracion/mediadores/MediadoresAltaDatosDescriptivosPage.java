@@ -364,11 +364,9 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 				clickNombreComercialDiferente();
 				webDriver.waitWithDriver(2000);
 			}
-
 			webDriver.waitWithDriver(3000);
 			//	webDriver.setText(nombreComercialADInput, "Mediador"); descomentar si la siguiente línea  y método relacionado si el alta no funciona por su culpa
-			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL).toString());
-
+			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
 		} else {
 			webDriver.click(nombreComercialIgualFiscalBtn);
 		}
