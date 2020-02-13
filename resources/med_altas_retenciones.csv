@@ -1,2 +1,5 @@
-nivel_estructura;tipo_mediador
-OFIC;
+nivel_estructura;tipo_mediador;tipo_colaborador
+COLA;;GEST
+COLA;;AD
+OFIC;;
+INTE;AE;
