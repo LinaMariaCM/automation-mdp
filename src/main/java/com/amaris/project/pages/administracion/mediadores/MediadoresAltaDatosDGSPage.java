@@ -402,6 +402,13 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INICIO_RELACION);
 				webDriver.acceptAlert();
 
+				webDriver.setTextInFrame(fechaInicioRelacionInput, "fecha", cuerpoFrame);
+
+				clickGuardarYSalir();
+
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INICIO_RELACION);
+				webDriver.acceptAlert();
+
 				webDriver.setTextInFrame(fechaInicioRelacionInput, datoFechaHoy, cuerpoFrame);
 
 				webDriver.clickElementFromDropDownByAttributeInFrame(entidadAutorizaCombo, entidadAutorizaOption, cuerpoFrame, "value", "M0328");
@@ -416,6 +423,13 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 				clickGuardarYSalir();
 
 				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_INICIO_CONTRATO_MEDIADORES);
+				webDriver.acceptAlert();
+
+				webDriver.setTextInFrame(fechaIniContratoInput, "fecha", cuerpoFrame);
+
+				clickGuardarYSalir();
+
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INICIO_RELACION);
 				webDriver.acceptAlert();
 
 				webDriver.setTextInFrame(fechaIniContratoInput, datoFechaHoy, cuerpoFrame);

@@ -277,7 +277,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 
 			debugInfo("tipo de mediador seleccionado");
-			
+
 			altaDatosBasicosComunes("9876543210");
 			debugInfo("datos básicos rellenados");
 			//		webDriver.waitWithDriver(3000);
@@ -543,10 +543,10 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_MEDIADOR_PADRE_MEDIADORES);
 			webDriver.acceptAlert();
 
-			webDriver.setTextInFrame(mediadorPadreOficinaInput, "1245" , cuerpoFrame);
+			webDriver.setTextInFrame(mediadorPadreOficinaInput, "1245", cuerpoFrame);
 
 		}
-/*
+
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 
@@ -558,11 +558,11 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.waitWithDriver(5000);
 
 		}
-*/
+
 		clickContinuar();
-/*
+
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_COLABORADOR);
 			webDriver.acceptAlert();
@@ -571,7 +571,19 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 			clickContinuar();
 		}
-*/
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_COLABORADOR);
+			webDriver.acceptAlert();
+
+			webDriver.clickElementFromDropDownByAttributeInFrame(estrColabTipoCombo, estrColabTipoOption, cuerpoFrame, "value", "GEST");
+
+			clickContinuar();
+
+		}
+
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EJECUTIVO_COMERCIAL_MEDIADORES);
 		webDriver.acceptAlert();
 
@@ -587,9 +599,9 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		clickContinuar();
 
-
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			|| getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_COMERCIAL_2_MEDIADORES);
 			webDriver.acceptAlert();
@@ -599,7 +611,16 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		}
 
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+
+			clickContinuar();
+
+		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_DOCUMENTO_MEDIADORES);
 			webDriver.acceptAlert();
@@ -655,11 +676,15 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 			clickContinuar();
 
+		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ACTIVIDAD_PRINCIPAL_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(actividadPrincipalCombo, actividadPrincipalOption, cuerpoFrame, "value", "ABOG");
-
 		}
 
 		//cambio a agente vinculado para probar campos
@@ -699,7 +724,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		}
 
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 
 			alertaSistemaDescriptivos(Constants.ALERTA_NUMERO_DOCUMENTO_1_MEDIADORES);
 
@@ -708,13 +734,15 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.setTextInFrame(numeroDocumentoInput, DocumentGeneratorHelper.generateNif(), cuerpoFrame);
 
 		}
-/*
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 
-			webDriver.clickElementFromDropDownByAttributeInFrame(estrColabTipoCombo, estrColabTipoOption, cuerpoFrame, "value", "AUXI");
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+
+			clickContinuar();
+
 		}
-*/
+
 		//cambio a agente exclusivo para probar campos
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
@@ -730,8 +758,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 			clickContinuar();
 		}
-
-
 
 		debugEnd();
 		return this;

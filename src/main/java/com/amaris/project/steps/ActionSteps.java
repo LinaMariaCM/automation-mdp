@@ -3845,9 +3845,9 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosContactoPage(userS)
 			.altaRetencionesContacto();
 		new MediadoresAltaDatosRelacionalesPage(userS)
-			.altaRetencionesIntermediarioRelacionales();
+			.altaRetencionesRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
-			.retencionesAltaIntermediarioTrans();
+			.retencionesAltaTransaccionales();
 		new MediadoresAltaDatosDGSPage(userS)
 			.retencionesAltaIntermediarioDGS();
 		debugEnd();

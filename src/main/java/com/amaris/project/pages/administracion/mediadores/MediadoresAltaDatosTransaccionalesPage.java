@@ -174,7 +174,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosTransaccionalesPage retencionesAltaIntermediarioTrans() {
+	public MediadoresAltaDatosTransaccionalesPage retencionesAltaTransaccionales() {
 		debugBegin();
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoRetribucionCombo, tipoRetribucionOption, cuerpoFrame, "title", "Elegir");
@@ -185,41 +185,43 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoRetribucionCombo, tipoRetribucionOption, cuerpoFrame, "value", "COMI");
 
-		clickGuardar();
+		// clickGuardar();
 
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
+			clickContiuar();
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CODIGO_IBAN);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(codigoIbanInput, "ES03", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_BANCO);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(bancoInput, "2100", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUCURSAL);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(sucursalInput, "1234", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DC_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(dcInput, "5612", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(cta1Input, "3456", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
 			webDriver.acceptAlert();
 
@@ -232,37 +234,37 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 			webDriver.clearTextInFrame(cta1LiqInput, cuerpoFrame);
 			webDriver.clearTextInFrame(cta2LiqInput, cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CODIGO_IBAN);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(codigoIbanLiqInput, cuerpoFrame, "ES03");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_BANCO);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(bancoLiqInput, cuerpoFrame, "2100");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUCURSAL);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(sucursalLiqInput, cuerpoFrame, "1234");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DC_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(dcLiqInput, cuerpoFrame, "5612");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(cta1LiqInput, cuerpoFrame, "3456");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
 			webDriver.acceptAlert();
 

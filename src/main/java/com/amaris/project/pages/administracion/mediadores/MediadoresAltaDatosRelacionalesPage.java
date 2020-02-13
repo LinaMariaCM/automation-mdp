@@ -260,29 +260,28 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 	//---------------------RETENCIONES--------------------
 
-	public MediadoresAltaDatosRelacionalesPage altaRetencionesIntermediarioRelacionales() {
+	public MediadoresAltaDatosRelacionalesPage altaRetencionesRelacionales() {
 		debugBegin();
 
+		webDriver.clickInFrame(especialistaRamoSIBtn, cuerpoFrame);
 
-				webDriver.clickInFrame(especialistaRamoSIBtn, cuerpoFrame);
+		clickContinuarDatosRelacionales();
 
-				clickContinuarDatosRelacionales();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
+		webDriver.acceptAlert();
 
-				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
-				webDriver.acceptAlert();
+		webDriver.clickElementFromDropDownByAttributeInFrame(especialistaRamoCombo, especialistaRamoOption, cuerpoFrame, "value", "1");
 
-				webDriver.clickElementFromDropDownByAttributeInFrame(especialistaRamoCombo, especialistaRamoOption, cuerpoFrame, "value", "1");
+		webDriver.clickInFrame(adminFincasSIBtn, cuerpoFrame);
 
-				webDriver.clickInFrame(adminFincasSIBtn, cuerpoFrame);
+		clickContinuarDatosRelacionales();
 
-				clickContinuarDatosRelacionales();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CUANTAS_FINCAS_MEDIADORES);
+		webDriver.acceptAlert();
 
-				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CUANTAS_FINCAS_MEDIADORES);
-				webDriver.acceptAlert();
+		webDriver.setTextInFrame(adminFincasCuantasInput, cuerpoFrame, "10");
 
-				webDriver.setTextInFrame(adminFincasCuantasInput, cuerpoFrame, "10");
-
-				clickContinuarDatosRelacionales();
+		clickContinuarDatosRelacionales();
 
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
