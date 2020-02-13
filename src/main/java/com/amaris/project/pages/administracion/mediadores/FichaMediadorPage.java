@@ -24,6 +24,7 @@ public class FichaMediadorPage extends PageObject {
 
 	private By tituloPaginaTxt = By.cssSelector("body.sis-body > h1.titulopagina");
 	private By buscadorMediadoresBtn = By.linkText(("Buscador mediadores").trim());
+	private By fichaMediadorBtn = By.id("jt2");
 
 	//------------- Botones Pestañas -------------
 
@@ -595,7 +596,7 @@ public class FichaMediadorPage extends PageObject {
 	public boolean comprobarEstado(String estado) {
 		debugBegin();
 		webDriver.waitWithDriver(3000);
-	//	String estadoAlta = webDriver.getTextInFrame(By.cssSelector("<strong>Estado </strong>") + estadoMediadorTxt, cuerpoFrame).trim();
+		//	String estadoAlta = webDriver.getTextInFrame(By.cssSelector("<strong>Estado </strong>") + estadoMediadorTxt, cuerpoFrame).trim();
 		String estadoAlta = webDriver.getTextInFrame(estadoMediadorTxt, cuerpoFrame).trim();
 		boolean checkEstado = estadoAlta.equalsIgnoreCase(estado);
 
@@ -821,24 +822,21 @@ public class FichaMediadorPage extends PageObject {
 			//con esta lina se obtiene el id para guardarlo en esta misma prueba
 
 			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
-			
-			if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("INTE")){
+
+			if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("INTE")) {
 				setTestVar((Constants.ID_INTERMEDIARIO_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Intermediario obtenido");
-			}
-			else if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("OFI")){
+			} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("OFI")) {
 				setTestVar((Constants.ID_OFICINA_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Oficina obtenido");
-			}
-			else if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("COLAB")){
+			} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).contains("COLAB")) {
 				setTestVar((Constants.ID_COLABORADOR_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Colaborador obtenido");
-			}
-			else{
+			} else {
 				setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de mediador obtenido");
 			}
-			
+
 			setSuiteVar(("cod_mediador_trans"), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 			// en esta línea se guarda para reutilizararlo en otra
 
@@ -1113,7 +1111,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage comprobarEstadoActivo(){
+	public FichaMediadorPage comprobarEstadoActivo() {
 		debugBegin();
 		webDriver.waitWithDriver(4000);
 		Assert.assertTrue(comprobarEstado(ACTIVO), "El estado no es correcto.");
@@ -1146,7 +1144,7 @@ public class FichaMediadorPage extends PageObject {
 
 			Assert.assertTrue(intermediarioOfic, "Es incorrecto.");
 
-		} else if (getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
 			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
 			webDriver.waitWithDriver(8000);
@@ -1161,6 +1159,19 @@ public class FichaMediadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
+
+	public FichaMediadorPage clickFichaMediador(){
+		debugBegin();
+		webDriver.waitWithDriver(8000);
+		if(!webDriver.isPresentInFrame(masAccionesBtn, cuerpoFrame)) {
+			webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
+			webDriver.waitWithDriver(6000);
+		}
+		debugEnd();
+		return this;
+	}
+
+
 
 	// endregion
 }
