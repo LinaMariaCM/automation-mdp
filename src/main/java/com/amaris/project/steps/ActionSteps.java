@@ -3615,7 +3615,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void alta_datos_basicos_mediador() {
+	public void alta_datos_basicos_mediador() { // revisar
 		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
@@ -3631,7 +3631,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void alta_datos_contacto_mediador() {
+	public void alta_datos_contacto_mediador() {  // revisar
 		new MediadoresAltaDatosContactoPage(userS)
 			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
 			.anyadirNuevaDireccionFiscal()
@@ -3744,6 +3744,7 @@ public class ActionSteps extends InteractionObject {
 			.anyadirNuevaDireccionFiscal()
 			.anyadirDireccionComercial()
 			.anyadirDireccionProduccion()
+			.anyadirDireccionRecibos()
 			.anyadirDireccionSiniestros()
 			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
@@ -3789,7 +3790,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void completar_estados_dgs() { //  - si tramitar_estados_mediador funciona correctamente, borrar esta
+	public void completar_estados_dgs() { //   // revisar - si tramitar_estados_mediador funciona correctamente, borrar esta
 		debugBegin();
 		new FichaMediadorPage(userS)
 			.clickBuscadorMediadores();
@@ -3871,8 +3872,6 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	//######### Antonia método lógica de estados ###########
-
 	//------ALTA PROSPECT--------
 	public void alta_prospect() {
 		debugBegin();
@@ -3887,7 +3886,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void mediadores_cambios_estado_situacion_AE() { //  - si tramitar_estados_mediador funciona correctamente, borrar esta
+	public void mediadores_cambios_estado_situacion_AE() { //revisar - si tramitar_estados_mediador funciona correctamente, borrar esta
 		debugBegin();
 
 		new InnovaHomePage(userS)
