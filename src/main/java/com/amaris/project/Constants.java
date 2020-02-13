@@ -938,8 +938,8 @@ public class Constants {
 	public static final String IBAN_CARGO_RECIBOS_AUTOLIQUIDACIONES_ALT_MED = "iban_cargo_recibos_autoliquidaciones";
 
 	//Variables de dependencia
-	public static final String ID_INTERMEDIARIO_AE = "id_inter_ae";
-	public static final String ID_OFICINA_AE = "id_ofi_ae";
-	public static final String ID_COLABORADOR_AE = "id_colab_ae";
+	public static final String ID_ALTA_INTERMEDIARIO_AE = "id_inter_ae";
+	public static final String ID_ALTA_OFICINA_AE = "id_ofi_ae";
+	public static final String ID_ALTA_COLABORADOR_AE = "id_colab_ae";
 		
 }// END
