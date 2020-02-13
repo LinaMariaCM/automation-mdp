@@ -357,6 +357,13 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		return this;
 	}
 
+	public MediadoresAltaDatosDescriptivosPage completarNombreComercial(String nomComercial) {
+		debugBegin();
+		webDriver.setText(nombreComercialADInput, nomComercial);
+		debugEnd();
+		return this;
+	}
+
 	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
 		debugBegin();
 
@@ -375,13 +382,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		webDriver.exitFrame();
 
-		debugEnd();
-		return this;
-	}
-
-	public MediadoresAltaDatosDescriptivosPage completarNombreComercial(String nomComercial) {
-		debugBegin();
-		webDriver.setText(nombreComercialADInput, nomComercial);
 		debugEnd();
 		return this;
 	}
