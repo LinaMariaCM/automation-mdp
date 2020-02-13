@@ -277,6 +277,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 
 			debugInfo("tipo de mediador seleccionado");
+			
 			altaDatosBasicosComunes("9876543210");
 			debugInfo("datos básicos rellenados");
 			//		webDriver.waitWithDriver(3000);
@@ -333,6 +334,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	public MediadoresAltaDatosDescriptivosPage altaDatosBasicosComunes(String numRegDGS) {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.waitWithDriver(2000);
 		webDriver.clickElementFromDropDownByAttribute(ejecutivoComercialCombo, ejecutivoComercialOption, "value", getTestVar(Constants.EJECUTIVO_COMERCIAL));
 		if(getTestVar(Constants.IDIOMA) != null && !getTestVar(Constants.IDIOMA).isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(idiomaCombo, idiomaOption, "value", getTestVar(Constants.IDIOMA));
