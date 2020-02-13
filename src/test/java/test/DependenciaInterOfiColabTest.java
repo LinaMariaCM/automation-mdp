@@ -36,8 +36,8 @@ public class DependenciaInterOfiColabTest extends TestObject{
 
 			//TODO alta intermediario agente exclusivo
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_interm_AE_completo();
-			
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
@@ -70,7 +70,8 @@ public class DependenciaInterOfiColabTest extends TestObject{
 			
 			//TODO alta oficina
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_oficina_a_un_intermediario();
+			steps.alta_oficina();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
