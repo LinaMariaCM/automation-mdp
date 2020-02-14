@@ -188,6 +188,13 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 		// clickGuardar();
 
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+
+			clickContiuar();
+		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			clickContiuar();

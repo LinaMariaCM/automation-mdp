@@ -677,7 +677,6 @@ public class Constants {
 	public static final String ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES = "Tenga en cuenta que para colaboradores gestores o oficinas, el domicilio fiscal se recoge del nivel superior";
 	public static final String ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION = "Existe un colaborador con la misma dirección comercial";
 	public static final String ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL = "Existe una oficina con la misma dirección comercial";
-
 	public static final String ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES = "¿Estás seguro de querer eliminar la dirección?";
 
 	//MEDIADORES ALERTA DATOS RELACIONALES
@@ -688,6 +687,7 @@ public class Constants {
 	public static final String ALERTA_TIPO_RETRIBUCION_MEDIADORES = "El campo TIPO RETRIBUCIÓN es un campo obligatorio.";
 	public static final String ALERTA_DC_MEDIADORES = "El campo D.C. es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_CTA_MEDIADORES = "El campo CTA es un campo obligatorio y no puede estar en blanco.";
+
 	// DGS
 	public static final String ALERTA_FECHA_INSCRIPCION_MEDIADORES_RECEPCION = "Fecha inscripción obligatoria.";
 	public static final String ALERTA_FECHA_INICIO_RELACION = "El campo FECHA INICIO RELACIÓN no se ha rellenado correctamente.";
@@ -695,6 +695,23 @@ public class Constants {
 	public static final String ALERTA_INICIO_CONTRATO_MEDIADORES = "El campo FECHA INICIO CONTRATO no se ha rellenado correctamente.";
 	public static final String ALERTA_ENTIDAD_ALMENOS_RAMO_MEDIADORES = "Con el campo de entidad informado, tiene que informar almenos un ramo";
 	public static final String ALERTA_PRODUCTO_MEDIADORES = "El campo PRODUCTO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_TIPO_DOCUMENTO_REPRESENTANTE = "El campo TIPO DOCUMENTO REPRESENTANTE es un campo obligatorio.";
+	public static final String ALERTA_NUMERO_DOCUMENTO_REPRESENTANTE = "El campo NÚMERO DOCUMENTO REPRESENTANTE es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_NOMBRE_REPRESENTANTE = "El campo NOMBRE REPRESENTANTE es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_PRIMER_APELLIDO_REPRESENTANTE = "El campo 1ER. APELLIDO REPRESENTANTE es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_SEGUNDO_APELLIDO_REPRESENTANTE = "El campo 2º APELLIDO REPRESENTANTE es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_ALTO_CARGO_MEDIADORES = "Es obligatorio introducir un Alto cargo.";
+	public static final String ALERTA_TIPO_DOCUMENTO_ALTO_CARGO = "El campo TIPO DOCUMENTO ALTO CARGO es un campo obligatorio.";
+	public static final String ALERTA_NOMBRE_ALTO_CARGO = "El campo NOMBRE es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_PRIMER_APELLIDO_ALTO_CARGO = "El campo 1ER. APELLIDO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_SEGUNDO_APELLIDO_ALTO_CARGO = "El campo 2° APELLIDO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_FECHA_NOMBRAMIENTO_ALTO_CARGO = "El campo FECHA NOMBRAMIENTO no se ha rellenado correctamente.";
+	public static final String ALERTA_TIPO_CARGOS_ALTO_CARGO = "El campo TIPO CARGO es un campo obligatorio.";
+	public static final String ALERTA_PROFESION_ALTO_CARGO = "El campo PROFESION es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_ESTADO_ALTO_CARGO = "El campo ESTADO es un campo obligatorio.";
+	public static final String ALERTA_RAZON_SOCIAL_ALTO_CARGO = "El campo RAZÓN SOCIAL es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_MOVIL_ALTO_CARGO = "El campo MOVIL no se ha rellenado correctamente.";
+	public static final String ALERTA_NUMERO_DOCUMENTO_CARGO_INCORRECTO = "El número de documento del alto cargo no corresponde con el tipo de documento o no es correcto.";
 
 	//OTRAS ALERTAS
 	public static final String ALERTA_COMENTARIO_ADICIONAL_MEDIADORES = "El campo COMENTARIO ADICIONAL es un campo obligatorio y no puede estar en blanco.";
@@ -939,5 +956,5 @@ public class Constants {
 	public static final String ID_INTERMEDIARIO_AE = "id_inter_ae";
 	public static final String ID_OFICINA_AE = "id_ofi_ae";
 	public static final String ID_COLABORADOR_AE = "id_colab_ae";
-		
+
 }// END
