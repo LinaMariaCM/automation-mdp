@@ -3853,4 +3853,18 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	// STEPS PARA RETENCIONES ALTA PROSPECT
+	public void alta_prospect_retenciones_mediadores() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openAltaProspect();
+		new MediadoresAltaProspectPage(userS)
+			.alta_prospect_retenciones();
+
+		debugEnd();
+	}
+
 } // END
