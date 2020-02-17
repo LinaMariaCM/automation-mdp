@@ -704,7 +704,7 @@ public class Constants {
 	public static final String ALERTA_TIPO_DOCUMENTO_ALTO_CARGO = "El campo TIPO DOCUMENTO ALTO CARGO es un campo obligatorio.";
 	public static final String ALERTA_NOMBRE_ALTO_CARGO = "El campo NOMBRE es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_PRIMER_APELLIDO_ALTO_CARGO = "El campo 1ER. APELLIDO es un campo obligatorio y no puede estar en blanco.";
-	public static final String ALERTA_SEGUNDO_APELLIDO_ALTO_CARGO = "El campo 2° APELLIDO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_SEGUNDO_APELLIDO_ALTO_CARGO = "El campo 2º APELLIDO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_FECHA_NOMBRAMIENTO_ALTO_CARGO = "El campo FECHA NOMBRAMIENTO no se ha rellenado correctamente.";
 	public static final String ALERTA_TIPO_CARGOS_ALTO_CARGO = "El campo TIPO CARGO es un campo obligatorio.";
 	public static final String ALERTA_PROFESION_ALTO_CARGO = "El campo PROFESION es un campo obligatorio y no puede estar en blanco.";
@@ -734,6 +734,15 @@ public class Constants {
 	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_TELEFONO_MEDIADORES = "El campo TELÉFONO no se ha rellenado correctamente.";
 	public static final String ALERTA_MEDIADOR_NO_SELECCIONADO = "Debe seleccionar uno o varios mediadores para poder continuar.";
+
+
+	//ALERTAS DE ALTA PROSPECT(RETENCIONES)
+
+	public static final String ALERTA_TIPO_PROSPECT_MEDIADORES = "El campo TIPO PROSPECT es un campo obligatorio.";
+	public static final String ALERTA_NUMERO_REGISTRO_DGS = "El campo NUMERO REGISTRO DGS es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_CONTACTO_RESPONSABLE_PROSPECT = "El campo CONTACTO RESPONSABLE INTERMEDIARIO es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_ANYADIR_DOMICILIO_PROSPECT = "No se han definido un domicilio para el prospect";
+
 
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
