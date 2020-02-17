@@ -1205,7 +1205,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
  */
 
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
 
 			alertaSistemaContacto(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION);
 			webDriver.clickInFrame(volverBtn, cuerpoFrame);

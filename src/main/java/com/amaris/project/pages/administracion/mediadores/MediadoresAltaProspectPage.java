@@ -2,6 +2,7 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import java.util.Random;
 
+import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
 
 import com.amaris.automation.model.testing.UserStory;
@@ -62,6 +63,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 	//--------Controles de Paginas------------------------
 	private By cancelarNuevoProspectBtn = By.cssSelector("#botonCancelar1");
 	private By grabarBtn = By.cssSelector("#botonGrabar");
+	private By volverBtn = By.cssSelector("#botonVolver");
+
+	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
 
 	public MediadoresAltaProspectPage(UserStory userS) {
 		super(userS);
@@ -200,14 +204,14 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.appendText(nombreViaInput, getTestVar(Constants.DIRECCION_FISC_NombreVia));
 
 		webDriver.waitForElementToBeClickable(nombreViaCombo);
-		
+
 		webDriver.tabulateElement(nombreViaInput);
 		webDriver.exitFrame();
 
 		debugEnd();
 		return this;
 	}
-	
+
 	public MediadoresAltaProspectPage selectnNumeroVia() {
 		debugBegin();
 
@@ -219,7 +223,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		debugEnd();
 		return this;
 	}
-	
 
 	//-----------Clicks en botones-----------------------------------
 	public MediadoresAltaProspectPage clickBotonComprobarDireccion() {
@@ -383,7 +386,159 @@ public class MediadoresAltaProspectPage extends PageObject {
 		selectEjecutivoComercial();
 		completarDatosDireccion();
 		clickBotonGrabar();
-		
+
+		debugEnd();
+		return this;
+	}
+
+	//---------ALTA PROSPECT RETENCIONES---------------------
+
+	public boolean alertaSistemaProspect(String mensaje) {
+		debugBegin();
+
+		String alerta = webDriver.getTextInFrame(avisoSistemaTxt, cuerpoFrame).trim();
+		boolean checkAlerta = alerta.equalsIgnoreCase(mensaje);
+
+		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje real: " + alerta);
+
+		debugEnd();
+
+		return checkAlerta;
+	}
+
+	public MediadoresAltaProspectPage alta_prospect_retenciones() {
+		debugBegin();
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NIVEL_ESTRUCTURA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getTestVar(Constants.NIVEL_ESTRUCTURA));
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_PROSPECT_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoProspectCombo, tipoProspectOption, cuerpoFrame, "value", getTestVar(Constants.TIPO_PROSPECT));
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_REGISTRO_DGS);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(numRegistroDgsInput, cuerpoFrame, "12345");
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ACTIVIDAD_PRINCIPAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(actividadPrincipalCombo, actividadPrincipalOption, cuerpoFrame, "value", getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_COMERCIAL_2_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(nombreComercialProspectInput, cuerpoFrame, getTestVar(Constants.NOMBRE_PROSPECT));
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_RESPONSABLE_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(contactoResponsableInput, cuerpoFrame, getTestVar(Constants.CONTACTO_RESPONSABLE));
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_IDIOMA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(idiomaCombo, idiomaOption, cuerpoFrame, "value", getTestVar(Constants.IDIOMA));
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_PRINCIPAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(telefonoUnoInput, cuerpoFrame, "telefono");
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_PRINCIPAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(telefonoUnoInput, cuerpoFrame, "699");
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_PRINCIPAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.setTextInFrame(telefonoUnoInput, cuerpoFrame, getTestVar(Constants.TLF_PRINCIPAL));
+
+		clickBotonGrabar();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EJECUTIVO_COMERCIAL_MEDIADORES);
+		webDriver.acceptAlert();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(ejecutivoComercialCombo, ejecutivoComercialOption, cuerpoFrame, "value", getTestVar(Constants.EJECUTIVO_COMERCIAL));
+
+		clickBotonGrabar();
+
+		alertaSistemaProspect(Constants.ALERTA_ANYADIR_DOMICILIO_PROSPECT);
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+		clickBotonAsignarDomicilio();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+
+		webDriver.click(comprobarDireccionDomicilioBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		selectProvincia();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.click(comprobarDireccionDomicilioBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
+		webDriver.acceptAlert();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		selectPoblacion();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.click(comprobarDireccionDomicilioBtn);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
+		webDriver.acceptAlert();
+
+		selectVia();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.click(comprobarDireccionDomicilioBtn);
+		webDriver.click(aceptarDomicilioBtn);
+
+		webDriver.exitFrame();
+
+		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		debugEnd();
 		return this;

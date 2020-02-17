@@ -621,7 +621,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		clickContinuar();
 
-		//he tocado para colaborador lo de ||
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
 			|| getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
@@ -642,7 +641,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		}
 
-		//aqui
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
 			&& getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
@@ -651,7 +649,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		}
 
-		//he tocado aqui tambien
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
 			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
@@ -762,7 +759,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			clickContinuar();
 		}
 
-		//aqui
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
 			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
@@ -776,7 +772,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		}
 
-		//aqui
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
 			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")

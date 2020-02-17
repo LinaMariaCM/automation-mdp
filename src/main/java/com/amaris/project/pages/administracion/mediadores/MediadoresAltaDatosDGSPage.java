@@ -76,8 +76,8 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By sexoNuevSocCombo = By.cssSelector("#ALTAMEDI_SEXOSOCIODGS");
 	private By razonSocialNuevSocioInput = By.cssSelector("#ALTAMEDI_RAZSOCSOCIO");
 
-	private By grabarBtn = By.cssSelector("buttonRecord");
-	private By cancelarBtn = By.cssSelector("#buttonRecord");
+	private By grabarBtn = By.cssSelector("#buttonRecord");
+	private By cancelarBtn = By.cssSelector("#buttonCancel");
 
 	//MAPEO DE CASO ESPECIAL AGENTE EXCLUSIVO CON NIE O NIF
 	//-----------General---------------------------------
@@ -523,11 +523,10 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 			clickGuardarYSalir();
 
-			//AQUI
 			alertaSistemaDGS(Constants.ALERTA_NUMERO_DOCUMENTO_1_MEDIADORES);
 			webDriver.clickInFrame(volverBtn, cuerpoFrame);
 
-			webDriver.setTextInFrame(numDocumentoInput, DocumentGeneratorHelper.generateNif(), cuerpoFrame);
+			webDriver.setTextInFrame(numDocRepresentInput, DocumentGeneratorHelper.generateNif(), cuerpoFrame);
 
 			clickGuardarYSalir();
 
@@ -538,20 +537,28 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			webDriver.waitWithDriver(2000);
 			webDriver.clickInFrame(anyadirAltoNuevoCargoBtn, cuerpoFrame);
 
-			//--Empiezan repetenciones de alto cargo---
+			//--Empiezan retenciones de ALTO CARGO---
 
 			webDriver.switchToFrame(cuerpoFrame);
 			webDriver.switchToFrame(modalFrame);
+
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_DOCUMENTO_ALTO_CARGO);
 			webDriver.acceptAlert();
 
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", "NIF");
+
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_DOCUMENTO_MEDIADORES);
 			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
 
 			webDriver.setText(numDocumentoInput, "Documento");
 			webDriver.click(grabarBtn);
@@ -559,11 +566,17 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_ALTO_CARGO);
 			webDriver.acceptAlert();
 
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.setText(nombreInput, "Nombre");
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRIMER_APELLIDO_ALTO_CARGO);
 			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
 
 			webDriver.setText(primerApellidoInput, "Primer Apellido");
 			webDriver.click(grabarBtn);
@@ -571,17 +584,26 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEGUNDO_APELLIDO_ALTO_CARGO);
 			webDriver.acceptAlert();
 
-			webDriver.setText(primerApellidoInput, "Segundo Apellido");
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(segundoApellidoInput, "Segundo Apellido");
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEXO_MEDIADOR);
 			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
 
 			webDriver.clickElementFromDropDownByAttribute(sexoCombo, sexoOption, "value", "1");
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_NOMBRAMIENTO_ALTO_CARGO);
 			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
 
 			webDriver.setText(fechaNombramInput, fechaHoy);
 			webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "title", "Elegir");
@@ -590,17 +612,26 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ESTADO_ALTO_CARGO);
 			webDriver.acceptAlert();
 
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "value", "1");
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CARGOS_ALTO_CARGO);
 			webDriver.acceptAlert();
 
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.clickElementFromDropDownByAttribute(tipoCargoCombo, tipoCargoOption, "value", "40");
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PROFESION_ALTO_CARGO);
 			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
 
 			webDriver.setText(profesionInput, "Profesion");
 			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", "CIF");
@@ -609,13 +640,42 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAZON_SOCIAL_ALTO_CARGO);
 			webDriver.acceptAlert();
 
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.setText(razonSocialInput, "Razon social");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_NOMBRAMIENTO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.setText(fechaNombramInput, fechaHoy);
+
+			webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "title", "Elegir");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ESTADO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "value", "1");
+			webDriver.click(grabarBtn);
+
 			webDriver.clickElementFromDropDownByAttribute(tipoDocRepresentanCifCombo, tipoDocRepresentanCifOption, "value", "NIF");
+
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_REPRESENTANTE);
 			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
 
 			webDriver.setText(nombreRepresentanCifInput, "Nombre");
 			webDriver.click(grabarBtn);
@@ -623,23 +683,50 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRIMER_APELLIDO_REPRESENTANTE);
 			webDriver.acceptAlert();
 
-			webDriver.setText(primApellidoRepresentInput, "Primer Apellido");
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(priApellRepresentanCifInput, "Primer Apellido");
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEGUNDO_APELLIDO_REPRESENTANTE);
 			webDriver.acceptAlert();
 
-			webDriver.setText(segundoApellidoInput, "Segundo Apellido");
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(segApellRepresentanCifInput, "Segundo Apellido");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CARGOS_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.clickElementFromDropDownByAttribute(tipoCargoCombo, tipoCargoOption, "value", "40");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PROFESION_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.setText(profesionInput, "Profesion");
 
-			//--No obligatorios--
+			//-----No obligatorios pero pueden tener formato incorrecto-------
 			webDriver.setText(telefonoInput, "Telefono");
 
 			webDriver.click(grabarBtn);
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_MEDIADORES);
 			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
 
 			webDriver.setText(telefonoInput, "699999989");
 
@@ -650,6 +737,9 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_MOVIL_ALTO_CARGO);
 			webDriver.acceptAlert();
 
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
 			webDriver.setText(movilInput, "699999999");
 
 			webDriver.setText(emailInput, "Esto es un email");
@@ -658,6 +748,9 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EMAIL);
 			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
 
 			webDriver.setText(emailInput, "mutua@gmail.com");
 
@@ -677,8 +770,6 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			webDriver.setText(numDocumentoInput, DocumentGeneratorHelper.generateCIF());
 			webDriver.click(grabarBtn);
 			webDriver.exitFrame();
-
-			//clickGuardarYSalir();
 
 		}
 

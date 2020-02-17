@@ -185,8 +185,6 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoRetribucionCombo, tipoRetribucionOption, cuerpoFrame, "value", "COMI");
 
-		// clickGuardar();
-
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
 			&& getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {

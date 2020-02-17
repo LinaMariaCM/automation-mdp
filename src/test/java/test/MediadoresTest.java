@@ -272,6 +272,25 @@ public class MediadoresTest {
 		}).run();
 	}
 
+	// TEST PARA RETENCIONES ALTA PROSPECT
+	@DataProvider(parallel = false)
+	public String[][] dataProviderMed22() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_prospect_csv.csv");
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMed22")
+	public void med22(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		userS.testActions(() -> {
+			steps.login("Innova", "eferrando");
+			steps.alta_prospect_retenciones_mediadores();
+			return null;
+		}).run();
+	}
+
 	@AfterSuite
 	public void afterSuite() {
 		suiteM.createHtmlReport();
