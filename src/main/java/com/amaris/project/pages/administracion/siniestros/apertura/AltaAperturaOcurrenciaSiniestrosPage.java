@@ -50,7 +50,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	private By btnCancelarModificarReserva = By.id("buttonCancel");
 
 	// #### DATOS DE LA OCURRENCIA ####
-	private By descripcionSiniestroInput = By.id("version");
+	private By descripcionSiniestroInput = By.cssSelector("#version");
 	private By implicadosSiBtn = By.id("implicadosSi");
 	private By implicadosNoBtn = By.id("implicadosNo");
 	private By encargoSiBtn = By.id("encargoSi");
@@ -200,9 +200,9 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		
 		debugInfo("La descripción del siniestro es: " + descripcion);
 		
-		webDriver.waitWithDriver(3000);
+		webDriver.waitWithDriver(8000);
 		webDriver.appendTextInFrame(descripcionSiniestroInput, cuerpoFrame, descripcion);
-		webDriver.waitWithDriver(3000);
+		webDriver.waitWithDriver(6000);
 		
 		if(implicadosExisten != null && !implicadosExisten.isEmpty()) {
 			webDriver.clickInFrame(implicadosSiBtn, cuerpoFrame);
