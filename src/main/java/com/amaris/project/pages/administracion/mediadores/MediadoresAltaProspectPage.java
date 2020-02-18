@@ -56,6 +56,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 	//----------Medios de Contacto---------------------------------
 	private By anyadirNuevoMedioContactoBtn = By.cssSelector("#capaMediosContacto > div > div.floatright.peq > a");
 	private By tipoContactoCombo = By.cssSelector("#MEDI_CONTPROS");
+	private By tipoContactoOption = By.cssSelector("#MEDI_CONTPROS > option");
 	private By contactoTelefonoInput = By.cssSelector("#MEDI_CONTACTO");
 	private By grabarNuevoMedioContactoBtn = By.cssSelector("#buttonRecord");
 	private By cancelarNuevoMedioContactoBtn = By.cssSelector("#buttonCancel");
@@ -508,10 +509,15 @@ public class MediadoresAltaProspectPage extends PageObject {
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
 		webDriver.acceptAlert();
 
-		selectProvincia();
-
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
+
+		webDriver.setText(provinciaInput, "Valencia");
+
+		webDriver.waitForElementToBeClickable(provinciaCombo);
+
+		webDriver.tabulateElement(provinciaInput);
+
 		webDriver.click(comprobarDireccionDomicilioBtn);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
@@ -520,23 +526,144 @@ public class MediadoresAltaProspectPage extends PageObject {
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
 		webDriver.acceptAlert();
 
-		selectPoblacion();
-
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
+		webDriver.setText(poblacionInput, "Mislata");
+
+		webDriver.waitForElementToBeClickable(poblacionCombo);
+
+		webDriver.tabulateElement(poblacionInput);
+
 		webDriver.click(comprobarDireccionDomicilioBtn);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
 		webDriver.acceptAlert();
 
-		selectVia();
-
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
+		webDriver.setText(nombreViaInput, "GREG");
+
+		webDriver.waitForElementToBeClickable(nombreViaCombo);
+
+		webDriver.tabulateElement(nombreViaInput);
+
 		webDriver.click(comprobarDireccionDomicilioBtn);
 		webDriver.click(aceptarDomicilioBtn);
 
 		webDriver.exitFrame();
+
+		//------No obligatorios-------------
+		clickAnyadirNuevoMedioContacto();
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoContactoCombo, tipoContactoOption, modalFrame, "value", "CMIP");
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(contactoTelefonoInput, "Comunica", modalFrame);
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(contactoTelefonoInput, "699999999", modalFrame);
+
+		clickGrabarNuevoMedioContacto();
+
+		clickAnyadirNuevoMedioContacto();
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoContactoCombo, tipoContactoOption, modalFrame, "value", "FAX");
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(contactoTelefonoInput, "Fax", modalFrame);
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(contactoTelefonoInput, "699999999", modalFrame);
+
+		clickGrabarNuevoMedioContacto();
+
+		clickAnyadirNuevoMedioContacto();
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoContactoCombo, tipoContactoOption, modalFrame, "value", "MAIL");
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(contactoTelefonoInput, "Mail", modalFrame);
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(contactoTelefonoInput, "email@email.com", modalFrame);
+
+		clickGrabarNuevoMedioContacto();
+
+		clickAnyadirNuevoMedioContacto();
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipoContactoCombo, tipoContactoOption, modalFrame, "value", "TELF");
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(contactoTelefonoInput, "Telefono", modalFrame);
+
+		clickGrabarNuevoMedioContacto();
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CONTACTO_PROSPECT);
+		webDriver.acceptAlert();
+
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.setTextInFrame(contactoTelefonoInput, "699999999", modalFrame);
+
+		clickGrabarNuevoMedioContacto();
 
 		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
