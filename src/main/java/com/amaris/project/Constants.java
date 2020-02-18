@@ -743,7 +743,6 @@ public class Constants {
 	public static final String ALERTA_CONTACTO_RESPONSABLE_PROSPECT = "El campo CONTACTO RESPONSABLE INTERMEDIARIO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_ANYADIR_DOMICILIO_PROSPECT = "No se han definido un domicilio para el prospect";
 
-
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
 	public static final String TAREA_TITULO = "tarea_titulo";

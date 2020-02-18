@@ -242,7 +242,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		return this;
 	}
 
-	//--------------RETENCIONES---------------------------------
+	//--------------RETENCIONES DE DATOS RELACIONALES DE ALTAS DE INTERMEDIARIOS, OFICINA Y COLABORADOR---------------------------------
 
 	public boolean alertaSistemaRelacionales(String mensaje) {
 		debugBegin();
@@ -257,8 +257,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 		return checkAlerta;
 	}
-
-	//---------------------RETENCIONES--------------------
 
 	public MediadoresAltaDatosRelacionalesPage altaRetencionesRelacionales() {
 		debugBegin();

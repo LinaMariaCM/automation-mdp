@@ -174,6 +174,8 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 		return this;
 	}
 
+	//-------------RETENCIONES DATOS TRANSACCIONALES PARA ALTAS DE INTERMEDIARIOS, OFICINA Y COLABORADOR-----------------------
+
 	public MediadoresAltaDatosTransaccionalesPage retencionesAltaTransaccionales() {
 		debugBegin();
 

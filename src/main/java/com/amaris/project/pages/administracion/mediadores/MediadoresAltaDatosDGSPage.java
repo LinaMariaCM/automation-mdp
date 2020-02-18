@@ -372,7 +372,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	//-------------RETENCIONES--------------------------
+	//-------------RETENCIONES DE DATOS DGS PARA ALTAS DE INTERMEDIARIOS, OFICINA Y COLABORADOR--------------------------
 
 	public boolean alertaSistemaDGS(String mensaje) {
 		debugBegin();

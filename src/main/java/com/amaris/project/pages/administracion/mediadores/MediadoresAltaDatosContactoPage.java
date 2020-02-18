@@ -622,7 +622,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-	//---------------RETENCIONES PARA CAMPOS DE LA PAGE CONTACTOS------------------------
+	//---------------RETENCIONES PARA ALTAS DE INTERMEDIARIOS, OFICINA Y COLABORADOR------------------------
 
 	//ALERTA DE SISTEMA
 	public boolean alertaSistemaContacto(String mensaje) {
@@ -1140,69 +1140,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		debugInfo("Se ha rellenado la Dirección Postal Siniestros.");
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-/*
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
-
-			alertaSistemaContacto(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL);
-			webDriver.clickInFrame(volverBtn, cuerpoFrame);
-
-			webDriver.clickInFrame(modificarDomicilioBtn, cuerpoFrame);
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.clearText(provinciaInput);
-			webDriver.clearText(poblacionInput);
-			webDriver.clearText(viaInput);
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(provinciaInput);
-			completarCampoProvincia("ALBACETE");
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(poblacionInput);
-			completarCampoPoblacion("CHORR");
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(viaInput);
-			completarCampoNombreVia("CHORR");
-
-			webDriver.click(comprobarDireccionBtn);
-			webDriver.click(aceptarBtn);
-
-			webDriver.exitFrame();
-
-			webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-		}
-
- */
 
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
