@@ -735,10 +735,10 @@ public class Constants {
 	public static final String ALERTA_TELEFONO_MEDIADORES = "El campo TELÉFONO no se ha rellenado correctamente.";
 	public static final String ALERTA_MEDIADOR_NO_SELECCIONADO = "Debe seleccionar uno o varios mediadores para poder continuar.";
 
-
 	//ALERTAS DE ALTA PROSPECT(RETENCIONES)
-
 	public static final String ALERTA_TIPO_PROSPECT_MEDIADORES = "El campo TIPO PROSPECT es un campo obligatorio.";
+	public static final String ALERTA_TIPO_CONTACTO_PROSPECT = "El campo TIPO CONTACTO es un campo obligatorio.";
+	public static final String ALERTA_CONTACTO_PROSPECT = "El campo CONTACTO no se ha rellenado correctamente.";
 	public static final String ALERTA_NUMERO_REGISTRO_DGS = "El campo NUMERO REGISTRO DGS es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_CONTACTO_RESPONSABLE_PROSPECT = "El campo CONTACTO RESPONSABLE INTERMEDIARIO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_ANYADIR_DOMICILIO_PROSPECT = "No se han definido un domicilio para el prospect";
