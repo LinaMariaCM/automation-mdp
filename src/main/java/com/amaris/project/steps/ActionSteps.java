@@ -3576,91 +3576,16 @@ public class ActionSteps extends InteractionObject {
 
 	/************************************** MEDIADOR3ES ************************************************/
 
-	public void comprobaciones_ficha_mediador() {
-		debugBegin();
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorId();
-		new FichaMediadorPage(userS)
-			.verificarCampoJerarquia();
-		debugInfo("la comprobación de nivel jerarquico se ha completado");
-		new FichaMediadorPage(userS)
-			.verificarCampoNombreComercial()
-			.solicitarAlta();
-		debugEnd();
-	}
-
-	public void obtener_nombres_direcciones_mediador() {
-		debugBegin();
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorId();
-		new FichaMediadorPage(userS)
-			.verificarDireccion();
-		debugEnd();
-
-	}
-
-	public void obtener_nombres_direcciones_mediador_intercambio_datos() {
-		debugBegin();
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorIdIntercambio();
-		new FichaMediadorPage(userS)
-			.verificarDireccion();
-		debugEnd();
-
-	}
-
-	public void alta_datos_basicos_mediador() { // revisar
-		debugBegin();
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresHomePage(userS)
-			.openAltaMediador();
-		new MediadoresAltaDatosDescriptivosPage(userS)
-			.altaIntermediarioDescriptivos()
-			.clickContinuar();
-	/*		.clickGuardarYSalir();
-		new FichaMediadorPage(userS)
-			.obtenerDatoAltaIntermediario();*/
-
-		debugEnd();
-	}
-
-	public void alta_datos_contacto_mediador() {  // revisar
-		new MediadoresAltaDatosContactoPage(userS)
-			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
-			.anyadirNuevaDireccionFiscal()
-			.anyadirDireccionComercial()
-			.anyadirDireccionProduccion()
-			.anyadirDireccionRecibos()
-			.anyadirDireccionSiniestros()
-			.clickContinuar();
-		new MediadoresAltaDatosRelacionalesPage(userS)
-			.altaDatosRelacionales()
-			.clickContinuarDatosRelacionales();
-		new MediadoresAltaDatosTransaccionalesPage(userS)
-			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
-			.clickGuardar();
-		new FichaMediadorPage(userS)
-			.obtenerIdMediador()
-			//	.anyadirIdMediador()
-			.verificarDireccion();
-	}
-
 	// Step de iryna para dar alta una oficina
 
 	public void alta_oficina() {
 		debugBegin();
-
-/*		new InnovaHomePage(userS)
+		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorIdEstadoAlta(); */
+			.buscarMediadorPorIdIntercambio(); // revisar - averiguar si rompo algo más
+		new FichaMediadorPage(userS)
+			.clickFichaMediador();
 		new FichaMediadorPage(userS)
 			.clickMasAcciones()
 			.clickSolicitarAltaOficina();
@@ -3674,7 +3599,6 @@ public class ActionSteps extends InteractionObject {
 			.anyadirDireccionProduccion()
 			.anyadirDireccionRecibos()
 			.anyadirDireccionSiniestros()
-			//	.altaOficinaDatosContacto()
 			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
@@ -3682,6 +3606,9 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
+		new FichaMediadorPage(userS)
+			.clickFichaMediador();
+		debugInfo("Se acaba de completar el alta de la  OFICINA");
 	/*	new FichaMediadorPage(userS)   - si tramitar_estados_mediador funciona correctamente, borrar esta
 			.solicitarAlta()
 			.confirmarAlta(); */
@@ -3691,11 +3618,12 @@ public class ActionSteps extends InteractionObject {
 	public void alta_colaborador() {
 		debugBegin();
 
-/*		new InnovaHomePage(userS)
+		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarOficinaPorIdEstadoAlta();*/
+			.buscarOficinaPorIdEstadoAlta();
 		new FichaMediadorPage(userS)
+			.clickFichaMediador()
 			.clickMasAcciones()
 			.clickSolicitarAltaColaborador();
 		new MediadoresAltaDatosDescriptivosPage(userS)
@@ -3723,10 +3651,16 @@ public class ActionSteps extends InteractionObject {
 		}
 
 		new FichaMediadorPage(userS)
-			.obtenerIdMediador()
+			.clickFichaMediador()
+			.obtenerIdMediador();
+		debugInfo("Se acaba de completar el alta del COLABORADOR");
+		/* - revisar - queda comentado porque ya hay una step para tramitar estados
 			.solicitarAlta()
+			.clickFichaMediador()
 			.confirmarAlta()
-			.formacionAvanzarEstado();
+			.clickFichaMediador()
+			.formacionAvanzarEstado()
+			.clickFichaMediador(); */
 		debugEnd();
 	}
 
@@ -3763,12 +3697,12 @@ public class ActionSteps extends InteractionObject {
 		}
 		new FichaMediadorPage(userS)
 			.clickFichaMediador()
-		/*	.solicitarAlta()
-			.enviarValoracionFinanciera()
-			.enviarRevisionFinanciera()
-			.enviarResolucionFinanciera()
-			.confirmarAlta()
-			.formacionAvanzarEstado()*/
+			/*	.solicitarAlta()
+				.enviarValoracionFinanciera()
+				.enviarRevisionFinanciera()
+				.enviarResolucionFinanciera()
+				.confirmarAlta()
+				.formacionAvanzarEstado()*/
 			.obtenerIdMediador();
 /*		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new FichaMediadorPage(userS)
@@ -3790,37 +3724,24 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void completar_estados_dgs() { //   // revisar - si tramitar_estados_mediador funciona correctamente, borrar esta
-		debugBegin();
-		new FichaMediadorPage(userS)
-			.clickBuscadorMediadores();
-		new MediadoresHomePage(userS)
-			.openEnvioDGS();
-		new MediadoresDGSPage(userS)
-			.anyadirIdMediador()
-			.envioMediadorDGS(); // averiguar cómo filtrar el CSV y cases: cuando ha de aparecer el paso
-		new MediadoresHomePage(userS)
-			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
-		new MediadoresDGSPage(userS)
-			.recepcionMediadoresDGS();
-		new MediadoresHomePage(userS)
-			.openGestionMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorId();
-		debugEnd();
-	}
 
 	public void tramitar_estados_mediador() { // MONTADO POR ORDEN DE PASOS Y VARIABLES
 		debugBegin();
 		if(!getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
+			// casi todos inician su tramitación solicitando alta
 			new FichaMediadorPage(userS)
-				.solicitarAlta();
+				.solicitarAlta()
+				.clickFichaMediador();
 			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
-				new FichaMediadorPage(userS).confirmarAlta();
+				new FichaMediadorPage(userS)
+					.confirmarAlta()
+					.clickFichaMediador();
+				debugInfo("--------- Se acaba de completar la tramitación de OFICINAS y COLABORADORES ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 				if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 					new FichaMediadorPage(userS)
-						.formacionAvanzarEstado();
-			/*		.clickBuscadorMediadores();
+						.formacionAvanzarEstado()
+						.clickFichaMediador()
+						.clickBuscadorMediadores();
 					new MediadoresHomePage(userS)
 						.openEnvioDGS();
 					new MediadoresDGSPage(userS)
@@ -3833,41 +3754,61 @@ public class ActionSteps extends InteractionObject {
 					new MediadoresHomePage(userS)
 						.openGestionMediadores();
 					new MediadoresBuscadorPage(userS)
-						.buscarMediadorPorId();*/
+						.buscarMediadorPorId();
+					new FichaMediadorPage(userS)
+						.clickFichaMediador()
+						.activarMediadorEstado()
+						.clickFichaMediador()
+						.comprobarEstadoActivo();
+					debugInfo("--------- Se acaba de completar la tramitación de COLABORADORES - AUXILIARES ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 				}
 			} else { // intermediarios sin el acuerdo de colaboración
 				new FichaMediadorPage(userS)
 					.enviarValoracionFinanciera()
+					.clickFichaMediador()
 					.enviarRevisionFinanciera()
+					.clickFichaMediador()
 					.enviarResolucionFinanciera()
-					.confirmarAlta();
-				if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE"))
-					new FichaMediadorPage(userS).formacionAvanzarEstado();
+					.clickFichaMediador()
+					.confirmarAlta()
+					.clickFichaMediador();
+				debugInfo("--------- Se acaba de confirmar el altas del INTE - sin AD ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
+
+				if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+					new FichaMediadorPage(userS)
+						.formacionAvanzarEstado()
+						.clickFichaMediador()
+						.clickBuscadorMediadores();
+					new MediadoresHomePage(userS)
+						.openEnvioDGS();
+					new MediadoresDGSPage(userS)
+						.anyadirIdMediador()
+						.envioMediadorDGS();
+					new MediadoresHomePage(userS)
+						.openRecepcionDGS();
+					new MediadoresDGSPage(userS)
+						.recepcionMediadoresDGS();
+					new MediadoresHomePage(userS)
+						.openGestionMediadores();
+					new MediadoresBuscadorPage(userS)
+						.buscarMediadorPorId();
+					debugInfo("--------- Se acaba de completar la tramitación DGS del INTE - AE ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
+				}
+				// paso ACTIVAR MEDIADOR - último de todos, excepto para el Acuerdo de colaboración
+				new FichaMediadorPage(userS)
+					.clickFichaMediador()
+					.activarMediadorEstado()
+					.clickFichaMediador()
+					.comprobarEstadoActivo();
+				debugInfo("--------- Se acaba de completar la ACTIVACIÓN de los mediadores INTE - sin AD ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 			}
 
-			if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
-				new FichaMediadorPage(userS)
-					.clickBuscadorMediadores();
-				new MediadoresHomePage(userS)
-					.openEnvioDGS();
-				new MediadoresDGSPage(userS)
-					.anyadirIdMediador()
-					.envioMediadorDGS();
-				new MediadoresHomePage(userS)
-					.openRecepcionDGS();
-				new MediadoresDGSPage(userS)
-					.recepcionMediadoresDGS();
-				new MediadoresHomePage(userS)
-					.openGestionMediadores();
-				new MediadoresBuscadorPage(userS)
-					.buscarMediadorPorId();
-			}
-			// paso ACTIVAR MEDIADOR - último dde todos, excepto para el Acuerdo de colaboración
-			new FichaMediadorPage(userS)
-				.clickActivarMediador()
-				.comprobarEstadoActivo();
 		} else {
-			new FichaMediadorPage(userS).confirmarAlta();
+			// los que no empiezan por solicitar alta, directamente la confirman, el caso de AD
+			new FichaMediadorPage(userS)
+				.confirmarAlta()
+				.clickFichaMediador();
+			debugInfo("--------- Se acaba de completar la tramitación de un INTE tipo AD ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 		}
 		debugEnd();
 	}
@@ -3882,27 +3823,6 @@ public class ActionSteps extends InteractionObject {
 			.openAltaProspect();
 		new MediadoresAltaProspectPage(userS)
 			.altaProspectMediadores();
-
-		debugEnd();
-	}
-
-	public void mediadores_cambios_estado_situacion_AE() { //revisar - si tramitar_estados_mediador funciona correctamente, borrar esta
-		debugBegin();
-
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorEstadoSituacionAE();
-		new FichaMediadorPage(userS)
-			.solicitarAlta()
-			.enviarValoracionFinanciera()
-			.enviarRevisionFinanciera()
-			.enviarResolucionFinanciera()
-			.confirmarAlta()
-			.formacionAvanzarEstado()
-			//FALTAN LO DE DGS
-			.activarMediadorEstado()
-			.solicitarBaja();
 
 		debugEnd();
 	}
