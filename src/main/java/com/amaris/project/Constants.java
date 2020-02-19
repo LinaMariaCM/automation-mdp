@@ -719,6 +719,8 @@ public class Constants {
 	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_TELEFONO_MEDIADORES = "El campo TELÉFONO no se ha rellenado correctamente.";
 	public static final String ALERTA_MEDIADOR_NO_SELECCIONADO = "Debe seleccionar uno o varios mediadores para poder continuar.";
+	public static final String ALERTA_FECHA_REFERENCIA_DGS = "El campo FECHA INSCRIPCIÓN no se ha rellenado correctamente."; // REFERENCIA Y NO INSCRIPCIÓN, COMO ES AHORA.
+
 
 	public static final String RESERVA_ESPECIFICA = "reserva_especifica";
 
