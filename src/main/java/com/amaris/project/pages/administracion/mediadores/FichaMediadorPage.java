@@ -852,9 +852,7 @@ public class FichaMediadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
-
-}
-
+	
 	public FichaMediadorPage enviarResolucionFinanciera() {
 		debugBegin();
 
