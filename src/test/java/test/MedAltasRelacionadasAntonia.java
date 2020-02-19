@@ -17,8 +17,8 @@ public class MedAltasRelacionadasAntonia extends TestObject{
 	@DataProvider(parallel = false)
 	public String[][] altasRelacionadasMed01() {
 		String testCase = Constants.MEDIADORES_CASE;
-	//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv"); antes comentado junto al resto de la prueba
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "alta_interm_18_02_2020.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv");
+	//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "alta_interm_18_02_2020.csv"); - revisar antes comentado junto al resto de la prueba
 		return casesMatrix;
 	}
 	
@@ -37,18 +37,18 @@ public class MedAltasRelacionadasAntonia extends TestObject{
 					steps.tramitar_estados_mediador();
 				}
 			// alta oficina
-			/*if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).equalsIgnoreCase("TRUE")) {
+			if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
-			}*/
+			}
 
 			// alta de colaborador
-	/*		if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).equalsIgnoreCase("TRUE")) {
+			if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
-			}*/
+			}
 			return null;
 		}).run();
 	}
