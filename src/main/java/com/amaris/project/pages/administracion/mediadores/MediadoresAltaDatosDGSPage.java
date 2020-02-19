@@ -363,16 +363,26 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.waitWithDriver(4000);
 		webDriver.setText(fechaInicioRelacionInput, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
-		webDriver.click(guardarYSalirBtn);
-
+		//	webDriver.click(guardarYSalirBtn);
 		webDriver.exitFrame();
-		webDriver.waitWithDriver(6000);
+		//	webDriver.waitWithDriver(6000);
 		debugEnd();
 
 		return this;
 	}
 
-	//-------------RETENCIONES DE DATOS DGS PARA ALTAS DE INTERMEDIARIOS, OFICINA Y COLABORADOR--------------------------
+	public MediadoresAltaDatosDGSPage clickGuardarYSalirDGSAlta() {
+		debugBegin();
+
+		webDriver.clickInFrame(guardarYSalirBtn, cuerpoFrame);
+		webDriver.waitWithDriver(6000);
+
+		debugEnd();
+		
+		return this;
+	}
+
+	//------------- RETENCIONES --------------------------
 
 	public boolean alertaSistemaDGS(String mensaje) {
 		debugBegin();

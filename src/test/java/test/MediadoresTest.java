@@ -64,7 +64,6 @@ public class MediadoresTest {
 
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.obtener_nombres_direcciones_mediador();
 
 			return null;
 		}).run();
@@ -88,8 +87,6 @@ public class MediadoresTest {
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
 
-			steps.alta_datos_basicos_mediador();
-			steps.alta_datos_contacto_mediador();
 
 			return null;
 		}).run();
@@ -111,7 +108,8 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.alta_oficina_a_un_intermediario();
+			steps.alta_oficina();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
@@ -173,8 +171,8 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.alta_interm_AE_completo();
-
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
@@ -184,7 +182,7 @@ public class MediadoresTest {
 	@DataProvider(parallel = false)
 	public String[][] dataProviderMed08() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadores.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv");
 
 	/*	if(suiteM.getSuiteVar("id_mediador_alta") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
@@ -203,14 +201,12 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_interm_AE_completo();
-			//	steps.alta_oficina_a_un_intermediario();
-			steps.completar_estados_dgs();
-		/*	steps.alta_colaborador();
-			steps.completar_estados_dgs();*/
-			steps.completar_alta_activo_restringido();
-			steps.alta_oficina_a_un_intermediario();
-
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
+			steps.alta_oficina();
+			steps.tramitar_estados_mediador();
+			steps.alta_colaborador();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
@@ -229,7 +225,7 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.mediadores_cambios_estado_situacion_AE();
+		//	steps.mediadores_cambios_estado_situacion_AE(); esta step se borró porque ya está cubierta
 			return null;
 		}).run();
 	}

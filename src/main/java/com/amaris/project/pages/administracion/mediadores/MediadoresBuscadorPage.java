@@ -131,7 +131,7 @@ public class MediadoresBuscadorPage extends PageObject {
 	public MediadoresBuscadorPage buscarMediadorPorId() {
 		debugBegin();
 		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_MEDIADOR_ALTA));
-		webDriver.clickInFrame(estadoActivoRestringidoBtn, cuerpoFrame);
+		webDriver.clickInFrame(estadoTramitacionBtn,cuerpoFrame);
 		clickBuscar();
 		webDriver.waitWithDriver(8000);
 		debugEnd();
@@ -141,7 +141,7 @@ public class MediadoresBuscadorPage extends PageObject {
 	//Búsqueda para comprobar el intercambio de datos
 	public MediadoresBuscadorPage buscarMediadorPorIdIntercambio() {
 		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_MEDIADOR_ALTA));
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));  // revisar - averiguar si rompo algo más
 		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
 		clickBuscar();
 		webDriver.waitWithDriver(8000);
@@ -168,7 +168,7 @@ public class MediadoresBuscadorPage extends PageObject {
 
 	public MediadoresBuscadorPage buscarOficinaPorIdEstadoAlta() {
 		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121812");
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_OFICINA_AE));
 		webDriver.clickInFrame(nivelEstructuraIntermediarioBtn, cuerpoFrame);
 		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);

@@ -387,6 +387,8 @@ public class Constants {
 	public static final String RAMO = "ramo";
 	public static final String NOMBRE_BANCO = "nombre_banco";
 	public static final String COMPANYIAS_PRINCIPALES = "companyias_principales";
+	public static final String ID_TESTRAIL = "id_testrail";
+
 	public static final String RENTA_MENSUAL_ALQUILER = "renta_mensual_alquiler";
 	public static final String IMPAGO_ALQUILER = "impago_alquiler";
 	public static final String FRANQUICIA_MAC = "franquiciaMac";
@@ -734,6 +736,8 @@ public class Constants {
 	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_TELEFONO_MEDIADORES = "El campo TELÉFONO no se ha rellenado correctamente.";
 	public static final String ALERTA_MEDIADOR_NO_SELECCIONADO = "Debe seleccionar uno o varios mediadores para poder continuar.";
+	public static final String ALERTA_FECHA_REFERENCIA_DGS = "El campo FECHA INSCRIPCIÓN no se ha rellenado correctamente."; // REFERENCIA Y NO INSCRIPCIÓN, COMO ES AHORA.
+
 
 	//ALERTAS DE ALTA PROSPECT(RETENCIONES)
 	public static final String ALERTA_TIPO_PROSPECT_MEDIADORES = "El campo TIPO PROSPECT es un campo obligatorio.";

@@ -153,6 +153,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	public MediadoresAltaDatosTransaccionalesPage clickContiuar() {
 		debugBegin();
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		webDriver.waitWithDriver(10000);
 		debugEnd();
 
 		return this;
@@ -161,10 +162,24 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	public MediadoresAltaDatosTransaccionalesPage clickGuardar() {
 		debugBegin();
 		webDriver.clickInFrame(guardarBtn, cuerpoFrame);
+		webDriver.waitWithDriver(10000);
 		debugEnd();
 
 		return this;
 	}
+
+/*	public MediadoresAltaDatosTransaccionalesPage elegirContinuacion() {
+		debugBegin();
+		// hay referencia a TestRail para parchear este caso concreto porque implementar una lógica específica, sería excesivamente costoso para una sola prueba
+		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")){
+			clickContiuar();
+		} else {
+			clickGuardar();
+		}
+		debugEnd();
+
+		return this;
+	} */
 
 	public MediadoresAltaDatosTransaccionalesPage clickCancelar() {
 		debugBegin();
