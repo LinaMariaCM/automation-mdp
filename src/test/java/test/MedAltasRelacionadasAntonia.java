@@ -17,8 +17,8 @@ public class MedAltasRelacionadasAntonia extends TestObject{
 	@DataProvider(parallel = false)
 	public String[][] altasRelacionadasMed01() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv");
-
+	//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv"); antes comentado junto al resto de la prueba
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "alta_interm_18_02_2020.csv");
 		return casesMatrix;
 	}
 	
@@ -27,78 +27,33 @@ public class MedAltasRelacionadasAntonia extends TestObject{
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
-		suiteM.setRelevantColumn(testCase, 20);
+	//	suiteM.setRelevantColumn(testCase, 80);
 
 		userS.testActions(() -> {
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_intermediario();
-			steps.tramitar_estados_mediador();
+			// alta intermediario agente exclusivo
+			if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+					steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+					steps.alta_intermediario();
+					steps.tramitar_estados_mediador();
+				}
+			// alta oficina
+			/*if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).equalsIgnoreCase("TRUE")) {
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+				steps.alta_oficina();
+				steps.tramitar_estados_mediador();
+			}*/
+
+			// alta de colaborador
+	/*		if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).equalsIgnoreCase("TRUE")) {
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+				steps.alta_colaborador();
+				steps.tramitar_estados_mediador();
+			}*/
 			return null;
 		}).run();
 	}
-	
-	@DataProvider(parallel = false)
-	public String[][] altasRelacionadasMed02() {
-		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresOficina.csv");
 
-		if(suiteM.getSuiteVar("id_mediador_alta") != null) {
-			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
-			for(int i = 0; i < testData.size(); i++) {
-				testData.setValue(Integer.toString(i), "id_int_padre", suiteM.getSuiteVar("id_mediador_alta"));
-			}
-		}
-		
-		return casesMatrix;
-	}
-	
-	@Test(dataProvider = "altasRelacionadasMed02")
-	public void arm02 (String testCase, String id) throws Exception {
-		UserStory userS = suiteM.createUserStory(testCase, id);
-		ActionSteps steps = new ActionSteps(userS);
 
-		suiteM.setRelevantColumn(testCase, 15);
-
-		userS.testActions(() -> {
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_oficina();
-			steps.tramitar_estados_mediador();
-			return null;
-		}).run();
-	}
-	
-	
-	@DataProvider(parallel = false)
-	public String[][] altasRelacionadasMed03 () {
-		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresColaboradores.csv");
-
-		if(suiteM.getSuiteVar("id_prospect_trans") != null) {
-			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
-			for(int i = 0; i < testData.size(); i++) {
-				testData.setValue(Integer.toString(i), "id_ofi_ae", suiteM.getSuiteVar("id_prospect_trans"));
-			}
-		}
-		
-		return casesMatrix;
-	}
-	
-	@Test(dataProvider = "altasRelacionadasMed03")
-	public void arm03(String testCase, String id) throws Exception {
-		UserStory userS = suiteM.createUserStory(testCase, id);
-		ActionSteps steps = new ActionSteps(userS);
-
-		suiteM.setRelevantColumn(testCase, 15);
-
-		userS.testActions(() -> {
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_colaborador();			
-			
-			return null;
-		}).run();
-	}
-	
-	
 	//FIN ZONA DE PRUEBAS
 	@AfterSuite
 	public void afterSuite() {
