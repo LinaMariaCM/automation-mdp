@@ -51,9 +51,11 @@ public class FichaMediadorPage extends PageObject {
 	private By comentarioSituacionInput = By.cssSelector("body.modalContenido > #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table > tbody > tr:nth-child(2) > td > textarea");
 	private By observacionComercialInput = By.cssSelector("#GESMED_OBSECOME");
 	private By comentarioResolFinancInput = By.cssSelector("body.modalContenido > #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table.narrowBox > tbody > tr:nth-child(2) > td > textarea");
-	private By rechazarAltaBtn = By.cssSelector("[onclick*='operacion=RECHMEDI]");
-	private By solicitarMasInformacionBtn = By.cssSelector("[onclick*='operacion=SOLIINFOINIC]");
-	private By confirmarAltaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
+	private By rechazarAltaBtn = By.cssSelector("[onclick*='operacion=RECHMEDI']");
+	private By solicitarMasInformacionBtn = By.cssSelector("[onclick*='operacion=SOLIINFOINIC']");
+	//	private By confirmarAltaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
+	//private By confirmarAltaBtn = By.cssSelector("[onclick*='operacion=CONFALTAINIC']");
+	private By confirmarAltaBtn = By.linkText(("Confirmar alta").trim());
 	private By enviaValoraFinancieraBtn = By.cssSelector("[onclick*='operacion=ENVVALFI']");
 	//private By enviaRevisionFinancieraBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
 	//#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(2) > a
@@ -596,7 +598,7 @@ public class FichaMediadorPage extends PageObject {
 	public boolean comprobarEstado(String estado) {
 		debugBegin();
 		webDriver.waitWithDriver(6000);
-	//	String estadoAlta = webDriver.getTextInFrame(By.cssSelector("<strong>Estado </strong>") + estadoMediadorTxt, cuerpoFrame).trim();
+		clickFichaMediador();
 		String estadoAlta = webDriver.getTextInFrame(estadoMediadorTxt, cuerpoFrame).trim();
 		boolean checkEstado = estadoAlta.equalsIgnoreCase(estado);
 
@@ -816,22 +818,18 @@ public class FichaMediadorPage extends PageObject {
 
 		if(webDriver.isPresentInFrame(tituloPaginaTxt, cuerpoFrame)) {
 			debugInfo("Mensaje correcto: " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim());
-			//		setScenarioVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString()); pentdiente por borrar esta línea
 
 			setTestVar((Constants.ID_MEDIADOR_ALTA), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
-			//con esta lina se obtiene el id para guardarlo en esta misma prueba
 
 			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
-			
-			if(getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE).contains("TRUE")){
+
+			if(getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE).equalsIgnoreCase("TRUE")) {
 				setTestVar((Constants.ID_ALTA_INTERMEDIARIO_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
-				debugInfo("Código de Intermediario obtenido");
-			}
-			else if(getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")){
+				debugInfo("Código de Intermediario obtenido " + getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
+			} else if(getTestVar(Constants.ID_ALTA_OFICINA_AE).equalsIgnoreCase("TRUE")) {
 				setTestVar((Constants.ID_ALTA_OFICINA_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Oficina obtenido");
-			}
-			else if(getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")){
+			} else if(getTestVar(Constants.ID_ALTA_COLABORADOR_AE).equalsIgnoreCase("TRUE")) {
 				setTestVar((Constants.ID_ALTA_COLABORADOR_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Colaborador obtenido");
 			} else {
@@ -839,11 +837,7 @@ public class FichaMediadorPage extends PageObject {
 				debugInfo("Código de mediador obtenido");
 			}
 
-			setSuiteVar(("cod_mediador_trans"), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
-			// en esta línea se guarda para reutilizararlo en otra
-
-			debugInfo("El mediador del campo  ID_MEDIADOR_ALTA es " + getSuiteVar(Constants.ID_MEDIADOR_ALTA));
-		} else {
+	} else {
 			debugInfo("Ha habido un error al dat de alta el mediador");
 		}
 
@@ -920,10 +914,11 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+		if(getTestVar(Constants.TIPO_MEDIADOR) != null && (getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")
+			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV")
+			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE")
+			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV")
+			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR"))) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 
@@ -952,10 +947,12 @@ public class FichaMediadorPage extends PageObject {
 
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
-		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AUXI") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("GEST") || getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") ||
-			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			|| getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")
+			|| getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
+			|| getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
+
+			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 
 			comprobarSituacion(SOLICITUD_ALTA);
 
@@ -971,7 +968,25 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
-		}
+		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
+
+			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
+
+			comprobarSituacion(ALTA_MEDIADOR);
+
+			clickMasAcciones();
+			clickConfirmarAlta();
+			webDriver.waitWithDriver(3000);
+			grabarComentarioEstado();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES);
+			webDriver.acceptAlert();
+
+			anyadirComentarioSituacion();
+			grabarComentarioEstado();
+			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
+
+		} // último else if añadido por Antonia.
 
 		debugEnd();
 
@@ -982,9 +997,7 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 
 		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
-			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() || getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR)
-			.isEmpty()) {
+			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 
 			Assert.assertTrue(comprobarEstado(FORMACION), "El estado no es correcto.");
 
@@ -1026,9 +1039,7 @@ public class FichaMediadorPage extends PageObject {
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
-			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() ||
-			getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 
 			Assert.assertTrue(comprobarEstado(ACTIVO_RESTRINGIDO), "El estado no es correcto.");
 
@@ -1094,9 +1105,7 @@ public class FichaMediadorPage extends PageObject {
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
 			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") ||
-			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() ||
-			getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 
 			Assert.assertTrue(comprobarEstado(ACTIVO), "El estado no es correcto.");
 
@@ -1162,18 +1171,16 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage clickFichaMediador(){
+	public FichaMediadorPage clickFichaMediador() {
 		debugBegin();
 		webDriver.waitWithDriver(8000);
 		if(!webDriver.isPresentInFrame(masAccionesBtn, cuerpoFrame)) {
 			webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
-			webDriver.waitWithDriver(6000);
+			webDriver.waitWithDriver(8000);
 		}
 		debugEnd();
 		return this;
 	}
-
-
 
 	// endregion
 }
