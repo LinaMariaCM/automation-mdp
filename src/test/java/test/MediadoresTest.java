@@ -134,7 +134,7 @@ public class MediadoresTest {
 		}).run();
 	}
 
-	// TEST alta propesct
+	// TEST alta prospect
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMed06() {
 		String testCase = Constants.MEDIADORES_CASE + "06";
