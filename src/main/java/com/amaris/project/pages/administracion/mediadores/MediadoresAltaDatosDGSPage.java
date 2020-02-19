@@ -26,7 +26,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By fechaIniContratoInput = By.cssSelector("#ALTAMEDI_FEINICON");
 
 	//------------------Altos cargos---------------------
-	private By anyadirAltoNuevoCargoBtn = By.cssSelector("#capaAltosCargos > div > div.floatright.peq > aN");
+	private By anyadirAltoNuevoCargoBtn = By.cssSelector("#capaAltosCargos > div > div.floatright.peq > a");
 	private By tipoDocumentoCombo = By.cssSelector("#ALTAMEDI_TIPDOCALTC");
 	private By tipoDocumentoOption = By.cssSelector("#ALTAMEDI_TIPDOCALTC > option");
 	private By numDocumentoInput = By.cssSelector("#ALTAMEDI_NUMDOCALTC");
@@ -76,8 +76,8 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By sexoNuevSocCombo = By.cssSelector("#ALTAMEDI_SEXOSOCIODGS");
 	private By razonSocialNuevSocioInput = By.cssSelector("#ALTAMEDI_RAZSOCSOCIO");
 
-	private By grabarBtn = By.cssSelector("buttonRecord");
-	private By cancelarBtn = By.cssSelector("#buttonRecord");
+	private By grabarBtn = By.cssSelector("#buttonRecord");
+	private By cancelarBtn = By.cssSelector("#buttonCancel");
 
 	//MAPEO DE CASO ESPECIAL AGENTE EXCLUSIVO CON NIE O NIF
 	//-----------General---------------------------------
@@ -99,6 +99,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By volverBtn = By.id("botonVolver");
 
 	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
+	private By modificarAltoCargoBtn = By.cssSelector("#capaAltosCargos > div > div:nth-child(4) > table > tbody > tr.odd > td:nth-child(6) > a:nth-child(2)");
 
 	//-----------------------------LPS-DE----------------------
 	private By estdoLPSInput = By.id("ALTAMEDI_ESTADOLPS");
@@ -381,7 +382,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	//-------------RETENCIONES--------------------------
+	//------------- RETENCIONES --------------------------
 
 	public boolean alertaSistemaDGS(String mensaje) {
 		debugBegin();
@@ -412,6 +413,13 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INICIO_RELACION);
 				webDriver.acceptAlert();
 
+				webDriver.setTextInFrame(fechaInicioRelacionInput, "fecha", cuerpoFrame);
+
+				clickGuardarYSalir();
+
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INICIO_RELACION);
+				webDriver.acceptAlert();
+
 				webDriver.setTextInFrame(fechaInicioRelacionInput, datoFechaHoy, cuerpoFrame);
 
 				webDriver.clickElementFromDropDownByAttributeInFrame(entidadAutorizaCombo, entidadAutorizaOption, cuerpoFrame, "value", "M0328");
@@ -422,6 +430,13 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 				webDriver.acceptAlert();
 
 				webDriver.clickElementFromDropDownByAttributeInFrame(tipoEntidadCombo, tipoEntidadOption, cuerpoFrame, "value", "AUTO");
+
+				clickGuardarYSalir();
+
+				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_INICIO_CONTRATO_MEDIADORES);
+				webDriver.acceptAlert();
+
+				webDriver.setTextInFrame(fechaIniContratoInput, "fecha", cuerpoFrame);
 
 				clickGuardarYSalir();
 
@@ -458,6 +473,316 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 				clickGuardarYSalir();
 			}
 		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& getTestVar(Constants.TIPO_COLABORADOR) != null && !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()
+			&& getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+
+			String fechaHoy = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+
+			webDriver.waitWithDriver(3000);
+			clickGuardarYSalir();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_DOCUMENTO_REPRESENTANTE);
+			webDriver.acceptAlert();
+
+			webDriver.clickElementFromDropDownByAttributeInFrame(tipoDocRepresentCombo, tipoDocRepresentOption, cuerpoFrame, "value", "NIF");
+
+			clickGuardarYSalir();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_DOCUMENTO_REPRESENTANTE);
+			webDriver.acceptAlert();
+
+			webDriver.setTextInFrame(numDocRepresentInput, "Documento", cuerpoFrame);
+
+			clickGuardarYSalir();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_REPRESENTANTE);
+			webDriver.acceptAlert();
+
+			webDriver.setTextInFrame(nombreRepresentInput, "Nombre", cuerpoFrame);
+
+			clickGuardarYSalir();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRIMER_APELLIDO_REPRESENTANTE);
+			webDriver.acceptAlert();
+
+			webDriver.setTextInFrame(primApellidoRepresentInput, "Primer Apellido", cuerpoFrame);
+
+			clickGuardarYSalir();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEGUNDO_APELLIDO_REPRESENTANTE);
+			webDriver.acceptAlert();
+
+			webDriver.setTextInFrame(segApellidoRepresentInput, "Segundo Apellido", cuerpoFrame);
+
+			clickGuardarYSalir();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_INICIO_CONTRATO_MEDIADORES);
+			webDriver.acceptAlert();
+
+			webDriver.setTextInFrame(fechaIniContratoInput, "fecha", cuerpoFrame);
+
+			clickGuardarYSalir();
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_INICIO_CONTRATO_MEDIADORES);
+			webDriver.acceptAlert();
+
+			webDriver.setTextInFrame(fechaIniContratoInput, fechaHoy, cuerpoFrame);
+
+			clickGuardarYSalir();
+
+			alertaSistemaDGS(Constants.ALERTA_NUMERO_DOCUMENTO_1_MEDIADORES);
+			webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+			webDriver.setTextInFrame(numDocRepresentInput, DocumentGeneratorHelper.generateNif(), cuerpoFrame);
+
+			clickGuardarYSalir();
+
+			alertaSistemaDGS(Constants.ALERTA_ALTO_CARGO_MEDIADORES);
+
+			webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+			webDriver.waitWithDriver(2000);
+			webDriver.clickInFrame(anyadirAltoNuevoCargoBtn, cuerpoFrame);
+
+			//--Empiezan retenciones de ALTO CARGO---
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_DOCUMENTO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", "NIF");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_DOCUMENTO_MEDIADORES);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(numDocumentoInput, "Documento");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(nombreInput, "Nombre");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRIMER_APELLIDO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(primerApellidoInput, "Primer Apellido");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEGUNDO_APELLIDO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(segundoApellidoInput, "Segundo Apellido");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEXO_MEDIADOR);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.clickElementFromDropDownByAttribute(sexoCombo, sexoOption, "value", "1");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_NOMBRAMIENTO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(fechaNombramInput, fechaHoy);
+			webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "title", "Elegir");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ESTADO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "value", "1");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CARGOS_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.clickElementFromDropDownByAttribute(tipoCargoCombo, tipoCargoOption, "value", "40");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PROFESION_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(profesionInput, "Profesion");
+			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", "CIF");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAZON_SOCIAL_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(razonSocialInput, "Razon social");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_NOMBRAMIENTO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(fechaNombramInput, fechaHoy);
+
+			webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "title", "Elegir");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ESTADO_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.clickElementFromDropDownByAttribute(estadoCombo, estadoOption, "value", "1");
+			webDriver.click(grabarBtn);
+
+			webDriver.clickElementFromDropDownByAttribute(tipoDocRepresentanCifCombo, tipoDocRepresentanCifOption, "value", "NIF");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_REPRESENTANTE);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(nombreRepresentanCifInput, "Nombre");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PRIMER_APELLIDO_REPRESENTANTE);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(priApellRepresentanCifInput, "Primer Apellido");
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SEGUNDO_APELLIDO_REPRESENTANTE);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(segApellRepresentanCifInput, "Segundo Apellido");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_CARGOS_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.clickElementFromDropDownByAttribute(tipoCargoCombo, tipoCargoOption, "value", "40");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_PROFESION_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(profesionInput, "Profesion");
+
+			//-----No obligatorios pero pueden tener formato incorrecto-------
+			webDriver.setText(telefonoInput, "Telefono");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TELEFONO_MEDIADORES);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(telefonoInput, "699999989");
+
+			webDriver.setText(movilInput, "movil");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_MOVIL_ALTO_CARGO);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(movilInput, "699999999");
+
+			webDriver.setText(emailInput, "Esto es un email");
+
+			webDriver.click(grabarBtn);
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EMAIL);
+			webDriver.acceptAlert();
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(emailInput, "mutua@gmail.com");
+
+			webDriver.click(grabarBtn);
+
+			webDriver.exitFrame();
+
+			clickGuardarYSalir();
+
+			alertaSistemaDGS(Constants.ALERTA_NUMERO_DOCUMENTO_CARGO_INCORRECTO);
+			webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+			webDriver.clickInFrame(modificarAltoCargoBtn, cuerpoFrame);
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+
+			webDriver.setText(numDocumentoInput, DocumentGeneratorHelper.generateCIF());
+			webDriver.click(grabarBtn);
+			webDriver.exitFrame();
+
+		}
+
 		debugEnd();
 
 		return this;

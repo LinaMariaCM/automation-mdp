@@ -73,4 +73,4 @@ public class MediadoresConstantesFicha {
 	public static final String COMERCIO = "COME";
 	public static final String ALQU = "ALQU";
 
-}// END
+}

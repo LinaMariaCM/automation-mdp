@@ -2718,10 +2718,10 @@ public class ActionSteps extends InteractionObject {
 			}
 
 			// comentados por Antonia el 24 01 del 2020
-			//	if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
+			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
 			new ValidacionExcepcionesReglasPage(userS)
 				.clickContinuar();
-			//	}
+				}
 			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
@@ -2736,7 +2736,8 @@ public class ActionSteps extends InteractionObject {
 			 * "TC002000"; gremio = "1"; }
 			 */
 			debugInfo("Hay encargo?: " + getTestVar(Constants.ENCARGO));
-			new AltaAperturaOcurrenciaSiniestrosPage(userS)
+			
+			new AltaAperturaOcurrenciaSiniestrosPage(userS)	
 				.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), getTestVar(Constants.GREMIO_CAUSA_COD))
 				// datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD),
 				// getTestVar(Constants.TIPO_CAUSA_COD), gremio);
@@ -3854,11 +3855,25 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosContactoPage(userS)
 			.altaRetencionesContacto();
 		new MediadoresAltaDatosRelacionalesPage(userS)
-			.altaRetencionesIntermediarioRelacionales();
+			.altaRetencionesRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
-			.retencionesAltaIntermediarioTrans();
+			.retencionesAltaTransaccionales();
 		new MediadoresAltaDatosDGSPage(userS)
 			.retencionesAltaIntermediarioDGS();
+		debugEnd();
+	}
+
+	// STEPS PARA RETENCIONES ALTA PROSPECT
+	public void alta_prospect_retenciones_mediadores() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openAltaProspect();
+		new MediadoresAltaProspectPage(userS)
+			.alta_prospect_retenciones();
+
 		debugEnd();
 	}
 
