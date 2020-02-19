@@ -12,8 +12,7 @@ import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 import com.amaris.project.steps.CheckSteps;
 
-
-public class DependenciaInterOfiColabTest extends TestObject{
+public class DependenciaInterOfiColabTest extends TestObject {
 
 	protected SuiteManager suiteM = new SuiteManager(Constants.MEDIADORES_CASE);
 
@@ -24,7 +23,7 @@ public class DependenciaInterOfiColabTest extends TestObject{
 
 		return casesMatrix;
 	}
-	
+
 	@Test(dataProvider = "dataProviderIntercambioDatos01")
 	public void intercambio01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
@@ -35,25 +34,30 @@ public class DependenciaInterOfiColabTest extends TestObject{
 		userS.testActions(() -> {
 
 			// alta intermediario agente exclusivo
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_interm_AE_completo();
-			
+			if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+				steps.alta_intermediario();
+				steps.tramitar_estados_mediador();
+			}
+
 			// alta oficina
-			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
+			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).equalsIgnoreCase("TRUE")) {
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-				steps.alta_oficina_a_un_intermediario();
+				steps.alta_oficina();
+				steps.tramitar_estados_mediador();
 			}
-			
+
 			// alta de colaborador
-			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
+			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).equalsIgnoreCase("TRUE")) {
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-				steps.alta_colaborador();			
+				steps.alta_colaborador();
+				steps.tramitar_estados_mediador();
 			}
-			
+
 			return null;
 		}).run();
 	}
-	
+
 	//FIN ZONA DE PRUEBAS
 	@AfterSuite
 	public void afterSuite() {
@@ -65,6 +69,4 @@ public class DependenciaInterOfiColabTest extends TestObject{
 		}
 	}
 
-	
-	
 }//END
