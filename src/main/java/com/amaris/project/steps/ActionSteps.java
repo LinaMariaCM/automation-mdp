@@ -3584,7 +3584,7 @@ public class ActionSteps extends InteractionObject {
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorIdIntercambio(); // revisar - averiguar si rompo algo más
+			.buscarInteRelacionado(); // revisar - averiguar si rompo algo más
 		new FichaMediadorPage(userS)
 			.clickFichaMediador();
 		new FichaMediadorPage(userS)
