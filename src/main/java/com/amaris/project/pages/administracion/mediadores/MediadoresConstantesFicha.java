@@ -29,10 +29,6 @@ public class MediadoresConstantesFicha {
 	public static final String MESE = "MESE";
 	public static final String OTRO = "OTRO";
 
-	//SEXO
-	public static final String MASC = "1";
-	public static final String FEMEN = "2";
-
 	//IDIOMA
 	public static final String ESPA = "ESPA";
 	public static final String CATA = "CATA";
@@ -54,42 +50,11 @@ public class MediadoresConstantesFicha {
 	public static final String COMERCIO = "COME";
 	public static final String ALQU = "ALQU";
 
-	//EJECUTIVO COMERCIAL
-	public static final String EJECUTIVO_COMERCIAL_4000 = "4000";
-	public static final String EJECUTIVO_COMERCIAL_4001 = "4001";
-	public static final String EJECUTIVO_COMERCIAL_4003 = "4003";
-	public static final String EJECUTIVO_COMERCIAL_4007 = "4007";
-	public static final String EJECUTIVO_COMERCIAL_4010 = "4010";
-
-	//NOMBRE COMERCIAL
-	public static final String NOMBRE_COMERCIAL_01 = "Med01";
-	public static final String NOMBRE_COMERCIAL_02 = "Med02";
-	public static final String NOMBRE_COMERCIAL_03 = "Med03";
-	public static final String NOMBRE_COMERCIAL_04 = "Med04";
-	public static final String NOMBRE_COMERCIAL_05 = "Med05";
-	public static final String NOMBRE_COMERCIAL_06 = "Med06";
-	public static final String NOMBRE_COMERCIAL_07 = "Med07";
-
 	//DISPONE DE SOFTWARE
 	public static final String DISPONE_SOFTWARE_SI = "TRUE";
 	public static final String DISPONE_SOFTWARE_NO = "FALSE";
 
-	//NOMBRE FISCAL
-	public static final String NOMBRE_FISCAL_SW = "Sleepwalking";
-	public static final String NOMBRE_FISCAL_OR = "Orion";
-
-	//PRIMER APELLIDO
-	public static final String PRIMER_APELLIDO_MEDIADOR_B = "Bringme";
-	public static final String PRIMER_APELLIDO_MEDIADOR_C = "Cliff";
-
-	//SEGUNDO APELLIDO
-	public static final String SEGUNDO_APELLIDO_MEDIADOR_T = "Thehorizon";
-	public static final String SEGUNDO_APELLIDO_MEDIADOR_B = "Burton";
-
-	public static final String TELEFONO_PRINCIPAL_1 = "911111111";
-	public static final String TELEFONO_PRINCIPAL_2 = "911111122";
-	public static final String TELEFONO_PRINCIPAL_3 = "911111133";
-
+	//COMPAÑIAS PRINCIPALES TRABAJADAS
 	public static final String COMPANYIA_PRINCIPAL_MED = "Compañía principal abogado";
 
 }
