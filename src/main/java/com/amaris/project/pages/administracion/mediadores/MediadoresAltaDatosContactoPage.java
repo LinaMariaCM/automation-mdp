@@ -296,16 +296,19 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(aceptarBtn);
 		}
 		// sin datos para la provincia + oficina / colaborador --> hereda datos del nivel superios
-		else if(getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).equals(null) || getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty() || !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
-			||	getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_FISCAL_IGUAL_A).equals(null)) {
+		else if( !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") &&
+			(getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).equals(null)
+			|| getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty()
+			||	getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty()
+			|| getTestVar(Constants.DIR_FISCAL_IGUAL_A).equals(null))) {
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
 			webDriver.click(direccionSuperiorNOBtn);
-			if(getTestVar(Constants.DIR_FISCAL_IGUAL_A) != null || !getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_FISCAL_IGUAL_A).equals("PPRO_FISC")) {
+			if(getTestVar(Constants.DIR_PRODUCCION_IGUAL_A).equalsIgnoreCase("PPRO_FISC") && (getTestVar(Constants.DIR_PRODUCCION_IGUAL_A) != null || !getTestVar(Constants.DIR_PRODUCCION_IGUAL_A).isEmpty())) {
 				webDriver.click(direccionIgualFiscalBtn);
 			}
-			if(getTestVar(Constants.DIR_FISCAL_IGUAL_A) != null || !getTestVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getTestVar(Constants.DIR_FISCAL_IGUAL_A).equals("PPRO_COME")) {
+			else if(getTestVar(Constants.DIR_PRODUCCION_IGUAL_A).equalsIgnoreCase("PPRO_COME") && (getTestVar(Constants.DIR_PRODUCCION_IGUAL_A) != null || !getTestVar(Constants.DIR_PRODUCCION_IGUAL_A).isEmpty())) {
 				webDriver.click(direccionIgualComercialBtn);
 			}
 			webDriver.click(aceptarDireccionBtn); //último añadido
@@ -342,7 +345,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(aceptarBtn);
 		}
 		// sin datos para la provincia + oficina --> hereda datos del nivel superios
-		else if(getTestVar(Constants.DIRECCION_PREC_PROVINCIA).equals(null) && getTestVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty() && getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && (getTestVar(Constants.DIRECCION_PREC_PROVINCIA).equals(null) || getTestVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty())) {
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		}
