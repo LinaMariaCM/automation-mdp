@@ -203,10 +203,10 @@ public class MediadoresTest {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
-			steps.alta_oficina();
+	/*		steps.alta_oficina();
 			steps.tramitar_estados_mediador();
 			steps.alta_colaborador();
-			steps.tramitar_estados_mediador();
+			steps.tramitar_estados_mediador();*/
 			return null;
 		}).run();
 	}
@@ -225,7 +225,7 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-		//	steps.mediadores_cambios_estado_situacion_AE(); esta step se borró porque ya está cubierta
+
 			return null;
 		}).run();
 	}
@@ -281,16 +281,25 @@ public class MediadoresTest {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 		userS.testActions(() -> {
-			steps.login("Innova", "eferrando");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_prospect_retenciones_mediadores();
 			return null;
 		}).run();
 	}
 
 	@AfterSuite
+	/*	public void afterSuite() {suiteM.createHtmlReport();} - queda comentado porque se dejará el método final utilizado
+	 por Mirko para el testCase de las pruebas entrelazadas*/
+
 	public void afterSuite() {
-		suiteM.createHtmlReport();
+		try {
+			suiteM.createHtmlReport();
+			suiteM.createPdfReport();
+		} catch(Exception E) {
+			E.printStackTrace();
+		}
 	}
 
 }
+
 
