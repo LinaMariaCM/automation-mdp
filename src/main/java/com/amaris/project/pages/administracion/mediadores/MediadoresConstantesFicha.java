@@ -82,16 +82,16 @@ public class MediadoresConstantesFicha {
 	public static final String DISPONE_SOFTWARE_NO = "FALSE";
 
 	//NOMBRE FISCAL
-	public static final String NOMBRE_FISCAL_SW = "Sleepwalking";
-	public static final String NOMBRE_FISCAL_OR = "Orion";
+	public static final String NOMBRE_FISCAL_SW = "SLEEPWALKING";
+	public static final String NOMBRE_FISCAL_OR = "ORION";
 
 	//PRIMER APELLIDO
-	public static final String PRIMER_APELLIDO_MEDIADOR_B = "Bringme";
-	public static final String PRIMER_APELLIDO_MEDIADOR_C = "Cliff";
+	public static final String PRIMER_APELLIDO_MEDIADOR_B = "BRINGME";
+	public static final String PRIMER_APELLIDO_MEDIADOR_C = "CLIFF";
 
 	//SEGUNDO APELLIDO
-	public static final String SEGUNDO_APELLIDO_MEDIADOR_T = "Thehorizon";
-	public static final String SEGUNDO_APELLIDO_MEDIADOR_B = "Burton";
+	public static final String SEGUNDO_APELLIDO_MEDIADOR_T = "THEHORIZON";
+	public static final String SEGUNDO_APELLIDO_MEDIADOR_B = "BURTON";
 
 	public static final String TELEFONO_PRINCIPAL_1 = "911111111";
 	public static final String TELEFONO_PRINCIPAL_2 = "911111122";

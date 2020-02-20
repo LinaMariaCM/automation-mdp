@@ -1558,29 +1558,29 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
+		if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("SLEEPWALKING")) {
 
 			webDriver.waitWithDriver(5000);
 
 			String nombreFiscal = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(0, 12).trim();
 
 			boolean nombreFiscalMed = getTestVar(Constants.NOMBRE_MEDIADOR).equals(MediadoresConstantesFicha.NOMBRE_FISCAL_SW) &&
-				nombreFiscal.equals("Sleepwalking");
+				nombreFiscal.equals("SLEEPWALKING");
 
 			Assert.assertTrue(nombreFiscalMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el Nombre Fiscal es Sleepwalking.");
+			debugInfo("Se ha verificado que el Nombre Fiscal es SLEEPWALKING.");
 
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
+		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("ORION")) {
 
 			webDriver.waitWithDriver(5000);
 
 			String nombreFiscal = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(0, 12).trim();
 
 			boolean nombreFiscalMed = getTestVar(Constants.NOMBRE_MEDIADOR).equals(MediadoresConstantesFicha.NOMBRE_FISCAL_OR) &&
-				nombreFiscal.equals("Orion");
+				nombreFiscal.equals("ORION");
 
 			Assert.assertTrue(nombreFiscalMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el nombre Fiscal es Orion.");
+			debugInfo("Se ha verificado que el nombre Fiscal es ORION.");
 		}
 
 		debugEnd();
@@ -1591,29 +1591,29 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("Bringme")) {
+		if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("BRINGME")) {
 
 			webDriver.waitWithDriver(5000);
 
 			String primerApell = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(13, 20).trim();
 
 			boolean primerApellMed = getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equals(MediadoresConstantesFicha.PRIMER_APELLIDO_MEDIADOR_B) &&
-				primerApell.equals("Bringme");
+				primerApell.equals("BRINGME");
 
 			Assert.assertTrue(primerApellMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el primer apellido es Bringme.");
+			debugInfo("Se ha verificado que el primer apellido es BRINGME.");
 
-		} else if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("Cliff")) {
+		} else if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("CLIFF")) {
 
 			webDriver.waitWithDriver(5000);
 
 			String primerApell = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(5, 10).trim();
 
 			boolean primerApellMed = getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equals(MediadoresConstantesFicha.PRIMER_APELLIDO_MEDIADOR_C) &&
-				primerApell.equals("Cliff");
+				primerApell.equals("CLIFF");
 
 			Assert.assertTrue(primerApellMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el primer apellido es Cliff.");
+			debugInfo("Se ha verificado que el primer apellido es CLIFF.");
 		}
 
 		debugEnd();
@@ -1624,29 +1624,29 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("Thehorizon")) {
+		if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("THEHORIZON")) {
 
 			webDriver.waitWithDriver(5000);
 
-			String primerApell = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(20).trim();
+			String segunApell = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(20).trim();
 
-			boolean primerApellMed = getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equals(MediadoresConstantesFicha.SEGUNDO_APELLIDO_MEDIADOR_T) &&
-				primerApell.equals("Thehorizon");
+			boolean segunApellMed = getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equals(MediadoresConstantesFicha.SEGUNDO_APELLIDO_MEDIADOR_T) &&
+				segunApell.equals("THEHORIZON");
 
-			Assert.assertTrue(primerApellMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el segundo apellido es Thehorizon.");
+			Assert.assertTrue(segunApellMed, "Es incorrecto.");
+			debugInfo("Se ha verificado que el segundo apellido es THEHORIZON.");
 
-		} else if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("Burton")) {
+		} else if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("BURTON")) {
 
 			webDriver.waitWithDriver(5000);
 
-			String primerApell = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(10).trim();
+			String segunApell = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(10).trim();
 
-			boolean primerApellMed = getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equals(MediadoresConstantesFicha.SEGUNDO_APELLIDO_MEDIADOR_B) &&
-				primerApell.equals("Burton");
+			boolean segunApellMed = getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equals(MediadoresConstantesFicha.SEGUNDO_APELLIDO_MEDIADOR_B) &&
+				segunApell.equals("BURTON");
 
-			Assert.assertTrue(primerApellMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el segundo apellido es Burton.");
+			Assert.assertTrue(segunApellMed, "Es incorrecto.");
+			debugInfo("Se ha verificado que el segundo apellido es BURTON.");
 		}
 
 		debugEnd();
@@ -1731,15 +1731,15 @@ public class FichaMediadorPage extends PageObject {
 				debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
 				Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
 			}
-			if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
-				boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase("PERE VERGÉS 11 (08020) BARCELONA - Barcelona");
-				debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
-				Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
-			}
 			if(obtenerTipoDireccion.equalsIgnoreCase("Postal recibos")) {
-				boolean checkDireccionRecibos = obtenerDireccion.equalsIgnoreCase("JOSEP CANALETA 11 (08035) BARCELONA - Barcelona");
+				boolean checkDireccionRecibos = obtenerDireccion.equalsIgnoreCase("PERE VERGÉS 11 (08020) BARCELONA - Barcelona");
 				debugInfo("Comprobamos la dirección de recibos, el resultado es: " + checkDireccionRecibos);
 				Assert.assertTrue(checkDireccionRecibos, "Comparar campos: la dirección Postal recibos NO coincide");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
+				boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase("JOSEP CANALETA 11 (08035) BARCELONA - Barcelona");
+				debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
+				Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
 			}
 
 		}
