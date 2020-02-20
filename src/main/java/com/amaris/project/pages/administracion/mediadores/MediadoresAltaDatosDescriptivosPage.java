@@ -344,7 +344,11 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage completarNombreComercial(String nomComercial) {
 		debugBegin();
-		webDriver.setText(nombreComercialADInput, nomComercial);
+		debugInfo("Estoy en completarNombreComercial");
+	//	webDriver.setText(nombreComercialADInput, nomComercial);
+		debugInfo("Conseguí hacer click en nombreComercialADInput");
+		webDriver.setText(nombreComercialInput, nomComercial);
+
 		debugEnd();
 		return this;
 	}
@@ -472,18 +476,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	public MediadoresAltaDatosDescriptivosPage altaOficinaDescriptivos() {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
-
 		altaDatosBasicosComunes();
-
-		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null && !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
-
-			webDriver.setTextInFrame(nombreComercialInput, getTestVar(Constants.NOMBRE_COMERCIAL), cuerpoFrame);
-		} else {
-			webDriver.setTextInFrame(nombreComercialInput, "Med01", cuerpoFrame);
-		}
-
-		webDriver.exitFrame();
+		nombreComercial();
 
 		debugEnd();
 		return this;
