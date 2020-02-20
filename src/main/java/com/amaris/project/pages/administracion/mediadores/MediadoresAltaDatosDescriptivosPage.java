@@ -345,35 +345,10 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	public MediadoresAltaDatosDescriptivosPage completarNombreComercial(String nomComercial) {
 		debugBegin();
 		debugInfo("Estoy en completarNombreComercial");
-	//	webDriver.setText(nombreComercialADInput, nomComercial);
-		debugInfo("Conseguí hacer click en nombreComercialADInput");
 		webDriver.setText(nombreComercialInput, nomComercial);
-
 		debugEnd();
 		return this;
 	}
-
-/*	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
-		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
-		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null || !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
-			if(webDriver.isPresent(nombreComercialDiferenteFiscalBtn)) {
-				clickNombreComercialDiferente();
-				webDriver.waitWithDriver(2000);
-			}
-			webDriver.waitWithDriver(3000);
-			//	webDriver.setText(nombreComercialADInput, "Mediador"); descomentar si la siguiente línea  y método relacionado si el alta no funciona por su culpa
-			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
-		} else {
-			webDriver.click(nombreComercialIgualFiscalBtn);
-		}
-
-		webDriver.exitFrame();
-
-		debugEnd();
-		return this;
-	}*/
 
 	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
 		debugBegin();
@@ -394,27 +369,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		debugEnd();
 		return this;
 	}
-
-	/*public MediadoresAltaDatosDescriptivosPage nombreComercialObligatorio() {
-		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
-		completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
-		webDriver.exitFrame();
-
-		debugEnd();
-		return this;
-	}
-
-	public MediadoresAltaDatosDescriptivosPage nombreComercialDesactivado() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(nombreComercialIgualFiscalBtn);
-		webDriver.exitFrame();
-		debugEnd();
-		return this;
-	}*/
-
 
 	public MediadoresAltaDatosDescriptivosPage tipoDocumento() {
 		debugBegin();
