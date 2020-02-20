@@ -144,8 +144,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
-		if(!getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
-			|| getTestVar(Constants.DIRECCION_FISC_PROVINCIA) != null || !getTestVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()) {
+	/*	if(!getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			|| !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
+			||*/
+		if(	getTestVar(Constants.DIRECCION_FISC_PROVINCIA) != null
+			|| !getTestVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()) {
 			// si no es oficina o un colaborador gestor + contiene dato en el campo provincia --> completa datos
 			completarCampoProvincia(getTestVar(Constants.DIRECCION_FISC_PROVINCIA).toString());
 			debugInfo("Introducida la provincia de la dirección fiscal");
@@ -176,10 +179,15 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 				.equalsIgnoreCase("Tenga en cuenta que para colaboradores gestores o oficinas, el domicilio fiscal se recoge del nivel superior");
 			debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscalOficina);
 			Assert.assertTrue(checkDireccionFiscalOficina, "Comparar campos: el copy de la dirección Fiscal NO coincide");
+
+/*			if(checkDireccionFiscalOficina = true){
+				webDriver.click(aceptarDireccionBtn); //último añadido
+			}else{
+				debugInfo("Ha habido un error y no se ha hecho clic en aceptar en el mensaje de coincidencia de direcciones fiscales");
+			}*/
 		}
 
-		else if(getTestVar(Constants.DIRECCION_FISC_PROVINCIA).equals(null) || getTestVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty() || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")
-			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AUXI")) {
+		else if(getTestVar(Constants.DIRECCION_FISC_PROVINCIA).equals(null) || getTestVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()){
 			// es colaborador, sin datos --> clic en Fiscal = nivel superior
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
