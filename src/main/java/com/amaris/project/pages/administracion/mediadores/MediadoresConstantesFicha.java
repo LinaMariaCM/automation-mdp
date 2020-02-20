@@ -23,11 +23,6 @@ public class MediadoresConstantesFicha {
 	public static final String AUXI = "AUXI";
 	public static final String GEST = "GEST";
 
-	//TIPO DE DOCUMENTO
-	public static final String NIF = "NIF";
-	public static final String NIE = "NIE";
-	public static final String CIF = "CIF";
-
 	//ACTIVIDAD PRINCIPAL
 	public static final String ABOG = "ABOG";
 	public static final String ADFI = "ADFI";
@@ -51,8 +46,6 @@ public class MediadoresConstantesFicha {
 	public static final String PSIN = "PSIN";
 
 	//RAMO
-	public static final String VIDA = "0";
-	public static final String ACCIDENTES = "1";
 	public static final String ASISTENCIA = "10";
 
 	//PRODUCTO
@@ -82,19 +75,21 @@ public class MediadoresConstantesFicha {
 	public static final String DISPONE_SOFTWARE_NO = "FALSE";
 
 	//NOMBRE FISCAL
-	public static final String NOMBRE_FISCAL_SW = "SLEEPWALKING";
-	public static final String NOMBRE_FISCAL_OR = "ORION";
+	public static final String NOMBRE_FISCAL_SW = "Sleepwalking";
+	public static final String NOMBRE_FISCAL_OR = "Orion";
 
 	//PRIMER APELLIDO
-	public static final String PRIMER_APELLIDO_MEDIADOR_B = "BRINGME";
-	public static final String PRIMER_APELLIDO_MEDIADOR_C = "CLIFF";
+	public static final String PRIMER_APELLIDO_MEDIADOR_B = "Bringme";
+	public static final String PRIMER_APELLIDO_MEDIADOR_C = "Cliff";
 
 	//SEGUNDO APELLIDO
-	public static final String SEGUNDO_APELLIDO_MEDIADOR_T = "THEHORIZON";
-	public static final String SEGUNDO_APELLIDO_MEDIADOR_B = "BURTON";
+	public static final String SEGUNDO_APELLIDO_MEDIADOR_T = "Thehorizon";
+	public static final String SEGUNDO_APELLIDO_MEDIADOR_B = "Burton";
 
 	public static final String TELEFONO_PRINCIPAL_1 = "911111111";
 	public static final String TELEFONO_PRINCIPAL_2 = "911111122";
 	public static final String TELEFONO_PRINCIPAL_3 = "911111133";
+
+	public static final String COMPANYIA_PRINCIPAL_MED = "Compañía principal abogado";
 
 }

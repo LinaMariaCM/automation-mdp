@@ -103,6 +103,8 @@ public class FichaMediadorPage extends PageObject {
 	private By nombreFiscalTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(1) > td");
 	private By telefonoPrincipalTxt = By
 		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody > tr:nth-child(5) > td:nth-child(1)");
+	private By ramoMediadorTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(2) > table:nth-child(3) > tbody > tr:nth-child(1) > td:nth-child(1)");
+	private By companyiasPrincipTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(3) > td");
 
 	//------------- Contenido Pestañas -------------
 
@@ -1109,9 +1111,26 @@ public class FichaMediadorPage extends PageObject {
 
 	//---------------METODOS PARA HACER COMPROBACIONES EN FICHA------------------------------------
 
-	public FichaMediadorPage verificarNivelEstructura() {
+	public FichaMediadorPage verificarNivelEstructura(String nivelEstructura, String constanteFicha, String nivelJerarquico) {
 
 		debugBegin();
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase(nivelEstructura) && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+
+			webDriver.waitWithDriver(8000);
+			String nivelJerarquicoInte = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
+
+			boolean intermediarioInte = getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase(constanteFicha) &&
+				nivelJerarquicoInte.equals(nivelJerarquico);
+
+			Assert.assertTrue(intermediarioInte, "Es incorrecto.");
+			debugInfo("Se ha verficiado que el Nivel de Estructura.");
+
+		}
+
+	/*
+
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
 			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
@@ -1122,7 +1141,7 @@ public class FichaMediadorPage extends PageObject {
 				nivelJerarquicoInte.equals("Intermediario");
 
 			Assert.assertTrue(intermediarioInte, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Nivel de estructura es Intermediario.");
 
 		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
 			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
@@ -1134,7 +1153,7 @@ public class FichaMediadorPage extends PageObject {
 				nivelJerarquicoOfic.equals("Oficina");
 
 			Assert.assertTrue(intermediarioOfic, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Nivel de estructura es Oficina.");
 
 		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
 			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
@@ -1146,9 +1165,9 @@ public class FichaMediadorPage extends PageObject {
 				nivelJerarquicoCola.equals("Colaborador");
 
 			Assert.assertTrue(intermediarioCola, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Nivel de estructura es Colaborador.");
 		}
-
+*/
 		debugEnd();
 		return this;
 	}
@@ -1156,6 +1175,7 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage verificarTipoMediador() {
 
 		debugBegin();
+
 		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") && getTestVar(Constants.TIPO_MEDIADOR) != null
 			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
@@ -1166,7 +1186,7 @@ public class FichaMediadorPage extends PageObject {
 				tipoMediador.equals("Acuerdo colaboración");
 
 			Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Mediador es Acuerdo colaboracion.");
 
 		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") && getTestVar(Constants.TIPO_MEDIADOR) != null
 			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
@@ -1178,7 +1198,7 @@ public class FichaMediadorPage extends PageObject {
 				tipoMediador.equals("Agente exclusivo");
 
 			Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Mediador es Agente exclusivo.");
 
 		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") && getTestVar(Constants.TIPO_MEDIADOR) != null
 			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
@@ -1190,7 +1210,7 @@ public class FichaMediadorPage extends PageObject {
 				tipoMediador.equals("Agente vinculado");
 
 			Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Mediador es Agente vinculado.");
 
 		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") && getTestVar(Constants.TIPO_MEDIADOR) != null
 			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
@@ -1202,7 +1222,7 @@ public class FichaMediadorPage extends PageObject {
 				tipoMediador.equals("BS exclusivo");
 
 			Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Mediador es BS exclusivo.");
 		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") && getTestVar(Constants.TIPO_MEDIADOR) != null
 			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
@@ -1213,7 +1233,7 @@ public class FichaMediadorPage extends PageObject {
 				tipoMediador.equals("BS vinculado");
 
 			Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Mediador es BS vinculado.");
 		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") && getTestVar(Constants.TIPO_MEDIADOR) != null
 			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
@@ -1224,9 +1244,8 @@ public class FichaMediadorPage extends PageObject {
 				tipoMediador.equals("Corredor");
 
 			Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Mediador es Corredor.");
 		}
-
 		debugEnd();
 		return this;
 	}
@@ -1245,7 +1264,7 @@ public class FichaMediadorPage extends PageObject {
 				tipoColaborador.equals("Acuerdo Distribución");
 
 			Assert.assertTrue(tipoColaboradorMediador, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Colaborador es Acuerdo Distribución.");
 		} else if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") && getTestVar(Constants.TIPO_COLABORADOR) != null
 			&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
 
@@ -1256,7 +1275,7 @@ public class FichaMediadorPage extends PageObject {
 				tipoColaborador.equals("Auxiliar");
 
 			Assert.assertTrue(tipoColaboradorMediador, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Colaborador es Auxiliar.");
 		} else if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") && getTestVar(Constants.TIPO_COLABORADOR) != null
 			&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
 
@@ -1267,7 +1286,7 @@ public class FichaMediadorPage extends PageObject {
 				tipoColaborador.equals("Gestor");
 
 			Assert.assertTrue(tipoColaboradorMediador, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Tipo de Colaborador es Gestor.");
 		}
 
 		debugEnd();
@@ -1289,7 +1308,7 @@ public class FichaMediadorPage extends PageObject {
 				ejecutivoComercial.equals("4000");
 
 			Assert.assertTrue(ejecutivoComercialMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Ejecutivo Comercial es 4000.");
 		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4001") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
 			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
 
@@ -1301,7 +1320,7 @@ public class FichaMediadorPage extends PageObject {
 				ejecutivoComercial.equals("4001");
 
 			Assert.assertTrue(ejecutivoComercialMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Ejecutivo Comercial es 4001.");
 		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4003") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
 			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
 
@@ -1313,7 +1332,7 @@ public class FichaMediadorPage extends PageObject {
 				ejecutivoComercial.equals("4003");
 
 			Assert.assertTrue(ejecutivoComercialMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Ejecutivo Comercial es 4003.");
 		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4007") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
 			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
 
@@ -1325,7 +1344,7 @@ public class FichaMediadorPage extends PageObject {
 				ejecutivoComercial.equals("4007");
 
 			Assert.assertTrue(ejecutivoComercialMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Ejecutivo Comercial es 4007.");
 		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4010") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
 			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
 
@@ -1337,7 +1356,7 @@ public class FichaMediadorPage extends PageObject {
 				ejecutivoComercial.equals("4010");
 
 			Assert.assertTrue(ejecutivoComercialMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Ejecutivo Comercial es 4010.");
 		}
 
 		debugEnd();
@@ -1357,7 +1376,7 @@ public class FichaMediadorPage extends PageObject {
 				idiomaMed.equals("Castellano");
 
 			Assert.assertTrue(idiomaMediador, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Idioma es Castellano.");
 		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("CATA")) {
 
 			webDriver.waitWithDriver(8000);
@@ -1367,7 +1386,7 @@ public class FichaMediadorPage extends PageObject {
 				idiomaMed.equals("Catalán");
 
 			Assert.assertTrue(idiomaMediador, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Idioma es Catalán.");
 		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("EUSK")) {
 
 			webDriver.waitWithDriver(8000);
@@ -1377,7 +1396,7 @@ public class FichaMediadorPage extends PageObject {
 				idiomaMed.equals("Euskara");
 
 			Assert.assertTrue(idiomaMediador, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que el Idioma es Euskara.");
 		}
 
 		debugEnd();
@@ -1397,7 +1416,7 @@ public class FichaMediadorPage extends PageObject {
 				actividadPrinc.equals("Mediador de Seguros");
 
 			Assert.assertTrue(actividadPMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Actividad principal es Mediador de Seguros.");
 		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ADFI")) {
 
 			webDriver.waitWithDriver(8000);
@@ -1407,7 +1426,7 @@ public class FichaMediadorPage extends PageObject {
 				actividadPrinc.equals("Administrador de Fincas");
 
 			Assert.assertTrue(actividadPMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Actividad principal es Administrador de Fincas.");
 		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ABOG")) {
 
 			webDriver.waitWithDriver(8000);
@@ -1417,7 +1436,7 @@ public class FichaMediadorPage extends PageObject {
 				actividadPrinc.equals("Abogados");
 
 			Assert.assertTrue(actividadPMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Actividad principal es Abogados.");
 		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("OTRO")) {
 
 			webDriver.waitWithDriver(8000);
@@ -1427,7 +1446,7 @@ public class FichaMediadorPage extends PageObject {
 				actividadPrinc.equals("Otros");
 
 			Assert.assertTrue(actividadPMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Actividad principal es Otros.");
 		}
 
 		debugEnd();
@@ -1448,7 +1467,7 @@ public class FichaMediadorPage extends PageObject {
 				nombreComercial.equals("MED01");
 
 			Assert.assertTrue(nombreComMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Nombre Comercial es MED01");
 		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med02")) {
 
 			webDriver.waitWithDriver(5000);
@@ -1459,7 +1478,7 @@ public class FichaMediadorPage extends PageObject {
 				nombreComercial.equals("MED02");
 
 			Assert.assertTrue(nombreComMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Nombre Comercial es MED02");
 		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med03")) {
 
 			webDriver.waitWithDriver(5000);
@@ -1470,7 +1489,7 @@ public class FichaMediadorPage extends PageObject {
 				nombreComercial.equals("MED03");
 
 			Assert.assertTrue(nombreComMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Nombre Comercial es MED03");
 		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med04")) {
 
 			webDriver.waitWithDriver(5000);
@@ -1481,7 +1500,7 @@ public class FichaMediadorPage extends PageObject {
 				nombreComercial.equals("MED04");
 
 			Assert.assertTrue(nombreComMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Nombre Comercial es MED04");
 		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med05")) {
 
 			webDriver.waitWithDriver(5000);
@@ -1492,7 +1511,7 @@ public class FichaMediadorPage extends PageObject {
 				nombreComercial.equals("MED05");
 
 			Assert.assertTrue(nombreComMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Nombre Comercial es MED05");
 		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med06")) {
 
 			webDriver.waitWithDriver(5000);
@@ -1503,7 +1522,7 @@ public class FichaMediadorPage extends PageObject {
 				nombreComercial.equals("MED06");
 
 			Assert.assertTrue(nombreComMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Nombre Comercial es MED06");
 		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med07")) {
 
 			clickInfoDescriptiva();
@@ -1515,7 +1534,7 @@ public class FichaMediadorPage extends PageObject {
 				nombreComercial.equals("MED07");
 
 			Assert.assertTrue(nombreComMed, "Es incorrecto.");
-			debugInfo("Se ha hecho bien");
+			debugInfo("Se ha verficiado que Nombre Comercial es MED07");
 		}
 
 		debugEnd();
@@ -1558,7 +1577,7 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("SLEEPWALKING")) {
+		if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
 
 			webDriver.waitWithDriver(5000);
 
@@ -1570,7 +1589,7 @@ public class FichaMediadorPage extends PageObject {
 			Assert.assertTrue(nombreFiscalMed, "Es incorrecto.");
 			debugInfo("Se ha verificado que el Nombre Fiscal es SLEEPWALKING.");
 
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("ORION")) {
+		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
 
 			webDriver.waitWithDriver(5000);
 
@@ -1580,7 +1599,7 @@ public class FichaMediadorPage extends PageObject {
 				nombreFiscal.equals("ORION");
 
 			Assert.assertTrue(nombreFiscalMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el nombre Fiscal es ORION.");
+			debugInfo("Se ha verificado que el Nombre Fiscal es ORION.");
 		}
 
 		debugEnd();
@@ -1591,7 +1610,7 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("BRINGME")) {
+		if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("Bringme")) {
 
 			webDriver.waitWithDriver(5000);
 
@@ -1601,9 +1620,9 @@ public class FichaMediadorPage extends PageObject {
 				primerApell.equals("BRINGME");
 
 			Assert.assertTrue(primerApellMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el primer apellido es BRINGME.");
+			debugInfo("Se ha verificado que el Primer Apellido es BRINGME.");
 
-		} else if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("CLIFF")) {
+		} else if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("Cliff")) {
 
 			webDriver.waitWithDriver(5000);
 
@@ -1613,7 +1632,7 @@ public class FichaMediadorPage extends PageObject {
 				primerApell.equals("CLIFF");
 
 			Assert.assertTrue(primerApellMed, "Es incorrecto.");
-			debugInfo("Se ha verificado que el primer apellido es CLIFF.");
+			debugInfo("Se ha verificado que el Primer Apellido es CLIFF.");
 		}
 
 		debugEnd();
@@ -1624,7 +1643,7 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("THEHORIZON")) {
+		if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("Thehorizon")) {
 
 			webDriver.waitWithDriver(5000);
 
@@ -1636,7 +1655,7 @@ public class FichaMediadorPage extends PageObject {
 			Assert.assertTrue(segunApellMed, "Es incorrecto.");
 			debugInfo("Se ha verificado que el segundo apellido es THEHORIZON.");
 
-		} else if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("BURTON")) {
+		} else if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("Burton")) {
 
 			webDriver.waitWithDriver(5000);
 
@@ -1697,52 +1716,161 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	//
+
 	public FichaMediadorPage verificarDireccion() {
 		debugBegin();
+/*
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 
-		List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
-		debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
+			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
+			debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
 
-		for(int i = 1; i < obtenerListaDirecciones.size(); i++) {
+			for(int i = 1; i < obtenerListaDirecciones.size(); i++) {
 
-			String obtenerTipoDireccion = webDriver.getTextInFrame(By.cssSelector(
-				"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i + 1)
-					+ ") > td:nth-child(2)"), cuerpoFrame).trim();
-			debugInfo("El tipo de dirección es: " + obtenerTipoDireccion);
+				String obtenerTipoDireccion = webDriver.getTextInFrame(By.cssSelector(
+					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
+						+ 1)
+						+ ") > td:nth-child(2)"), cuerpoFrame).trim();
+				debugInfo("El tipo de dirección es: " + obtenerTipoDireccion);
 
-			String obtenerDireccion = webDriver.getTextInFrame(By.cssSelector(
-				"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
-					+ 1)
-					+ ") > td:nth-child(3)"), cuerpoFrame).trim();
-			debugInfo("El contenido de la dirección es: " + obtenerDireccion);
+				String obtenerDireccion = webDriver.getTextInFrame(By.cssSelector(
+					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
+						+ 1)
+						+ ") > td:nth-child(3)"), cuerpoFrame).trim();
+				debugInfo("El contenido de la dirección es: " + obtenerDireccion);
 
-			if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
-				boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
-				debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
-				Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
+				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
+					//		boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
+					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_NombreVia) + " 11 " + (08029) + BARCELONA" - "Barcelona);
+					debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
+					Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
+				}
+				if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
+					boolean checkDireccionComercial = obtenerDireccion.equalsIgnoreCase("PJ ANTIC DE VALÈNCIA 11 (08004) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
+					Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
+				}
+				if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
+					boolean checkDireccionProduccion = obtenerDireccion.equalsIgnoreCase("CAN MARIA 11 (08017) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
+					Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
+				}
+				if(obtenerTipoDireccion.equalsIgnoreCase("Postal recibos")) {
+					boolean checkDireccionRecibos = obtenerDireccion.equalsIgnoreCase("PERE VERGÉS 11 (08020) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección de recibos, el resultado es: " + checkDireccionRecibos);
+					Assert.assertTrue(checkDireccionRecibos, "Comparar campos: la dirección Postal recibos NO coincide");
+				}
+				if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
+					boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase("JOSEP CANALETA 11 (08035) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
+					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
+				}
+
 			}
-			if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
-				boolean checkDireccionComercial = obtenerDireccion.equalsIgnoreCase("PJ ANTIC DE VALÈNCIA 11 (08004) BARCELONA - Barcelona");
-				debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
-				Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
-			}
-			if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
-				boolean checkDireccionProduccion = obtenerDireccion.equalsIgnoreCase("CAN MARIA 11 (08017) BARCELONA - Barcelona");
-				debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
-				Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
-			}
-			if(obtenerTipoDireccion.equalsIgnoreCase("Postal recibos")) {
-				boolean checkDireccionRecibos = obtenerDireccion.equalsIgnoreCase("PERE VERGÉS 11 (08020) BARCELONA - Barcelona");
-				debugInfo("Comprobamos la dirección de recibos, el resultado es: " + checkDireccionRecibos);
-				Assert.assertTrue(checkDireccionRecibos, "Comparar campos: la dirección Postal recibos NO coincide");
-			}
-			if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
-				boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase("JOSEP CANALETA 11 (08035) BARCELONA - Barcelona");
-				debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
-				Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
-			}
-
 		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+
+			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
+			debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
+
+			for(int i = 1; i < obtenerListaDirecciones.size(); i++) {
+
+				String obtenerTipoDireccion = webDriver.getTextInFrame(By.cssSelector(
+					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
+						+ 1)
+						+ ") > td:nth-child(2)"), cuerpoFrame).trim();
+				debugInfo("El tipo de dirección es: " + obtenerTipoDireccion);
+
+				String obtenerDireccion = webDriver.getTextInFrame(By.cssSelector(
+					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
+						+ 1)
+						+ ") > td:nth-child(3)"), cuerpoFrame).trim();
+				debugInfo("El contenido de la dirección es: " + obtenerDireccion);
+
+				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
+					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
+					Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
+				}
+				if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
+					boolean checkDireccionComercial = obtenerDireccion.equalsIgnoreCase("PJ ANTIC DE VALÈNCIA 11 (08004) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
+					Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
+				}
+				if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
+					boolean checkDireccionProduccion = obtenerDireccion.equalsIgnoreCase("CAN MARIA 11 (08017) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
+					Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
+				}
+				if(obtenerTipoDireccion.equalsIgnoreCase("Postal recibos")) {
+					boolean checkDireccionRecibos = obtenerDireccion.equalsIgnoreCase("PERE VERGÉS 11 (08020) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección de recibos, el resultado es: " + checkDireccionRecibos);
+					Assert.assertTrue(checkDireccionRecibos, "Comparar campos: la dirección Postal recibos NO coincide");
+				}
+				if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
+					boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase("JOSEP CANALETA 11 (08035) BARCELONA - Barcelona");
+					debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
+					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
+				}
+
+			}
+		}
+*/
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarRamo() {
+		debugBegin();
+
+		if(getTestVar(Constants.RAMO_ALT_MED).equalsIgnoreCase("10")) {
+
+			webDriver.waitWithDriver(5000);
+
+			String ramo = webDriver.getTextInFrame(ramoMediadorTxt, cuerpoFrame).substring(21).trim();
+
+			boolean ramoMed = getTestVar(Constants.RAMO_ALT_MED).equals(MediadoresConstantesFicha.ASISTENCIA) &&
+				ramo.equals("Asistencia");
+
+			Assert.assertTrue(ramoMed, "Es incorrecto.");
+			debugInfo("Se ha verificado que Ramo es Asistencia que es el valor 10.");
+		}
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarCompanyiasPrincipales() {
+		debugBegin();
+
+		if(getTestVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
+
+			webDriver.waitWithDriver(5000);
+
+			String companyiasPrincip = webDriver.getTextInFrame(companyiasPrincipTxt, cuerpoFrame).substring(31).trim();
+
+			boolean companyiasPrincipMed = getTestVar(Constants.COMPANYIAS_PRINCIPALES).equals(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED) &&
+				companyiasPrincip.equals("Compañía principal abogado");
+
+			Assert.assertTrue(companyiasPrincipMed, "Es incorrecto.");
+			debugInfo("Se ha verificado que Compañias principales es Compañía principal abogado");
+		}
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarOficinaPadre() {
+		debugBegin();
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarMediadorPadre() {
+		debugBegin();
 
 		debugEnd();
 		return this;
@@ -1753,7 +1881,7 @@ public class FichaMediadorPage extends PageObject {
 
 		clickFichaMediador();
 
-		verificarNivelEstructura();
+		verificarNivelEstructura("INTE", MediadoresConstantesFicha.INTE, "Intermediario");
 		verificarTipoMediador();
 		verificarTipoColaborador();
 		verificarEjecutivoComercial();
@@ -1771,6 +1899,10 @@ public class FichaMediadorPage extends PageObject {
 		clickInfoContacto();
 		verificarTelefonoPrincipal();
 		verificarDireccion();
+
+		clickInfoRelacional();
+		verificarRamo();
+		verificarCompanyiasPrincipales();
 
 		debugEnd();
 		return this;
