@@ -512,38 +512,6 @@ public class FichaMediadorPage extends PageObject {
 		return contenido;
 	}
 
-	/*
-	public FichaMediadorPage verificarCampoJerarquia() {
-		debugBegin();
-
-		String nivelJerarquico = (webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).trim());
-		System.out.println(nivelJerarquico);
-
-		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
-
-		//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
-		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
-
-		debugEnd();
-		return this;
-	}
-
-	public FichaMediadorPage verificarCampoNombreComercial() {
-		debugBegin();
-
-		clickInfoDescriptiva();
-
-		String nombreComercial = (webDriver.getTextInFrame(nombreComercialDescr, cuerpoFrame).trim());
-		System.out.println(nombreComercial);
-
-		boolean checkNombreComercial = nombreComercial.equals("ANTIVIST");
-		Assert.assertTrue(checkNombreComercial, "Comparar campos: el nombre comercial coincide");
-
-		debugEnd();
-		return this;
-	}
-*/
-
 	// -----------------ACCIONES SOBRE FICHA---------------------
 
 	public FichaMediadorPage clickAnyadirNuevoContacto() {
