@@ -344,32 +344,11 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 	public MediadoresAltaDatosDescriptivosPage completarNombreComercial(String nomComercial) {
 		debugBegin();
-		webDriver.setText(nombreComercialADInput, nomComercial);
+		debugInfo("Estoy en completarNombreComercial");
+		webDriver.setText(nombreComercialInput, nomComercial);
 		debugEnd();
 		return this;
 	}
-
-/*	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
-		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
-		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null || !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
-			if(webDriver.isPresent(nombreComercialDiferenteFiscalBtn)) {
-				clickNombreComercialDiferente();
-				webDriver.waitWithDriver(2000);
-			}
-			webDriver.waitWithDriver(3000);
-			//	webDriver.setText(nombreComercialADInput, "Mediador"); descomentar si la siguiente línea  y método relacionado si el alta no funciona por su culpa
-			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
-		} else {
-			webDriver.click(nombreComercialIgualFiscalBtn);
-		}
-
-		webDriver.exitFrame();
-
-		debugEnd();
-		return this;
-	}*/
 
 	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
 		debugBegin();
@@ -390,27 +369,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		debugEnd();
 		return this;
 	}
-
-	/*public MediadoresAltaDatosDescriptivosPage nombreComercialObligatorio() {
-		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
-		completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
-		webDriver.exitFrame();
-
-		debugEnd();
-		return this;
-	}
-
-	public MediadoresAltaDatosDescriptivosPage nombreComercialDesactivado() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(nombreComercialIgualFiscalBtn);
-		webDriver.exitFrame();
-		debugEnd();
-		return this;
-	}*/
-
 
 	public MediadoresAltaDatosDescriptivosPage tipoDocumento() {
 		debugBegin();
@@ -472,18 +430,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 	public MediadoresAltaDatosDescriptivosPage altaOficinaDescriptivos() {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
-
 		altaDatosBasicosComunes();
-
-		if(getTestVar(Constants.NOMBRE_COMERCIAL) != null && !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
-
-			webDriver.setTextInFrame(nombreComercialInput, getTestVar(Constants.NOMBRE_COMERCIAL), cuerpoFrame);
-		} else {
-			webDriver.setTextInFrame(nombreComercialInput, "Med01", cuerpoFrame);
-		}
-
-		webDriver.exitFrame();
+		nombreComercial();
 
 		debugEnd();
 		return this;

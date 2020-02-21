@@ -204,7 +204,7 @@ public class MediadoresDGSPage extends PageObject {
 	/*	String datoFechaInscripcion = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.waitWithDriver(3000);
 		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, "12d56224");
-		Constants.ALERTA_FECHA_REFERENCIA_DGS
+		Constants.ALERTA_FECHA_INSCRIPCION_DGS
 		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, datoFechaInscripcion); - revisar , queda comentado porque se espera que fechaReferencia haga lo mismo, además de comprobar el alerta */
 
 		fechaReferencia( DateUtils.getTodayDate(Constants.DATE_FORMAT));
@@ -222,7 +222,7 @@ public class MediadoresDGSPage extends PageObject {
 		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, "12d56224");
 		webDriver.clickInFrame(actualizarBtn, cuerpoFrame);
 
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_REFERENCIA_DGS);
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INSCRIPCION_DGS);
 		webDriver.acceptAlert();
 		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, datoFechaInscripcion);
 	//	webDriver.clickInFrame(actualizarBtn, cuerpoFrame);

@@ -512,38 +512,6 @@ public class FichaMediadorPage extends PageObject {
 		return contenido;
 	}
 
-	/*
-	public FichaMediadorPage verificarCampoJerarquia() {
-		debugBegin();
-
-		String nivelJerarquico = (webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).trim());
-		System.out.println(nivelJerarquico);
-
-		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
-
-		//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
-		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
-
-		debugEnd();
-		return this;
-	}
-
-	public FichaMediadorPage verificarCampoNombreComercial() {
-		debugBegin();
-
-		clickInfoDescriptiva();
-
-		String nombreComercial = (webDriver.getTextInFrame(nombreComercialDescr, cuerpoFrame).trim());
-		System.out.println(nombreComercial);
-
-		boolean checkNombreComercial = nombreComercial.equals("ANTIVIST");
-		Assert.assertTrue(checkNombreComercial, "Comparar campos: el nombre comercial coincide");
-
-		debugEnd();
-		return this;
-	}
-*/
-
 	// -----------------ACCIONES SOBRE FICHA---------------------
 
 	public FichaMediadorPage clickAnyadirNuevoContacto() {
@@ -1545,16 +1513,16 @@ public class FichaMediadorPage extends PageObject {
 
 		//PRIMER APELLIDO
 		if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("Bringme")) {
-			verificarPrimerApellido(Constants.PRIMER_APELLIDO_MEDIADOR);
+			verificarPrimerApellido("Bringme");
 		} else if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("Cliff")) {
-			verificarPrimerApellido(Constants.PRIMER_APELLIDO_MEDIADOR);
+			verificarPrimerApellido("Cliff");
 		}
 
 		//SEGUNDO APELLIDO
 		if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("Thehorizon")) {
-			verificarSegundoApellido(Constants.SEGUNDO_APELLIDO_MEDIADOR);
+			verificarSegundoApellido("Thehorizon");
 		} else if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("Burton")) {
-			verificarSegundoApellido(Constants.SEGUNDO_APELLIDO_MEDIADOR);
+			verificarSegundoApellido("Burton");
 		}
 
 		clickInfoDescriptiva();
@@ -1586,11 +1554,11 @@ public class FichaMediadorPage extends PageObject {
 		clickInfoContacto();
 
 		if(getTestVar(Constants.TLF_PRINCIPAL).equalsIgnoreCase("911111111")) {
-			verificarTelefonoPrincipal(Constants.TLF_PRINCIPAL);
+			verificarTelefonoPrincipal("911111111");
 		} else if(getTestVar(Constants.TLF_PRINCIPAL).equalsIgnoreCase("911111122")) {
-			verificarTelefonoPrincipal(Constants.TLF_PRINCIPAL);
+			verificarTelefonoPrincipal("911111122");
 		} else if(getTestVar(Constants.TLF_PRINCIPAL).equalsIgnoreCase("911111133")) {
-			verificarTelefonoPrincipal(Constants.TLF_PRINCIPAL);
+			verificarTelefonoPrincipal("911111133");
 		}
 
 		//DIRECCIONES
