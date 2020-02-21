@@ -1408,6 +1408,32 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage verificarContactoResponsable(String contacto) {
+		debugBegin();
+
+		String contactoRes = webDriver.getTextInFrame(nombreContactoRespTxt, cuerpoFrame).substring(7).trim();
+
+		boolean contactoResMed = contactoRes.equalsIgnoreCase(contacto);
+
+		Assert.assertTrue(contactoResMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Contacto responsable");
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarCargoResponsable(String cargo) {
+		debugBegin();
+
+		String cargoRes = webDriver.getTextInFrame(cargoContactoRespTxt, cuerpoFrame).substring(6).trim();
+
+		boolean cargoResMed = cargoRes.equalsIgnoreCase(cargo);
+
+		Assert.assertTrue(cargoResMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Cargo responsable");
+		debugEnd();
+		return this;
+	}
+
 	public FichaMediadorPage verificarMediadorPadre() {
 		debugBegin();
 
@@ -1475,15 +1501,25 @@ public class FichaMediadorPage extends PageObject {
 		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4003") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
 			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
 			verificarEjecutivoComercial(Constants.EJECUTIVO_COMERCIAL);
-		}
-		if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4007") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
+		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4007") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
 			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
 			verificarEjecutivoComercial(Constants.EJECUTIVO_COMERCIAL);
 		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4010") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
 			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
 			verificarEjecutivoComercial(Constants.EJECUTIVO_COMERCIAL);
+		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4015") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
+			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
+			verificarEjecutivoComercial(Constants.EJECUTIVO_COMERCIAL);
+		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4023") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
+			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
+			verificarEjecutivoComercial(Constants.EJECUTIVO_COMERCIAL);
+		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4056") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
+			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
+			verificarEjecutivoComercial(Constants.EJECUTIVO_COMERCIAL);
+		} else if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4069") && getTestVar(Constants.EJECUTIVO_COMERCIAL) != null
+			&& !getTestVar(Constants.EJECUTIVO_COMERCIAL).isEmpty()) {
+			verificarEjecutivoComercial(Constants.EJECUTIVO_COMERCIAL);
 		}
-
 		//IDIOMA
 		if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ESPA")) {
 			verificarIdioma(MediadoresConstantesFicha.ESPA, "Castellano");
@@ -1491,8 +1527,17 @@ public class FichaMediadorPage extends PageObject {
 			verificarIdioma(MediadoresConstantesFicha.CATA, "Català");
 		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("EUSK")) {
 			verificarIdioma(MediadoresConstantesFicha.EUSK, "Euskara");
+		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ENGL")) {
+			verificarIdioma(MediadoresConstantesFicha.ENGL, "English");
+		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("FRAN")) {
+			verificarIdioma(MediadoresConstantesFicha.FRAN, "Français");
+		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("PRTG")) {
+			verificarIdioma(MediadoresConstantesFicha.PRTG, "Português");
+		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("DEUT")) {
+			verificarIdioma(MediadoresConstantesFicha.DEUT, "Deutsch");
+		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("GALE")) {
+			verificarIdioma(MediadoresConstantesFicha.GALE, "Galego");
 		}
-
 		//ACTIVIDAD PRINCIPAL
 		if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("MESE")) {
 			verificarActividadPrincipal(MediadoresConstantesFicha.MESE, "Mediador de Seguros");
@@ -1502,6 +1547,10 @@ public class FichaMediadorPage extends PageObject {
 			verificarActividadPrincipal(MediadoresConstantesFicha.ABOG, "Abogados");
 		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("OTRO")) {
 			verificarActividadPrincipal(MediadoresConstantesFicha.OTRO, "Otros");
+		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("API")) {
+			verificarActividadPrincipal(MediadoresConstantesFicha.API, "API");
+		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("GEPA")) {
+			verificarActividadPrincipal(MediadoresConstantesFicha.GEPA, "Gestor Patrimonios");
 		}
 
 		//NOMBRE FISCAL
@@ -1509,6 +1558,8 @@ public class FichaMediadorPage extends PageObject {
 			verificarNombreFiscal("SLEEPWALKING");
 		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
 			verificarNombreFiscal("ORION");
+		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
+			verificarNombreFiscal("FOO");
 		}
 
 		//PRIMER APELLIDO
@@ -1516,6 +1567,8 @@ public class FichaMediadorPage extends PageObject {
 			verificarPrimerApellido("Bringme");
 		} else if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("Cliff")) {
 			verificarPrimerApellido("Cliff");
+		} else if(getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR).equalsIgnoreCase("Fighters")) {
+			verificarPrimerApellido("Fighters");
 		}
 
 		//SEGUNDO APELLIDO
@@ -1523,6 +1576,8 @@ public class FichaMediadorPage extends PageObject {
 			verificarSegundoApellido("Thehorizon");
 		} else if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("Burton")) {
 			verificarSegundoApellido("Burton");
+		} else if(getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR).equalsIgnoreCase("Neighbourhood")) {
+			verificarSegundoApellido("Neighbourhood");
 		}
 
 		clickInfoDescriptiva();
@@ -1542,6 +1597,14 @@ public class FichaMediadorPage extends PageObject {
 			verificarNombreComercial("MED06");
 		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med07")) {
 			verificarNombreComercial("MED07");
+		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med10")) {
+			verificarNombreComercial("MED10");
+		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med13")) {
+			verificarNombreComercial("MED13");
+		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")) {
+			verificarNombreComercial("MED16");
+		} else if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
+			verificarNombreComercial("MED19");
 		}
 
 		//DISPONE SOFTWARE
@@ -1561,6 +1624,15 @@ public class FichaMediadorPage extends PageObject {
 			verificarTelefonoPrincipal("911111133");
 		}
 
+		//CONTACTO RESPONSABLE
+		if(getTestVar(Constants.CONTACTO_RESPONSABLE).equalsIgnoreCase("Contacto responsable")) {
+			verificarContactoResponsable("Contacto responsable");
+		}
+
+		//CARGO RESPONSABLE
+		if(getTestVar(Constants.CARGO_RESPONSABLE).equalsIgnoreCase("Cargo responsable")) {
+			verificarCargoResponsable("Cargo responsable");
+		}
 		//DIRECCIONES
 		verificarDireccion();
 
