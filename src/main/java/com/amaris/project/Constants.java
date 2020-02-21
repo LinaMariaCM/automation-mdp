@@ -736,7 +736,7 @@ public class Constants {
 	public static final String ALERTA_NOMBRE_BANCO_MEDIADORES = "El campo NOMBRE DEL BANCO es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_TELEFONO_MEDIADORES = "El campo TELÉFONO no se ha rellenado correctamente.";
 	public static final String ALERTA_MEDIADOR_NO_SELECCIONADO = "Debe seleccionar uno o varios mediadores para poder continuar.";
-	public static final String ALERTA_FECHA_REFERENCIA_DGS = "El campo FECHA INSCRIPCIÓN no se ha rellenado correctamente."; // REFERENCIA Y NO INSCRIPCIÓN, COMO ES AHORA.
+	public static final String ALERTA_FECHA_INSCRIPCION_DGS = "El campo FECHA INSCRIPCIÓN no se ha rellenado correctamente.";
 
 
 	//ALERTAS DE ALTA PROSPECT(RETENCIONES)
@@ -769,20 +769,23 @@ public class Constants {
 	public static final String DIRECCION_FISC_PROVINCIA = "med_direccion_fisc_provincia";
 	public static final String DIRECCION_FISC_POBLACION = "med_direccion_fisc_poblacion";
 	public static final String DIRECCION_FISC_NombreVia = "med_direccion_fisc_nombrevia";
-	public static final String DIRECCION_FISC_NumVia = "med_direccion_fisc_numvia";
+	public static final String DIRECCION_FISC_CP = "med_direccion_fisc_cp";
 	public static final String DIRECCION_COME_PROVINCIA = "med_direccion_come_provincia";
 	public static final String DIRECCION_COME_POBLACION = "med_direccion_come_poblacion";
 	public static final String DIRECCION_COME_NombreVia = "med_direccion_come_nombrevia";
+	public static final String DIRECCION_COME_CP = "med_direccion_come_cp";
 	public static final String DIRECCION_PPRO_PROVINCIA = "med_direccion_ppro_provincia";
 	public static final String DIRECCION_PPRO_POBLACION = "med_direccion_ppro_poblacion";
 	public static final String DIRECCION_PPRO_NOMBRE_VIA = "med_direccion_ppro_nombrevia";
+	public static final String DIRECCION_PPRO_CP = "med_direccion_ppro_cp";
 	public static final String DIRECCION_PREC_PROVINCIA = "med_direccion_prec_provincia";
 	public static final String DIRECCION_PREC_POBLACION = "med_direccion_prec_poblacion";
 	public static final String DIRECCION_PREC_NombreVia = "med_direccion_prec_nombrevia";
+	public static final String DIRECCION_PREC_CP = "med_direccion_prec_cp";
 	public static final String DIRECCION_PSIN_PROVINCIA = "med_direccion_psin_provincia";
 	public static final String DIRECCION_PSIN_POBLACION = "med_direccion_psin_poblacion";
 	public static final String DIRECCION_PSIN_NOMBRE_VIA = "med_direccion_psin_nombrevia";
-	public static final String TIPO_DIRECCION_MED = "tipo_direccion_med";
+	public static final String DIRECCION_PSIN_CP = "med_direccion_psin_cp";
 	public static final String DIR_FISCAL_IGUAL_A = "med_dir_fiscal_heradar";
 	public static final String DIR_COMERCIAL_IGUAL_A = "med_dir_comercial_heradar";
 	public static final String DIR_PRODUCCION_IGUAL_A = "med_dir_produccion_heradar";
