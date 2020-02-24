@@ -17,7 +17,7 @@ public class InnovaHomePage extends PageObject {
 	private By gestionProjectosSimulacionesBtn = By.cssSelector("a[href*='codmenu=GESTION_COTIZACIONES']");
 
 	private By siniestrosBtn = By.xpath(".//*[text()='Siniestros']");
-	private By mediadoresBtn = By.cssSelector("#jt14");
+	private By mediadoresBtn = By.cssSelector("#jt15");
 	private By nuevoProjectoBtn = By.xpath(".//*[normalize-space(text())='Nuevo proyecto']");
 	private By nuevaSimulacionBtn = By.xpath(".//*[normalize-space(text())='Nueva Simulación']");
 	private By menuPrincipalBtn = By.cssSelector("#boton1");
