@@ -3877,4 +3877,12 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	public void du_hast() {
+		debugBegin();
+
+		new FichaMediadorPage(userS)
+		.verificarNombres(getTestVar(Constants.NOMBRE_MEDIADOR), getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR),getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR);
+		debugEnd();
+	}
+
 } // END
