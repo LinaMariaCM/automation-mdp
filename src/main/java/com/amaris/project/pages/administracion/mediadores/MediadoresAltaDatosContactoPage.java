@@ -594,28 +594,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-	//-------------------MÉTODOS COMPLEJOS--------------------------------------
-
-	// REVISAR CON IRYNA
-
-	public MediadoresAltaDatosContactoPage altaOficinaDatosContacto() {
-		debugBegin();
-		rellenarDatosGeneralesContacto("Contacto responsable", "Cargo responsable", "666999999", "email@gmail.com");
-
-		debugEnd();
-		return this;
-	}
-
-	public MediadoresAltaDatosContactoPage altaColaboradorDatosContacto() {
-		debugBegin();
-		rellenarDatosGeneralesContacto("Contacto responsable", "Cargo responsable", "699999999", "email@gmail.com");
-
-		// FALTA añadir direcciones
-
-		debugEnd();
-		return this;
-	}
-
 	//---------------RETENCIONES PARA ALTAS DE INTERMEDIARIOS, OFICINA Y COLABORADOR------------------------
 
 	//ALERTA DE SISTEMA

@@ -3594,7 +3594,7 @@ public class ActionSteps extends InteractionObject {
 			.altaOficinaDescriptivos()
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
-			.altaOficinaDatosContacto()
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
 			.heredaDireccionFiscal()
 			.anyadirDireccionComercial()
 			.anyadirDireccionProduccion()
@@ -3631,7 +3631,7 @@ public class ActionSteps extends InteractionObject {
 			.altaColaboradorDescriptivos()
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
-			.altaColaboradorDatosContacto()
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
 			.heredaDireccionFiscal()
 			.anyadirDireccionComercial()
 			.anyadirDireccionSiniestros()
@@ -3876,5 +3876,6 @@ public class ActionSteps extends InteractionObject {
 
 		debugEnd();
 	}
+
 
 } // END
