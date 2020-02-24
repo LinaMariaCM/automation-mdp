@@ -1259,17 +1259,15 @@ public class FichaMediadorPage extends PageObject {
 		boolean telefonPriMed = telefonPri.equalsIgnoreCase(telefono);
 
 		Assert.assertTrue(telefonPriMed, "Es incorrecto.");
-		debugInfo("Se ha verificado que el telefono principal es 911111111.");
+		debugInfo("Se ha verificado que el Telefono principal.");
 
 		debugEnd();
 		return this;
 	}
 
-	//
-
 	public FichaMediadorPage verificarDireccion() {
 		debugBegin();
-/*
+
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 
 			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
@@ -1290,8 +1288,10 @@ public class FichaMediadorPage extends PageObject {
 				debugInfo("El contenido de la dirección es: " + obtenerDireccion);
 
 				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
-					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
-					//boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_NombreVia) + "11" + "(08029)" + getTestVar(Constants.DIRECCION_FISC_PROVINCIA) + "-" + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
+					// boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
+					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(
+						getTestVar(Constants.DIRECCION_FISC_NombreVia) + " 11 " + " (08029) " + getTestVar(Constants.DIRECCION_FISC_PROVINCIA) + " - " + getTestVar(Constants.DIRECCION_FISC_POBLACION)
+					);
 					debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
 					Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
 				}
@@ -1366,7 +1366,7 @@ public class FichaMediadorPage extends PageObject {
 
 			}
 		}
-*/
+
 		debugEnd();
 		return this;
 	}
@@ -1501,6 +1501,7 @@ public class FichaMediadorPage extends PageObject {
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4023")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4056")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4069")) {
+
 			verificarEjecutivoComercial(getTestVar(Constants.EJECUTIVO_COMERCIAL));
 		}
 
@@ -1563,14 +1564,9 @@ public class FichaMediadorPage extends PageObject {
 		}
 
 		//CONTACTO RESPONSABLE
-		if(getTestVar(Constants.CONTACTO_RESPONSABLE).equalsIgnoreCase("Contacto responsable")) {
-			verificarContactoResponsable("AAA");
-		}
-
+		verificarContactoResponsable("AAA");
 		//CARGO RESPONSABLE
-		if(getTestVar(Constants.CARGO_RESPONSABLE).equalsIgnoreCase("Cargo responsable")) {
-			verificarCargoResponsable("Aaaaaa");
-		}
+		verificarCargoResponsable("Aaaaaa");
 
 		clickInfoDescriptiva();
 
@@ -1586,6 +1582,7 @@ public class FichaMediadorPage extends PageObject {
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med13")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
+
 			verificarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
 		}
 
