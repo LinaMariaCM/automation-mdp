@@ -3594,7 +3594,7 @@ public class ActionSteps extends InteractionObject {
 			.altaOficinaDescriptivos()
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
-			.altaOficinaDatosContacto()
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
 			.heredaDireccionFiscal()
 			.anyadirDireccionComercial()
 			.anyadirDireccionProduccion()
@@ -3631,7 +3631,7 @@ public class ActionSteps extends InteractionObject {
 			.altaColaboradorDescriptivos()
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
-			.altaColaboradorDatosContacto()
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
 			.heredaDireccionFiscal()
 			.anyadirDireccionComercial()
 			.anyadirDireccionSiniestros()
@@ -3877,12 +3877,5 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void du_hast() {
-		debugBegin();
-
-		new FichaMediadorPage(userS)
-		.verificarNombres(getTestVar(Constants.NOMBRE_MEDIADOR), getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR),getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
-		debugEnd();
-	}
 
 } // END
