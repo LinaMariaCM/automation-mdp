@@ -28,11 +28,17 @@ public class MediadoresConstantesFicha {
 	public static final String ADFI = "ADFI";
 	public static final String MESE = "MESE";
 	public static final String OTRO = "OTRO";
-
+	public static final String API = "API";
+	public static final String GEPA = "GEPA";
 	//IDIOMA
 	public static final String ESPA = "ESPA";
 	public static final String CATA = "CATA";
 	public static final String EUSK = "EUSK";
+	public static final String ENGL = "ENGL";
+	public static final String FRAN = "FRAN";
+	public static final String PRTG = "PRTG";
+	public static final String DEUT = "DEUT";
+	public static final String GALE = "GALE";
 
 	//TIPO DE DOMICILIO
 	public static final String COME = "COME";
