@@ -3881,7 +3881,7 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		new FichaMediadorPage(userS)
-		.verificarNombres(getTestVar(Constants.NOMBRE_MEDIADOR), getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR),getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR);
+		.verificarNombres(getTestVar(Constants.NOMBRE_MEDIADOR), getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR),getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
 		debugEnd();
 	}
 
