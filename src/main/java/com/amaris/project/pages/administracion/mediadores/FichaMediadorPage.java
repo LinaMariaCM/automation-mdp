@@ -1250,23 +1250,23 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-
 	public FichaMediadorPage verificarNombres(String nombreFisc, String primeApell, String segApell) {
 
 		debugBegin();
 
 		String nombreCompleto = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).trim();
 
+		debugInfo("El nombre completo tal como aparece en la ficha: " + nombreFisc + " " + primeApell + " " + segApell);
+		debugInfo("El nombre completo tal como aparece en el CSV: " + getTestVar(Constants.NOMBRE_MEDIADOR) + getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR) + getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
+
 		boolean checkNombresFiscales = nombreCompleto.equalsIgnoreCase(nombreFisc + " " + primeApell + " " + segApell);
 
-		debugInfo(nombreFisc + " " + primeApell + " " + segApell);
 		Assert.assertTrue(checkNombresFiscales, "Es incorrecto.");
 		debugInfo("Se ha verificado el Segundo Apellido.");
 
 		debugEnd();
 		return this;
 	}
-
 
 	public FichaMediadorPage verificarTelefonoPrincipal(String telefono) {
 
@@ -1287,8 +1287,8 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage verificarDireccion() {
 		debugBegin();
-/*
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")){
 
 			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
 			debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
@@ -1305,11 +1305,14 @@ public class FichaMediadorPage extends PageObject {
 					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
 						+ 1)
 						+ ") > td:nth-child(3)"), cuerpoFrame).trim();
-				debugInfo("El contenido de la dirección es: " + obtenerDireccion);
+				debugInfo("--------------------- El contenido de la dirección en FICHA es: " + obtenerDireccion);
+				debugInfo("--------------------- El contenido de la dirección en el CSV es: " + getTestVar(Constants.DIRECCION_FISC_NombreVia).trim() + " 11 " + "(08029) " + getTestVar(Constants.DIRECCION_FISC_PROVINCIA).trim() + " - " + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
+
 
 				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
-					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
-					//boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_NombreVia) + "11" + "(08029)" + getTestVar(Constants.DIRECCION_FISC_PROVINCIA) + "-" + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
+					//	boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
+					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(
+						getTestVar(Constants.DIRECCION_FISC_NombreVia).trim() + " 11 " + "(08029) " + getTestVar(Constants.DIRECCION_FISC_PROVINCIA).trim() + " - " + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
 					debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
 					Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
 				}
@@ -1336,7 +1339,7 @@ public class FichaMediadorPage extends PageObject {
 
 			}
 		}
-
+/*
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 
 			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
