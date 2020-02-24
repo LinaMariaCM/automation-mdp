@@ -1269,7 +1269,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage verificarDireccion() {
 		debugBegin();
-/*
+
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 
 			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
@@ -1290,8 +1290,8 @@ public class FichaMediadorPage extends PageObject {
 				debugInfo("El contenido de la dirección es: " + obtenerDireccion);
 
 				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
-					//		boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
-					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_NombreVia) + " 11 " + (08029) + BARCELONA" - "Barcelona);
+					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
+					//boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_NombreVia) + "11" + "(08029)" + getTestVar(Constants.DIRECCION_FISC_PROVINCIA) + "-" + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
 					debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
 					Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
 				}
@@ -1366,7 +1366,7 @@ public class FichaMediadorPage extends PageObject {
 
 			}
 		}
-*/
+
 		debugEnd();
 		return this;
 	}
@@ -1408,6 +1408,13 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage verificarMediadorPadre() {
+		debugBegin();
+
+		debugEnd();
+		return this;
+	}
+
 	public FichaMediadorPage verificarContactoResponsable(String contacto) {
 		debugBegin();
 
@@ -1430,13 +1437,6 @@ public class FichaMediadorPage extends PageObject {
 
 		Assert.assertTrue(cargoResMed, "Es incorrecto.");
 		debugInfo("Se ha verificado el Cargo responsable");
-		debugEnd();
-		return this;
-	}
-
-	public FichaMediadorPage verificarMediadorPadre() {
-		debugBegin();
-
 		debugEnd();
 		return this;
 	}
@@ -1580,6 +1580,16 @@ public class FichaMediadorPage extends PageObject {
 			verificarSegundoApellido("Neighbourhood");
 		}
 
+		//CONTACTO RESPONSABLE
+		if(getTestVar(Constants.CONTACTO_RESPONSABLE).equalsIgnoreCase("Contacto responsable")) {
+			verificarContactoResponsable("AAA");
+		}
+
+		//CARGO RESPONSABLE
+		if(getTestVar(Constants.CARGO_RESPONSABLE).equalsIgnoreCase("Cargo responsable")) {
+			verificarCargoResponsable("Aaaaaa");
+		}
+
 		clickInfoDescriptiva();
 
 		//NOMBRE COMERCIAL
@@ -1624,15 +1634,6 @@ public class FichaMediadorPage extends PageObject {
 			verificarTelefonoPrincipal("911111133");
 		}
 
-		//CONTACTO RESPONSABLE
-		if(getTestVar(Constants.CONTACTO_RESPONSABLE).equalsIgnoreCase("Contacto responsable")) {
-			verificarContactoResponsable("Contacto responsable");
-		}
-
-		//CARGO RESPONSABLE
-		if(getTestVar(Constants.CARGO_RESPONSABLE).equalsIgnoreCase("Cargo responsable")) {
-			verificarCargoResponsable("Cargo responsable");
-		}
 		//DIRECCIONES
 		verificarDireccion();
 
