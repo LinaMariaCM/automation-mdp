@@ -231,10 +231,10 @@ public class MediadoresTest {
 	}
 
 	// TEST PARA HACER COMPROBACIONES EN LA FICHA
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public String[][] dataProviderMed20() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "prueba_comprobaciones_mediadores.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv");
 		return casesMatrix;
 	}
 
