@@ -1250,6 +1250,24 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+
+	public FichaMediadorPage verificarNombres(String nombreFisc, String primeApell, String segApell) {
+
+		debugBegin();
+
+		String nombreCompleto = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).trim();
+
+		boolean checkNombresFiscales = nombreCompleto.equalsIgnoreCase(nombreFisc + " " + primeApell + " " + segApell);
+
+		debugInfo(nombreFisc + " " + primeApell + " " + segApell);
+		Assert.assertTrue(checkNombresFiscales, "Es incorrecto.");
+		debugInfo("Se ha verificado el Segundo Apellido.");
+
+		debugEnd();
+		return this;
+	}
+
+
 	public FichaMediadorPage verificarTelefonoPrincipal(String telefono) {
 
 		debugBegin();
