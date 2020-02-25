@@ -203,7 +203,7 @@ public class MediadoresBuscadorPage extends PageObject {
 
 	public MediadoresBuscadorPage buscarMediadorFichaComprobacion() {
 		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121968");
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "122006");
 		webDriver.clickInFrame(nivelEstructuraOficinaBtn, cuerpoFrame);
 		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);

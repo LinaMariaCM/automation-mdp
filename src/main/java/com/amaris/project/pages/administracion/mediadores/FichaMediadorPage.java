@@ -12,6 +12,8 @@ import org.testng.Assert;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FichaMediadorPage extends PageObject {
 
@@ -107,6 +109,11 @@ public class FichaMediadorPage extends PageObject {
 		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody > tr:nth-child(6) > td");
 	private By ramoMediadorTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(2) > table:nth-child(3) > tbody > tr:nth-child(1) > td:nth-child(1)");
 	private By companyiasPrincipTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(3) > td");
+	private By ibanPagoComisionesTxt = By.cssSelector("#capaAjax > div:nth-child(7) > table > tbody > tr > td:nth-child(2) > p:nth-child(3)");
+	private By ibanRecibosAutoliqTxt = By.cssSelector("#capaAjax > div:nth-child(7) > table > tbody > tr > td:nth-child(2) > p:nth-child(4)");
+
+	private By direcionCPTxt = By
+		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(3)");
 
 	//------------- Contenido Pestañas -------------
 
@@ -1081,6 +1088,18 @@ public class FichaMediadorPage extends PageObject {
 
 	//---------------METODOS PARA HACER COMPROBACIONES EN FICHA------------------------------------
 
+	public FichaMediadorPage obtenerCodgioPostal() {
+
+		debugBegin();
+
+		int indexCPInicial = webDriver.getTextInFrame(direcionCPTxt, cuerpoFrame).indexOf("(");
+		int indexCPFinal = webDriver.getTextInFrame(direcionCPTxt, cuerpoFrame).indexOf(")");
+		String sacoCP = webDriver.getTextInFrame(direcionCPTxt, cuerpoFrame).substring(indexCPInicial, indexCPFinal).trim();
+
+		debugEnd();
+		return this;
+	}
+
 	public FichaMediadorPage verificarNivelEstructura(String constanteFicha, String nivelJerarquico) {
 
 		debugBegin();
@@ -1258,7 +1277,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage verificarDireccion() {
 		debugBegin();
-
+/*
 		List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
 		debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
 
@@ -1286,7 +1305,7 @@ public class FichaMediadorPage extends PageObject {
 				}
 				if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
 					boolean checkDireccionComercial = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_COME_NombreVia).trim() + " 11 " + "(08004) " + getTestVar(Constants.DIRECCION_COME_PROVINCIA).trim() + " - "
+						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_COME_NombreVia).trim() + " 11 " + "(08013) " + getTestVar(Constants.DIRECCION_COME_PROVINCIA).trim() + " - "
 							+ getTestVar(Constants.DIRECCION_COME_POBLACION).trim());
 					debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
 					Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
@@ -1294,7 +1313,7 @@ public class FichaMediadorPage extends PageObject {
 				if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
 					//boolean checkDireccionProduccion = obtenerDireccion.equalsIgnoreCase("CAN MARIA 11 (08017) BARCELONA - Barcelona");
 					boolean checkDireccionProduccion = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA).trim() + " 11 " + "(08017) " + getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).trim() + " - "
+						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA).trim() + " 11 " + "(08020) " + getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).trim() + " - "
 							+ getTestVar(Constants.DIRECCION_PPRO_POBLACION).trim());
 					debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
 					Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
@@ -1302,7 +1321,7 @@ public class FichaMediadorPage extends PageObject {
 				if(obtenerTipoDireccion.equalsIgnoreCase("Postal recibos")) {
 					//boolean checkDireccionRecibos = obtenerDireccion.equalsIgnoreCase("PERE VERGÉS 11 (08020) BARCELONA - Barcelona");
 					boolean checkDireccionRecibos = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PREC_NombreVia).trim() + " 11 " + "(08020) " + getTestVar(Constants.DIRECCION_PREC_PROVINCIA).trim() + " - "
+						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PREC_NombreVia).trim() + " 11 " + "(08005) " + getTestVar(Constants.DIRECCION_PREC_PROVINCIA).trim() + " - "
 							+ getTestVar(Constants.DIRECCION_PREC_POBLACION).trim());
 					debugInfo("Comprobamos la dirección de recibos, el resultado es: " + checkDireccionRecibos);
 					Assert.assertTrue(checkDireccionRecibos, "Comparar campos: la dirección Postal recibos NO coincide");
@@ -1310,7 +1329,7 @@ public class FichaMediadorPage extends PageObject {
 				if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
 					//boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase("JOSEP CANALETA 11 (08035) BARCELONA - Barcelona");
 					boolean checkDireccionSiniestros = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA).trim() + " 11 " + "(08035) " + getTestVar(Constants.DIRECCION_PSIN_PROVINCIA).trim() + " - "
+						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA).trim() + " 11 " + "(08017) " + getTestVar(Constants.DIRECCION_PSIN_PROVINCIA).trim() + " - "
 							+ getTestVar(Constants.DIRECCION_PSIN_POBLACION).trim());
 					debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
 					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
@@ -1318,6 +1337,8 @@ public class FichaMediadorPage extends PageObject {
 
 			}
 
+ */
+/*
 			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 
 				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
@@ -1352,6 +1373,8 @@ public class FichaMediadorPage extends PageObject {
 					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
 				}
 
+
+ */
 	/*			if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
 					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase("LONDRES 11 (08029) BARCELONA - Barcelona");
 					debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
@@ -1375,8 +1398,6 @@ public class FichaMediadorPage extends PageObject {
 
 
 	 */
-			}
-		}
 
 		debugEnd();
 		return this;
@@ -1412,15 +1433,32 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage verificarOficinaPadre() {
+	//colaboradores: todos los 3
+	public FichaMediadorPage verificarOficinaPadre(String oficinaPadre) {
 		debugBegin();
 
+		int indexPadreInicial = webDriver.getTextInFrame(oficinaPadreTxt, cuerpoFrame).indexOf("-");
+		String oficinaPadreMed = webDriver.getTextInFrame(oficinaPadreTxt, cuerpoFrame).substring(14, indexPadreInicial).trim();
+
+		boolean oficinaMedResMed = oficinaPadreMed.equalsIgnoreCase(oficinaPadre);
+
+		Assert.assertTrue(oficinaMedResMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Oficina Padre");
 		debugEnd();
 		return this;
 	}
 
-	public FichaMediadorPage verificarMediadorPadre() {
+	//solo oficina
+	public FichaMediadorPage verificarMediadorPadre(String mediadorPadre) {
 		debugBegin();
+
+		int indexPadreInicial = webDriver.getTextInFrame(mediadorPadreTxt, cuerpoFrame).indexOf("-");
+		String padreMed = webDriver.getTextInFrame(mediadorPadreTxt, cuerpoFrame).substring(15, indexPadreInicial).trim();
+
+		boolean padreMedResMed = padreMed.equalsIgnoreCase(mediadorPadre);
+
+		Assert.assertTrue(padreMedResMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Mediador Padre");
 
 		debugEnd();
 		return this;
@@ -1430,9 +1468,11 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 
 		String contactoRes = webDriver.getTextInFrame(nombreContactoRespTxt, cuerpoFrame).substring(7).trim();
+		debugInfo("Lo que saca en la ficha es " + contactoRes);
 
 		boolean contactoResMed = contactoRes.equalsIgnoreCase(contacto);
 
+		debugInfo("lo que pongo yo " + contacto);
 		Assert.assertTrue(contactoResMed, "Es incorrecto.");
 		debugInfo("Se ha verificado el Contacto Responsable");
 		debugEnd();
@@ -1448,6 +1488,34 @@ public class FichaMediadorPage extends PageObject {
 
 		Assert.assertTrue(cargoResMed, "Es incorrecto.");
 		debugInfo("Se ha verificado el Cargo responsable");
+		debugEnd();
+		return this;
+	}
+
+	//solo para cualquier tipo de intermediarios
+	public FichaMediadorPage verificarBancoComisiones(String banco) {
+		debugBegin();
+
+		String bancoCom = webDriver.getTextInFrame(ibanPagoComisionesTxt, cuerpoFrame).substring(20).trim();
+
+		boolean bancoComMed = bancoCom.equalsIgnoreCase(banco);
+
+		Assert.assertTrue(bancoComMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Banco de Comisiones");
+		debugEnd();
+		return this;
+	}
+
+	//solo para cualquier tipo de intermediarios
+	public FichaMediadorPage verificarPagoAutoliquidaciones(String banco) {
+		debugBegin();
+
+		String bancoCom = webDriver.getTextInFrame(ibanRecibosAutoliqTxt, cuerpoFrame).substring(37).trim();
+
+		boolean bancoComMed = bancoCom.equalsIgnoreCase(banco);
+
+		Assert.assertTrue(bancoComMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Banco PAGO de Autoliquidaciones");
 		debugEnd();
 		return this;
 	}
@@ -1512,8 +1580,10 @@ public class FichaMediadorPage extends PageObject {
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4011")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4015")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4016")
+			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4019")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4023")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4024")
+			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4027")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4056")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4067")
 			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4069")) {
@@ -1589,11 +1659,15 @@ public class FichaMediadorPage extends PageObject {
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med05")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med06")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med07")
+			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med09")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med10")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med11")
+			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med12")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med13")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med14")
+			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med15")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")
+			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med18")
 			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
 
 			verificarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
@@ -1624,6 +1698,21 @@ public class FichaMediadorPage extends PageObject {
 		//COMPAÑIAS PRINCIPALES
 		if(getTestVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
 			verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getTestVar(Constants.COMPANYIAS_PRINCIPALES));
+		}
+
+		clickCondicionesNegocio();
+
+		//BANCO COMISIONES
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
+			verificarBancoComisiones("ES0321001234561234567890");
+
+		}
+		//BANCO PAGO AUTOLIQUIDACIONES
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
+			verificarPagoAutoliquidaciones("ES0321001234561234567890");
+
 		}
 
 		debugEnd();

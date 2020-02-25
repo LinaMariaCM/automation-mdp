@@ -463,7 +463,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-
 	//------------------Añadir datos nueva red social---------------------------------
 
 	public MediadoresAltaDatosContactoPage anyadirNuevaRedSocial(String tipoRedSocial, String descripcionRed) {
