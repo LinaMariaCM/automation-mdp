@@ -330,8 +330,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.clickElementFromDropDownByAttribute(idiomaCombo, idiomaOption, "value", "ESPA");
 		}
 
-		if(webDriver.isPresent(actividadPrincipalCombo) && getTestVar(Constants.ACTIVIDAD_PRINCIPAL) != null && !getTestVar(Constants.ACTIVIDAD_PRINCIPAL).isEmpty()) {
-			webDriver.clickElementFromDropDownByAttribute(actividadPrincipalCombo, actividadPrincipalOption, "value", getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
+		if(webDriver.isPresent(actividadPrincipalCombo) && getVar(Constants.ACTIVIDAD_PRINCIPAL) != null && !getVar(Constants.ACTIVIDAD_PRINCIPAL).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(actividadPrincipalCombo, actividadPrincipalOption, "value", getVar(Constants.ACTIVIDAD_PRINCIPAL));
 		}
 
 		if(webDriver.isPresent(numRegistroDGSInput)) {
@@ -357,10 +357,10 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		if(webDriver.isPresent(nombreComercialInput)) {
 			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
 		}
-		else if(getTestVar(Constants.NOMBRE_COMERCIAL) != null && !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
+		else if(getVar(Constants.NOMBRE_COMERCIAL) != null && !getVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
 			webDriver.click(nombreComercialDiferenteFiscalBtn);
 			webDriver.waitWithDriver(3000);
-			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
+			completarNombreComercial(getVar(Constants.NOMBRE_COMERCIAL));
 		} else {
 			webDriver.click(nombreComercialIgualFiscalBtn);
 		}

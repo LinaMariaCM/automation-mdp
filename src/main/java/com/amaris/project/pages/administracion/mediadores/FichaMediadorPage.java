@@ -28,7 +28,6 @@ public class FichaMediadorPage extends PageObject {
 	private By buscadorMediadoresBtn = By.linkText(("Buscador mediadores").trim());
 	private By fichaMediadorBtn = By.cssSelector("#jt1son > a[title='Ficha mediador  ']");
 
-	private By fichaMediadorBtn = By.id("jt2");
 
 	//------------- Botones Pestañas -------------
 
@@ -733,11 +732,11 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 			clickFichaMediador();
 			debugInfo("Solicitar alta se hizo con éxito o por lo menos recorrió");
-	//	}
+		}
 
 		debugEnd();
 		return this;
-	}
+		}
 
 	public FichaMediadorPage enviarValoracionFinanciera() {
 		debugBegin();
@@ -902,12 +901,12 @@ public class FichaMediadorPage extends PageObject {
 	}
 
 	
-	public FichaMediadorPage clickFichaMediador(){
-		debugBegin();
-		webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
-		debugEnd();
-		return this;
-	}
+//	public FichaMediadorPage clickFichaMediador(){
+//		debugBegin();
+//		webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
+//		debugEnd();
+//		return this;
+//	}
 	
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
@@ -1758,10 +1757,10 @@ public class FichaMediadorPage extends PageObject {
 			verificarPagoAutoliquidaciones("ES0321001234561234567890");
 
 		}
-
-		debugEnd();
-		return this;
 	}
+	debugEnd();
+	return this;
+	}
+}//END
 
-}
 
