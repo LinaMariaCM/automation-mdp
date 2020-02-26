@@ -2719,9 +2719,9 @@ public class ActionSteps extends InteractionObject {
 
 			// comentados por Antonia el 24 01 del 2020
 			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
-			new ValidacionExcepcionesReglasPage(userS)
-				.clickContinuar();
-				}
+				new ValidacionExcepcionesReglasPage(userS)
+					.clickContinuar();
+			}
 			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
@@ -2736,8 +2736,8 @@ public class ActionSteps extends InteractionObject {
 			 * "TC002000"; gremio = "1"; }
 			 */
 			debugInfo("Hay encargo?: " + getTestVar(Constants.ENCARGO));
-			
-			new AltaAperturaOcurrenciaSiniestrosPage(userS)	
+
+			new AltaAperturaOcurrenciaSiniestrosPage(userS)
 				.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), getTestVar(Constants.GREMIO_CAUSA_COD))
 				// datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD),
 				// getTestVar(Constants.TIPO_CAUSA_COD), gremio);
@@ -3578,7 +3578,6 @@ public class ActionSteps extends InteractionObject {
 	/************************************** MEDIADOR3ES ************************************************/
 
 	// Step de iryna para dar alta una oficina
-
 	public void alta_oficina() {
 		debugBegin();
 		new InnovaHomePage(userS)
@@ -3600,7 +3599,8 @@ public class ActionSteps extends InteractionObject {
 			.anyadirDireccionProduccion()
 			.anyadirDireccionRecibos()
 			.anyadirDireccionSiniestros()
-			.clickContinuar();
+			.clickContinuar()
+			.repiteDireccionComercial();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
@@ -3725,7 +3725,6 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-
 	public void tramitar_estados_mediador() { // MONTADO POR ORDEN DE PASOS Y VARIABLES
 		debugBegin();
 		if(!getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
@@ -3737,7 +3736,7 @@ public class ActionSteps extends InteractionObject {
 				new FichaMediadorPage(userS)
 					.confirmarAlta()
 					.clickFichaMediador();
-			//	debugInfo("--------- Se acaba de completar la tramitación de OFICINAS y COLABORADORES ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA)); IDs comentados para evitar fallos en el alta de oficinas
+				//	debugInfo("--------- Se acaba de completar la tramitación de OFICINAS y COLABORADORES ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA)); IDs comentados para evitar fallos en el alta de oficinas
 				if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 					new FichaMediadorPage(userS)
 						.formacionAvanzarEstado()
@@ -3761,7 +3760,7 @@ public class ActionSteps extends InteractionObject {
 						.activarMediadorEstado()
 						.clickFichaMediador()
 						.comprobarEstadoActivo();
-				//	debugInfo("--------- Se acaba de completar la tramitación de COLABORADORES - AUXILIARES ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
+					//	debugInfo("--------- Se acaba de completar la tramitación de COLABORADORES - AUXILIARES ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 				}
 			} else { // intermediarios sin el acuerdo de colaboración
 				new FichaMediadorPage(userS)
@@ -3773,7 +3772,7 @@ public class ActionSteps extends InteractionObject {
 					.clickFichaMediador()
 					.confirmarAlta()
 					.clickFichaMediador();
-			//	debugInfo("--------- Se acaba de confirmar el altas del INTE - sin AD ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
+				//	debugInfo("--------- Se acaba de confirmar el altas del INTE - sin AD ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 
 				if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 					new FichaMediadorPage(userS)
@@ -3793,7 +3792,7 @@ public class ActionSteps extends InteractionObject {
 						.openGestionMediadores();
 					new MediadoresBuscadorPage(userS)
 						.buscarMediadorPorId();
-				//	debugInfo("--------- Se acaba de completar la tramitación DGS del INTE - AE ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
+					//	debugInfo("--------- Se acaba de completar la tramitación DGS del INTE - AE ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 				}
 				// paso ACTIVAR MEDIADOR - último de todos, excepto para el Acuerdo de colaboración
 				new FichaMediadorPage(userS)
@@ -3809,7 +3808,7 @@ public class ActionSteps extends InteractionObject {
 			new FichaMediadorPage(userS)
 				.confirmarAlta()
 				.clickFichaMediador();
-		//	debugInfo("--------- Se acaba de completar la tramitación de un INTE tipo AD ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
+			//	debugInfo("--------- Se acaba de completar la tramitación de un INTE tipo AD ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 		}
 		debugEnd();
 	}
@@ -3877,5 +3876,19 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	public void localizar_mediador() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openGestionMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarInteRelacionado();
+		new FichaMediadorPage(userS)
+			.clickFichaMediador();
+
+		debugEnd();
+	}
 
 } // END
