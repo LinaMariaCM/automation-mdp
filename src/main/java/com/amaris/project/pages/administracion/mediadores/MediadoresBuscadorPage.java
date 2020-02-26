@@ -143,9 +143,17 @@ public class MediadoresBuscadorPage extends PageObject {
 		debugBegin();
 		//webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
 		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_INTE_PADRE));
+	//	añadirIDBuscar("121895");
 		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
 		clickBuscar();
 		webDriver.waitWithDriver(8000);
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresBuscadorPage añadirIDBuscar(String idMediadorBuscado){
+		debugBegin();
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, idMediadorBuscado);
 		debugEnd();
 		return this;
 	}
