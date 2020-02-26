@@ -77,41 +77,41 @@ public class SiniestrosTest5 extends TestObject {
 	
 	
 	// compruebo agenda siniestro
-//	@DataProvider(parallel = true)
-//	public String[][] dataProviderSiniestrosMec09() {
-//		String testCase = Constants.MEC_SINIESTROS + "09";
-//		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
-//
-//		return casesMatrix;
-//	}
-//
-//	@Test(dataProvider = "dataProviderSiniestrosMec09")
-//	public void siniestrosMec09(String testCase, String id) throws Exception {
-//		UserStory userS = suiteM.createUserStory(testCase, id);
-//		ActionSteps steps = new ActionSteps(userS);
-//
-//		userS.testActions(() -> {
-//
-//			// TODO
-//			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-//
-//			steps.alta_siniestro_simple();
-//			
-//			steps.nueva_tarea_siniestros();
-//
-//			 steps.compruebo_tarea_siniestro();
-//
-//			 steps.modifico_tarea_siniestro();
-//			 
-//			 steps.compruebo_tarea_siniestro();
-//
-//			 steps.cierro_tarea_siniestro();
-//
-//			 steps.compruebo_tarea_siniestro();
-//
-//			return null;
-//		}).run();
-//	}
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosMec09() {
+		String testCase = Constants.MEC_SINIESTROS + "09";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderSiniestrosMec09")
+	public void siniestrosMec09(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+
+		
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
+			
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.nueva_tarea_siniestros();	
+			steps.cierro_navegador();
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.modifico_tarea_siniestros();
+			steps.cierro_navegador();
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.cierro_tarea_siniestros();
+			steps.cierro_navegador();
+
+			return null;
+		}).run();
+	}
 	
 	
 	// Alta de Siniestros
@@ -298,7 +298,7 @@ public class SiniestrosTest5 extends TestObject {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_siniestro_simple();
 			steps.cierro_navegador();
-						
+			
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.rehuso_siniestro();
 			steps.cierro_navegador();

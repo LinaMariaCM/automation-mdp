@@ -754,11 +754,11 @@ public class Constants {
 	public static final String DIRECCION_PSIN_POBLACION = "med_direccion_psin_poblacion";
 	public static final String DIRECCION_PSIN_NOMBRE_VIA = "med_direccion_psin_nombrevia";
 	public static final String TIPO_DIRECCION_MED = "tipo_direccion_med";
-	public static final String DIR_FISCAL_IGUAL_A = "med_dir_fiscal_heradar";
-	public static final String DIR_COMERCIAL_IGUAL_A = "med_dir_comercial_heradar";
-	public static final String DIR_PRODUCCION_IGUAL_A = "med_dir_produccion_heradar";
-	public static final String DIR_RECIBOS_IGUAL_A = "med_dir_recibos_heradar";
-	public static final String DIR_SINIESTROS_IGUAL_A = "med_dir_siniestros_heradar";
+	public static final String DIR_FISCAL_IGUAL_A = "med_dir_fiscal_heredar";
+	public static final String DIR_COMERCIAL_IGUAL_A = "med_dir_comercial_heredar";
+	public static final String DIR_PRODUCCION_IGUAL_A = "med_dir_produccion_heredar";
+	public static final String DIR_RECIBOS_IGUAL_A = "med_dir_recibos_heredar";
+	public static final String DIR_SINIESTROS_IGUAL_A = "med_dir_siniestros_heredar";
 
 	public static final String TIPO_COLABORADOR = "tipo_colaborador";
 
@@ -939,5 +939,6 @@ public class Constants {
 	public static final String ID_ALTA_INTERMEDIARIO_AE = "id_inter_ae";
 	public static final String ID_ALTA_OFICINA_AE = "id_ofi_ae";
 	public static final String ID_ALTA_COLABORADOR_AE = "id_colab_ae";
+	
 		
 }// END

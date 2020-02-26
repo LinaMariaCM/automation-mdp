@@ -24,6 +24,7 @@ public class FichaMediadorPage extends PageObject {
 
 	private By tituloPaginaTxt = By.cssSelector("body.sis-body > h1.titulopagina");
 	private By buscadorMediadoresBtn = By.linkText(("Buscador mediadores").trim());
+	private By fichaMediadorBtn = By.cssSelector("#jt1son > a[title='Ficha mediador  ']");
 
 	//------------- Botones Pestañas -------------
 
@@ -301,6 +302,8 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickMasAcciones() {
 		debugBegin();
+		clickFichaMediador();
+		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(masAccionesBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
@@ -492,7 +495,7 @@ public class FichaMediadorPage extends PageObject {
 		String nivelJerarquico = (webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).trim());
 		System.out.println(nivelJerarquico);
 
-		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
+		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getVar(Constants.NIVEL_ESTRUCTURA));
 
 		//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
 		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
@@ -627,6 +630,7 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.waitWithDriver(3000);
 		String fechaFormacion = webDriver.getTextInFrame(fFormObligatoriaTxt, modalFrame).trim();
 		boolean checkFecha = fechaFormacion.equalsIgnoreCase(mensaje);
 
@@ -722,9 +726,10 @@ public class FichaMediadorPage extends PageObject {
 	//------------------EMPIEZAN ESTADOS--------------------------
 	public FichaMediadorPage solicitarAlta() {
 		debugBegin();
-
-		if(!getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") || getTestVar(Constants.TIPO_MEDIADOR) != null
-			|| !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+		webDriver.waitWithDriver(3000);
+		clickFichaMediador();
+		if(!getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") || getVar(Constants.TIPO_MEDIADOR) != null
+			|| !getVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 			Assert.assertTrue(comprobarSituacion(ALTA_MEDIADOR), "La situacion no es correcta.");
@@ -735,13 +740,12 @@ public class FichaMediadorPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 
 			grabarComentarioEstado();
-
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES);
 			webDriver.acceptAlert();
 
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
-
+			clickFichaMediador();
 			debugInfo("Solicitar alta se hizo con éxito o por lo menos recorrió");
 		}
 
@@ -752,10 +756,10 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarValoracionFinanciera() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getVar(Constants.TIPO_MEDIADOR) != null || !getVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 			Assert.assertTrue(comprobarSituacion(SOLICITUD_ALTA), "La situacion no es correcta.");
@@ -765,13 +769,13 @@ public class FichaMediadorPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 
 			grabarComentarioEstado();
-
+			
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_OBSERVACION_COMERCIAL_MEDIADORES);
 			webDriver.acceptAlert();
 
 			anyadirObservacionComercial();
 			grabarComentarioEstado();
-
+			clickFichaMediador();
 			debugInfo("Enviar para valoración financiera se hizo con éxito o por lo menos recorrió");
 		}
 
@@ -782,14 +786,14 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarRevisionFinanciera() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getVar(Constants.TIPO_MEDIADOR) != null || !getVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 			Assert.assertTrue(comprobarSituacion(INFORMACION_FINANCIERA), "La situacion no es correcta.");
-
+			clickFichaMediador();
 			clickMasAcciones();
 			clickEnviarRevisionFinanciera();
 			webDriver.waitWithDriver(3000);
@@ -801,7 +805,7 @@ public class FichaMediadorPage extends PageObject {
 
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
-
+			clickFichaMediador();
 			debugInfo("Enviar para revisión financiera se hizo con éxito o por lo menos recorrió");
 		}
 
@@ -822,15 +826,15 @@ public class FichaMediadorPage extends PageObject {
 
 			debugInfo("El id del mediador dado de alta es " + webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 			
-			if(getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE).contains("TRUE")){
+			if(getVar(Constants.ID_ALTA_INTERMEDIARIO_AE).contains("TRUE")){
 				setTestVar((Constants.ID_ALTA_INTERMEDIARIO_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Intermediario obtenido");
 			}
-			else if(getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")){
+			else if(getVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")){
 				setTestVar((Constants.ID_ALTA_OFICINA_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Oficina obtenido");
 			}
-			else if(getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")){
+			else if(getVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")){
 				setTestVar((Constants.ID_ALTA_COLABORADOR_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Colaborador obtenido");
 			}
@@ -844,7 +848,7 @@ public class FichaMediadorPage extends PageObject {
 
 			debugInfo("El mediador del campo  ID_MEDIADOR_ALTA es " + getSuiteVar(Constants.ID_MEDIADOR_ALTA));
 		} else {
-			debugInfo("Ha habido un error al dat de alta el mediador");
+			debugInfo("Ha habido un error al dar de alta el mediador");
 		}
 
 		debugEnd();
@@ -854,10 +858,10 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarResolucionFinanciera() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getVar(Constants.TIPO_MEDIADOR) != null || !getVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 			Assert.assertTrue(comprobarSituacion(REVISION_FINANCIERA), "La situacion no es correcta.");
@@ -917,13 +921,23 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	
+	public FichaMediadorPage clickFichaMediador(){
+		debugBegin();
+		webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
+		debugEnd();
+		return this;
+	}
+	
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
-
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+		
+		clickFichaMediador();
+		webDriver.waitWithDriver(3000);
+		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getVar(Constants.TIPO_MEDIADOR) != null || !getVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 
@@ -933,7 +947,6 @@ public class FichaMediadorPage extends PageObject {
 			clickConfirmarAlta();
 			webDriver.waitWithDriver(3000);
 			grabarComentarioEstado();
-
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
 			webDriver.waitWithDriver(5000);
@@ -942,20 +955,20 @@ public class FichaMediadorPage extends PageObject {
 			webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraAltaCombo, enviaResolucionFinancieraAltaOption, modalFrame, "value", "ALAC");
 
 			grabarComentarioEstado();
-
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
 			webDriver.waitWithDriver(3000);
 
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
+			clickFichaMediador();
 
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
-		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AUXI") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("GEST") || getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") ||
-			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+		} else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AUXI") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("GEST") || getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") ||
+			getVar(Constants.TIPO_MEDIADOR) != null || !getVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 
 			comprobarSituacion(SOLICITUD_ALTA);
 
@@ -963,6 +976,7 @@ public class FichaMediadorPage extends PageObject {
 			clickConfirmarAlta();
 			webDriver.waitWithDriver(3000);
 			grabarComentarioEstado();
+			clickFichaMediador();
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
@@ -970,7 +984,7 @@ public class FichaMediadorPage extends PageObject {
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
-
+			clickFichaMediador();
 		}
 
 		debugEnd();
@@ -981,17 +995,17 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage formacionAvanzarEstado() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
-			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() || getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR)
+		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") ||
+			getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
+			getVar(Constants.TIPO_MEDIADOR) != null || !getVar(Constants.TIPO_MEDIADOR).isEmpty() || getVar(Constants.TIPO_COLABORADOR) != null || !getVar(Constants.TIPO_COLABORADOR)
 			.isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(FORMACION), "El estado no es correcto.");
 
 			clickMasAcciones();
 			clickAvanzarEstado();
-			grabarComentarioEstado();
-
+			
+			webDriver.click(grabarEstadoBtn);
 			Assert.assertTrue(alertaSistemaFechaFormacion(Constants.ALERTA_FECHA_MEDIADORES));
 			webDriver.waitWithDriver(3000);
 
@@ -1022,13 +1036,13 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage activarMediadorEstado() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
-			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() ||
-			getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
+			getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
+			getVar(Constants.TIPO_MEDIADOR) != null || !getVar(Constants.TIPO_MEDIADOR).isEmpty() ||
+			getVar(Constants.TIPO_COLABORADOR) != null || !getVar(Constants.TIPO_COLABORADOR).isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(ACTIVO_RESTRINGIDO), "El estado no es correcto.");
 
@@ -1088,15 +1102,15 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage solicitarBaja() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") ||
-			getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty() ||
-			getTestVar(Constants.TIPO_COLABORADOR) != null || !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
+			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
+			getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
+			getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") ||
+			getVar(Constants.TIPO_MEDIADOR) != null || !getVar(Constants.TIPO_MEDIADOR).isEmpty() ||
+			getVar(Constants.TIPO_COLABORADOR) != null || !getVar(Constants.TIPO_COLABORADOR).isEmpty()) {
 
 			Assert.assertTrue(comprobarEstado(ACTIVO), "El estado no es correcto.");
 
@@ -1124,35 +1138,35 @@ public class FichaMediadorPage extends PageObject {
 	// METODO PARA HACER COMPROBACIONES EN FICHA
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
 			webDriver.waitWithDriver(8000);
 			String nivelJerarquicoInte = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
 
-			boolean intermediarioInte = getTestVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.INTE) &&
+			boolean intermediarioInte = getVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.INTE) &&
 				nivelJerarquicoInte.equals("Intermediario");
 
 			Assert.assertTrue(intermediarioInte, "Es incorrecto.");
 
-		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+		} else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
 			webDriver.waitWithDriver(9000);
 			String nivelJerarquicoOfic = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
 
-			boolean intermediarioOfic = getTestVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.OFIC) &&
+			boolean intermediarioOfic = getVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.OFIC) &&
 				nivelJerarquicoOfic.equals("Oficina");
 
 			Assert.assertTrue(intermediarioOfic, "Es incorrecto.");
 
-		} else if (getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+		} else if (getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") || getVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
 			webDriver.waitWithDriver(8000);
 			String nivelJerarquicoCola = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
 
-			boolean intermediarioCola = getTestVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.COLA) &&
+			boolean intermediarioCola = getVar(Constants.NIVEL_ESTRUCTURA).equals(MediadoresConstantesFicha.COLA) &&
 				nivelJerarquicoCola.equals("Colaborador");
 
 			Assert.assertTrue(intermediarioCola, "Es incorrecto.");

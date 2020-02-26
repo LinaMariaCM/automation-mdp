@@ -3854,4 +3854,53 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
+	//método para la carga de datos provenientes de csv de scenario
+	public void get_Scenario_Data(String name) {
+		debugBegin();
+		
+		userS.setScenario(name);
+		userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenario());
+		userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenario());
+		userS.setTestVar(Constants.NOMBRE_MEDIADOR, userS.getScenario());
+		userS.setTestVar(Constants.IDIOMA, userS.getScenario());
+		userS.setTestVar(Constants.ACTIVIDAD_PRINCIPAL, userS.getScenario());
+		userS.setTestVar(Constants.NOMBRE_COMERCIAL, userS.getScenario());
+		userS.setTestVar(Constants.EJECUTIVO_COMERCIAL, userS.getScenario());
+		userS.setTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED, userS.getScenario());
+		userS.setTestVar(Constants.ID_INTE_PADRE, userS.getScenario());
+		userS.setTestVar(Constants.ID_OFICINA_PADRE, userS.getScenario());
+		userS.setTestVar(Constants.CONTACTO_RESPONSABLE, userS.getScenario());
+		userS.setTestVar(Constants.CARGO_RESPONSABLE, userS.getScenario());
+		userS.setTestVar(Constants.PRIMER_APELLIDO_MEDIADOR, userS.getScenario());
+		userS.setTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR, userS.getScenario());
+		userS.setTestVar(Constants.RAMO_ALT_MED, userS.getScenario());
+		userS.setTestVar(Constants.TELEFONO_PRINCIPAL_ALT_MED, userS.getScenario());
+		userS.setTestVar(Constants.EMAIL_PRINCIPAL_ALT_MED, userS.getScenario());
+		userS.setTestVar(Constants.DIR_FISCAL_IGUAL_A, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_FISC_PROVINCIA, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_FISC_POBLACION, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA, userS.getScenario());
+		userS.setTestVar(Constants.DIR_COMERCIAL_IGUAL_A, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_COME_PROVINCIA, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_COME_POBLACION, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_COME_NombreVia, userS.getScenario());
+		userS.setTestVar(Constants.DIR_PRODUCCION_IGUAL_A, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PPRO_PROVINCIA, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PPRO_POBLACION, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA, userS.getScenario());
+		userS.setTestVar(Constants.DIR_RECIBOS_IGUAL_A, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PREC_PROVINCIA, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PREC_POBLACION, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PREC_NombreVia, userS.getScenario());
+		userS.setTestVar(Constants.DIR_SINIESTROS_IGUAL_A, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PSIN_PROVINCIA, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PSIN_POBLACION, userS.getScenario());
+		userS.setTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA, userS.getScenario());
+		userS.setTestVar(Constants.NUMERO_REF_DGS, userS.getScenario());
+		userS.setTestVar(Constants.COMPANYIAS_PRINCIPALES, userS.getScenario());
+		
+		debugEnd();
+		
+	}
+	
 } // END

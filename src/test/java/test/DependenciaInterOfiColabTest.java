@@ -20,7 +20,7 @@ public class DependenciaInterOfiColabTest extends TestObject{
 	@DataProvider(parallel = false)
 	public String[][] dataProviderIntercambioDatos01() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosVariablesMediadoresIntercambio2.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "scenarioDataDependenciaIntOfiCol.csv", "datosVariablesMediadoresIntercambio2.csv");
 
 		return casesMatrix;
 	}
@@ -33,21 +33,26 @@ public class DependenciaInterOfiColabTest extends TestObject{
 		suiteM.setRelevantColumn(testCase, 20);
 
 		userS.testActions(() -> {
-
 			// alta intermediario agente exclusivo
+			steps.get_Scenario_Data("INTE");
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_interm_AE_completo();
+			steps.cierro_navegador();
 			
 			// alta oficina
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
+				steps.get_Scenario_Data("OFIC");
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina_a_un_intermediario();
+				steps.cierro_navegador();
 			}
 			
 			// alta de colaborador
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
+				steps.get_Scenario_Data("COLA");
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-				steps.alta_colaborador();			
+				steps.alta_colaborador();	
+				steps.cierro_navegador();
 			}
 			
 			return null;
