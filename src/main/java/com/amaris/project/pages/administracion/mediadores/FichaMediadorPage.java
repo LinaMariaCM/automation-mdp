@@ -28,7 +28,6 @@ public class FichaMediadorPage extends PageObject {
 	private By buscadorMediadoresBtn = By.linkText(("Buscador mediadores").trim());
 	private By fichaMediadorBtn = By.cssSelector("#jt1son > a[title='Ficha mediador  ']");
 
-
 	//------------- Botones Pestañas -------------
 
 	private By visionGlobalBtn = By.linkText(("Vision Global").trim());
@@ -529,7 +528,7 @@ public class FichaMediadorPage extends PageObject {
 		String nivelJerarquico = (webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).trim());
 		System.out.println(nivelJerarquico);
 
-		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getVar(Constants.NIVEL_ESTRUCTURA));
+		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
 
 		//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
 		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
@@ -737,7 +736,7 @@ public class FichaMediadorPage extends PageObject {
 
 		debugEnd();
 		return this;
-		}
+	}
 
 	public FichaMediadorPage enviarValoracionFinanciera() {
 		debugBegin();
@@ -901,14 +900,13 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	
-//	public FichaMediadorPage clickFichaMediador(){
-//		debugBegin();
-//		webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
-//		debugEnd();
-//		return this;
-//	}
-	
+	//	public FichaMediadorPage clickFichaMediador(){
+	//		debugBegin();
+	//		webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
+	//		debugEnd();
+	//		return this;
+	//	}
+
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
 
@@ -1001,7 +999,7 @@ public class FichaMediadorPage extends PageObject {
 
 			clickMasAcciones();
 			clickAvanzarEstado();
-			
+
 			webDriver.click(grabarEstadoBtn);
 			Assert.assertTrue(alertaSistemaFechaFormacion(Constants.ALERTA_FECHA_MEDIADORES));
 			webDriver.waitWithDriver(3000);
@@ -1398,29 +1396,6 @@ public class FichaMediadorPage extends PageObject {
 					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
 				}
 
-				if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
-					if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
-						boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_COMPLETA));
-						debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
-						Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
-					}
-					if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
-						boolean checkDireccionComercial = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_COME_COMPLETA));
-						debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
-						Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
-					}
-					if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
-						boolean checkDireccionProduccion = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PPRO_COMPLETA));
-						debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
-						Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
-					}
-					if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
-						boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PSIN_COMPLETA));
-						debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
-						Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
-					}
-
-				}
 			}
 		}
 		debugEnd();
@@ -1492,11 +1467,9 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 
 		String contactoRes = webDriver.getTextInFrame(nombreContactoRespTxt, cuerpoFrame).substring(7).trim();
-		debugInfo("Lo que saca en la ficha es " + contactoRes);
 
 		boolean contactoResMed = contactoRes.equalsIgnoreCase(contacto);
 
-		debugInfo("lo que pongo yo " + contacto);
 		Assert.assertTrue(contactoResMed, "Es incorrecto.");
 		debugInfo("Se ha verificado el Contacto Responsable");
 		debugEnd();
@@ -1546,203 +1519,203 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
-		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getVar(Constants.NIVEL_ESTRUCTURA) != null
-			|| !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
-		clickFichaMediador();
+			clickFichaMediador();
 
-		//NIVEL ESTRUCTURA
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
-			verificarNivelEstructura(MediadoresConstantesFicha.INTE, "Intermediario");
-		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
-			verificarNivelEstructura(MediadoresConstantesFicha.OFIC, "Oficina");
-		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
-			verificarNivelEstructura(MediadoresConstantesFicha.COLA, "Colaborador");
+			//NIVEL ESTRUCTURA
+			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+				verificarNivelEstructura(MediadoresConstantesFicha.INTE, "Intermediario");
+			} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+				verificarNivelEstructura(MediadoresConstantesFicha.OFIC, "Oficina");
+			} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+				verificarNivelEstructura(MediadoresConstantesFicha.COLA, "Colaborador");
+			}
+
+			//TIPO DE MEDIADOR
+			if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") && getTestVar(Constants.TIPO_MEDIADOR) != null
+				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+				verificarTipoMediador(MediadoresConstantesFicha.AE, "Agente exclusivo");
+			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") && getTestVar(Constants.TIPO_MEDIADOR) != null
+				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+				verificarTipoMediador(MediadoresConstantesFicha.AD, "Acuerdo colaboración");
+			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") && getTestVar(Constants.TIPO_MEDIADOR) != null
+				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+				verificarTipoMediador(MediadoresConstantesFicha.AV, "Agente vinculado");
+			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") && getTestVar(Constants.TIPO_MEDIADOR) != null
+				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+				verificarTipoMediador(MediadoresConstantesFicha.BSE, "BS exclusivo");
+			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") && getTestVar(Constants.TIPO_MEDIADOR) != null
+				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+				verificarTipoMediador(MediadoresConstantesFicha.BSV, "BS vinculado");
+			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") && getTestVar(Constants.TIPO_MEDIADOR) != null
+				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+				verificarTipoMediador(MediadoresConstantesFicha.CORR, "Corredor");
+			}
+
+			//TIPO DE COLABORADOR
+			if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") && getTestVar(Constants.TIPO_COLABORADOR) != null
+				&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+				verificarTipoColaborador(MediadoresConstantesFicha.AD_COLABORADOR, "Acuerdo Distribución");
+			} else if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") && getTestVar(Constants.TIPO_COLABORADOR) != null
+				&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+				verificarTipoColaborador(MediadoresConstantesFicha.AUXI, "Auxiliar");
+			} else if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") && getTestVar(Constants.TIPO_COLABORADOR) != null
+				&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+				verificarTipoColaborador(MediadoresConstantesFicha.GEST, "Gestor");
+			}
+
+			//EJECUTIVO COMERCIAL
+			if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4000")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4001")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4003")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4005")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4007")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4010")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4011")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4015")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4016")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4019")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4023")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4024")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4027")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4056")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4067")
+				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4069")) {
+
+				verificarEjecutivoComercial(getTestVar(Constants.EJECUTIVO_COMERCIAL));
+			}
+
+			//IDIOMA
+			if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ESPA")) {
+				verificarIdioma(MediadoresConstantesFicha.ESPA, "Castellano");
+			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("CATA")) {
+				verificarIdioma(MediadoresConstantesFicha.CATA, "Català");
+			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("EUSK")) {
+				verificarIdioma(MediadoresConstantesFicha.EUSK, "Euskara");
+			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ENGL")) {
+				verificarIdioma(MediadoresConstantesFicha.ENGL, "English");
+			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("FRAN")) {
+				verificarIdioma(MediadoresConstantesFicha.FRAN, "Français");
+			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("PRTG")) {
+				verificarIdioma(MediadoresConstantesFicha.PRTG, "Português");
+			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("DEUT")) {
+				verificarIdioma(MediadoresConstantesFicha.DEUT, "Deutsch");
+			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("GALE")) {
+				verificarIdioma(MediadoresConstantesFicha.GALE, "Galego");
+			}
+			//ACTIVIDAD PRINCIPAL
+			if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("MESE")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.MESE, "Mediador de Seguros");
+			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ADFI")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.ADFI, "Administrador de Fincas");
+			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ABOG")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.ABOG, "Abogados");
+			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("OTRO")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.OTRO, "Otros");
+			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("API")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.API, "API");
+			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("GEPA")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.GEPA, "Gestor Patrimonios");
+			}
+
+			//NOMBRE, PRIMER APELLIDO Y SEGUNDO APELLIDO FISCALES COMPLETOS
+			if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
+				verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
+			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
+				verificarNombres("Orion", "Cliff", "Burton");
+			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
+				verificarNombres("Foo", "Fighters", "Neighbourhood");
+			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
+				verificarNombres("A7X", "Exist", "");
+			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
+				verificarNombres("Ghost Macabre", "", "");
+			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
+				verificarNombres("Pantera", "Shedding", "Skin");
+			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ozzy Osborne")) {
+				verificarNombres("Ozzy Osborne", "", "");
+			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
+				verificarNombres("In this moment", "", "");
+			}
+
+			//CONTACTO RESPONSABLE
+			verificarContactoResponsable("Contacto Responsable");
+
+			//CARGO RESPONSABLE
+			verificarCargoResponsable("Cargo Responsable");
+
+			clickInfoDescriptiva();
+
+			//NOMBRE COMERCIAL
+			if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med01")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med02")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med03")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med04")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med05")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med06")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med07")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med09")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med10")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med11")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med12")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med13")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med14")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med15")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med18")
+				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
+
+				verificarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
+			}
+
+			//DISPONE SOFTWARE
+			if(getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase("TRUE")) {
+				verificarDisponeSoftware(MediadoresConstantesFicha.DISPONE_SOFTWARE_SI, "Sí");
+			} else if(getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase("FALSE")) {
+				verificarDisponeSoftware(MediadoresConstantesFicha.DISPONE_SOFTWARE_NO, "No");
+			}
+
+			clickInfoContacto();
+
+			verificarTelefonoPrincipal("666302010");
+			verificarEmailPrincipal("mediador@email.com");
+
+			//DIRECCIONES
+			verificarDireccion();
+
+			clickInfoRelacional();
+
+			//RAMO
+			if(getTestVar(Constants.RAMO_ALT_MED).equalsIgnoreCase("10")) {
+				verificarRamo(MediadoresConstantesFicha.ASISTENCIA, "Asistencia");
+			}
+
+			//COMPAÑIAS PRINCIPALES
+			if(getTestVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
+				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getTestVar(Constants.COMPANYIAS_PRINCIPALES));
+			}
+
+			clickCondicionesNegocio();
+
+			//BANCO COMISIONES
+			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
+				verificarBancoComisiones("ES0321001234561234567890");
+
+			}
+			//BANCO PAGO AUTOLIQUIDACIONES
+			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
+				verificarPagoAutoliquidaciones("ES0321001234561234567890");
+
+			}
 		}
-
-		//TIPO DE MEDIADOR
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") && getTestVar(Constants.TIPO_MEDIADOR) != null
-			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
-			verificarTipoMediador(MediadoresConstantesFicha.AE, "Agente exclusivo");
-		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") && getTestVar(Constants.TIPO_MEDIADOR) != null
-			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
-			verificarTipoMediador(MediadoresConstantesFicha.AD, "Acuerdo colaboración");
-		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") && getTestVar(Constants.TIPO_MEDIADOR) != null
-			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
-			verificarTipoMediador(MediadoresConstantesFicha.AV, "Agente vinculado");
-		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") && getTestVar(Constants.TIPO_MEDIADOR) != null
-			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
-			verificarTipoMediador(MediadoresConstantesFicha.BSE, "BS exclusivo");
-		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") && getTestVar(Constants.TIPO_MEDIADOR) != null
-			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
-			verificarTipoMediador(MediadoresConstantesFicha.BSV, "BS vinculado");
-		} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") && getTestVar(Constants.TIPO_MEDIADOR) != null
-			&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
-			verificarTipoMediador(MediadoresConstantesFicha.CORR, "Corredor");
-		}
-
-		//TIPO DE COLABORADOR
-		if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") && getTestVar(Constants.TIPO_COLABORADOR) != null
-			&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
-			verificarTipoColaborador(MediadoresConstantesFicha.AD_COLABORADOR, "Acuerdo Distribución");
-		} else if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") && getTestVar(Constants.TIPO_COLABORADOR) != null
-			&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
-			verificarTipoColaborador(MediadoresConstantesFicha.AUXI, "Auxiliar");
-		} else if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") && getTestVar(Constants.TIPO_COLABORADOR) != null
-			&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
-			verificarTipoColaborador(MediadoresConstantesFicha.GEST, "Gestor");
-		}
-
-		//EJECUTIVO COMERCIAL
-		if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4000")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4001")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4003")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4005")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4007")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4010")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4011")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4015")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4016")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4019")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4023")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4024")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4027")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4056")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4067")
-			|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4069")) {
-
-			verificarEjecutivoComercial(getTestVar(Constants.EJECUTIVO_COMERCIAL));
-		}
-
-		//IDIOMA
-		if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ESPA")) {
-			verificarIdioma(MediadoresConstantesFicha.ESPA, "Castellano");
-		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("CATA")) {
-			verificarIdioma(MediadoresConstantesFicha.CATA, "Català");
-		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("EUSK")) {
-			verificarIdioma(MediadoresConstantesFicha.EUSK, "Euskara");
-		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ENGL")) {
-			verificarIdioma(MediadoresConstantesFicha.ENGL, "English");
-		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("FRAN")) {
-			verificarIdioma(MediadoresConstantesFicha.FRAN, "Français");
-		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("PRTG")) {
-			verificarIdioma(MediadoresConstantesFicha.PRTG, "Português");
-		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("DEUT")) {
-			verificarIdioma(MediadoresConstantesFicha.DEUT, "Deutsch");
-		} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("GALE")) {
-			verificarIdioma(MediadoresConstantesFicha.GALE, "Galego");
-		}
-		//ACTIVIDAD PRINCIPAL
-		if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("MESE")) {
-			verificarActividadPrincipal(MediadoresConstantesFicha.MESE, "Mediador de Seguros");
-		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ADFI")) {
-			verificarActividadPrincipal(MediadoresConstantesFicha.ADFI, "Administrador de Fincas");
-		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ABOG")) {
-			verificarActividadPrincipal(MediadoresConstantesFicha.ABOG, "Abogados");
-		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("OTRO")) {
-			verificarActividadPrincipal(MediadoresConstantesFicha.OTRO, "Otros");
-		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("API")) {
-			verificarActividadPrincipal(MediadoresConstantesFicha.API, "API");
-		} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("GEPA")) {
-			verificarActividadPrincipal(MediadoresConstantesFicha.GEPA, "Gestor Patrimonios");
-		}
-
-		//NOMBRE, PRIMER APELLIDO Y SEGUNDO APELLIDO FISCALES COMPLETOS
-		if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
-			verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
-			verificarNombres("Orion", "Cliff", "Burton");
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
-			verificarNombres("Foo", "Fighters", "Neighbourhood");
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
-			verificarNombres("A7X", "Exist", "");
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
-			verificarNombres("Ghost Macabre", "", "");
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
-			verificarNombres("Pantera", "Shedding", "Skin");
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ozzy Osborne")) {
-			verificarNombres("Ozzy Osborne", "", "");
-		} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
-			verificarNombres("In this moment", "", "");
-		}
-
-		//CONTACTO RESPONSABLE
-		verificarContactoResponsable("Contacto Responsable");
-
-		//CARGO RESPONSABLE
-		verificarCargoResponsable("Cargo Responsable");
-
-		clickInfoDescriptiva();
-
-		//NOMBRE COMERCIAL
-		if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med01")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med02")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med03")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med04")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med05")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med06")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med07")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med09")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med10")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med11")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med12")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med13")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med14")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med15")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med18")
-			|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
-
-			verificarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
-		}
-
-		//DISPONE SOFTWARE
-		if(getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase("TRUE")) {
-			verificarDisponeSoftware(MediadoresConstantesFicha.DISPONE_SOFTWARE_SI, "Sí");
-		} else if(getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase("FALSE")) {
-			verificarDisponeSoftware(MediadoresConstantesFicha.DISPONE_SOFTWARE_NO, "No");
-		}
-
-		clickInfoContacto();
-
-		verificarTelefonoPrincipal("666302010");
-		verificarEmailPrincipal("mediador@email.com");
-
-		//DIRECCIONES
-		verificarDireccion();
-
-		clickInfoRelacional();
-
-		//RAMO
-		if(getTestVar(Constants.RAMO_ALT_MED).equalsIgnoreCase("10")) {
-			verificarRamo(MediadoresConstantesFicha.ASISTENCIA, "Asistencia");
-		}
-
-		//COMPAÑIAS PRINCIPALES
-		if(getTestVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
-			verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getTestVar(Constants.COMPANYIAS_PRINCIPALES));
-		}
-
-		clickCondicionesNegocio();
-
-		//BANCO COMISIONES
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
-
-			verificarBancoComisiones("ES0321001234561234567890");
-
-		}
-		//BANCO PAGO AUTOLIQUIDACIONES
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
-
-			verificarPagoAutoliquidaciones("ES0321001234561234567890");
-
-		}
-	}
-	debugEnd();
-	return this;
+		debugEnd();
+		return this;
 	}
 }//END
 

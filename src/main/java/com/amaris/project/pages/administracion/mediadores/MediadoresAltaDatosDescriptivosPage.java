@@ -513,23 +513,23 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NIVEL_ESTRUCTURA_MEDIADORES);
 		webDriver.acceptAlert();
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "INTE");
 			debugInfo("Se ha elegido en Nivel estructura a un Intermediario.");
 		}
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "OFIC");
 			debugInfo("Se ha elegido en Nivel estructura a una Oficina.");
 
 		}
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "COLA");
 			debugInfo("Se ha elegido en Nivel estructura a un Colaborador.");
@@ -537,8 +537,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		clickContinuar();
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_MEDIADOR);
 			webDriver.acceptAlert();
@@ -547,8 +547,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			debugInfo("Se ha elegido en Nivel estructura a un Intermediario y un tipo Mediador a Acuerdo de Colaboración.");
 		}
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_MEDIADOR_PADRE_MEDIADORES);
 			webDriver.acceptAlert();
@@ -752,8 +752,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		clickContinuar();
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 
 			alertaSistemaDescriptivos(Constants.ALERTA_MEDIADOR_PADRE_MEDIADORES_INCORRECTO);
 			webDriver.clickInFrame(volverBtn, cuerpoFrame);

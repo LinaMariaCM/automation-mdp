@@ -3865,7 +3865,7 @@ public class ActionSteps extends InteractionObject {
 	//método para la carga de datos provenientes de csv de scenario
 	public void get_Scenario_Data(String name) {
 		debugBegin();
-		
+
 		userS.setScenario(name);
 		userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenario());
 		userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenario());
@@ -3906,11 +3906,11 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA, userS.getScenario());
 		userS.setTestVar(Constants.NUMERO_REF_DGS, userS.getScenario());
 		userS.setTestVar(Constants.COMPANYIAS_PRINCIPALES, userS.getScenario());
-		
+
 		debugEnd();
-		
+
 	}
-	
+
 	// STEPS PARA RETENCIONES ALTA PROSPECT
 	public void alta_prospect_retenciones_mediadores() {
 		debugBegin();
