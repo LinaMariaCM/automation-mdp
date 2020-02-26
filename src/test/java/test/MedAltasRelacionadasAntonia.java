@@ -71,6 +71,7 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 		userS.testActions(() -> {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_oficina();
+		//	steps.localizar_mediador();
 			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
