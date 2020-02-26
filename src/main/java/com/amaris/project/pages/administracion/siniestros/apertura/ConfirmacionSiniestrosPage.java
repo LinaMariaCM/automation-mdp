@@ -46,7 +46,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 		debugInfo("###########################");
 		debugInfo("# Mensaje de confirmacion #");
 		debugInfo("###########################");
-		webDriver.waitWithDriver(5000);
+		webDriver.waitWithDriver(10000);
 		
 		if(webDriver.isPresentInFrame(correctoTxt, cuerpoFrame)) {
 			debugInfo("Mensaje: " + webDriver.getTextInFrame(correctoTxt, cuerpoFrame));
