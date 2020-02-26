@@ -39,7 +39,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	private By grupoCausasOption = By.cssSelector("#GRUCAUSA > option");
 	private By tipoCausasAccidentesBtn = By.cssSelector("#TIPOCAUS > option:nth-child(2)");
 	private By tipoCausasOption = By.cssSelector("#TIPOCAUS > option");
-	private By grupoCausasDrpDwn = By.id("GRUCAUSA");
+	private By grupoCausasDrpDwn = By.cssSelector("#GRUCAUSA");
 	private By tiposCausasDrpDwn = By.id("TIPOCAUS");
 	private By gremioCausasOption = By.cssSelector("#CODGREMIO > option");
 	private By gremioDrpDwn = By.id("CODGREMIO");
@@ -120,7 +120,9 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage altaSeleccionarCausas(String grupoCausa, String tipoCausa, String gremioCausa) {
 		debugBegin();
 
-		webDriver.waitWithDriver(8000);
+
+		debugInfo("El código del grupo de causa es: " + getTestVar(Constants.GRUPO_CAUSA_COD));
+		webDriver.waitWithDriver(10000);
 		webDriver.clickElementFromDropDownByAttributeInFrame(grupoCausasDrpDwn, grupoCausasOption, cuerpoFrame, "value", grupoCausa);
 
 		webDriver.waitWithDriver(5000);
