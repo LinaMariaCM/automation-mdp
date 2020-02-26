@@ -271,8 +271,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 					+ 1)
 					+ ") > td:nth-child(3)"), cuerpoFrame).trim();
 
-		//	"#formDatos > #capaDireccionesPaso2 > div > div:nth-child(4) > table > tbody > tr > td:nth-child(4) > a.js-openModa
-		//	operacion=MODIDIRE&amp;tipodomi=COME
+			//	"#formDatos > #capaDireccionesPaso2 > div > div:nth-child(4) > table > tbody > tr > td:nth-child(4) > a.js-openModa
+			//	operacion=MODIDIRE&amp;tipodomi=COME
 
 			if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
 				setTestVar((Constants.DIRECCION_FISC_COMPLETA), obtenerDireccion);
@@ -412,41 +412,50 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
 			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") || getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {*/
 
-			String avisoDireccionComercialRepetida = webDriver.getTextInFrame(By.cssSelector("table > tbody > tr > td > p > strong"), cuerpoFrame).trim();
-			debugInfo("El copy para la dirección fiscal de una oficina es: " + avisoDireccionComercialRepetida);
+		String avisoDireccionComercialRepetida = webDriver.getTextInFrame(By.cssSelector("table > tbody > tr > td > p > strong"), cuerpoFrame).trim();
+		debugInfo("El copy para la dirección fiscal de una oficina es: " + avisoDireccionComercialRepetida);
 
-			boolean checkDireccionComercialRepetida = avisoDireccionComercialRepetida
-				.equalsIgnoreCase(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION) || avisoDireccionComercialRepetida
-				.equalsIgnoreCase(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL);
-			debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercialRepetida);
-			Assert.assertTrue(checkDireccionComercialRepetida, "La direccion fiscal no se repite");
+		boolean checkDireccionComercialRepetida = avisoDireccionComercialRepetida
+			.equalsIgnoreCase(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION) || avisoDireccionComercialRepetida
+			.equalsIgnoreCase(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL);
+		debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercialRepetida);
+		Assert.assertTrue(checkDireccionComercialRepetida, "La direccion fiscal no se repite");
 
-			if(checkDireccionComercialRepetida = true) {
+		if(checkDireccionComercialRepetida == true) {
 
-				debugInfo("Hace clic en volver para completar la dirección comercial de nuevo");
-				webDriver.clickInFrame(volverBtn, cuerpoFrame);
+			direccionAlternativa();
+			clickContinuar();
+		}
 
-				webDriver.clickInFrame(modificarDomicilioBtn, cuerpoFrame);
-				webDriver.waitWithDriver(2800);
-				webDriver.switchToFrame(cuerpoFrame);
-				webDriver.switchToFrame(modalFrame);
-				webDriver.click(direccionSuperiorNOBtn);
-				webDriver.waitWithDriver(2800);
-				webDriver.click(direccionDiferenteBtn);
-				debugInfo("se selecciona direccion comercial diferente a la fiscal");
-				webDriver.waitWithDriver(2800);
-				completarCampoProvincia("TOLEDO");
-				completarCampoPoblacion("OLIAS DEL REY");
-				completarCampoNombreVia("SAN PEDRO DE ALCANTARA");
-				webDriver.waitWithDriver(3000);
-				webDriver.setText(numeroViaInput, "11");
-				webDriver.click(comprobarDireccionBtn);
-				webDriver.waitWithDriver(4000);
-				webDriver.click(aceptarBtn);
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
 
-				webDriver.waitWithDriver(5000);
-			}
+	}
 
+	public MediadoresAltaDatosContactoPage direccionAlternativa() {
+		debugInfo("Hace clic en volver para completar la dirección comercial de nuevo");
+		webDriver.clickInFrame(volverBtn, cuerpoFrame);
+
+		webDriver.clickInFrame(modificarDomicilioBtn, cuerpoFrame);
+		webDriver.waitWithDriver(2800);
+		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.switchToFrame(modalFrame);
+		webDriver.click(direccionSuperiorNOBtn);
+		webDriver.waitWithDriver(2800);
+		webDriver.click(direccionDiferenteBtn);
+		debugInfo("se selecciona direccion comercial diferente a la fiscal");
+		webDriver.waitWithDriver(2800);
+		completarCampoProvincia("TOLEDO");
+		completarCampoPoblacion("OLIAS DEL REY");
+		completarCampoNombreVia("SAN PEDRO DE ALCANTARA");
+		webDriver.waitWithDriver(3000);
+		webDriver.setText(numeroViaInput, "11");
+		webDriver.click(comprobarDireccionBtn);
+		webDriver.waitWithDriver(4000);
+		webDriver.click(aceptarBtn);
+
+		webDriver.waitWithDriver(5000);
 
 		webDriver.exitFrame();
 		debugEnd();
@@ -654,6 +663,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	public MediadoresAltaDatosContactoPage clickContinuar() {
 		debugBegin();
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
 		debugEnd();
 
 		return this;
