@@ -156,13 +156,13 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			completarCampoProvincia(getTestVar(Constants.DIRECCION_FISC_PROVINCIA).toString());
 			debugInfo("Introducida la provincia de la dirección fiscal");
 
-			completarCampoPoblacion(getTestVar(Constants.DIRECCION_FISC_POBLACION).toString());
+			completarCampoPoblacion(getVar(Constants.DIRECCION_FISC_POBLACION).toString());
 			debugInfo("Introducida la población de la dirección fiscal");
 
-			completarCampoNombreVia(getTestVar(Constants.DIRECCION_FISC_NombreVia).toString());
+			completarCampoNombreVia(getVar(Constants.DIRECCION_FISC_NombreVia).toString());
 			debugInfo("Introducida la calle de la dirección fiscal");
 
-			webDriver.waitWithDriver(2000);
+			webDriver.waitWithDriver(3000);
 			webDriver.setText(numeroViaInput, "11");
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.waitWithDriver(3000);
@@ -766,15 +766,15 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		clickContinuar();
 
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			alertaSistemaContacto(Constants.ALERTA_ANYADIR_DIRECCIONES_MEDIADORES);
 		}
 
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") ||
-			getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") ||
+			getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 
 			alertaSistemaContacto(Constants.ALERTA_ANYADIR_DIRECCIONES_SUPERIOR_MEDIADORES);
 		}
@@ -787,9 +787,9 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "COME");
 
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") ||
-			getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") ||
+			getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 
 			webDriver.switchToFrame(cuerpoFrame);
 			webDriver.clickInFrame(direccionSuperiorNOBtn, modalFrame);

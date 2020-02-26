@@ -26,8 +26,8 @@ public class FichaMediadorPage extends PageObject {
 
 	private By tituloPaginaTxt = By.cssSelector("body.sis-body > h1.titulopagina");
 	private By buscadorMediadoresBtn = By.linkText(("Buscador mediadores").trim());
+	private By fichaMediadorBtn = By.cssSelector("#jt1son > a[title='Ficha mediador  ']");
 
-	private By fichaMediadorBtn = By.id("jt2");
 
 	//------------- Botones Pestañas -------------
 
@@ -336,6 +336,8 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickMasAcciones() {
 		debugBegin();
+		clickFichaMediador();
+		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(masAccionesBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		debugEnd();
@@ -521,7 +523,37 @@ public class FichaMediadorPage extends PageObject {
 		return contenido;
 	}
 
-	// -----------------ACCIONES SOBRE FICHA---------------------
+	public FichaMediadorPage verificarCampoJerarquia() {
+		debugBegin();
+
+		String nivelJerarquico = (webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).trim());
+		System.out.println(nivelJerarquico);
+
+		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getVar(Constants.NIVEL_ESTRUCTURA));
+
+		//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
+		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarCampoNombreComercial() {
+		debugBegin();
+
+		clickInfoDescriptiva();
+
+		String nombreComercial = (webDriver.getTextInFrame(nombreComercialDescr, cuerpoFrame).trim());
+		System.out.println(nombreComercial);
+
+		boolean checkNombreComercial = nombreComercial.equals("ANTIVIST");
+		Assert.assertTrue(checkNombreComercial, "Comparar campos: el nombre comercial coincide");
+
+		debugEnd();
+		return this;
+	}
+
+	// ---- ACCIONES SOBRE FICHA
 
 	public FichaMediadorPage clickAnyadirNuevoContacto() {
 		debugBegin();
@@ -583,6 +615,7 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.waitWithDriver(3000);
 		String fechaFormacion = webDriver.getTextInFrame(fFormObligatoriaTxt, modalFrame).trim();
 		boolean checkFecha = fechaFormacion.equalsIgnoreCase(mensaje);
 
@@ -704,7 +737,7 @@ public class FichaMediadorPage extends PageObject {
 
 		debugEnd();
 		return this;
-	}
+		}
 
 	public FichaMediadorPage enviarValoracionFinanciera() {
 		debugBegin();
@@ -795,7 +828,7 @@ public class FichaMediadorPage extends PageObject {
 			// en esta línea se guarda para reutilizararlo en otra
 
 		} else {
-			debugInfo("Ha habido un error al dat de alta el mediador");
+			debugInfo("Ha habido un error al dar de alta el mediador");
 		}
 
 		debugEnd();
@@ -868,6 +901,14 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	
+//	public FichaMediadorPage clickFichaMediador(){
+//		debugBegin();
+//		webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
+//		debugEnd();
+//		return this;
+//	}
+	
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
 
@@ -885,7 +926,6 @@ public class FichaMediadorPage extends PageObject {
 			clickConfirmarAlta();
 			webDriver.waitWithDriver(3000);
 			grabarComentarioEstado();
-
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
 			webDriver.waitWithDriver(5000);
@@ -894,13 +934,13 @@ public class FichaMediadorPage extends PageObject {
 			webDriver.clickElementFromDropDownByAttributeInFrame(enviaResolucionFinancieraAltaCombo, enviaResolucionFinancieraAltaOption, modalFrame, "value", "ALAC");
 
 			grabarComentarioEstado();
-
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
 			webDriver.waitWithDriver(3000);
 
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
+			clickFichaMediador();
 
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
@@ -917,6 +957,7 @@ public class FichaMediadorPage extends PageObject {
 			clickConfirmarAlta();
 			webDriver.waitWithDriver(3000);
 			grabarComentarioEstado();
+			clickFichaMediador();
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
@@ -960,8 +1001,8 @@ public class FichaMediadorPage extends PageObject {
 
 			clickMasAcciones();
 			clickAvanzarEstado();
-			grabarComentarioEstado();
-
+			
+			webDriver.click(grabarEstadoBtn);
 			Assert.assertTrue(alertaSistemaFechaFormacion(Constants.ALERTA_FECHA_MEDIADORES));
 			webDriver.waitWithDriver(3000);
 
@@ -1507,6 +1548,8 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
+		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
 		clickFichaMediador();
 
@@ -1699,10 +1742,10 @@ public class FichaMediadorPage extends PageObject {
 			verificarPagoAutoliquidaciones("ES0321001234561234567890");
 
 		}
-
-		debugEnd();
-		return this;
 	}
+	debugEnd();
+	return this;
+	}
+}//END
 
-}
 

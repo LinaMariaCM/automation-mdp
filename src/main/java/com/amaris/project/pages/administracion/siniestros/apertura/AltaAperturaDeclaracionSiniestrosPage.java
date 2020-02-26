@@ -258,26 +258,25 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	public AltaAperturaDeclaracionSiniestrosPage altaSinAsistencia() {
 		debugBegin();
-		// System.out.println("El tipo de póliza se imprime aquí: " + getTestVar(Constants.NUM_POLIZA).substring(0,3));
-		// if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("920") != 0) {
-		// System.out.println("Resultado: " + (Constants.NUM_POLIZA).substring(0,3).compareTo("920"));
-		// System.out.println("Entro a 920");
-		// if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo,
-		// cuerpoFrame);
-		// }
-		// else if(getTestVar(Constants.NUM_POLIZA).substring(0,3).compareTo("900") != 0) {
-		// System.out.println("Entro a 900");
-		// if (webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)) webDriver.clickInFrame(rdbtnAsistenciaNo,
-		// cuerpoFrame);}
-		// if(webDriver.isPresentInFrame(rdbtnAsistenciaNo, cuerpoFrame)){webDriver.clickInFrame(rdbtnAsistenciaNo,
-		// cuerpoFrame);}
+		 System.out.println("El tipo de póliza se imprime aquí: " + getTestVar(Constants.NUM_POLIZA).substring(0,3));
+		 if(getTestVar(Constants.NUM_POLIZA).startsWith("920")) {
+			 System.out.println("Resultado: " + (getTestVar(Constants.NUM_POLIZA).substring(0,3)));
+			 System.out.println("Entro a 920");
+			 	if (webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) {webDriver.clickInFrame(asistenciaNoBtn,cuerpoFrame);}
+		 }
+		 else if(getTestVar(Constants.NUM_POLIZA).startsWith("900")) {
+			 System.out.println("Entro a 900");
+			 if (webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) webDriver.clickInFrame(asistenciaNoBtn,
+			 cuerpoFrame);}
+//		 if(webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)){webDriver.clickInFrame(asistenciaNoBtn,
+//		 cuerpoFrame);}
 
-		// if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
-		// System.out.println("Póliza carece de opción: 'alta sin asistencia'.");
-		// } else {
-		webDriver.waitWithDriver(4000);
-		webDriver.isPresentAndClickInFrame(asistenciaNoBtn, cuerpoFrame);
-		// }
+		 if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+		 System.out.println("Póliza carece de opción: 'alta sin asistencia'.");
+		 } else {
+		webDriver.waitWithDriver(2000);
+//		if(webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) {webDriver.clickInFrame(asistenciaNoBtn,cuerpoFrame);}
+		}
 
 		debugInfo("Seleccionada: Asistencia NO");
 		debugEnd();
