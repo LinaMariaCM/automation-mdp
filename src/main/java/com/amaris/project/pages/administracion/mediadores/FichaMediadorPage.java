@@ -1279,23 +1279,27 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage verificarDireccion() {
 		debugBegin();
 
-		List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
-		debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")){
 
-		for(int i = 1; i < obtenerListaDirecciones.size(); i++) {
+			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
+			debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
 
-			String obtenerTipoDireccion = webDriver.getTextInFrame(By.cssSelector(
-				"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
-					+ 1)
-					+ ") > td:nth-child(2)"), cuerpoFrame).trim();
-			debugInfo("El tipo de dirección es: " + obtenerTipoDireccion);
+			for(int i = 1; i < obtenerListaDirecciones.size(); i++) {
 
-			String obtenerDireccion = webDriver.getTextInFrame(By.cssSelector(
-				"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
-					+ 1)
-					+ ") > td:nth-child(3)"), cuerpoFrame).trim();
+				String obtenerTipoDireccion = webDriver.getTextInFrame(By.cssSelector(
+					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
+						+ 1)
+						+ ") > td:nth-child(2)"), cuerpoFrame).trim();
+				debugInfo("El tipo de dirección es: " + obtenerTipoDireccion);
 
-			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+				String obtenerDireccion = webDriver.getTextInFrame(By.cssSelector(
+					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
+						+ 1)
+						+ ") > td:nth-child(3)"), cuerpoFrame).trim();
+				debugInfo("--------------------- El contenido de la dirección en FICHA es: " + obtenerDireccion);
+				debugInfo("--------------------- El contenido de la dirección en el CSV es: " + getTestVar(Constants.DIRECCION_FISC_NombreVia).trim() + " 11 " + "(08029) " + getTestVar(Constants.DIRECCION_FISC_PROVINCIA).trim() + " - " + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
+
+
 				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
 
 					/*boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(

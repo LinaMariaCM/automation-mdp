@@ -113,7 +113,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(especialistaRamoSIBtn);
 
-		if(!getTestVar(Constants.RAMO).isEmpty()) {
+		if(getTestVar(Constants.RAMO)!=null || !getTestVar(Constants.RAMO).isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getTestVar(Constants.RAMO));
 		} else {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", "10");
