@@ -669,9 +669,10 @@ public class FichaMediadorPage extends PageObject {
 	//------------------EMPIEZAN ESTADOS--------------------------
 	public FichaMediadorPage solicitarAlta() {
 		debugBegin();
+		debugInfo("Se entra para solicitar alta de Oficina");
 
-		if(!getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") || getTestVar(Constants.TIPO_MEDIADOR) != null
-			|| !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+	//	if(getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			// dentro del IF, comentado temporalmente por Antonia: !getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 			Assert.assertTrue(comprobarSituacion(ALTA_MEDIADOR), "La situacion no es correcta.");
@@ -690,7 +691,7 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 
 			debugInfo("Solicitar alta se hizo con éxito o por lo menos recorrió");
-		}
+	//	}
 
 		debugEnd();
 		return this;
@@ -699,10 +700,10 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarValoracionFinanciera() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+	/*	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {*/
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 			Assert.assertTrue(comprobarSituacion(SOLICITUD_ALTA), "La situacion no es correcta.");
@@ -720,7 +721,7 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 
 			debugInfo("Enviar para valoración financiera se hizo con éxito o por lo menos recorrió");
-		}
+	//	}
 
 		debugEnd();
 		return this;
@@ -729,10 +730,10 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarRevisionFinanciera() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+	/*	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {*/
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 			Assert.assertTrue(comprobarSituacion(INFORMACION_FINANCIERA), "La situacion no es correcta.");
@@ -750,7 +751,7 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 
 			debugInfo("Enviar para revisión financiera se hizo con éxito o por lo menos recorrió");
-		}
+	//	}
 
 		debugEnd();
 		return this;
@@ -795,10 +796,10 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage enviarResolucionFinanciera() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+	/*	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {*/
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 			Assert.assertTrue(comprobarSituacion(REVISION_FINANCIERA), "La situacion no es correcta.");
@@ -852,7 +853,7 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 
 			debugInfo("Enviar para resolución financiera se hizo con éxito o por lo menos recorrió");
-		}
+	//	}
 
 		debugEnd();
 		return this;
@@ -861,11 +862,11 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR) != null && (getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")
+		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")
 			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV")
 			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE")
 			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV")
-			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR"))) {
+			|| getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR")) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 
@@ -982,11 +983,11 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage activarMediadorEstado() {
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+	/*	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
 			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {*/
 
 			Assert.assertTrue(comprobarEstado(ACTIVO_RESTRINGIDO), "El estado no es correcto.");
 
@@ -1037,7 +1038,7 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 
 			debugInfo("Activar Mediador se hizo con éxito o por lo menos recorrió");
-		}
+	//	}
 		debugEnd();
 		return this;
 	}
