@@ -28,11 +28,11 @@ public class DniGeneratorHelper {
 	}
 
 	public static String validaNif(String nif) {
-		if(nif.substring(0, 8).length() == 8) {
-			return nif.equalsIgnoreCase(generaNif(nif.substring(0, 8))) ? "OK" : "KO";
-		} else {
-			return ("Nif Inválido");
-		}
+			if(nif.substring(0, 8).length() == 8) {
+				return nif.equalsIgnoreCase(generaNif(nif.substring(0, 8))) ? "OK" : "KO";
+			} else {
+				return ("Nif Inválido");
+			}
 	}
 	
 	private DniGeneratorHelper() {}

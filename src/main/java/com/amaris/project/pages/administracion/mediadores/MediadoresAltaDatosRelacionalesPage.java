@@ -113,7 +113,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(especialistaRamoSIBtn);
 
-		if(getTestVar(Constants.RAMO) != null && !getTestVar(Constants.RAMO).isEmpty()) {
+		if(!getTestVar(Constants.RAMO).isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getTestVar(Constants.RAMO));
 		} else {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", "10");
@@ -230,7 +230,8 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		debugBegin();
 		anyadirDatosProductoConRamoConFinca();
 
-		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && getTestVar(Constants.COMPANYIAS_PRINCIPALES) != null && !getTestVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
+		//if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && getTestVar(Constants.COMPANYIAS_PRINCIPALES) != null && !getTestVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
+			if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && !getTestVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
 			webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, getTestVar(Constants.COMPANYIAS_PRINCIPALES));
 		} else {
 			webDriver.setTextInFrame(compPrincipInput, "Compañia", cuerpoFrame);
@@ -242,7 +243,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		return this;
 	}
 
-	//--------------RETENCIONES---------------------------------
+	//--------------RETENCIONES DE DATOS RELACIONALES DE ALTAS DE INTERMEDIARIOS, OFICINA Y COLABORADOR---------------------------------
 
 	public boolean alertaSistemaRelacionales(String mensaje) {
 		debugBegin();
@@ -258,35 +259,32 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		return checkAlerta;
 	}
 
-	//---------------------RETENCIONES--------------------
-
-	public MediadoresAltaDatosRelacionalesPage altaRetencionesIntermediarioRelacionales() {
+	public MediadoresAltaDatosRelacionalesPage altaRetencionesRelacionales() {
 		debugBegin();
 
+		webDriver.clickInFrame(especialistaRamoSIBtn, cuerpoFrame);
 
-				webDriver.clickInFrame(especialistaRamoSIBtn, cuerpoFrame);
+		clickContinuarDatosRelacionales();
 
-				clickContinuarDatosRelacionales();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
+		webDriver.acceptAlert();
 
-				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_RAMO_MEDIADORES);
-				webDriver.acceptAlert();
+		webDriver.clickElementFromDropDownByAttributeInFrame(especialistaRamoCombo, especialistaRamoOption, cuerpoFrame, "value", "1");
 
-				webDriver.clickElementFromDropDownByAttributeInFrame(especialistaRamoCombo, especialistaRamoOption, cuerpoFrame, "value", "1");
+		webDriver.clickInFrame(adminFincasSIBtn, cuerpoFrame);
 
-				webDriver.clickInFrame(adminFincasSIBtn, cuerpoFrame);
+		clickContinuarDatosRelacionales();
 
-				clickContinuarDatosRelacionales();
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CUANTAS_FINCAS_MEDIADORES);
+		webDriver.acceptAlert();
 
-				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CUANTAS_FINCAS_MEDIADORES);
-				webDriver.acceptAlert();
+		webDriver.setTextInFrame(adminFincasCuantasInput, cuerpoFrame, "10");
 
-				webDriver.setTextInFrame(adminFincasCuantasInput, cuerpoFrame, "10");
+		clickContinuarDatosRelacionales();
 
-				clickContinuarDatosRelacionales();
-
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+		if(!getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
-			if(getTestVar(Constants.TIPO_MEDIADOR) != null && !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()
+			if(!getTestVar(Constants.TIPO_MEDIADOR).isEmpty()
 				&& !getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 
 				new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES);

@@ -277,20 +277,23 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 
 			debugInfo("tipo de mediador seleccionado");
-			
-			altaDatosBasicosComunes("9876543210");
+
+			altaDatosBasicosComunes();
 			debugInfo("datos básicos rellenados");
 			//		webDriver.waitWithDriver(3000);
 			nombreFiscal();
 			debugInfo("nombre fiscal introducido");
 			//		webDriver.waitWithDriver(3000);
-			tipoDocumentoApellidos();
+			apellidosMediador();
 			debugInfo("apellidos introducido");
 			//		webDriver.waitWithDriver(3000);
 			nombreComercial();
 			debugInfo("nombre comercial introducido");
 			webDriver.waitWithDriver(3000);
-			webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
+		//	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equals("BSE")) {
+			if(webDriver.isPresentInFrame(sexoCombo, cuerpoFrame)){
+				webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
+			}
 			webDriver.waitWithDriver(3000);
 			if(webDriver.isPresentInFrame(medSoftwareNOBtn, cuerpoFrame) || webDriver.isPresentInFrame(medSoftwareSIBtn, cuerpoFrame)) {
 				disponibilidadSoftware();
@@ -316,20 +319,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosDescriptivosPage nombreFiscalVacio() {
-		debugBegin();
-
-		webDriver.clearTextInFrame(nombreFiscalInput, cuerpoFrame);
-		clickGuardarYSalir();
-
-		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_FISCAL_MEDIADORES);
-		webDriver.acceptAlert();
-
-		debugEnd();
-		return this;
-	}
-
-	public MediadoresAltaDatosDescriptivosPage altaDatosBasicosComunes(String numRegDGS) {
+	public MediadoresAltaDatosDescriptivosPage altaDatosBasicosComunes() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.waitWithDriver(2000);
@@ -340,68 +330,92 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.clickElementFromDropDownByAttribute(idiomaCombo, idiomaOption, "value", "ESPA");
 		}
 
-		if(webDriver.isPresent(actividadPrincipalCombo) && getVar(Constants.ACTIVIDAD_PRINCIPAL) != null && !getVar(Constants.ACTIVIDAD_PRINCIPAL).isEmpty()) {
-			webDriver.clickElementFromDropDownByAttribute(actividadPrincipalCombo, actividadPrincipalOption, "value", getVar(Constants.ACTIVIDAD_PRINCIPAL));
-		} /*else {
-			webDriver.clickElementFromDropDownByAttribute(actividadPrincipalCombo, actividadPrincipalOption, "value", "ABOG");
-		} utilizar método cuando CSV se encuentra chachi*/
+		if(webDriver.isPresent(actividadPrincipalCombo) && getTestVar(Constants.ACTIVIDAD_PRINCIPAL) != null && !getTestVar(Constants.ACTIVIDAD_PRINCIPAL).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(actividadPrincipalCombo, actividadPrincipalOption, "value", getTestVar(Constants.ACTIVIDAD_PRINCIPAL));
+		}
 
 		if(webDriver.isPresent(numRegistroDGSInput)) {
-			webDriver.setText(numRegistroDGSInput, numRegDGS);
+			webDriver.setText(numRegistroDGSInput, generadorRandomDgsNumero());
 		}
-
 		webDriver.exitFrame();
-		debugEnd();
-		return this;
-	}
-
-	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
-		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
-		if(getVar(Constants.NOMBRE_COMERCIAL) != null || !getVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
-			if(webDriver.isPresent(nombreComercialDiferenteFiscalBtn)) {
-				clickNombreComercialDiferente();
-				webDriver.waitWithDriver(2000);
-			}
-
-			webDriver.waitWithDriver(3000);
-			//	webDriver.setText(nombreComercialADInput, "Mediador"); descomentar si la siguiente línea  y método relacionado si el alta no funciona por su culpa
-			completarNombreComercial(getVar(Constants.NOMBRE_COMERCIAL).toString());
-
-		} else {
-			webDriver.click(nombreComercialIgualFiscalBtn);
-		}
-
-		webDriver.exitFrame();
-
 		debugEnd();
 		return this;
 	}
 
 	public MediadoresAltaDatosDescriptivosPage completarNombreComercial(String nomComercial) {
 		debugBegin();
-		webDriver.setText(nombreComercialADInput, nomComercial);
+		debugInfo("Estoy en completarNombreComercial");
+		webDriver.setText(nombreComercialInput, nomComercial);
 		debugEnd();
 		return this;
 	}
 
-	public MediadoresAltaDatosDescriptivosPage tipoDocumentoApellidos() {
+	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+
+		if(webDriver.isPresent(nombreComercialInput)) {
+			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
+		}
+		else if(getTestVar(Constants.NOMBRE_COMERCIAL) != null && !getTestVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
+			webDriver.click(nombreComercialDiferenteFiscalBtn);
+			webDriver.waitWithDriver(3000);
+			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
+		} else {
+			webDriver.click(nombreComercialIgualFiscalBtn);
+		}
+
+		webDriver.exitFrame();
+		debugEnd();
+		return this;
+	}
+
+	public MediadoresAltaDatosDescriptivosPage tipoDocumento() {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
 
-		if(webDriver.isPresent(tipoDocumentoCombo) && getVar(Constants.TIPO_DOCUMENTO) != null && !getVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
-			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getVar(Constants.TIPO_DOCUMENTO));
-			setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNif());
-			webDriver.setText(numeroDocumentoInput, getVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
-
-			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
-				webDriver.setText(primerApellidoInput, "primerApell");
+		if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
+			// si pide el número de documento y hay dato sobre el tipo en el CSV
+			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
+			// if nie
+			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")){
+				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateCIF());
+				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+			}
+			else if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")){
+				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNif());
+				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+			}
+			else if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")){
+				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNIE());
+				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 			}
 
-			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
-				webDriver.setText(segundoApellidoInput, "segundoApell");
+		}
+		webDriver.exitFrame();
+
+		debugEnd();
+		return this;
+	}
+
+
+	public MediadoresAltaDatosDescriptivosPage apellidosMediador() {
+		debugBegin();
+		tipoDocumento();
+		webDriver.switchToFrame(cuerpoFrame);
+
+		if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
+			//	setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNif());
+			//	webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+
+			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
+				webDriver.setText(primerApellidoInput, "primerApellido");
+			}
+
+			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
+				webDriver.setText(segundoApellidoInput, "segundoApellido");
 			}
 		}
 
@@ -410,23 +424,14 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		debugEnd();
 		return this;
 	}
+
 
 	// metodo para alta oficina asociado a un intermediario
 	public MediadoresAltaDatosDescriptivosPage altaOficinaDescriptivos() {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
-
-		altaDatosBasicosComunes("9876543210");
-
-		if(getVar(Constants.NOMBRE_COMERCIAL) != null && !getVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
-
-			webDriver.setTextInFrame(nombreComercialInput, getVar(Constants.NOMBRE_COMERCIAL), cuerpoFrame);
-		} else {
-			webDriver.setTextInFrame(nombreComercialInput, "Med01", cuerpoFrame);
-		}
-
-		webDriver.exitFrame();
+		altaDatosBasicosComunes();
+		nombreComercial();
 
 		debugEnd();
 		return this;
@@ -445,11 +450,11 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		webDriver.exitFrame();
 
-		altaDatosBasicosComunes("9876543210");
+		altaDatosBasicosComunes();
 
 		if(getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
 			nombreFiscal();
-			tipoDocumentoApellidos();
+			apellidosMediador();
 			nombreComercial();
 		} else {
 			webDriver.setTextInFrame(nombreComercialInput, cuerpoFrame, getVar(Constants.NOMBRE_COMERCIAL));
@@ -512,18 +517,22 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "INTE");
+			debugInfo("Se ha elegido en Nivel estructura a un Intermediario.");
 		}
 
 		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "OFIC");
+			debugInfo("Se ha elegido en Nivel estructura a una Oficina.");
+
 		}
 
 		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", "COLA");
+			debugInfo("Se ha elegido en Nivel estructura a un Colaborador.");
 		}
 
 		clickContinuar();
@@ -535,6 +544,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.acceptAlert();
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AD");
+			debugInfo("Se ha elegido en Nivel estructura a un Intermediario y un tipo Mediador a Acuerdo de Colaboración.");
 		}
 
 		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
@@ -543,12 +553,12 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_MEDIADOR_PADRE_MEDIADORES);
 			webDriver.acceptAlert();
 
-			webDriver.setTextInFrame(mediadorPadreOficinaInput, "1245" , cuerpoFrame);
+			webDriver.setTextInFrame(mediadorPadreOficinaInput, "1245", cuerpoFrame);
 
 		}
-/*
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_OFICINA_PADRE_MEDIADORES);
 			webDriver.acceptAlert();
@@ -558,24 +568,52 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.waitWithDriver(5000);
 
 		}
-*/
+
 		clickContinuar();
-/*
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_COLABORADOR);
 			webDriver.acceptAlert();
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(estrColabTipoCombo, estrColabTipoOption, cuerpoFrame, "value", "AD");
+			debugInfo("Se ha elegido en Nivel estructura a un Colaborador de tipo Acuerdo de Distribución.");
 
 			clickContinuar();
 		}
-*/
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_COLABORADOR);
+			webDriver.acceptAlert();
+
+			webDriver.clickElementFromDropDownByAttributeInFrame(estrColabTipoCombo, estrColabTipoOption, cuerpoFrame, "value", "GEST");
+			debugInfo("Se ha elegido en Nivel estructura a un Colaborador de tipo Gestor.");
+
+			clickContinuar();
+
+		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_COLABORADOR);
+			webDriver.acceptAlert();
+
+			webDriver.clickElementFromDropDownByAttributeInFrame(estrColabTipoCombo, estrColabTipoOption, cuerpoFrame, "value", "AUXI");
+			debugInfo("Se ha elegido en Nivel estructura a un Colaborador de tipo Auxiliar.");
+
+			clickContinuar();
+
+		}
+
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_EJECUTIVO_COMERCIAL_MEDIADORES);
 		webDriver.acceptAlert();
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(ejecutivoComercialCombo, ejecutivoComercialOption, cuerpoFrame, "value", "4000");
+		debugInfo("Se ha elegido a un ejecutivo Comercial.");
 
 		clickContinuar();
 
@@ -584,12 +622,14 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(idiomaCombo, idiomaOption, cuerpoFrame, "value", "ESPA");
 		webDriver.waitWithDriver(3000);
+		debugInfo("Se ha elegido un idioma.");
 
 		clickContinuar();
 
-
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			|| getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
+			|| getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NOMBRE_COMERCIAL_2_MEDIADORES);
 			webDriver.acceptAlert();
@@ -598,21 +638,40 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		}
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+
+			clickContinuar();
+
+		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+
+			clickContinuar();
+
+		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_TIPO_DOCUMENTO_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.waitWithDriver(3000);
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoDocumentoCombo, tipoDocumentoOption, cuerpoFrame, "value", "NIF");
+			debugInfo("Se ha elegido Tipo de Documento NIF.");
 
 			clickContinuar();
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_NUMERO_DOCUMENTO_MEDIADORES);
 			webDriver.acceptAlert();
 
-			webDriver.setTextInFrame(numeroDocumentoInput, "Numero documento", cuerpoFrame);
+			webDriver.setTextInFrame(numeroDocumentoInput, "Numero", cuerpoFrame);
 			webDriver.waitWithDriver(3000);
 
 			clickContinuar();
@@ -655,18 +714,24 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 			clickContinuar();
 
+		}
+
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ACTIVIDAD_PRINCIPAL_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(actividadPrincipalCombo, actividadPrincipalOption, cuerpoFrame, "value", "ABOG");
-
+			debugInfo("Se ha elegido una Actividad Principal.");
 		}
 
-		//cambio a agente vinculado para probar campos
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+		//cambio a intermediario: agente vinculado para probar campos
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AV");
+			debugInfo("Se ha elegido en Nivel estructura a un Intermediario de tipo Mediador Agente Vinculado.");
 
 			clickContinuar();
 
@@ -694,12 +759,15 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.clickInFrame(volverBtn, cuerpoFrame);
 
 			webDriver.setTextInFrame(mediadorPadreOficinaInput, "1242", cuerpoFrame);
+			debugInfo("Se ha elegido un Mediador Padre Oficina.");
 
 			clickContinuar();
 		}
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& !getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 
 			alertaSistemaDescriptivos(Constants.ALERTA_NUMERO_DOCUMENTO_1_MEDIADORES);
 
@@ -708,18 +776,22 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			webDriver.setTextInFrame(numeroDocumentoInput, DocumentGeneratorHelper.generateNif(), cuerpoFrame);
 
 		}
-/*
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 
-			webDriver.clickElementFromDropDownByAttributeInFrame(estrColabTipoCombo, estrColabTipoOption, cuerpoFrame, "value", "AUXI");
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
+			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+
+			clickContinuar();
+
 		}
-*/
-		//cambio a agente exclusivo para probar campos
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
+		//cambio a intermediario: agente exclusivo para probar campos
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", "AE");
+			debugInfo("Se ha elegido en Nivel estructura a un Intermediario de tipo Mediador: Agente Exclusivo.");
 
 			clickContinuar();
 
@@ -730,8 +802,6 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 			clickContinuar();
 		}
-
-
 
 		debugEnd();
 		return this;

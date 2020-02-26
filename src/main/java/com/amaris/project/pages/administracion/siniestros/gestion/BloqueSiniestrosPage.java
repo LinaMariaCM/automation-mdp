@@ -21,7 +21,7 @@ public class BloqueSiniestrosPage extends PageObject {
 	//private By transicionarBtn = By.cssSelector("div.cpdatos a");
 	private By transicionarBtn = By.linkText("Transicionar bloque");
 	private By codBloque = By.cssSelector("#bloque1tr1 > td:nth-child(2)");
-	private By listaBloque = By.cssSelector("table.grid.wideBox > tbody > tr[id*='bloque']");
+	private By listaBloque = By.cssSelector("table.grid.wideBox > tbody > tr[id*='bloque1tr']");
 
 	// transicionar bloque
 	private By bloqueDestinoDrpDwn = By.cssSelector("#nuevaCarpeta");

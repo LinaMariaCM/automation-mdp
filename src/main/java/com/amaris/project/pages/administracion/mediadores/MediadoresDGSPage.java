@@ -167,10 +167,9 @@ public class MediadoresDGSPage extends PageObject {
 			webDriver.clickInFrame(tipoMediadorAgenteExclusivoBtn, cuerpoFrame);
 		}
 		clickBuscar();
-		debugInfo("El mediador localizar por SuiteVar es: " + Constants.ID_MEDIADOR_ALTA);
-		debugInfo("El mediador localizar por TestVar es: " + Constants.ID_MEDIADOR_ALTA);
+		debugInfo("El mediador localizar por TestVar es: " + (getTestVar(Constants.ID_MEDIADOR_ALTA).trim()));
 		//seleccionarMediadorEnvioDGS(getSuiteVar(Constants.ID_MEDIADOR_ALTA).trim());
-		seleccionarMediadorEnvioDGS(getTestVar(Constants.ID_MEDIADOR_ALTA).trim().toString());
+		seleccionarMediadorEnvioDGS(getTestVar(Constants.ID_MEDIADOR_ALTA).trim());
 		clickEnviarDGS();
 		webDriver.waitWithDriver(12000);
 		obtenerNumDGS();
@@ -181,7 +180,8 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage anyadirIdMediador() {
 		debugBegin();
 		// a la string se le asigna el valor guardado en el CSV y constante
-		String idMedAlta = getSuiteVar("id_mediador_alta");
+		//String idMedAlta = getSuiteVar("id_mediador_alta");
+		String idMedAlta = getTestVar(Constants.ID_MEDIADOR_ALTA);
 		debugInfo("ver si aparece la idMedAlta correctamente: " + idMedAlta);
 		debugEnd();
 		return this;
@@ -201,15 +201,33 @@ public class MediadoresDGSPage extends PageObject {
 		clickBuscar();
 		debugInfo("3. se completa la segunda actualización, acompañada por una tercera busqueda");
 
-		String datoFechaInscripcion = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+	/*	String datoFechaInscripcion = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 		webDriver.waitWithDriver(3000);
-		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, datoFechaInscripcion);
-		seleccionarMediadorRecepcionDGS(getTestVar(Constants.ID_MEDIADOR_ALTA).toString());
+		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, "12d56224");
+		Constants.ALERTA_FECHA_INSCRIPCION_DGS
+		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, datoFechaInscripcion); - revisar , queda comentado porque se espera que fechaReferencia haga lo mismo, además de comprobar el alerta */
+
+		fechaReferencia( DateUtils.getTodayDate(Constants.DATE_FORMAT));
+		seleccionarMediadorRecepcionDGS(getTestVar(Constants.ID_MEDIADOR_ALTA));
 		clickActualizar();
 
 		debugInfo("finalizado el proceso para autorizar el DGS en 'Recepción DGS'");
 
 		debugEnd();
+		return this;
+	}
+
+	public MediadoresDGSPage fechaReferencia(String datoFechaInscripcion) {
+		debugBegin();
+		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, "12d56224");
+		webDriver.clickInFrame(actualizarBtn, cuerpoFrame);
+
+		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_INSCRIPCION_DGS);
+		webDriver.acceptAlert();
+		webDriver.setTextInFrame(fechaInscripcionInput, cuerpoFrame, datoFechaInscripcion);
+	//	webDriver.clickInFrame(actualizarBtn, cuerpoFrame);
+		debugEnd();
+
 		return this;
 	}
 
@@ -254,7 +272,7 @@ public class MediadoresDGSPage extends PageObject {
 		debugInfo("contiene " + obtenerListaEnvioDGS.size() + " mediadores en estado Envio DGS");
 
 		String obtenerIdMediador = webDriver.getTextInFrame(By
-			.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr1 > td:nth-child(5)"), cuerpoFrame).trim().toString();
+			.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr1 > td:nth-child(5)"), cuerpoFrame).trim();
 		debugInfo("El Id del mediador es: " + obtenerIdMediador);
 
 		if(obtenerIdMediador.equals(idMediadorAutorizaDGS)) {
@@ -263,13 +281,9 @@ public class MediadoresDGSPage extends PageObject {
 			debugInfo("Comprobamos la id del mediador es: " + checkMediadorValue);
 			Assert.assertTrue(checkMediadorValue, "Comparar campos: la Id del mediador NO coincide");
 
-			// comprobar desplegable "autorizado"
-			//	if(checkMediadorValue.equalsIgnoreCase(true)) { /// ir a
 			webDriver.clickElementFromDropDownByAttributeInFrame(By
 				.cssSelector("#formDatosEnvio > table.grid.widthstd > tbody > #tr1 > td:nth-child(2) > select"), cuerpoFrame, "value", "autorizado");
 			debugInfo("Se comprueba y hace clic en Autorizado del mediador. Test completado");
-			//	}
-
 		} else {
 			debugInfo("El mediador cuya recepción se autoriza no se encuentra en la lista");
 		}

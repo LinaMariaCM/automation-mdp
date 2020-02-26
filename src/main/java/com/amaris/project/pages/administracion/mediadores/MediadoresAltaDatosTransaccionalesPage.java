@@ -153,6 +153,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	public MediadoresAltaDatosTransaccionalesPage clickContiuar() {
 		debugBegin();
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		webDriver.waitWithDriver(10000);
 		debugEnd();
 
 		return this;
@@ -161,10 +162,24 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	public MediadoresAltaDatosTransaccionalesPage clickGuardar() {
 		debugBegin();
 		webDriver.clickInFrame(guardarBtn, cuerpoFrame);
+		webDriver.waitWithDriver(10000);
 		debugEnd();
 
 		return this;
 	}
+
+/*	public MediadoresAltaDatosTransaccionalesPage elegirContinuacion() {
+		debugBegin();
+		// hay referencia a TestRail para parchear este caso concreto porque implementar una lógica específica, sería excesivamente costoso para una sola prueba
+		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")){
+			clickContiuar();
+		} else {
+			clickGuardar();
+		}
+		debugEnd();
+
+		return this;
+	} */
 
 	public MediadoresAltaDatosTransaccionalesPage clickCancelar() {
 		debugBegin();
@@ -174,7 +189,9 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosTransaccionalesPage retencionesAltaIntermediarioTrans() {
+	//-------------RETENCIONES DATOS TRANSACCIONALES PARA ALTAS DE INTERMEDIARIOS, OFICINA Y COLABORADOR-----------------------
+
+	public MediadoresAltaDatosTransaccionalesPage retencionesAltaTransaccionales() {
 		debugBegin();
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoRetribucionCombo, tipoRetribucionOption, cuerpoFrame, "title", "Elegir");
@@ -185,41 +202,48 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoRetribucionCombo, tipoRetribucionOption, cuerpoFrame, "value", "COMI");
 
-		clickGuardar();
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
+			&& getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+
+			clickContiuar();
+		}
 
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
 			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
+			clickContiuar();
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CODIGO_IBAN);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(codigoIbanInput, "ES03", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_BANCO);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(bancoInput, "2100", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUCURSAL);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(sucursalInput, "1234", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DC_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(dcInput, "5612", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(cta1Input, "3456", cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
 			webDriver.acceptAlert();
 
@@ -232,37 +256,37 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 			webDriver.clearTextInFrame(cta1LiqInput, cuerpoFrame);
 			webDriver.clearTextInFrame(cta2LiqInput, cuerpoFrame);
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CODIGO_IBAN);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(codigoIbanLiqInput, cuerpoFrame, "ES03");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_BANCO);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(bancoLiqInput, cuerpoFrame, "2100");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_SUCURSAL);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(sucursalLiqInput, cuerpoFrame, "1234");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DC_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(dcLiqInput, cuerpoFrame, "5612");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
 			webDriver.acceptAlert();
 
 			webDriver.setTextInFrame(cta1LiqInput, cuerpoFrame, "3456");
 
-			clickGuardar();
+			clickContiuar();
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_CTA_MEDIADORES);
 			webDriver.acceptAlert();
 

@@ -71,7 +71,7 @@ public class IntercambioDatosTest extends TestObject{
 		userS.testActions(() -> {
 			
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.obtener_nombres_direcciones_mediador_intercambio_datos();
+		//	steps.obtener_nombres_direcciones_mediador_intercambio_datos(); método comentado porque se borró
 			
 			return null;
 		}).run();

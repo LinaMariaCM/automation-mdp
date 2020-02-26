@@ -23,22 +23,22 @@ public class MediadoresConstantesFicha {
 	public static final String AUXI = "AUXI";
 	public static final String GEST = "GEST";
 
-	//TIPO DE DOCUMENTO
-	public static final String NIF = "NIF";
-	public static final String NIE = "NIE";
-	public static final String CIF = "CIF";
-
 	//ACTIVIDAD PRINCIPAL
 	public static final String ABOG = "ABOG";
 	public static final String ADFI = "ADFI";
-	public static final String API = "API";
-	public static final String GEPA = "GEPA";
 	public static final String MESE = "MESE";
 	public static final String OTRO = "OTRO";
-
-	//SEXO
-	public static final String MASC = "1";
-	public static final String FEMEN = "2";
+	public static final String API = "API";
+	public static final String GEPA = "GEPA";
+	//IDIOMA
+	public static final String ESPA = "ESPA";
+	public static final String CATA = "CATA";
+	public static final String EUSK = "EUSK";
+	public static final String ENGL = "ENGL";
+	public static final String FRAN = "FRAN";
+	public static final String PRTG = "PRTG";
+	public static final String DEUT = "DEUT";
+	public static final String GALE = "GALE";
 
 	//TIPO DE DOMICILIO
 	public static final String COME = "COME";
@@ -48,24 +48,7 @@ public class MediadoresConstantesFicha {
 	public static final String PSIN = "PSIN";
 
 	//RAMO
-	public static final String VIDA = "0";
-	public static final String ACCIDENTES = "1";
 	public static final String ASISTENCIA = "10";
-	public static final String DECESOS = "11";
-	public static final String MULTI_HOGAR = "12";
-	public static final String MULTI_COMERCIO = "13";
-	public static final String MULTI_COMUNIDAD = "14";
-	public static final String MULTI_INDUSTRIA = "15";
-	public static final String OTROS_MULTI = "16";
-	public static final String OTROS_RAMOS = "17";
-	public static final String SALUD = "2";
-	public static final String TRANSPORTE_MERCANCIA = "3";
-	public static final String INCENDIOS = "4";
-	public static final String AUTOS = "5";
-	public static final String RESPONSABILIDAD_CIVIL = "6";
-	public static final String CREDITO_CAUCION = "7";
-	public static final String PERDIDAS_PECUNIARIAS = "8";
-	public static final String DEFENSA_JURIDICA = "9";
 
 	//PRODUCTO
 	public static final String COMU = "COMU";
@@ -73,4 +56,11 @@ public class MediadoresConstantesFicha {
 	public static final String COMERCIO = "COME";
 	public static final String ALQU = "ALQU";
 
-}// END
+	//DISPONE DE SOFTWARE
+	public static final String DISPONE_SOFTWARE_SI = "TRUE";
+	public static final String DISPONE_SOFTWARE_NO = "FALSE";
+
+	//COMPAÑIAS PRINCIPALES TRABAJADAS
+	public static final String COMPANYIA_PRINCIPAL_MED = "Compañía principal abogado";
+
+}

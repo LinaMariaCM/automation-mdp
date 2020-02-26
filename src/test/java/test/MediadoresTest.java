@@ -64,7 +64,6 @@ public class MediadoresTest {
 
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.obtener_nombres_direcciones_mediador();
 
 			return null;
 		}).run();
@@ -88,8 +87,6 @@ public class MediadoresTest {
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
 
-			steps.alta_datos_basicos_mediador();
-			steps.alta_datos_contacto_mediador();
 
 			return null;
 		}).run();
@@ -111,7 +108,8 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.alta_oficina_a_un_intermediario();
+			steps.alta_oficina();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
@@ -136,7 +134,7 @@ public class MediadoresTest {
 		}).run();
 	}
 
-	// TEST alta propesct
+	// TEST alta prospect
 	@DataProvider(parallel = true)
 	public String[][] dataProviderMed06() {
 		String testCase = Constants.MEDIADORES_CASE + "06";
@@ -173,8 +171,8 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.alta_interm_AE_completo();
-
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
 	}
@@ -184,7 +182,7 @@ public class MediadoresTest {
 	@DataProvider(parallel = false)
 	public String[][] dataProviderMed08() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadores.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv");
 
 	/*	if(suiteM.getSuiteVar("id_mediador_alta") != null) {
 			DataObject testData = suiteM.getTestDataManager(testCase).getTestData();
@@ -203,14 +201,12 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_interm_AE_completo();
-			//	steps.alta_oficina_a_un_intermediario();
-			steps.completar_estados_dgs();
-		/*	steps.alta_colaborador();
-			steps.completar_estados_dgs();*/
-			steps.completar_alta_activo_restringido();
-			steps.alta_oficina_a_un_intermediario();
-
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
+	/*		steps.alta_oficina();
+			steps.tramitar_estados_mediador();
+			steps.alta_colaborador();
+			steps.tramitar_estados_mediador();*/
 			return null;
 		}).run();
 	}
@@ -229,16 +225,16 @@ public class MediadoresTest {
 		// CheckSteps checkSteps = new CheckSteps(userS);
 		userS.testActions(() -> {
 			steps.login("Innova", "eferrando");
-			steps.mediadores_cambios_estado_situacion_AE();
+
 			return null;
 		}).run();
 	}
 
 	// TEST PARA HACER COMPROBACIONES EN LA FICHA
-	@DataProvider(parallel = true)
+	@DataProvider(parallel = false)
 	public String[][] dataProviderMed20() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "prueba_comprobaciones_mediadores.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv");
 		return casesMatrix;
 	}
 
@@ -272,10 +268,38 @@ public class MediadoresTest {
 		}).run();
 	}
 
+	// TEST PARA RETENCIONES ALTA PROSPECT
+	@DataProvider(parallel = false)
+	public String[][] dataProviderMed22() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_prospect_csv.csv");
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderMed22")
+	public void med22(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+		userS.testActions(() -> {
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_prospect_retenciones_mediadores();
+			return null;
+		}).run();
+	}
+
 	@AfterSuite
+	/*	public void afterSuite() {suiteM.createHtmlReport();} - queda comentado porque se dejará el método final utilizado
+	 por Mirko para el testCase de las pruebas entrelazadas*/
+
 	public void afterSuite() {
-		suiteM.createHtmlReport();
+		try {
+			suiteM.createHtmlReport();
+			suiteM.createPdfReport();
+		} catch(Exception E) {
+			E.printStackTrace();
+		}
 	}
 
 }
+
 

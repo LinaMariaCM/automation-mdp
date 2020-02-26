@@ -36,23 +36,24 @@ public class DependenciaInterOfiColabTest extends TestObject{
 			// alta intermediario agente exclusivo
 			steps.get_Scenario_Data("INTE");
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.alta_interm_AE_completo();
-			steps.cierro_navegador();
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
 			
 			// alta oficina
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 				steps.get_Scenario_Data("OFIC");
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-				steps.alta_oficina_a_un_intermediario();
-				steps.cierro_navegador();
+				steps.alta_oficina();
+				steps.tramitar_estados_mediador();
+
 			}
 			
 			// alta de colaborador
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.get_Scenario_Data("COLA");
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-				steps.alta_colaborador();	
-				steps.cierro_navegador();
+				steps.alta_colaborador();
+				steps.tramitar_estados_mediador();
 			}
 			
 			return null;
