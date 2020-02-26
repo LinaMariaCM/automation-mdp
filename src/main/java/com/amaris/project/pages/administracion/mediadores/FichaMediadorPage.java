@@ -1279,7 +1279,7 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage verificarDireccion() {
 		debugBegin();
 
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")){
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
 			debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
@@ -1297,8 +1297,8 @@ public class FichaMediadorPage extends PageObject {
 						+ 1)
 						+ ") > td:nth-child(3)"), cuerpoFrame).trim();
 				debugInfo("--------------------- El contenido de la dirección en FICHA es: " + obtenerDireccion);
-				debugInfo("--------------------- El contenido de la dirección en el CSV es: " + getTestVar(Constants.DIRECCION_FISC_NombreVia).trim() + " 11 " + "(08029) " + getTestVar(Constants.DIRECCION_FISC_PROVINCIA).trim() + " - " + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
-
+				debugInfo("--------------------- El contenido de la dirección en el CSV es: " + getTestVar(Constants.DIRECCION_FISC_NombreVia).trim() + " 11 " + "(08029) "
+					+ getTestVar(Constants.DIRECCION_FISC_PROVINCIA).trim() + " - " + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
 
 				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
 
@@ -1357,32 +1357,30 @@ public class FichaMediadorPage extends PageObject {
 					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
 				}
 
+				if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+					if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
+						boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_COMPLETA));
+						debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
+						Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
+					}
+					if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
+						boolean checkDireccionComercial = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_COME_COMPLETA));
+						debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
+						Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
+					}
+					if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
+						boolean checkDireccionProduccion = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PPRO_COMPLETA));
+						debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
+						Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
+					}
+					if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
+						boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PSIN_COMPLETA));
+						debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
+						Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
+					}
+
+				}
 			}
-
-			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
-				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
-					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_COMPLETA));
-					debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
-					Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
-				}
-				if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
-					boolean checkDireccionComercial = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_COME_COMPLETA));
-					debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
-					Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
-				}
-				if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
-					boolean checkDireccionProduccion = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PPRO_COMPLETA));
-					debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
-					Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
-				}
-				if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
-					boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PSIN_COMPLETA));
-					debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
-					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
-				}
-
-			}
-
 		}
 		debugEnd();
 		return this;
