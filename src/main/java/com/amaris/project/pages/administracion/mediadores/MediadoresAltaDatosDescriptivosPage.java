@@ -462,8 +462,10 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 
 		altaDatosBasicosComunes();
 
-		if(getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
+		//iryna ha añadido aqui la logica de colaborador auxiliar tambien
+		if(getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") || getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 			nombreFiscal();
+			tipoDocumento();
 			apellidosMediador();
 			nombreComercial();
 		} else {
