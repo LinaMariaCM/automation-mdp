@@ -391,15 +391,15 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			// if nie
 			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")){
 				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateCIF());
-				webDriver.setText(numeroDocumentoInput, getVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 			}
 			else if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")){
 				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNif());
-				webDriver.setText(numeroDocumentoInput, getVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 			}
 			else if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")){
 				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNIE());
-				webDriver.setText(numeroDocumentoInput, getVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 			}
 
 		}
