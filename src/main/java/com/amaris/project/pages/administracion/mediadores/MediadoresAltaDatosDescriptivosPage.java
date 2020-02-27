@@ -351,6 +351,16 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		return this;
 	}
 
+	public MediadoresAltaDatosDescriptivosPage completarNombreComercialDiferente(String nomComercial) {
+		debugBegin();
+		webDriver.click(nombreComercialDiferenteFiscalBtn);
+		webDriver.waitWithDriver(3000);
+		debugInfo("Estoy en completarNombreComercial");
+		webDriver.setText(nombreComercialADInput, nomComercial);
+		debugEnd();
+		return this;
+	}
+
 	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
@@ -358,10 +368,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		if(webDriver.isPresent(nombreComercialInput)) {
 			completarNombreComercial(getVar(Constants.NOMBRE_COMERCIAL));
 		}
-		else if(getVar(Constants.NOMBRE_COMERCIAL) != null && !getVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
-			webDriver.click(nombreComercialDiferenteFiscalBtn);
-			webDriver.waitWithDriver(3000);
-			completarNombreComercial(getVar(Constants.NOMBRE_COMERCIAL));
+		else if(!getVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
+			completarNombreComercialDiferente(getVar(Constants.NOMBRE_COMERCIAL));
 		} else {
 			webDriver.click(nombreComercialIgualFiscalBtn);
 		}
@@ -370,6 +378,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		debugEnd();
 		return this;
 	}
+
 
 	public MediadoresAltaDatosDescriptivosPage tipoDocumento() {
 		debugBegin();
