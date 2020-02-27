@@ -286,7 +286,7 @@ public class MediadoresTest {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 		userS.testActions(() -> {
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.login("Innova", "eferrando");
 			steps.alta_prospect_retenciones_mediadores();
 			return null;
 		}).run();
