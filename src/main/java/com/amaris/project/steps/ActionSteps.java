@@ -3698,6 +3698,7 @@ public class ActionSteps extends InteractionObject {
 		}
 		new FichaMediadorPage(userS)
 			.clickFichaMediador()
+			.comprobacionFicha()
 			/*	.solicitarAlta()
 				.enviarValoracionFinanciera()
 				.enviarRevisionFinanciera()
