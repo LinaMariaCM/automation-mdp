@@ -421,11 +421,11 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			//	webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 
 			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
-				webDriver.setText(primerApellidoInput, "primerApellido");
+				webDriver.setText(primerApellidoInput, getVar(Constants.PRIMER_APELLIDO_MEDIADOR));
 			}
 
 			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
-				webDriver.setText(segundoApellidoInput, "segundoApellido");
+				webDriver.setText(segundoApellidoInput, getVar(Constants.SEGUNDO_APELLIDO_MEDIADOR) );
 			}
 		}
 
