@@ -159,10 +159,10 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage envioMediadorDGS() {
 		debugBegin();
 
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("AE")) {
+		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("AE")) {
 			webDriver.waitWithDriver(4000);
 			webDriver.clickInFrame(tipoMediadorAuxiliarBtn, cuerpoFrame);
-		} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COL") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+		} else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COL") && getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 			webDriver.waitWithDriver(4000);
 			webDriver.clickInFrame(tipoMediadorAgenteExclusivoBtn, cuerpoFrame);
 		}
