@@ -159,7 +159,8 @@ public class MediadoresTest {
 	@DataProvider(parallel = false)
 	public String[][] dataProviderMed07() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "med_alta_csv_1.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresIntermediarios.csv", "datosTestMedIntermediarios.csv");
+		// lo primero es el CSV de las 3 altas, el segundo es el CSV de recogida de datos
 
 		return casesMatrix;
 	}
@@ -168,9 +169,13 @@ public class MediadoresTest {
 	public void med07(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
-		// CheckSteps checkSteps = new CheckSteps(userS);
+
+		//	suiteM.setRelevantColumn(testCase, 20);
+
 		userS.testActions(() -> {
-			steps.login("Innova", "eferrando");
+			// alta intermediario agente exclusivo
+			steps.get_Scenario_Data("INTE");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 			return null;
