@@ -27,6 +27,7 @@ public class FichaMediadorPage extends PageObject {
 	private By tituloPaginaTxt = By.cssSelector("body.sis-body > h1.titulopagina");
 	private By buscadorMediadoresBtn = By.linkText(("Buscador mediadores").trim());
 	private By fichaMediadorBtn = By.cssSelector("#jt1son > a[title='Ficha mediador  ']");
+	private By agendaMediadorBtn = By.cssSelector("#jt4");
 
 	//------------- Botones Pestañas -------------
 
@@ -331,6 +332,14 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage clickAgendaMediadorProspect() {
+		debugBegin();
+
+		webDriver.clickInFrame(agendaMediadorBtn, menuFrame);
+
+		debugEnd();
+		return this;
+	}
 	// ---- Más acciones + Estados + Situaciones
 
 	public FichaMediadorPage clickMasAcciones() {
