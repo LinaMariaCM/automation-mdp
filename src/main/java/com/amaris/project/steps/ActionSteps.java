@@ -3909,8 +3909,6 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.DIRECCION_PSIN_COMPLETA, userS.getScenario());
 		userS.setTestVar(Constants.NUMERO_REF_DGS, userS.getScenario());
 		userS.setTestVar(Constants.COMPANYIAS_PRINCIPALES, userS.getScenario());
-
-/// Antonia
 		userS.setTestVar(Constants.NOMBRE_COMERCIAL_PROSPECT, userS.getScenario());
 		userS.setTestVar(Constants.TIPO_PROSPECT, userS.getScenario());
 		userS.setTestVar(Constants.NOMBRE_PROSPECT, userS.getScenario());
