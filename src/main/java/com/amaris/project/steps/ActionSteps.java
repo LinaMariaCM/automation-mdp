@@ -3922,9 +3922,6 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.ID_MEDIADOR_ALTA, userS.getScenario());
 		userS.setTestVar(Constants.TIPO_DOCUMENTO, userS.getScenario());
 		userS.setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, userS.getScenario());
-			userS.setTestVar(Constants.
-			userS.setTestVar(Constants.
-		debugEnd();
 
 	}
 
