@@ -82,8 +82,8 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(especialistaRamoSIBtn);
 
-		if(getTestVar(Constants.RAMO) != null && !getTestVar(Constants.RAMO).isEmpty()) {
-			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getTestVar(Constants.RAMO));
+		if(getVar(Constants.RAMO) != null && !getVar(Constants.RAMO).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getVar(Constants.RAMO));
 		} else {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", "0");
 		}
@@ -111,10 +111,10 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(especialistaRamoSIBtn);
 
-		if(getTestVar(Constants.RAMO) != null || !getTestVar(Constants.RAMO).isEmpty()) {
-			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getTestVar(Constants.RAMO));
+		if(!getVar(Constants.RAMO).isEmpty()) {
+			webDriver.click(especialistaRamoSIBtn);
+			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getVar(Constants.RAMO));
 		} else {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", "10");
 		}
@@ -230,9 +230,9 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		debugBegin();
 		anyadirDatosProductoConRamoConFinca();
 
-		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && getTestVar(Constants.COMPANYIAS_PRINCIPALES) != null && !getTestVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
-		//if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && !getTestVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
-			webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, getTestVar(Constants.COMPANYIAS_PRINCIPALES));
+		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && (getVar(Constants.COMPANYIAS_PRINCIPALES) != null || !getVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty())) {
+		//if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && !getVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
+			webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, getVar(Constants.COMPANYIAS_PRINCIPALES));
 		} else {
 			webDriver.setTextInFrame(compPrincipInput, "Compañia", cuerpoFrame);
 		}
