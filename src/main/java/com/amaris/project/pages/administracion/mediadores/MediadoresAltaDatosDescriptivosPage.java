@@ -290,8 +290,8 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			nombreComercial();
 			debugInfo("nombre comercial introducido");
 			webDriver.waitWithDriver(3000);
-			if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equals("BSE")) {
-		//	if(webDriver.isPresentInFrame(sexoCombo, cuerpoFrame)){
+		//	if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equals("BSE")) {
+			if(webDriver.isPresentInFrame(sexoCombo, cuerpoFrame)){
 				webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
 			}
 			webDriver.waitWithDriver(3000);
