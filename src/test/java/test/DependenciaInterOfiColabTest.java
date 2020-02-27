@@ -21,6 +21,8 @@ public class DependenciaInterOfiColabTest extends TestObject{
 	public String[][] dataProviderIntercambioDatos01() {
 		String testCase = Constants.MEDIADORES_CASE;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "scenarioDataDependenciaIntOfiCol.csv", "datosVariablesMediadoresIntercambio2.csv");
+	//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosVariablesMediadoresIntercambio2.csv", "scenarioDataDependenciaIntOfiCol.csv");
+		// lo primero es el CSV de las 3 altas, el segundo es el CSV de recogida de datos
 
 		return casesMatrix;
 	}
@@ -30,7 +32,7 @@ public class DependenciaInterOfiColabTest extends TestObject{
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
-		suiteM.setRelevantColumn(testCase, 20);
+	//	suiteM.setRelevantColumn(testCase, 20);
 
 		userS.testActions(() -> {
 			// alta intermediario agente exclusivo

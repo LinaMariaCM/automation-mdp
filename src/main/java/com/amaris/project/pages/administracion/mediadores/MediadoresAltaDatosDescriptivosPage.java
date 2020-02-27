@@ -270,7 +270,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 			//	webDriver.waitForElementToBePresentInFrame(nivelEstructuraCombo, cuerpoFrame);
 			webDriver.waitWithDriver(4000);
-			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getVar(Constants.NIVEL_ESTRUCTURA));
+			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getTestVar(Constants.NIVEL_ESTRUCTURA));
 			webDriver.waitWithDriver(3000);
 			debugInfo("nivel de estructura seleccionado");
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", getVar(Constants.TIPO_MEDIADOR));
@@ -290,12 +290,13 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			nombreComercial();
 			debugInfo("nombre comercial introducido");
 			webDriver.waitWithDriver(3000);
-		//	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equals("BSE")) {
+		//	if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equals("BSE")) {
 			if(webDriver.isPresentInFrame(sexoCombo, cuerpoFrame)){
 				webDriver.clickElementFromDropDownByAttributeInFrame(sexoCombo, sexoOption, cuerpoFrame, "value", "2");
 			}
 			webDriver.waitWithDriver(3000);
-			if(webDriver.isPresentInFrame(medSoftwareNOBtn, cuerpoFrame) || webDriver.isPresentInFrame(medSoftwareSIBtn, cuerpoFrame)) {
+		//	if(webDriver.isPresentInFrame(medSoftwareNOBtn, cuerpoFrame) || webDriver.isPresentInFrame(medSoftwareSIBtn, cuerpoFrame)) {
+				if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 				disponibilidadSoftware();
 			}
 			debugInfo("cuenta con software de seguros");
@@ -350,17 +351,25 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		return this;
 	}
 
+	public MediadoresAltaDatosDescriptivosPage completarNombreComercialDiferente(String nomComercial) {
+		debugBegin();
+		webDriver.click(nombreComercialDiferenteFiscalBtn);
+		webDriver.waitWithDriver(3000);
+		debugInfo("Estoy en completarNombreComercial");
+		webDriver.setText(nombreComercialADInput, nomComercial);
+		debugEnd();
+		return this;
+	}
+
 	public MediadoresAltaDatosDescriptivosPage nombreComercial() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
 
 		if(webDriver.isPresent(nombreComercialInput)) {
-			completarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
-		}
-		else if(getVar(Constants.NOMBRE_COMERCIAL) != null && !getVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
-			webDriver.click(nombreComercialDiferenteFiscalBtn);
-			webDriver.waitWithDriver(3000);
 			completarNombreComercial(getVar(Constants.NOMBRE_COMERCIAL));
+		}
+		else if(!getVar(Constants.NOMBRE_COMERCIAL).isEmpty()) {
+			completarNombreComercialDiferente(getVar(Constants.NOMBRE_COMERCIAL));
 		} else {
 			webDriver.click(nombreComercialIgualFiscalBtn);
 		}
@@ -370,26 +379,27 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		return this;
 	}
 
+
 	public MediadoresAltaDatosDescriptivosPage tipoDocumento() {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
 
-		if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
+		if(webDriver.isPresent(tipoDocumentoCombo) && getVar(Constants.TIPO_DOCUMENTO) != null && !getVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
 			// si pide el número de documento y hay dato sobre el tipo en el CSV
-			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
+			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getVar(Constants.TIPO_DOCUMENTO));
 			// if nie
-			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")){
+			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")){
 				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateCIF());
-				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+				webDriver.setText(numeroDocumentoInput, getVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 			}
-			else if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")){
+			else if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")){
 				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNif());
-				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+				webDriver.setText(numeroDocumentoInput, getVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 			}
-			else if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")){
+			else if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")){
 				setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNIE());
-				webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+				webDriver.setText(numeroDocumentoInput, getVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 			}
 
 		}
@@ -405,16 +415,16 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 		tipoDocumento();
 		webDriver.switchToFrame(cuerpoFrame);
 
-		if(webDriver.isPresent(tipoDocumentoCombo) && getTestVar(Constants.TIPO_DOCUMENTO) != null && !getTestVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
-			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO));
+		if(webDriver.isPresent(tipoDocumentoCombo) && getVar(Constants.TIPO_DOCUMENTO) != null && !getVar(Constants.TIPO_DOCUMENTO).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getVar(Constants.TIPO_DOCUMENTO));
 			//	setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, DocumentGeneratorHelper.generateNif());
 			//	webDriver.setText(numeroDocumentoInput, getTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
 
-			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
+			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF") || getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIE")) {
 				webDriver.setText(primerApellidoInput, "primerApellido");
 			}
 
-			if(getTestVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
+			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("NIF")) {
 				webDriver.setText(segundoApellidoInput, "segundoApellido");
 			}
 		}
