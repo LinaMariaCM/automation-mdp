@@ -373,7 +373,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 				webDriver.waitWithDriver(3000);
 				webDriver.click(direccionDiferenteBtn);
 			}
-			webDriver.waitForElementToBePresent(provinciaInput);
+		//webDriver.waitForElementToBePresent(provinciaInput);
+			webDriver.waitWithDriver(3000);
 			completarCampoProvincia(getVar(Constants.DIRECCION_PPRO_PROVINCIA));
 			completarCampoPoblacion(getVar(Constants.DIRECCION_PPRO_POBLACION));
 			completarCampoNombreVia(getVar(Constants.DIRECCION_PPRO_NOMBRE_VIA));
@@ -384,8 +385,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(aceptarBtn);
 		}
 		// sin datos para la provincia + oficina / colaborador --> hereda datos del nivel superios
-		else if(!getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && (getVar(Constants.DIRECCION_PPRO_PROVINCIA).equalsIgnoreCase(null)
-			|| getVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty()
+		else if(!getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && (getVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty()
 			|| getVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty())) {
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
