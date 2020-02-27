@@ -56,18 +56,20 @@ public class MediadoresAgendaPage extends PageObject {
 	private By calendAnualBtn = By.cssSelector("#lnkPeriodo6");
 	private By calendBianualBtn = By.cssSelector("#lnkPeriodo7");
 	private By volverCalendarioBtn = By.cssSelector("div[id='funcionVolver'] > [id='cabAnotacion']");
+	private By volverAnotacionBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li > a");
 
 	//-----------Anotaciones----------
 	private By anotacionesBtn = By.cssSelector("#pesANOTACIONES");
 
 	//----Otros------------------------
-	private By mensajeConfirmacionTxt = By.cssSelector("#body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
+	private By mensajeConfirmacionTxt = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
 
 	public MediadoresAgendaPage(UserStory userS) {
 		super(userS);
 	}
 
 	//----------------------Métodos simples----------------------------------
+
 	public MediadoresAgendaPage clickVolverCalendario() {
 		debugBegin();
 		webDriver.clickInFrame(volverCalendarioBtn, cuerpoFrame);
@@ -108,14 +110,6 @@ public class MediadoresAgendaPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAgendaPage clickBuscarPlantillas() {
-		debugBegin();
-		webDriver.clickInFrame(buscarPlantillaBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
-
 	public MediadoresAgendaPage clickGrabarAnotacion() {
 		debugBegin();
 		webDriver.clickInFrame(grabarAnotacionBtn, cuerpoFrame);
@@ -135,14 +129,6 @@ public class MediadoresAgendaPage extends PageObject {
 	public MediadoresAgendaPage clickNuevaTarea() {
 		debugBegin();
 		webDriver.clickInFrame(nuevaTareaBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAgendaPage clickPlantillas() {
-		debugBegin();
-		webDriver.clickInFrame(plantillasBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -193,15 +179,18 @@ public class MediadoresAgendaPage extends PageObject {
 		webDriver.clickElementFromDropDownByAttributeInFrame(categoriaTareaCombo, categoriaTareaOpcion, cuerpoFrame, "value", "MEDIADORES");
 		webDriver.clickElementFromDropDownByAttributeInFrame(prioridadTareaCombo, prioridadTareaOption, cuerpoFrame, "value", "0");
 		webDriver.setTextInFrame(fechaFinTareaInput, DateUtils.getTodayDate(DateUtils.DATE_FORMAT), cuerpoFrame);
-		webDriver.clickInFrame(grabarAnotacionBtn, cuerpoFrame);
+
+		clickGrabarAnotacion();
 
 		String alertaResultado = webDriver.getTextInFrame(mensajeConfirmacionTxt, cuerpoFrame).trim();
-		String alertaEsperada = "La tarea MEDIADORES - " + titulo + "se ha creado correctamente.";
+		String alertaEsperada = "La tarea MEDIADORES - " + titulo + " se ha creado correctamente.";
 
 		debugInfo("Mensaje esperado: " + alertaEsperada);
 		debugInfo("Mensaje real: " + alertaResultado);
 
 		Assert.assertTrue(alertaResultado.equalsIgnoreCase(alertaEsperada), "Alerta no se muestra");
+
+		webDriver.clickInFrame(volverAnotacionBtn, cuerpoFrame);
 
 		debugEnd();
 

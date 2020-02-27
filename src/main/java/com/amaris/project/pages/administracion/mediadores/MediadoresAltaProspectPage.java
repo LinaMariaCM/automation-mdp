@@ -170,7 +170,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
-		webDriver.appendText(provinciaInput, getTestVar(Constants.DIRECCION_FISC_PROVINCIA));
+		webDriver.appendText(provinciaInput, getTestVar(Constants.PROVINCIA));
 
 		webDriver.waitForElementToBeClickable(provinciaCombo);
 
@@ -186,7 +186,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.appendText(poblacionInput, getTestVar(Constants.DIRECCION_FISC_POBLACION));
+		webDriver.appendText(poblacionInput, getTestVar(Constants.POBLACION));
 
 		webDriver.waitForElementToBeClickable(poblacionCombo);
 
@@ -202,7 +202,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.appendText(nombreViaInput, getTestVar(Constants.DIRECCION_FISC_NombreVia));
+		webDriver.appendText(nombreViaInput, getTestVar(Constants.NOMBRE_VIA));
 
 		webDriver.waitForElementToBeClickable(nombreViaCombo);
 
@@ -512,7 +512,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
-		webDriver.setText(provinciaInput, "Valencia");
+		webDriver.setText(provinciaInput, getTestVar(Constants.PROVINCIA));
 
 		webDriver.waitForElementToBeClickable(provinciaCombo);
 
@@ -528,7 +528,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.setText(poblacionInput, "Mislata");
+		webDriver.setText(poblacionInput, getTestVar(Constants.POBLACION));
 
 		webDriver.waitForElementToBeClickable(poblacionCombo);
 
@@ -541,7 +541,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
-		webDriver.setText(nombreViaInput, "GREG");
+		webDriver.setText(nombreViaInput, getTestVar(Constants.NOMBRE_VIA));
 
 		webDriver.waitForElementToBeClickable(nombreViaCombo);
 
