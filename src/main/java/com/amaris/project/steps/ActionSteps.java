@@ -3602,7 +3602,6 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuar()
 			.repiteDireccionComercial();
 		new MediadoresAltaDatosRelacionalesPage(userS)
-			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
