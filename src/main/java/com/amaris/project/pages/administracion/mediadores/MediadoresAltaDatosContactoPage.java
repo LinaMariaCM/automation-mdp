@@ -222,7 +222,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		debugBegin();
 		webDriver.waitWithDriver(2000);
 		webDriver.setText(provinciaInput, provinciaCampo);
-		webDriver.waitWithDriver(2000);
+		webDriver.waitWithDriver(3000);
 		webDriver.clickElementFromDropDownByAttribute(provinciaInput, provinciaCombo, "role", "menuitem");
 		debugEnd();
 
@@ -318,7 +318,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.waitWithDriver(2800);
 			webDriver.click(direccionDiferenteBtn);
 			debugInfo("se selecciona direccion comercial diferente a la fiscal");
-			//	webDriver.waitForElementToBePresent(provinciaInput);
+		//	webDriver.waitForElementToBePresent(provinciaInput);
 			webDriver.waitWithDriver(2800);
 			completarCampoProvincia(getTestVar(Constants.DIRECCION_COME_PROVINCIA));
 			completarCampoPoblacion(getTestVar(Constants.DIRECCION_COME_POBLACION));
