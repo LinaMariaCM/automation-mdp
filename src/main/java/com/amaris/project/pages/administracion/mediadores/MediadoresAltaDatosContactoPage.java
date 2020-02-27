@@ -371,9 +371,9 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			if(!getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 				webDriver.click(direccionSuperiorNOBtn);
 				webDriver.waitWithDriver(3000);
-				webDriver.click(direccionDiferenteBtn);
 			}
-		//webDriver.waitForElementToBePresent(provinciaInput);
+			webDriver.click(direccionDiferenteBtn);
+			//webDriver.waitForElementToBePresent(provinciaInput);
 			webDriver.waitWithDriver(3000);
 			completarCampoProvincia(getVar(Constants.DIRECCION_PPRO_PROVINCIA));
 			completarCampoPoblacion(getVar(Constants.DIRECCION_PPRO_POBLACION));
@@ -478,9 +478,9 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			if(!getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 				webDriver.click(direccionSuperiorNOBtn);
 				webDriver.waitWithDriver(2400);
-				webDriver.click(direccionDiferenteBtn);
-				webDriver.waitWithDriver(1800);
 			}
+			webDriver.click(direccionDiferenteBtn);
+			webDriver.waitWithDriver(1800);
 			webDriver.waitForElementToBePresent(provinciaInput);
 			completarCampoProvincia(getVar(Constants.DIRECCION_PREC_PROVINCIA));
 			completarCampoPoblacion(getVar(Constants.DIRECCION_PREC_POBLACION));
