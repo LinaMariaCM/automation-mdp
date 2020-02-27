@@ -38,6 +38,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By compPrincipObligDisplay = By.cssSelector("#capaDatosMediador > div > div.marcofnd > table.wideBox > tbody > tr.flexibleField > th > label > span");
 
 	private By medNuevoBancoBtn = By.linkText("Añadir nuevo banco");
+	//private By medNuevoBancoBtn = By.linkText("[onclick*='operacion=NEWBANC']");
 	private By nombreBancoInput = By.cssSelector("#ALTAMEDI_NOMBANCO");
 	private By observacionesBancoInput = By.cssSelector("#ALTAMEDI_OBSBANCO");
 
@@ -111,9 +112,9 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
-
+		webDriver.click(especialistaRamoSIBtn);
 		if(!getVar(Constants.RAMO).isEmpty()) {
-			webDriver.click(especialistaRamoSIBtn);
+	//		webDriver.click(especialistaRamoSIBtn);
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getVar(Constants.RAMO));
 		} else {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", "10");
@@ -228,16 +229,17 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 	public MediadoresAltaDatosRelacionalesPage altaDatosRelacionales() {
 		debugBegin();
+
 		anyadirDatosProductoConRamoConFinca();
 
-		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && (getVar(Constants.COMPANYIAS_PRINCIPALES) != null || !getVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty())) {
-		//if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && !getVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
+		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && getVar(Constants.COMPANYIAS_PRINCIPALES) != null && !getVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
 			webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, getVar(Constants.COMPANYIAS_PRINCIPALES));
 		} else {
 			webDriver.setTextInFrame(compPrincipInput, "Compañia", cuerpoFrame);
 		}
 
 		anyadirNuevoBanco("Nombre del banco");
+
 		debugEnd();
 
 		return this;
