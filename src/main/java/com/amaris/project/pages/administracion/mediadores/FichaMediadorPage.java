@@ -528,7 +528,7 @@ public class FichaMediadorPage extends PageObject {
 		String nivelJerarquico = (webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).trim());
 		System.out.println(nivelJerarquico);
 
-		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getVar(Constants.NIVEL_ESTRUCTURA));
+		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
 
 		//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
 		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
@@ -1396,31 +1396,7 @@ public class FichaMediadorPage extends PageObject {
 					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
 				}
 
-				if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
-					if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
-						boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_COMPLETA));
-						debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
-						Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
-					}
-					if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
-						boolean checkDireccionComercial = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_COME_COMPLETA));
-						debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
-						Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
-					}
-					if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
-						boolean checkDireccionProduccion = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PPRO_COMPLETA));
-						debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
-						Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
-					}
-					if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
-						boolean checkDireccionSiniestros = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PSIN_COMPLETA));
-						debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
-						Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
-					}
-
-				}
 			}
-
 		}
 		debugEnd();
 		return this;
@@ -1491,11 +1467,9 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 
 		String contactoRes = webDriver.getTextInFrame(nombreContactoRespTxt, cuerpoFrame).substring(7).trim();
-		debugInfo("Lo que saca en la ficha es " + contactoRes);
 
 		boolean contactoResMed = contactoRes.equalsIgnoreCase(contacto);
 
-		debugInfo("lo que pongo yo " + contacto);
 		Assert.assertTrue(contactoResMed, "Es incorrecto.");
 		debugInfo("Se ha verificado el Contacto Responsable");
 		debugEnd();
@@ -1545,8 +1519,8 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
-		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getVar(Constants.NIVEL_ESTRUCTURA) != null
-			|| !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
 			clickFichaMediador();
 

@@ -766,15 +766,15 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		clickContinuar();
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 			alertaSistemaContacto(Constants.ALERTA_ANYADIR_DIRECCIONES_MEDIADORES);
 		}
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") ||
-			getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") ||
+			getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 
 			alertaSistemaContacto(Constants.ALERTA_ANYADIR_DIRECCIONES_SUPERIOR_MEDIADORES);
 		}
@@ -787,9 +787,9 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "COME");
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA) != null && !getVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") ||
-			getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
+			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") ||
+			getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 
 			webDriver.switchToFrame(cuerpoFrame);
 			webDriver.clickInFrame(direccionSuperiorNOBtn, modalFrame);
