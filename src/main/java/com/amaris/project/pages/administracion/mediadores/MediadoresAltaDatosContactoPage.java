@@ -413,7 +413,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
 			&& !getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") || getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {*/
 
-		String avisoDireccionComercialRepetida = webDriver.getTextInFrame(By.cssSelector("table > tbody > tr > td > p > strong"), cuerpoFrame).trim();
+		String avisoDireccionComercialRepetida = webDriver.getTextInFrame(alertaDireccionesTxt, cuerpoFrame).trim();
 		debugInfo("El copy para la dirección fiscal de una oficina es: " + avisoDireccionComercialRepetida);
 
 		boolean checkDireccionComercialRepetida = avisoDireccionComercialRepetida
@@ -463,6 +463,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 
 	}
+
+
 
 	public MediadoresAltaDatosContactoPage anyadirDireccionRecibos() {
 		debugBegin();
