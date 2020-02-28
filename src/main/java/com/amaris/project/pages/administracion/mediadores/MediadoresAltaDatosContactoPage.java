@@ -173,6 +173,30 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			// es colaborador, sin datos --> clic en Fiscal = nivel superior
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
+		} else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")){
+			webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+
+			//---Elegimos Direccion Comercial-----
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "COME");
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.clickInFrame(direccionSuperiorNOBtn, modalFrame);
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+			webDriver.waitForElementToBePresent(provinciaInput);
+			completarCampoProvincia(getVar(Constants.DIRECCION_COME_PROVINCIA));
+			webDriver.waitForElementToBePresent(poblacionInput);
+			completarCampoPoblacion(getVar(Constants.DIRECCION_COME_POBLACION));
+			webDriver.waitForElementToBePresent(viaInput);
+			completarCampoNombreVia(getVar(Constants.DIRECCION_COME_NombreVia));
+			webDriver.setText(numeroViaInput, "11");
+			webDriver.click(comprobarDireccionBtn);
+			webDriver.click(aceptarBtn);
+
+			webDriver.exitFrame();
+			debugInfo("Se ha rellenado la Direccion Fiscal.");
 		}
 
 		debugInfo("se acaba de añadir la dirección fiscal del intermediario"); // muere en este punto
@@ -331,7 +355,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(aceptarBtn);
 		}
 		// sin datos de provincia + oficina / colaborador --> hereda datos del nivel superios
-		else if(getVar(Constants.DIRECCION_COME_PROVINCIA).isEmpty() && !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE"))
+		else if(getVar(Constants.DIRECCION_COME_PROVINCIA).isEmpty() && !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
+			&& !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA"))
 		//	|| getVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getVar(Constants.DIR_FISCAL_IGUAL_A).equals(null) - revisar . ver si comentando este contenido se resuelven algunos conflictos
 		{
 			webDriver.click(direccionSuperiorSIBtn);
@@ -354,6 +379,38 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
+	public MediadoresAltaDatosContactoPage anyadirDireccionComercialColAuxiliar() {
+		debugBegin();
+		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+			webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
+
+			//---Elegimos Direccion Comercial-----
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "COME");
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.clickInFrame(direccionSuperiorNOBtn, modalFrame);
+
+			webDriver.switchToFrame(cuerpoFrame);
+			webDriver.switchToFrame(modalFrame);
+			webDriver.waitForElementToBePresent(provinciaInput);
+			completarCampoProvincia(getVar(Constants.DIRECCION_COME_PROVINCIA));
+			webDriver.waitForElementToBePresent(poblacionInput);
+			completarCampoPoblacion(getVar(Constants.DIRECCION_COME_POBLACION));
+			webDriver.waitForElementToBePresent(viaInput);
+			completarCampoNombreVia(getVar(Constants.DIRECCION_COME_NombreVia));
+			webDriver.setText(numeroViaInput, "11");
+			webDriver.click(comprobarDireccionBtn);
+			webDriver.click(aceptarBtn);
+
+			webDriver.exitFrame();
+			debugInfo("Se ha rellenado la Direccion Comercial.");
+
+
+		}
+		debugEnd();
+		return this;
+	}
 /*	#capaParaAjaxVoid > table > tbody > tr > td
 		<td height="40" align="center" class="fondopositivo"><strong>Domicilio correcto:</strong>  DEL MOTOR DE SANT AGUSTÍ 11 (46470) MASSANASSA - Valencia</td>*/
 
@@ -463,8 +520,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 
 	}
-
-
 
 	public MediadoresAltaDatosContactoPage anyadirDireccionRecibos() {
 		debugBegin();

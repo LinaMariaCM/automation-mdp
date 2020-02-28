@@ -3631,7 +3631,7 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
 			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
-			.anyadirDireccionComercial()
+			.anyadirDireccionComercialColAuxiliar()
 			.anyadirNuevaDireccionFiscal()
 			.anyadirDireccionProduccion()
 			.anyadirDireccionSiniestros()
@@ -3703,9 +3703,7 @@ public class ActionSteps extends InteractionObject {
 				.anyadirFechaInicioRelacion()
 				.anyadirDatosGenerales()
 				.clickGuardarYSalirDGSAlta();
-		}
-
-		else {
+		} else {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
