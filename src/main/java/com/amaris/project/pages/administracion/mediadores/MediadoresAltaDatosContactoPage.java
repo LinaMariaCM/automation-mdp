@@ -371,9 +371,9 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			if(!getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 				webDriver.click(direccionSuperiorNOBtn);
 				webDriver.waitWithDriver(3000);
-				webDriver.click(direccionDiferenteBtn);
 			}
-		//webDriver.waitForElementToBePresent(provinciaInput);
+			webDriver.click(direccionDiferenteBtn);
+			//webDriver.waitForElementToBePresent(provinciaInput);
 			webDriver.waitWithDriver(3000);
 			completarCampoProvincia(getVar(Constants.DIRECCION_PPRO_PROVINCIA));
 			completarCampoPoblacion(getVar(Constants.DIRECCION_PPRO_POBLACION));
@@ -413,7 +413,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
 			&& !getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") || getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {*/
 
-		String avisoDireccionComercialRepetida = webDriver.getTextInFrame(By.cssSelector("table > tbody > tr > td > p > strong"), cuerpoFrame).trim();
+		String avisoDireccionComercialRepetida = webDriver.getTextInFrame(alertaDireccionesTxt, cuerpoFrame).trim();
 		debugInfo("El copy para la dirección fiscal de una oficina es: " + avisoDireccionComercialRepetida);
 
 		boolean checkDireccionComercialRepetida = avisoDireccionComercialRepetida
@@ -464,6 +464,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 	}
 
+
+
 	public MediadoresAltaDatosContactoPage anyadirDireccionRecibos() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
@@ -478,9 +480,9 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			if(!getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 				webDriver.click(direccionSuperiorNOBtn);
 				webDriver.waitWithDriver(2400);
-				webDriver.click(direccionDiferenteBtn);
-				webDriver.waitWithDriver(1800);
 			}
+			webDriver.click(direccionDiferenteBtn);
+			webDriver.waitWithDriver(1800);
 			webDriver.waitForElementToBePresent(provinciaInput);
 			completarCampoProvincia(getVar(Constants.DIRECCION_PREC_PROVINCIA));
 			completarCampoPoblacion(getVar(Constants.DIRECCION_PREC_POBLACION));

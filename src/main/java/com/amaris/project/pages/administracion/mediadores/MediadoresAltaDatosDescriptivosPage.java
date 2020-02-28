@@ -270,7 +270,7 @@ public class MediadoresAltaDatosDescriptivosPage extends PageObject {
 			&& getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 			//	webDriver.waitForElementToBePresentInFrame(nivelEstructuraCombo, cuerpoFrame);
 			webDriver.waitWithDriver(4000);
-			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getTestVar(Constants.NIVEL_ESTRUCTURA));
+			webDriver.clickElementFromDropDownByAttributeInFrame(nivelEstructuraCombo, nivelEstructuraOption, cuerpoFrame, "value", getVar(Constants.NIVEL_ESTRUCTURA));
 			webDriver.waitWithDriver(3000);
 			debugInfo("nivel de estructura seleccionado");
 			webDriver.clickElementFromDropDownByAttributeInFrame(tipoMediadorCombo, tipoMediadorOption, cuerpoFrame, "value", getVar(Constants.TIPO_MEDIADOR));

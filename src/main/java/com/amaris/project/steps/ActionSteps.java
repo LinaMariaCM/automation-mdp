@@ -3642,7 +3642,7 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
 
-		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+		if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
 			new MediadoresAltaDatosDGSPage(userS)
 				.anyadirFechaInicioRelacion()
@@ -3688,12 +3688,24 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
 
-		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+	/*	if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+			// comentar hasta resolver caso para Colaborador auxiliar CIF (padre Corredor NIF) mediante las getTestVar del case
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
 			new MediadoresAltaDatosDGSPage(userS)
 				.anyadirFechaInicioRelacion()
 				.clickGuardarYSalirDGSAlta();
-		} else {
+		}
+		revisar */
+
+		if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
+			new MediadoresAltaDatosDGSPage(userS)
+				.anyadirFechaInicioRelacion()
+				.anyadirDatosGenerales()
+				.clickGuardarYSalirDGSAlta();
+		}
+
+		else {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
@@ -3705,7 +3717,7 @@ public class ActionSteps extends InteractionObject {
 				.confirmarAlta()
 				.formacionAvanzarEstado()*/
 			.obtenerIdMediador();
-/*		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+/*		if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new FichaMediadorPage(userS)
 				.clickBuscadorMediadores();
 			new MediadoresHomePage(userS)
@@ -3727,17 +3739,17 @@ public class ActionSteps extends InteractionObject {
 
 	public void tramitar_estados_mediador() { // MONTADO POR ORDEN DE PASOS Y VARIABLES
 		debugBegin();
-		if(!getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
+		if(!getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 			// casi todos inician su tramitación solicitando alta
 			new FichaMediadorPage(userS)
 				.solicitarAlta()
 				.clickFichaMediador();
-			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+			if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 				new FichaMediadorPage(userS)
 					.confirmarAlta()
 					.clickFichaMediador();
-				//	debugInfo("--------- Se acaba de completar la tramitación de OFICINAS y COLABORADORES ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA)); IDs comentados para evitar fallos en el alta de oficinas
-				if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+				//	debugInfo("--------- Se acaba de completar la tramitación de OFICINAS y COLABORADORES ---------> " + getVar(Constants.ID_MEDIADOR_ALTA)); IDs comentados para evitar fallos en el alta de oficinas
+				if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 					new FichaMediadorPage(userS)
 						.formacionAvanzarEstado()
 						.clickFichaMediador()
@@ -3774,7 +3786,7 @@ public class ActionSteps extends InteractionObject {
 					.clickFichaMediador();
 				//	debugInfo("--------- Se acaba de confirmar el altas del INTE - sin AD ---------> " + getTestVar(Constants.ID_MEDIADOR_ALTA));
 
-				if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+				if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 					new FichaMediadorPage(userS)
 						.formacionAvanzarEstado()
 						.clickFichaMediador()
