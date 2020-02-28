@@ -154,9 +154,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			// si es oficina o gestor, comprueba el copy de la dirección fiscal automáticamente heredada
 			heredaDireccionFiscal();
 
-		} else if(!getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()
-			|| !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
-			|| !getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+		} else if(!getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty() && !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+			if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && !getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+				webDriver.click(direccionSuperiorNOBtn);
+				webDriver.waitWithDriver(2000);
+			}
 
 			// si no es oficina o un colaborador gestor + contiene dato en el campo provincia --> completa datos - getVar(Constants.DIRECCION_FISC_PROVINCIA) != null ||
 			completarCampoProvincia(getVar(Constants.DIRECCION_FISC_PROVINCIA).toString());
@@ -184,7 +186,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		}
-		debugInfo("se acaba de añadir la dirección fiscal del intermediario"); // muere en este punto
+
+		debugInfo("se acaba de añadir la Dirección Fiscal"); // muere en este punto
 
 		webDriver.waitWithDriver(3000);
 		webDriver.exitFrame();
@@ -355,40 +358,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosContactoPage anyadirDireccionAuxiliar() {
-		debugBegin();
-		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
-			webDriver.clickInFrame(anyadirNuevaDireccionBtn, cuerpoFrame);
 
-			//---Elegimos Direccion Comercial-----
-			webDriver.switchToFrame(cuerpoFrame);
-
-			webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "COME");
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.clickInFrame(direccionSuperiorNOBtn, modalFrame);
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(provinciaInput);
-			completarCampoProvincia(getVar(Constants.DIRECCION_COME_PROVINCIA));
-			webDriver.waitForElementToBePresent(poblacionInput);
-			completarCampoPoblacion(getVar(Constants.DIRECCION_COME_POBLACION));
-			webDriver.waitForElementToBePresent(viaInput);
-			completarCampoNombreVia(getVar(Constants.DIRECCION_COME_NombreVia));
-			webDriver.setText(numeroViaInput, "11");
-			webDriver.click(comprobarDireccionBtn);
-			webDriver.click(aceptarBtn);
-			debugInfo("Se ha rellenado la Direccion Comercial.");
-			webDriver.exitFrame();
-			obtenerDirecciones();
-			debugInfo("se completó el alta de dirección comercial");
-
-
-		}
-		debugEnd();
-		return this;
-	}
 /*	#capaParaAjaxVoid > table > tbody > tr > td
 		<td height="40" align="center" class="fondopositivo"><strong>Domicilio correcto:</strong>  DEL MOTOR DE SANT AGUSTÍ 11 (46470) MASSANASSA - Valencia</td>*/
 
@@ -549,8 +519,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		if(!getVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()) {
 			// hay datos para provincia + clic en "Direccion seleccionada != superior" y se selecciona diferente / getVar(Constants.DIRECCION_PSIN_PROVINCIA) != null
-			if(!getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
-				&& !getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+			if(!getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 				webDriver.click(direccionSuperiorNOBtn);
 				webDriver.waitWithDriver(2000);
 			}
@@ -574,22 +543,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			//			.equalsIgnoreCase("INTE") || getVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getVar(Constants.DIR_FISCAL_IGUAL_A).equals(null)))
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
-		} else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
-
-			webDriver.click(direccionSuperiorNOBtn);
-
-			webDriver.waitForElementToBePresent(provinciaInput);
-			completarCampoProvincia(getVar(Constants.DIRECCION_COME_PROVINCIA));
-			webDriver.waitForElementToBePresent(poblacionInput);
-			completarCampoPoblacion(getVar(Constants.DIRECCION_COME_POBLACION));
-			webDriver.waitForElementToBePresent(viaInput);
-			completarCampoNombreVia(getVar(Constants.DIRECCION_COME_NombreVia));
-			webDriver.setText(numeroViaInput, "11");
-			webDriver.click(comprobarDireccionBtn);
-			webDriver.click(aceptarBtn);
-
-			debugInfo("Se ha rellenado la Direccion Postal Siniestros.");
-
 		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturas desde DIR_FISCAL_IGUAL_A
 			webDriver.click(direccionSuperiorNOBtn);
 			if(!getVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty() || getVar(Constants.DIR_SINIESTROS_IGUAL_A)

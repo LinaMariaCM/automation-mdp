@@ -3647,9 +3647,9 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 
-		new FichaMediadorPage(userS)
+	/*	new FichaMediadorPage(userS)
 			.obtenerIdMediador();
-		debugInfo("Se acaba de completar el alta del COLABORADOR");
+		debugInfo("Se acaba de completar el alta del COLABORADOR");*/
 		/* - revisar - queda comentado porque ya hay una step para tramitar estados
 			.solicitarAlta()
 			.clickFichaMediador()
@@ -3701,14 +3701,14 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
-			.comprobacionFicha()
+			.comprobacionFicha();
 			/*	.solicitarAlta()
 				.enviarValoracionFinanciera()
 				.enviarRevisionFinanciera()
 				.enviarResolucionFinanciera()
 				.confirmarAlta()
 				.formacionAvanzarEstado()*/
-			.obtenerIdMediador();
+		//	.obtenerIdMediador();
 /*		if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new FichaMediadorPage(userS)
 				.clickBuscadorMediadores();
