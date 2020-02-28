@@ -321,7 +321,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage clickFichaMediador() {
+/*	public FichaMediadorPage clickFichaMediador() {
 		debugBegin();
 		webDriver.waitWithDriver(8000);
 		if(!webDriver.isPresentInFrame(masAccionesBtn, cuerpoFrame)) {
@@ -330,7 +330,7 @@ public class FichaMediadorPage extends PageObject {
 		}
 		debugEnd();
 		return this;
-	}
+	}*/
 
 	public FichaMediadorPage clickAgendaMediadorProspect() {
 		debugBegin();
@@ -344,7 +344,6 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage clickMasAcciones() {
 		debugBegin();
-		clickFichaMediador();
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(masAccionesBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
@@ -589,8 +588,6 @@ public class FichaMediadorPage extends PageObject {
 		webDriver.waitWithDriver(6000);
 
 		//	String estadoAlta = webDriver.getTextInFrame(By.cssSelector("<strong>Estado </strong>") + estadoMediadorTxt, cuerpoFrame).trim();
-
-		clickFichaMediador();
 
 		String estadoAlta = webDriver.getTextInFrame(estadoMediadorTxt, cuerpoFrame).trim();
 		boolean checkEstado = estadoAlta.equalsIgnoreCase(estado);
@@ -947,7 +944,6 @@ public class FichaMediadorPage extends PageObject {
 
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
-			clickFichaMediador();
 
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
@@ -964,7 +960,6 @@ public class FichaMediadorPage extends PageObject {
 			clickConfirmarAlta();
 			webDriver.waitWithDriver(3000);
 			grabarComentarioEstado();
-			clickFichaMediador();
 
 			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
@@ -1530,8 +1525,6 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
 			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
-
-			clickFichaMediador();
 
 			//NIVEL ESTRUCTURA
 			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null

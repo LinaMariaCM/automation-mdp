@@ -2,6 +2,7 @@ package com.amaris.project.pages.administracion.mediadores;
 
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
+import com.amaris.automation.model.utils.StringUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
@@ -9,6 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.util.List;
+import java.util.Random;
 
 public class MediadoresAltaDatosContactoPage extends PageObject {
 
@@ -148,7 +150,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
-		if(!getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()
+		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+			// si es oficina o gestor, comprueba el copy de la dirección fiscal automáticamente heredada
+			heredaDireccionFiscal();
+
+		} else if(!getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()
 			|| !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
 			|| !getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 
@@ -163,13 +169,17 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			debugInfo("Introducida la calle de la dirección fiscal");
 
 			webDriver.waitWithDriver(3000);
-			webDriver.setText(numeroViaInput, "11");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.waitWithDriver(3000);
 			webDriver.click(aceptarBtn);
 			debugInfo("Aceptada la dirección para añadirse a la lista");
 			webDriver.waitWithDriver(4600);
-		} else if(getVar(Constants.DIRECCION_FISC_PROVINCIA).equals(null) || getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()) {
+		}/* else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+			// si es oficina o gestor, comprueba el copy de la dirección fiscal automáticamente heredada
+			heredaDireccionFiscal();
+
+		}*/ else if(getVar(Constants.DIRECCION_FISC_PROVINCIA).equals(null) || getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()) {
 			// es colaborador, sin datos --> clic en Fiscal = nivel superior
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
@@ -187,15 +197,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 	public MediadoresAltaDatosContactoPage heredaDireccionFiscal() {
 		debugBegin();
-		// if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST"))
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(anyadirNuevaDireccionBtn);
-		webDriver.waitWithDriver(4000);
 
-		webDriver.clickElementFromDropDownByAttributeInFrame(tipoDomicilioCombo, tipoDomicilioOption, modalFrame, "value", "FISC");
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.waitWithDriver(5000);
 		// si es oficina o gestor, comprueba el copy de la dirección fiscal automáticamente heredada
 		String copyDireccionFiscalOficina = webDriver.getText(By.cssSelector("#capaDomicilio > table.tableForm > tbody > tr > th > strong")).trim();
 		debugInfo("El copy para la dirección fiscal de una oficina es: " + copyDireccionFiscalOficina);
@@ -205,14 +207,14 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscalOficina);
 		Assert.assertTrue(checkDireccionFiscalOficina, "Comparar campos: el copy de la dirección Fiscal NO coincide");
 
-		if(checkDireccionFiscalOficina = true) {
+		if(checkDireccionFiscalOficina == true) {
 			debugInfo("Hace clic en aceptar dirección fiscal heredada... o eso creo");
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		} else {
 			debugInfo("Ha habido un error y no se ha hecho clic en aceptar en el mensaje de coincidencia de direcciones fiscales");
 		}
 		webDriver.exitFrame();
-		obtenerDirecciones();
+		//	obtenerDirecciones();
 		// añadir método para la direccion
 		debugEnd();
 		return this;
@@ -325,7 +327,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			completarCampoPoblacion(getVar(Constants.DIRECCION_COME_POBLACION));
 			completarCampoNombreVia(getVar(Constants.DIRECCION_COME_NombreVia));
 			webDriver.waitWithDriver(3000);
-			webDriver.setText(numeroViaInput, "11");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.waitWithDriver(4000);
 			webDriver.click(aceptarBtn);
@@ -379,7 +381,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			completarCampoPoblacion(getVar(Constants.DIRECCION_PPRO_POBLACION));
 			completarCampoNombreVia(getVar(Constants.DIRECCION_PPRO_NOMBRE_VIA));
 			webDriver.waitWithDriver(2000);
-			webDriver.setText(numeroViaInput, "11");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.waitForElementToBePresent(aceptarBtn);
 			webDriver.click(aceptarBtn);
@@ -464,8 +466,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 	}
 
-
-
 	public MediadoresAltaDatosContactoPage anyadirDireccionRecibos() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
@@ -488,7 +488,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			completarCampoPoblacion(getVar(Constants.DIRECCION_PREC_POBLACION));
 			completarCampoNombreVia(getVar(Constants.DIRECCION_PREC_NombreVia));
 			webDriver.waitWithDriver(2000);
-			webDriver.setText(numeroViaInput, "11");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.waitForElementToBePresent(aceptarBtn);
 			webDriver.click(aceptarBtn);
@@ -527,7 +527,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			completarCampoPoblacion(getVar(Constants.DIRECCION_PSIN_POBLACION));
 			completarCampoNombreVia(getVar(Constants.DIRECCION_PSIN_NOMBRE_VIA));
 			webDriver.waitWithDriver(2000);
-			webDriver.setText(numeroViaInput, "11");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.waitForElementToBePresent(aceptarBtn);
 			webDriver.click(aceptarBtn);
