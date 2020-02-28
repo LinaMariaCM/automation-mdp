@@ -3626,8 +3626,9 @@ public class ActionSteps extends InteractionObject {
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
 			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
+			.anyadirDireccionAuxiliar()
 			.anyadirNuevaDireccionFiscal()
-			.anyadirDireccionComercial()
+			.anyadirDireccionProduccion()
 			.anyadirDireccionSiniestros()
 			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
