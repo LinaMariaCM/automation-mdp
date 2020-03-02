@@ -138,7 +138,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-	//--------------Añadir direcciones: los 5 casos basicos--------------------------------- / ANTONIA REFACTORIZADO
+	//--------------Añadir direcciones: los 5 casos basicos--------------------------------- //
 
 	public MediadoresAltaDatosContactoPage anyadirNuevaDireccionFiscal() {
 		debugBegin();
@@ -177,11 +177,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(aceptarBtn);
 			debugInfo("Aceptada la dirección para añadirse a la lista");
 			webDriver.waitWithDriver(4600);
-		}/* else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
-			// si es oficina o gestor, comprueba el copy de la dirección fiscal automáticamente heredada
-			heredaDireccionFiscal();
-
-		}*/ else if(getVar(Constants.DIRECCION_FISC_PROVINCIA).equals(null) || getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()) {
+		}else if(getVar(Constants.DIRECCION_FISC_PROVINCIA).equals(null) || getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()) {
 			// es colaborador, sin datos --> clic en Fiscal = nivel superior
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
