@@ -299,7 +299,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		clickAnyadirNuevoAltoCargo();
 		anyadirNuevoAltoCargo();
 
-		clickGuardarYSalir();
+		//clickGuardarYSalir();
 
 		debugEnd();
 		return this;
