@@ -3709,7 +3709,7 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
-			//.comprobacionFicha()
+		//	.comprobacionFicha()
 			/*	.solicitarAlta()
 				.enviarValoracionFinanciera()
 				.enviarRevisionFinanciera()
