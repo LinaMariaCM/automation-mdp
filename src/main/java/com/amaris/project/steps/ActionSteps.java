@@ -3697,18 +3697,17 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosDGSPage(userS)
 				.anyadirFechaInicioRelacion()
 				.clickGuardarYSalirDGSAlta();
-		}else{
+		} else {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
-			.comprobacionFicha();
 			/*	.solicitarAlta()
 				.enviarValoracionFinanciera()
 				.enviarRevisionFinanciera()
 				.enviarResolucionFinanciera()
 				.confirmarAlta()
 				.formacionAvanzarEstado()*/
-		//	.obtenerIdMediador();
+			.obtenerIdMediador();
 /*		if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new FichaMediadorPage(userS)
 				.clickBuscadorMediadores();
@@ -3870,8 +3869,8 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		userS.setScenario(name);
-		userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenario());
-		userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenario());
+		//userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenario());
+		//userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenario());
 		userS.setTestVar(Constants.NOMBRE_MEDIADOR, userS.getScenario());
 		userS.setTestVar(Constants.IDIOMA, userS.getScenario());
 		userS.setTestVar(Constants.ACTIVIDAD_PRINCIPAL, userS.getScenario());
@@ -3959,7 +3958,6 @@ public class ActionSteps extends InteractionObject {
 			.openGestionMediadores();
 		new MediadoresBuscadorPage(userS)
 			.buscarInteRelacionado();
-
 
 		debugEnd();
 	}

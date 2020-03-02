@@ -817,7 +817,7 @@ public class FichaMediadorPage extends PageObject {
 
 			if(getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE).contains("TRUE")) {
 				setTestVar((Constants.ID_ALTA_INTERMEDIARIO_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
-				debugInfo("Código de Intermediario obtenido" + getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
+				debugInfo("Código de Intermediario obtenido " + getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
 			} else if(getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 				setTestVar((Constants.ID_ALTA_OFICINA_AE), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
 				debugInfo("Código de Oficina obtenido");
