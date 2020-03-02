@@ -55,7 +55,7 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 		userS.testActions(() -> {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_oficina();
-		//	steps.localizar_mediador();
+			//	steps.localizar_mediador();
 			steps.tramitar_estados_mediador();
 			return null;
 		}).run();
@@ -79,6 +79,44 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_colaborador();
 			steps.tramitar_estados_mediador();
+			return null;
+		}).run();
+	}
+
+	//PRUEBAAAA
+
+	@DataProvider(parallel = false)
+	public String[][] altasRelacionadasMed20() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "med_prueba_enlazadas.csv", "datosTestIntermediarios.csv");
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "altasRelacionadasMed20")
+	public void altaIntermediario20(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			steps.get_Scenario_Data("INTE");
+			steps.login("Innova", "eferrando");
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
+
+			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
+				steps.get_Scenario_Data("OFIC");
+				steps.login("Innova", "eferrando");
+				steps.alta_oficina();
+				steps.tramitar_estados_mediador();
+			}
+
+			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
+				steps.get_Scenario_Data("COLA");
+				steps.login("Innova", "eferrando");
+				steps.alta_colaborador();
+				steps.tramitar_estados_mediador();
+			}
+
 			return null;
 		}).run();
 	}

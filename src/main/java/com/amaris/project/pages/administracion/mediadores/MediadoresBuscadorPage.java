@@ -141,8 +141,8 @@ public class MediadoresBuscadorPage extends PageObject {
 	//Búsqueda para comprobar el intercambio de datos
 	public MediadoresBuscadorPage buscarInteRelacionado() {
 		debugBegin();
-		//webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_INTE_PADRE));
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
+		// webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_INTE_PADRE));
 	//	añadirIDBuscar("121895");
 		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
 		clickBuscar();
