@@ -3604,6 +3604,8 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
+		new FichaMediadorPage(userS)
+			.obtenerIdMediador();
 		debugInfo("Se acaba de completar el alta de la  OFICINA");
 	/*	new FichaMediadorPage(userS)   - si tramitar_estados_mediador funciona correctamente, borrar esta
 			.solicitarAlta()
@@ -3647,9 +3649,9 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 
-	/*	new FichaMediadorPage(userS)
+		new FichaMediadorPage(userS)
 			.obtenerIdMediador();
-		debugInfo("Se acaba de completar el alta del COLABORADOR");*/
+		debugInfo("Se acaba de completar el alta del COLABORADOR");
 		/* - revisar - queda comentado porque ya hay una step para tramitar estados
 			.solicitarAlta()
 			.clickFichaMediador()
@@ -3697,25 +3699,24 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosDGSPage(userS)
 				//.anyadirDatosGenerales()
 				.anyadirFechaInicioRelacion();
-				if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")){
-					new MediadoresAltaDatosDGSPage(userS)
+			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")) {
+				new MediadoresAltaDatosDGSPage(userS)
 					.anyadirDatosGenerales();
-
-				}
+			}
 			new MediadoresAltaDatosDGSPage(userS)
 				.clickGuardarYSalirDGSAlta();
-		}else{
+		} else {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
-			.comprobacionFicha();
+			.comprobacionFicha()
 			/*	.solicitarAlta()
 				.enviarValoracionFinanciera()
 				.enviarRevisionFinanciera()
 				.enviarResolucionFinanciera()
 				.confirmarAlta()
 				.formacionAvanzarEstado()*/
-		//	.obtenerIdMediador();
+			.obtenerIdMediador();
 /*		if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new FichaMediadorPage(userS)
 				.clickBuscadorMediadores();
@@ -3971,7 +3972,6 @@ public class ActionSteps extends InteractionObject {
 			.openGestionMediadores();
 		new MediadoresBuscadorPage(userS)
 			.buscarInteRelacionado();
-
 
 		debugEnd();
 	}
