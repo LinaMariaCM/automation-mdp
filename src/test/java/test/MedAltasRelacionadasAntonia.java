@@ -15,10 +15,10 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 	protected SuiteManager suiteM = new SuiteManager(Constants.MEDIADORES_CASE);
 
 	@DataProvider(parallel = false)
-	public String[][] altasRelacionadasMed01() {
+	public String[][] altaIntermediario01() {
 		String testCase = Constants.MEDIADORES_CASE;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresIntermediarios.csv", "datosTestIntermediarios.csv");
-		//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "alta_interm_18_02_2020.csv"); - revisar antes comentado junto al resto de la prueba
+	//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresIntermediarios.csv", "datosTestIntermediarios.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv");
 		return casesMatrix;
 	}
 
@@ -30,26 +30,10 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 		//	suiteM.setRelevantColumn(testCase, 80);
 
 		userS.testActions(() -> {
-			/* alta intermediario agente exclusivo
-			if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {*/
-			steps.login("Innova", "eferrando");
+			steps.get_Scenario_Data("INTE");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
-		/*		}
-			alta oficina
-			if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).equalsIgnoreCase("TRUE")) {
-				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-				steps.alta_oficina();
-				steps.tramitar_estados_mediador();
-			}
-
-			alta de colaborador
-			if(userS.getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).equalsIgnoreCase("TRUE")) {
-				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-				steps.alta_colaborador();
-				steps.tramitar_estados_mediador();
-			}*/
-
 			return null;
 		}).run();
 	}

@@ -137,7 +137,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	public MediadoresAltaDatosDGSPage tipoDocumentoRepresentante() {
 
 		debugBegin();
-		webDriver.clickElementFromDropDownByAttribute(tipoDocRepresentCombo, tipoDocRepresentOption, "value", getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE));
+		webDriver.clickElementFromDropDownByAttribute(tipoDocRepresentCombo, tipoDocRepresentOption, "value", getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE));
 		debugEnd();
 		return this;
 	}
@@ -146,15 +146,15 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE) != null && getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("CIF")) {
-
-			webDriver.setText(numDocRepresentInput, "R6991265G");
-
-		} else if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE) != null && getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
+		if(!getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).isEmpty() && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("CIF")) {
+			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateCIF());
+		} else if(!getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).isEmpty() && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIE")) {
+			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateNIE());
+		} else if(!getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).isEmpty() && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
 			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateNif());
 		} else {
-
-			webDriver.setText(numDocRepresentInput, "96195668P");
+			debugInfo("No se está generando el número de documento del representante");
+			//webDriver.setText(numDocRepresentInput, "96195668P");
 		}
 
 		debugEnd();
@@ -165,11 +165,11 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 		debugBegin();
 
-		if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO) != null && getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("CIF")) {
+		if(getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO) != null && getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("CIF")) {
 
 			webDriver.setText(numDocumentoInput, "R6991265G");
 
-		} else if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO) != null && getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF")) {
+		} else if(getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO) != null && getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF")) {
 			webDriver.setText(numDocumentoInput, DocumentGeneratorHelper.generateNif());
 		} else {
 
@@ -206,6 +206,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 	public MediadoresAltaDatosDGSPage clickGuardarYSalir() {
 		debugBegin();
+		webDriver.waitWithDriver(2400);
 		webDriver.clickInFrame(guardarYSalirBtn, cuerpoFrame);
 		debugEnd();
 		return this;
@@ -284,21 +285,21 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 		tipoDocumentoRepresentante();
 		escribirNumeroDocumentoRepresentante();
-		escribirNombreRepresentante("Nombre");
+		escribirNombreRepresentante("NombreRepresentante");
 
-		if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIE")) {
+		if(getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF") || getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIE")) {
 			webDriver.setText(primApellidoRepresentInput, "primerApell");
 		}
 
-		if(getTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
+		if(getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
 			webDriver.setText(segApellidoRepresentInput, "segundoApell");
 		}
 
-		escribirFechaIniRelacion();
+		//	escribirFechaIniRelacion();
 		clickAnyadirNuevoAltoCargo();
 		anyadirNuevoAltoCargo();
 
-		clickGuardarYSalir();
+		//clickGuardarYSalir();
 
 		debugEnd();
 		return this;
@@ -308,36 +309,35 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	public MediadoresAltaDatosDGSPage anyadirNuevoAltoCargo() {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
+		//webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
-		webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
+		webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
 		escribirNumeroDocumentoAltoCargo();
 
-		if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF") || getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIE")) {
+		if(getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF") || getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIE")) {
 			webDriver.setText(nombreInput, "Nombre");
 			webDriver.setText(primerApellidoInput, "Primer Apellido");
-			webDriver.clickElementFromDropDownByAttribute(sexoCombo, sexoOption, "value", getTestVar(Constants.SEXO));
-
+			webDriver.clickElementFromDropDownByAttribute(sexoCombo, sexoOption, "value", getVar(Constants.SEXO));
 		}
 
-		if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF")) {
+		if(getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF")) {
 			webDriver.setText(segundoApellidoInput, "Segundo Apellido");
 		}
 
-		if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("CIF")) {
+		if(getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("CIF")) {
 
 			webDriver.setText(razonSocialInput, "Razon");
-			webDriver.clickElementFromDropDownByAttribute(tipoDocRepresentanCifCombo, tipoDocRepresentanCifOption, "value", getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF));
+			webDriver.clickElementFromDropDownByAttribute(tipoDocRepresentanCifCombo, tipoDocRepresentanCifOption, "value", getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF));
 			webDriver.setText(nombreRepresentanCifInput, "Nombre");
 
-			if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIF")) {
+			if(getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIF")) {
 				webDriver.setText(segApellRepresentanCifInput, "Segundo Apellido");
 			}
 
-			if(getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF) != null && getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIE")
-				|| getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("PAS")
-				|| getTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIF")) {
+			if(getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF) != null && getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIE")
+				|| getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("PAS")
+				|| getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF).equalsIgnoreCase("NIF")) {
 				webDriver.setText(priApellRepresentanCifInput, "Primer Apellido");
 			}
 		}
@@ -378,7 +378,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		webDriver.waitWithDriver(6000);
 
 		debugEnd();
-		
+
 		return this;
 	}
 

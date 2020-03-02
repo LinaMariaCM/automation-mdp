@@ -3604,6 +3604,8 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
+		new FichaMediadorPage(userS)
+			.obtenerIdMediador();
 		debugInfo("Se acaba de completar el alta de la  OFICINA");
 	/*	new FichaMediadorPage(userS)   - si tramitar_estados_mediador funciona correctamente, borrar esta
 			.solicitarAlta()
@@ -3647,9 +3649,9 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 
-	/*	new FichaMediadorPage(userS)
+		new FichaMediadorPage(userS)
 			.obtenerIdMediador();
-		debugInfo("Se acaba de completar el alta del COLABORADOR");*/
+		debugInfo("Se acaba de completar el alta del COLABORADOR");
 		/* - revisar - queda comentado porque ya hay una step para tramitar estados
 			.solicitarAlta()
 			.clickFichaMediador()
@@ -3695,12 +3697,19 @@ public class ActionSteps extends InteractionObject {
 		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
 			new MediadoresAltaDatosDGSPage(userS)
-				.anyadirFechaInicioRelacion()
+				//.anyadirDatosGenerales()
+				.anyadirFechaInicioRelacion();
+			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")) {
+				new MediadoresAltaDatosDGSPage(userS)
+					.anyadirDatosGenerales();
+			}
+			new MediadoresAltaDatosDGSPage(userS)
 				.clickGuardarYSalirDGSAlta();
 		} else {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
+			//.comprobacionFicha()
 			/*	.solicitarAlta()
 				.enviarValoracionFinanciera()
 				.enviarRevisionFinanciera()
@@ -3877,6 +3886,7 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.NOMBRE_COMERCIAL, userS.getScenario());
 		userS.setTestVar(Constants.EJECUTIVO_COMERCIAL, userS.getScenario());
 		userS.setTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED, userS.getScenario());
+		userS.setTestVar(Constants.SEXO, userS.getScenario());
 		userS.setTestVar(Constants.ID_INTE_PADRE, userS.getScenario());
 		userS.setTestVar(Constants.ID_OFICINA_PADRE, userS.getScenario());
 		userS.setTestVar(Constants.CONTACTO_RESPONSABLE, userS.getScenario());
@@ -3947,6 +3957,10 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.ALERTA_TELEFONO_MEDIADORES, userS.getScenario());
 		userS.setTestVar(Constants.ALERTA_MEDIADOR_NO_SELECCIONADO, userS.getScenario());
 		userS.setTestVar(Constants.ALERTA_FECHA_INSCRIPCION_DGS, userS.getScenario());
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO, userS.getScenario());
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF, userS.getScenario());
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE, userS.getScenario());
+
 	}
 
 	public void localizar_mediador() {
