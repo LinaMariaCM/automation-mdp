@@ -3878,8 +3878,8 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		userS.setScenario(name);
-		//userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenario());
-		//userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenario());
+		userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenario());
+		userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenario());
 		userS.setTestVar(Constants.NOMBRE_MEDIADOR, userS.getScenario());
 		userS.setTestVar(Constants.IDIOMA, userS.getScenario());
 		userS.setTestVar(Constants.ACTIVIDAD_PRINCIPAL, userS.getScenario());

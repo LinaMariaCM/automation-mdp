@@ -191,7 +191,9 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		webDriver.waitWithDriver(3000);
 		webDriver.exitFrame();
+
 		obtenerDirecciones();
+
 		debugEnd();
 
 		return this;
