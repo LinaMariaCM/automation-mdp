@@ -17,21 +17,21 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 	@DataProvider(parallel = false)
 	public String[][] altaIntermediario01() {
 		String testCase = Constants.MEDIADORES_CASE;
-	//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresIntermediarios.csv", "datosTestIntermediarios.csv");
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosAltaMediadoresIntermediarios.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresC245.csv", "datosTestIntermediarios.csv");
+	//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresIntermediarios.csv", null);
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "altasRelacionadasMed01")
+	@Test(dataProvider = "altaIntermediario01")
 	public void altaIntermediario01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
-		//	suiteM.setRelevantColumn(testCase, 80);
+		suiteM.setRelevantColumn(testCase, 80);
 
 		userS.testActions(() -> {
 			steps.get_Scenario_Data("INTE");
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.login("Innova", "eferrando");
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 			return null;
