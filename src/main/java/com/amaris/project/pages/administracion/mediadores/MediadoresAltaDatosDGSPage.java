@@ -146,14 +146,15 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 		debugBegin();
 
-		if(getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE) != null && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("CIF")) {
+		if(!getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).isEmpty() && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("CIF")) {
 			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateCIF());
-		} else if(getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE) != null && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
-			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateNif());
-		} else if(getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE) != null && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
+		} else if(!getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).isEmpty() && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIE")) {
 			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateNIE());
+		} else if(!getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).isEmpty() && getVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
+			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateNif());
 		} else {
-			webDriver.setText(numDocRepresentInput, "96195668P");
+			debugInfo("No se está generando el número de documento del representante");
+			//webDriver.setText(numDocRepresentInput, "96195668P");
 		}
 
 		debugEnd();
@@ -205,6 +206,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 	public MediadoresAltaDatosDGSPage clickGuardarYSalir() {
 		debugBegin();
+		webDriver.waitWithDriver(2400);
 		webDriver.clickInFrame(guardarYSalirBtn, cuerpoFrame);
 		debugEnd();
 		return this;
@@ -307,7 +309,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	public MediadoresAltaDatosDGSPage anyadirNuevoAltoCargo() {
 		debugBegin();
 
-		webDriver.switchToFrame(cuerpoFrame);
+		//webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
 		webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
