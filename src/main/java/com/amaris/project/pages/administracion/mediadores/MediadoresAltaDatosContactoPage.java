@@ -155,6 +155,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			heredaDireccionFiscal();
 
 		} else if(!getVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty() && !getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+
 			if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && !getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 				webDriver.click(direccionSuperiorNOBtn);
 				webDriver.waitWithDriver(2000);

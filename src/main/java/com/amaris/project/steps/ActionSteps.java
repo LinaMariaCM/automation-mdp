@@ -3926,8 +3926,8 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.NOMBRE_PROSPECT, userS.getScenario());
 		userS.setTestVar(Constants.RAMO, userS.getScenario());
 		userS.setTestVar(Constants.ID_TESTRAIL, userS.getScenario());
-		userS.setTestVar(Constants.ACCESO, userS.getScenario());
-		userS.setTestVar(Constants.USUARIO, userS.getScenario());
+		//userS.setTestVar(Constants.ACCESO, userS.getScenario());
+		//userS.setTestVar(Constants.USUARIO, userS.getScenario());
 		userS.setTestVar(Constants.TIPO_COLABORADOR, userS.getScenario());
 		userS.setTestVar(Constants.ID_MEDIADOR_ALTA, userS.getScenario());
 		userS.setTestVar(Constants.TIPO_DOCUMENTO, userS.getScenario());

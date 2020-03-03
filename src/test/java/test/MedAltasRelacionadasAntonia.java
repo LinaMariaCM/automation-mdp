@@ -104,7 +104,7 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
-				//steps.get_Scenario_Data("OFIC");
+				steps.get_Scenario_Data("OFIC");
 				steps.login("Innova", "eferrando");
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
