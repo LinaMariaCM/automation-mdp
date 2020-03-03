@@ -50,6 +50,67 @@ public class SiniestrosGenericosTest extends TestObject {
 			return null;
 		}).run();
 	}
+
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosGen02() {
+		String testCase = Constants.MEC_SINIESTROS + "02";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderSiniestrosMec02")
+	public void siniestrosGen02(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.rehuso_siniestro();
+			steps.cierro_navegador();
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.reconsidero_siniestro_rehusado();
+			steps.cierro_navegador();
+
+
+			return null;
+		}).run();
+	}
+
+	@DataProvider(parallel = true)
+	public String[][] dataProviderSiniestrosGen03() {
+		String testCase = Constants.MEC_SINIESTROS + "03";
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderSiniestrosMec03")
+	public void siniestrosGen03(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.alta_siniestro_simple();
+			steps.cierro_navegador();
+
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			steps.realizo_recobro();
+			steps.cierro_navegador();
+
+
+			return null;
+		}).run();
+	}
+
 	
 	//END
 	@AfterSuite
