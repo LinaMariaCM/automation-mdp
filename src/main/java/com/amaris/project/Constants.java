@@ -739,7 +739,6 @@ public class Constants {
 	public static final String ALERTA_MEDIADOR_NO_SELECCIONADO = "Debe seleccionar uno o varios mediadores para poder continuar.";
 	public static final String ALERTA_FECHA_INSCRIPCION_DGS = "El campo FECHA INSCRIPCIÓN no se ha rellenado correctamente.";
 
-
 	//ALERTAS DE ALTA PROSPECT(RETENCIONES)
 	public static final String ALERTA_TIPO_PROSPECT_MEDIADORES = "El campo TIPO PROSPECT es un campo obligatorio.";
 	public static final String ALERTA_TIPO_CONTACTO_PROSPECT = "El campo TIPO CONTACTO es un campo obligatorio.";
@@ -793,7 +792,6 @@ public class Constants {
 	public static final String DIR_RECIBOS_IGUAL_A = "med_dir_recibos_heredar";
 	public static final String DIR_SINIESTROS_IGUAL_A = "med_dir_siniestros_heredar";
 	public static final String DIRECCION_PSIN_COMPLETA = "med_direccion_psin_completa";
-
 
 	public static final String TIPO_COLABORADOR = "tipo_colaborador";
 
@@ -970,10 +968,9 @@ public class Constants {
 	public static final String IBAN_PAGO_COMISIONES_ALT_MED = "iban_pago_comisiones";
 	public static final String IBAN_CARGO_RECIBOS_AUTOLIQUIDACIONES_ALT_MED = "iban_cargo_recibos_autoliquidaciones";
 
-	//Variables de dependencia
-
+	//---Variables de dependencia---
 	public static final String ID_ALTA_INTERMEDIARIO_AE = "id_inter_ae";
 	public static final String ID_ALTA_OFICINA_AE = "id_ofi_ae";
 	public static final String ID_ALTA_COLABORADOR_AE = "id_colab_ae";
-	
+
 }// END

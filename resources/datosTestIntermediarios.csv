@@ -1,2 +1,2 @@
-acceso;usuario;id_inter_ae;id_ofi_ae;id_colab_ae;nivel_estructura;estructura;tipo_mediador;numero_envio_dgs;med_direccion_fisc_completa;med_direccion_come_completa;med_direccion_ppro_completa;med_direccion_prec_completa;med_direccion_psin_completa
-Innova;eferrando;TRUE;TRUE;TRUE;INTE;;;;;;;;
+acceso;usuario;id_inter_ae;id_ofi_ae;id_colab_ae;id_mediador_alta;numero_envio_dgs;med_direccion_fisc_completa;med_direccion_come_completa;med_direccion_ppro_completa;med_direccion_prec_completa;med_direccion_psin_completa
+Innova;eferrando;TRUE;TRUE;TRUE;TRUE;;;;;;

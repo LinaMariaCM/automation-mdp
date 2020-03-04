@@ -3639,7 +3639,7 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
 
-		if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315")) {
+		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315")) {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
 			new MediadoresAltaDatosDGSPage(userS)
 				.anyadirFechaInicioRelacion()
@@ -3694,12 +3694,12 @@ public class ActionSteps extends InteractionObject {
 		}
 		revisar */
 
-		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+		if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
 			new MediadoresAltaDatosDGSPage(userS)
 				//.anyadirDatosGenerales()
 				.anyadirFechaInicioRelacion();
-			if(getVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")) {
+			if(getScenarioVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")) {
 				new MediadoresAltaDatosDGSPage(userS)
 					.anyadirDatosGenerales();
 			}
@@ -3709,7 +3709,7 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
-		//	.comprobacionFicha()
+			//	.comprobacionFicha()
 			/*	.solicitarAlta()
 				.enviarValoracionFinanciera()
 				.enviarRevisionFinanciera()
@@ -3739,14 +3739,14 @@ public class ActionSteps extends InteractionObject {
 
 	public void tramitar_estados_mediador() { // MONTADO POR ORDEN DE PASOS Y VARIABLES
 		debugBegin();
-		if(!getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
+		if(!getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 			// casi todos inician su tramitación solicitando alta
 			new FichaMediadorPage(userS)
 				.solicitarAlta();
-			if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 				new FichaMediadorPage(userS)
 					.confirmarAlta();
-				if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+				if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 					new FichaMediadorPage(userS)
 						.formacionAvanzarEstado()
 						.clickBuscadorMediadores();
@@ -3873,66 +3873,61 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	//método para la carga de datos provenientes de csv de scenario
-	public void get_Scenario_Data(String name) {
+	//---Método para la carga de datos provenientes de csv de scenario---
+	public void set_test_variables_from_scenario_var(String name) {
 		debugBegin();
 
 		userS.setScenario(name);
-	/*	userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenario());
-		userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenario());
-		userS.setTestVar(Constants.NOMBRE_MEDIADOR, userS.getScenario());
-		userS.setTestVar(Constants.IDIOMA, userS.getScenario());
-		userS.setTestVar(Constants.ACTIVIDAD_PRINCIPAL, userS.getScenario());
-		userS.setTestVar(Constants.NOMBRE_COMERCIAL, userS.getScenario());
-		userS.setTestVar(Constants.EJECUTIVO_COMERCIAL, userS.getScenario());
-		userS.setTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED, userS.getScenario());
-		userS.setTestVar(Constants.SEXO, userS.getScenario());*/
-		userS.setTestVar(Constants.ID_INTE_PADRE, userS.getScenario());
-		userS.setTestVar(Constants.ID_OFICINA_PADRE, userS.getScenario());
-	/*	userS.setTestVar(Constants.CONTACTO_RESPONSABLE, userS.getScenario());
-		userS.setTestVar(Constants.CARGO_RESPONSABLE, userS.getScenario());
-		userS.setTestVar(Constants.PRIMER_APELLIDO_MEDIADOR, userS.getScenario());
-		userS.setTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR, userS.getScenario());
-		userS.setTestVar(Constants.RAMO_ALT_MED, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_FISC_PROVINCIA, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_FISC_POBLACION, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_FISC_NombreVia, userS.getScenario());*/
-		userS.setTestVar(Constants.DIRECCION_FISC_COMPLETA, userS.getScenario());
-	/*	userS.setTestVar(Constants.DIRECCION_COME_PROVINCIA, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_COME_POBLACION, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_COME_NombreVia, userS.getScenario());*/
-		userS.setTestVar(Constants.DIRECCION_COME_COMPLETA, userS.getScenario());
-	/*	userS.setTestVar(Constants.DIRECCION_PPRO_PROVINCIA, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_PPRO_POBLACION, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA, userS.getScenario());*/
-		userS.setTestVar(Constants.DIRECCION_PPRO_COMPLETA, userS.getScenario());
-	/*	userS.setTestVar(Constants.DIRECCION_PREC_PROVINCIA, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_PREC_POBLACION, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_PREC_NombreVia, userS.getScenario());*/
-		userS.setTestVar(Constants.DIRECCION_PREC_COMPLETA, userS.getScenario());
-	/*	userS.setTestVar(Constants.DIRECCION_PSIN_PROVINCIA, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_PSIN_POBLACION, userS.getScenario());
-		userS.setTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA, userS.getScenario());
-		userS.setTestVar(Constants.DIR_FISCAL_IGUAL_A, userS.getScenario());
-		userS.setTestVar(Constants.DIR_COMERCIAL_IGUAL_A, userS.getScenario());
-		userS.setTestVar(Constants.DIR_PRODUCCION_IGUAL_A, userS.getScenario());
-		userS.setTestVar(Constants.DIR_RECIBOS_IGUAL_A, userS.getScenario());
-		userS.setTestVar(Constants.DIR_SINIESTROS_IGUAL_A, userS.getScenario());*/
-		userS.setTestVar(Constants.DIRECCION_PSIN_COMPLETA, userS.getScenario());
-		userS.setTestVar(Constants.NUMERO_REF_DGS, userS.getScenario());
-	/*	userS.setTestVar(Constants.COMPANYIAS_PRINCIPALES, userS.getScenario());
-		userS.setTestVar(Constants.NOMBRE_COMERCIAL_PROSPECT, userS.getScenario());
-		userS.setTestVar(Constants.TIPO_PROSPECT, userS.getScenario());
-		userS.setTestVar(Constants.NOMBRE_PROSPECT, userS.getScenario());
-		userS.setTestVar(Constants.RAMO, userS.getScenario());
-		userS.setTestVar(Constants.ID_TESTRAIL, userS.getScenario());
-		userS.setTestVar(Constants.ACCESO, userS.getScenario());
-		userS.setTestVar(Constants.USUARIO, userS.getScenario());
-		userS.setTestVar(Constants.TIPO_COLABORADOR, userS.getScenario());*/
-		userS.setTestVar(Constants.ID_MEDIADOR_ALTA, userS.getScenario());
-	//	userS.setTestVar(Constants.TIPO_DOCUMENTO, userS.getScenario());
-		userS.setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, userS.getScenario());
-	/*	userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES, userS.getScenario());
+		userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenarioVar(Constants.NIVEL_ESTRUCTURA));
+		userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenarioVar(Constants.TIPO_MEDIADOR));
+		userS.setTestVar(Constants.NOMBRE_MEDIADOR, userS.getScenarioVar(Constants.NOMBRE_MEDIADOR));
+		userS.setTestVar(Constants.IDIOMA, userS.getScenarioVar(Constants.IDIOMA));
+		userS.setTestVar(Constants.ACTIVIDAD_PRINCIPAL, userS.getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL));
+		userS.setTestVar(Constants.NOMBRE_COMERCIAL, userS.getScenarioVar(Constants.NOMBRE_COMERCIAL));
+		userS.setTestVar(Constants.EJECUTIVO_COMERCIAL, userS.getScenarioVar(Constants.EJECUTIVO_COMERCIAL));
+		userS.setTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED, userS.getScenarioVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED));
+		userS.setTestVar(Constants.SEXO, userS.getScenarioVar(Constants.SEXO));
+		userS.setTestVar(Constants.ID_INTE_PADRE, userS.getScenarioVar(Constants.ID_INTE_PADRE));
+		userS.setTestVar(Constants.ID_OFICINA_PADRE, userS.getScenarioVar(Constants.ID_OFICINA_PADRE));
+		userS.setTestVar(Constants.PRIMER_APELLIDO_MEDIADOR, userS.getScenarioVar(Constants.PRIMER_APELLIDO_MEDIADOR));
+		userS.setTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR, userS.getScenarioVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
+		userS.setTestVar(Constants.RAMO_ALT_MED, userS.getScenarioVar(Constants.RAMO_ALT_MED));
+		userS.setTestVar(Constants.DIRECCION_FISC_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_FISC_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_FISC_POBLACION, userS.getScenarioVar(Constants.DIRECCION_FISC_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_FISC_NombreVia, userS.getScenarioVar(Constants.DIRECCION_FISC_NombreVia));
+		userS.setTestVar(Constants.DIRECCION_FISC_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_FISC_COMPLETA));
+		userS.setTestVar(Constants.DIRECCION_COME_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_COME_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_COME_POBLACION, userS.getScenarioVar(Constants.DIRECCION_COME_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_COME_NombreVia, userS.getScenarioVar(Constants.DIRECCION_COME_NombreVia));
+		userS.setTestVar(Constants.DIRECCION_COME_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_COME_COMPLETA));
+		userS.setTestVar(Constants.DIRECCION_PPRO_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_PPRO_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_PPRO_POBLACION, userS.getScenarioVar(Constants.DIRECCION_PPRO_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA, userS.getScenarioVar(Constants.DIRECCION_PPRO_NOMBRE_VIA));
+		userS.setTestVar(Constants.DIRECCION_PPRO_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_PPRO_COMPLETA));
+		userS.setTestVar(Constants.DIRECCION_PREC_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_PREC_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_PREC_POBLACION, userS.getScenarioVar(Constants.DIRECCION_PREC_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_PREC_NombreVia, userS.getScenarioVar(Constants.DIRECCION_PREC_NombreVia));
+		userS.setTestVar(Constants.DIRECCION_PREC_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_PREC_COMPLETA));
+		userS.setTestVar(Constants.DIRECCION_PSIN_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_PSIN_POBLACION, userS.getScenarioVar(Constants.DIRECCION_PSIN_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA, userS.getScenarioVar(Constants.DIRECCION_PSIN_NOMBRE_VIA));
+		userS.setTestVar(Constants.DIR_FISCAL_IGUAL_A, userS.getScenarioVar(Constants.DIR_FISCAL_IGUAL_A));
+		userS.setTestVar(Constants.DIR_COMERCIAL_IGUAL_A, userS.getScenarioVar(Constants.DIR_COMERCIAL_IGUAL_A));
+		userS.setTestVar(Constants.DIR_PRODUCCION_IGUAL_A, userS.getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A));
+		userS.setTestVar(Constants.DIR_RECIBOS_IGUAL_A, userS.getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A));
+		userS.setTestVar(Constants.DIR_SINIESTROS_IGUAL_A, userS.getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A));
+		userS.setTestVar(Constants.DIRECCION_PSIN_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_PSIN_COMPLETA));
+		userS.setTestVar(Constants.NUMERO_REF_DGS, userS.getScenarioVar(Constants.NUMERO_REF_DGS));
+		userS.setTestVar(Constants.COMPANYIAS_PRINCIPALES, userS.getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
+		userS.setTestVar(Constants.NOMBRE_COMERCIAL_PROSPECT, userS.getScenarioVar(Constants.NOMBRE_COMERCIAL_PROSPECT));
+		userS.setTestVar(Constants.RAMO, userS.getScenarioVar(Constants.RAMO));
+		userS.setTestVar(Constants.ID_TESTRAIL, userS.getScenarioVar(Constants.ID_TESTRAIL));
+		userS.setTestVar(Constants.TIPO_COLABORADOR, userS.getScenarioVar(Constants.TIPO_COLABORADOR));
+		userS.setTestVar(Constants.ID_MEDIADOR_ALTA, userS.getScenarioVar(Constants.ID_MEDIADOR_ALTA));
+		userS.setTestVar(Constants.TIPO_DOCUMENTO, userS.getScenarioVar(Constants.TIPO_DOCUMENTO));
+
+		userS.setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, userS.getScenarioVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+	 /*  userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES, userS.getScenario());
 		userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION, userS.getScenario());
 		userS.setTestVar(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL, userS.getScenario());
 		userS.setTestVar(Constants.ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES, userS.getScenario());
@@ -3957,9 +3952,10 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.ALERTA_TELEFONO_MEDIADORES, userS.getScenario());
 		userS.setTestVar(Constants.ALERTA_MEDIADOR_NO_SELECCIONADO, userS.getScenario());
 		userS.setTestVar(Constants.ALERTA_FECHA_INSCRIPCION_DGS, userS.getScenario());
-		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO, userS.getScenario());
-		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF, userS.getScenario());
-		userS.setTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE, userS.getScenario());*/
+		*/
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF));
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE));
 
 	}
 
