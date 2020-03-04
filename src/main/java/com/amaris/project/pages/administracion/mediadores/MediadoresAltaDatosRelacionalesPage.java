@@ -232,8 +232,8 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 		anyadirDatosProductoConRamoConFinca();
 
-		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && getVar(Constants.COMPANYIAS_PRINCIPALES) != null && !getVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
-			webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, getVar(Constants.COMPANYIAS_PRINCIPALES));
+		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && getScenarioVar(Constants.COMPANYIAS_PRINCIPALES) != null && !getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
+			webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
 		} else {
 			webDriver.setTextInFrame(compPrincipInput, "Compañia", cuerpoFrame);
 		}

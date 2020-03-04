@@ -1,6 +1,5 @@
 package test;
 
-import com.amaris.automation.data.DataObject;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
@@ -18,7 +17,7 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 	public String[][] altaIntermediario01() {
 		String testCase = Constants.MEDIADORES_CASE;
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresC245.csv", "datosTestIntermediarios.csv");
-	//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresIntermediarios.csv", null);
+		//	String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosAltaMediadoresIntermediarios.csv", null);
 		return casesMatrix;
 	}
 
@@ -30,7 +29,7 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 		suiteM.setRelevantColumn(testCase, 80);
 
 		userS.testActions(() -> {
-			steps.get_Scenario_Data("INTE");
+			steps.set_test_variables_from_scenario_var("INTE");
 			steps.login("Innova", "eferrando");
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
@@ -98,20 +97,21 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 		ActionSteps steps = new ActionSteps(userS);
 
 		userS.testActions(() -> {
-			steps.get_Scenario_Data("INTE");
+			steps.set_test_variables_from_scenario_var("INTE");
 			steps.login("Innova", "eferrando");
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
-				steps.get_Scenario_Data("OFIC");
+
+				steps.set_test_variables_from_scenario_var("OFIC");
 				steps.login("Innova", "eferrando");
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
 			}
 
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
-				steps.get_Scenario_Data("COLA");
+				steps.set_test_variables_from_scenario_var("COLA");
 				steps.login("Innova", "eferrando");
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();

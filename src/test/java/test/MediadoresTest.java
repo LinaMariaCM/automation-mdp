@@ -11,7 +11,6 @@ import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
-import com.amaris.project.steps.CheckSteps;
 
 public class MediadoresTest {
 
@@ -99,7 +98,7 @@ public class MediadoresTest {
 
 		userS.testActions(() -> {
 			// alta intermediario agente exclusivo
-			steps.get_Scenario_Data("INTE");
+			//steps.set_test_variables_from_scenario_var("INTE");
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();

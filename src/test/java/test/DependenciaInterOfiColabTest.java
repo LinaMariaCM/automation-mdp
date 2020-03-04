@@ -4,14 +4,11 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.amaris.automation.data.DataObject;
 import com.amaris.automation.model.testing.SuiteManager;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.TestObject;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
-import com.amaris.project.steps.CheckSteps;
-
 
 public class DependenciaInterOfiColabTest extends TestObject{
 
@@ -36,14 +33,14 @@ public class DependenciaInterOfiColabTest extends TestObject{
 
 		userS.testActions(() -> {
 			// alta intermediario agente exclusivo
-			steps.get_Scenario_Data("INTE");
+			//steps.set_test_variables_from_scenario_var("INTE");
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 			
 			// alta oficina
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
-				steps.get_Scenario_Data("OFIC");
+			//	steps.set_test_variables_from_scenario_var("OFIC");
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
@@ -52,7 +49,7 @@ public class DependenciaInterOfiColabTest extends TestObject{
 			
 			// alta de colaborador
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
-				steps.get_Scenario_Data("COLA");
+				//steps.set_test_variables_from_scenario_var("COLA");
 				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
