@@ -1523,125 +1523,127 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-			|| !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+		if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
+			|| !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
 			//NIVEL ESTRUCTURA
-			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-				&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 				verificarNivelEstructura(MediadoresConstantesFicha.INTE, "Intermediario");
-			} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-				&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+			} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 				verificarNivelEstructura(MediadoresConstantesFicha.OFIC, "Oficina");
-			} else if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getTestVar(Constants.NIVEL_ESTRUCTURA) != null
-				&& !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+			} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 				verificarNivelEstructura(MediadoresConstantesFicha.COLA, "Colaborador");
 			}
 
 			//TIPO DE MEDIADOR
-			if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") && getTestVar(Constants.TIPO_MEDIADOR) != null
-				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") && getScenarioVar(Constants.TIPO_MEDIADOR) != null
+				&& !getScenarioVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 				verificarTipoMediador(MediadoresConstantesFicha.AE, "Agente exclusivo");
-			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") && getTestVar(Constants.TIPO_MEDIADOR) != null
-				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			} else if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") && getScenarioVar(Constants.TIPO_MEDIADOR) != null
+				&& !getScenarioVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 				verificarTipoMediador(MediadoresConstantesFicha.AD, "Acuerdo colaboración");
-			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") && getTestVar(Constants.TIPO_MEDIADOR) != null
-				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			} else if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") && getScenarioVar(Constants.TIPO_MEDIADOR) != null
+				&& !getScenarioVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 				verificarTipoMediador(MediadoresConstantesFicha.AV, "Agente vinculado");
-			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") && getTestVar(Constants.TIPO_MEDIADOR) != null
-				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			} else if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") && getScenarioVar(Constants.TIPO_MEDIADOR) != null
+				&& !getScenarioVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 				verificarTipoMediador(MediadoresConstantesFicha.BSE, "BS exclusivo");
-			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") && getTestVar(Constants.TIPO_MEDIADOR) != null
-				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			} else if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") && getScenarioVar(Constants.TIPO_MEDIADOR) != null
+				&& !getScenarioVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 				verificarTipoMediador(MediadoresConstantesFicha.BSV, "BS vinculado");
-			} else if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") && getTestVar(Constants.TIPO_MEDIADOR) != null
-				&& !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
+			} else if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") && getScenarioVar(Constants.TIPO_MEDIADOR) != null
+				&& !getScenarioVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 				verificarTipoMediador(MediadoresConstantesFicha.CORR, "Corredor");
 			}
 
 			//TIPO DE COLABORADOR
-			if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") && getTestVar(Constants.TIPO_COLABORADOR) != null
-				&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+			if(getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD") && getScenarioVar(Constants.TIPO_COLABORADOR) != null
+				&& !getScenarioVar(Constants.TIPO_COLABORADOR).isEmpty()) {
 				verificarTipoColaborador(MediadoresConstantesFicha.AD_COLABORADOR, "Acuerdo Distribución");
-			} else if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") && getTestVar(Constants.TIPO_COLABORADOR) != null
-				&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+			} else if(getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") && getScenarioVar(Constants.TIPO_COLABORADOR) != null
+				&& !getScenarioVar(Constants.TIPO_COLABORADOR).isEmpty()) {
 				verificarTipoColaborador(MediadoresConstantesFicha.AUXI, "Auxiliar");
-			} else if(getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") && getTestVar(Constants.TIPO_COLABORADOR) != null
-				&& !getTestVar(Constants.TIPO_COLABORADOR).isEmpty()) {
+			} else if(getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST") && getScenarioVar(Constants.TIPO_COLABORADOR) != null
+				&& !getScenarioVar(Constants.TIPO_COLABORADOR).isEmpty()) {
 				verificarTipoColaborador(MediadoresConstantesFicha.GEST, "Gestor");
 			}
 
 			//EJECUTIVO COMERCIAL
-			if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4000")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4001")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4003")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4005")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4007")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4010")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4011")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4015")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4016")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4019")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4023")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4024")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4027")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4056")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4067")
-				|| getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4069")) {
+			if(getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4000")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4001")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4003")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4005")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4007")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4010")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4011")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4015")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4016")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4019")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4023")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4024")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4027")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4056")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4067")
+				|| getScenarioVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4069")) {
 
-				verificarEjecutivoComercial(getTestVar(Constants.EJECUTIVO_COMERCIAL));
+				verificarEjecutivoComercial(getScenarioVar(Constants.EJECUTIVO_COMERCIAL));
 			}
 
 			//IDIOMA
-			if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ESPA")) {
+			if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("ESPA")) {
 				verificarIdioma(MediadoresConstantesFicha.ESPA, "Castellano");
-			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("CATA")) {
+			} else if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("CATA")) {
 				verificarIdioma(MediadoresConstantesFicha.CATA, "Català");
-			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("EUSK")) {
+			} else if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("EUSK")) {
 				verificarIdioma(MediadoresConstantesFicha.EUSK, "Euskara");
-			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ENGL")) {
+			} else if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("ENGL")) {
 				verificarIdioma(MediadoresConstantesFicha.ENGL, "English");
-			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("FRAN")) {
+			} else if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("FRAN")) {
 				verificarIdioma(MediadoresConstantesFicha.FRAN, "Français");
-			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("PRTG")) {
+			} else if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("PRTG")) {
 				verificarIdioma(MediadoresConstantesFicha.PRTG, "Português");
-			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("DEUT")) {
+			} else if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("DEUT")) {
 				verificarIdioma(MediadoresConstantesFicha.DEUT, "Deutsch");
-			} else if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("GALE")) {
+			} else if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("GALE")) {
 				verificarIdioma(MediadoresConstantesFicha.GALE, "Galego");
 			}
 			//ACTIVIDAD PRINCIPAL
-			if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("MESE")) {
+			if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("MESE")) {
 				verificarActividadPrincipal(MediadoresConstantesFicha.MESE, "Mediador de Seguros");
-			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ADFI")) {
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ADFI")) {
 				verificarActividadPrincipal(MediadoresConstantesFicha.ADFI, "Administrador de Fincas");
-			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ABOG")) {
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ABOG")) {
 				verificarActividadPrincipal(MediadoresConstantesFicha.ABOG, "Abogados");
-			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("OTRO")) {
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("OTRO")) {
 				verificarActividadPrincipal(MediadoresConstantesFicha.OTRO, "Otros");
-			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("API")) {
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("API")) {
 				verificarActividadPrincipal(MediadoresConstantesFicha.API, "API");
-			} else if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("GEPA")) {
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("GEPA")) {
 				verificarActividadPrincipal(MediadoresConstantesFicha.GEPA, "Gestor Patrimonios");
 			}
 
 			//NOMBRE, PRIMER APELLIDO Y SEGUNDO APELLIDO FISCALES COMPLETOS
-			if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
+			if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
 				verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
-			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
 				verificarNombres("Orion", "Cliff", "Burton");
-			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
 				verificarNombres("Foo", "Fighters", "Neighbourhood");
-			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
 				verificarNombres("A7X", "Exist", "");
-			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
 				verificarNombres("Ghost Macabre", "", "");
-			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
 				verificarNombres("Pantera", "Shedding", "Skin");
-			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ozzy Osborne")) {
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ozzy Osborne")) {
 				verificarNombres("Ozzy Osborne", "", "");
-			} else if(getTestVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
 				verificarNombres("In this moment", "", "");
+			}  else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mala")) {
+				verificarNombres("Mala", "Rodriguez", "Neighbourhood");
 			}
 
 			//CONTACTO RESPONSABLE
@@ -1653,31 +1655,31 @@ public class FichaMediadorPage extends PageObject {
 			clickInfoDescriptiva();
 
 			//NOMBRE COMERCIAL
-			if(getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med01")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med02")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med03")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med04")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med05")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med06")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med07")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med09")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med10")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med11")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med12")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med13")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med14")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med15")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med18")
-				|| getTestVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
+			if(getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med01")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med02")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med03")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med04")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med05")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med06")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med07")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med09")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med10")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med11")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med12")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med13")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med14")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med15")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med18")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
 
-				verificarNombreComercial(getTestVar(Constants.NOMBRE_COMERCIAL));
+				verificarNombreComercial(getScenarioVar(Constants.NOMBRE_COMERCIAL));
 			}
 
 			//DISPONE SOFTWARE
-			if(getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase("TRUE")) {
+			if(getScenarioVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase("TRUE")) {
 				verificarDisponeSoftware(MediadoresConstantesFicha.DISPONE_SOFTWARE_SI, "Sí");
-			} else if(getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase("FALSE")) {
+			} else if(getScenarioVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase("FALSE")) {
 				verificarDisponeSoftware(MediadoresConstantesFicha.DISPONE_SOFTWARE_NO, "No");
 			}
 
@@ -1692,25 +1694,27 @@ public class FichaMediadorPage extends PageObject {
 			clickInfoRelacional();
 
 			//RAMO
-			if(getTestVar(Constants.RAMO_ALT_MED).equalsIgnoreCase("10")) {
+			if(getScenarioVar(Constants.RAMO_ALT_MED).equalsIgnoreCase("10")) {
 				verificarRamo(MediadoresConstantesFicha.ASISTENCIA, "Asistencia");
 			}
 
 			//COMPAÑIAS PRINCIPALES
-			if(getTestVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
-				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getTestVar(Constants.COMPANYIAS_PRINCIPALES));
+			if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
+				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
+			} else if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Master of puppets")){
+				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
 			}
 
 			clickCondicionesNegocio();
 
 			//BANCO COMISIONES
-			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 				verificarBancoComisiones("ES0321001234561234567890");
 
 			}
 			//BANCO PAGO AUTOLIQUIDACIONES
-			if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
 				verificarPagoAutoliquidaciones("ES0321001234561234567890");
 

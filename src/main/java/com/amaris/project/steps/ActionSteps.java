@@ -3685,7 +3685,7 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
 
-	/*	if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+	/*	if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			// comentar hasta resolver caso para Colaborador auxiliar CIF (padre Corredor NIF) mediante las getTestVar del case
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
 			new MediadoresAltaDatosDGSPage(userS)
@@ -3717,7 +3717,7 @@ public class ActionSteps extends InteractionObject {
 				.confirmarAlta()
 				.formacionAvanzarEstado()*/
 			.obtenerIdMediador();
-/*		if(getVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+/*		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new FichaMediadorPage(userS)
 				.clickBuscadorMediadores();
 			new MediadoresHomePage(userS)
@@ -3774,7 +3774,7 @@ public class ActionSteps extends InteractionObject {
 					.enviarResolucionFinanciera()
 					.confirmarAlta();
 
-				if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+				if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 					new FichaMediadorPage(userS)
 						.formacionAvanzarEstado()
 						.clickBuscadorMediadores();
@@ -3927,32 +3927,32 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.TIPO_DOCUMENTO, userS.getScenarioVar(Constants.TIPO_DOCUMENTO));
 
 		userS.setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, userS.getScenarioVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
-	 /*  userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_OBSERVACION_COMERCIAL_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_PERIODO_CREDITO_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_LIMITE_CREDITO_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_VALORACION_REVISION_FINANCIERA_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_FECHA_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_FECHA_MEDIADORES_INCORRECTA, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_NOMBRE_BANCO_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_TELEFONO_MEDIADORES, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_MEDIADOR_NO_SELECCIONADO, userS.getScenario());
-		userS.setTestVar(Constants.ALERTA_FECHA_INSCRIPCION_DGS, userS.getScenario());
-		*/
+		userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION, userS.getScenarioVar(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION));
+		userS.setTestVar(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL, userS.getScenarioVar(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL));
+		userS.setTestVar(Constants.ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_OBSERVACION_COMERCIAL_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_OBSERVACION_COMERCIAL_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_PERIODO_CREDITO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_PERIODO_CREDITO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_LIMITE_CREDITO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_LIMITE_CREDITO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_VALORACION_REVISION_FINANCIERA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_VALORACION_REVISION_FINANCIERA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_MEDIADORES_INCORRECTA, userS.getScenarioVar(Constants.ALERTA_FECHA_MEDIADORES_INCORRECTA));
+		userS.setTestVar(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_NOMBRE_BANCO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_NOMBRE_BANCO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_TELEFONO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_TELEFONO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_MEDIADOR_NO_SELECCIONADO, userS.getScenarioVar(Constants.ALERTA_MEDIADOR_NO_SELECCIONADO));
+		userS.setTestVar(Constants.ALERTA_FECHA_INSCRIPCION_DGS, userS.getScenarioVar(Constants.ALERTA_FECHA_INSCRIPCION_DGS));
+
 		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
 		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF));
 		userS.setTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE));
