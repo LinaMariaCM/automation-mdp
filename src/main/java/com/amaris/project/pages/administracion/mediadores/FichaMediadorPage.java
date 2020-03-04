@@ -916,11 +916,11 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
 
-		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")
-			|| getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV")
-			|| getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE")
-			|| getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV")
-			|| getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR")) {
+		if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")
+			|| getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV")
+			|| getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE")
+			|| getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV")
+			|| getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR")) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 
@@ -947,10 +947,10 @@ public class FichaMediadorPage extends PageObject {
 
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
-		} else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
-			|| getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")
-			|| getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
-			|| getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
+		} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
+			|| getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")
+			|| getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")
+			|| getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 
@@ -968,7 +968,7 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
-		} else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
+		} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 
 			Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 
@@ -996,8 +996,8 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage formacionAvanzarEstado() {
 		debugBegin();
 
-		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") ||
-			getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+		if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") ||
+			getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
 
 			Assert.assertTrue(comprobarEstado(FORMACION), "El estado no es correcto.");
 
@@ -1035,11 +1035,11 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage activarMediadorEstado() {
 		debugBegin();
 
-	/*	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
-			getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {*/
+	/*	if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
+			getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {*/
 
 		Assert.assertTrue(comprobarEstado(ACTIVO_RESTRINGIDO), "El estado no es correcto.");
 
@@ -1099,13 +1099,13 @@ public class FichaMediadorPage extends PageObject {
 	public FichaMediadorPage solicitarBaja() {
 		debugBegin();
 
-		if(getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
-			getVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
-			getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
-			getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
+		if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
+			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
+			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
+			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
+			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD") ||
+			getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI") ||
+			getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("GEST")) {
 
 			Assert.assertTrue(comprobarEstado(ACTIVO), "El estado no es correcto.");
 
