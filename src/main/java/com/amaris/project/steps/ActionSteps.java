@@ -3873,7 +3873,7 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	//método para la carga de datos provenientes de csv de scenario
+	//---Método para la carga de datos provenientes de csv de scenario---
 	public void set_test_variables_from_scenario_var(String name) {
 		debugBegin();
 
@@ -3889,8 +3889,6 @@ public class ActionSteps extends InteractionObject {
 		userS.setTestVar(Constants.SEXO, userS.getScenarioVar(Constants.SEXO));
 		userS.setTestVar(Constants.ID_INTE_PADRE, userS.getScenarioVar(Constants.ID_INTE_PADRE));
 		userS.setTestVar(Constants.ID_OFICINA_PADRE, userS.getScenarioVar(Constants.ID_OFICINA_PADRE));
-		//userS.setTestVar(Constants.CONTACTO_RESPONSABLE, userS.getScenarioVar(Constants.CONTACTO_RESPONSABLE));
-		//userS.setTestVar(Constants.CARGO_RESPONSABLE, userS.getScenarioVar(Constants.CARGO_RESPONSABLE));
 		userS.setTestVar(Constants.PRIMER_APELLIDO_MEDIADOR, userS.getScenarioVar(Constants.PRIMER_APELLIDO_MEDIADOR));
 		userS.setTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR, userS.getScenarioVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
 		userS.setTestVar(Constants.RAMO_ALT_MED, userS.getScenarioVar(Constants.RAMO_ALT_MED));

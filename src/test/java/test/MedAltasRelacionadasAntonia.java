@@ -82,7 +82,7 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 		}).run();
 	}
 
-	//PRUEBAAAA
+	//---PRUEBAAAA----
 
 	@DataProvider(parallel = false)
 	public String[][] altasRelacionadasMed20() {

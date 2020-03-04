@@ -161,7 +161,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 				webDriver.waitWithDriver(2000);
 			}
 
-			debugInfo("TENGO UN NIVEL DE ESTRUCTURA " + getScenarioVar(Constants.NIVEL_ESTRUCTURA));
 			// si no es oficina o un colaborador gestor + contiene dato en el campo provincia --> completa datos - getVar(Constants.DIRECCION_FISC_PROVINCIA) != null ||
 			completarCampoProvincia(getScenarioVar(Constants.DIRECCION_FISC_PROVINCIA).toString());
 			debugInfo("Introducida la provincia de la dirección fiscal");
@@ -210,10 +209,10 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		Assert.assertTrue(checkDireccionFiscalOficina, "Comparar campos: el copy de la dirección Fiscal NO coincide");
 
 		if(checkDireccionFiscalOficina == true) {
-			debugInfo("Hace clic en aceptar dirección fiscal heredada... o eso creo");
+			debugInfo("Hace clic en aceptar dirección fiscal heredada.");
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		} else {
-			debugInfo("Ha habido un error y no se ha hecho clic en aceptar en el mensaje de coincidencia de direcciones fiscales");
+			debugInfo("Ha habido un error y no se ha hecho clic en aceptar en el mensaje de coincidencia de direcciones fiscales.");
 		}
 		webDriver.exitFrame();
 		//	obtenerDirecciones();

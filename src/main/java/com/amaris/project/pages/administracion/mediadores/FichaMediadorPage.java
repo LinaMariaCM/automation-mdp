@@ -1003,8 +1003,8 @@ public class FichaMediadorPage extends PageObject {
 
 			clickMasAcciones();
 			clickAvanzarEstado();
+			grabarComentarioEstado();
 
-			webDriver.click(grabarEstadoBtn);
 			Assert.assertTrue(alertaSistemaFechaFormacion(Constants.ALERTA_FECHA_MEDIADORES));
 			webDriver.waitWithDriver(3000);
 
