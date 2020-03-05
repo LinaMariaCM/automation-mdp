@@ -159,12 +159,12 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage envioMediadorDGS() {
 		debugBegin();
 
-		if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("AE")) {
-			webDriver.waitWithDriver(4000);
-			webDriver.clickInFrame(tipoMediadorAuxiliarBtn, cuerpoFrame);
-		} else if(getVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COL") && getVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+		if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("AE")) {
 			webDriver.waitWithDriver(4000);
 			webDriver.clickInFrame(tipoMediadorAgenteExclusivoBtn, cuerpoFrame);
+		} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+			webDriver.waitWithDriver(4000);
+			webDriver.clickInFrame(tipoMediadorAuxiliarBtn, cuerpoFrame);
 		}
 		clickBuscar();
 		debugInfo("El mediador localizar por TestVar es: " + (getTestVar(Constants.ID_MEDIADOR_ALTA).trim()));
