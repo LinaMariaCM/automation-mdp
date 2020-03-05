@@ -82,7 +82,7 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 		}).run();
 	}
 
-	//---PRUEBAAAA----
+	//---med_prueba_enlazada.csv----
 
 	@DataProvider(parallel = false)
 	public String[][] altasRelacionadasMed20() {
@@ -93,6 +93,83 @@ public class MedAltasRelacionadasAntonia extends TestObject {
 
 	@Test(dataProvider = "altasRelacionadasMed20")
 	public void altaIntermediario20(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			steps.set_test_variables_from_scenario_var("INTE");
+			steps.login("Innova", "eferrando");
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
+
+			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
+
+				steps.set_test_variables_from_scenario_var("OFIC");
+				steps.login("Innova", "eferrando");
+				steps.alta_oficina();
+				steps.tramitar_estados_mediador();
+			}
+
+			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
+				steps.set_test_variables_from_scenario_var("COLA");
+				steps.login("Innova", "eferrando");
+				steps.alta_colaborador();
+				steps.tramitar_estados_mediador();
+			}
+
+			return null;
+		}).run();
+	}
+
+	//-----med_prueba_enlazada_2.csv---
+	@DataProvider(parallel = false)
+	public String[][] altasRelacionadasMed21() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "med_prueba_enlazada_2.csv", "datosTestIntermediarios.csv");
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "altasRelacionadasMed21")
+	public void altaIntermediario21(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			steps.set_test_variables_from_scenario_var("INTE");
+			steps.login("Innova", "eferrando");
+			steps.alta_intermediario();
+			steps.tramitar_estados_mediador();
+
+			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
+
+				steps.set_test_variables_from_scenario_var("OFIC");
+				steps.login("Innova", "eferrando");
+				steps.alta_oficina();
+				steps.tramitar_estados_mediador();
+			}
+
+			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
+				steps.set_test_variables_from_scenario_var("COLA");
+				steps.login("Innova", "eferrando");
+				steps.alta_colaborador();
+				steps.tramitar_estados_mediador();
+			}
+
+			return null;
+		}).run();
+	}
+
+
+	//-----med_prueba_enlazadas_3.csv---
+	@DataProvider(parallel = false)
+	public String[][] altasRelacionadasMed22() {
+		String testCase = Constants.MEDIADORES_CASE;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "med_prueba_enlazadas_3.csv", "datosTestIntermediarios.csv");
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "altasRelacionadasMed22")
+	public void altaIntermediario22(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
