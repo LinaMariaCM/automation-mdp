@@ -309,9 +309,9 @@ public class SiniestrosGenericosTest extends TestObject {
 
 			steps.alta_siniestro_simple();
 
-			steps.cierro_navegador();
+		//	steps.cierro_navegador();
 
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+		//	steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 
 			steps.comunico_siniestro();
 

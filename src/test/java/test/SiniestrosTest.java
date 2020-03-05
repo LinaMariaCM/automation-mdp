@@ -32,19 +32,21 @@ public class SiniestrosTest extends TestObject {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 
 			steps.alta_siniestro_simple();
-
+		//	steps.alta_siniestro(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.NUM_POLIZA));
+			steps.tramito_siniestro_tras_alta();
 			steps.nueva_tarea_siniestros();
 			steps.modifico_tarea_siniestros();
-			steps.cierro_tarea_siniestros();
+			steps.cierro_tarea_siniestros(); // acaba el proceso en el click a ir al inicio
 
 			if(userS.getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && userS.getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025001")) {
-				steps.realizo_plan_pagos_MAC();
+				steps.realizo_plan_pagos_MAC(); // acaba en la verificación del proceso
 			} else {
-				steps.realizo_pago_simple();
+				steps.realizo_pago_simple(); //acaba en la verificación del proceso
 			}
+			steps.ir_a_pagina_inicio_innova(); // añadido por Antonia a modo de parche de flujo
 
 			steps.cierre_siniestro();
-			steps.reapertura_siniestro();
+			steps.reapertura_siniestro(); // flujo de métodos repasado hasta aquí
 
 			steps.rehuso_siniestro();
 			steps.reconsidero_siniestro_rehusado();
@@ -98,7 +100,6 @@ public class SiniestrosTest extends TestObject {
 			return null;
 		}).run();
 	}
-
 
 	@AfterSuite
 	public void afterSuite() {
