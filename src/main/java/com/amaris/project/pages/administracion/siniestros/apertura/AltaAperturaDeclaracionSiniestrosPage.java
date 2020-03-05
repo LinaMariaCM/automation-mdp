@@ -339,12 +339,12 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 		boolean checkOpcionAsistenciaDisponible = copyNecesidadAsistencia
 			.equalsIgnoreCase("* ¿Requiere asistencia?");
-		debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkOpcionAsistenciaDisponible);
-		Assert.assertTrue(checkOpcionAsistenciaDisponible, "Comparar campos: el copy de la dirección Fiscal NO coincide");
+		debugInfo("Comprobamos si está el texto asistencia: " + checkOpcionAsistenciaDisponible);
+		Assert.assertTrue(checkOpcionAsistenciaDisponible, "Comparar campos: El botón para solicitar asistencia está ausente");
 		webDriver.exitFrame();
 
 		if(checkOpcionAsistenciaDisponible == true) {
-			debugInfo("Hace clic en aceptar dirección fiscal heredada.");
+			debugInfo("El botón para solicitar asistencia está PRESENTE");
 
 			if(getTestVar(Constants.ASISTENCIA) == null && getTestVar(Constants.ASISTENCIA).isEmpty() && getTestVar(Constants.ASISTENCIA).equalsIgnoreCase("TRUE")) {
 				//altaSinAsistencia();
