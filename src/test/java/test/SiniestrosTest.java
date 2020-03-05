@@ -1,5 +1,6 @@
 package test;
 
+import com.amaris.automation.model.testing.objects.TestObject;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -9,93 +10,95 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
 
-public class SiniestrosTest {
+public class SiniestrosTest extends TestObject {
 
-	protected SuiteManager suiteM = new SuiteManager(Constants.MEC_SINIESTROS);
+	protected SuiteManager suiteM = new SuiteManager(Constants.SINIESTROS);
 
-	// PRUEBA MEC_SINIESTROS
-	@DataProvider(parallel = true)
-	public String[][] dataProviderSiniestrosMec01() {
-		String testCase = Constants.MEC_SINIESTROS + "01";
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosTestSiniestrosMec.csv");
+	@DataProvider(parallel = false)
+	public String[][] dataProviderSiniestrosTest() {
+		String testCase = Constants.SINIESTROS;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
 
 		return casesMatrix;
 	}
 
-	@Test(dataProvider = "dataProviderSiniestrosMec01")
-	public void siniestrosMec01(String testCase, String id) throws Exception {
+	@Test(dataProvider = "dataProviderSiniestrosTest")
+	public void siniestrosTest01(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 
-		// userS.addDMData("datosMec" + Steps.getDayOfWeek() + ".csv",
-		// "fichero_referencias");
-		// userS.addDMData("datosMecSin.csv", "fichero_referencias");
-
 		userS.testActions(() -> {
-			// Escenario: [SiniestrosMec01] - Alta siniestro a partir de una
-			// póliza tipo MEC:
 
-			/*
-			 * SINIESTROS MEC
-			 * 
-			 * entorno: X
-			 * 
-			 * acceso: INNOVA
-			 * 
-			 * HOJA DE RUTA:
-			 * 
-			 *	 1. Login: Eperez
-			 * 
-			 *	 2. Siniestros
-			 * 
-			 *		 2.1 Alta
-			 * 
-			 *		 2.1.1 Buscador de pólizas: número de póliza: (ie: 510001249)
-			 * 
-			 *		 2.1.2 Alta apertura (Paso 1)
-			 * 
-			 *		 2.1.2.1 Alta apertura aviso
-			 * 
-			 *		 2.1.3 Alta apertura (Paso 2)
-			 *	 
-			 *		 2.1.3.1 Alta apertura aviso
-			 *	 
-			 *		 2.1.4 Alta apertura (Paso 3)
-			 * 
-			 *		 2.1.5 Alta apertura: Mensaje de Confirmación
-			 * 
-			 */
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 
-			// steps.doy_de_alta_una_simulacion_y_la_convierto_en_un_proyecto_usando(
-			// userS.getScenarioVar("acceso"), userS.getScenarioVar("usuario"));
+			steps.alta_siniestro_simple();
 
-			// 1. me logeo
+			steps.nueva_tarea_siniestros();
+			steps.modifico_tarea_siniestros();
+			steps.cierro_tarea_siniestros();
 
-			steps.login("Innova", "Eperez");
+			if(userS.getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && userS.getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025001")) {
+				steps.realizo_plan_pagos_MAC();
+			} else {
+				steps.realizo_pago_simple();
+			}
 
-			// 2. doy de alta un siniestro tipo
+			steps.cierre_siniestro();
+			steps.reapertura_siniestro();
 
-			// steps.alta_siniestro("510000148");
-			steps.alta_siniestro("Innova", "900902646");
-			// steps.alta_siniestro("GOL","000016");
+			steps.rehuso_siniestro();
+			steps.reconsidero_siniestro_rehusado();
+
+			steps.realizo_recobro();
+
+			steps.modificar_siniestro_datos();
+
+			steps.modificar_siniestro_causa();
+
+			steps.tramito_siniestro_tras_alta();
+
+			steps.compruebo_que_datos_han_viajado(); // TODO añadir más campos
+			steps.compruebo_carpeta_y_encargos();
+
+			steps.transicionar_bloques();
+
+			steps.anyado_anotacion_siniestro();
+			steps.compruebo_anotacion_siniestro();
+
+			steps.comunico_siniestro();
+			steps.compruebo_comunicacion_siniestro();
+
+			steps.nueva_tarea_siniestros();
+			steps.modifico_tarea_siniestros();
+			steps.cierro_tarea_siniestros();
+
+			steps.cierro_navegador();
+
 			return null;
 		}).run();
 	}
 
-	/*
-	 * public void siniestrosMec02(String testCase, String id, String browser)
-	 * throws Exception { UserStory userS = InitUtils.createUserStory(id,
-	 * testCase, suiteM, browser); Steps steps = new Steps(userS);
-	 * 
-	 * 
-	 * userS.testActions(() -> {
-	 * 
-	 * steps.login("Innova", "Eperez");
-	 * 
-	 * steps.alta_siniestroAlt("Innova", "510000020");
-	 * 
-	 * return null; }).run(); }
-	 */
+	@DataProvider(parallel = false)
+	public String[][] dataProviderSiniestrosTestRetneciones() {
+		String testCase = Constants.SINIESTROS;
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros32.csv");
+
+		return casesMatrix;
+	}
+
+	@Test(dataProvider = "dataProviderSiniestrosTestRetenciones")
+	public void siniestrosTest02(String testCase, String id) throws Exception {
+		UserStory userS = suiteM.createUserStory(testCase, id);
+		ActionSteps steps = new ActionSteps(userS);
+
+		userS.testActions(() -> {
+			steps.comprobar_casos_error_declaracion_apertura_siniestro();
+			steps.cierro_navegador();
+
+			return null;
+		}).run();
+	}
+
 
 	@AfterSuite
 	public void afterSuite() {
