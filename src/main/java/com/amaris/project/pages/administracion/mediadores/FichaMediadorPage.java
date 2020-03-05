@@ -961,7 +961,7 @@ public class FichaMediadorPage extends PageObject {
 			webDriver.waitWithDriver(3000);
 			grabarComentarioEstado();
 
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES);
+			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_OBSERVACION_REVISION_FINANCIERA_MEDIADORES);
 			webDriver.acceptAlert();
 
 			anyadirComentarioSituacion();

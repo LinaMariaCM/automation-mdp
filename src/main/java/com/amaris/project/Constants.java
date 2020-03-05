@@ -721,8 +721,8 @@ public class Constants {
 	public static final String ALERTA_PERIODO_CREDITO_MEDIADORES = "Campo período crédito es necesario para proceder con el cambio de estado del mediador. Ya que es un campo obligatorio.";
 	public static final String ALERTA_LIMITE_CREDITO_MEDIADORES = "Campo límite crédito es necesario para proceder con el cambio de estado del mediador. Ya que es un campo obligatorio.";
 	public static final String ALERTA_VALORACION_REVISION_FINANCIERA_MEDIADORES = "El campo VALORACIÓN REVISIÓN FINANCIERA es un campo obligatorio.";
-	//public static final String ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES = "El campo COMENTARIO REVISIÓN FINANCIERA es un campo obligatorio y no puede estar en blanco.";
-	public static final String ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES = "El campo OBSERVACION RESOLUCIÓN COMERCIAL es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES = "El campo COMENTARIO REVISIÓN FINANCIERA es un campo obligatorio y no puede estar en blanco.";
+	public static final String ALERTA_OBSERVACION_REVISION_FINANCIERA_MEDIADORES = "El campo OBSERVACION RESOLUCIÓN COMERCIAL es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES = "El campo VALORACIÓN RESOLUCIÓN FINANCIERA es un campo obligatorio.";
 	public static final String ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES = "El campo COMENTARIO RESOLUCIÓN FINANCIERA es un campo obligatorio y no puede estar en blanco.";
 	public static final String ALERTA_FECHA_MEDIADORES = "La fecha de formación es obligatoria";
