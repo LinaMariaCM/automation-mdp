@@ -172,7 +172,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 	}
 
 	public AltaAperturaDeclaracionSiniestrosPage altaDatosDeclarante(String nombreDeclarante, String apellidoDeclarante,
-		String segundoApellido, String prefijoTelefono, String numeroTelefono, String emailDeclarante, String noDisponible) {
+		String segundoApellido, String numeroTelefono, String emailDeclarante, String noDisponible) {
 		debugBegin();
 
 		if(nombreDeclarante != null) {
@@ -212,7 +212,6 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		} else if(noDisponible != null && !noDisponible.isEmpty() && emailDeclarante == null) {
 			webDriver.appendTextInFrame(emailInput, cuerpoFrame, "prueba_sin_mail@esto.es");
 		} else {
-			// TODO Crear un metodo para hacer click o no dependiendo si el checkbox esta activado
 			webDriver.clickInFrame(emailNoDisponibleBtn, cuerpoFrame);
 		}
 
@@ -247,7 +246,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		boolean result = false;
 
 		webDriver.waitWithDriver(2500);
-		if(webDriver.isClickableInFrame(asistenciaSiBtn, cuerpoFrame)) {
+		if(webDriver.isPresentInFrame(asistenciaSiBtn, cuerpoFrame)) {
 			result = true;
 		}
 
@@ -258,24 +257,24 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	public AltaAperturaDeclaracionSiniestrosPage altaSinAsistencia() {
 		debugBegin();
-		 System.out.println("El tipo de póliza se imprime aquí: " + getTestVar(Constants.NUM_POLIZA).substring(0,3));
-		 if(getTestVar(Constants.NUM_POLIZA).startsWith("920")) {
-			 System.out.println("Resultado: " + (getTestVar(Constants.NUM_POLIZA).substring(0,3)));
-			 System.out.println("Entro a 920");
-			 	if (webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) {webDriver.clickInFrame(asistenciaNoBtn,cuerpoFrame);}
-		 }
-		 else if(getTestVar(Constants.NUM_POLIZA).startsWith("900")) {
-			 System.out.println("Entro a 900");
-			 if (webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) webDriver.clickInFrame(asistenciaNoBtn,
-			 cuerpoFrame);}
-//		 if(webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)){webDriver.clickInFrame(asistenciaNoBtn,
-//		 cuerpoFrame);}
+		System.out.println("El tipo de póliza se imprime aquí: " + getTestVar(Constants.NUM_POLIZA).substring(0, 3));
+		if(getTestVar(Constants.NUM_POLIZA).startsWith("920")) {
+			System.out.println("Resultado: " + (getTestVar(Constants.NUM_POLIZA).substring(0, 3)));
+			System.out.println("Entro a 920");
+			if(webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) {webDriver.clickInFrame(asistenciaNoBtn, cuerpoFrame);}
+		} else if(getTestVar(Constants.NUM_POLIZA).startsWith("900")) {
+			System.out.println("Entro a 900");
+			if(webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) webDriver.clickInFrame(asistenciaNoBtn,
+				cuerpoFrame);
+		}
+		//		 if(webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)){webDriver.clickInFrame(asistenciaNoBtn,
+		//		 cuerpoFrame);}
 
-		 if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
-		 System.out.println("Póliza carece de opción: 'alta sin asistencia'.");
-		 } else {
-		webDriver.waitWithDriver(2000);
-//		if(webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) {webDriver.clickInFrame(asistenciaNoBtn,cuerpoFrame);}
+		if(getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+			System.out.println("Póliza carece de opción: 'alta sin asistencia'.");
+		} else {
+			webDriver.waitWithDriver(2000);
+			//		if(webDriver.isPresentInFrame(asistenciaNoBtn, cuerpoFrame)) {webDriver.clickInFrame(asistenciaNoBtn,cuerpoFrame);}
 		}
 
 		debugInfo("Seleccionada: Asistencia NO");
@@ -284,18 +283,20 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public AltaAperturaDeclaracionSiniestrosPage altaConAsistencia(String requiereAsistencia, String resolucionUrgente,
-		String ubicacion, String origenReparado, String consecuencia, String refAsistenciaExt) {
+	public AltaAperturaDeclaracionSiniestrosPage altaConAsistencia(String ubicacion, String refAsistenciaExt)
+	//(String requiereAsistencia, String resolucionUrgente,
+	//		String ubicacion, String origenReparado, String consecuencia, String refAsistenciaExt)
+	{
 		debugBegin();
 
 		webDriver.waitWithDriver(2000);
-		if(getTestVar(Constants.ASISTENCIA) != null && !getTestVar(Constants.ASISTENCIA).isEmpty()) {
-			webDriver.clickInFrame(asistenciaSiBtn, cuerpoFrame);
-		} else {
+		/*	if(getTestVar(Constants.ASISTENCIA) != null && !getTestVar(Constants.ASISTENCIA).isEmpty()) {*/
+		webDriver.clickInFrame(asistenciaSiBtn, cuerpoFrame);
+	/*	} else {
 			webDriver.clickInFrame(asistenciaNoBtn, cuerpoFrame);
-		}
+		}*/
 
-		if(getTestVar(Constants.ASISTENCIA_URGENTE) != null && !getTestVar(Constants.ASISTENCIA_URGENTE).isEmpty()) {
+		if(getTestVar(Constants.ASISTENCIA_URGENTE) != null && !getTestVar(Constants.ASISTENCIA_URGENTE).isEmpty() && getTestVar(Constants.ASISTENCIA_URGENTE).equalsIgnoreCase("TRUE")) {
 			webDriver.clickInFrame(urgenteSiBtn, cuerpoFrame);
 			webDriver.waitWithDriver(2000);
 			webDriver.clickElementFromDropDownByIndexInFrame(motivoDrpDwn, cuerpoFrame, 2);
@@ -308,14 +309,14 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		}
 
 		if(getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS) != null
-			&& !getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS).isEmpty()) {
+			&& !getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS).isEmpty() && getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS).equalsIgnoreCase("TRUE")) {
 			webDriver.clickInFrame(reparadoSiBtn, cuerpoFrame);
 		} else {
 			webDriver.clickInFrame(reparadoNoBtn, cuerpoFrame);
 		}
 
 		if(getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA) != null
-			&& !getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA).isEmpty()) {
+			&& !getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA).isEmpty() && getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA).equalsIgnoreCase("TRUE")) {
 			webDriver.clickInFrame(bonsecuenciasSiBtn, cuerpoFrame);
 		} else {
 			webDriver.clickInFrame(consecuenciasNoBtn, cuerpoFrame);
@@ -329,6 +330,56 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 		return this;
 	}
+
+	public AltaAperturaDeclaracionSiniestrosPage casosAsistenciaSiniestro() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		String copyNecesidadAsistencia = webDriver.getText(By.cssSelector("#datosAsistencia > div > div.sis-frame-bg > table > tbody > tr:nth-child(1) > th")).trim();
+		debugInfo("Está presente --- Requiere asistencia --- " + copyNecesidadAsistencia);
+
+		boolean checkOpcionAsistenciaDisponible = copyNecesidadAsistencia
+			.equalsIgnoreCase("* ¿Requiere asistencia?");
+		debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkOpcionAsistenciaDisponible);
+		Assert.assertTrue(checkOpcionAsistenciaDisponible, "Comparar campos: el copy de la dirección Fiscal NO coincide");
+		webDriver.exitFrame();
+
+		if(checkOpcionAsistenciaDisponible == true) {
+			debugInfo("Hace clic en aceptar dirección fiscal heredada.");
+
+			if(getTestVar(Constants.ASISTENCIA) == null && getTestVar(Constants.ASISTENCIA).isEmpty() && getTestVar(Constants.ASISTENCIA).equalsIgnoreCase("TRUE")) {
+				//altaSinAsistencia();
+				webDriver.clickInFrame(asistenciaNoBtn, cuerpoFrame);
+				webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) {
+				altaConAsistencia(getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS), getTestVar(Constants.ASISTENCIA_REF_EXTERNA));
+			}
+			webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		} else {
+			webDriver.clickInFrame(continuarBtn, cuerpoFrame);
+		}
+		debugEnd();
+		return this;
+	}
+
+/*	public AltaAperturaDeclaracionSiniestrosPage casosAsistenciaSiniestro2() {
+		debugBegin();
+		webDriver.switchToFrame(cuerpoFrame);
+		String copyDireccionFiscalOficina = webDriver.getText(By.cssSelector("#datosAsistencia > div > div.sis-frame-bg > table > tbody > tr:nth-child(1) > th")).trim();
+		debugInfo("Está presente --- Requiere asistencia --- " + copyDireccionFiscalOficina);
+
+		boolean checkDireccionFiscalOficina = copyDireccionFiscalOficina
+			.equalsIgnoreCase("* ¿Requiere asistencia?");
+		debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscalOficina);
+		Assert.assertTrue(checkDireccionFiscalOficina, "Comparar campos: el copy de la dirección Fiscal NO coincide");
+
+		if(checkDireccionFiscalOficina == true) {
+			debugInfo("Hace clic en aceptar dirección fiscal heredada.");
+
+		}
+		webDriver.exitFrame();
+		debugEnd();
+	}*/
+
 
 	public AltaAperturaDeclaracionSiniestrosPage datosPersonaExtra(String rol, String nombre, String apellido1, String apellido2, String tipoDocumento,
 		String documento, String prefijoTlf, String telefono1, String prefijoTlf2, String telefono2, String sexo, String noEmail, String email,
@@ -393,8 +444,6 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 			webDriver.setText(telefono1Input, "961234567");
 			debugInfo("no existe teléfono 1");
 		}
-		
-		
 
 		if(prefijoTlf2 != null && !prefijoTlf2.isEmpty()) {
 			webDriver.clickElementFromDropDownByAttribute(prefijo2DrpDwn, "value", prefijoTlf2);
@@ -406,49 +455,48 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 			webDriver.setText(telefono2Input, telefono2);
 		} else {
 			debugInfo("No se dispone de telefono 2");
-			}
-		
-		
+		}
+
 		// webDriver.clickElementFromDropDownByIndex(sexOption, 1);
 		if(sexo != null && !sexo.isEmpty()) {
 			webDriver.clickElementFromListByAttribute(sexOption, "value", sexo);
-		} else { debugInfo("no se especifica sexo");
-			
+		} else {
+			debugInfo("no se especifica sexo");
+
 		}
 
 		webDriver.waitWithDriver(2000);
 		if(noEmail != null && !noEmail.isEmpty()) {
 			webDriver.setText(emailPersonaInput, "prueba@esto.es");
 			// webDriver.clickInFrame(checkNoEmail, modalFrame);
-			
+
 		} else {
-			
-			if( email!= null && !email.isEmpty()) {
+
+			if(email != null && !email.isEmpty()) {
 				webDriver.setText(emailPersonaInput, email);
 			} else {
 				webDriver.setText(emailPersonaInput, "prueba@esto.es");
-			}			
-			
+			}
+
 		}
 		debugInfo("completamos email");
-		
-		
+
 		webDriver.waitWithDriver(2000);
-		
-//		if(riesgoAsegurado != null && !riesgoAsegurado.isEmpty()) {
-			webDriver.click(riesgoAseguradoBtn);
-//		} else {
-//			// webDriver.clickElementFromDropDownByIndex(comboTipoVia, 1);
-//			if(tipoVia != null && !tipoVia.isEmpty()) webDriver.clickElementFromDropDownByAttribute(comboTipoVia, "value", tipoVia);
-//			if(via != null && !via.isEmpty()) webDriver.setText(txtVia, via);
-//			if(numero != null && !numero.isEmpty()) webDriver.setText(txtNumero, numero);
-//			if(piso != null && !piso.isEmpty()) webDriver.setText(txtPiso, piso);
-//			if(puerta != null && !puerta.isEmpty()) webDriver.setText(txtPuerta, puerta);
-//			if(cp != null && !cp.isEmpty()) webDriver.setText(txtCodPostal, cp);
-//			if(poblacion != null && !poblacion.isEmpty()) webDriver.setText(txtPoblacion, poblacion);
-//			// webDriver.clickElementFromDropDownByIndex(comboProvincia, 1);
-//			if(provincia != null && !provincia.isEmpty()) webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
-//		}
+
+		//		if(riesgoAsegurado != null && !riesgoAsegurado.isEmpty()) {
+		webDriver.click(riesgoAseguradoBtn);
+		//		} else {
+		//			// webDriver.clickElementFromDropDownByIndex(comboTipoVia, 1);
+		//			if(tipoVia != null && !tipoVia.isEmpty()) webDriver.clickElementFromDropDownByAttribute(comboTipoVia, "value", tipoVia);
+		//			if(via != null && !via.isEmpty()) webDriver.setText(txtVia, via);
+		//			if(numero != null && !numero.isEmpty()) webDriver.setText(txtNumero, numero);
+		//			if(piso != null && !piso.isEmpty()) webDriver.setText(txtPiso, piso);
+		//			if(puerta != null && !puerta.isEmpty()) webDriver.setText(txtPuerta, puerta);
+		//			if(cp != null && !cp.isEmpty()) webDriver.setText(txtCodPostal, cp);
+		//			if(poblacion != null && !poblacion.isEmpty()) webDriver.setText(txtPoblacion, poblacion);
+		//			// webDriver.clickElementFromDropDownByIndex(comboProvincia, 1);
+		//			if(provincia != null && !provincia.isEmpty()) webDriver.clickElementFromDropDownByAttribute(comboProvincia, "value", provincia);
+		//		}
 		debugInfo("Completamos dirección de la persona extra (si vive en riesgo asegurado o no.)");
 		// webDriver.setText(txtEmail, "prueba@esto.es");
 		webDriver.waitWithDriver(2000);
@@ -466,10 +514,10 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 	public AltaAperturaDeclaracionSiniestrosPage clickContinuar() {
 		debugBegin();
 
-		webDriver.setTextInFrame(emailInput, cuerpoFrame, "prueba@esto.es");
-		webDriver.waitWithDriver(5000);
+	//	webDriver.setTextInFrame(emailInput, cuerpoFrame, "prueba@esto.es");
+		webDriver.waitWithDriver(2400);
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-		webDriver.waitWithDriver(5000);
+		webDriver.waitWithDriver(4000);
 		// if(webDriver.isPresentInFrame(btnContinuar, cuerpoFrame)){webDriver.clickInFrame(btnContinuar, cuerpoFrame);}
 
 		debugEnd();
@@ -1142,7 +1190,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 		return this;
 	}
-	
+
 	// ------------------------------------FECHAS DENUNCIA---------------------------------
 	public AltaAperturaDeclaracionSiniestrosPage fechaDenunciaFalloAnteriorOcurrencia() {
 		debugBegin();
@@ -1151,7 +1199,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 		webDriver.setTextInFrame(fechaDenunciaInput, cuerpoFrame, datoFechaDenunciaAnterior);
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-		
+
 		comprobarAlertaAvisoSistema(Constants.ALERTA_FECHA_DENUNCIA_ANTERIOR_OCURRENCIA);
 		clickVolver();
 
@@ -1162,14 +1210,14 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 	public AltaAperturaDeclaracionSiniestrosPage fechaDenunciaFalloVacio() {
 		debugBegin();
-		
+
 		webDriver.waitWithDriver(5000);
 		webDriver.clearTextInFrame(fechaDenunciaInput, cuerpoFrame);
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-		
+
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_FECHA_DENUNCIA);
 		webDriver.acceptAlert();
-		
+
 		debugEnd();
 
 		return this;

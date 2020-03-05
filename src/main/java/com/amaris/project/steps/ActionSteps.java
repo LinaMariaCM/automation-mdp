@@ -661,16 +661,17 @@ public class ActionSteps extends InteractionObject {
 			// 1.Declaración
 			new AltaAperturaDeclaracionSiniestrosPage(userS)
 				.altaDatosBasicos("MEDI", "MAIL")
-				.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", "TRUE", "prueba@esto.es", "TRUE", "", "", "", "", "", "", "", "");
+				.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", "TRUE", "prueba@esto.es", "TRUE", "", "", "", "", "", "", "", "")
 
 			// Comprobamos si necesita asistencia
-			if(!asistencia.isEmpty()) {
+			.casosAsistenciaSiniestro();
+		/*	if(!asistencia.isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaConAsistencia("", "", "", "Daños ubicados en el interior del riesgo asegurado", "", "");
 			} else if(new AltaAperturaDeclaracionSiniestrosPage(userS).posibilidadAsistencia()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaSinAsistencia();
-			}
+			}*/
 
 			new AltaAperturaDeclaracionSiniestrosPage(userS)
 				.clickContinuar();
@@ -2697,25 +2698,38 @@ public class ActionSteps extends InteractionObject {
 
 			// 1.Declaración
 			new AltaAperturaDeclaracionSiniestrosPage(userS)
-				.altaDatosDeclaracion(getTestVar(Constants.FECHA_OCURRENCIA), getTestVar(Constants.TIPO_DECLARANTE), getTestVar(Constants.MEDIO_DECLARACION), getTestVar(Constants.FECHA_DENUNCIA), getTestVar(Constants.DECLARACION_OBSERVACIONES))
-				.altaDatosDeclarante(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_PREFIJO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DECLARACION_EMAIL_NO_DISP))
+				.altaDatosDeclaracion(getTestVar(Constants.FECHA_OCURRENCIA), getTestVar(Constants.TIPO_DECLARANTE), getTestVar(Constants.MEDIO_DECLARACION), getTestVar(Constants.FECHA_DENUNCIA),
+					getTestVar(Constants.DECLARACION_OBSERVACIONES))
+				.altaDatosDeclarante(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO),
+					getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DECLARACION_EMAIL_NO_DISP))
 				// Añadimos datos de persona extra
-				.datosPersonaExtra(getTestVar(Constants.CONTACTO_ROL), getTestVar(Constants.CONTACTO_NOMBRE), getTestVar(Constants.CONTACTO_PRIM_APELLIDO), getTestVar(Constants.CONTACTO_SEG_APELLIDO), getTestVar(Constants.CONTACTO_TIPO_DOCUMENTO), getTestVar(Constants.CONTACTO_N_DOCUMENTO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_UNO), getTestVar(Constants.CONTACTO_TELEFONO_UNO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_DOS), getTestVar(Constants.CONTACTO_TELEFONO_DOS), getTestVar(Constants.CONTACTO_SEXO), getTestVar(Constants.CONTACTO_EMAIL_NO_DISP), getTestVar(Constants.CONTACTO_EMAIL), getTestVar(Constants.CONTACTO_VIVE_EN_RIESGO), getTestVar(Constants.CONTACTO_DIR_TIPO_VIA), getTestVar(Constants.CONTACTO_DIR_CALLE), getTestVar(Constants.CONTACTO_DIR_NUMERO), getTestVar(Constants.CONTACTO_DIR_PISO), getTestVar(Constants.CONTACTO_DIR_PUERTA), getTestVar(Constants.CONTACTO_DIR_CP), getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
+				.datosPersonaExtra(getTestVar(Constants.CONTACTO_ROL), getTestVar(Constants.CONTACTO_NOMBRE), getTestVar(Constants.CONTACTO_PRIM_APELLIDO), getTestVar(Constants.CONTACTO_SEG_APELLIDO),
+					getTestVar(Constants.CONTACTO_TIPO_DOCUMENTO), getTestVar(Constants.CONTACTO_N_DOCUMENTO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_UNO), getTestVar(Constants.CONTACTO_TELEFONO_UNO),
+					getTestVar(Constants.CONTACTO_PREFIJO_TEL_DOS), getTestVar(Constants.CONTACTO_TELEFONO_DOS), getTestVar(Constants.CONTACTO_SEXO), getTestVar(Constants.CONTACTO_EMAIL_NO_DISP),
+					getTestVar(Constants.CONTACTO_EMAIL), getTestVar(Constants.CONTACTO_VIVE_EN_RIESGO), getTestVar(Constants.CONTACTO_DIR_TIPO_VIA), getTestVar(Constants.CONTACTO_DIR_CALLE),
+					getTestVar(Constants.CONTACTO_DIR_NUMERO), getTestVar(Constants.CONTACTO_DIR_PISO), getTestVar(Constants.CONTACTO_DIR_PUERTA), getTestVar(Constants.CONTACTO_DIR_CP),
+					getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
 
 			// Comprobamos si necesita asistencia
-			if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
+			new AltaAperturaDeclaracionSiniestrosPage(userS)
+				.casosAsistenciaSiniestro(); // clickContinuar incorporado en el método mediante click etc.
+
+		/*	if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaSinAsistencia()
 					.clickContinuar();
 			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
-					.altaConAsistencia(getTestVar(Constants.ASISTENCIA), getTestVar(Constants.ASISTENCIA_URGENTE), getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS), getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS), getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA), getTestVar(Constants.ASISTENCIA_REF_EXTERNA))
+					.altaConAsistencia(getTestVar(Constants.ASISTENCIA), getTestVar(Constants.ASISTENCIA_URGENTE), getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS),
+						getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS), getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA), getTestVar(Constants.ASISTENCIA_REF_EXTERNA))
 					.clickContinuar();
-			} else if(new AltaAperturaDeclaracionSiniestrosPage(userS).posibilidadAsistencia()) {
+			}
+			else if(new AltaAperturaDeclaracionSiniestrosPage(userS).posibilidadAsistencia()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaSinAsistencia()
 					.clickContinuar();
-			}
+			}*/
+
 
 			// comentados por Antonia el 24 01 del 2020
 			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
@@ -3135,11 +3149,20 @@ public class ActionSteps extends InteractionObject {
 
 	public void cierro_tarea_siniestros() {
 
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new InnovaHomePage(userS)
+			.openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS)
+			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		//new AgendaSiniestrosPage(userS).
-		new AgendaSiniestrosPage(userS).comprobarTareaCerrada();
-		new GestionSiniestrosPage(userS).clickLogo();
+		new AgendaSiniestrosPage(userS)
+			.comprobarTareaCerrada();
+		new GestionSiniestrosPage(userS)
+			.clickLogo();
+	}
+
+	public void ir_a_pagina_inicio_innova() {
+		new GestionSiniestrosPage(userS)
+			.clickLogo();
 	}
 
 	public void modificar_siniestro_datos() {
