@@ -661,10 +661,14 @@ public class ActionSteps extends InteractionObject {
 			// 1.Declaración
 			new AltaAperturaDeclaracionSiniestrosPage(userS)
 				.altaDatosBasicos("MEDI", "MAIL")
-				.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", "TRUE", "prueba@esto.es", "TRUE", "", "", "", "", "", "", "", "")
+				.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", "TRUE", "prueba@esto.es", "TRUE", "", "", "", "", "", "", "", "");
 
 			// Comprobamos si necesita asistencia
-			.casosAsistenciaSiniestro();
+			if(!getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+				new AltaAperturaDeclaracionSiniestrosPage(userS)
+					.casosAsistenciaSiniestro();
+			}
+
 		/*	if(!asistencia.isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaConAsistencia("", "", "", "Daños ubicados en el interior del riesgo asegurado", "", "");
@@ -815,7 +819,7 @@ public class ActionSteps extends InteractionObject {
 		alta_siniestro(acceso, numPoliza);
 
 		new ConfirmacionSiniestrosPage(userS)
-			.tramitarSiniestro();
+			.clickTramitarSiniestro();
 
 		debugEnd();
 	}
@@ -2711,8 +2715,14 @@ public class ActionSteps extends InteractionObject {
 					getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
 
 			// Comprobamos si necesita asistencia
-			new AltaAperturaDeclaracionSiniestrosPage(userS)
-				.casosAsistenciaSiniestro(); // clickContinuar incorporado en el método mediante click etc.
+			if(!getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+				new AltaAperturaDeclaracionSiniestrosPage(userS)
+					.casosAsistenciaSiniestro();
+			}else{
+				new AltaAperturaDeclaracionSiniestrosPage(userS)
+					.clickContinuar();
+			}
+			; // clickContinuar incorporado en el método mediante click etc.
 
 		/*	if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
@@ -2729,7 +2739,6 @@ public class ActionSteps extends InteractionObject {
 					.altaSinAsistencia()
 					.clickContinuar();
 			}*/
-
 
 			// comentados por Antonia el 24 01 del 2020
 			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
@@ -2853,8 +2862,11 @@ public class ActionSteps extends InteractionObject {
 				&& getTestVar(Constants.TIPO_CAUSA_COD) != null && getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025000")) {
 				debugInfo("La póliza a la cual pertenece el siniestro es de tipo MAC, procedemos a modificar las causas para poder realizar pagos");
 				new ConfirmacionSiniestrosPage(userS)
-					.volverAHomeMutua();
+					.clickTramitarSiniestro();
+				//	.volverAHomeMutua();
 				modifico_causas_siniestro_MAC();
+				new ConfirmacionSiniestrosPage(userS)
+					.confirmaModificacion();
 			}
 
 			// Accedemos a siniestros desde Gestión On Line
@@ -2908,7 +2920,7 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		new ConfirmacionSiniestrosPage(userS)
-			.tramitarSiniestro();
+			.clickTramitarSiniestro();
 
 		debugEnd();
 	}
@@ -3131,19 +3143,22 @@ public class ActionSteps extends InteractionObject {
 
 	public void nueva_tarea_siniestros() {
 
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		new AgendaSiniestrosPage(userS).nuevaTarea();
-		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
+		//	new InnovaHomePage(userS).openSiniestros();
+		//	new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO));
+		new GestionSiniestrosPage(userS).goToAgenda();
+		new AgendaSiniestrosPage(userS)
+			.nuevaTarea()
+			.comprobarTareasPendientes();
 		new GestionSiniestrosPage(userS).clickLogo();
 	}
 
 	public void modifico_tarea_siniestros() {
 
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		new AgendaSiniestrosPage(userS).detallesTarea(getTestVar(Constants.TAREA_TITULO));
-		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
+	/*	new InnovaHomePage(userS).openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));*/
+		new AgendaSiniestrosPage(userS)
+			.detallesTarea(getTestVar(Constants.TAREA_TITULO))
+			.comprobarTareasPendientes();
 		new GestionSiniestrosPage(userS).clickLogo();
 	}
 
