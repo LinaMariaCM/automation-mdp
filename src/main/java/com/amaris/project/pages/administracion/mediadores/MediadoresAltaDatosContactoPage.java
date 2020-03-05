@@ -342,7 +342,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		} else if(getScenarioVar(Constants.DIRECCION_COME_PROVINCIA).isEmpty() && getScenarioVar(Constants.NIVEL_ESTRUCTURA)
 			.equalsIgnoreCase("INTE")) { //sin datos de provincia + intermediario --> dirección comercial igual a fiscal
-			webDriver.click(direccionSuperiorNOBtn);
+			//	webDriver.click(direccionSuperiorNOBtn);
 			webDriver.waitWithDriver(2800);
 			webDriver.click(direccionIgualFiscalBtn);
 			webDriver.waitWithDriver(3000);
@@ -394,9 +394,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
 		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
-			webDriver.click(direccionSuperiorNOBtn);
+
+			//			webDriver.click(direccionSuperiorNOBtn);
 			if(getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).equalsIgnoreCase("PPRO_FISC") && !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A)
 				.isEmpty()) { // (getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A) != null || !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).isEmpty())
+				webDriver.waitWithDriver(2000);
 				webDriver.click(direccionIgualFiscalBtn);
 			} else if(getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).equalsIgnoreCase("PPRO_COME") && !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).isEmpty()) {
 				// (getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A) != null
