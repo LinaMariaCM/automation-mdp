@@ -392,16 +392,15 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		else if(!getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && (getScenarioVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty()
 			|| getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty())) {
 			webDriver.click(direccionSuperiorSIBtn);
-			webDriver.click(aceptarDireccionBtn); //último añadido
-		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
+			webDriver.click(aceptarDireccionBtn);
+		} else if(getScenarioVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty()) { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
 
-			//			webDriver.click(direccionSuperiorNOBtn);
 			if(getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).equalsIgnoreCase("PPRO_FISC") && !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A)
-				.isEmpty()) { // (getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A) != null || !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).isEmpty())
+				.isEmpty()) {
 				webDriver.waitWithDriver(2000);
 				webDriver.click(direccionIgualFiscalBtn);
 			} else if(getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).equalsIgnoreCase("PPRO_COME") && !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).isEmpty()) {
-				// (getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A) != null
+
 				webDriver.click(direccionIgualComercialBtn);
 			}
 			webDriver.click(aceptarDireccionBtn);
@@ -501,6 +500,16 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getScenarioVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty()) {
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
+		} else if(getScenarioVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty()) { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
+
+			if(getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).equalsIgnoreCase("PREC_FISC") && !getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).isEmpty()) {
+				webDriver.waitWithDriver(2000);
+				webDriver.click(direccionIgualFiscalBtn);
+			} else if(getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).equalsIgnoreCase("PREC_COME") && !getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).isEmpty()) {
+
+				webDriver.click(direccionIgualComercialBtn);
+			}
+			webDriver.click(aceptarDireccionBtn);
 		}
 		webDriver.exitFrame();
 		obtenerDirecciones();
@@ -538,22 +547,21 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		}
 		// sin datos para la provincia + oficina / colaborador --> hereda datos del nivel superios
 		else if(getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()
-			&& (!getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
-			|| getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty())) {
+			&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
+			//|| getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty()
 			// ((getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).equals(null) || getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()) && (!getScenarioVar(Constants.NIVEL_ESTRUCTURA)
 			//			.equalsIgnoreCase("INTE") || getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).equals(null)))
 			webDriver.click(direccionSuperiorSIBtn);
 			webDriver.click(aceptarDireccionBtn); //último añadido
-		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturas desde DIR_FISCAL_IGUAL_A
-			webDriver.click(direccionSuperiorNOBtn);
-			if(!getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty() || getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A)
-				.equalsIgnoreCase("PSIN_FISC")) {// getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A) != null ||
+		} else if(getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()) { // sin datos para provincia + INTE + analizar CSV para obtener coberturas desde DIR_FISCAL_IGUAL_A
+
+			if(getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).equalsIgnoreCase("PSIN_FISC") && !getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty()) {
 				webDriver.click(direccionIgualFiscalBtn);
-			} else if(!getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty() || getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A)
-				.equalsIgnoreCase("PSIN_COME")) { // getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A) != null ||
+			} else if(getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).equalsIgnoreCase("PSIN_COME") && !getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty()) {
 				webDriver.click(direccionIgualComercialBtn);
 			}
-			webDriver.click(aceptarDireccionBtn); //último añadido
+			webDriver.click(aceptarDireccionBtn);
 		}
 
 		webDriver.exitFrame();
