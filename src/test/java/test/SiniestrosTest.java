@@ -33,7 +33,7 @@ public class SiniestrosTest extends TestObject {
 
 			steps.alta_siniestro_simple();
 		//	steps.alta_siniestro(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.NUM_POLIZA));
-			steps.tramito_siniestro_tras_alta();
+			steps.tramito_siniestro_tras_alta(); // es un mero click para acceder a tramitación
 			steps.nueva_tarea_siniestros();
 			steps.modifico_tarea_siniestros();
 			steps.cierro_tarea_siniestros(); // acaba el proceso en el click a ir al inicio

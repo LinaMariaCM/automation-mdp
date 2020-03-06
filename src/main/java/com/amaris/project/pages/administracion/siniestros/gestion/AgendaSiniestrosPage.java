@@ -113,15 +113,17 @@ public class AgendaSiniestrosPage extends PageObject {
 	public AgendaSiniestrosPage nuevaTarea() {
 		debugBegin();
 		webDriver.waitWithDriver(5000);
-		webDriver.clickInFrame(agendaBtn, leftFrame);
+	//	webDriver.clickInFrame(agendaBtn, leftFrame);
 
 		ActionSteps.waitForIt(webDriver);
-		debugInfo("Agenda");
+		debugInfo("Se accede a Agenda");
 		webDriver.clickInFrame(nuevaTareaBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
-		debugInfo("Nueva tarea");
+
+		debugInfo("Click en Nueva tarea");
 		debugInfo(getTestVar(Constants.TAREA_TITULO));
-		String titulo = "Nueva tareas automatica" + StringUtils.getRandomLetterChain(5);
+		String titulo = "Nueva tareas automatica " + StringUtils.getRandomLetterChain(5);
+
 		if(getTestVar(Constants.TAREA_TITULO) != null && !getTestVar(Constants.TAREA_TITULO).isEmpty()) {
 			titulo = getTestVar(Constants.TAREA_TITULO);
 		} else {
