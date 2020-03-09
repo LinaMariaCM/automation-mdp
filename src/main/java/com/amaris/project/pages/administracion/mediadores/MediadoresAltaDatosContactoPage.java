@@ -323,7 +323,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(direccionDiferenteBtn);
 			debugInfo("se selecciona direccion comercial diferente a la fiscal");
 			webDriver.waitForElementToBePresent(provinciaInput);
-			//webDriver.waitWithDriver(2800);
 			completarCampoProvincia(getScenarioVar(Constants.DIRECCION_COME_PROVINCIA));
 			completarCampoPoblacion(getScenarioVar(Constants.DIRECCION_COME_POBLACION));
 			completarCampoNombreVia(getScenarioVar(Constants.DIRECCION_COME_NombreVia));
@@ -499,7 +498,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		// sin datos para la provincia + oficina --> hereda datos del nivel superios
 		else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getScenarioVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty()) {
 			webDriver.click(direccionSuperiorSIBtn);
-			webDriver.click(aceptarDireccionBtn); //último añadido
+			webDriver.click(aceptarDireccionBtn);
 		} else if(getScenarioVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty()) { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
 
 			if(getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).equalsIgnoreCase("PREC_FISC") && !getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).isEmpty()) {
@@ -549,11 +548,8 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		else if(getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()
 			&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
-			//|| getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty()
-			// ((getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).equals(null) || getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()) && (!getScenarioVar(Constants.NIVEL_ESTRUCTURA)
-			//			.equalsIgnoreCase("INTE") || getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).equals(null)))
 			webDriver.click(direccionSuperiorSIBtn);
-			webDriver.click(aceptarDireccionBtn); //último añadido
+			webDriver.click(aceptarDireccionBtn);
 		} else if(getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()) { // sin datos para provincia + INTE + analizar CSV para obtener coberturas desde DIR_FISCAL_IGUAL_A
 
 			if(getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).equalsIgnoreCase("PSIN_FISC") && !getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty()) {
