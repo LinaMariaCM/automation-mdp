@@ -2718,7 +2718,7 @@ public class ActionSteps extends InteractionObject {
 			if(!getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.casosAsistenciaSiniestro();
-			}else{
+			} else {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.clickContinuar();
 			}
@@ -3677,10 +3677,17 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
 
-		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315")) {
+		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C317")) {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
+			if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315")) {
+				new MediadoresAltaDatosDGSPage(userS)
+					.anyadirFechaInicioRelacion();
+			}
+			if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C317")) {
+				new MediadoresAltaDatosDGSPage(userS)
+					.escribirFechaIniRelacion();
+			}
 			new MediadoresAltaDatosDGSPage(userS)
-				.anyadirFechaInicioRelacion()
 				.anyadirDatosGenerales()
 				.clickGuardarYSalirDGSAlta();
 		} else {
