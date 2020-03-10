@@ -3615,13 +3615,13 @@ public class ActionSteps extends InteractionObject {
 
 	/************************************** MEDIADOR3ES ************************************************/
 
-	// Step de iryna para dar alta una oficina
+	//------ALTA OFICINA-------------------//
 	public void alta_oficina() {
 		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarInteRelacionado(); // revisar - averiguar si rompo algo más
+			.buscarInteRelacionado();
 		new FichaMediadorPage(userS)
 			.clickMasAcciones()
 			.clickSolicitarAltaOficina();
@@ -3645,9 +3645,7 @@ public class ActionSteps extends InteractionObject {
 		new FichaMediadorPage(userS)
 			.obtenerIdMediador();
 		debugInfo("Se acaba de completar el alta de la  OFICINA");
-	/*	new FichaMediadorPage(userS)   - si tramitar_estados_mediador funciona correctamente, borrar esta
-			.solicitarAlta()
-			.confirmarAlta(); */
+
 		debugEnd();
 	}
 
@@ -3690,13 +3688,7 @@ public class ActionSteps extends InteractionObject {
 		new FichaMediadorPage(userS)
 			.obtenerIdMediador();
 		debugInfo("Se acaba de completar el alta del COLABORADOR");
-		/* - revisar - queda comentado porque ya hay una step para tramitar estados
-			.solicitarAlta()
-			.clickFichaMediador()
-			.confirmarAlta()
-			.clickFichaMediador()
-			.formacionAvanzarEstado()
-			.clickFichaMediador(); */
+
 		debugEnd();
 	}
 
@@ -3723,19 +3715,9 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
 
-	/*	if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
-			// comentar hasta resolver caso para Colaborador auxiliar CIF (padre Corredor NIF) mediante las getTestVar del case
-			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
-			new MediadoresAltaDatosDGSPage(userS)
-				.anyadirFechaInicioRelacion()
-				.clickGuardarYSalirDGSAlta();
-		}
-		revisar */
-
 		if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
 			new MediadoresAltaDatosDGSPage(userS)
-				//.anyadirDatosGenerales()
 				.anyadirFechaInicioRelacion();
 			if(getScenarioVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")) {
 				new MediadoresAltaDatosDGSPage(userS)
@@ -3747,31 +3729,8 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
-			//	.comprobacionFicha()
-			/*	.solicitarAlta()
-				.enviarValoracionFinanciera()
-				.enviarRevisionFinanciera()
-				.enviarResolucionFinanciera()
-				.confirmarAlta()
-				.formacionAvanzarEstado()*/
 			.obtenerIdMediador();
-/*		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
-			new FichaMediadorPage(userS)
-				.clickBuscadorMediadores();
-			new MediadoresHomePage(userS)
-				.openEnvioDGS();
-			new MediadoresDGSPage(userS)
-				.anyadirIdMediador()
-				.envioMediadorDGS(); // averiguar cómo filtrar el CSV y cases: cuando ha de aparecer el paso
-			new MediadoresHomePage(userS)
-				.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
-			new MediadoresDGSPage(userS)
-				.recepcionMediadoresDGS();
-			new MediadoresHomePage(userS)
-				.openGestionMediadores();
-			new MediadoresBuscadorPage(userS)
-				.buscarMediadorPorId();
-		}*/
+
 		debugEnd();
 	}
 
