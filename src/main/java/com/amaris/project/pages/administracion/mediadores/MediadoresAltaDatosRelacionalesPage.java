@@ -193,7 +193,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 			.isEmpty()) {
 			webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
 		} else {
-			webDriver.setTextInFrame(compPrincipInput, "Compañia", cuerpoFrame);
+			webDriver.setTextInFrame(compPrincipInput, "Compania principal abogado", cuerpoFrame);
 		}
 
 		anyadirNuevoBanco("Nombre del banco");

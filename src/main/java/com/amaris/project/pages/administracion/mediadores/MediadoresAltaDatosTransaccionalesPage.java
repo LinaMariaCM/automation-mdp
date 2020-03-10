@@ -138,7 +138,7 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	}
 
 	//------------Configuración gestión de recibos-------------------
-	public MediadoresAltaDatosTransaccionalesPage anyadirConfiguracionGestionrecibos(String ultAccionImpago) {
+	public MediadoresAltaDatosTransaccionalesPage anyadirConfiguracionGestionRecibos(String ultAccionImpago) {
 		debugBegin();
 		if(ultAccionImpago.isEmpty()) ultAccionImpago = "NADA";
 		webDriver.switchToFrame(cuerpoFrame);
@@ -167,19 +167,6 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 
 		return this;
 	}
-
-/*	public MediadoresAltaDatosTransaccionalesPage elegirContinuacion() {
-		debugBegin();
-		// hay referencia a TestRail para parchear este caso concreto porque implementar una lógica específica, sería excesivamente costoso para una sola prueba
-		if(getTestVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")){
-			clickContiuar();
-		} else {
-			clickGuardar();
-		}
-		debugEnd();
-
-		return this;
-	} */
 
 	public MediadoresAltaDatosTransaccionalesPage clickCancelar() {
 		debugBegin();

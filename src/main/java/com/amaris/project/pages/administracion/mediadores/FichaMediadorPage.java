@@ -7,11 +7,9 @@ import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class FichaMediadorPage extends PageObject {
 
@@ -115,6 +113,11 @@ public class FichaMediadorPage extends PageObject {
 	private By direccionProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(10) > td:nth-child(1)");
 	private By poblacionProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(11) > td:nth-child(1)");
 	private By provinciaProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(11) > td:nth-child(2)");
+	private By cuantasFincasTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(2)");
+	private By nombreBancoTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(2) > td:nth-child(2)");
+
+	private By periodoCreditoFichaTxt = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(4) > td:nth-child(2)");
+	private By limiteCreditoFichaTxt = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(5) > td:nth-child(4)");
 
 	private By direcionCPTxt = By
 		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(3)");
@@ -1300,6 +1303,36 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage verificarAdministaFincas(String cuantas) {
+
+		debugBegin();
+
+		String cuantasFincas = webDriver.getTextInFrame(cuantasFincasTxt, cuerpoFrame).substring(10).trim();
+
+		boolean cuantasFincasMed = cuantasFincas.equalsIgnoreCase(cuantas);
+
+		Assert.assertTrue(cuantasFincasMed, "Es incorrecto.");
+		debugInfo("Se ha verificado que Administra Fincas.");
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarNombreDelBanco(String banco) {
+
+		debugBegin();
+
+		String nomBanco = webDriver.getTextInFrame(nombreBancoTxt, cuerpoFrame).trim();
+
+		boolean nomBancoMed = nomBanco.equalsIgnoreCase(banco);
+
+		Assert.assertTrue(nomBancoMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Nombre del Banco.");
+
+		debugEnd();
+		return this;
+	}
+
 	public FichaMediadorPage verificarCompanyiasPrincipales(String constanteFicha, String companyia) {
 		debugBegin();
 
@@ -1400,6 +1433,33 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage verificarPeriodoCredito(String periodo) {
+		debugBegin();
+
+		String periodoMed = webDriver.getTextInFrame(periodoCreditoFichaTxt, cuerpoFrame).trim();
+
+		boolean periodoCreditoMed = periodoMed.equalsIgnoreCase(periodo);
+
+		Assert.assertTrue(periodoCreditoMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Periodo Credito");
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarLimiteCredito(String limite) {
+		debugBegin();
+
+		String limiteMed = webDriver.getTextInFrame(limiteCreditoFichaTxt, cuerpoFrame).substring(37).trim();
+
+		boolean limiteCreditoMed = limiteMed.equalsIgnoreCase(limite);
+
+		Assert.assertTrue(limiteCreditoMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Limite Credito");
+		debugEnd();
+		return this;
+	}
+
+
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
 		if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
@@ -1433,6 +1493,18 @@ public class FichaMediadorPage extends PageObject {
 			} else if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") && getScenarioVar(Constants.TIPO_MEDIADOR) != null
 				&& !getScenarioVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 				verificarTipoMediador(MediadoresConstantesFicha.CORR, "Corredor");
+			}
+
+			//OFICINA PADRE
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+				verificarOficinaPadre(getTestVar(Constants.ID_ALTA_OFICINA_AE));
+			}
+
+			//OFICINA PADRE
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+				verificarMediadorPadre(getTestVar(Constants.ID_ALTA_COLABORADOR_AE));
 			}
 
 			//TIPO DE COLABORADOR
@@ -1504,20 +1576,30 @@ public class FichaMediadorPage extends PageObject {
 			//NOMBRE, PRIMER APELLIDO Y SEGUNDO APELLIDO FISCALES COMPLETOS
 			if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
 				verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Neon")) {
+				verificarNombres("Neon", "Paleo", "Lope");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mario")) {
+				verificarNombres("Mario", "Bros", "Siempre");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
 				verificarNombres("Orion", "Cliff", "Burton");
+			}else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Fighters")) {
+					verificarNombres("Fighters", "Fighters", "Neighbourhood");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
-				verificarNombres("Foo", "Fighters", "Neighbourhood");
+				verificarNombres("A7X", "Exist", "Neighbourhood");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
-				verificarNombres("A7X", "Exist", "");
+				verificarNombres("Foo", "Fighters", "Neighbourhood");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pepe")) {
+				verificarNombres("Pepe", "El", "Falso");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
-				verificarNombres("Ghost Macabre", "", "");
+				verificarNombres("Ghost Macabre", "Bringme", "Thehorizon");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
 				verificarNombres("Pantera", "Shedding", "Skin");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Exist")) {
+				verificarNombres("Exist", "Shedding", "Skin");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ozzy Osborne")) {
-				verificarNombres("Ozzy Osborne", "", "");
+				verificarNombres("Ozzy Osborne", "Bringme", "Thehorizon");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
-				verificarNombres("In this moment", "", "");
+				verificarNombres("In this moment", "Fighters", "Neighbourhood");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mala")) {
 				verificarNombres("Mala", "Rodriguez", "Neighbourhood");
 			}
@@ -1546,8 +1628,12 @@ public class FichaMediadorPage extends PageObject {
 				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med14")
 				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med15")
 				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med17")
 				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med18")
-				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med20")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med21")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med22")) {
 
 				verificarNombreComercial(getScenarioVar(Constants.NOMBRE_COMERCIAL));
 			}
@@ -1573,6 +1659,10 @@ public class FichaMediadorPage extends PageObject {
 				verificarRamo(MediadoresConstantesFicha.ASISTENCIA, "Asistencia");
 			}
 
+			verificarAdministaFincas("30");
+
+			verificarNombreDelBanco("Nombre del banco");
+
 			//COMPAÑIAS PRINCIPALES
 			if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
 				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
@@ -1594,7 +1684,15 @@ public class FichaMediadorPage extends PageObject {
 				verificarPagoAutoliquidaciones("ES0321001234561234567890");
 
 			}
+
+			clickInfoCCM();
+
+			verificarPeriodoCredito("45");
+			verificarLimiteCredito("Especial");
+
+
 		}
+
 		debugEnd();
 		return this;
 	}
@@ -1632,6 +1730,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	//COMPROBACINES EN FICHA DE ALTA PROSPECT
 	public FichaMediadorPage comprobacionesFichaAltaProspect() {
 
 		debugBegin();
