@@ -18,6 +18,10 @@ public class MediadoresConstantesFicha {
 	public static final String BSV = "BSV";
 	public static final String CORR = "CORR";
 
+	//TIPO PROSPECT
+
+	public static final String COBS = "COBS";
+
 	//TIPO COLABORADOR
 	public static final String AD_COLABORADOR = "AD";
 	public static final String AUXI = "AUXI";
