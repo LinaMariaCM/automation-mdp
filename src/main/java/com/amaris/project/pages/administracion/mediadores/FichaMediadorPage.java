@@ -7,9 +7,11 @@ import com.amaris.automation.model.utils.DateUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.utils.ChecksUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class FichaMediadorPage extends PageObject {
 
@@ -114,7 +116,8 @@ public class FichaMediadorPage extends PageObject {
 	private By poblacionProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(11) > td:nth-child(1)");
 	private By provinciaProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(11) > td:nth-child(2)");
 	private By cuantasFincasTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(2)");
-	private By nombreBancoTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(2) > td:nth-child(2)");
+	private By nombreBancoTxt = By
+		.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(2) > td:nth-child(2)");
 
 	private By periodoCreditoFichaTxt = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(4) > td:nth-child(2)");
 	private By limiteCreditoFichaTxt = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(5) > td:nth-child(4)");
@@ -1459,6 +1462,67 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	//////////////////////////////////////
+	public FichaMediadorPage verificarDireccionesFicha() {
+		debugBegin();
+
+		List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
+		debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
+
+		for(int i = 1; i < obtenerListaDirecciones.size(); i++) {
+
+			String obtenerTipoDireccion = webDriver.getTextInFrame(By.cssSelector(
+				"#formDatos > #capaDireccionesPaso2 > div > div:nth-child(4) > table > tbody > tr:nth-child(" + (i
+					+ 1)
+					+ ") > td:nth-child(2)"), cuerpoFrame).trim();
+			debugInfo("El tipo de dirección es: " + obtenerTipoDireccion);
+
+			String obtenerDireccion = webDriver.getTextInFrame(By.cssSelector(
+				"#formDatos > #capaDireccionesPaso2 > div > div:nth-child(4) > table > tbody > tr:nth-child(" + (i
+					+ 1)
+					+ ") > td:nth-child(3)"), cuerpoFrame).trim();
+
+			//	"#formDatos > #capaDireccionesPaso2 > div > div:nth-child(4) > table > tbody > tr > td:nth-child(4) > a.js-openModa
+			//	operacion=MODIDIRE&amp;tipodomi=COME
+
+			if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
+
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_FISC_NombreVia));
+
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Fiscal.");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_COME_NombreVia));
+
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Comercial.");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_PPRO_NOMBRE_VIA));
+
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Postal Produccion.");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Postal recibos")) {
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_PREC_NombreVia));
+
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Postal recibos.");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
+
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_PSIN_NOMBRE_VIA));
+
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Postal siniestros.");
+			}
+
+		}
+
+		debugEnd();
+		return this;
+	}
 
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
@@ -1582,8 +1646,8 @@ public class FichaMediadorPage extends PageObject {
 				verificarNombres("Mario", "Bros", "Siempre");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
 				verificarNombres("Orion", "Cliff", "Burton");
-			}else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Fighters")) {
-					verificarNombres("Fighters", "Fighters", "Neighbourhood");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Fighters")) {
+				verificarNombres("Fighters", "Fighters", "Neighbourhood");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
 				verificarNombres("A7X", "Exist", "Neighbourhood");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
@@ -1651,6 +1715,7 @@ public class FichaMediadorPage extends PageObject {
 			verificarEmailPrincipal("mediador@email.com");
 
 			//DIRECCIONES
+			verificarDireccionesFicha();
 
 			clickInfoRelacional();
 
@@ -1689,7 +1754,6 @@ public class FichaMediadorPage extends PageObject {
 
 			verificarPeriodoCredito("45");
 			verificarLimiteCredito("Especial");
-
 
 		}
 

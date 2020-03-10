@@ -3566,7 +3566,8 @@ public class ActionSteps extends InteractionObject {
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
 		new FichaMediadorPage(userS)
-			.obtenerIdMediador();
+			.obtenerIdMediador()
+			.comprobacionFicha();
 		debugInfo("Se acaba de completar el alta de la  OFICINA");
 
 		debugEnd();
@@ -3609,7 +3610,8 @@ public class ActionSteps extends InteractionObject {
 		}
 
 		new FichaMediadorPage(userS)
-			.obtenerIdMediador();
+			.obtenerIdMediador()
+			.comprobacionFicha();
 		debugInfo("Se acaba de completar el alta del COLABORADOR");
 
 		debugEnd();
@@ -3652,7 +3654,8 @@ public class ActionSteps extends InteractionObject {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
 		}
 		new FichaMediadorPage(userS)
-			.obtenerIdMediador();
+			.obtenerIdMediador()
+			.comprobacionFicha();
 
 		debugEnd();
 	}
@@ -3799,8 +3802,6 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		userS.setScenario(name);
-		userS.setTestVar(Constants.ACCESO, userS.getScenarioVar(Constants.ACCESO));
-		userS.setTestVar(Constants.USUARIO, userS.getScenarioVar(Constants.USUARIO));
 		userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenarioVar(Constants.NIVEL_ESTRUCTURA));
 		userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenarioVar(Constants.TIPO_MEDIADOR));
 		userS.setTestVar(Constants.NOMBRE_MEDIADOR, userS.getScenarioVar(Constants.NOMBRE_MEDIADOR));
