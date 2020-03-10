@@ -48,7 +48,7 @@ public class IntercambioDatosTest extends TestObject{
 	public String[][] dataProviderIntercambioDatos02() {
 		String testCase = Constants.MEDIADORES_CASE;
 //		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, "datosVariablesMediadoresIntercambio.csv",
-//			"datosTestMediadores.csv");
+//			"");
 		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosVariablesMediadoresIntercambio.csv");
 		
 		if(suiteM.getSuiteVar("cod_mediador_trans") != null) {

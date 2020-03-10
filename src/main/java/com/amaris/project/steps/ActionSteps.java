@@ -3679,15 +3679,8 @@ public class ActionSteps extends InteractionObject {
 
 		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C317")) {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
-			if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315")) {
-				new MediadoresAltaDatosDGSPage(userS)
-					.anyadirFechaInicioRelacion();
-			}
-			if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C317")) {
-				new MediadoresAltaDatosDGSPage(userS)
-					.escribirFechaIniRelacion();
-			}
 			new MediadoresAltaDatosDGSPage(userS)
+				.escribirFechaIniRelacion()
 				.anyadirDatosGenerales()
 				.clickGuardarYSalirDGSAlta();
 		} else {
@@ -3785,7 +3778,7 @@ public class ActionSteps extends InteractionObject {
 	public void tramitar_estados_mediador() { // MONTADO POR ORDEN DE PASOS Y VARIABLES
 		debugBegin();
 		if(!getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
-			// casi todos inician su tramitación solicitando alta
+
 			new FichaMediadorPage(userS)
 				.solicitarAlta();
 			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
@@ -3812,7 +3805,7 @@ public class ActionSteps extends InteractionObject {
 						.activarMediadorEstado()
 						.comprobarEstadoActivo();
 				}
-			} else { // intermediarios sin el acuerdo de colaboración
+			} else { // INTERMEDIARIOS SIN EL ACUERDO COLABORACIÓN
 				new FichaMediadorPage(userS)
 					.enviarValoracionFinanciera()
 					.enviarRevisionFinanciera()
@@ -3837,7 +3830,7 @@ public class ActionSteps extends InteractionObject {
 					new MediadoresBuscadorPage(userS)
 						.buscarMediadorPorId();
 				}
-				// paso ACTIVAR MEDIADOR - último de todos, excepto para el Acuerdo de colaboración
+				// PASO ACTIVAR MEDIADOR - último de todos, excepto para el Acuerdo de colaboración
 				new FichaMediadorPage(userS)
 					.activarMediadorEstado()
 					.comprobarEstadoActivo();

@@ -74,7 +74,8 @@ public class FichaMediadorPage extends PageObject {
 	private By fFormObligatoriaTxt = By.cssSelector("body > table.wideBox > tbody > tr > td > p > strong");
 	private By fFormObligatoriaInput = By.cssSelector("#GESMED_FFOROBLIG");
 	private By periodoCreditoTxt = By.cssSelector("body > table.wideBox > tbody > tr > td > p > strong");
-	private By activarMediadorBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(3) > a");
+	private By activarMediadorBtn = By.cssSelector("[onclick*='CODIACCI=ACTIMEDI']");
+	//#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(3) > a
 	private By fEnvioContratoInput = By.cssSelector("#GESMED_FENVCONT");
 	private By fRecepcionContratoInput = By.cssSelector("#GESMED_FRECCONT");
 	private By solicitarBajaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(3) > a");
@@ -321,17 +322,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-/*	public FichaMediadorPage clickFichaMediador() {
-		debugBegin();
-		webDriver.waitWithDriver(8000);
-		if(!webDriver.isPresentInFrame(masAccionesBtn, cuerpoFrame)) {
-			webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
-			webDriver.waitWithDriver(8000);
-		}
-		debugEnd();
-		return this;
-	}*/
-
 	public FichaMediadorPage clickAgendaMediadorProspect() {
 		debugBegin();
 
@@ -560,7 +550,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	// ---- ACCIONES SOBRE FICHA
+	// ---- ACCIONES SOBRE FICHA---------------
 
 	public FichaMediadorPage clickAnyadirNuevoContacto() {
 		debugBegin();
@@ -632,7 +622,7 @@ public class FichaMediadorPage extends PageObject {
 		return checkFecha;
 	}
 
-	//ALERTA SOBRE PERDIODO DE CREDITO
+	//ALERTA SOBRE PERIODO DE CREDITO
 	public boolean alertaSistemaPeriodoLimiteCredito(String mensaje) {
 		debugBegin();
 
@@ -714,6 +704,7 @@ public class FichaMediadorPage extends PageObject {
 	}
 
 	//------------------EMPIEZAN ESTADOS--------------------------
+
 	public FichaMediadorPage solicitarAlta() {
 		debugBegin();
 		debugInfo("Se entra para solicitar alta de Oficina");
@@ -986,7 +977,7 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
-		} // último else if añadido por Antonia.
+		}
 
 		debugEnd();
 
@@ -1642,7 +1633,7 @@ public class FichaMediadorPage extends PageObject {
 				verificarNombres("Ozzy Osborne", "", "");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
 				verificarNombres("In this moment", "", "");
-			}  else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mala")) {
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mala")) {
 				verificarNombres("Mala", "Rodriguez", "Neighbourhood");
 			}
 
@@ -1701,7 +1692,7 @@ public class FichaMediadorPage extends PageObject {
 			//COMPAÑIAS PRINCIPALES
 			if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
 				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
-			} else if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Master of puppets")){
+			} else if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Master of puppets")) {
 				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
 			}
 
