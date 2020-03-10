@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
+import org.testng.Assert;
 
 public class MediadoresAltaProspectPage extends PageObject {
 
@@ -213,18 +214,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaProspectPage selectnNumeroVia() {
-		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.appendText(numeroViaInput, "11");
-		webDriver.exitFrame();
-
-		debugEnd();
-		return this;
-	}
-
 	//-----------Clicks en botones-----------------------------------
 	public MediadoresAltaProspectPage clickBotonComprobarDireccion() {
 		debugBegin();
@@ -310,7 +299,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		selectProvincia();
 		selectPoblacion();
 		selectVia();
-		selectnNumeroVia();
 		clickBotonComprobarDireccion();
 		clickBotonAceptarDireccion();
 
@@ -357,7 +345,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return checkAlerta;
 	}
 
-	public MediadoresAltaProspectPage alta_prospect_retenciones() {
+	public MediadoresAltaProspectPage altaProspectRetenciones() {
 		debugBegin();
 
 		clickBotonGrabar();
