@@ -32,21 +32,21 @@ public class MediadoresTest extends TestObject {
 
 		userS.testActions(() -> {
 			steps.set_test_variables_from_scenario_var("INTE");
-			steps.login("Innova", "eferrando");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 
 				steps.set_test_variables_from_scenario_var("OFIC");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
 			}
 
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.set_test_variables_from_scenario_var("COLA");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
 			}
@@ -71,21 +71,21 @@ public class MediadoresTest extends TestObject {
 
 		userS.testActions(() -> {
 			steps.set_test_variables_from_scenario_var("INTE");
-			steps.login("Innova", "eferrando");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 
 				steps.set_test_variables_from_scenario_var("OFIC");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
 			}
 
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.set_test_variables_from_scenario_var("COLA");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
 			}
@@ -109,21 +109,21 @@ public class MediadoresTest extends TestObject {
 
 		userS.testActions(() -> {
 			steps.set_test_variables_from_scenario_var("INTE");
-			steps.login("Innova", "eferrando");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 
 				steps.set_test_variables_from_scenario_var("OFIC");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
 			}
 
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.set_test_variables_from_scenario_var("COLA");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
 			}
@@ -147,21 +147,21 @@ public class MediadoresTest extends TestObject {
 
 		userS.testActions(() -> {
 			steps.set_test_variables_from_scenario_var("INTE");
-			steps.login("Innova", "eferrando");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 
 				steps.set_test_variables_from_scenario_var("OFIC");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
 			}
 
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.set_test_variables_from_scenario_var("COLA");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
 			}
@@ -185,21 +185,21 @@ public class MediadoresTest extends TestObject {
 
 		userS.testActions(() -> {
 			steps.set_test_variables_from_scenario_var("INTE");
-			steps.login("Innova", "eferrando");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 
 				steps.set_test_variables_from_scenario_var("OFIC");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
 			}
 
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.set_test_variables_from_scenario_var("COLA");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
 			}
@@ -223,21 +223,21 @@ public class MediadoresTest extends TestObject {
 
 		userS.testActions(() -> {
 			steps.set_test_variables_from_scenario_var("INTE");
-			steps.login("Innova", "eferrando");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 
 				steps.set_test_variables_from_scenario_var("OFIC");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
 			}
 
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.set_test_variables_from_scenario_var("COLA");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
 			}
@@ -261,21 +261,21 @@ public class MediadoresTest extends TestObject {
 
 		userS.testActions(() -> {
 			steps.set_test_variables_from_scenario_var("INTE");
-			steps.login("Innova", "eferrando");
+			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.alta_intermediario();
 			steps.tramitar_estados_mediador();
 
 			if(userS.getTestVar(Constants.ID_ALTA_OFICINA_AE).contains("TRUE")) {
 
 				steps.set_test_variables_from_scenario_var("OFIC");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_oficina();
 				steps.tramitar_estados_mediador();
 			}
 
 			if(userS.getTestVar(Constants.ID_ALTA_COLABORADOR_AE).contains("TRUE")) {
 				steps.set_test_variables_from_scenario_var("COLA");
-				steps.login("Innova", "eferrando");
+				steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 				steps.alta_colaborador();
 				steps.tramitar_estados_mediador();
 			}
