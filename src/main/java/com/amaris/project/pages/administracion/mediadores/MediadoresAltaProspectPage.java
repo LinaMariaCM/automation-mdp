@@ -258,28 +258,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaProspectPage clickBorrarCamposDomicilio() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(borrarCamposDireccionBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaProspectPage clickCancelarDomicilio() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(cancelarDomicilioBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
 	public MediadoresAltaProspectPage clickNuevoMediador() {
 		debugBegin();
 		webDriver.clickInFrame(nuevoMediadorBtn, cuerpoFrame);
@@ -310,17 +288,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaProspectPage clickCancelarNuevoMedioContacto() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(cancelarNuevoMedioContactoBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
 	public MediadoresAltaProspectPage clickAnyadirNuevoMedioContacto() {
 		debugBegin();
 		webDriver.clickInFrame(anyadirNuevoMedioContactoBtn, cuerpoFrame);
@@ -329,24 +296,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaProspectPage clickCerrarNuevoMediador() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(cerrarNuevoMediadorBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaProspectPage clickCancelarNuevoProspect() {
-		debugBegin();
-		webDriver.clickInFrame(cancelarNuevoProspectBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
 	//---------------------MÉTODOS COMPLEJOS-------------------------------
 
 	public static String generadorRandomDgsNumero() {
