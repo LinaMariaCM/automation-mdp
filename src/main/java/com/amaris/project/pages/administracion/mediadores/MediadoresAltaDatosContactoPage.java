@@ -845,6 +845,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitForElementToBePresent(viaInput);
 		completarCampoNombreVia("ALM");
+		webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 		webDriver.click(comprobarDireccionBtn);
 		webDriver.click(aceptarBtn);
@@ -958,6 +959,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.switchToFrame(modalFrame);
 			webDriver.waitForElementToBePresent(viaInput);
 			completarCampoNombreVia("GREG");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.click(aceptarBtn);
@@ -1041,6 +1043,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitForElementToBePresent(viaInput);
 		completarCampoNombreVia("val");
+		webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 		webDriver.click(comprobarDireccionBtn);
 		webDriver.click(aceptarBtn);
@@ -1125,6 +1128,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.switchToFrame(modalFrame);
 			webDriver.waitForElementToBePresent(viaInput);
 			completarCampoNombreVia("val");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.click(aceptarBtn);
@@ -1208,6 +1212,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitForElementToBePresent(viaInput);
 		completarCampoNombreVia("val");
+		webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 		webDriver.click(comprobarDireccionBtn);
 		webDriver.click(aceptarBtn);
@@ -1216,68 +1221,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		debugInfo("Se ha rellenado la Dirección Postal Siniestros.");
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
-			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
-
-			alertaSistemaContacto(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION);
-			webDriver.clickInFrame(volverBtn, cuerpoFrame);
-
-			webDriver.clickInFrame(modificarDomicilioBtn, cuerpoFrame);
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.clearText(provinciaInput);
-			webDriver.clearText(poblacionInput);
-			webDriver.clearText(viaInput);
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(provinciaInput);
-			completarCampoProvincia("MADRID");
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(poblacionInput);
-			completarCampoPoblacion("MAD");
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(viaInput);
-			completarCampoNombreVia("MAD");
-
-			webDriver.click(comprobarDireccionBtn);
-			webDriver.click(aceptarBtn);
-
-			webDriver.exitFrame();
-
-			webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-		}
 
 		debugEnd();
 		return this;
