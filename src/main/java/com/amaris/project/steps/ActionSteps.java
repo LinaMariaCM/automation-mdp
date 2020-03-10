@@ -2411,83 +2411,6 @@ public class ActionSteps extends InteractionObject {
 			.clickNuevoTomadorSecond();
 	}
 
-	public void doy_de_alta_prospect_usando_acceso_y_usuario_iterando_fichero(String loginAcess, String user) {
-		String fileName = getScenarioVar(Constants.FICHERO);
-		fileName = fileName.substring(0, fileName.length() - 4);
-
-		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-		String[][] datosMediadores = FileUtils.csvFileToMatrix(fileName + ".csv", false);
-
-		for(int i = 1; i < datosMediadores.length; i++) {
-			setScenarioVar(Constants.NIVEL_ESTRUCTURA, getValuesDataSetByID(datosMediadores, "nivelEstructura", i));
-			setScenarioVar(Constants.TIPO_PROSPECT, getValuesDataSetByID(datosMediadores, "tipoProspect", i));
-			setScenarioVar(Constants.ACTIVIDAD_PRINCIPAL, getValuesDataSetByID(datosMediadores, "actividadPrincipal", i));
-			setScenarioVar(Constants.NOMBRE_COMERCIAL_PROSPECT, getValuesDataSetByID(datosMediadores, "nomComercial", i));
-			setScenarioVar(Constants.CONTACTO_RESPONSABLE, getValuesDataSetByID(datosMediadores, "contactoResponsable", i));
-			setScenarioVar(Constants.IDIOMA, getValuesDataSetByID(datosMediadores, "idioma", i));
-			setScenarioVar(Constants.TLF_PRINCIPAL, getValuesDataSetByID(datosMediadores, "tlfPrincipal", i));
-			setScenarioVar(Constants.EJECUTIVO_COMERCIAL, getValuesDataSetByID(datosMediadores, "ejecutivoComercial", i));
-			setScenarioVar(Constants.PROVINCIA, getValuesDataSetByID(datosMediadores, "provincia", i));
-			setScenarioVar(Constants.POBLACION, getValuesDataSetByID(datosMediadores, "poblacion", i));
-			setScenarioVar(Constants.NOMBRE_VIA, getValuesDataSetByID(datosMediadores, "nombreVia", i));
-
-			try {
-				login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-				new InnovaHomePage(userS)
-					.openMediadores();
-
-				new MediadoresHomePage(userS)
-					.openAltaProspect();
-
-				new MediadoresAltaProspectPage(userS)
-					.altaProspectMediadores();
-			} catch(Exception e) {}
-		}
-	}
-
-	public void doy_de_alta_prospect_usando_acceso_y_usuario(String loginAcess, String user) {
-		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-		new InnovaHomePage(userS)
-			.openMediadores();
-
-		new MediadoresHomePage(userS)
-			.openAltaProspect();
-
-		new MediadoresAltaProspectPage(userS)
-			.altaProspectMediadores();
-	}
-
-	public void doy_de_alta_prospect() {
-
-		new InnovaHomePage(userS)
-			.openMediadores();
-
-		new MediadoresHomePage(userS)
-			.openAltaProspect();
-
-		new MediadoresAltaProspectPage(userS)
-			.altaProspectMediadores();
-
-		new FichaMediadorPage(userS)
-			.obtenerIdMediador();
-	}
-
-	public void doy_de_alta_mediador_usando_acceso_y_usuario(String loginAcess, String user) {
-		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-		new InnovaHomePage(userS)
-			.openMediadores();
-
-		new MediadoresHomePage(userS)
-			.openAltaMediador();
-
-		new MediadoresAltaMediadorPage(userS)
-			.executeActionsAltaMediadorPage();
-	}
-
 	public void comunico_siniestro() {
 		new InnovaHomePage(userS)
 			.openSiniestros();
@@ -3814,6 +3737,7 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaProspectPage(userS)
 			.altaProspectMediadores();
 		new FichaMediadorPage(userS)
+			.comprobacionesFichaAltaProspect()
 			.clickAgendaMediadorProspect();
 		new MediadoresAgendaPage(userS)
 			.anyadirNuevaAnotacion("Nueva anotación");
@@ -3830,7 +3754,7 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresHomePage(userS)
 			.openAltaProspect();
 		new MediadoresAltaProspectPage(userS)
-			.alta_prospect_retenciones();
+			.altaProspectRetenciones();
 
 		debugEnd();
 	}
