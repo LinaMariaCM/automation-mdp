@@ -11,7 +11,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
 
 	private By especialistaRamoSIBtn = By.id("ALTAMEDI_ESPRAMOSI");
 	private By especialistaRamoNOBtn = By.id("ALTAMEDI_ESPRAMONO");
@@ -38,7 +37,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By compPrincipObligDisplay = By.cssSelector("#capaDatosMediador > div > div.marcofnd > table.wideBox > tbody > tr.flexibleField > th > label > span");
 
 	private By medNuevoBancoBtn = By.linkText("Añadir nuevo banco");
-	//private By medNuevoBancoBtn = By.linkText("[onclick*='operacion=NEWBANC']");
 	private By nombreBancoInput = By.cssSelector("#ALTAMEDI_NOMBANCO");
 	private By observacionesBancoInput = By.cssSelector("#ALTAMEDI_OBSBANCO");
 
@@ -52,7 +50,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
 
 	//-----------Controles de pagina---------------------------
-
 	private By cancelarRelacionalesBtn = By.id("botonCancelar1");
 	private By guardarRelacionalesBtn = By.id("botonGrabar1");
 	private By continuarBtn = By.id("botonContinuar1");
@@ -61,8 +58,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		super(userS);
 	}
 
-	//---------------Añadir datos PRODUCTO segun casos:----------------------------------
-	// ramo --> Si  y finca --Si
+	//---------------Añadir datos PRODUCTO--------------------------//
 
 	public MediadoresAltaDatosRelacionalesPage anyadirDatosProductoConRamoConFinca() {
 

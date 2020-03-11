@@ -3762,20 +3762,6 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	// STEPS PARA HACER COMPROBACIONES EN LA FICHA
-	public void comprobaciones_ficha() {
-		debugBegin();
-
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorFichaComprobacion();
-		new FichaMediadorPage(userS)
-			.comprobacionFicha();
-
-		debugEnd();
-	}
-
 	//----RETENCIONES ALTA INTERMEDIARIOS, OFICINAS Y COLABORADORES----
 	public void alta_retenciones_mediadores() {
 		debugBegin();
