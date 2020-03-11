@@ -102,12 +102,13 @@ public class FichaMediadorPage extends PageObject {
 
 	// Pestaña Visión Global
 	private By nombreFiscalTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(2) > td:nth-child(1)");
-	private By actividadPrincipalTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(4) > td:nth-child(2)");
 	private By idiomaMediadorTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(6) > td:nth-child(2)");
 	private By nombreContactoRespTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(8) > td:nth-child(1)");
 	private By cargoContactoRespTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(8) > td:nth-child(2)");
 
 	// Pestaña Info descriptiva
+	private By actividadPrincipalTxt = By
+		.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(5) > td:nth-child(2)");
 	private By nombreComercialTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td");
 	private By sexoTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(6) > td");
 	private By disponeSoftwareTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-der > table > tbody > tr > td > table > tbody > tr:nth-child(8) > td");
@@ -991,7 +992,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String nivelJerarquicoInte = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
 
-		boolean intermediarioInte = getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase(constanteFicha) &&
+		boolean intermediarioInte = getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase(constanteFicha) &&
 			nivelJerarquicoInte.equalsIgnoreCase(nivelJerarquico);
 
 		Assert.assertTrue(intermediarioInte, "Es incorrecto.");
@@ -1007,7 +1008,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String tipoMediador = webDriver.getTextInFrame(tipoMediadorTxt, cuerpoFrame).substring(16).trim();
 
-		boolean tipoMediadorInte = getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase(constanteFicha) &&
+		boolean tipoMediadorInte = getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase(constanteFicha) &&
 			tipoMediador.equalsIgnoreCase(tipoMed);
 
 		Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
@@ -1023,7 +1024,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String tipoProspectMed = webDriver.getTextInFrame(tipoProspectTxt, cuerpoFrame).substring(16).trim();
 
-		boolean tipoProspecInte = getTestVar(Constants.TIPO_PROSPECT).equalsIgnoreCase(constanteFicha) &&
+		boolean tipoProspecInte = getScenarioVar(Constants.TIPO_PROSPECT).equalsIgnoreCase(constanteFicha) &&
 			tipoProspectMed.equalsIgnoreCase(tipoProspect);
 
 		Assert.assertTrue(tipoProspecInte, "Es incorrecto.");
@@ -1039,7 +1040,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String tipoColaborador = webDriver.getTextInFrame(tipoColaboradorTxt, cuerpoFrame).substring(16).trim();
 
-		boolean tipoColaboradorMediador = getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase(constanteFicha) &&
+		boolean tipoColaboradorMediador = getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase(constanteFicha) &&
 			tipoColaborador.equalsIgnoreCase(tipoCol);
 
 		Assert.assertTrue(tipoColaboradorMediador, "Es incorrecto.");
@@ -1070,7 +1071,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String idiomaMed = webDriver.getTextInFrame(idiomaMediadorTxt, cuerpoFrame).substring(7).trim();
 
-		boolean idiomaMediador = getTestVar(Constants.IDIOMA).equalsIgnoreCase(constanteFicha) &&
+		boolean idiomaMediador = getScenarioVar(Constants.IDIOMA).equalsIgnoreCase(constanteFicha) &&
 			idiomaMed.equalsIgnoreCase(idioma);
 
 		Assert.assertTrue(idiomaMediador, "Es incorrecto.");
@@ -1084,9 +1085,8 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		String actividadPrinc = webDriver.getTextInFrame(actividadPrincipalTxt, cuerpoFrame).substring(20).trim();
-
-		boolean actividadPMed = getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase(constanteFicha) &&
+		String actividadPrinc = webDriver.getTextInFrame(actividadPrincipalTxt, cuerpoFrame).trim();
+		boolean actividadPMed = getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase(constanteFicha) &&
 			actividadPrinc.equalsIgnoreCase(actividadPri);
 
 		Assert.assertTrue(actividadPMed, "Es incorrecto.");
@@ -1133,7 +1133,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String disponeSoftware = webDriver.getTextInFrame(disponeSoftwareTxt, cuerpoFrame).trim();
 
-		boolean disponeSoftwareMed = getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase(constanteFicha) &&
+		boolean disponeSoftwareMed = getScenarioVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase(constanteFicha) &&
 			disponeSoftware.equalsIgnoreCase(disponeSoftw);
 
 		Assert.assertTrue(disponeSoftwareMed, "Es incorrecto.");
@@ -1150,8 +1150,8 @@ public class FichaMediadorPage extends PageObject {
 		String nombreCompleto = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(14).trim();
 
 		debugInfo("El nombre completo tal como aparece en la ficha: " + nombreFisc + " " + primeApell + " " + segApell);
-		debugInfo("El nombre completo tal como aparece en el CSV: " + getTestVar(Constants.NOMBRE_MEDIADOR) + " " + getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR) + " "
-			+ getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
+		debugInfo("El nombre completo tal como aparece en el CSV: " + getScenarioVar(Constants.NOMBRE_MEDIADOR) + " " + getScenarioVar(Constants.PRIMER_APELLIDO_MEDIADOR) + " "
+			+ getScenarioVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
 
 		boolean checkNombresFiscales = nombreCompleto.equalsIgnoreCase(nombreFisc + " " + primeApell + " " + segApell);
 
@@ -1526,21 +1526,6 @@ public class FichaMediadorPage extends PageObject {
 				verificarIdioma(MediadoresConstantesFicha.GALE, "Galego");
 			}
 
-			//ACTIVIDAD PRINCIPAL
-			if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("MESE")) {
-				verificarActividadPrincipal(MediadoresConstantesFicha.MESE, "Mediador de Seguros");
-			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ADFI")) {
-				verificarActividadPrincipal(MediadoresConstantesFicha.ADFI, "Administrador de Fincas");
-			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ABOG")) {
-				verificarActividadPrincipal(MediadoresConstantesFicha.ABOG, "Abogados");
-			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("OTRO")) {
-				verificarActividadPrincipal(MediadoresConstantesFicha.OTRO, "Otros");
-			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("API")) {
-				verificarActividadPrincipal(MediadoresConstantesFicha.API, "API");
-			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("GEPA")) {
-				verificarActividadPrincipal(MediadoresConstantesFicha.GEPA, "Gestor Patrimonios");
-			}
-
 			//NOMBRE, PRIMER APELLIDO Y SEGUNDO APELLIDO FISCALES COMPLETOS
 			if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
 				verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
@@ -1579,6 +1564,21 @@ public class FichaMediadorPage extends PageObject {
 			verificarCargoResponsable("Cargo Responsable");
 
 			clickInfoDescriptiva();
+
+			//ACTIVIDAD PRINCIPAL
+			if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("MESE")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.MESE, "Mediador de Seguros");
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ADFI")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.ADFI, "Administrador de Fincas");
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ABOG")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.ABOG, "Abogados");
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("OTRO")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.OTRO, "Otros");
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("API")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.API, "API");
+			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("GEPA")) {
+				verificarActividadPrincipal(MediadoresConstantesFicha.GEPA, "Gestor Patrimonios");
+			}
 
 			//NOMBRE COMERCIAL
 			if(getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med01")
