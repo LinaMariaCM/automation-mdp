@@ -75,22 +75,12 @@ public class MediadoresBuscadorPage extends PageObject {
 	private By tramitadorConvencionalCombo = By.cssSelector("#BUSMED_TRAMSINI");
 	private By tramitadorAsistenciaCombo = By.cssSelector("#BUSMED_TRAMASIS");
 
-	private By exportarResultadosBtn = By.cssSelector("#formBarraAcciones > div.menuNav.menuNavPosAbsolute > div > ul > li:nth-child(1) > a");
 	private By buscarBtn = By.cssSelector("#cajabuscador > tbody > tr:nth-child(2) > td.marcofnd > input");
 
-	private By listaBuscador = By.cssSelector("tr[id*='bloque']");
 	// endregion
 
 	public MediadoresBuscadorPage(UserStory userS) {
 		super(userS);
-	}
-
-	public MediadoresBuscadorPage clickExportarResultados() {
-		debugBegin();
-		webDriver.clickInFrame(exportarResultadosBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
 	}
 
 	public MediadoresBuscadorPage clickBuscar() {
@@ -101,49 +91,10 @@ public class MediadoresBuscadorPage extends PageObject {
 		return this;
 	}
 
-	// Seleccionar casilla en la tabla
-	// Leer texto en la tabla
-	// Acceder a mas acciones
-
-	/*
-		public MediadoresBuscadorPage buscarMediadorEstadoPendienteEnvioDGS() {
-			debugBegin();
-			webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, menuFrame);
-			webDriver.clickInFrame(estadoActivoRestringidoBtn,menuFrame);
-			webDriver.clickInFrame(estadoActivoBtn,menuFrame);
-			webDriver.waitWithDriver(3000);
-			webDriver.clickInFrame(buscarBtn,menuFrame);
-			debugEnd();
-
-			return this;
-		}
-	*/
-	public MediadoresBuscadorPage accederElementosTabla() {
-
-		List<WebElement> tabla = webDriver.getElementsInFrame(listaBuscador, cuerpoFrame);
-		debugInfo("La lista es:" + tabla);
-		//String codigoMediador = tabla.get(3);
-
-		return this;
-	}
-
-	// método a revisar para buscar mediador por su ID - Antonia
+	// --Buscar mediador por su ID ----
 	public MediadoresBuscadorPage buscarMediadorPorId() {
 		debugBegin();
 		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_MEDIADOR_ALTA));
-		webDriver.clickInFrame(estadoTramitacionBtn,cuerpoFrame);
-		clickBuscar();
-		webDriver.waitWithDriver(8000);
-		debugEnd();
-		return this;
-	}
-
-	//Búsqueda para comprobar el intercambio de datos
-	public MediadoresBuscadorPage buscarInteRelacionado() {
-		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
-		// webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_INTE_PADRE));
-	//	añadirIDBuscar("121895");
 		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
 		clickBuscar();
 		webDriver.waitWithDriver(8000);
@@ -151,24 +102,11 @@ public class MediadoresBuscadorPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresBuscadorPage añadirIDBuscar(String idMediadorBuscado){
+	//---Búsqueda de intermediario para dar alta oficina---
+	public MediadoresBuscadorPage buscarInteRelacionado() {
 		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, idMediadorBuscado);
-		debugEnd();
-		return this;
-	}
-
-	//METODO PROVISIONAL DE IRYNA PARA BUSCAR MEDIADOR INTERMEDIARIO  POR ID EN ESTADO DE ALTA
-
-	public MediadoresBuscadorPage buscarMediadorPorIdEstadoAlta() {
-		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "2632");
-		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
-		webDriver.clickInFrame(nivelEstructuraOficinaBtn, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
-		webDriver.clickInFrame(estadoPendienteEnvioDGSBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoActivoRestringidoBtn, cuerpoFrame);
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
+		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
 		clickBuscar();
 		webDriver.waitWithDriver(8000);
 		debugEnd();
@@ -177,50 +115,14 @@ public class MediadoresBuscadorPage extends PageObject {
 
 	public MediadoresBuscadorPage buscarOficinaPorIdEstadoAlta() {
 		debugBegin();
-	//	webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_OFICINA_AE));
-		//webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_OFICINA_PADRE));
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame,  getTestVar(Constants.ID_ALTA_OFICINA_AE));
+
+		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, getTestVar(Constants.ID_ALTA_OFICINA_AE));
 		webDriver.clickInFrame(nivelEstructuraIntermediarioBtn, cuerpoFrame);
 		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(estadoPendienteEnvioDGSBtn, cuerpoFrame);
 		webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, cuerpoFrame);
 		webDriver.clickInFrame(estadoActivoRestringidoBtn, cuerpoFrame);
-		clickBuscar();
-		webDriver.waitWithDriver(8000);
-		debugEnd();
-		return this;
-	}
-
-	//buscar por id mediador para probar estados y situaciones para AE
-	public MediadoresBuscadorPage buscarMediadorEstadoSituacionAE() {
-		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "121819");
-		webDriver.clickInFrame(nivelEstructuraOficinaBtn, cuerpoFrame);
-		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
-		webDriver.clickInFrame(estadoPendienteEnvioDGSBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoActivoRestringidoBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoActivoBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
-		clickBuscar();
-		webDriver.waitWithDriver(8000);
-		debugEnd();
-		return this;
-	}
-
-	public MediadoresBuscadorPage buscarMediadorFichaComprobacion() {
-		debugBegin();
-		webDriver.setTextInFrame(codigoMediadorMutuaInput, cuerpoFrame, "122006");
-		webDriver.clickInFrame(nivelEstructuraOficinaBtn, cuerpoFrame);
-		webDriver.clickInFrame(nivelEstructuraColaboradorBtn, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
-		webDriver.clickInFrame(estadoPendienteEnvioDGSBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoPendienteAutorizacionDGSBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoActivoRestringidoBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoActivoBtn, cuerpoFrame);
-		webDriver.clickInFrame(estadoTramitacionBtn, cuerpoFrame);
 		clickBuscar();
 		webDriver.waitWithDriver(8000);
 		debugEnd();

@@ -33,8 +33,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	private By alertaDireccionesOficinaTxt = By.cssSelector("#capaDomicilio > table.tableForm > tbody > tr > th > strong");
 	private By anyadirNuevaDireccionBtn = By.cssSelector("#capaDireccionesPaso2 > div > div.floatright.peq > a");
 	private By tipoDomicilioCombo = By.id("ALTAMEDI_TIPDOMME");
-	//private By tipoDomicilioCombo = By.cssSelector("#formDatos > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td");
-	//private By tipoDomicilioOption = By.cssSelector("#formDatos > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td > select > option");
 	private By tipoDomicilioOption = By.cssSelector("#ALTAMEDI_TIPDOMME > option");
 	private By provinciaInput = By.id("ALTACLIE_PROVINCIA_ARVATO");
 	private By provinciaCombo = By.cssSelector("body > ul:nth-child(4) > li"); // quitado " > a" del final
@@ -97,11 +95,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	private By cancelarBtn = By.id("buttonCancel");
 	private By volverBtn = By.id("botonVolver");
 
-	//-------------Marcas LOPD------------
-	private By publicidadMediadorBtn = By.id("ALTAMEDI_ENVIOMED");
-	private By publicidadMutuaistaBtn = By.id("ALTAMEDI_ENVIOMUT");
-	private By publiImagenMedBtn = By.id("ALTAMEDI_USOIMAGEN");
-
 	//---Controles de la pagina---------------------
 	private By cancelarGeneralBtn = By.id("botonCancelar1");
 	private By guardarBtn = By.id("botonGrabar1");
@@ -109,15 +102,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 	////// ELEMENTOS LISTADOS PERO QUE REALMENTE NO INTERVIENEN EN LOS STEPS DEL TEST todavía
 	private By direcionRestoVInput = By.id("ALTACLIE_DATADIC");
-	// El desplegable Tipo de Vía no despliega nada. ¿Realmente debería?
 	private By direcionTipoVCombo = By.id("ALTACLIE_TIPOVIA_ARVATO");
 	private By direcionBloqueInput = By.id("ALTACLIE_BLOQUE_ARVATO");
 	private By direcionEscaleraInput = By.id("ALTACLIE_ESCALERA");
 	private By direcionPisoInput = By.id("ALTACLIE_PISO");
 	private By direcionPuertaInput = By.id("ALTACLIE_PUERTA");
-
-	/* REPASAR DIRECCIÓN FISCAL CON OTRO TIPO DE MEDIADOR.
-	CON COLABORADOR HA ASIGNADO EL SUPERIOR DE MANERA AUTOMÁTICA */
 
 	public MediadoresAltaDatosContactoPage(UserStory userS) {
 		super(userS);
@@ -273,9 +262,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 				"#formDatos > #capaDireccionesPaso2 > div > div:nth-child(4) > table > tbody > tr:nth-child(" + (i
 					+ 1)
 					+ ") > td:nth-child(3)"), cuerpoFrame).trim();
-
-			//	"#formDatos > #capaDireccionesPaso2 > div > div:nth-child(4) > table > tbody > tr > td:nth-child(4) > a.js-openModa
-			//	operacion=MODIDIRE&amp;tipodomi=COME
 
 			if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
 				setTestVar((Constants.DIRECCION_FISC_COMPLETA), obtenerDireccion);

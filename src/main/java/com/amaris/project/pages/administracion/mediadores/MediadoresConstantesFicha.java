@@ -44,21 +44,8 @@ public class MediadoresConstantesFicha {
 	public static final String DEUT = "DEUT";
 	public static final String GALE = "GALE";
 
-	//TIPO DE DOMICILIO
-	public static final String COME = "COME";
-	public static final String FISC = "FISC";
-	public static final String PPRO = "PPRO";
-	public static final String PREC = "PREC";
-	public static final String PSIN = "PSIN";
-
 	//RAMO
 	public static final String ASISTENCIA = "10";
-
-	//PRODUCTO
-	public static final String COMU = "COMU";
-	public static final String HOGA = "HOGA";
-	public static final String COMERCIO = "COME";
-	public static final String ALQU = "ALQU";
 
 	//DISPONE DE SOFTWARE
 	public static final String DISPONE_SOFTWARE_SI = "TRUE";

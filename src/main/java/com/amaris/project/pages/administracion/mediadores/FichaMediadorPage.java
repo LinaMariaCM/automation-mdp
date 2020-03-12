@@ -1038,7 +1038,7 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		String tipoColaborador = webDriver.getTextInFrame(tipoColaboradorTxt, cuerpoFrame).substring(16).trim();
+		String tipoColaborador = webDriver.getTextInFrame(tipoColaboradorTxt, cuerpoFrame).substring(19).trim();
 
 		boolean tipoColaboradorMediador = getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase(constanteFicha) &&
 			tipoColaborador.equalsIgnoreCase(tipoCol);
@@ -1529,32 +1529,18 @@ public class FichaMediadorPage extends PageObject {
 			//NOMBRE, PRIMER APELLIDO Y SEGUNDO APELLIDO FISCALES COMPLETOS
 			if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
 				verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Neon")) {
-				verificarNombres("Neon", "Paleo", "Lope");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mario")) {
-				verificarNombres("Mario", "Bros", "Siempre");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
 				verificarNombres("Orion", "Cliff", "Burton");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Fighters")) {
 				verificarNombres("Fighters", "Fighters", "Neighbourhood");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
 				verificarNombres("A7X", "Exist", "Neighbourhood");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
-				verificarNombres("Foo", "Fighters", "Neighbourhood");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pepe")) {
-				verificarNombres("Pepe", "El", "Falso");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
 				verificarNombres("Ghost Macabre", "Bringme", "Thehorizon");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
 				verificarNombres("Pantera", "Shedding", "Skin");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Exist")) {
-				verificarNombres("Exist", "Shedding", "Skin");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ozzy Osborne")) {
-				verificarNombres("Ozzy Osborne", "Bringme", "Thehorizon");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
 				verificarNombres("In this moment", "Fighters", "Neighbourhood");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mala")) {
-				verificarNombres("Mala", "Rodriguez", "Neighbourhood");
 			}
 
 			//CONTACTO RESPONSABLE
@@ -1628,10 +1614,13 @@ public class FichaMediadorPage extends PageObject {
 				verificarRamo(MediadoresConstantesFicha.ASISTENCIA, "Asistencia");
 			}
 
-			verificarAdministraFincasCuantas("30");
+			if(!getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+				verificarAdministraFincasCuantas("30");
+			}
 
-			verificarNombreDelBanco("Nombre del banco");
-
+			if(!getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+				verificarNombreDelBanco("Nombre del banco");
+			}
 			//COMPAÑIAS PRINCIPALES
 			if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
 				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
