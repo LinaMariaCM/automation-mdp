@@ -12,17 +12,12 @@ import org.testng.Assert;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class FichaMediadorPage extends PageObject {
-
-	// region webelements
 
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
 
 	private By tituloPaginaTxt = By.cssSelector("body.sis-body > h1.titulopagina");
 	private By buscadorMediadoresBtn = By.linkText(("Buscador mediadores").trim());
@@ -56,7 +51,6 @@ public class FichaMediadorPage extends PageObject {
 	private By comentarioResolFinancInput = By.cssSelector("body.modalContenido > #formDatos > div.contentBox.anchuraCajas > div.marcofnd > table.narrowBox > tbody > tr:nth-child(2) > td > textarea");
 	private By rechazarAltaBtn = By.cssSelector("[onclick*='operacion=RECHMEDI']");
 	private By solicitarMasInformacionBtn = By.cssSelector("[onclick*='operacion=SOLIINFOINIC']");
-	//	private By confirmarAltaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(1) > a");
 	//private By confirmarAltaBtn = By.cssSelector("[onclick*='operacion=CONFALTAINIC']");
 	private By confirmarAltaBtn = By.linkText(("Confirmar alta").trim());
 	private By enviaValoraFinancieraBtn = By.cssSelector("[onclick*='operacion=ENVVALFI']");
@@ -74,7 +68,7 @@ public class FichaMediadorPage extends PageObject {
 	private By fFormObligatoriaTxt = By.cssSelector("body > table.wideBox > tbody > tr > td > p > strong");
 	private By fFormObligatoriaInput = By.cssSelector("#GESMED_FFOROBLIG");
 	private By periodoCreditoTxt = By.cssSelector("body > table.wideBox > tbody > tr > td > p > strong");
-	private By activarMediadorBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(3) > a");
+	private By activarMediadorBtn = By.cssSelector("[onclick*='CODIACCI=ACTIMEDI']");
 	private By fEnvioContratoInput = By.cssSelector("#GESMED_FENVCONT");
 	private By fRecepcionContratoInput = By.cssSelector("#GESMED_FRECCONT");
 	private By solicitarBajaBtn = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(3) > table > tbody > tr > td > div > ul > li > ul > li:nth-child(3) > a");
@@ -90,82 +84,54 @@ public class FichaMediadorPage extends PageObject {
 
 	private By nivelJerarquicoTxt = By.cssSelector("#capaCab .marcofnd.wideBox .wideBox td");
 	private By tipoMediadorTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(1)");
+	private By tipoProspectTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(1)");
 	private By tipoColaboradorTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) > td");
 	private By ejecutivoComercialTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(2)");
 	private By oficinaPadreTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(1) > td");
 	private By mediadorPadreTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(2) > td");
 	private By estadoMediadorTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(3) > td");
 	private By situacionMediadorTxt = By.cssSelector("#capaCab > table > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(4) > td");
-	private By actividadPrincipalTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(4) > td:nth-child(2)");
-	private By idiomaMediadorTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(6) > td:nth-child(2)");
-	private By nombreContactoRespTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(8) > td:nth-child(1)");
-	private By cargoContactoRespTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(8) > td:nth-child(2)");
-	private By nombreComercialTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td");
-	private By disponeSoftwareTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-der > table > tbody > tr > td > table > tbody > tr:nth-child(8) > td");
-	private By nombreFiscalTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(2) > td:nth-child(1)");
-	private By telefonoPrincipalTxt = By
-		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody > tr:nth-child(5) > td:nth-child(1)");
-	private By emailPrincipalTxt = By
-		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody > tr:nth-child(6) > td");
-	private By ramoMediadorTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(2) > table:nth-child(3) > tbody > tr:nth-child(1) > td:nth-child(1)");
-	private By companyiasPrincipTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(3) > td");
-	private By ibanPagoComisionesTxt = By.cssSelector("#capaAjax > div:nth-child(7) > table > tbody > tr > td:nth-child(2) > p:nth-child(3)");
-	private By ibanRecibosAutoliqTxt = By.cssSelector("#capaAjax > div:nth-child(7) > table > tbody > tr > td:nth-child(2) > p:nth-child(4)");
 
-	private By direcionCPTxt = By
-		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(4) > td:nth-child(3)");
+	//-----------------Texto de alta prospect encabezado------------
+	private By actividadPrincipalProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(4) > td");
+	private By direccionProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(10) > td:nth-child(1)");
+	private By poblacionProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(11) > td:nth-child(1)");
+	private By provinciaProspectTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(11) > td:nth-child(2)");
 
 	//------------- Contenido Pestañas -------------
 
 	// Pestaña Visión Global
-	private By nombreFiscalVGlobal = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(2) > td:nth-child(1)");
-	private By actividadPrincipalVGlobal = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(4) > td:nth-child(2)");
-	private By idiomaVGlobal = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(6) > td:nth-child(2)");
-	private By contactoResponsableVGlobal = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(8) > td:nth-child(1)");
-	private By cargoResponsableVGlobal = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(8) > td:nth-child(2)");
-	private By especialistaRamoVGlobal = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(2) > table:nth-child(3) > tbody > tr:nth-child(1) > td:nth-child(1)");
-	private By administraFincasVGlobal = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(2) > table:nth-child(3) > tbody > tr:nth-child(2) > td");
+	private By nombreFiscalTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(2) > td:nth-child(1)");
+	private By idiomaMediadorTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(6) > td:nth-child(2)");
+	private By nombreContactoRespTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(8) > td:nth-child(1)");
+	private By cargoContactoRespTxt = By.cssSelector("#capaAjax > table > tbody > tr > td:nth-child(1) > table:nth-child(3) > tbody > tr:nth-child(8) > td:nth-child(2)");
 
 	// Pestaña Info descriptiva
-	private By consultarDocuBtn = By.cssSelector("#cabNuevoDoc");
-	private By importarDocuBtn = By.cssSelector("#cabNuevoDoc");
-	private By subirLogoMedBtn = By.cssSelector("#cabNuevoDoc");
-	private By nombreComercialDescr = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td");
-	private By nombreFiscalDescr = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(1) > td");
-	private By actividadPrincipalDescr = By
+	private By actividadPrincipalTxt = By
 		.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(5) > td:nth-child(2)");
-	private By idiomaDescr = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(5) > td:nth-child(4)");
-	private By nDGSDescr = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(3) > td:nth-child(2)");
-	private By sexoDescr = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(6) > td");
-	private By softwareDescr = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-der > table > tbody > tr > td > table > tbody > tr:nth-child(8) > td");
+	private By nombreComercialTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(2) > td");
+	private By sexoTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-izq > table > tbody > tr:nth-child(1) > td > table > tbody > tr:nth-child(6) > td");
+	private By disponeSoftwareTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td.tabla-der > table > tbody > tr > td > table > tbody > tr:nth-child(8) > td");
 
 	// Pestaña Info contacto
-	private By modificarMedContactoBtn = By.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(1) > td > a");
-	private By contactoResponsableContacto = By
-		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(1)");
-	private By cargoResponsableContacto = By
-		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody > tr:nth-child(2) > td:nth-child(2)");
-	private By telefonoPrincipal = By
+	private By telefonoPrincipalTxt = By
 		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody > tr:nth-child(5) > td:nth-child(1)");
-	private By emailPrincipal = By
+	private By emailPrincipalTxt = By
 		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(1) > table > tbody > tr:nth-child(6) > td");
 
 	// Pestaña Info relacional
-	private By modificarMedRelacioBtn = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(1) > td > a");
-	private By especialistaRamoRelacional = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr:nth-child(1) > td");
-	private By administraFincasRelacional = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr:nth-child(2) > td");
-	private By companiasTrabajado = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(3) > td");
-	private By nombreBanco = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(2) > td:nth-child(2");
-	private By comentarioSituaciones = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(2) > table > tbody > tr:nth-child(2) > td");
+	private By ramoMediadorTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr:nth-child(1) > td");
+	private By cuantasFincasTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(2) > table > tbody > tr:nth-child(2) > td:nth-child(2)");
+	private By companyiasPrincipTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(3) > td");
+	private By nombreBancoTxt = By
+		.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td:nth-child(1) > table > tbody > tr:nth-child(4) > td > table > tbody > tr:nth-child(2) > td:nth-child(2)");
 
 	// Pestaña Condiciones de negocio
-	private By ibanComisiones = By.cssSelector("#capaAjax > div:nth-child(7) > table > tbody > tr > td:nth-child(2) > p:nth-child(3)");
-	private By ibanAutoliquidaciones = By.cssSelector("#capaAjax > div:nth-child(7) > table > tbody > tr > td:nth-child(2) > p:nth-child(4)");
-
+	private By ibanPagoComisionesTxt = By.cssSelector("#capaAjax > div:nth-child(7) > table > tbody > tr > td:nth-child(2) > p:nth-child(3)");
+	private By ibanRecibosAutoliqTxt = By.cssSelector("#capaAjax > div:nth-child(7) > table > tbody > tr > td:nth-child(2) > p:nth-child(4)");
 	private By modificarMedCondiciNegBtn = By.cssSelector("#capaAjax > table > tbody > tr > td > a");
 	private By cuadroComisionesCondiciBtn = By.cssSelector("#capaAjax > div:nth-child(3) > table > tbody > tr > td:nth-child(1) > div.titulo > a");
 	private By buscarArbolComiInput = By.cssSelector("body > form > div.contentBox.wideBox > div.marcofnd > table > tbody > tr:nth-child(2) > th:nth-child(2)");
-	//private By grabarArbolComiBtn = By.cssSelector("#buttonRecord");
 	private By cancelarArbolComiBtn = By.cssSelector("#buttonCancel");
 
 	private By cuadroSubcomisionesCondiciBtn = By.cssSelector("#capaAjax > div:nth-child(3) > table > tbody > tr > td:nth-child(3) > div.titulo > a");
@@ -176,25 +142,24 @@ public class FichaMediadorPage extends PageObject {
 	private By buscarArbolSubcomiBtn = By.cssSelector("body > form > div.contentBox.wideBox > div.marcofnd > table > tbody > tr:nth-child(9) > td:nth-child(3) > input");
 
 	// Pestaña Info CCM
-	private By periodoCredito = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(4) > td:nth-child(2)");
-	private By limiteCredito = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(5) > td:nth-child(4)");
+	private By periodoCreditoFichaTxt = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(4) > td:nth-child(2)");
+	private By limiteCreditoFichaTxt = By.cssSelector("#capaAjax > div.marco.fondo > table.wideBox > tbody > tr:nth-child(5) > td:nth-child(4)");
 	private By periodoCreditoCombo = By.cssSelector("#ALTAMEDI_PERCREDI");
 	private By periodoCreditoOption = By.cssSelector("#ALTAMEDI_PERCREDI > option");
 	private By limiteCreditoCombo = By.cssSelector("#ALTAMEDI_LIMCREDI");
 	private By limiteCreditoOption = By.cssSelector("#ALTAMEDI_LIMCREDI > option");
 
 	// Pestaña Info DGS
-	private By fechaInicioContrato = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(1) > table > tbody > tr:nth-child(8) > td > table > tbody > tr > td");
-	private By nombreRepresentaLegal = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(1) > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(3)");
-	private By apellidoRepresentaLegal = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(1) > table > tbody > tr:nth-child(3) > td > table > tbody > tr > td:nth-child(1)");
-	private By altoCargoRazonSocial = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2)");
-	private By altoCargoProfesion = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(6)");
+	private By fechaInicioContratoTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(1) > table > tbody > tr:nth-child(8) > td > table > tbody > tr > td");
+	private By nombreRepresentaLegalTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(1) > table > tbody > tr:nth-child(2) > td > table > tbody > tr > td:nth-child(3)");
+	private By apellidoRepresentaLegalTxt = By
+		.cssSelector("#capaAjax > table > tbody > tr:nth-child(2) > td:nth-child(1) > table > tbody > tr:nth-child(3) > td > table > tbody > tr > td:nth-child(1)");
+	private By altoCargoRazonSocialTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(2)");
+	private By altoCargoProfesionTxt = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(6)");
 	private By altoCargoEstadoCombo = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(8)");
+	private By altoCargoEstadoOption = By.cssSelector("#capaAjax > table > tbody > tr:nth-child(3) > td > table > tbody > tr > td > table > tbody > tr:nth-child(2) > td:nth-child(8) > option");
 
 	// Pestaña Contactos
-	private By anyadirNuevoContacBtn = By.cssSelector("#cabMedioContacto");
-	private By fechaDescendenteBtn = By.cssSelector("#descendenteContactos");
-	private By fechaAscendenteBtn = By.cssSelector("#ascendenteContactos");
 	private By listaDirecciones = By
 		.cssSelector("#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr");
 
@@ -203,6 +168,7 @@ public class FichaMediadorPage extends PageObject {
 
 	// Pestaña Cambio
 	private By situacionCambiosCombo = By.cssSelector("#situacion");
+	private By situacionCambiosOption = By.cssSelector("#situacion > option");
 	private By cambioSituacionTxt = By.cssSelector("#formDatos > div.contentBox.anchuraCajas > div.marcofnd > p");
 
 	//----------------Constantes SITUACIONES-----------------------------//
@@ -219,15 +185,11 @@ public class FichaMediadorPage extends PageObject {
 	private static final String ACTIVO = "Estado Activo";
 	private static final String PENDIENTE_ENVIO_DGS = "Estado Pendiente envio DGS";
 
-	// endregion
-
 	public FichaMediadorPage(UserStory userS) {
 		super(userS);
 	}
 
-	// region methods
-
-	// ---- Acceder a las pestañas de la ficha
+	// ---- Acceder a las pestañas de la ficha-------------
 
 	public FichaMediadorPage clickBuscadorMediadores() {
 		debugBegin();
@@ -275,15 +237,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage clickModifMedInfoRelacional() {
-		debugBegin();
-		webDriver.clickInFrame(modificarMedRelacioBtn, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
-		debugEnd();
-
-		return this;
-	}
-
 	public FichaMediadorPage clickInfoTransaccional() {
 		debugBegin();
 		webDriver.clickInFrame(infoTransaccionalBtn, cuerpoFrame);
@@ -321,17 +274,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-/*	public FichaMediadorPage clickFichaMediador() {
-		debugBegin();
-		webDriver.waitWithDriver(8000);
-		if(!webDriver.isPresentInFrame(masAccionesBtn, cuerpoFrame)) {
-			webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
-			webDriver.waitWithDriver(8000);
-		}
-		debugEnd();
-		return this;
-	}*/
-
 	public FichaMediadorPage clickAgendaMediadorProspect() {
 		debugBegin();
 
@@ -340,8 +282,8 @@ public class FichaMediadorPage extends PageObject {
 		debugEnd();
 		return this;
 	}
-	// ---- Más acciones + Estados + Situaciones
 
+	// ---- Más acciones + Estados + Situaciones
 	public FichaMediadorPage clickMasAcciones() {
 		debugBegin();
 		webDriver.waitWithDriver(3000);
@@ -530,56 +472,6 @@ public class FichaMediadorPage extends PageObject {
 		return contenido;
 	}
 
-	public FichaMediadorPage verificarCampoJerarquia() {
-		debugBegin();
-
-		String nivelJerarquico = (webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).trim());
-		System.out.println(nivelJerarquico);
-
-		boolean checkNivelJerarquico = nivelJerarquico.equals("<strong>Nivel Jerárquico </strong>" + getTestVar(Constants.NIVEL_ESTRUCTURA));
-
-		//	boolean checkNivelJerarquico = nivelJerarquico.equals("Nivel Jerárquico Colaborador");
-		Assert.assertTrue(checkNivelJerarquico, "Comparar campos: el nivel de estructura coincide");
-
-		debugEnd();
-		return this;
-	}
-
-	public FichaMediadorPage verificarCampoNombreComercial() {
-		debugBegin();
-
-		clickInfoDescriptiva();
-
-		String nombreComercial = (webDriver.getTextInFrame(nombreComercialDescr, cuerpoFrame).trim());
-		System.out.println(nombreComercial);
-
-		boolean checkNombreComercial = nombreComercial.equals("ANTIVIST");
-		Assert.assertTrue(checkNombreComercial, "Comparar campos: el nombre comercial coincide");
-
-		debugEnd();
-		return this;
-	}
-
-	// ---- ACCIONES SOBRE FICHA
-
-	public FichaMediadorPage clickAnyadirNuevoContacto() {
-		debugBegin();
-		webDriver.clickInFrame(anyadirNuevoContacBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
-
-	public FichaMediadorPage obtenerDatoAltaIntermediario() {
-		debugBegin();
-		webDriver.waitWithDriver(4000);
-		webDriver.waitForElementToBePresentInFrame(tituloPaginaTxt, cuerpoFrame);
-		String datoAlta = webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame);
-		debugInfo("El mediador dado de alta es " + datoAlta);
-		debugEnd();
-		return this;
-	}
-
 	//---------------------ESTADOS + SITUACIONES MÉTODOS------------------------------
 
 	//COMPROBAR TEXTO DE ESTADO
@@ -632,7 +524,7 @@ public class FichaMediadorPage extends PageObject {
 		return checkFecha;
 	}
 
-	//ALERTA SOBRE PERDIODO DE CREDITO
+	//ALERTA SOBRE PERIODO DE CREDITO
 	public boolean alertaSistemaPeriodoLimiteCredito(String mensaje) {
 		debugBegin();
 
@@ -714,12 +606,10 @@ public class FichaMediadorPage extends PageObject {
 	}
 
 	//------------------EMPIEZAN ESTADOS--------------------------
+
 	public FichaMediadorPage solicitarAlta() {
 		debugBegin();
 		debugInfo("Se entra para solicitar alta de Oficina");
-
-		//	if(getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {
-		// dentro del IF, comentado temporalmente por Antonia: !getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")
 
 		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 		Assert.assertTrue(comprobarSituacion(ALTA_MEDIADOR), "La situacion no es correcta.");
@@ -738,7 +628,6 @@ public class FichaMediadorPage extends PageObject {
 		grabarComentarioEstado();
 
 		debugInfo("Solicitar alta se hizo con éxito o por lo menos recorrió");
-		//	}
 
 		debugEnd();
 		return this;
@@ -746,11 +635,6 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage enviarValoracionFinanciera() {
 		debugBegin();
-
-	/*	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {*/
 
 		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 		Assert.assertTrue(comprobarSituacion(SOLICITUD_ALTA), "La situacion no es correcta.");
@@ -768,7 +652,6 @@ public class FichaMediadorPage extends PageObject {
 		grabarComentarioEstado();
 
 		debugInfo("Enviar para valoración financiera se hizo con éxito o por lo menos recorrió");
-		//	}
 
 		debugEnd();
 		return this;
@@ -776,11 +659,6 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage enviarRevisionFinanciera() {
 		debugBegin();
-
-	/*	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {*/
 
 		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 		Assert.assertTrue(comprobarSituacion(INFORMACION_FINANCIERA), "La situacion no es correcta.");
@@ -798,7 +676,6 @@ public class FichaMediadorPage extends PageObject {
 		grabarComentarioEstado();
 
 		debugInfo("Enviar para revisión financiera se hizo con éxito o por lo menos recorrió");
-		//	}
 
 		debugEnd();
 		return this;
@@ -829,9 +706,6 @@ public class FichaMediadorPage extends PageObject {
 				debugInfo("Código de mediador obtenido");
 			}
 
-			//	setSuiteVar(("cod_mediador_trans"), webDriver.getTextInFrame(tituloPaginaTxt, cuerpoFrame).trim().substring(0, 6).toString());
-			// en esta línea se guarda para reutilizararlo en otra
-
 		} else {
 			debugInfo("Ha habido un error al dar de alta el mediador");
 		}
@@ -842,11 +716,6 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage enviarResolucionFinanciera() {
 		debugBegin();
-
-	/*	if(getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") || getTestVar(Constants.TIPO_MEDIADOR) != null || !getTestVar(Constants.TIPO_MEDIADOR).isEmpty()) {*/
 
 		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 		Assert.assertTrue(comprobarSituacion(REVISION_FINANCIERA), "La situacion no es correcta.");
@@ -900,18 +769,10 @@ public class FichaMediadorPage extends PageObject {
 		grabarComentarioEstado();
 
 		debugInfo("Enviar para resolución financiera se hizo con éxito o por lo menos recorrió");
-		//	}
 
 		debugEnd();
 		return this;
 	}
-
-	//	public FichaMediadorPage clickFichaMediador(){
-	//		debugBegin();
-	//		webDriver.clickInFrame(fichaMediadorBtn, menuFrame);
-	//		debugEnd();
-	//		return this;
-	//	}
 
 	public FichaMediadorPage confirmarAlta() {
 		debugBegin();
@@ -986,7 +847,7 @@ public class FichaMediadorPage extends PageObject {
 			grabarComentarioEstado();
 			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
 
-		} // último else if añadido por Antonia.
+		}
 
 		debugEnd();
 
@@ -1034,12 +895,6 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage activarMediadorEstado() {
 		debugBegin();
-
-	/*	if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE") || getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AV") ||
-			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSE") ||
-			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("BSV") ||
-			getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") ||
-			getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {*/
 
 		Assert.assertTrue(comprobarEstado(ACTIVO_RESTRINGIDO), "El estado no es correcto.");
 
@@ -1095,7 +950,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	// falta ver para ver mediadores
 	public FichaMediadorPage solicitarBaja() {
 		debugBegin();
 
@@ -1130,19 +984,7 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	//---------------METODOS PARA HACER COMPROBACIONES EN FICHA------------------------------------
-
-	public FichaMediadorPage obtenerCodgioPostal() {
-
-		debugBegin();
-
-		int indexCPInicial = webDriver.getTextInFrame(direcionCPTxt, cuerpoFrame).indexOf("(");
-		int indexCPFinal = webDriver.getTextInFrame(direcionCPTxt, cuerpoFrame).indexOf(")");
-		String sacoCP = webDriver.getTextInFrame(direcionCPTxt, cuerpoFrame).substring(indexCPInicial, indexCPFinal).trim();
-
-		debugEnd();
-		return this;
-	}
+	//---------------METODOS PARA HACER VERIFICACIONES EN FICHA------------------------------------
 
 	public FichaMediadorPage verificarNivelEstructura(String constanteFicha, String nivelJerarquico) {
 
@@ -1150,7 +992,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String nivelJerarquicoInte = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
 
-		boolean intermediarioInte = getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase(constanteFicha) &&
+		boolean intermediarioInte = getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase(constanteFicha) &&
 			nivelJerarquicoInte.equalsIgnoreCase(nivelJerarquico);
 
 		Assert.assertTrue(intermediarioInte, "Es incorrecto.");
@@ -1166,7 +1008,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String tipoMediador = webDriver.getTextInFrame(tipoMediadorTxt, cuerpoFrame).substring(16).trim();
 
-		boolean tipoMediadorInte = getTestVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase(constanteFicha) &&
+		boolean tipoMediadorInte = getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase(constanteFicha) &&
 			tipoMediador.equalsIgnoreCase(tipoMed);
 
 		Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
@@ -1176,13 +1018,29 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage verificarTipoProspect(String constanteFicha, String tipoProspect) {
+
+		debugBegin();
+
+		String tipoProspectMed = webDriver.getTextInFrame(tipoProspectTxt, cuerpoFrame).substring(16).trim();
+
+		boolean tipoProspecInte = getScenarioVar(Constants.TIPO_PROSPECT).equalsIgnoreCase(constanteFicha) &&
+			tipoProspectMed.equalsIgnoreCase(tipoProspect);
+
+		Assert.assertTrue(tipoProspecInte, "Es incorrecto.");
+		debugInfo("Se ha verificado el Tipo de Prospect");
+
+		debugEnd();
+		return this;
+	}
+
 	public FichaMediadorPage verificarTipoColaborador(String constanteFicha, String tipoCol) {
 
 		debugBegin();
 
-		String tipoColaborador = webDriver.getTextInFrame(tipoColaboradorTxt, cuerpoFrame).substring(16).trim();
+		String tipoColaborador = webDriver.getTextInFrame(tipoColaboradorTxt, cuerpoFrame).substring(19).trim();
 
-		boolean tipoColaboradorMediador = getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase(constanteFicha) &&
+		boolean tipoColaboradorMediador = getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase(constanteFicha) &&
 			tipoColaborador.equalsIgnoreCase(tipoCol);
 
 		Assert.assertTrue(tipoColaboradorMediador, "Es incorrecto.");
@@ -1213,7 +1071,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String idiomaMed = webDriver.getTextInFrame(idiomaMediadorTxt, cuerpoFrame).substring(7).trim();
 
-		boolean idiomaMediador = getTestVar(Constants.IDIOMA).equalsIgnoreCase(constanteFicha) &&
+		boolean idiomaMediador = getScenarioVar(Constants.IDIOMA).equalsIgnoreCase(constanteFicha) &&
 			idiomaMed.equalsIgnoreCase(idioma);
 
 		Assert.assertTrue(idiomaMediador, "Es incorrecto.");
@@ -1227,7 +1085,22 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
-		String actividadPrinc = webDriver.getTextInFrame(actividadPrincipalTxt, cuerpoFrame).substring(20).trim();
+		String actividadPrinc = webDriver.getTextInFrame(actividadPrincipalTxt, cuerpoFrame).trim();
+		boolean actividadPMed = getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase(constanteFicha) &&
+			actividadPrinc.equalsIgnoreCase(actividadPri);
+
+		Assert.assertTrue(actividadPMed, "Es incorrecto.");
+		debugInfo("Se ha verificado la Actividad principal.");
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarActividadPrincipalProspect(String constanteFicha, String actividadPri) {
+
+		debugBegin();
+
+		String actividadPrinc = webDriver.getTextInFrame(actividadPrincipalProspectTxt, cuerpoFrame).substring(20).trim();
 
 		boolean actividadPMed = getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase(constanteFicha) &&
 			actividadPrinc.equalsIgnoreCase(actividadPri);
@@ -1260,7 +1133,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String disponeSoftware = webDriver.getTextInFrame(disponeSoftwareTxt, cuerpoFrame).trim();
 
-		boolean disponeSoftwareMed = getTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase(constanteFicha) &&
+		boolean disponeSoftwareMed = getScenarioVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED).equalsIgnoreCase(constanteFicha) &&
 			disponeSoftware.equalsIgnoreCase(disponeSoftw);
 
 		Assert.assertTrue(disponeSoftwareMed, "Es incorrecto.");
@@ -1277,8 +1150,8 @@ public class FichaMediadorPage extends PageObject {
 		String nombreCompleto = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(14).trim();
 
 		debugInfo("El nombre completo tal como aparece en la ficha: " + nombreFisc + " " + primeApell + " " + segApell);
-		debugInfo("El nombre completo tal como aparece en el CSV: " + getTestVar(Constants.NOMBRE_MEDIADOR) + " " + getTestVar(Constants.PRIMER_APELLIDO_MEDIADOR) + " "
-			+ getTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
+		debugInfo("El nombre completo tal como aparece en el CSV: " + getScenarioVar(Constants.NOMBRE_MEDIADOR) + " " + getScenarioVar(Constants.PRIMER_APELLIDO_MEDIADOR) + " "
+			+ getScenarioVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
 
 		boolean checkNombresFiscales = nombreCompleto.equalsIgnoreCase(nombreFisc + " " + primeApell + " " + segApell);
 
@@ -1298,7 +1171,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean telefonPriMed = telefonPri.equalsIgnoreCase(telefono);
 
 		Assert.assertTrue(telefonPriMed, "Es incorrecto.");
-		debugInfo("Se ha verificado que el Telefono principal.");
+		debugInfo("Se ha verificado que el Telefono Principal.");
 
 		debugEnd();
 		return this;
@@ -1319,103 +1192,46 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage verificarDireccion() {
-		debugBegin();
-
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
-
-			List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
-			debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
-
-			for(int i = 1; i < obtenerListaDirecciones.size(); i++) {
-
-				String obtenerTipoDireccion = webDriver.getTextInFrame(By.cssSelector(
-					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
-						+ 1)
-						+ ") > td:nth-child(2)"), cuerpoFrame).trim();
-				debugInfo("El tipo de dirección es: " + obtenerTipoDireccion);
-
-				String obtenerDireccion = webDriver.getTextInFrame(By.cssSelector(
-					"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table > tbody > tr:nth-child(" + (i
-						+ 1)
-						+ ") > td:nth-child(3)"), cuerpoFrame).trim();
-				debugInfo("--------------------- El contenido de la dirección en FICHA es: " + obtenerDireccion);
-				debugInfo("--------------------- El contenido de la dirección en el CSV es: " + getTestVar(Constants.DIRECCION_FISC_NombreVia).trim() + " 11 " + "(08029) "
-					+ getTestVar(Constants.DIRECCION_FISC_PROVINCIA).trim() + " - " + getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());
-
-				if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
-
-					/*boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(
-						getTestVar(Constants.DIRECCION_FISC_NombreVia).trim() + " 11 " + "(08029) " + getTestVar(Constants.DIRECCION_FISC_PROVINCIA).trim() + " - "
-							+ getTestVar(Constants.DIRECCION_FISC_POBLACION).trim());*/
-
-					boolean checkDireccionFiscal = obtenerDireccion.equalsIgnoreCase(getTestVar(Constants.DIRECCION_FISC_COMPLETA));
-
-					debugInfo("Comprobamos la dirección fiscal, el resultado es: " + checkDireccionFiscal);
-					Assert.assertTrue(checkDireccionFiscal, "Comparar campos: la dirección Fiscal NO coincide");
-
-				}
-				if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
-					/*boolean checkDireccionComercial = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_COME_NombreVia).trim() + " 11 " + "(08013) " + getTestVar(Constants.DIRECCION_COME_PROVINCIA).trim() + " - "
-							+ getTestVar(Constants.DIRECCION_COME_POBLACION).trim());*/
-					boolean checkDireccionComercial = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_COME_COMPLETA));
-
-					debugInfo("Comprobamos la dirección comercial, el resultado es: " + checkDireccionComercial);
-					Assert.assertTrue(checkDireccionComercial, "Comparar campos: la dirección Comercial NO coincide");
-				}
-				if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
-
-					/*boolean checkDireccionProduccion = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA).trim() + " 11 " + "(08020) " + getTestVar(Constants.DIRECCION_PPRO_PROVINCIA).trim() + " - "
-							+ getTestVar(Constants.DIRECCION_PPRO_POBLACION).trim());*/
-					boolean checkDireccionProduccion = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PPRO_COMPLETA));
-
-					debugInfo("Comprobamos la dirección de producción, el resultado es: " + checkDireccionProduccion);
-					Assert.assertTrue(checkDireccionProduccion, "Comparar campos: la dirección Postal producción NO coincide");
-				}
-				if(obtenerTipoDireccion.equalsIgnoreCase("Postal recibos")) {
-
-					/*boolean checkDireccionRecibos = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PREC_NombreVia).trim() + " 11 " + "(08005) " + getTestVar(Constants.DIRECCION_PREC_PROVINCIA).trim() + " - "
-							+ getTestVar(Constants.DIRECCION_PREC_POBLACION).trim());*/
-
-					boolean checkDireccionRecibos = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PREC_COMPLETA));
-
-					debugInfo("Comprobamos la dirección de recibos, el resultado es: " + checkDireccionRecibos);
-					Assert.assertTrue(checkDireccionRecibos, "Comparar campos: la dirección Postal recibos NO coincide");
-				}
-				if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
-
-					/*boolean checkDireccionSiniestros = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA).trim() + " 11 " + "(08017) " + getTestVar(Constants.DIRECCION_PSIN_PROVINCIA).trim() + " - "
-							+ getTestVar(Constants.DIRECCION_PSIN_POBLACION).trim());*/
-					boolean checkDireccionSiniestros = obtenerDireccion
-						.equalsIgnoreCase(getTestVar(Constants.DIRECCION_PSIN_COMPLETA));
-
-					debugInfo("Comprobamos la dirección de siniestros, el resultado es: " + checkDireccionSiniestros);
-					Assert.assertTrue(checkDireccionSiniestros, "Comparar campos: la dirección Postal siniestros NO coincide");
-				}
-
-			}
-		}
-		debugEnd();
-		return this;
-	}
-
 	public FichaMediadorPage verificarRamo(String constanteFicha, String ramoMediador) {
 		debugBegin();
 
 		String ramo = webDriver.getTextInFrame(ramoMediadorTxt, cuerpoFrame).substring(21).trim();
 
-		boolean ramoMed = getTestVar(Constants.RAMO_ALT_MED).equalsIgnoreCase(constanteFicha) &&
+		boolean ramoMed = getScenarioVar(Constants.RAMO).equalsIgnoreCase(constanteFicha) &&
 			ramo.equals(ramoMediador);
 
 		Assert.assertTrue(ramoMed, "Es incorrecto.");
 		debugInfo("Se ha verificado el Ramo es Asistencia");
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarAdministraFincasCuantas(String cuantas) {
+
+		debugBegin();
+
+		String cuantasFincas = webDriver.getTextInFrame(cuantasFincasTxt, cuerpoFrame).substring(10).trim();
+
+		boolean cuantasFincasMed = cuantasFincas.equalsIgnoreCase(cuantas);
+
+		Assert.assertTrue(cuantasFincasMed, "Es incorrecto.");
+		debugInfo("Se ha verificado que Administra Fincas(cuántas admnistra).");
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarNombreDelBanco(String banco) {
+
+		debugBegin();
+
+		String nomBanco = webDriver.getTextInFrame(nombreBancoTxt, cuerpoFrame).trim();
+
+		boolean nomBancoMed = nomBanco.equalsIgnoreCase(banco);
+
+		Assert.assertTrue(nomBancoMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Nombre del Banco.");
 
 		debugEnd();
 		return this;
@@ -1426,7 +1242,7 @@ public class FichaMediadorPage extends PageObject {
 
 		String companyiasPrincip = webDriver.getTextInFrame(companyiasPrincipTxt, cuerpoFrame).substring(31).trim();
 
-		boolean companyiasPrincipMed = getTestVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase(constanteFicha) &&
+		boolean companyiasPrincipMed = getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase(constanteFicha) &&
 			companyiasPrincip.equals(companyia);
 
 		Assert.assertTrue(companyiasPrincipMed, "Es incorrecto.");
@@ -1436,7 +1252,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	//colaboradores: todos los 3
 	public FichaMediadorPage verificarOficinaPadre(String oficinaPadre) {
 		debugBegin();
 
@@ -1451,7 +1266,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	//solo oficina
 	public FichaMediadorPage verificarMediadorPadre(String mediadorPadre) {
 		debugBegin();
 
@@ -1493,7 +1307,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	//solo para cualquier tipo de intermediarios
 	public FichaMediadorPage verificarBancoComisiones(String banco) {
 		debugBegin();
 
@@ -1507,7 +1320,6 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	//solo para cualquier tipo de intermediarios
 	public FichaMediadorPage verificarPagoAutoliquidaciones(String banco) {
 		debugBegin();
 
@@ -1521,20 +1333,111 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage verificarPeriodoCredito(String periodo) {
+		debugBegin();
+
+		String periodoMed = webDriver.getTextInFrame(periodoCreditoFichaTxt, cuerpoFrame).trim();
+
+		debugInfo("El period que se pasa es " + periodo);
+		debugInfo("El periodo que se coge de la ficha es " + periodoMed);
+		boolean periodoCreditoMed = periodoMed.equalsIgnoreCase(periodo);
+
+		Assert.assertTrue(periodoCreditoMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Periodo Credito");
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarLimiteCredito(String limite) {
+		debugBegin();
+
+		String limiteMed = webDriver.getTextInFrame(limiteCreditoFichaTxt, cuerpoFrame).trim();
+
+		boolean limiteCreditoMed = limiteMed.equalsIgnoreCase(limite);
+
+		Assert.assertTrue(limiteCreditoMed, "Es incorrecto.");
+		debugInfo("Se ha verificado el Limite Credito");
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarDireccionesFicha() {
+		debugBegin();
+
+		List<WebElement> obtenerListaDirecciones = webDriver.getElementsInFrame(listaDirecciones, cuerpoFrame);
+		debugInfo("contiene " + obtenerListaDirecciones.size() + " direcciones");
+
+		for(int i = 1; i < obtenerListaDirecciones.size(); i++) {
+
+			String obtenerTipoDireccion = webDriver.getTextInFrame(By.cssSelector(
+				"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table "
+					+ "> tbody > tr:nth-child(" + (i + 1) + ") > td:nth-child(2)"), cuerpoFrame).trim();
+			debugInfo("El tipo de dirección es: " + obtenerTipoDireccion);
+
+			String obtenerDireccion = webDriver.getTextInFrame(By.cssSelector(
+				"#capaAjax > table:nth-child(1) > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td:nth-child(2) > table > tbody > tr > td > table "
+					+ "> tbody > tr:nth-child(" + (i + 1) + ") > td:nth-child(3)"), cuerpoFrame).trim();
+
+			if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
+
+				debugInfo("La direccion que recojo es " + obtenerDireccion);
+				debugInfo("La direccion de nombre via es " + getScenarioVar(Constants.DIRECCION_FISC_NombreVia));
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_FISC_NombreVia).toUpperCase());
+
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Fiscal.");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Comercial")) {
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_COME_NombreVia).toUpperCase());
+
+				debugInfo("La direccion que recojo es " + obtenerDireccion);
+				debugInfo("La direccion de nombre via es " + getScenarioVar(Constants.DIRECCION_COME_NombreVia));
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Comercial.");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Postal producción")) {
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_PPRO_NOMBRE_VIA).toUpperCase());
+
+				debugInfo("La direccion que recojo es " + obtenerDireccion);
+				debugInfo("La direccion de nombre via es " + getScenarioVar(Constants.DIRECCION_PPRO_NOMBRE_VIA));
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Postal Produccion.");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Postal recibos")) {
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_PREC_NombreVia).toUpperCase());
+
+				debugInfo("La direccion que recojo es " + obtenerDireccion);
+				debugInfo("La direccion de nombre via es " + getScenarioVar(Constants.DIRECCION_PREC_NombreVia));
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Postal recibos.");
+			}
+			if(obtenerTipoDireccion.equalsIgnoreCase("Postal siniestros")) {
+
+				boolean nombreViaMed = obtenerDireccion.contains(getScenarioVar(Constants.DIRECCION_PSIN_NOMBRE_VIA).toUpperCase());
+
+				debugInfo("La direccion que recojo es " + obtenerDireccion);
+				debugInfo("La direccion de nombre via es " + getScenarioVar(Constants.DIRECCION_PSIN_NOMBRE_VIA));
+				Assert.assertTrue(nombreViaMed, "Es incorrecto.");
+				debugInfo("Se ha verificado la Direccion Postal siniestros.");
+			}
+
+		}
+
+		debugEnd();
+		return this;
+	}
+
 	public FichaMediadorPage comprobacionFicha() {
 		debugBegin();
 		if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") || getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
 			|| !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
 
 			//NIVEL ESTRUCTURA
-			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
-				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 				verificarNivelEstructura(MediadoresConstantesFicha.INTE, "Intermediario");
-			} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
-				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+			} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
 				verificarNivelEstructura(MediadoresConstantesFicha.OFIC, "Oficina");
-			} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
-				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+			} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
 				verificarNivelEstructura(MediadoresConstantesFicha.COLA, "Colaborador");
 			}
 
@@ -1557,6 +1460,18 @@ public class FichaMediadorPage extends PageObject {
 			} else if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("CORR") && getScenarioVar(Constants.TIPO_MEDIADOR) != null
 				&& !getScenarioVar(Constants.TIPO_MEDIADOR).isEmpty()) {
 				verificarTipoMediador(MediadoresConstantesFicha.CORR, "Corredor");
+			}
+
+			//OFICINA PADRE
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+				verificarOficinaPadre(getTestVar(Constants.ID_ALTA_OFICINA_AE));
+			}
+
+			//MEDIADOR PADRE
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getScenarioVar(Constants.NIVEL_ESTRUCTURA) != null
+				&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).isEmpty()) {
+				verificarMediadorPadre(getTestVar(Constants.ID_ALTA_INTERMEDIARIO_AE));
 			}
 
 			//TIPO DE COLABORADOR
@@ -1610,6 +1525,32 @@ public class FichaMediadorPage extends PageObject {
 			} else if(getScenarioVar(Constants.IDIOMA).equalsIgnoreCase("GALE")) {
 				verificarIdioma(MediadoresConstantesFicha.GALE, "Galego");
 			}
+
+			//NOMBRE, PRIMER APELLIDO Y SEGUNDO APELLIDO FISCALES COMPLETOS
+			if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
+				verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
+				verificarNombres("Orion", "Cliff", "Burton");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Fighters")) {
+				verificarNombres("Fighters", "Fighters", "Neighbourhood");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
+				verificarNombres("A7X", "Exist", "Neighbourhood");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
+				verificarNombres("Ghost Macabre", "Bringme", "Thehorizon");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
+				verificarNombres("Pantera", "Shedding", "Skin");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
+				verificarNombres("In this moment", "Fighters", "Neighbourhood");
+			}
+
+			//CONTACTO RESPONSABLE
+			verificarContactoResponsable("Contacto Responsable");
+
+			//CARGO RESPONSABLE
+			verificarCargoResponsable("Cargo Responsable");
+
+			clickInfoDescriptiva();
+
 			//ACTIVIDAD PRINCIPAL
 			if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("MESE")) {
 				verificarActividadPrincipal(MediadoresConstantesFicha.MESE, "Mediador de Seguros");
@@ -1624,35 +1565,6 @@ public class FichaMediadorPage extends PageObject {
 			} else if(getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("GEPA")) {
 				verificarActividadPrincipal(MediadoresConstantesFicha.GEPA, "Gestor Patrimonios");
 			}
-
-			//NOMBRE, PRIMER APELLIDO Y SEGUNDO APELLIDO FISCALES COMPLETOS
-			if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Sleepwalking")) {
-				verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
-				verificarNombres("Orion", "Cliff", "Burton");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
-				verificarNombres("Foo", "Fighters", "Neighbourhood");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Foo")) {
-				verificarNombres("A7X", "Exist", "");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
-				verificarNombres("Ghost Macabre", "", "");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
-				verificarNombres("Pantera", "Shedding", "Skin");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ozzy Osborne")) {
-				verificarNombres("Ozzy Osborne", "", "");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
-				verificarNombres("In this moment", "", "");
-			}  else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mala")) {
-				verificarNombres("Mala", "Rodriguez", "Neighbourhood");
-			}
-
-			//CONTACTO RESPONSABLE
-			verificarContactoResponsable("Contacto Responsable");
-
-			//CARGO RESPONSABLE
-			verificarCargoResponsable("Cargo Responsable");
-
-			clickInfoDescriptiva();
 
 			//NOMBRE COMERCIAL
 			if(getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med01")
@@ -1670,8 +1582,12 @@ public class FichaMediadorPage extends PageObject {
 				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med14")
 				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med15")
 				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med16")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med17")
 				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med18")
-				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")) {
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med19")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med20")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med21")
+				|| getScenarioVar(Constants.NOMBRE_COMERCIAL).equalsIgnoreCase("Med22")) {
 
 				verificarNombreComercial(getScenarioVar(Constants.NOMBRE_COMERCIAL));
 			}
@@ -1689,19 +1605,26 @@ public class FichaMediadorPage extends PageObject {
 			verificarEmailPrincipal("mediador@email.com");
 
 			//DIRECCIONES
-			verificarDireccion();
+			verificarDireccionesFicha();
 
 			clickInfoRelacional();
 
 			//RAMO
-			if(getScenarioVar(Constants.RAMO_ALT_MED).equalsIgnoreCase("10")) {
+			if(getScenarioVar(Constants.RAMO).equalsIgnoreCase("10")) {
 				verificarRamo(MediadoresConstantesFicha.ASISTENCIA, "Asistencia");
 			}
 
+			if(!getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+				verificarAdministraFincasCuantas("30");
+			}
+
+			if(!getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")) {
+				verificarNombreDelBanco("Nombre del banco");
+			}
 			//COMPAÑIAS PRINCIPALES
 			if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
 				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
-			} else if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Master of puppets")){
+			} else if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Master of puppets")) {
 				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
 			}
 
@@ -1719,10 +1642,107 @@ public class FichaMediadorPage extends PageObject {
 				verificarPagoAutoliquidaciones("ES0321001234561234567890");
 
 			}
+
+			clickInfoCCM();
+
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && !getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
+				verificarPeriodoCredito("45");
+				verificarLimiteCredito("Especial");
+			}
 		}
+
 		debugEnd();
 		return this;
 	}
-}//END
+
+	//COMPROBACION DE DIRECCIONES PROSPECT EN FICHA----------
+	public FichaMediadorPage verificarDireccionesProspect(String direccion, String poblacion, String provincia) {
+
+		debugBegin();
+
+		//DIRECCION
+		String direccionP = webDriver.getTextInFrame(direccionProspectTxt, cuerpoFrame).substring(10).trim();
+
+		boolean direccionProsMed = direccionP.equalsIgnoreCase(direccion);
+
+		Assert.assertTrue(direccionProsMed, "Es incorrecto.");
+		debugInfo("Se ha verificado La Direccion Prospect");
+
+		//POBLACION
+		String poblacionP = webDriver.getTextInFrame(poblacionProspectTxt, cuerpoFrame).substring(10).trim();
+
+		boolean poblacionMed = poblacionP.equalsIgnoreCase(poblacion);
+
+		Assert.assertTrue(poblacionMed, "Es incorrecto.");
+		debugInfo("Se ha verificado La Población Prospect");
+
+		//PROVINCIA
+		String provinciaP = webDriver.getTextInFrame(provinciaProspectTxt, cuerpoFrame).substring(10).trim();
+
+		boolean provinciaMed = provinciaP.equalsIgnoreCase(provincia);
+
+		Assert.assertTrue(provinciaMed, "Es incorrecto.");
+		debugInfo("Se ha verificado La Provincia Prospect");
+
+		debugEnd();
+		return this;
+	}
+
+	//COMPROBACINES EN FICHA DE ALTA PROSPECT
+	public FichaMediadorPage comprobacionesFichaAltaProspect() {
+
+		debugBegin();
+
+		//NIVEL ESTRUCTURA PROSPECT
+		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+			verificarNivelEstructura(MediadoresConstantesFicha.INTE, "Intermediario");
+		}
+
+		//TIPO PROSPECT
+		if(getTestVar(Constants.TIPO_PROSPECT).equalsIgnoreCase("COBS") && getTestVar(Constants.TIPO_PROSPECT) != null
+			&& !getTestVar(Constants.TIPO_PROSPECT).isEmpty()) {
+			verificarTipoProspect(MediadoresConstantesFicha.COBS, "Corredor-BS");
+		}
+
+		//DIRECCIONES
+		verificarDireccionesProspect(getTestVar(Constants.NOMBRE_VIA), getTestVar(Constants.POBLACION), getTestVar(Constants.PROVINCIA));
+
+		//IDIOMA PROSPECT
+		if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ESPA")) {
+			verificarIdioma(MediadoresConstantesFicha.ESPA, "Castellano");
+		}
+
+		//CONTACTO RESPONSABLE PROSPECT
+		verificarContactoResponsable("Contacto");
+
+		//EJECUTIVO COMERCIAL PROSPECT
+		if(getTestVar(Constants.EJECUTIVO_COMERCIAL).equalsIgnoreCase("4000")) {
+
+			verificarEjecutivoComercial(getTestVar(Constants.EJECUTIVO_COMERCIAL));
+		}
+
+		//ACTIVIDAD PRINCIPAL PROSPECT
+		if(getTestVar(Constants.ACTIVIDAD_PRINCIPAL).equalsIgnoreCase("ABOG")) {
+			verificarActividadPrincipalProspect(MediadoresConstantesFicha.ABOG, "Abogados");
+		}
+
+		clickInfoDescriptiva();
+
+		//NOMBRE COMERCIAL PROSPECT
+		if(getTestVar(Constants.NOMBRE_PROSPECT).equalsIgnoreCase("Nombre")) {
+
+			verificarNombreComercial(getTestVar(Constants.NOMBRE_PROSPECT));
+		}
+
+		clickInfoContacto();
+
+		//TELEFONO PRINCIPAL PROSPECT
+		verificarTelefonoPrincipal("699999999");
+
+		debugEnd();
+		return this;
+	}
+
+}
 
 

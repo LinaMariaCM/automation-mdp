@@ -8,13 +8,13 @@ import org.openqa.selenium.By;
 import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.Constants;
+import org.testng.Assert;
 
 public class MediadoresAltaProspectPage extends PageObject {
 
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
 
 	//-------------Datos de prospect-------------------------
 	private By nivelEstructuraCombo = By.cssSelector("#MEDI_NIVEESTR");
@@ -213,18 +213,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaProspectPage selectnNumeroVia() {
-		debugBegin();
-
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.appendText(numeroViaInput, "11");
-		webDriver.exitFrame();
-
-		debugEnd();
-		return this;
-	}
-
 	//-----------Clicks en botones-----------------------------------
 	public MediadoresAltaProspectPage clickBotonComprobarDireccion() {
 		debugBegin();
@@ -253,28 +241,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 	public MediadoresAltaProspectPage clickBotonGrabar() {
 		debugBegin();
 		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaProspectPage clickBorrarCamposDomicilio() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(borrarCamposDireccionBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaProspectPage clickCancelarDomicilio() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(cancelarDomicilioBtn);
-		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -310,17 +276,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaProspectPage clickCancelarNuevoMedioContacto() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(cancelarNuevoMedioContactoBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
 	public MediadoresAltaProspectPage clickAnyadirNuevoMedioContacto() {
 		debugBegin();
 		webDriver.clickInFrame(anyadirNuevoMedioContactoBtn, cuerpoFrame);
@@ -329,24 +284,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaProspectPage clickCerrarNuevoMediador() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(cerrarNuevoMediadorBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaProspectPage clickCancelarNuevoProspect() {
-		debugBegin();
-		webDriver.clickInFrame(cancelarNuevoProspectBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
 	//---------------------MÉTODOS COMPLEJOS-------------------------------
 
 	public static String generadorRandomDgsNumero() {
@@ -361,7 +298,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 		selectProvincia();
 		selectPoblacion();
 		selectVia();
-		selectnNumeroVia();
 		clickBotonComprobarDireccion();
 		clickBotonAceptarDireccion();
 
@@ -408,7 +344,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		return checkAlerta;
 	}
 
-	public MediadoresAltaProspectPage alta_prospect_retenciones() {
+	public MediadoresAltaProspectPage altaProspectRetenciones() {
 		debugBegin();
 
 		clickBotonGrabar();

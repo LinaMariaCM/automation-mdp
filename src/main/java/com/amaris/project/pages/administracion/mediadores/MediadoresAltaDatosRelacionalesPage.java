@@ -11,7 +11,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
 	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
 
 	private By especialistaRamoSIBtn = By.id("ALTAMEDI_ESPRAMOSI");
 	private By especialistaRamoNOBtn = By.id("ALTAMEDI_ESPRAMONO");
@@ -38,7 +37,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By compPrincipObligDisplay = By.cssSelector("#capaDatosMediador > div > div.marcofnd > table.wideBox > tbody > tr.flexibleField > th > label > span");
 
 	private By medNuevoBancoBtn = By.linkText("Añadir nuevo banco");
-	//private By medNuevoBancoBtn = By.linkText("[onclick*='operacion=NEWBANC']");
 	private By nombreBancoInput = By.cssSelector("#ALTAMEDI_NOMBANCO");
 	private By observacionesBancoInput = By.cssSelector("#ALTAMEDI_OBSBANCO");
 
@@ -52,7 +50,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
 
 	//-----------Controles de pagina---------------------------
-
 	private By cancelarRelacionalesBtn = By.id("botonCancelar1");
 	private By guardarRelacionalesBtn = By.id("botonGrabar1");
 	private By continuarBtn = By.id("botonContinuar1");
@@ -61,51 +58,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		super(userS);
 	}
 
-	//---------------Añadir datos PRODUCTO segun casos:----------------------------------
-	// ramo --> Si  y finca --Si
-	// ramo --> No y finca --> Si
-	// ramo --> No y Finca --> No
-	// ramo --> si y finca --> No
-
-	public MediadoresAltaDatosRelacionalesPage anyadirDatosProductoSinRamoSinFinca() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(especialistaRamoNOBtn);
-		webDriver.click(adminFincasNOBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaDatosRelacionalesPage anyadirDatosProductoRamoSinFinca() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(especialistaRamoSIBtn);
-
-		if(getVar(Constants.RAMO) != null && !getVar(Constants.RAMO).isEmpty()) {
-			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getVar(Constants.RAMO));
-		} else {
-			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", "0");
-		}
-		webDriver.click(adminFincasNOBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaDatosRelacionalesPage anyadirDatosProductoSinRamoConFinca() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(especialistaRamoNOBtn);
-		webDriver.click(adminFincasSIBtn);
-		webDriver.setText(adminFincasCuantasInput, "30");
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
+	//---------------Añadir datos PRODUCTO--------------------------//
 
 	public MediadoresAltaDatosRelacionalesPage anyadirDatosProductoConRamoConFinca() {
 
@@ -114,7 +67,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(especialistaRamoSIBtn);
 		if(!getVar(Constants.RAMO).isEmpty()) {
-	//		webDriver.click(especialistaRamoSIBtn);
+			//		webDriver.click(especialistaRamoSIBtn);
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getVar(Constants.RAMO));
 		} else {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", "10");
@@ -232,10 +185,11 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 		anyadirDatosProductoConRamoConFinca();
 
-		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && getScenarioVar(Constants.COMPANYIAS_PRINCIPALES) != null && !getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).isEmpty()) {
+		if(webDriver.isPresentInFrame(compPrincipObligDisplay, cuerpoFrame) && getScenarioVar(Constants.COMPANYIAS_PRINCIPALES) != null && !getScenarioVar(Constants.COMPANYIAS_PRINCIPALES)
+			.isEmpty()) {
 			webDriver.setTextInFrame(compPrincipInput, cuerpoFrame, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
 		} else {
-			webDriver.setTextInFrame(compPrincipInput, "Compañia", cuerpoFrame);
+			webDriver.setTextInFrame(compPrincipInput, "Compania principal abogado", cuerpoFrame);
 		}
 
 		anyadirNuevoBanco("Nombre del banco");

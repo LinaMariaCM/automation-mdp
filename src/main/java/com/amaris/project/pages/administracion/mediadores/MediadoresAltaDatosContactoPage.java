@@ -33,8 +33,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	private By alertaDireccionesOficinaTxt = By.cssSelector("#capaDomicilio > table.tableForm > tbody > tr > th > strong");
 	private By anyadirNuevaDireccionBtn = By.cssSelector("#capaDireccionesPaso2 > div > div.floatright.peq > a");
 	private By tipoDomicilioCombo = By.id("ALTAMEDI_TIPDOMME");
-	//private By tipoDomicilioCombo = By.cssSelector("#formDatos > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td");
-	//private By tipoDomicilioOption = By.cssSelector("#formDatos > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(1) > td > select > option");
 	private By tipoDomicilioOption = By.cssSelector("#ALTAMEDI_TIPDOMME > option");
 	private By provinciaInput = By.id("ALTACLIE_PROVINCIA_ARVATO");
 	private By provinciaCombo = By.cssSelector("body > ul:nth-child(4) > li"); // quitado " > a" del final
@@ -97,11 +95,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 	private By cancelarBtn = By.id("buttonCancel");
 	private By volverBtn = By.id("botonVolver");
 
-	//-------------Marcas LOPD------------
-	private By publicidadMediadorBtn = By.id("ALTAMEDI_ENVIOMED");
-	private By publicidadMutuaistaBtn = By.id("ALTAMEDI_ENVIOMUT");
-	private By publiImagenMedBtn = By.id("ALTAMEDI_USOIMAGEN");
-
 	//---Controles de la pagina---------------------
 	private By cancelarGeneralBtn = By.id("botonCancelar1");
 	private By guardarBtn = By.id("botonGrabar1");
@@ -109,15 +102,11 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 	////// ELEMENTOS LISTADOS PERO QUE REALMENTE NO INTERVIENEN EN LOS STEPS DEL TEST todavía
 	private By direcionRestoVInput = By.id("ALTACLIE_DATADIC");
-	// El desplegable Tipo de Vía no despliega nada. ¿Realmente debería?
 	private By direcionTipoVCombo = By.id("ALTACLIE_TIPOVIA_ARVATO");
 	private By direcionBloqueInput = By.id("ALTACLIE_BLOQUE_ARVATO");
 	private By direcionEscaleraInput = By.id("ALTACLIE_ESCALERA");
 	private By direcionPisoInput = By.id("ALTACLIE_PISO");
 	private By direcionPuertaInput = By.id("ALTACLIE_PUERTA");
-
-	/* REPASAR DIRECCIÓN FISCAL CON OTRO TIPO DE MEDIADOR.
-	CON COLABORADOR HA ASIGNADO EL SUPERIOR DE MANERA AUTOMÁTICA */
 
 	public MediadoresAltaDatosContactoPage(UserStory userS) {
 		super(userS);
@@ -274,9 +263,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 					+ 1)
 					+ ") > td:nth-child(3)"), cuerpoFrame).trim();
 
-			//	"#formDatos > #capaDireccionesPaso2 > div > div:nth-child(4) > table > tbody > tr > td:nth-child(4) > a.js-openModa
-			//	operacion=MODIDIRE&amp;tipodomi=COME
-
 			if(obtenerTipoDireccion.equalsIgnoreCase("Fiscal")) {
 				setTestVar((Constants.DIRECCION_FISC_COMPLETA), obtenerDireccion);
 				debugInfo("La dirección Fiscal es " + getTestVar(Constants.DIRECCION_FISC_COMPLETA));
@@ -323,7 +309,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(direccionDiferenteBtn);
 			debugInfo("se selecciona direccion comercial diferente a la fiscal");
 			webDriver.waitForElementToBePresent(provinciaInput);
-			//webDriver.waitWithDriver(2800);
 			completarCampoProvincia(getScenarioVar(Constants.DIRECCION_COME_PROVINCIA));
 			completarCampoPoblacion(getScenarioVar(Constants.DIRECCION_COME_POBLACION));
 			completarCampoNombreVia(getScenarioVar(Constants.DIRECCION_COME_NombreVia));
@@ -392,16 +377,15 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		else if(!getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && (getScenarioVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty()
 			|| getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty())) {
 			webDriver.click(direccionSuperiorSIBtn);
-			webDriver.click(aceptarDireccionBtn); //último añadido
-		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
+			webDriver.click(aceptarDireccionBtn);
+		} else if(getScenarioVar(Constants.DIRECCION_PPRO_PROVINCIA).isEmpty()) { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
 
-			//			webDriver.click(direccionSuperiorNOBtn);
 			if(getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).equalsIgnoreCase("PPRO_FISC") && !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A)
-				.isEmpty()) { // (getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A) != null || !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).isEmpty())
+				.isEmpty()) {
 				webDriver.waitWithDriver(2000);
 				webDriver.click(direccionIgualFiscalBtn);
 			} else if(getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).equalsIgnoreCase("PPRO_COME") && !getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A).isEmpty()) {
-				// (getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A) != null
+
 				webDriver.click(direccionIgualComercialBtn);
 			}
 			webDriver.click(aceptarDireccionBtn);
@@ -500,7 +484,17 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		// sin datos para la provincia + oficina --> hereda datos del nivel superios
 		else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") && getScenarioVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty()) {
 			webDriver.click(direccionSuperiorSIBtn);
-			webDriver.click(aceptarDireccionBtn); //último añadido
+			webDriver.click(aceptarDireccionBtn);
+		} else if(getScenarioVar(Constants.DIRECCION_PREC_PROVINCIA).isEmpty()) { // sin datos para provincia + INTE + analizar CSV para obtener coberturan desde DIR_FISCAL_IGUAL_A
+
+			if(getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).equalsIgnoreCase("PREC_FISC") && !getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).isEmpty()) {
+				webDriver.waitWithDriver(2000);
+				webDriver.click(direccionIgualFiscalBtn);
+			} else if(getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).equalsIgnoreCase("PREC_COME") && !getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A).isEmpty()) {
+
+				webDriver.click(direccionIgualComercialBtn);
+			}
+			webDriver.click(aceptarDireccionBtn);
 		}
 		webDriver.exitFrame();
 		obtenerDirecciones();
@@ -538,22 +532,18 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		}
 		// sin datos para la provincia + oficina / colaborador --> hereda datos del nivel superios
 		else if(getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()
-			&& (!getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
-			|| getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty())) {
-			// ((getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).equals(null) || getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()) && (!getScenarioVar(Constants.NIVEL_ESTRUCTURA)
-			//			.equalsIgnoreCase("INTE") || getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).isEmpty() || getScenarioVar(Constants.DIR_FISCAL_IGUAL_A).equals(null)))
+			&& !getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
+
 			webDriver.click(direccionSuperiorSIBtn);
-			webDriver.click(aceptarDireccionBtn); //último añadido
-		} else { // sin datos para provincia + INTE + analizar CSV para obtener coberturas desde DIR_FISCAL_IGUAL_A
-			webDriver.click(direccionSuperiorNOBtn);
-			if(!getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty() || getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A)
-				.equalsIgnoreCase("PSIN_FISC")) {// getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A) != null ||
+			webDriver.click(aceptarDireccionBtn);
+		} else if(getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA).isEmpty()) { // sin datos para provincia + INTE + analizar CSV para obtener coberturas desde DIR_FISCAL_IGUAL_A
+
+			if(getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).equalsIgnoreCase("PSIN_FISC") && !getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty()) {
 				webDriver.click(direccionIgualFiscalBtn);
-			} else if(!getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty() || getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A)
-				.equalsIgnoreCase("PSIN_COME")) { // getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A) != null ||
+			} else if(getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).equalsIgnoreCase("PSIN_COME") && !getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A).isEmpty()) {
 				webDriver.click(direccionIgualComercialBtn);
 			}
-			webDriver.click(aceptarDireccionBtn); //último añadido
+			webDriver.click(aceptarDireccionBtn);
 		}
 
 		webDriver.exitFrame();
@@ -841,6 +831,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitForElementToBePresent(viaInput);
 		completarCampoNombreVia("ALM");
+		webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 		webDriver.click(comprobarDireccionBtn);
 		webDriver.click(aceptarBtn);
@@ -954,6 +945,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.switchToFrame(modalFrame);
 			webDriver.waitForElementToBePresent(viaInput);
 			completarCampoNombreVia("GREG");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.click(aceptarBtn);
@@ -1037,6 +1029,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitForElementToBePresent(viaInput);
 		completarCampoNombreVia("val");
+		webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 		webDriver.click(comprobarDireccionBtn);
 		webDriver.click(aceptarBtn);
@@ -1121,6 +1114,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.switchToFrame(modalFrame);
 			webDriver.waitForElementToBePresent(viaInput);
 			completarCampoNombreVia("val");
+			webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.click(aceptarBtn);
@@ -1204,6 +1198,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		webDriver.switchToFrame(modalFrame);
 		webDriver.waitForElementToBePresent(viaInput);
 		completarCampoNombreVia("val");
+		webDriver.setText(numeroViaInput, StringUtils.getRandomNumberInRange(1, 201));
 
 		webDriver.click(comprobarDireccionBtn);
 		webDriver.click(aceptarBtn);
@@ -1212,68 +1207,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 
 		debugInfo("Se ha rellenado la Dirección Postal Siniestros.");
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-
-		if(getTestVar(Constants.NIVEL_ESTRUCTURA) != null && !getTestVar(Constants.NIVEL_ESTRUCTURA).isEmpty()
-			&& getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")
-			&& !getTestVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AD")) {
-
-			alertaSistemaContacto(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION);
-			webDriver.clickInFrame(volverBtn, cuerpoFrame);
-
-			webDriver.clickInFrame(modificarDomicilioBtn, cuerpoFrame);
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.clearText(provinciaInput);
-			webDriver.clearText(poblacionInput);
-			webDriver.clearText(viaInput);
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_PROVINCIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(provinciaInput);
-			completarCampoProvincia("MADRID");
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_POBLACION_MEDIADORES);
-			webDriver.acceptAlert();
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(poblacionInput);
-			completarCampoPoblacion("MAD");
-
-			webDriver.click(comprobarDireccionBtn);
-
-			new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_ANYADIR_DIRECCIONES_NOMBRE_VIA_MEDIADORES);
-			webDriver.acceptAlert();
-
-			webDriver.switchToFrame(cuerpoFrame);
-			webDriver.switchToFrame(modalFrame);
-			webDriver.waitForElementToBePresent(viaInput);
-			completarCampoNombreVia("MAD");
-
-			webDriver.click(comprobarDireccionBtn);
-			webDriver.click(aceptarBtn);
-
-			webDriver.exitFrame();
-
-			webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-		}
 
 		debugEnd();
 		return this;

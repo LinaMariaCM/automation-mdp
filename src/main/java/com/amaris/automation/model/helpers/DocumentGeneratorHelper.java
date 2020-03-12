@@ -74,7 +74,7 @@ public class DocumentGeneratorHelper {
 	public static String generateCIF(String seed) {
 		String result = null;
 		seed = seed == null ? "" : seed;
-		String[] organization = new String[]{ "A", "B", "C", "D", "E", "F", "G", "H", "J", "N", "P", "Q", "R", "S", "U", "V", "W" };
+		String[] organization = new String[]{ "A", "B", "C", "D", "F", "G", "H", "J", "N", "P", "Q", "R", "S", "U", "V", "W" };
 
 		if(seed.isEmpty() || StringUtils.isNumber(seed)) {
 			int pValue = 0;
