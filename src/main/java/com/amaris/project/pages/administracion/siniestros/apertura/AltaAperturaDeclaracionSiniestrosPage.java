@@ -346,7 +346,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		if(checkOpcionAsistenciaDisponible == true) {
 			debugInfo("El botón para solicitar asistencia está PRESENTE");
 
-			if(getTestVar(Constants.ASISTENCIA) == null && getTestVar(Constants.ASISTENCIA).isEmpty() && getTestVar(Constants.ASISTENCIA).equalsIgnoreCase("TRUE")) {
+			if(getTestVar(Constants.ASISTENCIA).isEmpty() && getTestVar(Constants.ASISTENCIA).equalsIgnoreCase("TRUE")) {
 				//altaSinAsistencia();
 				webDriver.clickInFrame(asistenciaNoBtn, cuerpoFrame);
 				webDriver.clickInFrame(continuarBtn, cuerpoFrame);
