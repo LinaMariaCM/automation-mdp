@@ -1,5 +1,6 @@
 package com.amaris.project.pages.administracion.siniestros.gestion;
 
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -9,6 +10,7 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.ActionSteps;
 import org.testng.Assert;
+import org.yaml.snakeyaml.nodes.CollectionNode;
 
 public class BloqueSiniestrosPage extends PageObject {
 
@@ -54,14 +56,13 @@ public class BloqueSiniestrosPage extends PageObject {
 		super(userS);
 	}
 
-	// TODO Revisar para hacer rehusable con transicionarBloqueSinCerrarOrigen
 	public BloqueSiniestrosPage transicionarBloqueCerrandoOrigen() {
 		debugBegin();
 		webDriver.waitWithDriver(2000);
 		webDriver.clickInFrame(bloqueBtn, leftFrame);
 		ActionSteps.waitForIt(webDriver);
 
-		debugInfo("Estoy en bloque");
+		debugInfo("Estoy en bloques");
 		webDriver.waitWithDriver(3000);
 
 		List<WebElement> listaBloques = webDriver.getElementsInFrame(listaBloque, cuerpoFrame);
@@ -69,7 +70,7 @@ public class BloqueSiniestrosPage extends PageObject {
 		debugInfo("Contiene: " + listaBloques.size());
 		for(int i = 0; i < listaBloques.size(); i++) {
 			String codigo = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2"), cuerpoFrame);
-			debugInfo("El codigo es: " + codigo);
+			debugInfo("El codigo es: " + codigo); // es el código del bloque
 
 			debugInfo("Click acciones");
 			webDriver.clickInFrame(By.cssSelector("#capaFlecha" + codigo + " a"), cuerpoFrame);
@@ -88,7 +89,7 @@ public class BloqueSiniestrosPage extends PageObject {
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(capaIframe);
 		webDriver.click(bloqueDestinoDrpDwn);
-		webDriver.clickElementFromDropDownByAttribute(bloqueDestinoDrpDwn, bloqueDestinoOption, "value", "11");
+		webDriver.clickElementFromDropDownByAttribute(bloqueDestinoDrpDwn, bloqueDestinoOption, "value", "13");
 
 		debugInfo("Destino bloque");
 		if(webDriver.isClickable(errorTxt)) {
@@ -216,7 +217,7 @@ public class BloqueSiniestrosPage extends PageObject {
 
 		String codigoTransicionado = webDriver.getTextInFrame(bloqueTransicionadoTxt, cuerpoFrame).trim();
 
-		boolean checkTransicionado = codigoTransicionado.equals("11");
+		boolean checkTransicionado = codigoTransicionado.equals("13");
 		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino NO es 11, tal como se introdujo en la prueba");
 
 		debugEnd();

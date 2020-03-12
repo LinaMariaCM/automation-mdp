@@ -1,7 +1,9 @@
 package com.amaris.project.pages.administracion.siniestros.gestion;
 
+import com.amaris.automation.model.utils.DateUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
 import java.util.List;
 
 import com.amaris.automation.model.testing.UserStory;
@@ -9,13 +11,14 @@ import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.automation.model.utils.StringUtils;
 import com.amaris.project.Constants;
 import com.amaris.project.steps.ActionSteps;
+import org.testng.Assert;
 
 public class AgendaSiniestrosPage extends PageObject {
 
 	// region WebElement
 	private By cuerpoFrame = By.id("mainFrame");
 	private By leftFrame = By.cssSelector("#leftFrame");
-	private By capaIframe = By.cssSelector("#capaIframe");
+	private By modalIframe = By.cssSelector("#capaIframe");
 
 	// Información general
 	private By nPolizaInfo = By.cssSelector("form[name='formDatos'] table table > tbody > tr:nth-of-type(1) > td:nth-of-type(1)");
@@ -67,7 +70,8 @@ public class AgendaSiniestrosPage extends PageObject {
 	private By fechaFinInput = By.cssSelector("#fechaler");
 	private By email = By.cssSelector("#email");
 	private By grabarBtn = By.cssSelector("body > form > table input[name='botonGrabar']");
-	private By cerrar = By.cssSelector("input[name='botonCerrar']");
+	private By cerrarTareaBtn = By.cssSelector("input[name='botonCerrar']");
+	private By detalleTarea = By.linkText("Detalle");
 
 	// Cabecera
 	private By plantillas = By.cssSelector("#cabPlantillas");
@@ -93,11 +97,15 @@ public class AgendaSiniestrosPage extends PageObject {
 	private By todasTareasBtn = By.cssSelector("#pes0");
 
 	private By tramitacionSiniestrosLista = By.cssSelector("#tablaResultados > table > tbody > tr.even > td:nth-child(1) > a");
+	private By listaTareasRealizadas = By.cssSelector("#tablaResultados > table > tbody > tr");
 
 	// Lista de estado de las tareas
 	private By todasLasTareasRow = By.cssSelector("#capaAjax > form > table > tbody > tr:not(:first-child)");
 
 	private By estadoTareaTxt = By.cssSelector("table.grid tbody:nth-child(1) tr[valign='top'] td:nth-child(5)");
+	private By tituloTareaTxt = By.cssSelector("table.grid tbody:nth-child(1) tr[valign='top'] td:nth-child(7)");
+	private By listaTareasTabla = By.cssSelector("table.grid tbody:nth-child(1) tr");
+
 	private String tareasRow = "#capaAjax > form > table > tbody > tr:nth-child([INDEX]):not(:first-child)";
 
 	private By accionesListaTodasLasTareas = By.cssSelector("[id*=capaFlecha] > a");
@@ -113,30 +121,26 @@ public class AgendaSiniestrosPage extends PageObject {
 	public AgendaSiniestrosPage nuevaTarea() {
 		debugBegin();
 		webDriver.waitWithDriver(5000);
-	//	webDriver.clickInFrame(agendaBtn, leftFrame);
-
 		ActionSteps.waitForIt(webDriver);
 		debugInfo("Se accede a Agenda");
 		webDriver.clickInFrame(nuevaTareaBtn, cuerpoFrame);
 		ActionSteps.waitForIt(webDriver);
 
 		debugInfo("Click en Nueva tarea");
-		debugInfo(getTestVar(Constants.TAREA_TITULO));
+		debugInfo("El título de la tarea a dar de alta en el CSV es " + getTestVar(Constants.TAREA_TITULO));
 		String titulo = "Nueva tareas automatica " + StringUtils.getRandomLetterChain(5);
 
 		if(getTestVar(Constants.TAREA_TITULO) != null && !getTestVar(Constants.TAREA_TITULO).isEmpty()) {
-			titulo = getTestVar(Constants.TAREA_TITULO);
+			webDriver.setTextInFrame(tituloInput, cuerpoFrame, getTestVar(Constants.TAREA_TITULO));
 		} else {
-			setTestVar(Constants.TAREA_TITULO, titulo);
+			webDriver.setTextInFrame(tituloInput, cuerpoFrame, titulo);
+			setTestVar((Constants.TAREA_TITULO), titulo);
 		}
 
-		webDriver.setTextInFrame(tituloInput, cuerpoFrame, titulo);
-
-		webDriver.setTextInFrame(descripcionInput, cuerpoFrame, "Estamos probando una prueba automatizada");
-
+		webDriver.setTextInFrame(descripcionInput, cuerpoFrame, "Esta tarea se ha creado en una prueba automatizada");
 		webDriver.clickElementChildByAttributeInFrame(categoriaBtn, cuerpoFrame, "value", "TSLA");
 		webDriver.clickElementChildByAttributeInFrame(pioridadBtn, cuerpoFrame, "value", "1");
-		webDriver.setTextInFrame(fechaFinInput, cuerpoFrame, "30/10/2019");
+		webDriver.setTextInFrame(fechaFinInput, cuerpoFrame, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
 		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
 
 		ActionSteps.waitForIt(webDriver);
@@ -146,110 +150,55 @@ public class AgendaSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public boolean comprobarTareasPendientes() {
+
+	public AgendaSiniestrosPage gestionTarea() {
 		debugBegin();
 
-		webDriver.clickInFrame(agendaBtn, leftFrame);
-		ActionSteps.waitForIt(webDriver);
-
-		debugInfo("Click en todas las tareas");
+		webDriver.waitWithDriver(2600);
 		webDriver.clickInFrame(todasTareasBtn, cuerpoFrame);
+		webDriver.waitWithDriver(2000);
 
-		Boolean check = false;
+		List<WebElement> listaTareas = webDriver.getElementsInFrame(listaTareasTabla, cuerpoFrame);
+		debugInfo("Contiene: " + listaTareas.size() + " tareas");
 
-		if(webDriver.isClickableInFrame(estadoTareaTxt, cuerpoFrame)) {
-			List<WebElement> listaPagos = webDriver.getElementsInFrame(estadoTareaTxt, cuerpoFrame);
+		String obtenerTittuloUltimaTarea = webDriver.getTextInFrame(By.cssSelector("#capaAjax > form > table > tbody > tr:nth-child(2) > td:nth-child(7)"), cuerpoFrame).trim();
+		debugInfo("Título de la tarea es: " + obtenerTittuloUltimaTarea);
+		debugInfo("Mensaje real: " + getTestVar(Constants.TAREA_TITULO));
 
-			debugInfo("Contiene: " + listaPagos.size());
+		String obtenerReferenciaUltimaTarea = webDriver.getTextInFrame(By.cssSelector("#capaAjax > form > table > tbody > tr:nth-child(2) > td:nth-child(2)"), cuerpoFrame).trim();
+		debugInfo("La referencia de la tarea es: " + obtenerReferenciaUltimaTarea);
+		boolean checkTarea = obtenerTittuloUltimaTarea.equalsIgnoreCase(getTestVar(Constants.TAREA_TITULO));
+		Assert.assertTrue(checkTarea, "El título de la tarea no es correcto.");
 
-			for(int i = 0; i < listaPagos.size(); i++) {
-				debugInfo("Estado: " + webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame));
-				if(webDriver.getTextInFrame(listaPagos.get(i), cuerpoFrame).equals("Pendiente")) {
-					check = true;
-					debugInfo("Tareas pendiente: " + check);
-				}
-			}
+		if(webDriver.isPresentInFrame(estadoTareaTxt, cuerpoFrame) && checkTarea == true) {
+
+			webDriver.clickInFrame(By.cssSelector("#capaFlecha" + obtenerReferenciaUltimaTarea + "> a"), cuerpoFrame);
+			webDriver.clickInFrame(detalleTarea, cuerpoFrame);
+			webDriver.clickInFrame(cerrarTareaBtn, cuerpoFrame);
+
 		} else {
-			debugInfo("No hay tareas");
+			debugInfo("Ha habido un error en la comparación de tareas");
 		}
-
-		debugEnd();
-
-		return check;
-	}
-
-	// IMPORTANTE : si hay que interactuar con la información de la tabla de tareas,
-	// llamar a ESTE método para obtener la matriz
-	public String[][] listarTareas() {
-		debugBegin();
-
-		// TODO Comprobar si hace falta InFrame
-		int size = webDriver.getElements(todasLasTareasRow).size();
-		String[][] matrix = new String[size][8];
-
-		for(int i = 0; i < size; i++) {
-			String[] linea = webDriver.getText(By.cssSelector(tareasRow.replace("[INDEX]", (i + 2) + ""))).trim().split("\n");
-
-			int count = 0;
-
-			for(int j = 0; j < linea.length; j++) {
-				if(!linea[j].isEmpty()) {
-					matrix[i][count++] = linea[j].trim();
-				}
-			}
-		}
-
-		debugEnd();
-
-		return matrix;
-	}
-
-	private int getIndiceTarea(String titulo) {
-		debugBegin();
-
-		int indice = -1;
-		String[][] matrix = listarTareas();
-
-		for(int i = 0; i < matrix.length; i++) {
-			if(titulo.equals(matrix[i][5])) {
-				indice = i;
-				break;
-			}
-		}
-
-		debugEnd();
-
-		return indice;
-	}
-
-	public AgendaSiniestrosPage detallesTarea(String titulo) {
-		debugBegin();
-
-		// TODO Comprobar si hace falta InFrame
-		int indice = getIndiceTarea(titulo);
-
-		webDriver.getElements(accionesListaTodasLasTareas).get(indice).click();
-		webDriver.click(detalleBtn);
-
-		debugEnd();
-
-		return this;
-	}
-
-	public AgendaSiniestrosPage comprobarTareaCerrada() {
-		debugBegin();
-
 		webDriver.clickInFrame(infoTareasRealizadas, cuerpoFrame);
-		webDriver.waitWithDriver(3000);
-		webDriver.clickInFrame(tramitacionSiniestrosLista, cuerpoFrame);
-		
-		detallesTarea(getTestVar(Constants.TAREA_TITULO));
-		
-		new TareaDetallesSiniestrosPage(userS)
-			.consultarUsuariosDeCierre();
-		
+		webDriver.clickInFrame(By.cssSelector("#tablaResultados > table > tbody > tr.even > td.pijama2 > a"), cuerpoFrame);
+		webDriver.waitWithDriver(2000);
+
+		List<WebElement> listaTareasResueltas = webDriver.getElementsInFrame(listaTareasTabla, cuerpoFrame);
+
+		debugInfo("Contiene: " + listaTareasResueltas.size() + " tareas");
+
+		//for(int j = 1; j < listaTareasResueltas.size(); j++) {
+			String obtenerReferenciasTareasResueltas = webDriver.getTextInFrame(By.cssSelector("#tablaResultados > form > table > tbody > tr.odd > td:nth-child(2)"), cuerpoFrame).trim();
+
+			debugInfo("Las tareas cerradas son: " + obtenerReferenciasTareasResueltas);
+
+			boolean checkTareaRealizada = obtenerReferenciaUltimaTarea.equalsIgnoreCase(obtenerReferenciasTareasResueltas);
+			Assert.assertTrue(checkTareaRealizada, "El título de la tarea cerrada no es correcto.");
+	//	}
+
+		//}
+		debugInfo("------- TE HAS FLIPADO MUCHO, ACABAS DE HACER EL CIERRE Y COMPROBACIONES DE TAREAS DE UNA VEZ- --------");
 		debugEnd();
-		
 		return this;
 	}
 

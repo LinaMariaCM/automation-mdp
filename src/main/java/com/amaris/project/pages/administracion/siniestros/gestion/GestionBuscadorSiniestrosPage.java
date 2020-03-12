@@ -327,6 +327,9 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 
 		webDriver.waitWithDriver(2000);
 		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
+		webDriver.waitWithDriver(2000);
+
+		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);
 
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);
