@@ -1,5 +1,6 @@
 package com.amaris.project.pages.administracion.siniestros.gestion;
 
+import com.amaris.project.Constants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -9,6 +10,7 @@ import com.amaris.automation.model.testing.UserStory;
 import com.amaris.automation.model.testing.objects.PageObject;
 import com.amaris.project.steps.ActionSteps;
 import org.testng.Assert;
+import org.yaml.snakeyaml.nodes.CollectionNode;
 
 public class BloqueSiniestrosPage extends PageObject {
 
@@ -20,6 +22,7 @@ public class BloqueSiniestrosPage extends PageObject {
 	private By acciones = By.cssSelector("#capaFlecha12 a");
 	//private By transicionarBtn = By.cssSelector("div.cpdatos a");
 	private By transicionarBtn = By.linkText("Transicionar bloque");
+	//private By transicionarBtn = By.cssSelector("[onclick*=operacion='TRANBLOQ']");
 	private By codBloque = By.cssSelector("#bloque1tr1 > td:nth-child(2)");
 	private By listaBloque = By.cssSelector("table.grid.wideBox > tbody > tr[id*='bloque1tr']");
 
@@ -54,28 +57,29 @@ public class BloqueSiniestrosPage extends PageObject {
 		super(userS);
 	}
 
-	// TODO Revisar para hacer rehusable con transicionarBloqueSinCerrarOrigen
 	public BloqueSiniestrosPage transicionarBloqueCerrandoOrigen() {
 		debugBegin();
 		webDriver.waitWithDriver(2000);
 		webDriver.clickInFrame(bloqueBtn, leftFrame);
 		ActionSteps.waitForIt(webDriver);
 
-		debugInfo("Estoy en bloque");
+		debugInfo("Estoy en bloques");
 		webDriver.waitWithDriver(3000);
 
 		List<WebElement> listaBloques = webDriver.getElementsInFrame(listaBloque, cuerpoFrame);
 
 		debugInfo("Contiene: " + listaBloques.size());
 		for(int i = 0; i < listaBloques.size(); i++) {
-			String codigo = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2"), cuerpoFrame);
-			debugInfo("El codigo es: " + codigo);
+			//			String codigo = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2"), cuerpoFrame);
+			String codigo = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + listaBloques.size() + "> td:nth-child(2"), cuerpoFrame);
+
+			debugInfo("El codigo es: " + codigo); // es el código del bloque
 
 			debugInfo("Click acciones");
 			webDriver.clickInFrame(By.cssSelector("#capaFlecha" + codigo + " a"), cuerpoFrame);
 
-			if(webDriver.isClickableInFrame(transicionarBtn, cuerpoFrame)) {
-				debugInfo("Contiene transiciona");
+			if(webDriver.isPresentInFrame(transicionarBtn, cuerpoFrame)) {
+				debugInfo("-------- Un fallo aquí significa que probablemente no se haya cargado la tabla con acciones de traspaso de carpeta ------- ");
 				webDriver.clickInFrame(transicionarBtn, cuerpoFrame);
 				webDriver.waitWithDriver(3000);
 				break;
@@ -127,25 +131,26 @@ public class BloqueSiniestrosPage extends PageObject {
 		webDriver.waitWithDriver(2000);
 		webDriver.clickInFrame(bloqueBtn, leftFrame);
 
-		ActionSteps.waitForIt(webDriver);
-
+		webDriver.waitForElementToBePresentInFrame(listaBloque, cuerpoFrame);
 		debugInfo("Estoy en bloque");
 		webDriver.waitWithDriver(3000);
 
 		List<WebElement> listaBloques = webDriver.getElementsInFrame(listaBloque, cuerpoFrame);
 
 		debugInfo("Contiene: " + listaBloques.size());
-		for(int i = 0; i < listaBloques.size(); i++) {
-			String codigo = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2)"), cuerpoFrame);
+		for(int i = 1; i < listaBloques.size(); i++) {
+			//String codigo = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + (i + 1) + "> td:nth-child(2)"), cuerpoFrame);
+			String codigo = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + listaBloques.size() + "> td:nth-child(2)"), cuerpoFrame);
+
 			debugInfo("El codigo es: " + codigo);
 
 			debugInfo("Click acciones");
 			webDriver.clickInFrame(By.cssSelector("#capaFlecha" + codigo + " a"), cuerpoFrame);
 
-		/*	if(webDriver.isClickableInFrame(transicionarBtn, cuerpoFrame)) {
-				debugInfo("Contiene transiciona");*/
-				webDriver.clickInFrame(transicionarBtn, cuerpoFrame);
-				webDriver.waitWithDriver(3000);
+		//	if(webDriver.isClickableInFrame(transicionarBtn, cuerpoFrame)) {
+				debugInfo("-------- Un fallo aquí significa que probablemente no se haya cargado la tabla con acciones de traspaso de carpeta ------- ");
+			webDriver.clickInFrame(transicionarBtn, cuerpoFrame);
+			webDriver.waitWithDriver(3000);
 		/*	} else {
 				debugInfo("No contiene transiciona");
 				webDriver.clickInFrame(By.cssSelector("#cabeceraBloqueDesplegable" + (i + 1)), cuerpoFrame);
@@ -168,7 +173,7 @@ public class BloqueSiniestrosPage extends PageObject {
 			debugInfo("Opcion Datos");
 			webDriver.click(opDatosBtn);
 
-			debugInfo("Se acaba de transicionar el bloque 11 al 31");
+			debugInfo("Se acaba de transicionar el bloque 13 al 31");
 			webDriver.click(grabarBtn);
 		}
 
@@ -207,16 +212,17 @@ public class BloqueSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	// TODO Revisar para hacer rehusable con verificarTransicionesSinCerrarOrigen
 	public BloqueSiniestrosPage verificarTransicionesCerrandoOrigen() {
 		debugBegin();
 
 		webDriver.clickInFrame(bloqueBtn, leftFrame);
 		webDriver.waitWithDriver(3000);
 
-		String codigoTransicionado = webDriver.getTextInFrame(bloqueTransicionadoTxt, cuerpoFrame).trim();
+		List<WebElement> listaBloques = webDriver.getElementsInFrame(listaBloque, cuerpoFrame);
+		String codigoTransicionado = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + listaBloques.size() + "> td:nth-child(2)"), cuerpoFrame).trim();
 
-		boolean checkTransicionado = codigoTransicionado.equals("11");
+
+		boolean checkTransicionado = codigoTransicionado.equalsIgnoreCase("11");
 		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino NO es 11, tal como se introdujo en la prueba");
 
 		debugEnd();
@@ -228,9 +234,11 @@ public class BloqueSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.clickInFrame(bloqueBtn, leftFrame);
-		String codigoTransicionado = webDriver.getTextInFrame(bloqueTransicionadoTxt, cuerpoFrame).trim();
 
-		boolean checkTransicionado = codigoTransicionado.equals(getTestVar("31"));
+		List<WebElement> listaBloques = webDriver.getElementsInFrame(listaBloque, cuerpoFrame);
+		String codigoTransicionado = webDriver.getTextInFrame(By.cssSelector("#bloque1tr" + listaBloques.size() + "> td:nth-child(2)"), cuerpoFrame).trim();
+
+		boolean checkTransicionado = codigoTransicionado.equalsIgnoreCase("31");
 		Assert.assertTrue(checkTransicionado, "COMPARAR CAMPOS : El bloque de destino NO es 31, tal como se introdujo en la prueba");
 
 		debugEnd();

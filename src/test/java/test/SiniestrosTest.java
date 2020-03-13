@@ -17,7 +17,7 @@ public class SiniestrosTest extends TestObject {
 	@DataProvider(parallel = false)
 	public String[][] dataProviderSiniestrosTest() {
 		String testCase = Constants.SINIESTROS;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosGestionSiniestros.csv");
 
 		return casesMatrix;
 	}
@@ -32,11 +32,16 @@ public class SiniestrosTest extends TestObject {
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 
 			steps.alta_siniestro_simple();
-		//	steps.alta_siniestro(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.NUM_POLIZA));
-			steps.tramito_siniestro_tras_alta(); // es un mero click para acceder a tramitación
-			steps.nueva_tarea_siniestros();
-			steps.modifico_tarea_siniestros();
-			steps.cierro_tarea_siniestros(); // acaba el proceso en el click a ir al inicio
+			//	steps.alta_siniestro(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.NUM_POLIZA)); - comentado hasta que se resuelva la arquitectura de pruebas
+
+			if(!userS.getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !userS.getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025001")) {
+				steps.tramito_siniestro_tras_alta(); // es un mero click para acceder a tramitación
+			}
+		//	steps.nueva_tarea_siniestros(); - funcionan, comentado por acortar tiempos
+		//	steps.modifico_tarea_siniestros(); - funcionan, comentado por acortar tiempos
+
+			steps.transicionar_bloques();
+
 
 			if(userS.getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && userS.getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025001")) {
 				steps.realizo_plan_pagos_MAC(); // acaba en la verificación del proceso
@@ -57,15 +62,13 @@ public class SiniestrosTest extends TestObject {
 
 			steps.modificar_siniestro_causa();
 
-			steps.tramito_siniestro_tras_alta();
+			steps.tramito_siniestro_tras_alta(); // ??
 
 			steps.compruebo_que_datos_han_viajado(); // TODO añadir más campos
 			steps.compruebo_carpeta_y_encargos();
 
-			steps.transicionar_bloques();
-
-			steps.anyado_anotacion_siniestro();
-			steps.compruebo_anotacion_siniestro();
+		//	steps.anyado_anotacion_siniestro(); - funcionando, probado por rubén
+		//	steps.compruebo_anotacion_siniestro(); - funcionando, probado por rubén
 
 			steps.comunico_siniestro();
 			steps.compruebo_comunicacion_siniestro();

@@ -12,6 +12,7 @@ import com.amaris.automation.model.webdriver.DriverHelper;
 import java.net.URISyntaxException;
 import java.util.Date;
 
+import com.amaris.project.pages.administracion.MEC.AltaDireccionMEC;
 import com.amaris.project.pages.administracion.mediadores.*;
 import org.testng.Assert;
 import org.openqa.selenium.By;
@@ -800,7 +801,7 @@ public class ActionSteps extends InteractionObject {
 				.altaCuentaSiniestro()
 				.altaPersonaContacto("INQVE__11", "Jose", "Martinez", "Perez", "666502101", "mail@mail.com")
 				.altaDireccionContacto(true, "", "", "", "", "", "", "", "")
-				.altaObservaciones("TEST Automatico apertura siniestro")
+				.altaObservaciones("TEST Automatico apertura siniestro.")
 				.clickEnviar()
 				.checkYaExisteSiniestro()
 				.comprobarOk();
@@ -2616,6 +2617,8 @@ public class ActionSteps extends InteractionObject {
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("610") || getTestVar(Constants.NUM_POLIZA).startsWith("620")
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("630") || getTestVar(Constants.NUM_POLIZA).startsWith("640")) {
 					ramo = "640";
+				} else if(getTestVar(Constants.NUM_POLIZA).startsWith("600")) {
+					ramo = "600";
 				}
 
 				new AltaAperturaSiniestrosPage(userS)
@@ -2629,7 +2632,7 @@ public class ActionSteps extends InteractionObject {
 					getTestVar(Constants.DECLARACION_OBSERVACIONES))
 				.altaDatosDeclarante(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO),
 					getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DECLARACION_EMAIL_NO_DISP))
-				// Añadimos datos de persona extra
+				// Añadimos datos de persona extra, coge los datos de los métodos pero de momento, necesita del CSV por cómo se montó la lógica en su momento
 				.datosPersonaExtra(getTestVar(Constants.CONTACTO_ROL), getTestVar(Constants.CONTACTO_NOMBRE), getTestVar(Constants.CONTACTO_PRIM_APELLIDO), getTestVar(Constants.CONTACTO_SEG_APELLIDO),
 					getTestVar(Constants.CONTACTO_TIPO_DOCUMENTO), getTestVar(Constants.CONTACTO_N_DOCUMENTO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_UNO), getTestVar(Constants.CONTACTO_TELEFONO_UNO),
 					getTestVar(Constants.CONTACTO_PREFIJO_TEL_DOS), getTestVar(Constants.CONTACTO_TELEFONO_DOS), getTestVar(Constants.CONTACTO_SEXO), getTestVar(Constants.CONTACTO_EMAIL_NO_DISP),
@@ -2638,14 +2641,15 @@ public class ActionSteps extends InteractionObject {
 					getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
 
 			// Comprobamos si necesita asistencia
-			if(!getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+			if(getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("400") ||
+				getTestVar(Constants.NUM_POLIZA).startsWith("500")	|| getTestVar(Constants.NUM_POLIZA).startsWith("510")
+				|| getTestVar(Constants.NUM_POLIZA).startsWith("600")) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.casosAsistenciaSiniestro();
 			} else {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.clickContinuar();
 			}
-			; // clickContinuar incorporado en el método mediante click etc.
 
 		/*	if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
@@ -2880,17 +2884,17 @@ public class ActionSteps extends InteractionObject {
 
 		boolean pagos = new PagosSiniestrosPage(userS).comprobarPagosPendientes();
 		boolean encargos = new GestionCarpetaSiniestrosPage(userS).comprobarEncargos();
-		boolean tareas = new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
+		//	boolean tareas = new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
 
 		debugInfo("Pago bool: " + pagos);
 		debugInfo("Encargos bool: " + encargos);
-		debugInfo("Tareas bool: " + tareas);
+		//	debugInfo("Tareas bool: " + tareas);
 
 		new GestionSiniestrosPage(userS)
 			.goToVista();
 
-		new VistaSiniestrosPage(userS)
-			.cierreSiniestro(pagos, encargos, tareas);
+	/*	new VistaSiniestrosPage(userS)
+			.cierreSiniestro(pagos, encargos, tareas);*/
 
 		// webDriver.waitWithDriver(2000);
 		debugEnd();
@@ -3054,8 +3058,10 @@ public class ActionSteps extends InteractionObject {
 
 	public void transicionar_bloques() {
 		debugBegin();
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+	//	new InnovaHomePage(userS).openSiniestros();
+	//	new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new GestionSiniestrosPage(userS)
+			.goToBloque();
 		new BloqueSiniestrosPage(userS)
 			.transicionarBloqueCerrandoOrigen()
 			.verificarTransicionesCerrandoOrigen()
@@ -3066,36 +3072,41 @@ public class ActionSteps extends InteractionObject {
 
 	public void nueva_tarea_siniestros() {
 
-		//	new InnovaHomePage(userS).openSiniestros();
-		//	new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO));
+	//	new InnovaHomePage(userS).openSiniestros();
+	//	new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO),getTestVar(Constants.ANYO_SINIESTRO), null);
+	//	new GestionBuscadorSiniestrosPage(userS).metodoParche("04026181", "2020");
+
+
 		new GestionSiniestrosPage(userS).goToAgenda();
 		new AgendaSiniestrosPage(userS)
-			.nuevaTarea()
-			.comprobarTareasPendientes();
-		new GestionSiniestrosPage(userS).clickLogo();
+			.nuevaTarea();
+		//	.comprobarTareasPendientes();
+		//	new GestionSiniestrosPage(userS).clickLogo();
 	}
 
 	public void modifico_tarea_siniestros() {
 
 	/*	new InnovaHomePage(userS).openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));*/
+		new GestionSiniestrosPage(userS).goToAgenda();
 		new AgendaSiniestrosPage(userS)
-			.detallesTarea(getTestVar(Constants.TAREA_TITULO))
-			.comprobarTareasPendientes();
-		new GestionSiniestrosPage(userS).clickLogo();
+		//	.detallesTarea(getTestVar(Constants.TAREA_TITULO))
+			//.comprobarTareasPendientes()
+			.gestionTarea();
+	//	new GestionSiniestrosPage(userS).clickLogo();
 	}
 
 	public void cierro_tarea_siniestros() {
 
-		new InnovaHomePage(userS)
+	/*	new InnovaHomePage(userS)
 			.openSiniestros();
 		new GestionBuscadorSiniestrosPage(userS)
-			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		//new AgendaSiniestrosPage(userS).
-		new AgendaSiniestrosPage(userS)
-			.comprobarTareaCerrada();
-		new GestionSiniestrosPage(userS)
-			.clickLogo();
+			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));*/
+		/*new AgendaSiniestrosPage(userS)
+			.cerrarTareasPendientes()
+			.comprobarTareaCerrada();*/
+	/*	new GestionSiniestrosPage(userS)
+			.clickLogo();*/
 	}
 
 	public void ir_a_pagina_inicio_innova() {
@@ -3232,12 +3243,13 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void modifico_causas_siniestro_MAC() {
-		new InnovaHomePage(userS)
+	/*	new InnovaHomePage(userS)
 			.openSiniestros();
 
 		new GestionBuscadorSiniestrosPage(userS)
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
-
+		revisar -	Comentado por Antonia con el fin de ahorrar tiempos en la ejecución de pruebas
+*/
 		new GestionSiniestrosPage(userS)
 			.goToVista();
 
@@ -3559,7 +3571,6 @@ public class ActionSteps extends InteractionObject {
 			.anyadirDireccionRecibos()
 			.anyadirDireccionSiniestros()
 			.clickContinuar();
-		//	.repiteDireccionComercial();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
@@ -3869,7 +3880,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void localizar_mediador() {
+	public void localizar_mediador_contratacion() {
 		debugBegin();
 
 		new InnovaHomePage(userS)
@@ -3879,6 +3890,25 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresBuscadorPage(userS)
 			.buscarInteRelacionado();
 
+		debugEnd();
+	}
+
+	public void inicio_alta_referencia_castral_mec() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMenuMEC();
+		new AltaDireccionMEC(userS)
+			.openAltaMEC();
+		/*	.buscarMediadorPorId()
+			.*/
+		debugEnd();
+	}
+public void buscador_referencia_castral_mec() {
+		debugBegin();
+
+		new AltaDireccionMEC(userS)
+			.anyadirRefCatastral();
 		debugEnd();
 	}
 

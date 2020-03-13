@@ -338,22 +338,17 @@ public class SiniestrosGenericosTest extends TestObject {
 
 		userS.testActions(() -> {
 
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+
 			steps.alta_siniestro_simple();
-			steps.cierro_navegador();
 
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			if(!userS.getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !userS.getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025001")) {
+				steps.tramito_siniestro_tras_alta(); // es un mero click para acceder a tramitación
+			}
 			steps.nueva_tarea_siniestros();
-			steps.cierro_navegador();
-
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.modifico_tarea_siniestros();
 			steps.cierro_navegador();
 
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.cierro_tarea_siniestros();
-			steps.cierro_navegador();
 
 			return null;
 		}).run();
