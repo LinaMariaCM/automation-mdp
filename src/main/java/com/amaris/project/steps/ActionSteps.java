@@ -801,7 +801,7 @@ public class ActionSteps extends InteractionObject {
 				.altaCuentaSiniestro()
 				.altaPersonaContacto("INQVE__11", "Jose", "Martinez", "Perez", "666502101", "mail@mail.com")
 				.altaDireccionContacto(true, "", "", "", "", "", "", "", "")
-				.altaObservaciones("TEST Automatico apertura siniestro")
+				.altaObservaciones("TEST Automatico apertura siniestro.")
 				.clickEnviar()
 				.checkYaExisteSiniestro()
 				.comprobarOk();
@@ -2617,6 +2617,8 @@ public class ActionSteps extends InteractionObject {
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("610") || getTestVar(Constants.NUM_POLIZA).startsWith("620")
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("630") || getTestVar(Constants.NUM_POLIZA).startsWith("640")) {
 					ramo = "640";
+				} else if(getTestVar(Constants.NUM_POLIZA).startsWith("600")) {
+					ramo = "600";
 				}
 
 				new AltaAperturaSiniestrosPage(userS)
@@ -2639,14 +2641,15 @@ public class ActionSteps extends InteractionObject {
 					getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
 
 			// Comprobamos si necesita asistencia
-			if(!getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+			if(getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("400") ||
+				getTestVar(Constants.NUM_POLIZA).startsWith("500")	|| getTestVar(Constants.NUM_POLIZA).startsWith("510")
+				|| getTestVar(Constants.NUM_POLIZA).startsWith("600")) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.casosAsistenciaSiniestro();
 			} else {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.clickContinuar();
 			}
-			; // clickContinuar incorporado en el método mediante click etc.
 
 		/*	if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
@@ -3057,6 +3060,8 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 	//	new InnovaHomePage(userS).openSiniestros();
 	//	new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new GestionSiniestrosPage(userS)
+			.goToBloque();
 		new BloqueSiniestrosPage(userS)
 			.transicionarBloqueCerrandoOrigen()
 			.verificarTransicionesCerrandoOrigen()
@@ -3566,7 +3571,6 @@ public class ActionSteps extends InteractionObject {
 			.anyadirDireccionRecibos()
 			.anyadirDireccionSiniestros()
 			.clickContinuar();
-		//	.repiteDireccionComercial();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
@@ -3876,7 +3880,7 @@ public class ActionSteps extends InteractionObject {
 
 	}
 
-	public void localizar_mediador() {
+	public void localizar_mediador_contratacion() {
 		debugBegin();
 
 		new InnovaHomePage(userS)
