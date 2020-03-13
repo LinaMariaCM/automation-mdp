@@ -161,7 +161,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 		webDriver.appendTextInFrame(fechaDenunciaInput, cuerpoFrame, fechaDenuncia);
 
-		if(observaciones == null || observaciones.isEmpty()) {
+		if(observaciones.isEmpty()) {
 			observaciones = "Ipsum sum lorem lorem, esto es una prueba del equipo de TaaS.";
 		}
 		webDriver.appendTextInFrame(observacionesInput, cuerpoFrame, observaciones);
@@ -346,11 +346,11 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 		if(checkOpcionAsistenciaDisponible == true) {
 			debugInfo("El botón para solicitar asistencia está PRESENTE");
 
-			if(getTestVar(Constants.ASISTENCIA).isEmpty() && getTestVar(Constants.ASISTENCIA).equalsIgnoreCase("TRUE")) {
+			if(getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				//altaSinAsistencia();
 				webDriver.clickInFrame(asistenciaNoBtn, cuerpoFrame);
 				webDriver.clickInFrame(continuarBtn, cuerpoFrame);
-			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) {
+			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty() || getTestVar(Constants.ASISTENCIA).equalsIgnoreCase("TRUE")) {
 				altaConAsistencia(getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS), getTestVar(Constants.ASISTENCIA_REF_EXTERNA));
 			}
 			webDriver.clickInFrame(continuarBtn, cuerpoFrame);
