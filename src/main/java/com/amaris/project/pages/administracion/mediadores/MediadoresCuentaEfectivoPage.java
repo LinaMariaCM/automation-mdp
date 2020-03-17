@@ -12,12 +12,9 @@ public class MediadoresCuentaEfectivoPage extends PageObject {
 
 	//----Seleccionar anyo------------
 	private By seleccionarAnyoBtn = By.cssSelector("#cabAnio");
-	private By selecionarAnyoCombo = By.cssSelector("#mescuenta");
-	private By quitarCriterioSeleccionBtn = By.cssSelector("#formBuscador > div > span > a");
 
 	//------Filtrar ------------
 	private By filtrarBtn = By.cssSelector("#cabFiltrar");
-	private By aplicarFiltroBtn = By.cssSelector("#botonFiltrar");
 
 	//------Exportar----------
 	private By exportarBtn = By.cssSelector("#cabFiltrar");
@@ -37,7 +34,6 @@ public class MediadoresCuentaEfectivoPage extends PageObject {
 
 	//---------Mas acciones-------------
 	private By masAccionesBtn = By.cssSelector("#_sisnet_js_actionsdinamicbar_0 > li.js-actionsbar > a > span");
-	private By versionImpresoraBtn = By.cssSelector("#cabGraficos");
 
 	private By generarPagoAdeudoBtn = By.cssSelector("#cabPagAdeu");
 	private By calcularImportesBtn = By.cssSelector("#cabCalcularu");

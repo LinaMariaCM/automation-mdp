@@ -19,7 +19,6 @@ public class MediadoresConstantesFicha {
 	public static final String CORR = "CORR";
 
 	//TIPO PROSPECT
-
 	public static final String COBS = "COBS";
 
 	//TIPO COLABORADOR
@@ -34,6 +33,7 @@ public class MediadoresConstantesFicha {
 	public static final String OTRO = "OTRO";
 	public static final String API = "API";
 	public static final String GEPA = "GEPA";
+
 	//IDIOMA
 	public static final String ESPA = "ESPA";
 	public static final String CATA = "CATA";
@@ -50,8 +50,5 @@ public class MediadoresConstantesFicha {
 	//DISPONE DE SOFTWARE
 	public static final String DISPONE_SOFTWARE_SI = "TRUE";
 	public static final String DISPONE_SOFTWARE_NO = "FALSE";
-
-	//COMPAÑIAS PRINCIPALES TRABAJADAS
-	public static final String COMPANYIA_PRINCIPAL_MED = "Compañía principal abogado";
 
 }
