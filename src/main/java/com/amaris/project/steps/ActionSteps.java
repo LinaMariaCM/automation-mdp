@@ -3559,7 +3559,6 @@ public class ActionSteps extends InteractionObject {
 			.anyadirDireccionRecibos()
 			.anyadirDireccionSiniestros()
 			.clickContinuar();
-		//	.repiteDireccionComercial();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
@@ -3568,7 +3567,7 @@ public class ActionSteps extends InteractionObject {
 		new FichaMediadorPage(userS)
 			.obtenerIdMediador()
 			.comprobacionFicha();
-		debugInfo("Se acaba de completar el alta de la  OFICINA");
+		debugInfo("Se acaba de completar el ALTA de la OFICINA.");
 
 		debugEnd();
 	}
@@ -3599,11 +3598,16 @@ public class ActionSteps extends InteractionObject {
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
 
-		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315") || getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C317")) {
+		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315")) {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
 			new MediadoresAltaDatosDGSPage(userS)
 				.escribirFechaIniRelacion()
 				.anyadirDatosGenerales()
+				.clickGuardarYSalirDGSAlta();
+		} else if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C317")) {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
+			new MediadoresAltaDatosDGSPage(userS)
+				.escribirFechaIniRelacion()
 				.clickGuardarYSalirDGSAlta();
 		} else {
 			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
@@ -3612,7 +3616,7 @@ public class ActionSteps extends InteractionObject {
 		new FichaMediadorPage(userS)
 			.obtenerIdMediador()
 			.comprobacionFicha();
-		debugInfo("Se acaba de completar el alta del COLABORADOR");
+		debugInfo("Se acaba de completar el ALTA del COLABORADOR.");
 
 		debugEnd();
 	}
@@ -3699,8 +3703,15 @@ public class ActionSteps extends InteractionObject {
 
 				if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
 					new FichaMediadorPage(userS)
-						.formacionAvanzarEstado()
-						.clickBuscadorMediadores();
+						.formacionAvanzarEstado();
+					if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
+						&& getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+						new FichaMediadorPage(userS)
+							.clickInfoCCM()
+							.verificarPeriodoCredito("45")
+							.verificarLimiteCredito("Especial")
+							.clickBuscadorMediadores();
+					}
 					new MediadoresHomePage(userS)
 						.openEnvioDGS();
 					new MediadoresDGSPage(userS)
@@ -3882,4 +3893,4 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-} // END
+}
