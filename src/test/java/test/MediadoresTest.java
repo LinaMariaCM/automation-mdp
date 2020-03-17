@@ -94,7 +94,7 @@ public class MediadoresTest extends TestObject {
 		}).run();
 	}
 
-	//----Intermediario (Agente Vinculado)- Oficina - Colaborador (Acuerdo Distribución)----//
+	//----Intermediario (Agente Vinculado) - Oficina - Colaborador (Acuerdo Distribución)----//
 	@DataProvider(parallel = false)
 	public String[][] altasRelacionadasMed03() {
 		String testCase = Constants.MEDIADORES_CASE;
@@ -246,7 +246,7 @@ public class MediadoresTest extends TestObject {
 		}).run();
 	}
 
-	//-----Intermediario (Agente Exclusivo) CIF - Oficina - Colaborador (Acuerdo Distribución)
+	//-----Intermediario (Agente Exclusivo) CIF - Oficina - Colaborador (Acuerdo Distribución)----
 	@DataProvider(parallel = false)
 	public String[][] altasRelacionadasMed07() {
 		String testCase = Constants.MEDIADORES_CASE;
@@ -331,7 +331,7 @@ public class MediadoresTest extends TestObject {
 	}
 
 	@Test(dataProvider = "retencionesAltaProspectMed")
-	public void retencionesAltaProsspect(String testCase, String id) throws Exception {
+	public void retencionesAltaProspect(String testCase, String id) throws Exception {
 		UserStory userS = suiteM.createUserStory(testCase, id);
 		ActionSteps steps = new ActionSteps(userS);
 		userS.testActions(() -> {
