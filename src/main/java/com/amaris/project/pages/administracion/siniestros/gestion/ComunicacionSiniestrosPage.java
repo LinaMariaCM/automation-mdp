@@ -140,25 +140,20 @@ public class ComunicacionSiniestrosPage extends PageObject {
 	public ComunicacionSiniestrosPage nuevaAnotacion() {
 		debugBegin();
 
-		webDriver.clickInFrame(altaAnotacionBtn, cuerpoFrame);
-		
-		webDriver.waitWithDriver(3000);
-		
 		webDriver.switchToFrame(cuerpoFrame);
+		webDriver.waitWithDriver(3000);
+		webDriver.click(altaAnotacionBtn);
+
 		webDriver.switchToFrame(capaIframe);
-		
+		webDriver.waitWithDriver(3000);
 		webDriver.click(anyadirNuevaAnotacionBtn);
 
 		webDriver.clickElementFromDropDownByAttribute(tituloNuevaAnotacionBtn, "value", "Otros");
-
-		setTestVar(Constants.COMENTARIO_ANOTACION, "Ipsum sum, Lorem lorem, Factum factum.");
-		debugInfo("Comentario: " + getTestVar(Constants.COMENTARIO_ANOTACION));
 		webDriver.setText(comentarioNuevaAnotacionBtn, getTestVar(Constants.COMENTARIO_ANOTACION));
+		debugInfo("Comentario: " + getTestVar(Constants.COMENTARIO_ANOTACION));
 
 		webDriver.clickElementFromDropDownByAttribute(confidencialAnotacionDropDwn, "value", "VIGLOBAL");
-
 		webDriver.click(grabarAnotacionBtn);
-		
 		webDriver.exitFrame();
 
 		debugEnd();

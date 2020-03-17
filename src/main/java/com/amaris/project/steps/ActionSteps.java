@@ -2878,25 +2878,15 @@ public class ActionSteps extends InteractionObject {
 		new InnovaHomePage(userS)
 			.openSiniestros();
 
-		// buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		new GestionBuscadorSiniestrosPage(userS)
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
-		boolean pagos = new PagosSiniestrosPage(userS).comprobarPagosPendientes();
-		boolean encargos = new GestionCarpetaSiniestrosPage(userS).comprobarEncargos();
-		//	boolean tareas = new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
-
-		debugInfo("Pago bool: " + pagos);
-		debugInfo("Encargos bool: " + encargos);
-		//	debugInfo("Tareas bool: " + tareas);
+		debugInfo("Hay pagos pendientes? " + new PagosSiniestrosPage(userS).comprobarPagosPendientes());
+		debugInfo("Hay encargos pendientes? " + new GestionCarpetaSiniestrosPage(userS).comprobarEncargos());
 
 		new GestionSiniestrosPage(userS)
 			.goToVista();
 
-	/*	new VistaSiniestrosPage(userS)
-			.cierreSiniestro(pagos, encargos, tareas);*/
-
-		// webDriver.waitWithDriver(2000);
 		debugEnd();
 	}
 
@@ -2973,7 +2963,7 @@ public class ActionSteps extends InteractionObject {
 
 			new PagosSiniestrosPage(userS)
 				.datosPerceptor()
-				.importes("", "100,00", false)
+				.importes("100,00", false)
 				.verificacion();
 		}
 
@@ -2997,7 +2987,7 @@ public class ActionSteps extends InteractionObject {
 		new PagosSiniestrosPage(userS)
 			.seleccionarParticipantesExpediente()
 			.datosPerceptor()
-			.importes("", "1000,00", true)
+			.importes("1000,00", true)
 			.verificacion()
 			.emitirPlanPagosMAC("", "", "120")
 			.verificacion()

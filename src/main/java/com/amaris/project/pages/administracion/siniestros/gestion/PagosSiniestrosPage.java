@@ -264,8 +264,10 @@ public class PagosSiniestrosPage extends PageObject {
 	public PagosSiniestrosPage nuevoPago() {
 		debugBegin();
 
+		webDriver.waitWithDriver(1500);
 		webDriver.clickInFrame(accederPagosBtn, leftFrame);
 
+		webDriver.waitWithDriver(1500);
 		setTestVar(Constants.ESTADO_CARPETA, webDriver.getTextInFrame(estadoCarpetaTxt, cuerpoFrame));
 		debugInfo("El estado de la carpeta es: " + webDriver.getTextInFrame(estadoCarpetaTxt, cuerpoFrame));
 
@@ -433,8 +435,9 @@ public class PagosSiniestrosPage extends PageObject {
 		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
 			opcion = 3;
 		}
-		
+		webDriver.waitWithDriver(1500);
 		webDriver.clickElementFromDropDownByIndexInFrame(medioPagoDrpDwn, cuerpoFrame, opcion);
+		webDriver.waitWithDriver(1500);
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
@@ -558,11 +561,11 @@ public class PagosSiniestrosPage extends PageObject {
 	}
 
 	// Importes
-	public PagosSiniestrosPage importes(String fPago, String importe, boolean activarPlanMAC) {
+	public PagosSiniestrosPage importes(String importe, boolean activarPlanMAC) {
 		debugBegin();
 
 		// TODO Cambiar, si se asigna directamente el valor, no hace falta ponerlo de parametro
-		fPago = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+		String fPago = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 
 
 		webDriver.appendTextInFrame(fechaDePagoInput, cuerpoFrame, fPago);
