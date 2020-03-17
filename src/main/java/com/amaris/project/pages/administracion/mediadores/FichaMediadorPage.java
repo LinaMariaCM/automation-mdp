@@ -479,12 +479,10 @@ public class FichaMediadorPage extends PageObject {
 		debugBegin();
 		webDriver.waitWithDriver(6000);
 
-		//	String estadoAlta = webDriver.getTextInFrame(By.cssSelector("<strong>Estado </strong>") + estadoMediadorTxt, cuerpoFrame).trim();
-
 		String estadoAlta = webDriver.getTextInFrame(estadoMediadorTxt, cuerpoFrame).trim();
 		boolean checkEstado = estadoAlta.equalsIgnoreCase(estado);
 
-		debugInfo("Mensaje esperado:" + estado);
+		debugInfo("Mensaje esperado: " + estado);
 		debugInfo("Mensaje real: " + estadoAlta);
 
 		debugEnd();
@@ -499,7 +497,7 @@ public class FichaMediadorPage extends PageObject {
 		String situacionAlta = webDriver.getTextInFrame(situacionMediadorTxt, cuerpoFrame).trim();
 		boolean checkSituacion = situacionAlta.equalsIgnoreCase(situacion);
 
-		debugInfo("Mensaje esperado:" + situacion);
+		debugInfo("Mensaje esperado: " + situacion);
 		debugInfo("Mensaje real: " + situacionAlta);
 
 		debugEnd();
@@ -516,7 +514,7 @@ public class FichaMediadorPage extends PageObject {
 		String fechaFormacion = webDriver.getTextInFrame(fFormObligatoriaTxt, modalFrame).trim();
 		boolean checkFecha = fechaFormacion.equalsIgnoreCase(mensaje);
 
-		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje esperado: " + mensaje);
 		debugInfo("Mensaje real: " + fechaFormacion);
 
 		debugEnd();
@@ -548,7 +546,7 @@ public class FichaMediadorPage extends PageObject {
 		String cambioSituacion = webDriver.getTextInFrame(cambioSituacionTxt, modalFrame).trim();
 		boolean checkCambio = cambioSituacion.equalsIgnoreCase(mensaje);
 
-		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje esperado: " + mensaje);
 		debugInfo("Mensaje real: " + cambioSituacion);
 
 		debugEnd();
@@ -609,7 +607,7 @@ public class FichaMediadorPage extends PageObject {
 
 	public FichaMediadorPage solicitarAlta() {
 		debugBegin();
-		debugInfo("Se entra para solicitar alta de Oficina");
+		debugInfo("Se entra para solicitar Alta de Oficina.");
 
 		Assert.assertTrue(comprobarEstado(EN_TRAMITACION), "El estado no es correcto.");
 		Assert.assertTrue(comprobarSituacion(ALTA_MEDIADOR), "La situacion no es correcta.");
@@ -627,7 +625,7 @@ public class FichaMediadorPage extends PageObject {
 		anyadirComentarioSituacion();
 		grabarComentarioEstado();
 
-		debugInfo("Solicitar alta se hizo con éxito o por lo menos recorrió");
+		debugInfo("Solicitar Alta se hizo con éxito o por lo menos recorrió.");
 
 		debugEnd();
 		return this;
@@ -651,7 +649,7 @@ public class FichaMediadorPage extends PageObject {
 		anyadirObservacionComercial();
 		grabarComentarioEstado();
 
-		debugInfo("Enviar para valoración financiera se hizo con éxito o por lo menos recorrió");
+		debugInfo("Enviar para Valoración Financiera se hizo con éxito o por lo menos recorrió.");
 
 		debugEnd();
 		return this;
@@ -675,7 +673,7 @@ public class FichaMediadorPage extends PageObject {
 		anyadirComentarioSituacion();
 		grabarComentarioEstado();
 
-		debugInfo("Enviar para revisión financiera se hizo con éxito o por lo menos recorrió");
+		debugInfo("Enviar para Revisión Financiera se hizo con éxito o por lo menos recorrió.");
 
 		debugEnd();
 		return this;
@@ -707,7 +705,7 @@ public class FichaMediadorPage extends PageObject {
 			}
 
 		} else {
-			debugInfo("Ha habido un error al dar de alta el mediador");
+			debugInfo("Ha habido un error al dar de Alta el Mediador.");
 		}
 
 		debugEnd();
@@ -768,7 +766,7 @@ public class FichaMediadorPage extends PageObject {
 		comentarioResolucionFinanciera();
 		grabarComentarioEstado();
 
-		debugInfo("Enviar para resolución financiera se hizo con éxito o por lo menos recorrió");
+		debugInfo("Enviar para Resolución Financiera se hizo con éxito o por lo menos recorrió.");
 
 		debugEnd();
 		return this;
@@ -806,7 +804,7 @@ public class FichaMediadorPage extends PageObject {
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
 
-			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
+			debugInfo("Confirmar Alta se hizo con éxito o por lo menos recorrió.");
 
 		} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC")
 			|| getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")
@@ -827,7 +825,7 @@ public class FichaMediadorPage extends PageObject {
 
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
-			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
+			debugInfo("Confirmar Alta se hizo con éxito o por lo menos recorrió.");
 
 		} else if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
 
@@ -845,7 +843,7 @@ public class FichaMediadorPage extends PageObject {
 
 			anyadirComentarioSituacion();
 			grabarComentarioEstado();
-			debugInfo("Confirmar alta se hizo con éxito o por lo menos recorrió");
+			debugInfo("Confirmar Alta se hizo con éxito o por lo menos recorrió.");
 
 		}
 
@@ -887,7 +885,7 @@ public class FichaMediadorPage extends PageObject {
 
 			Assert.assertTrue(comprobarEstado(PENDIENTE_ENVIO_DGS), "El estado no es correcto.");
 
-			debugInfo("Avanzar estado se hizo con éxito o por lo menos recorrió");
+			debugInfo("Avanzar Estado se hizo con éxito o por lo menos recorrió.");
 		}
 		debugEnd();
 		return this;
@@ -944,8 +942,8 @@ public class FichaMediadorPage extends PageObject {
 		anyadirFechaRecepcionContrato();
 		grabarComentarioEstado();
 
-		debugInfo("Activar Mediador se hizo con éxito o por lo menos recorrió");
-		//	}
+		debugInfo("Activar Mediador se hizo con éxito o por lo menos recorrió.");
+
 		debugEnd();
 		return this;
 	}
@@ -970,7 +968,7 @@ public class FichaMediadorPage extends PageObject {
 			Assert.assertTrue(alertaCambioSituacion(Constants.ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES));
 			grabarComentarioEstado();
 
-			debugInfo("Solicitar Baja se hizo con éxito o por lo menos recorrió");
+			debugInfo("Solicitar Baja se hizo con éxito o por lo menos recorrió.");
 		}
 		debugEnd();
 		return this;
@@ -1012,7 +1010,7 @@ public class FichaMediadorPage extends PageObject {
 			tipoMediador.equalsIgnoreCase(tipoMed);
 
 		Assert.assertTrue(tipoMediadorInte, "Es incorrecto.");
-		debugInfo("Se ha verificado el Tipo de Mediador");
+		debugInfo("Se ha verificado el Tipo de Mediador.");
 
 		debugEnd();
 		return this;
@@ -1028,7 +1026,7 @@ public class FichaMediadorPage extends PageObject {
 			tipoProspectMed.equalsIgnoreCase(tipoProspect);
 
 		Assert.assertTrue(tipoProspecInte, "Es incorrecto.");
-		debugInfo("Se ha verificado el Tipo de Prospect");
+		debugInfo("Se ha verificado el Tipo de Prospect.");
 
 		debugEnd();
 		return this;
@@ -1059,7 +1057,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean ejecutivoComercialMed = ejecutivoComercial.equalsIgnoreCase(ejecutivoCome);
 
 		Assert.assertTrue(ejecutivoComercialMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Ejecutivo Comercial");
+		debugInfo("Se ha verificado el Ejecutivo Comercial.");
 
 		debugEnd();
 		return this;
@@ -1090,7 +1088,7 @@ public class FichaMediadorPage extends PageObject {
 			actividadPrinc.equalsIgnoreCase(actividadPri);
 
 		Assert.assertTrue(actividadPMed, "Es incorrecto.");
-		debugInfo("Se ha verificado la Actividad principal.");
+		debugInfo("Se ha verificado la Actividad Principal.");
 
 		debugEnd();
 		return this;
@@ -1106,7 +1104,7 @@ public class FichaMediadorPage extends PageObject {
 			actividadPrinc.equalsIgnoreCase(actividadPri);
 
 		Assert.assertTrue(actividadPMed, "Es incorrecto.");
-		debugInfo("Se ha verificado la Actividad principal.");
+		debugInfo("Se ha verificado la Actividad Principal Prospect.");
 
 		debugEnd();
 		return this;
@@ -1162,6 +1160,42 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage verificarSoloNombreFiscal(String nombreFisc) {
+
+		debugBegin();
+
+		String nombreCompleto = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(14).trim();
+
+		debugInfo("El nombre completo tal como aparece en la ficha: " + nombreFisc);
+		debugInfo("El nombre completo tal como aparece en el CSV: " + getScenarioVar(Constants.NOMBRE_MEDIADOR));
+
+		boolean checkNombresFiscales = nombreCompleto.equalsIgnoreCase(nombreFisc);
+
+		Assert.assertTrue(checkNombresFiscales, "Es incorrecto.");
+		debugInfo("Se ha verificado el Nombre Fiscal.");
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarNombrePrimerApe(String nombreFisc, String primeApell) {
+
+		debugBegin();
+
+		String nombreCompleto = webDriver.getTextInFrame(nombreFiscalTxt, cuerpoFrame).substring(14).trim();
+
+		debugInfo("El nombre completo tal como aparece en la ficha: " + nombreFisc + " " + primeApell);
+		debugInfo("El nombre completo tal como aparece en el CSV: " + getScenarioVar(Constants.NOMBRE_MEDIADOR) + " " + getScenarioVar(Constants.PRIMER_APELLIDO_MEDIADOR));
+
+		boolean checkNombresFiscales = nombreCompleto.equalsIgnoreCase(nombreFisc + " " + primeApell);
+
+		Assert.assertTrue(checkNombresFiscales, "Es incorrecto.");
+		debugInfo("Se ha verificado el Nombre y Primer apellido.");
+
+		debugEnd();
+		return this;
+	}
+
 	public FichaMediadorPage verificarTelefonoPrincipal(String telefono) {
 
 		debugBegin();
@@ -1171,7 +1205,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean telefonPriMed = telefonPri.equalsIgnoreCase(telefono);
 
 		Assert.assertTrue(telefonPriMed, "Es incorrecto.");
-		debugInfo("Se ha verificado que el Telefono Principal.");
+		debugInfo("Se ha verificado el Telefono Principal.");
 
 		debugEnd();
 		return this;
@@ -1186,7 +1220,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean telefonPriMed = emailPri.equalsIgnoreCase(email);
 
 		Assert.assertTrue(telefonPriMed, "Es incorrecto.");
-		debugInfo("Se ha verificado que el Email Principal.");
+		debugInfo("Se ha verificado el Email Principal.");
 
 		debugEnd();
 		return this;
@@ -1201,7 +1235,7 @@ public class FichaMediadorPage extends PageObject {
 			ramo.equals(ramoMediador);
 
 		Assert.assertTrue(ramoMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Ramo es Asistencia");
+		debugInfo("Se ha verificado el Ramo.");
 
 		debugEnd();
 		return this;
@@ -1237,16 +1271,15 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage verificarCompanyiasPrincipales(String constanteFicha, String companyia) {
+	public FichaMediadorPage verificarCompanyiasPrincipales(String companyia) {
 		debugBegin();
 
 		String companyiasPrincip = webDriver.getTextInFrame(companyiasPrincipTxt, cuerpoFrame).substring(31).trim();
 
-		boolean companyiasPrincipMed = getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase(constanteFicha) &&
-			companyiasPrincip.equals(companyia);
+		boolean companyiasPrincipMed = companyiasPrincip.equals(companyia);
 
 		Assert.assertTrue(companyiasPrincipMed, "Es incorrecto.");
-		debugInfo("Se ha verificado las Compañias principales");
+		debugInfo("Se han verificado las Compañias Principales.");
 
 		debugEnd();
 		return this;
@@ -1261,7 +1294,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean oficinaMedResMed = oficinaPadreMed.equalsIgnoreCase(oficinaPadre);
 
 		Assert.assertTrue(oficinaMedResMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Oficina Padre");
+		debugInfo("Se ha verificado Oficina Padre.");
 		debugEnd();
 		return this;
 	}
@@ -1275,7 +1308,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean padreMedResMed = padreMed.equalsIgnoreCase(mediadorPadre);
 
 		Assert.assertTrue(padreMedResMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Mediador Padre");
+		debugInfo("Se ha verificado Mediador Padre.");
 
 		debugEnd();
 		return this;
@@ -1289,7 +1322,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean contactoResMed = contactoRes.equalsIgnoreCase(contacto);
 
 		Assert.assertTrue(contactoResMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Contacto Responsable");
+		debugInfo("Se ha verificado el Contacto Responsable.");
 		debugEnd();
 		return this;
 	}
@@ -1302,7 +1335,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean cargoResMed = cargoRes.equalsIgnoreCase(cargo);
 
 		Assert.assertTrue(cargoResMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Cargo responsable");
+		debugInfo("Se ha verificado el Cargo responsable.");
 		debugEnd();
 		return this;
 	}
@@ -1315,7 +1348,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean bancoComMed = bancoCom.equalsIgnoreCase(banco);
 
 		Assert.assertTrue(bancoComMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Banco de Comisiones");
+		debugInfo("Se ha verificado el Banco de Comisiones.");
 		debugEnd();
 		return this;
 	}
@@ -1328,7 +1361,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean bancoComMed = bancoCom.equalsIgnoreCase(banco);
 
 		Assert.assertTrue(bancoComMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Banco PAGO de Autoliquidaciones");
+		debugInfo("Se ha verificado el Banco Pago de Autoliquidaciones.");
 		debugEnd();
 		return this;
 	}
@@ -1338,12 +1371,12 @@ public class FichaMediadorPage extends PageObject {
 
 		String periodoMed = webDriver.getTextInFrame(periodoCreditoFichaTxt, cuerpoFrame).trim();
 
-		debugInfo("El period que se pasa es " + periodo);
+		debugInfo("El periodo que se pasa es " + periodo);
 		debugInfo("El periodo que se coge de la ficha es " + periodoMed);
 		boolean periodoCreditoMed = periodoMed.equalsIgnoreCase(periodo);
 
 		Assert.assertTrue(periodoCreditoMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Periodo Credito");
+		debugInfo("Se ha verificado el Periodo Credito.");
 		debugEnd();
 		return this;
 	}
@@ -1356,7 +1389,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean limiteCreditoMed = limiteMed.equalsIgnoreCase(limite);
 
 		Assert.assertTrue(limiteCreditoMed, "Es incorrecto.");
-		debugInfo("Se ha verificado el Limite Credito");
+		debugInfo("Se ha verificado el Límite Credito.");
 		debugEnd();
 		return this;
 	}
@@ -1531,16 +1564,26 @@ public class FichaMediadorPage extends PageObject {
 				verificarNombres("Sleepwalking", "Bringme", "Thehorizon");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
 				verificarNombres("Orion", "Cliff", "Burton");
-			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Fighters")) {
-				verificarNombres("Fighters", "Fighters", "Neighbourhood");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mario")) {
+				verificarNombrePrimerApe("Mario", "Local"); //aun no
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
-				verificarNombres("A7X", "Exist", "Neighbourhood");
+				verificarNombrePrimerApe("A7X", "Exist");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Carol")) {
+				verificarNombres("Carol", "Lopez", "Castillo");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ghost Macabre")) {
-				verificarNombres("Ghost Macabre", "Bringme", "Thehorizon");
+				verificarSoloNombreFiscal("Ghost Macabre");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Looper")) {
+				verificarNombres("Looper", "Bringme", "Thehorizon");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Pantera")) {
 				verificarNombres("Pantera", "Shedding", "Skin");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mariete")) {
+				verificarSoloNombreFiscal("Mariete");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Loren")) {
+				verificarSoloNombreFiscal("Loren");
+			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Ozzy Osborne")) {
+				verificarSoloNombreFiscal("Ozzy Osborne");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("In this moment")) {
-				verificarNombres("In this moment", "Fighters", "Neighbourhood");
+				verificarNombrePrimerApe("In this moment", "Fighters");
 			}
 
 			//CONTACTO RESPONSABLE
@@ -1622,17 +1665,14 @@ public class FichaMediadorPage extends PageObject {
 				verificarNombreDelBanco("Nombre del banco");
 			}
 			//COMPAÑIAS PRINCIPALES
-			if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compañía principal abogado")) {
-				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
-			} else if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Master of puppets")) {
-				verificarCompanyiasPrincipales(MediadoresConstantesFicha.COMPANYIA_PRINCIPAL_MED, getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
+			if(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).equalsIgnoreCase("Compania principal abogado")) {
+				verificarCompanyiasPrincipales(getScenarioVar(Constants.COMPANYIAS_PRINCIPALES).toUpperCase());
 			}
-
-			clickCondicionesNegocio();
 
 			//BANCO COMISIONES
 			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
 
+				clickCondicionesNegocio();
 				verificarBancoComisiones("ES0321001234561234567890");
 
 			}
@@ -1641,13 +1681,6 @@ public class FichaMediadorPage extends PageObject {
 
 				verificarPagoAutoliquidaciones("ES0321001234561234567890");
 
-			}
-
-			clickInfoCCM();
-
-			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE") && !getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
-				verificarPeriodoCredito("45");
-				verificarLimiteCredito("Especial");
 			}
 		}
 
@@ -1666,7 +1699,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean direccionProsMed = direccionP.equalsIgnoreCase(direccion);
 
 		Assert.assertTrue(direccionProsMed, "Es incorrecto.");
-		debugInfo("Se ha verificado La Direccion Prospect");
+		debugInfo("Se ha verificado La Direccion Prospect.");
 
 		//POBLACION
 		String poblacionP = webDriver.getTextInFrame(poblacionProspectTxt, cuerpoFrame).substring(10).trim();
@@ -1674,7 +1707,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean poblacionMed = poblacionP.equalsIgnoreCase(poblacion);
 
 		Assert.assertTrue(poblacionMed, "Es incorrecto.");
-		debugInfo("Se ha verificado La Población Prospect");
+		debugInfo("Se ha verificado La Población Prospect.");
 
 		//PROVINCIA
 		String provinciaP = webDriver.getTextInFrame(provinciaProspectTxt, cuerpoFrame).substring(10).trim();
@@ -1682,7 +1715,7 @@ public class FichaMediadorPage extends PageObject {
 		boolean provinciaMed = provinciaP.equalsIgnoreCase(provincia);
 
 		Assert.assertTrue(provinciaMed, "Es incorrecto.");
-		debugInfo("Se ha verificado La Provincia Prospect");
+		debugInfo("Se ha verificado La Provincia Prospect.");
 
 		debugEnd();
 		return this;
