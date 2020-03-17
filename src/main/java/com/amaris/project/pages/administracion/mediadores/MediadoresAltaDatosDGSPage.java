@@ -241,7 +241,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 		webDriver.switchToFrame(modalFrame);
 
-		webDriver.waitForElementToBeClickable(tipoDocumentoCombo);
+		webDriver.setText(primerApellidoInput, "Primer Apellido");
 		webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
 		escribirNumeroDocumentoAltoCargo();
 
