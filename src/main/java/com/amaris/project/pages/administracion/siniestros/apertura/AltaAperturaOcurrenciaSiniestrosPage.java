@@ -233,6 +233,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		debugInfo("######################################################");
 		
 		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
+		webDriver.waitWithDriver(1500);
 		webDriver.acceptAlert();
 		
 		webDriver.waitWithDriver(6000);

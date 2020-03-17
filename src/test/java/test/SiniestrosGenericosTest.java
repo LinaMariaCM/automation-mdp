@@ -18,7 +18,7 @@ public class SiniestrosGenericosTest extends TestObject {
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosGen01() {
 		String testCase = Constants.SINIESTROS;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestSiniestrosGen01.csv");
 
 		return casesMatrix;
 	}
@@ -264,10 +264,10 @@ public class SiniestrosGenericosTest extends TestObject {
 		}).run();
 	}
 
-	@DataProvider(parallel = true)
+	@DataProvider()
 	public String[][] dataProviderSiniestrosGen10() {
 		String testCase = Constants.SINIESTROS;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestSiniestrosGen10.csv");
 
 		return casesMatrix;
 	}

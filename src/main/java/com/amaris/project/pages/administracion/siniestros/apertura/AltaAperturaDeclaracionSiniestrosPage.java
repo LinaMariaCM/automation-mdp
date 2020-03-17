@@ -348,6 +348,7 @@ public class AltaAperturaDeclaracionSiniestrosPage extends PageObject {
 
 			if(getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				//altaSinAsistencia();
+				webDriver.waitWithDriver(1500);
 				webDriver.clickInFrame(asistenciaNoBtn, cuerpoFrame);
 				webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty() || getTestVar(Constants.ASISTENCIA).equalsIgnoreCase("TRUE")) {
