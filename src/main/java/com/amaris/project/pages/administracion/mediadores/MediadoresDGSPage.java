@@ -295,6 +295,7 @@ public class MediadoresDGSPage extends PageObject {
 	public MediadoresDGSPage seleccionarMediadorEnvioDGS(String idMediadorAltaDGS) {
 		debugBegin();
 
+		webDriver.waitWithDriver(4000);
 		List<WebElement> obtenerListaEnvioDGS = webDriver.getElementsInFrame(listaDGSE, cuerpoFrame);
 		debugInfo("contiene " + obtenerListaEnvioDGS.size() + " mediadores en estado Envio DGS");
 

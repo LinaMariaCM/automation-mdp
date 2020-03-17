@@ -60,38 +60,8 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 	private By numeroReenviosAutomaticosCombo = By.id("ALTAMEDI_NREENAUT");
 	private By numDiasPasoImpagoInput = By.id("ALTAMEDI_NDPASIMP");
 
-	//------------------------Acceso operativas-------------
-
-	private By accesoRecibosBtn = By.id("ALTAMEDI_ACCRECIB");
-	private By pagoDomiciliacionBtn = By.id("ALTAMEDI_PAGDOMBAND");
-	private By accesoCuentaMediadorBtn = By.id("ALTAMEDI_ACCCUMED");
-	private By accesoFicherosDMBtn = By.id("ALTAMEDI_ACCFICCDM");
-	private By accesoFicherosNODOMBtn = By.id("ALTAMEDI_ACCFICCNDM");
-
-	//----------------Envio documentacion------------------------------
-
-	private By mandatoSEPABtn = By.id("ALTAMEDI_GENMSEPA");
-	private By liquidacionesBtn = By.id("ALTAMEDI_LIQUIDAC");
-	private By cartasRenovacionTomadorBtn = By.id("ALTAMEDI_CARRENTOM");
-	private By listadoRecibosDomiciliadosBtn = By.id("ALTAMEDI_LISRECDOM");
-	private By listadoCuentaEfectivoBtn = By.id("ALTAMEDI_LISCUENEFE");
-	private By listadoPendientesBtn = By.id("ALTAMEDI_LISPENDI");
-
-	//------------------------Valoracion financiera----------------
-
-	private By clasificacionFinancieraCombo = By.id("ALTAMEDI_CLASCONT");
-	private By nuevaFechaFiscalInput = By.id("ALTAMEDI_FECHALFI");
-	private By nivelControlCombo = By.id("ALTAMEDI_NIVECONT");
-	private By irpfCombo = By.id("GESMED_IRPF");
-	private By causaIRPFreducidoCombo = By.id("ALTAMEDI_CAIRPFRED");
-	private By irpfDocumentosCombo = By.id("ALTAMEDI_DOCUMENT");
-	private By tipoPeriodoCombo = By.id("ALTAMEDI_TIPOPERI");
-	private By periodoCombo = By.id("ALTAMEDI_PERIODO");
-	private By evaluacionFinancieraEjercicioInput = By.id("ALTAMEDI_EJERCICIO");
-
 	//-----------Controles de pagina---------------------------
 
-	private By cancelarBtn = By.id("botonCancelar1");
 	private By guardarBtn = By.id("botonGrabar1");
 	private By continuarBtn = By.id("botonContinuar1");
 
@@ -137,19 +107,8 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 		return this;
 	}
 
-	//------------Configuración gestión de recibos-------------------
-	public MediadoresAltaDatosTransaccionalesPage anyadirConfiguracionGestionRecibos(String ultAccionImpago) {
-		debugBegin();
-		if(ultAccionImpago.isEmpty()) ultAccionImpago = "NADA";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttribute(accionImpagoCombo, accionImpagoOption, "value", ultAccionImpago);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
 	//-------------Clicks botones---------------------
+
 	public MediadoresAltaDatosTransaccionalesPage clickContiuar() {
 		debugBegin();
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
@@ -163,14 +122,6 @@ public class MediadoresAltaDatosTransaccionalesPage extends PageObject {
 		debugBegin();
 		webDriver.clickInFrame(guardarBtn, cuerpoFrame);
 		webDriver.waitWithDriver(10000);
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaDatosTransaccionalesPage clickCancelar() {
-		debugBegin();
-		webDriver.clickInFrame(cancelarBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;

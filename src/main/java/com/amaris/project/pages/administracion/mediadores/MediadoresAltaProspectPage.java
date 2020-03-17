@@ -37,21 +37,11 @@ public class MediadoresAltaProspectPage extends PageObject {
 	private By provinciaInput = By.cssSelector("#ALTACLIE_PROVINCIA_ARVATO");
 	private By poblacionInput = By.cssSelector("#ALTACLIE_POBLACION_ARVATO");
 	private By nombreViaInput = By.cssSelector("#ALTACLIE_NOMVIA_ARVATO");
-	private By numeroViaInput = By.cssSelector("#ALTACLIE_NUMVIA");
 	private By provinciaCombo = By.cssSelector("html > body > ul:nth-of-type(1) > li > a");
 	private By poblacionCombo = By.cssSelector("html > body > ul:nth-of-type(2) > li > a");
 	private By nombreViaCombo = By.cssSelector("html > body > ul:nth-of-type(3) > li > a");
-	private By codigoPostalInput = By.cssSelector("#ALTACLIE_CODPOST_ARVATO");
-	private By borrarCamposDireccionBtn = By.cssSelector("#BOTON_BORRADOM");
 	private By aceptarDomicilioBtn = By.cssSelector("#BOTON_ACEPTAR");
-	private By cancelarDomicilioBtn = By.cssSelector("#BOTON_CANCELAR");
 	private By comprobarDireccionDomicilioBtn = By.cssSelector("#BOTON_NORMADOM");
-
-	//-----------Mediadores Relacionados--------------------------
-	private By nuevoMediadorBtn = By.cssSelector("#capaMediadores > div.titulo > div > a");
-	private By codigoNuevoMediadorInput = By.cssSelector("#MEDI_CODIMEDI");
-	private By confirmarNuevoMediadorBtn = By.cssSelector("table > tbody > tr:nth-child(1) > td:nth-child(3) > a");
-	private By cerrarNuevoMediadorBtn = By.cssSelector("#buttonClose");
 
 	//----------Medios de Contacto---------------------------------
 	private By anyadirNuevoMedioContactoBtn = By.cssSelector("#capaMediosContacto > div > div.floatright.peq > a");
@@ -59,10 +49,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 	private By tipoContactoOption = By.cssSelector("#MEDI_CONTPROS > option");
 	private By contactoTelefonoInput = By.cssSelector("#MEDI_CONTACTO");
 	private By grabarNuevoMedioContactoBtn = By.cssSelector("#buttonRecord");
-	private By cancelarNuevoMedioContactoBtn = By.cssSelector("#buttonCancel");
 
 	//--------Controles de Paginas------------------------
-	private By cancelarNuevoProspectBtn = By.cssSelector("#botonCancelar1");
+
 	private By grabarBtn = By.cssSelector("#botonGrabar");
 	private By volverBtn = By.cssSelector("#botonVolver");
 
@@ -214,6 +203,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 	}
 
 	//-----------Clicks en botones-----------------------------------
+
 	public MediadoresAltaProspectPage clickBotonComprobarDireccion() {
 		debugBegin();
 
@@ -241,25 +231,6 @@ public class MediadoresAltaProspectPage extends PageObject {
 	public MediadoresAltaProspectPage clickBotonGrabar() {
 		debugBegin();
 		webDriver.clickInFrame(grabarBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaProspectPage clickNuevoMediador() {
-		debugBegin();
-		webDriver.clickInFrame(nuevoMediadorBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaProspectPage clickConfirmarNuevoMediador() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.click(confirmarNuevoMediadorBtn);
-		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -336,7 +307,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 		String alerta = webDriver.getTextInFrame(avisoSistemaTxt, cuerpoFrame).trim();
 		boolean checkAlerta = alerta.equalsIgnoreCase(mensaje);
 
-		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje esperado: " + mensaje);
 		debugInfo("Mensaje real: " + alerta);
 
 		debugEnd();

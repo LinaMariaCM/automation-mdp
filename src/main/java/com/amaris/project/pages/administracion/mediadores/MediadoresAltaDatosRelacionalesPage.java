@@ -21,18 +21,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By adminFincasNOBtn = By.id("ALTAMEDI_FINCASNO");
 	private By adminFincasCuantasInput = By.id("ALTAMEDI_FINCAS");
 
-	private By medNuevoProductoBtn = By.linkText("Añadir nuevo producto");
-	private By nuevoProductoCombo = By.id("ALTAMEDI_PRODUCT");
-	private By nuevoProductoOption = By.cssSelector("#ALTAMEDI_PRODUCT > option");
-	private By nuevoProdCompPrincipalCombo = By.id("ALTAMEDI_COMPRIN");
-	private By nuevoProdCompPrincipalOption = By.cssSelector("#ALTAMEDI_COMPRIN > option");
-	private By nuevoProdCompSecundariaCombo = By.id("ALTAMEDI_COMSECU ");
-	private By nuevoProdCompSecundariaOption = By.cssSelector("#ALTAMEDI_COMSECU > option");
-
-	private By potencialNPCombo = By.id("ALTAMEDI_POTNP");
-	private By potencialNPOption = By.cssSelector("#ALTAMEDI_POTNP > option");
-	private By autonomoProyectosSIBtn = By.id("ALTAMEDI_AUTOSI");
-	private By autonomoProyectosNOBtn = By.id("ALTAMEDI_AUTONO");
 	private By compPrincipInput = By.id("ALTAMEDI_COMPPRIN");
 	private By compPrincipObligDisplay = By.cssSelector("#capaDatosMediador > div > div.marcofnd > table.wideBox > tbody > tr.flexibleField > th > label > span");
 
@@ -40,18 +28,13 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 	private By nombreBancoInput = By.cssSelector("#ALTAMEDI_NOMBANCO");
 	private By observacionesBancoInput = By.cssSelector("#ALTAMEDI_OBSBANCO");
 
-	private By valorarDelegadoCombo = By.id("ALTAMEDI_VALDEL");
-	private By valorarDelegadoOption = By.cssSelector("#ALTAMEDI_VALDEL > option");
-
 	private By grabarBtn = By.cssSelector("#buttonRecord");
-	private By cancelarBtn = By.cssSelector("#buttonCancel");
 	private By volverBtn = By.cssSelector("#botonVolver");
 
 	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
 
 	//-----------Controles de pagina---------------------------
-	private By cancelarRelacionalesBtn = By.id("botonCancelar1");
-	private By guardarRelacionalesBtn = By.id("botonGrabar1");
+
 	private By continuarBtn = By.id("botonContinuar1");
 
 	public MediadoresAltaDatosRelacionalesPage(UserStory userS) {
@@ -66,9 +49,8 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.click(especialistaRamoSIBtn);
-		if(!getVar(Constants.RAMO).isEmpty()) {
-			//		webDriver.click(especialistaRamoSIBtn);
-			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getVar(Constants.RAMO));
+		if(!getScenarioVar(Constants.RAMO).isEmpty()) {
+			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", getScenarioVar(Constants.RAMO));
 		} else {
 			webDriver.clickElementFromDropDownByAttribute(especialistaRamoCombo, especialistaRamoOption, "value", "10");
 		}
@@ -76,39 +58,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		webDriver.setText(adminFincasCuantasInput, "30");
 		webDriver.exitFrame();
 
-		debugEnd();
-
-		return this;
-	}
-
-	//----------------------Añadir nuevo producto ----------------------------
-	public MediadoresAltaDatosRelacionalesPage anyadirNuevoProducto(String producto, String companyiaPrincipal, String companyiaSecundaria) {
-		debugBegin();
-		if(producto.isEmpty()) producto = "COMU";
-		if(companyiaPrincipal.isEmpty()) companyiaPrincipal = "L0546";
-		if(companyiaSecundaria.isEmpty()) companyiaSecundaria = "C0089";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(medNuevoProductoBtn);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.clickElementFromDropDownByAttribute(nuevoProductoCombo, nuevoProductoOption, "value", producto);
-		webDriver.clickElementFromDropDownByAttribute(nuevoProdCompPrincipalCombo, nuevoProdCompPrincipalOption, "value", companyiaPrincipal);
-		webDriver.clickElementFromDropDownByAttribute(nuevoProdCompSecundariaCombo, nuevoProdCompSecundariaOption, "value", companyiaSecundaria);
-		webDriver.click(grabarBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	//-----------------------Añadir datos del mediador----------------
-	public MediadoresAltaDatosRelacionalesPage anyadirDatosMediador(String potencial, String companyiasPrincipales) {
-		debugBegin();
-		if(potencial.isEmpty()) potencial = "ALTO";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttribute(potencialNPCombo, potencialNPOption, "value", potencial);
-		webDriver.click(autonomoProyectosNOBtn);
-		webDriver.setText(compPrincipInput, companyiasPrincipales);
-		webDriver.exitFrame();
 		debugEnd();
 
 		return this;
@@ -126,45 +75,6 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		webDriver.waitWithDriver(5000);
 		webDriver.clickInFrame(grabarBtn, modalFrame);
 
-		debugEnd();
-
-		return this;
-	}
-
-	//------------------Añadir datos comentarios---------------------------
-	public MediadoresAltaDatosRelacionalesPage anyadirDatosComentarios(String valoracionDeleg) {
-		debugBegin();
-		if(valoracionDeleg.isEmpty()) valoracionDeleg = "1";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickElementFromDropDownByAttribute(valorarDelegadoCombo, valorarDelegadoOption, "value", valoracionDeleg);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	//-------------------Clicks en botones------------------------
-	public MediadoresAltaDatosRelacionalesPage clickCancelar() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickInFrame(cancelarBtn, modalFrame);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaDatosRelacionalesPage clickCancelarDatosRelacionales() {
-		debugBegin();
-		webDriver.clickInFrame(cancelarRelacionalesBtn, cuerpoFrame);
-		debugEnd();
-
-		return this;
-	}
-
-	public MediadoresAltaDatosRelacionalesPage clickGuardarDatosRelacionales() {
-		debugBegin();
-		webDriver.clickInFrame(guardarRelacionalesBtn, cuerpoFrame);
 		debugEnd();
 
 		return this;
@@ -207,7 +117,7 @@ public class MediadoresAltaDatosRelacionalesPage extends PageObject {
 		String alerta = webDriver.getTextInFrame(avisoSistemaTxt, cuerpoFrame).trim();
 		boolean checkAlerta = alerta.equalsIgnoreCase(mensaje);
 
-		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje esperado: " + mensaje);
 		debugInfo("Mensaje real: " + alerta);
 
 		debugEnd();

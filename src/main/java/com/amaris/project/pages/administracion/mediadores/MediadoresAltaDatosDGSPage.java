@@ -12,8 +12,6 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By modalFrame = By.cssSelector("#capaIframe");
-	private By menuFrame = By.cssSelector("#leftFrame");
-	private By topFrame = By.cssSelector("#topFrame");
 
 	//-----------General---------------------------------
 	private By tipoDocRepresentCombo = By.cssSelector("#ALTAMEDI_DOCREPR");
@@ -77,10 +75,9 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By razonSocialNuevSocioInput = By.cssSelector("#ALTAMEDI_RAZSOCSOCIO");
 
 	private By grabarBtn = By.cssSelector("#buttonRecord");
-	private By cancelarBtn = By.cssSelector("#buttonCancel");
 
-	//MAPEO DE CASO ESPECIAL AGENTE EXCLUSIVO CON NIE O NIF
 	//-----------General---------------------------------
+
 	private By capitalSocialInput = By.id("ALTAMEDI_CAPSOCI");
 	private By fechaInicioRelacionInput = By.id("ALTAMEDI_FEINIREL");
 	private By entidadAutorizaCombo = By.id("ALTAMEDI_ENTIDAD");
@@ -95,29 +92,13 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	private By productoInput = By.id("ALTAMEDI_PRODUCTO");
 
 	private By grabarRamoBtn = By.id("buttonRecord");
-	private By cancelarRamoBtn = By.id("buttonCancel");
 	private By volverBtn = By.id("botonVolver");
 
 	private By avisoSistemaTxt = By.cssSelector("body > table > tbody > tr > td > p > strong");
 	private By modificarAltoCargoBtn = By.cssSelector("#capaAltosCargos > div > div:nth-child(4) > table > tbody > tr.odd > td:nth-child(6) > a:nth-child(2)");
 
-	//-----------------------------LPS-DE----------------------
-	private By estdoLPSInput = By.id("ALTAMEDI_ESTADOLPS");
-	private By codigoRegimenActuacionCombo = By.id("ALTAMEDI_CODREGACT");
-
-	private By identifiRepreseInput = By.id("ALTAMEDI_IDRELP");
-	private By razonSocialRepreInput = By.id("ALTAMEDI_RAZSORECLP");
-	private By direccionRepreInput = By.id("ALTAMEDI_DIRRELP");
-	private By codigoPostalRepreInput = By.id("ALTAMEDI_CPRELP");
-	private By poblacionRepreInput = By.id("ALTAMEDI_POBRELP");
-
-	private By razonSocialSucuInput = By.id("ALTAMEDI_RAZSOCSULP");
-	private By direccionSucuInput = By.id("ALTAMEDI_DIRSULP");
-	private By codigoPostalSucuInput = By.id("ALTAMEDI_CPSULP");
-	private By poblacionSucuInput = By.id("ALTAMEDI_POBSULP");
-
 	//-----------Controles de pagina---------------------------
-	private By cancelarGeneralBtn = By.id("botonCancelar1");
+
 	private By guardarYSalirBtn = By.id("botonGrabar1");
 
 	public MediadoresAltaDatosDGSPage(UserStory userS) {
@@ -153,7 +134,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		} else if(!getScenarioVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).isEmpty() && getScenarioVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE).equalsIgnoreCase("NIF")) {
 			webDriver.setText(numDocRepresentInput, DocumentGeneratorHelper.generateNif());
 		} else {
-			debugInfo("No se está generando el número de documento del representante");
+			debugInfo("No se está generando el número de documento del representante.");
 
 		}
 
@@ -190,21 +171,6 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	}
 
 	//------------Clicks botones -----------------------
-	public MediadoresAltaDatosDGSPage clickCancelar() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickInFrame(cancelarBtn, modalFrame);
-		debugEnd();
-		return this;
-	}
-
-	public MediadoresAltaDatosDGSPage clickGrabar() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickInFrame(grabarBtn, modalFrame);
-		debugEnd();
-		return this;
-	}
 
 	public MediadoresAltaDatosDGSPage clickGuardarYSalir() {
 		debugBegin();
@@ -228,14 +194,6 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickCancelarRamo() {
-		debugBegin();
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.clickInFrame(cancelarRamoBtn, modalFrame);
-		debugEnd();
-		return this;
-	}
-
 	public MediadoresAltaDatosDGSPage clickGrabarRamo() {
 		debugBegin();
 		webDriver.switchToFrame(cuerpoFrame);
@@ -251,34 +209,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	public MediadoresAltaDatosDGSPage clickCancelarDGS() {
-		debugBegin();
-		webDriver.clickInFrame(cancelarGeneralBtn, cuerpoFrame);
-		debugEnd();
-		return this;
-	}
-
 	//-----------METODOS COMPLEJOS-------------------------------
-
-	public MediadoresAltaDatosDGSPage anyadirNuevoSocio(String numDoc, String fechaNombramiento, String fechaCese, String estado, String participacion) {
-		debugBegin();
-
-		if(estado.isEmpty()) estado = "1";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(anyadirNuevoSocioBtn);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.setText(numDocuNuevSocioInput, numDoc);
-		webDriver.setText(fechaNombNuevSocioInput, fechaNombramiento);
-		webDriver.setText(fechaCeseNuevSocioInput, fechaCese);
-		webDriver.clickElementFromDropDownByAttribute(estadoNuevSocioCombo, estadoNuevSocioOption, "value", estado);
-		webDriver.setText(partCapitalNuevSocInput, participacion);
-		webDriver.click(grabarBtn);
-		webDriver.exitFrame();
-
-		debugEnd();
-
-		return this;
-	}
 
 	public MediadoresAltaDatosDGSPage anyadirDatosGenerales() {
 		debugBegin();
@@ -297,11 +228,8 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			webDriver.setText(segApellidoRepresentInput, "Segundo Apellido");
 		}
 
-		//	escribirFechaIniRelacion();
 		clickAnyadirNuevoAltoCargo();
 		anyadirNuevoAltoCargo();
-
-		//clickGuardarYSalir();
 
 		debugEnd();
 		return this;
@@ -311,9 +239,9 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 	public MediadoresAltaDatosDGSPage anyadirNuevoAltoCargo() {
 		debugBegin();
 
-		//webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 
+		webDriver.waitForElementToBeClickable(tipoDocumentoCombo);
 		webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
 		escribirNumeroDocumentoAltoCargo();
 
@@ -357,17 +285,14 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		return this;
 	}
 
-	// definir en el método común de la page qué cuando aparece
-
 	public MediadoresAltaDatosDGSPage anyadirFechaInicioRelacion() {
 		debugBegin();
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.waitWithDriver(4000);
 		webDriver.setText(fechaInicioRelacionInput, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
-		//	webDriver.click(guardarYSalirBtn);
 		webDriver.exitFrame();
-		//	webDriver.waitWithDriver(6000);
+
 		debugEnd();
 
 		return this;
@@ -392,7 +317,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 		String alerta = webDriver.getTextInFrame(avisoSistemaTxt, cuerpoFrame).trim();
 		boolean checkAlerta = alerta.equalsIgnoreCase(mensaje);
 
-		debugInfo("Mensaje esperado:" + mensaje);
+		debugInfo("Mensaje esperado: " + mensaje);
 		debugInfo("Mensaje real: " + alerta);
 
 		debugEnd();
@@ -549,7 +474,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 			webDriver.waitWithDriver(2000);
 			webDriver.clickInFrame(anyadirAltoNuevoCargoBtn, cuerpoFrame);
 
-			//--Empiezan retenciones de ALTO CARGO---
+			//--Empiezan Retenciones de ALTO CARGO---
 
 			webDriver.switchToFrame(cuerpoFrame);
 			webDriver.switchToFrame(modalFrame);

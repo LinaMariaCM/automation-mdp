@@ -26,14 +26,6 @@ public class MediadoresBuscadorPage extends PageObject {
 	private By codigoMediadorMutuaInput = By.cssSelector("#BUSMED_CODIMEDI");
 	private By codigoDGSInput = By.cssSelector("#BUSMED_REGISDGS");
 	private By referenciaExternaMediadorInput = By.cssSelector("#BUSMED_REFEEXTE");
-	private By ejecutivoComercialCombo = By.cssSelector("#BUSMED_EJECOMER");
-	private By delegacionMediadorCombo = By.cssSelector("#BUSMED_DELEGACION");
-	private By panelMediadorCombo = By.cssSelector("#BUSMED_PANEL");
-
-	private By figurasNivelInferiorNoBtn = By.cssSelector("#BUSMED_FIGUINFE_NO");
-	private By figurasNivelInferiorSiSoloColaboradoresBtn = By.cssSelector("#BUSMED_FIGUINFE_COLA");
-	private By figurasNivelInferiorSiTodosNivelesBtn = By.cssSelector("#BUSMED_FIGUINFE_TODO");
-	private By figurasNivelInferiorSiSoloOficinasBtn = By.cssSelector("#BUSMED_FIGUINFE_OFIC");
 
 	private By nivelEstructuraIntermediarioBtn = By.cssSelector("#MEDI_NIESMEDI");
 	private By nivelEstructuraOficinaBtn = By.cssSelector("#MEDI_NIESOFIC");
@@ -64,20 +56,7 @@ public class MediadoresBuscadorPage extends PageObject {
 	private By avanzadoBtn = By.cssSelector("#filtro2");
 	private By mediadoresBtn = By.cssSelector("#filtro3");
 
-	//Buscador avanzado
-	private By direccionComercialInput = By.cssSelector("#BUSMED_NOMCALLE");
-	private By contactoResponsableIntermediarioInput = By.cssSelector("#BUSMED_PERSCONT");
-	private By gestorPersonalizadoCombo = By.cssSelector("#BUSMED_GESTPERS");
-	private By clavePasarelaInput = By.cssSelector("#BUSMED_CODIPROS");
-	private By agrupadorCombo = By.cssSelector("#BUSMED_AGRUPADR");
-	private By clasificacionContableCombo = By.cssSelector("#BUSMED_CLASCONT");
-	private By actividadPrincipalCombo = By.cssSelector("#BUSMED_ACTPRINC");
-	private By tramitadorConvencionalCombo = By.cssSelector("#BUSMED_TRAMSINI");
-	private By tramitadorAsistenciaCombo = By.cssSelector("#BUSMED_TRAMASIS");
-
 	private By buscarBtn = By.cssSelector("#cajabuscador > tbody > tr:nth-child(2) > td.marcofnd > input");
-
-	// endregion
 
 	public MediadoresBuscadorPage(UserStory userS) {
 		super(userS);
