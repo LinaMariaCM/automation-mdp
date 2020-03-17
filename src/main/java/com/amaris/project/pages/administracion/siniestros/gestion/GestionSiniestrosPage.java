@@ -237,7 +237,9 @@ public class GestionSiniestrosPage extends PageObject {
 
 	public GestionSiniestrosPage goToBloque() {
 		debugBegin();
+		webDriver.waitForElementToBePresentInFrame(bloqueBtn, leftFrame);
 		webDriver.clickInFrame(bloqueBtn, leftFrame);
+		webDriver.waitWithDriver(2000);
 		debugEnd();
 
 		return this;

@@ -18,7 +18,7 @@ public class SiniestrosGenericosTest extends TestObject {
 	@DataProvider(parallel = true)
 	public String[][] dataProviderSiniestrosGen01() {
 		String testCase = Constants.SINIESTROS;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestSiniestrosGen01.csv");
 
 		return casesMatrix;
 	}
@@ -264,10 +264,10 @@ public class SiniestrosGenericosTest extends TestObject {
 		}).run();
 	}
 
-	@DataProvider(parallel = true)
+	@DataProvider()
 	public String[][] dataProviderSiniestrosGen10() {
 		String testCase = Constants.SINIESTROS;
-		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestAltaSiniestros33.csv");
+		String[][] casesMatrix = suiteM.initializeTestObjects(testCase, null, "datosTestSiniestrosGen10.csv");
 
 		return casesMatrix;
 	}
@@ -338,22 +338,17 @@ public class SiniestrosGenericosTest extends TestObject {
 
 		userS.testActions(() -> {
 
-
 			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+
 			steps.alta_siniestro_simple();
-			steps.cierro_navegador();
 
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
+			if(!userS.getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !userS.getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025001")) {
+				steps.tramito_siniestro_tras_alta(); // es un mero click para acceder a tramitación
+			}
 			steps.nueva_tarea_siniestros();
-			steps.cierro_navegador();
-
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
 			steps.modifico_tarea_siniestros();
 			steps.cierro_navegador();
 
-			steps.login(userS.getTestVar(Constants.ACCESO), userS.getTestVar(Constants.USUARIO));
-			steps.cierro_tarea_siniestros();
-			steps.cierro_navegador();
 
 			return null;
 		}).run();

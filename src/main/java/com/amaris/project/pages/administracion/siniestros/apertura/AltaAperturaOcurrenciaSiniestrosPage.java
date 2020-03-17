@@ -101,14 +101,14 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		webDriver.clickElementFromDropDownByIndexInFrame(comboLugarOcurrencia, cuerpoFrame, 1);
 		webDriver.clickElementFromDropDownByIndexInFrame(comboTipoVia, cuerpoFrame, 2);
 
-		webDriver.appendTextInFrame(txtCalleOcurrencia, cuerpoFrame, calle);
-		webDriver.appendTextInFrame(txtNumeroOcurrencia, cuerpoFrame, numero);
-		webDriver.appendTextInFrame(txtPortalOcurrencia, cuerpoFrame, portal);
-		webDriver.appendTextInFrame(txtEscaleraOcurrencia, cuerpoFrame, escalera);
-		webDriver.appendTextInFrame(txtPisoOcurrencia, cuerpoFrame, piso);
-		webDriver.appendTextInFrame(txtPuertaOcurrencia, cuerpoFrame, puerta);
-		webDriver.appendTextInFrame(txtCPOcurrencia, cuerpoFrame, cp);
-		webDriver.appendTextInFrame(txtPoblacionOcurrencia, cuerpoFrame, poblacion);
+		webDriver.setTextInFrame(txtCalleOcurrencia, cuerpoFrame, calle);
+		webDriver.setTextInFrame(txtNumeroOcurrencia, cuerpoFrame, numero);
+		webDriver.setTextInFrame(txtPortalOcurrencia, cuerpoFrame, portal);
+		webDriver.setTextInFrame(txtEscaleraOcurrencia, cuerpoFrame, escalera);
+		webDriver.setTextInFrame(txtPisoOcurrencia, cuerpoFrame, piso);
+		webDriver.setTextInFrame(txtPuertaOcurrencia, cuerpoFrame, puerta);
+		webDriver.setTextInFrame(txtCPOcurrencia, cuerpoFrame, cp);
+		webDriver.setTextInFrame(txtPoblacionOcurrencia, cuerpoFrame, poblacion);
 
 		webDriver.clickElementFromDropDownByIndexInFrame(comboProvincia, cuerpoFrame, 2);
 
@@ -180,12 +180,12 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		// Datos Adicionales
 		webDriver.setTextInFrame(rentaInput, cuerpoFrame, "120");
 
-		webDriver.appendTextInFrame(fechaDemandaInput, cuerpoFrame, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
+		webDriver.setTextInFrame(fechaDemandaInput, cuerpoFrame, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
 		webDriver.waitWithDriver(3000);
 		
 		// TODO rellenar el resto de fechas opcionales
 
-		webDriver.appendTextInFrame(fechaSolicitudAvanceRentaInput, cuerpoFrame, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
+		webDriver.setTextInFrame(fechaSolicitudAvanceRentaInput, cuerpoFrame, DateUtils.getTodayDate(DateUtils.DATE_FORMAT));
 
 		
 		debugEnd();
@@ -196,14 +196,14 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage altaRellenarDatos(String descripcion, String implicadosExisten, String encargo) {
 		debugBegin();
 
-		if(descripcion != null && descripcion.isEmpty()) {
+		if(descripcion.isEmpty()) {
 			descripcion = "No se ha pasado pasado descripción por csv, se procede a rellenar descripción en modo automático : equipo TaaS";
 		}
 		
 		debugInfo("La descripción del siniestro es: " + descripcion);
 		
 		webDriver.waitWithDriver(8000);
-		webDriver.appendTextInFrame(descripcionSiniestroInput, cuerpoFrame, descripcion);
+		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, descripcion);
 		webDriver.waitWithDriver(6000);
 		
 		if(implicadosExisten != null && !implicadosExisten.isEmpty()) {
@@ -233,6 +233,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		debugInfo("######################################################");
 		
 		webDriver.clickInFrame(guardarSalirBtn, cuerpoFrame);
+		webDriver.waitWithDriver(1500);
 		webDriver.acceptAlert();
 		
 		webDriver.waitWithDriver(6000);
@@ -300,7 +301,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 		ActionSteps.waitForIt(webDriver, descripcionSiniestroInput);
 		
 		webDriver.waitWithDriver(3000);
-		webDriver.appendTextInFrame(descripcionSiniestroInput, cuerpoFrame, pulp);
+		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, pulp);
 		webDriver.waitWithDriver(3000);
 
 		webDriver.clickInFrame(implicadosNoBtn, cuerpoFrame);
@@ -571,7 +572,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 	public AltaAperturaOcurrenciaSiniestrosPage descripcionSiniestroFalloMinimoCaracteres() {
 		debugBegin();
 
-		webDriver.appendTextInFrame(descripcionSiniestroInput, cuerpoFrame, "El siniestro");
+		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, "El siniestro");
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		new ChecksUtils(userS).comprobarAlerta(Constants.ALERTA_DESCRIPCION_SINIESTRO_CARACTERES);
@@ -587,7 +588,7 @@ public class AltaAperturaOcurrenciaSiniestrosPage extends PageObject {
 
 	public AltaAperturaOcurrenciaSiniestrosPage escribirDescripcionSiniestro() {
 		debugBegin();
-		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, "El siniestro ha ocurrido en el domicilio.");
+		webDriver.setTextInFrame(descripcionSiniestroInput, cuerpoFrame, "El siniestro ha ocurrido en el domicilio y esto es una descripcion.");
 		debugEnd();
 
 		return this;
