@@ -11,7 +11,8 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 	private By cuerpoFrame = By.id("mainFrame");
 
 	private By continuarBtn = By.cssSelector("#botonContinuar");
-	private By tituloTxt = By.xpath("//*[@id='formDatos']/div[3]");
+	//private By tituloTxt = By.xpath("//*[@id='formDatos']/div[3]");
+	private By tituloTxt = By.cssSelector("#formDatos > div.sis-font-l");
 	// endregion
 
 	public ValidacionExcepcionesReglasPage(UserStory userS) {
@@ -31,7 +32,7 @@ public class ValidacionExcepcionesReglasPage extends PageObject {
 		debugBegin();
 
 		String titulo = "No encontrado";
-		ActionSteps.waitForIt(webDriver);
+		webDriver.waitForElementToBePresentInFrame(tituloTxt, cuerpoFrame);
 		
 		if(webDriver.isPresentInFrame(tituloTxt, cuerpoFrame)) {
 			titulo = webDriver.getTextInFrame(tituloTxt, cuerpoFrame);

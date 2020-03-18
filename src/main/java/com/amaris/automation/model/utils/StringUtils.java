@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class StringUtils {
 
@@ -259,6 +260,10 @@ public class StringUtils {
 		} catch(NumberFormatException e) {}
 
 		return isNumber;
+	}
+
+	public static String getRandomNumberInRange(int min, int max) {
+		return "" + new Random().ints(min, max).findFirst().getAsInt();
 	}
 
 	private StringUtils() {}

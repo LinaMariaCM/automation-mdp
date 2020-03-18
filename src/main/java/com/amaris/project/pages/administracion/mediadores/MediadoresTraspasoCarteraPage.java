@@ -8,7 +8,6 @@ import com.amaris.automation.model.testing.objects.PageObject;
 
 public class MediadoresTraspasoCarteraPage extends PageObject{
 
-	//region WebElements
 	private By cuerpoFrame = By.cssSelector("#mainFrame");
 	private By menuFrame = By.cssSelector("#leftFrame");
 	private By topFrame = By.cssSelector("#topFrame");
@@ -19,7 +18,6 @@ public class MediadoresTraspasoCarteraPage extends PageObject{
 
 	private By generarComunicacionesTomadoresBtn = By.cssSelector("#TRAS_CAR_CHECK_MENSAJES");
 	private By traspasarBtn = By.cssSelector("#formTraspasoCartera > div > div > div.sis-frame-bg > table > tbody > tr:nth-child(4) > td:nth-child(1) > input");
-	// endregion
 
 	public MediadoresTraspasoCarteraPage(UserStory userS) {
 		super(userS);

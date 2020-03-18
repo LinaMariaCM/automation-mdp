@@ -19,7 +19,9 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 	private By continuarBtn = By.id("botonContinuar");
 	private By grabarBtn = By.id("botonGrabar");
 	private By tipologiaDrpDwn = By.id("OTRIMPLI");
+	private By tipologiaDrpDwnElemento = By.cssSelector("#OTRIMPLI > option");
 	private By rolDrpDwn = By.id("implicado_rol");
+	private By rolDrpDwnElemento = By.cssSelector("#implicado_rol > option");
 
 	private By nombreInput = By.id("nombre");
 	private By apellido1Input = By.id("apellido1");
@@ -71,11 +73,13 @@ public class OtrosImplicadosDatosSiniestrosPage extends PageObject {
 		debugBegin();
 
 		// webDriver.clickElementFromDropDownByAttribute(comboTipologia, "value", tipologia);
-		webDriver.clickElementFromDropDownByIndexInFrame(tipologiaDrpDwn, cuerpoFrame, 2);
-		// webDriver.clickElementFromDropDownByAttribute(comboRol, "value", rol);
-		webDriver.waitWithDriver(8000);
-		webDriver.clickElementFromDropDownByIndexInFrame(rolDrpDwn, cuerpoFrame, 8);
-
+		debugInfo("la tipología del implicado elegida es: Lesionado");
+		//webDriver.clickElementFromDropDownByIndexInFrame(tipologiaDrpDwn, cuerpoFrame, 2);
+		webDriver.clickElementFromDropDownByAttributeInFrame(tipologiaDrpDwn, tipologiaDrpDwnElemento, cuerpoFrame, "value", "LESI");
+		webDriver.waitWithDriver(4000);
+		//webDriver.clickElementFromDropDownByIndexInFrame(rolDrpDwn, cuerpoFrame, 8);
+		debugInfo("el rol elegido es: No perteneciente al riesgo.");
+		webDriver.clickElementFromDropDownByAttributeInFrame(rolDrpDwn, rolDrpDwnElemento, cuerpoFrame, "value", "NORIE");
 		if(nombre != null && !nombre.isEmpty()) {
 			webDriver.setTextInFrame(nombreInput, cuerpoFrame, nombre);
 		} else {

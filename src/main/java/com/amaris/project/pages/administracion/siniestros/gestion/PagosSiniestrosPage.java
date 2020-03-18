@@ -69,6 +69,7 @@ public class PagosSiniestrosPage extends PageObject {
 
 	// Tipo perceptor
 	private By perceptorDrpDwn = By.cssSelector("#tipoPerceptor");
+	private By perceptorDrpDwnElemento = By.cssSelector("#tipoPerceptor > option");
 	// Participantes expediente
 	private By flecha1Btn = By.cssSelector("[id*='PE'][style*='block'] span");
 	// Figuras de la poliza
@@ -263,8 +264,10 @@ public class PagosSiniestrosPage extends PageObject {
 	public PagosSiniestrosPage nuevoPago() {
 		debugBegin();
 
+		webDriver.waitWithDriver(1500);
 		webDriver.clickInFrame(accederPagosBtn, leftFrame);
 
+		webDriver.waitWithDriver(1500);
 		setTestVar(Constants.ESTADO_CARPETA, webDriver.getTextInFrame(estadoCarpetaTxt, cuerpoFrame));
 		debugInfo("El estado de la carpeta es: " + webDriver.getTextInFrame(estadoCarpetaTxt, cuerpoFrame));
 
@@ -283,7 +286,20 @@ public class PagosSiniestrosPage extends PageObject {
 		debugBegin();
 
 		webDriver.waitWithDriver(3000);
-		webDriver.clickElementFromDropDownByIndexInFrame(perceptorDrpDwn, cuerpoFrame, 4);
+		webDriver.clickElementFromDropDownByAttributeInFrame(perceptorDrpDwn, perceptorDrpDwnElemento, cuerpoFrame, "value", "PE40");
+		webDriver.waitWithDriver(8000);
+
+		webDriver.clickInFrame(flecha1Btn, cuerpoFrame);
+
+		debugEnd();
+
+		return this;
+	}
+	
+	public PagosSiniestrosPage seleccionarTipoDePerceptor(String codigo) {
+		debugBegin();
+
+		webDriver.clickElementFromDropDownByAttributeInFrame(perceptorDrpDwn, cuerpoFrame, "value", codigo);
 		webDriver.waitWithDriver(8000);
 
 		webDriver.clickInFrame(flecha1Btn, cuerpoFrame);
@@ -419,8 +435,9 @@ public class PagosSiniestrosPage extends PageObject {
 		if(getTestVar(Constants.TIPO_POLIZA).equals(Constants.MEC)) {
 			opcion = 3;
 		}
-		
+		webDriver.waitWithDriver(1500);
 		webDriver.clickElementFromDropDownByIndexInFrame(medioPagoDrpDwn, cuerpoFrame, opcion);
+		webDriver.waitWithDriver(1500);
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
 		debugEnd();
@@ -544,11 +561,11 @@ public class PagosSiniestrosPage extends PageObject {
 	}
 
 	// Importes
-	public PagosSiniestrosPage importes(String fPago, String importe, boolean activarPlanMAC) {
+	public PagosSiniestrosPage importes(String importe, boolean activarPlanMAC) {
 		debugBegin();
 
 		// TODO Cambiar, si se asigna directamente el valor, no hace falta ponerlo de parametro
-		fPago = DateUtils.getTodayDate(Constants.DATE_FORMAT);
+		String fPago = DateUtils.getTodayDate(Constants.DATE_FORMAT);
 
 
 		webDriver.appendTextInFrame(fechaDePagoInput, cuerpoFrame, fPago);
@@ -640,7 +657,7 @@ public class PagosSiniestrosPage extends PageObject {
 			return this;
 		}
 		
-		debugInfo("El esado actual del pago es: " + webDriver.getTextInFrame(infoSituacionPagoListaTxt, cuerpoFrame));
+		debugInfo("El estado actual del pago es: " + webDriver.getTextInFrame(infoSituacionPagoListaTxt, cuerpoFrame));
 		if(webDriver.getTextInFrame(infoEstadoPagoListaTxt, cuerpoFrame).contains("Pendiente de Autorización")) {
 			debugError("Error: Pago ya desbloqueado");
 			new GestionSiniestrosPage(userS)
@@ -651,6 +668,7 @@ public class PagosSiniestrosPage extends PageObject {
 
 		debugInfo("Procedemos a desbloquear pago");
 		webDriver.clickInFrame(infoAccionesPagoListaBtn, cuerpoFrame);
+		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(infoAccionesDesbloquearBtn, cuerpoFrame);
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(desbloquearCuentaValidadaBtn, capaIframe);

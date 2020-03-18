@@ -12,6 +12,7 @@ import com.amaris.automation.model.webdriver.DriverHelper;
 import java.net.URISyntaxException;
 import java.util.Date;
 
+import com.amaris.project.pages.administracion.MEC.AltaDireccionMEC;
 import com.amaris.project.pages.administracion.mediadores.*;
 import org.testng.Assert;
 import org.openqa.selenium.By;
@@ -664,13 +665,18 @@ public class ActionSteps extends InteractionObject {
 				.datosPersonaExtra("NORIE", "NombreInq", "ApellidoInq", "OtroInq", "NIF", "36155457D", "", "666123123", "", "", "H", "TRUE", "prueba@esto.es", "TRUE", "", "", "", "", "", "", "", "");
 
 			// Comprobamos si necesita asistencia
-			if(!asistencia.isEmpty()) {
+			if(!getTestVar(Constants.TIPO_POLIZA).equalsIgnoreCase("MAC") && !getTestVar(Constants.NUM_POLIZA).startsWith("150")) {
+				new AltaAperturaDeclaracionSiniestrosPage(userS)
+					.casosAsistenciaSiniestro();
+			}
+
+		/*	if(!asistencia.isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaConAsistencia("", "", "", "Daños ubicados en el interior del riesgo asegurado", "", "");
 			} else if(new AltaAperturaDeclaracionSiniestrosPage(userS).posibilidadAsistencia()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaSinAsistencia();
-			}
+			}*/
 
 			new AltaAperturaDeclaracionSiniestrosPage(userS)
 				.clickContinuar();
@@ -795,7 +801,7 @@ public class ActionSteps extends InteractionObject {
 				.altaCuentaSiniestro()
 				.altaPersonaContacto("INQVE__11", "Jose", "Martinez", "Perez", "666502101", "mail@mail.com")
 				.altaDireccionContacto(true, "", "", "", "", "", "", "", "")
-				.altaObservaciones("TEST Automatico apertura siniestro")
+				.altaObservaciones("TEST Automatico apertura siniestro.")
 				.clickEnviar()
 				.checkYaExisteSiniestro()
 				.comprobarOk();
@@ -814,7 +820,7 @@ public class ActionSteps extends InteractionObject {
 		alta_siniestro(acceso, numPoliza);
 
 		new ConfirmacionSiniestrosPage(userS)
-			.tramitarSiniestro();
+			.clickTramitarSiniestro();
 
 		debugEnd();
 	}
@@ -2406,83 +2412,6 @@ public class ActionSteps extends InteractionObject {
 			.clickNuevoTomadorSecond();
 	}
 
-	public void doy_de_alta_prospect_usando_acceso_y_usuario_iterando_fichero(String loginAcess, String user) {
-		String fileName = getScenarioVar(Constants.FICHERO);
-		fileName = fileName.substring(0, fileName.length() - 4);
-
-		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-		String[][] datosMediadores = FileUtils.csvFileToMatrix(fileName + ".csv", false);
-
-		for(int i = 1; i < datosMediadores.length; i++) {
-			setScenarioVar(Constants.NIVEL_ESTRUCTURA, getValuesDataSetByID(datosMediadores, "nivelEstructura", i));
-			setScenarioVar(Constants.TIPO_PROSPECT, getValuesDataSetByID(datosMediadores, "tipoProspect", i));
-			setScenarioVar(Constants.ACTIVIDAD_PRINCIPAL, getValuesDataSetByID(datosMediadores, "actividadPrincipal", i));
-			setScenarioVar(Constants.NOMBRE_COMERCIAL_PROSPECT, getValuesDataSetByID(datosMediadores, "nomComercial", i));
-			setScenarioVar(Constants.CONTACTO_RESPONSABLE, getValuesDataSetByID(datosMediadores, "contactoResponsable", i));
-			setScenarioVar(Constants.IDIOMA, getValuesDataSetByID(datosMediadores, "idioma", i));
-			setScenarioVar(Constants.TLF_PRINCIPAL, getValuesDataSetByID(datosMediadores, "tlfPrincipal", i));
-			setScenarioVar(Constants.EJECUTIVO_COMERCIAL, getValuesDataSetByID(datosMediadores, "ejecutivoComercial", i));
-			setScenarioVar(Constants.PROVINCIA, getValuesDataSetByID(datosMediadores, "provincia", i));
-			setScenarioVar(Constants.POBLACION, getValuesDataSetByID(datosMediadores, "poblacion", i));
-			setScenarioVar(Constants.NOMBRE_VIA, getValuesDataSetByID(datosMediadores, "nombreVia", i));
-
-			try {
-				login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-				new InnovaHomePage(userS)
-					.openMediadores();
-
-				new MediadoresHomePage(userS)
-					.openAltaProspect();
-
-				new MediadoresAltaProspectPage(userS)
-					.altaProspectMediadores();
-			} catch(Exception e) {}
-		}
-	}
-
-	public void doy_de_alta_prospect_usando_acceso_y_usuario(String loginAcess, String user) {
-		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-		new InnovaHomePage(userS)
-			.openMediadores();
-
-		new MediadoresHomePage(userS)
-			.openAltaProspect();
-
-		new MediadoresAltaProspectPage(userS)
-			.altaProspectMediadores();
-	}
-
-	public void doy_de_alta_prospect() {
-
-		new InnovaHomePage(userS)
-			.openMediadores();
-
-		new MediadoresHomePage(userS)
-			.openAltaProspect();
-
-		new MediadoresAltaProspectPage(userS)
-			.altaProspectMediadores();
-
-		new FichaMediadorPage(userS)
-			.obtenerIdMediador();
-	}
-
-	public void doy_de_alta_mediador_usando_acceso_y_usuario(String loginAcess, String user) {
-		login(getScenarioVar(Constants.ACCESO), getScenarioVar(Constants.USUARIO));
-
-		new InnovaHomePage(userS)
-			.openMediadores();
-
-		new MediadoresHomePage(userS)
-			.openAltaMediador();
-
-		new MediadoresAltaMediadorPage(userS)
-			.executeActionsAltaMediadorPage();
-	}
-
 	public void comunico_siniestro() {
 		new InnovaHomePage(userS)
 			.openSiniestros();
@@ -2688,6 +2617,8 @@ public class ActionSteps extends InteractionObject {
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("610") || getTestVar(Constants.NUM_POLIZA).startsWith("620")
 					|| getTestVar(Constants.NUM_POLIZA).startsWith("630") || getTestVar(Constants.NUM_POLIZA).startsWith("640")) {
 					ramo = "640";
+				} else if(getTestVar(Constants.NUM_POLIZA).startsWith("600")) {
+					ramo = "600";
 				}
 
 				new AltaAperturaSiniestrosPage(userS)
@@ -2697,31 +2628,50 @@ public class ActionSteps extends InteractionObject {
 
 			// 1.Declaración
 			new AltaAperturaDeclaracionSiniestrosPage(userS)
-				.altaDatosDeclaracion(getTestVar(Constants.FECHA_OCURRENCIA), getTestVar(Constants.TIPO_DECLARANTE), getTestVar(Constants.MEDIO_DECLARACION), getTestVar(Constants.FECHA_DENUNCIA), getTestVar(Constants.DECLARACION_OBSERVACIONES))
-				.altaDatosDeclarante(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO), getTestVar(Constants.DECLARACION_PREFIJO), getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DECLARACION_EMAIL_NO_DISP))
-				// Añadimos datos de persona extra
-				.datosPersonaExtra(getTestVar(Constants.CONTACTO_ROL), getTestVar(Constants.CONTACTO_NOMBRE), getTestVar(Constants.CONTACTO_PRIM_APELLIDO), getTestVar(Constants.CONTACTO_SEG_APELLIDO), getTestVar(Constants.CONTACTO_TIPO_DOCUMENTO), getTestVar(Constants.CONTACTO_N_DOCUMENTO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_UNO), getTestVar(Constants.CONTACTO_TELEFONO_UNO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_DOS), getTestVar(Constants.CONTACTO_TELEFONO_DOS), getTestVar(Constants.CONTACTO_SEXO), getTestVar(Constants.CONTACTO_EMAIL_NO_DISP), getTestVar(Constants.CONTACTO_EMAIL), getTestVar(Constants.CONTACTO_VIVE_EN_RIESGO), getTestVar(Constants.CONTACTO_DIR_TIPO_VIA), getTestVar(Constants.CONTACTO_DIR_CALLE), getTestVar(Constants.CONTACTO_DIR_NUMERO), getTestVar(Constants.CONTACTO_DIR_PISO), getTestVar(Constants.CONTACTO_DIR_PUERTA), getTestVar(Constants.CONTACTO_DIR_CP), getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
+				.altaDatosDeclaracion(getTestVar(Constants.FECHA_OCURRENCIA), getTestVar(Constants.TIPO_DECLARANTE), getTestVar(Constants.MEDIO_DECLARACION), getTestVar(Constants.FECHA_DENUNCIA),
+					getTestVar(Constants.DECLARACION_OBSERVACIONES))
+				.altaDatosDeclarante(getTestVar(Constants.DECLARACION_NOMBRE), getTestVar(Constants.DECLARACION_PRIM_APELLIDO), getTestVar(Constants.DECLARACION_SEG_APELLIDO),
+					getTestVar(Constants.DECLARACION_TELEFONO), getTestVar(Constants.DECLARACION_EMAIL), getTestVar(Constants.DECLARACION_EMAIL_NO_DISP))
+				// Añadimos datos de persona extra, coge los datos de los métodos pero de momento, necesita del CSV por cómo se montó la lógica en su momento
+				.datosPersonaExtra(getTestVar(Constants.CONTACTO_ROL), getTestVar(Constants.CONTACTO_NOMBRE), getTestVar(Constants.CONTACTO_PRIM_APELLIDO), getTestVar(Constants.CONTACTO_SEG_APELLIDO),
+					getTestVar(Constants.CONTACTO_TIPO_DOCUMENTO), getTestVar(Constants.CONTACTO_N_DOCUMENTO), getTestVar(Constants.CONTACTO_PREFIJO_TEL_UNO), getTestVar(Constants.CONTACTO_TELEFONO_UNO),
+					getTestVar(Constants.CONTACTO_PREFIJO_TEL_DOS), getTestVar(Constants.CONTACTO_TELEFONO_DOS), getTestVar(Constants.CONTACTO_SEXO), getTestVar(Constants.CONTACTO_EMAIL_NO_DISP),
+					getTestVar(Constants.CONTACTO_EMAIL), getTestVar(Constants.CONTACTO_VIVE_EN_RIESGO), getTestVar(Constants.CONTACTO_DIR_TIPO_VIA), getTestVar(Constants.CONTACTO_DIR_CALLE),
+					getTestVar(Constants.CONTACTO_DIR_NUMERO), getTestVar(Constants.CONTACTO_DIR_PISO), getTestVar(Constants.CONTACTO_DIR_PUERTA), getTestVar(Constants.CONTACTO_DIR_CP),
+					getTestVar(Constants.CONTACTO_DIR_POBLACION), getTestVar(Constants.CONTACTO_DIR_PROVINCIA));
 
 			// Comprobamos si necesita asistencia
-			if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
+			if(getTestVar(Constants.NUM_POLIZA).startsWith("200") || getTestVar(Constants.NUM_POLIZA).startsWith("400") ||
+				getTestVar(Constants.NUM_POLIZA).startsWith("500")	|| getTestVar(Constants.NUM_POLIZA).startsWith("510")
+				|| getTestVar(Constants.NUM_POLIZA).startsWith("600")) {
+				new AltaAperturaDeclaracionSiniestrosPage(userS)
+					.casosAsistenciaSiniestro();
+			} else {
+				new AltaAperturaDeclaracionSiniestrosPage(userS)
+					.clickContinuar();
+			}
+
+		/*	if(getTestVar(Constants.ASISTENCIA) == null || getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaSinAsistencia()
 					.clickContinuar();
 			} else if(!getTestVar(Constants.ASISTENCIA).isEmpty()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
-					.altaConAsistencia(getTestVar(Constants.ASISTENCIA), getTestVar(Constants.ASISTENCIA_URGENTE), getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS), getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS), getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA), getTestVar(Constants.ASISTENCIA_REF_EXTERNA))
+					.altaConAsistencia(getTestVar(Constants.ASISTENCIA), getTestVar(Constants.ASISTENCIA_URGENTE), getTestVar(Constants.ASISTENCIA_DANYOS_UBICADOS),
+						getTestVar(Constants.ASISTENCIA_ORIGEN_DANYOS_REPARADOS), getTestVar(Constants.ASISTENCIA_DANYOS_A_CONSECUENCIA), getTestVar(Constants.ASISTENCIA_REF_EXTERNA))
 					.clickContinuar();
-			} else if(new AltaAperturaDeclaracionSiniestrosPage(userS).posibilidadAsistencia()) {
+			}
+			else if(new AltaAperturaDeclaracionSiniestrosPage(userS).posibilidadAsistencia()) {
 				new AltaAperturaDeclaracionSiniestrosPage(userS)
 					.altaSinAsistencia()
 					.clickContinuar();
-			}
+			}*/
 
 			// comentados por Antonia el 24 01 del 2020
-			//	if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
-			new ValidacionExcepcionesReglasPage(userS)
-				.clickContinuar();
-			//	}
+			if(new ValidacionExcepcionesReglasPage(userS).comprobarNombrePagina().contains("excepciones")) {
+				new ValidacionExcepcionesReglasPage(userS)
+					.clickContinuar();
+			}
 			debugInfo("Hasta aquí llegamos : post-reglas de validación");
 			// 2.Ocurrencia
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
@@ -2736,6 +2686,7 @@ public class ActionSteps extends InteractionObject {
 			 * "TC002000"; gremio = "1"; }
 			 */
 			debugInfo("Hay encargo?: " + getTestVar(Constants.ENCARGO));
+
 			new AltaAperturaOcurrenciaSiniestrosPage(userS)
 				.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD), getTestVar(Constants.TIPO_CAUSA_COD), getTestVar(Constants.GREMIO_CAUSA_COD))
 				// datosOcurrencia.altaSeleccionarCausas(getTestVar(Constants.GRUPO_CAUSA_COD),
@@ -2838,8 +2789,11 @@ public class ActionSteps extends InteractionObject {
 				&& getTestVar(Constants.TIPO_CAUSA_COD) != null && getTestVar(Constants.TIPO_CAUSA_COD).equalsIgnoreCase("TC025000")) {
 				debugInfo("La póliza a la cual pertenece el siniestro es de tipo MAC, procedemos a modificar las causas para poder realizar pagos");
 				new ConfirmacionSiniestrosPage(userS)
-					.volverAHomeMutua();
+					.clickTramitarSiniestro();
+				//	.volverAHomeMutua();
 				modifico_causas_siniestro_MAC();
+				new ConfirmacionSiniestrosPage(userS)
+					.confirmaModificacion();
 			}
 
 			// Accedemos a siniestros desde Gestión On Line
@@ -2893,7 +2847,7 @@ public class ActionSteps extends InteractionObject {
 		debugBegin();
 
 		new ConfirmacionSiniestrosPage(userS)
-			.tramitarSiniestro();
+			.clickTramitarSiniestro();
 
 		debugEnd();
 	}
@@ -2924,25 +2878,15 @@ public class ActionSteps extends InteractionObject {
 		new InnovaHomePage(userS)
 			.openSiniestros();
 
-		// buscadorSiniestro.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
 		new GestionBuscadorSiniestrosPage(userS)
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
 
-		boolean pagos = new PagosSiniestrosPage(userS).comprobarPagosPendientes();
-		boolean encargos = new GestionCarpetaSiniestrosPage(userS).comprobarEncargos();
-		boolean tareas = new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
-
-		debugInfo("Pago bool: " + pagos);
-		debugInfo("Encargos bool: " + encargos);
-		debugInfo("Tareas bool: " + tareas);
+		debugInfo("Hay pagos pendientes? " + new PagosSiniestrosPage(userS).comprobarPagosPendientes());
+		debugInfo("Hay encargos pendientes? " + new GestionCarpetaSiniestrosPage(userS).comprobarEncargos());
 
 		new GestionSiniestrosPage(userS)
 			.goToVista();
 
-		new VistaSiniestrosPage(userS)
-			.cierreSiniestro(pagos, encargos, tareas);
-
-		// webDriver.waitWithDriver(2000);
 		debugEnd();
 	}
 
@@ -3019,7 +2963,7 @@ public class ActionSteps extends InteractionObject {
 
 			new PagosSiniestrosPage(userS)
 				.datosPerceptor()
-				.importes("", "100,00", false)
+				.importes("100,00", false)
 				.verificacion();
 		}
 
@@ -3043,7 +2987,7 @@ public class ActionSteps extends InteractionObject {
 		new PagosSiniestrosPage(userS)
 			.seleccionarParticipantesExpediente()
 			.datosPerceptor()
-			.importes("", "1000,00", true)
+			.importes("1000,00", true)
 			.verificacion()
 			.emitirPlanPagosMAC("", "", "120")
 			.verificacion()
@@ -3104,8 +3048,10 @@ public class ActionSteps extends InteractionObject {
 
 	public void transicionar_bloques() {
 		debugBegin();
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+	//	new InnovaHomePage(userS).openSiniestros();
+	//	new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
+		new GestionSiniestrosPage(userS)
+			.goToBloque();
 		new BloqueSiniestrosPage(userS)
 			.transicionarBloqueCerrandoOrigen()
 			.verificarTransicionesCerrandoOrigen()
@@ -3116,29 +3062,46 @@ public class ActionSteps extends InteractionObject {
 
 	public void nueva_tarea_siniestros() {
 
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		new AgendaSiniestrosPage(userS).nuevaTarea();
-		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
-		new GestionSiniestrosPage(userS).clickLogo();
+	//	new InnovaHomePage(userS).openSiniestros();
+	//	new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO),getTestVar(Constants.ANYO_SINIESTRO), null);
+	//	new GestionBuscadorSiniestrosPage(userS).metodoParche("04026181", "2020");
+
+
+		new GestionSiniestrosPage(userS).goToAgenda();
+		new AgendaSiniestrosPage(userS)
+			.nuevaTarea();
+		//	.comprobarTareasPendientes();
+		//	new GestionSiniestrosPage(userS).clickLogo();
 	}
 
 	public void modifico_tarea_siniestros() {
 
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		new AgendaSiniestrosPage(userS).detallesTarea(getTestVar(Constants.TAREA_TITULO));
-		new AgendaSiniestrosPage(userS).comprobarTareasPendientes();
-		new GestionSiniestrosPage(userS).clickLogo();
+	/*	new InnovaHomePage(userS).openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));*/
+		new GestionSiniestrosPage(userS).goToAgenda();
+		new AgendaSiniestrosPage(userS)
+		//	.detallesTarea(getTestVar(Constants.TAREA_TITULO))
+			//.comprobarTareasPendientes()
+			.gestionTarea();
+	//	new GestionSiniestrosPage(userS).clickLogo();
 	}
 
 	public void cierro_tarea_siniestros() {
 
-		new InnovaHomePage(userS).openSiniestros();
-		new GestionBuscadorSiniestrosPage(userS).buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));
-		//new AgendaSiniestrosPage(userS).
-		new AgendaSiniestrosPage(userS).comprobarTareaCerrada();
-		new GestionSiniestrosPage(userS).clickLogo();
+	/*	new InnovaHomePage(userS)
+			.openSiniestros();
+		new GestionBuscadorSiniestrosPage(userS)
+			.buscarPorNumeroPoliza(getTestVar(Constants.NUM_POLIZA));*/
+		/*new AgendaSiniestrosPage(userS)
+			.cerrarTareasPendientes()
+			.comprobarTareaCerrada();*/
+	/*	new GestionSiniestrosPage(userS)
+			.clickLogo();*/
+	}
+
+	public void ir_a_pagina_inicio_innova() {
+		new GestionSiniestrosPage(userS)
+			.clickLogo();
 	}
 
 	public void modificar_siniestro_datos() {
@@ -3270,12 +3233,13 @@ public class ActionSteps extends InteractionObject {
 	}
 
 	public void modifico_causas_siniestro_MAC() {
-		new InnovaHomePage(userS)
+	/*	new InnovaHomePage(userS)
 			.openSiniestros();
 
 		new GestionBuscadorSiniestrosPage(userS)
 			.buscarPorNumeroSiniestro(getTestVar(Constants.NUMERO_SINIESTRO), getTestVar(Constants.ANYO_SINIESTRO));
-
+		revisar -	Comentado por Antonia con el fin de ahorrar tiempos en la ejecución de pruebas
+*/
 		new GestionSiniestrosPage(userS)
 			.goToVista();
 
@@ -3574,91 +3538,15 @@ public class ActionSteps extends InteractionObject {
 		debugEnd();
 	}
 
-	public void comprobaciones_ficha_mediador() {
+	/************************************** MEDIADOR3ES ************************************************/
+
+	//------ALTA OFICINA-------------------//
+	public void alta_oficina() {
 		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorId();
-		new FichaMediadorPage(userS)
-			.verificarCampoJerarquia();
-		debugInfo("la comprobación de nivel jerarquico se ha completado");
-		new FichaMediadorPage(userS)
-			.verificarCampoNombreComercial()
-			.solicitarAlta();
-		debugEnd();
-	}
-
-	public void obtener_nombres_direcciones_mediador() {
-		debugBegin();
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorId();
-		new FichaMediadorPage(userS)
-			.verificarDireccion();
-		debugEnd();
-
-	}
-
-	public void obtener_nombres_direcciones_mediador_intercambio_datos() {
-		debugBegin();
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorIdIntercambio();
-		new FichaMediadorPage(userS)
-			.verificarDireccion();
-		debugEnd();
-
-	}
-
-	public void alta_datos_basicos_mediador() {
-		debugBegin();
-		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresHomePage(userS)
-			.openAltaMediador();
-		new MediadoresAltaDatosDescriptivosPage(userS)
-			.altaIntermediarioDescriptivos()
-			.clickContinuar();
-	/*		.clickGuardarYSalir();
-		new FichaMediadorPage(userS)
-			.obtenerDatoAltaIntermediario();*/
-
-		debugEnd();
-	}
-
-	public void alta_datos_contacto_mediador() {
-		new MediadoresAltaDatosContactoPage(userS)
-			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
-			.anyadirNuevaDireccionFiscal()
-			.anyadirDireccionComercial()
-			.anyadirDireccionProduccion()
-			.anyadirDireccionRecibos()
-			.anyadirDireccionSiniestros()
-			.clickContinuar();
-		new MediadoresAltaDatosRelacionalesPage(userS)
-			.altaDatosRelacionales()
-			.clickContinuarDatosRelacionales();
-		new MediadoresAltaDatosTransaccionalesPage(userS)
-			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
-			.clickGuardar();
-		new FichaMediadorPage(userS)
-			.obtenerIdMediador()
-			//	.anyadirIdMediador()
-			.verificarDireccion();
-	}
-
-	// Step de iryna para dar alta una oficina
-
-	public void alta_oficina_a_un_intermediario() {
-		debugBegin();
-
-/*		new InnovaHomePage(userS)
-			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorIdEstadoAlta(); */
+			.buscarInteRelacionado();
 		new FichaMediadorPage(userS)
 			.clickMasAcciones()
 			.clickSolicitarAltaOficina();
@@ -3666,28 +3554,33 @@ public class ActionSteps extends InteractionObject {
 			.altaOficinaDescriptivos()
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
-			.altaOficinaDatosContacto()
-			// añadir lo de las direcciones
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
+			.anyadirNuevaDireccionFiscal()
+			.anyadirDireccionComercial()
+			.anyadirDireccionProduccion()
+			.anyadirDireccionRecibos()
+			.anyadirDireccionSiniestros()
 			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
-			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
 			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
 			.clickGuardar();
 		new FichaMediadorPage(userS)
-			.solicitarAlta()
-			.confirmarAlta();
+			.obtenerIdMediador()
+			.comprobacionFicha();
+		debugInfo("Se acaba de completar el ALTA de la OFICINA.");
+
 		debugEnd();
 	}
 
 	public void alta_colaborador() {
 		debugBegin();
 
-/*		new InnovaHomePage(userS)
+		new InnovaHomePage(userS)
 			.openMediadores();
 		new MediadoresBuscadorPage(userS)
-			.buscarOficinaPorIdEstadoAlta();*/
+			.buscarOficinaPorIdEstadoAlta();
 		new FichaMediadorPage(userS)
 			.clickMasAcciones()
 			.clickSolicitarAltaColaborador();
@@ -3695,24 +3588,42 @@ public class ActionSteps extends InteractionObject {
 			.altaColaboradorDescriptivos()
 			.clickContinuar();
 		new MediadoresAltaDatosContactoPage(userS)
-			.altaColaboradorDatosContacto()
-			//direcciones faLTA AÑADIR
+			.rellenarDatosGeneralesContacto("Contacto Responsable", "Cargo Responsable", "666302010", "mediador@email.com")
+			.anyadirNuevaDireccionFiscal()
+			.anyadirDireccionComercial()
+			.anyadirDireccionProduccion()
+			.anyadirDireccionSiniestros()
 			.clickContinuar();
 		new MediadoresAltaDatosRelacionalesPage(userS)
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
-			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
-			.clickGuardar();
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
+
+		if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C315")) {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
+			new MediadoresAltaDatosDGSPage(userS)
+				.escribirFechaIniRelacion()
+				.anyadirDatosGenerales()
+				.clickGuardarYSalirDGSAlta();
+		} else if(getScenarioVar(Constants.ID_TESTRAIL).equalsIgnoreCase("C317")) {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
+			new MediadoresAltaDatosDGSPage(userS)
+				.escribirFechaIniRelacion()
+				.clickGuardarYSalirDGSAlta();
+		} else {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
+		}
+
 		new FichaMediadorPage(userS)
 			.obtenerIdMediador()
-			.solicitarAlta()
-			.confirmarAlta()
-			.formacionAvanzarEstado();
+			.comprobacionFicha();
+		debugInfo("Se acaba de completar el ALTA del COLABORADOR.");
+
 		debugEnd();
 	}
 
-	public void alta_interm_AE_completo() {
+	public void alta_intermediario() {
 		debugBegin();
 		new InnovaHomePage(userS)
 			.openMediadores();
@@ -3733,43 +3644,105 @@ public class ActionSteps extends InteractionObject {
 			.altaDatosRelacionales()
 			.clickContinuarDatosRelacionales();
 		new MediadoresAltaDatosTransaccionalesPage(userS)
-			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890")
-			.clickContiuar();
-		new MediadoresAltaDatosDGSPage(userS)
-			.anyadirFechaInicioRelacion();
-		//	.clickGuardar();
+			.anyadirDatosBanco("ES03", "2100", "1234", "5612", "3456", "7890");
+
+		if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickContiuar();
+			new MediadoresAltaDatosDGSPage(userS)
+				.anyadirFechaInicioRelacion();
+			if(getScenarioVar(Constants.TIPO_DOCUMENTO).equalsIgnoreCase("CIF")) {
+				new MediadoresAltaDatosDGSPage(userS)
+					.anyadirDatosGenerales();
+			}
+			new MediadoresAltaDatosDGSPage(userS)
+				.clickGuardarYSalirDGSAlta();
+		} else {
+			new MediadoresAltaDatosTransaccionalesPage(userS).clickGuardar();
+		}
 		new FichaMediadorPage(userS)
-			//	.obtenerIdMediador()
-			.solicitarAlta()
-			.enviarValoracionFinanciera()
-			.enviarRevisionFinanciera()
-			.enviarResolucionFinanciera()
-			.confirmarAlta() /// falla aquí, revissar flujo
-			.formacionAvanzarEstado()
-			.obtenerIdMediador();
+			.obtenerIdMediador()
+			.comprobacionFicha();
+
 		debugEnd();
 	}
 
-	public void completar_estados_dgs() {
+	public void tramitar_estados_mediador() { // MONTADO POR ORDEN DE PASOS Y VARIABLES
 		debugBegin();
-		new FichaMediadorPage(userS)
-			.clickBuscadorMediadores();
-		new MediadoresHomePage(userS)
-			.openEnvioDGS();
-		new MediadoresDGSPage(userS)
-			.anyadirIdMediador()
-			.envioMediadorDGS(); // averiguar cómo filtrar el CSV y cases: cuando ha de aparecer el paso
-		new MediadoresHomePage(userS)
-			.openRecepcionDGS(); // a nivel de UX no es la page correcta (en la que acaba la acción previa), pero si lo es el menú y el botón
-		new MediadoresDGSPage(userS)
-			.recepcionMediadoresDGS();
-		new FichaMediadorPage(userS)
-			.clickBuscadorMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorPorIdEstadoAlta();
+		if(!getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AD")) {
+
+			new FichaMediadorPage(userS)
+				.solicitarAlta();
+			if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("OFIC") || getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA")) {
+				new FichaMediadorPage(userS)
+					.confirmarAlta();
+				if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("COLA") && getScenarioVar(Constants.TIPO_COLABORADOR).equalsIgnoreCase("AUXI")) {
+					new FichaMediadorPage(userS)
+						.formacionAvanzarEstado()
+						.clickBuscadorMediadores();
+					new MediadoresHomePage(userS)
+						.openEnvioDGS();
+					new MediadoresDGSPage(userS)
+						.anyadirIdMediador()
+						.envioMediadorDGS();
+					new MediadoresHomePage(userS)
+						.openRecepcionDGS();
+					new MediadoresDGSPage(userS)
+						.recepcionMediadoresDGS();
+					new MediadoresHomePage(userS)
+						.openGestionMediadores();
+					new MediadoresBuscadorPage(userS)
+						.buscarMediadorPorId();
+					new FichaMediadorPage(userS)
+						.activarMediadorEstado()
+						.comprobarEstadoActivo();
+				}
+			} else { // INTERMEDIARIOS SIN EL ACUERDO COLABORACIÓN
+				new FichaMediadorPage(userS)
+					.enviarValoracionFinanciera()
+					.enviarRevisionFinanciera()
+					.enviarResolucionFinanciera()
+					.confirmarAlta();
+
+				if(getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+					new FichaMediadorPage(userS)
+						.formacionAvanzarEstado();
+					if(getScenarioVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")
+						&& getScenarioVar(Constants.TIPO_MEDIADOR).equalsIgnoreCase("AE")) {
+						new FichaMediadorPage(userS)
+							.clickInfoCCM()
+							.verificarPeriodoCredito("45")
+							.verificarLimiteCredito("Especial")
+							.clickBuscadorMediadores();
+					}
+					new MediadoresHomePage(userS)
+						.openEnvioDGS();
+					new MediadoresDGSPage(userS)
+						.anyadirIdMediador()
+						.envioMediadorDGS();
+					new MediadoresHomePage(userS)
+						.openRecepcionDGS();
+					new MediadoresDGSPage(userS)
+						.recepcionMediadoresDGS();
+					new MediadoresHomePage(userS)
+						.openGestionMediadores();
+					new MediadoresBuscadorPage(userS)
+						.buscarMediadorPorId();
+				}
+				// PASO ACTIVAR MEDIADOR - último de todos, excepto para el Acuerdo de colaboración
+				new FichaMediadorPage(userS)
+					.activarMediadorEstado()
+					.comprobarEstadoActivo();
+			}
+
+		} else {
+			// los que no empiezan por solicitar alta, directamente la confirman, el caso de AD
+			new FichaMediadorPage(userS)
+				.confirmarAlta();
+		}
 		debugEnd();
 	}
 
+	//------ALTA PROSPECT + AGENDA:CREAR ANOTACION--------
 	public void alta_prospect() {
 		debugBegin();
 
@@ -3779,42 +3752,165 @@ public class ActionSteps extends InteractionObject {
 			.openAltaProspect();
 		new MediadoresAltaProspectPage(userS)
 			.altaProspectMediadores();
+		new FichaMediadorPage(userS)
+			.comprobacionesFichaAltaProspect()
+			.clickAgendaMediadorProspect();
+		new MediadoresAgendaPage(userS)
+			.anyadirNuevaAnotacion("Nueva anotación");
 
 		debugEnd();
 	}
 
-	public void mediadores_cambios_estado_situacion_AE() {
+	//-----RETENCIONES ALTA PROSPECT-----
+	public void alta_prospect_retenciones_mediadores() {
 		debugBegin();
 
 		new InnovaHomePage(userS)
 			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorEstadoSituacionAE();
-		new FichaMediadorPage(userS)
-			.solicitarAlta()
-			.enviarValoracionFinanciera()
-			.enviarRevisionFinanciera()
-			.enviarResolucionFinanciera()
-			.confirmarAlta()
-			.formacionAvanzarEstado()
-			//FALTAN LO DE DGS
-			.activarMediadorEstado()
-			.solicitarBaja();
+		new MediadoresHomePage(userS)
+			.openAltaProspect();
+		new MediadoresAltaProspectPage(userS)
+			.altaProspectRetenciones();
 
 		debugEnd();
 	}
 
-	// STEPS PARA HACER COMPROBACIONES EN LA FICHA
-	public void comprobacion_ficha() {
+	//----RETENCIONES ALTA INTERMEDIARIOS, OFICINAS Y COLABORADORES----
+	public void alta_retenciones_mediadores() {
 		debugBegin();
 
 		new InnovaHomePage(userS)
 			.openMediadores();
-		new MediadoresBuscadorPage(userS)
-			.buscarMediadorFichaComprobacion();
-		new FichaMediadorPage(userS)
-			.comprobacionFicha();
+		new MediadoresHomePage(userS)
+			.openAltaMediador();
+		new MediadoresAltaDatosDescriptivosPage(userS)
+			.retencionesAltaDescriptivos();
+		new MediadoresAltaDatosContactoPage(userS)
+			.altaRetencionesContacto();
+		new MediadoresAltaDatosRelacionalesPage(userS)
+			.altaRetencionesRelacionales();
+		new MediadoresAltaDatosTransaccionalesPage(userS)
+			.retencionesAltaTransaccionales();
+		new MediadoresAltaDatosDGSPage(userS)
+			.retencionesAltaIntermediarioDGS();
+		debugEnd();
+	}
 
+	//---Método para la carga de datos provenientes de csv de scenario---
+	public void set_test_variables_from_scenario_var(String name) {
+		debugBegin();
+
+		userS.setScenario(name);
+		userS.setTestVar(Constants.NIVEL_ESTRUCTURA, userS.getScenarioVar(Constants.NIVEL_ESTRUCTURA));
+		userS.setTestVar(Constants.TIPO_MEDIADOR, userS.getScenarioVar(Constants.TIPO_MEDIADOR));
+		userS.setTestVar(Constants.NOMBRE_MEDIADOR, userS.getScenarioVar(Constants.NOMBRE_MEDIADOR));
+		userS.setTestVar(Constants.IDIOMA, userS.getScenarioVar(Constants.IDIOMA));
+		userS.setTestVar(Constants.ACTIVIDAD_PRINCIPAL, userS.getScenarioVar(Constants.ACTIVIDAD_PRINCIPAL));
+		userS.setTestVar(Constants.NOMBRE_COMERCIAL, userS.getScenarioVar(Constants.NOMBRE_COMERCIAL));
+		userS.setTestVar(Constants.EJECUTIVO_COMERCIAL, userS.getScenarioVar(Constants.EJECUTIVO_COMERCIAL));
+		userS.setTestVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED, userS.getScenarioVar(Constants.DISPONTE_DE_SOFTWARE_ALT_MED));
+		userS.setTestVar(Constants.SEXO, userS.getScenarioVar(Constants.SEXO));
+		userS.setTestVar(Constants.ID_INTE_PADRE, userS.getScenarioVar(Constants.ID_INTE_PADRE));
+		userS.setTestVar(Constants.ID_OFICINA_PADRE, userS.getScenarioVar(Constants.ID_OFICINA_PADRE));
+		userS.setTestVar(Constants.PRIMER_APELLIDO_MEDIADOR, userS.getScenarioVar(Constants.PRIMER_APELLIDO_MEDIADOR));
+		userS.setTestVar(Constants.SEGUNDO_APELLIDO_MEDIADOR, userS.getScenarioVar(Constants.SEGUNDO_APELLIDO_MEDIADOR));
+		userS.setTestVar(Constants.RAMO_ALT_MED, userS.getScenarioVar(Constants.RAMO_ALT_MED));
+		userS.setTestVar(Constants.DIRECCION_FISC_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_FISC_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_FISC_POBLACION, userS.getScenarioVar(Constants.DIRECCION_FISC_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_FISC_NombreVia, userS.getScenarioVar(Constants.DIRECCION_FISC_NombreVia));
+		userS.setTestVar(Constants.DIRECCION_FISC_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_FISC_COMPLETA));
+		userS.setTestVar(Constants.DIRECCION_COME_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_COME_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_COME_POBLACION, userS.getScenarioVar(Constants.DIRECCION_COME_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_COME_NombreVia, userS.getScenarioVar(Constants.DIRECCION_COME_NombreVia));
+		userS.setTestVar(Constants.DIRECCION_COME_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_COME_COMPLETA));
+		userS.setTestVar(Constants.DIRECCION_PPRO_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_PPRO_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_PPRO_POBLACION, userS.getScenarioVar(Constants.DIRECCION_PPRO_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_PPRO_NOMBRE_VIA, userS.getScenarioVar(Constants.DIRECCION_PPRO_NOMBRE_VIA));
+		userS.setTestVar(Constants.DIRECCION_PPRO_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_PPRO_COMPLETA));
+		userS.setTestVar(Constants.DIRECCION_PREC_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_PREC_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_PREC_POBLACION, userS.getScenarioVar(Constants.DIRECCION_PREC_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_PREC_NombreVia, userS.getScenarioVar(Constants.DIRECCION_PREC_NombreVia));
+		userS.setTestVar(Constants.DIRECCION_PREC_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_PREC_COMPLETA));
+		userS.setTestVar(Constants.DIRECCION_PSIN_PROVINCIA, userS.getScenarioVar(Constants.DIRECCION_PSIN_PROVINCIA));
+		userS.setTestVar(Constants.DIRECCION_PSIN_POBLACION, userS.getScenarioVar(Constants.DIRECCION_PSIN_POBLACION));
+		userS.setTestVar(Constants.DIRECCION_PSIN_NOMBRE_VIA, userS.getScenarioVar(Constants.DIRECCION_PSIN_NOMBRE_VIA));
+		userS.setTestVar(Constants.DIR_FISCAL_IGUAL_A, userS.getScenarioVar(Constants.DIR_FISCAL_IGUAL_A));
+		userS.setTestVar(Constants.DIR_COMERCIAL_IGUAL_A, userS.getScenarioVar(Constants.DIR_COMERCIAL_IGUAL_A));
+		userS.setTestVar(Constants.DIR_PRODUCCION_IGUAL_A, userS.getScenarioVar(Constants.DIR_PRODUCCION_IGUAL_A));
+		userS.setTestVar(Constants.DIR_RECIBOS_IGUAL_A, userS.getScenarioVar(Constants.DIR_RECIBOS_IGUAL_A));
+		userS.setTestVar(Constants.DIR_SINIESTROS_IGUAL_A, userS.getScenarioVar(Constants.DIR_SINIESTROS_IGUAL_A));
+		userS.setTestVar(Constants.DIRECCION_PSIN_COMPLETA, userS.getScenarioVar(Constants.DIRECCION_PSIN_COMPLETA));
+		userS.setTestVar(Constants.NUMERO_REF_DGS, userS.getScenarioVar(Constants.NUMERO_REF_DGS));
+		userS.setTestVar(Constants.COMPANYIAS_PRINCIPALES, userS.getScenarioVar(Constants.COMPANYIAS_PRINCIPALES));
+		userS.setTestVar(Constants.NOMBRE_COMERCIAL_PROSPECT, userS.getScenarioVar(Constants.NOMBRE_COMERCIAL_PROSPECT));
+		userS.setTestVar(Constants.RAMO, userS.getScenarioVar(Constants.RAMO));
+		userS.setTestVar(Constants.ID_TESTRAIL, userS.getScenarioVar(Constants.ID_TESTRAIL));
+		userS.setTestVar(Constants.TIPO_COLABORADOR, userS.getScenarioVar(Constants.TIPO_COLABORADOR));
+		userS.setTestVar(Constants.ID_MEDIADOR_ALTA, userS.getScenarioVar(Constants.ID_MEDIADOR_ALTA));
+		userS.setTestVar(Constants.TIPO_DOCUMENTO, userS.getScenarioVar(Constants.TIPO_DOCUMENTO));
+
+		userS.setTestVar(Constants.NUMERO_DOCUMENTO_MEDIADOR, userS.getScenarioVar(Constants.NUMERO_DOCUMENTO_MEDIADOR));
+		userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_ANYADIR_DIRECCIONES_FISCAL_OFI_COL_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION, userS.getScenarioVar(Constants.ALERTA_ANYADIR_DIRECCIONES_COLABORADOR_MISMA_DIRECCCION));
+		userS.setTestVar(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL, userS.getScenarioVar(Constants.ALERTA_ANYADIR_OFICINA_MISMA_COMERCIAL));
+		userS.setTestVar(Constants.ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_ELIMINAR_DIRECCIONES_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_COMENTARIO_ADICIONAL_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_OBSERVACION_COMERCIAL_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_OBSERVACION_COMERCIAL_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_PERIODO_CREDITO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_PERIODO_CREDITO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_LIMITE_CREDITO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_LIMITE_CREDITO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_VALORACION_REVISION_FINANCIERA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_VALORACION_REVISION_FINANCIERA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_COMENTARIO_REVISION_FINANCIERA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_VALORACION_RESOLUCION_FINANCIERA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_COMENTARIO_RESOLUCION_FINANCIERA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_MEDIADORES_INCORRECTA, userS.getScenarioVar(Constants.ALERTA_FECHA_MEDIADORES_INCORRECTA));
+		userS.setTestVar(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_ACTIVAR_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_RECEPCION_CONTRATO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_FECHA_ENVIO_CONTRATO_SUPERIOR_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_CAMBIO_SITUACION_BAJA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_COMPANYIAS_PRINCIPALES_TRABAJADO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_ENTIDAD_OBLIGATORIA_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_NOMBRE_BANCO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_NOMBRE_BANCO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_TELEFONO_MEDIADORES, userS.getScenarioVar(Constants.ALERTA_TELEFONO_MEDIADORES));
+		userS.setTestVar(Constants.ALERTA_MEDIADOR_NO_SELECCIONADO, userS.getScenarioVar(Constants.ALERTA_MEDIADOR_NO_SELECCIONADO));
+		userS.setTestVar(Constants.ALERTA_FECHA_INSCRIPCION_DGS, userS.getScenarioVar(Constants.ALERTA_FECHA_INSCRIPCION_DGS));
+
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO_CIF));
+		userS.setTestVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE, userS.getScenarioVar(Constants.TIPO_DOCUMENTO_REPRESENTANTE));
+
+	}
+
+	public void localizar_mediador_contratacion() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMediadores();
+		new MediadoresHomePage(userS)
+			.openGestionMediadores();
+		new MediadoresBuscadorPage(userS)
+			.buscarInteRelacionado();
+
+		debugEnd();
+	}
+
+	public void inicio_alta_referencia_castral_mec() {
+		debugBegin();
+
+		new InnovaHomePage(userS)
+			.openMenuMEC();
+		new AltaDireccionMEC(userS)
+			.openAltaMEC();
+		/*	.buscarMediadorPorId()
+			.*/
+		debugEnd();
+	}
+public void buscador_referencia_castral_mec() {
+		debugBegin();
+
+		new AltaDireccionMEC(userS)
+			.anyadirRefCatastral();
 		debugEnd();
 	}
 

@@ -17,7 +17,7 @@ public class InnovaHomePage extends PageObject {
 	private By gestionProjectosSimulacionesBtn = By.cssSelector("a[href*='codmenu=GESTION_COTIZACIONES']");
 
 	private By siniestrosBtn = By.xpath(".//*[text()='Siniestros']");
-	private By mediadoresBtn = By.xpath(".//*[contains(text(),'Mediadores')]");
+	private By mediadoresBtn = By.cssSelector("#jt15");
 	private By nuevoProjectoBtn = By.xpath(".//*[normalize-space(text())='Nuevo proyecto']");
 	private By nuevaSimulacionBtn = By.xpath(".//*[normalize-space(text())='Nueva Simulación']");
 	private By menuPrincipalBtn = By.cssSelector("#boton1");
@@ -29,7 +29,8 @@ public class InnovaHomePage extends PageObject {
 	private By gestionPolizasMenuBtn = By.cssSelector("a[href*='codmenu=GESTIONDPOLIZAS']");
 	private By gestionAutorizacionesBtn = By.cssSelector("[title*='Gestión de autorizaciones']");
 
-	private By menuMecBtn = By.cssSelector("#boton2");
+	//private By menuMecBtn = By.cssSelector("#boton2");
+	private By menuMecBtn = By.cssSelector("a[title='Haz clic para acceder al producto Mutua Edificio Confort  ']");
 	private By mhcBtn = By.cssSelector("a[href*='codmenu=660']");
 	private By gestionPagosBtn = By.cssSelector("[title = 'Gestión de pagos de siniestros  ']");
 	private By productoBtn = By.cssSelector("#jt1");
@@ -125,7 +126,7 @@ public class InnovaHomePage extends PageObject {
 	public InnovaHomePage openSiniestros() {
 		debugBegin();
 		
-		webDriver.waitWithDriver(8000);
+		webDriver.waitWithDriver(10000);
 		
 		if(webDriver.isPresentInFrame(logoMutuaBtn, topFrame)) {
 			webDriver.clickInFrame(logoMutuaBtn, topFrame);
@@ -145,6 +146,7 @@ public class InnovaHomePage extends PageObject {
 		webDriver.clickInFrame(productoBtn, leftFrame);
 		webDriver.waitWithDriver(8000);
 		webDriver.clickInFrame(mediadoresBtn, leftFrame);
+		webDriver.waitWithDriver(12000);
 		debugEnd();
 
 		return this;

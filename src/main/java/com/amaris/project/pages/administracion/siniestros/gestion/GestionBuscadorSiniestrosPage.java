@@ -158,11 +158,12 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 		// webDriver.clickElementFromDropDownByIndex(tipoProductoSini, 0);
 
 		// ActionSteps.waitForIt(webDriver);
+		debugInfo("El año introducido para la búsqueda es: " + anyo);
 		webDriver.setTextInFrame(anyoInput, cuerpoFrame, anyo);
-
+		debugInfo("Y el número de siniestros que introducimos es: " + siniestro);
 		webDriver.setTextInFrame(numeroSiniestroInput, cuerpoFrame, siniestro);
 		webDriver.clickInFrame(buscarBtn, cuerpoFrame);
-		webDriver.waitWithDriver(6000);
+		webDriver.waitWithDriver(8000);
 		// ActionSteps.waitForIt(webDriver);
 		webDriver.clickInFrame(continuarBtn, cuerpoFrame);
 
@@ -326,6 +327,9 @@ public class GestionBuscadorSiniestrosPage extends PageObject {
 
 		webDriver.waitWithDriver(2000);
 		webDriver.clickInFrame(gestionSiniestrosBtn, leftFrame);
+		webDriver.waitWithDriver(2000);
+
+		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);
 
 		webDriver.waitWithDriver(3000);
 		webDriver.clickInFrame(numeroSiniestroBtn, cuerpoFrame);

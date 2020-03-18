@@ -20,11 +20,12 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 	private By nSiniestroTxt = By.cssSelector("#form1 .marco > table tr > td");
 
 	private By expedienteTxt = By.cssSelector("#form1 > table:nth-child(1) > tbody > tr > td > table > tbody > tr:nth-child(4) > td > div");
-	// private By tramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) >
+	// private By clickTramitarSiniestro = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) >
 	// a > strong");
 	private By tramitarSiniestroBtn = By.cssSelector("#form1 > table.narrowBox.marcofnd > tbody > tr > td:nth-child(2) > a");
 	private By mensajeOKTxt = By.cssSelector("body > table > tbody > tr > td > table > tbody > tr > td > span > strong");
 	private By volverBtn = By.cssSelector("body > div.menuNav.menuNavPosAbsolute > div > ul > li > a > span");
+
 
 	private By logoMutuaBtn = By.cssSelector("#logo");
 	// endregion
@@ -46,7 +47,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 		debugInfo("###########################");
 		debugInfo("# Mensaje de confirmacion #");
 		debugInfo("###########################");
-		webDriver.waitWithDriver(5000);
+		webDriver.waitWithDriver(10000);
 		
 		if(webDriver.isPresentInFrame(correctoTxt, cuerpoFrame)) {
 			debugInfo("Mensaje: " + webDriver.getTextInFrame(correctoTxt, cuerpoFrame));
@@ -91,7 +92,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 		return this;
 	}
 
-	public ConfirmacionSiniestrosPage tramitarSiniestro() {
+	public ConfirmacionSiniestrosPage clickTramitarSiniestro() {
 		debugBegin();
 		webDriver.clickInFrame(tramitarSiniestroBtn, cuerpoFrame);
 		debugEnd();
@@ -106,7 +107,7 @@ public class ConfirmacionSiniestrosPage extends PageObject {
 			debugInfo("Modificación de siniestro correcta");
 			webDriver.clickInFrame(volverBtn, cuerpoFrame);
 		}
-		
+
 		debugEnd();
 
 		return this;
