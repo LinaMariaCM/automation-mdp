@@ -400,7 +400,9 @@ public class MediadoresAltaProspectPage extends PageObject {
 		alertaSistemaProspect(Constants.ALERTA_ANYADIR_DOMICILIO_PROSPECT);
 		webDriver.clickInFrame(volverBtn, cuerpoFrame);
 
+		webDriver.waitWithDriver(5000);
 		clickBotonAsignarDomicilio();
+		webDriver.waitWithDriver(2000);
 
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
