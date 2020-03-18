@@ -207,6 +207,7 @@ public class MediadoresAltaProspectPage extends PageObject {
 	public MediadoresAltaProspectPage clickBotonComprobarDireccion() {
 		debugBegin();
 
+		webDriver.waitWithDriver(5000);
 		webDriver.switchToFrame(cuerpoFrame);
 		webDriver.switchToFrame(modalFrame);
 		webDriver.click(comprobarDireccionDomicilioBtn);
