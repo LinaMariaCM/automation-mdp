@@ -1000,6 +1000,21 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
+	public FichaMediadorPage verificarNivelEstructuraProspect(String nivelJerarquico) {
+
+		debugBegin();
+
+		String nivelJerarquicoInte = webDriver.getTextInFrame(nivelJerarquicoTxt, cuerpoFrame).substring(16).trim();
+
+		boolean intermediarioInte = nivelJerarquicoInte.equalsIgnoreCase(nivelJerarquico);
+
+		Assert.assertTrue(intermediarioInte, "Es incorrecto.");
+		debugInfo("Se ha verificado el Nivel de Estructura Prospect.");
+
+		debugEnd();
+		return this;
+	}
+
 	public FichaMediadorPage verificarTipoMediador(String constanteFicha, String tipoMed) {
 
 		debugBegin();
@@ -1016,14 +1031,13 @@ public class FichaMediadorPage extends PageObject {
 		return this;
 	}
 
-	public FichaMediadorPage verificarTipoProspect(String constanteFicha, String tipoProspect) {
+	public FichaMediadorPage verificarTipoProspect(String tipoProspect) {
 
 		debugBegin();
 
 		String tipoProspectMed = webDriver.getTextInFrame(tipoProspectTxt, cuerpoFrame).substring(16).trim();
 
-		boolean tipoProspecInte = getScenarioVar(Constants.TIPO_PROSPECT).equalsIgnoreCase(constanteFicha) &&
-			tipoProspectMed.equalsIgnoreCase(tipoProspect);
+		boolean tipoProspecInte = tipoProspectMed.equalsIgnoreCase(tipoProspect);
 
 		Assert.assertTrue(tipoProspecInte, "Es incorrecto.");
 		debugInfo("Se ha verificado el Tipo de Prospect.");
@@ -1074,6 +1088,21 @@ public class FichaMediadorPage extends PageObject {
 
 		Assert.assertTrue(idiomaMediador, "Es incorrecto.");
 		debugInfo("Se ha verificado el Idioma.");
+
+		debugEnd();
+		return this;
+	}
+
+	public FichaMediadorPage verificarIdiomaProspect(String idioma) {
+
+		debugBegin();
+
+		String idiomaMed = webDriver.getTextInFrame(idiomaMediadorTxt, cuerpoFrame).substring(7).trim();
+
+		boolean idiomaMediador = idiomaMed.equalsIgnoreCase(idioma);
+
+		Assert.assertTrue(idiomaMediador, "Es incorrecto.");
+		debugInfo("Se ha verificado el Idioma Prospect.");
 
 		debugEnd();
 		return this;
@@ -1726,15 +1755,16 @@ public class FichaMediadorPage extends PageObject {
 
 		debugBegin();
 
+		webDriver.waitWithDriver(5000);
 		//NIVEL ESTRUCTURA PROSPECT
 		if(getTestVar(Constants.NIVEL_ESTRUCTURA).equalsIgnoreCase("INTE")) {
-			verificarNivelEstructura(MediadoresConstantesFicha.INTE, "Intermediario");
+			verificarNivelEstructuraProspect("Intermediario");
 		}
 
 		//TIPO PROSPECT
 		if(getTestVar(Constants.TIPO_PROSPECT).equalsIgnoreCase("COBS") && getTestVar(Constants.TIPO_PROSPECT) != null
 			&& !getTestVar(Constants.TIPO_PROSPECT).isEmpty()) {
-			verificarTipoProspect(MediadoresConstantesFicha.COBS, "Corredor-BS");
+			verificarTipoProspect("Corredor-BS");
 		}
 
 		//DIRECCIONES
@@ -1742,7 +1772,7 @@ public class FichaMediadorPage extends PageObject {
 
 		//IDIOMA PROSPECT
 		if(getTestVar(Constants.IDIOMA).equalsIgnoreCase("ESPA")) {
-			verificarIdioma(MediadoresConstantesFicha.ESPA, "Castellano");
+			verificarIdiomaProspect("Castellano");
 		}
 
 		//CONTACTO RESPONSABLE PROSPECT
