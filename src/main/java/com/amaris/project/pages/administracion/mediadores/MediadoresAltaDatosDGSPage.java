@@ -241,8 +241,7 @@ public class MediadoresAltaDatosDGSPage extends PageObject {
 
 		webDriver.switchToFrame(modalFrame);
 
-		webDriver.setText(primerApellidoInput, "Primer Apellido");
-		webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption, "value", getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
+		webDriver.clickElementFromDropDownByAttribute(tipoDocumentoCombo, tipoDocumentoOption,"value", getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO));
 		escribirNumeroDocumentoAltoCargo();
 
 		if(getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIF") || getScenarioVar(Constants.TIPO_DOCUMENTO_ALTO_CARGO).equalsIgnoreCase("NIE")) {
