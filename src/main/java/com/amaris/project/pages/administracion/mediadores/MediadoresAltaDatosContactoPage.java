@@ -147,6 +147,7 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 			webDriver.click(comprobarDireccionBtn);
 			webDriver.waitWithDriver(3000);
 			webDriver.click(aceptarBtn);
+			webDriver.waitWithDriver(5000);
 			debugInfo("Aceptada la dirección para añadirse a la lista.");
 			webDriver.waitWithDriver(4600);
 		} else if(getScenarioVar(Constants.DIRECCION_FISC_PROVINCIA).equals(null) || getScenarioVar(Constants.DIRECCION_FISC_PROVINCIA).isEmpty()) {
