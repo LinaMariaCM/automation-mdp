@@ -485,56 +485,6 @@ public class MediadoresAltaDatosContactoPage extends PageObject {
 		return this;
 	}
 
-	//------------------Añadir datos nueva red social---------------------------------
-
-	public MediadoresAltaDatosContactoPage anyadirNuevaRedSocial(String tipoRedSocial, String descripcionRed) {
-		debugBegin();
-		if(tipoRedSocial.isEmpty()) tipoRedSocial = "BLOG";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(nuevaRedSocialBtn);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.clickElementFromDropDownByAttribute(medTipoRRSSCombo, medTipoRRSSOption, "value", tipoRedSocial);
-		webDriver.setText(medRRSSDescripcionInput, descripcionRed);
-		webDriver.click(grabarBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	//------------------Añadir datos nuevo medio contacto---------------------------------
-
-	public MediadoresAltaDatosContactoPage anyadirDatosNuevoMedioContacto(String tipoContacto, String contacto) {
-		debugBegin();
-		if(tipoContacto.isEmpty()) tipoContacto = "MAIL";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(nuevoMedioContactoBtn);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.clickElementFromDropDownByAttribute(medNuevoTipoContactoCombo, medNuevoTipoContactoOption, "value", tipoContacto);
-		webDriver.setText(medNuevoContactoInput, contacto);
-		webDriver.click(grabarBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
-	//------------------Añadir datos nuevo contacto---------------------------------
-	public MediadoresAltaDatosContactoPage anyadirDatosNuevoContacto(String areaContacto, String nombreContacto) {
-		debugBegin();
-		if(areaContacto.isEmpty()) areaContacto = "ADMF";
-		webDriver.switchToFrame(cuerpoFrame);
-		webDriver.click(nuevoContactoBtn);
-		webDriver.switchToFrame(modalFrame);
-		webDriver.clickElementFromDropDownByAttribute(medAreaContactoCombo, medAreaContactoOption, "value", areaContacto);
-		webDriver.setText(medNombreContactoInput, nombreContacto);
-		webDriver.click(grabarBtn);
-		webDriver.exitFrame();
-		debugEnd();
-
-		return this;
-	}
-
 	//------------------Clicks botones---------------------------------
 
 	public MediadoresAltaDatosContactoPage clickContinuar() {

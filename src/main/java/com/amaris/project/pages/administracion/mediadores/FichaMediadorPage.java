@@ -1565,7 +1565,7 @@ public class FichaMediadorPage extends PageObject {
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Orion")) {
 				verificarNombres("Orion", "Cliff", "Burton");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Mario")) {
-				verificarNombrePrimerApe("Mario", "Local"); //aun no
+				verificarNombrePrimerApe("Mario", "Local");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("A7X")) {
 				verificarNombrePrimerApe("A7X", "Exist");
 			} else if(getScenarioVar(Constants.NOMBRE_MEDIADOR).equalsIgnoreCase("Carol")) {
